@@ -151,6 +151,17 @@ element.style.borderRadius = designTokens.radiusPill;
 
 然后 `npm run build`，CSS/SCSS/Android/iOS 全部自动更新。
 
+## Cursor skill（混血原生 UI）
+
+浓缩指令在 [`.cursor/skills/hybrid-native-ui/`](.cursor/skills/hybrid-native-ui/SKILL.md)：吸收 Apple 弹簧 / 材质分层，以及 Android 8dp、spatial vs effects、触摸涟漪；强调简洁与 60fps。
+
+- 入口：`SKILL.md`
+- 可复制代码：`.cursor/skills/hybrid-native-ui/code/`（CSS / TS / Swift / Compose）
+- 动效检查：`node .cursor/skills/hybrid-native-ui/scripts/check-css-motion.mjs <file.css>`
+- 来源索引：`sources.md`（官方文档 + GitHub 上现成的单平台 skill）
+
+对话里可以说「按 hybrid-native-ui skill 做」。
+
 ## 设计规范
 
 详细的设计规范见 [`DESIGN-SPEC.md`](./DESIGN-SPEC.md)，包含：

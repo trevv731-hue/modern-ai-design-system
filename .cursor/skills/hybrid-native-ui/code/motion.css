@@ -1,0 +1,146 @@
+/* Hybrid Native UI — compositor-safe motion.
+ * Spatial: transform. Effects: opacity/color. No layout props.
+ * Tokens aligned with tokens/motion.json
+ */
+
+:root {
+  --hn-duration-micro: 50ms;
+  --hn-duration-instant: 100ms;
+  --hn-duration-fast: 150ms;
+  --hn-duration-standard: 250ms;
+  --hn-duration-slow: 350ms;
+  --hn-duration-emphasized: 500ms;
+
+  --hn-ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --hn-ease-accelerate: cubic-bezier(0.3, 0, 1, 1);
+  --hn-ease-decelerate: cubic-bezier(0, 0, 0, 1);
+  --hn-ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --hn-ease-spring-gentle: cubic-bezier(0.22, 1, 0.36, 1);
+  --hn-ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --hn-press-scale: 0.98;
+  --hn-hover-scale: 1.02;
+}
+
+.hn-spatial {
+  transition-property: transform;
+  transition-duration: var(--hn-duration-standard);
+  transition-timing-function: var(--hn-ease-spring-gentle);
+}
+
+.hn-effects {
+  transition-property: opacity, color, background-color, border-color;
+  transition-duration: var(--hn-duration-fast);
+  transition-timing-function: var(--hn-ease-standard);
+}
+
+.hn-pressable {
+  transform: translateZ(0) scale(1);
+  transition:
+    transform var(--hn-duration-standard) var(--hn-ease-spring-gentle),
+    opacity var(--hn-duration-fast) var(--hn-ease-standard),
+    color var(--hn-duration-fast) var(--hn-ease-standard),
+    background-color var(--hn-duration-fast) var(--hn-ease-standard);
+}
+
+.hn-pressable:hover {
+  transform: translateZ(0) scale(var(--hn-hover-scale));
+}
+
+.hn-pressable:active {
+  transform: translateZ(0) scale(var(--hn-press-scale));
+}
+
+.hn-pressable:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 4px;
+}
+
+.hn-enter {
+  animation: hn-enter var(--hn-duration-slow) var(--hn-ease-spring-gentle) both;
+}
+
+.hn-exit {
+  animation: hn-exit var(--hn-duration-fast) var(--hn-ease-accelerate) both;
+}
+
+@keyframes hn-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes hn-exit {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(8px) scale(0.97);
+  }
+}
+
+@keyframes hn-shimmer {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(100%); }
+}
+
+.hn-skeleton {
+  position: relative;
+  overflow: hidden;
+  background: #f3f4f6;
+}
+
+.hn-skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.6),
+    transparent
+  );
+  animation: hn-shimmer 1.5s linear infinite;
+}
+
+.hn-spinner {
+  width: 24px;
+  height: 24px;
+  border: 2px solid #e5e7eb;
+  border-top-color: #3b82f6;
+  border-radius: 9999px;
+  animation: hn-spin 0.8s linear infinite;
+}
+
+@keyframes hn-spin {
+  to { transform: rotate(360deg); }
+}
+
+@media (hover: none) {
+  .hn-pressable:hover {
+    transform: translateZ(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hn-spatial,
+  .hn-effects,
+  .hn-pressable,
+  .hn-enter,
+  .hn-exit {
+    transition: none;
+    animation: none;
+  }
+
+  .hn-skeleton::after,
+  .hn-spinner {
+    animation: none;
+  }
+}

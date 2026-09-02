@@ -1,0 +1,58 @@
+/* Chrome-only materials. Never attach to scrolling content cells. */
+
+.hn-chrome {
+  background: rgba(255, 255, 255, 0.72);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.hn-chrome-sidebar {
+  background: rgba(247, 247, 249, 0.78);
+  -webkit-backdrop-filter: saturate(160%) blur(20px);
+  backdrop-filter: saturate(160%) blur(20px);
+  border-right: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.hn-scrim {
+  background: rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 150ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+.hn-scrim.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@media (prefers-color-scheme: dark) {
+  .hn-chrome {
+    background: rgba(28, 28, 30, 0.72);
+    border-bottom-color: rgba(255, 255, 255, 0.08);
+  }
+
+  .hn-chrome-sidebar {
+    background: rgba(28, 28, 30, 0.78);
+    border-right-color: rgba(255, 255, 255, 0.08);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hn-scrim {
+    transition: none;
+  }
+}
+
+/* Fallback when blur is too expensive: set data-hn-glass="off" on <html> */
+html[data-hn-glass="off"] .hn-chrome,
+html[data-hn-glass="off"] .hn-chrome-sidebar {
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  background: #f7f7f9;
+}
+
+html[data-hn-glass="off"][data-theme="dark"] .hn-chrome,
+html[data-hn-glass="off"][data-theme="dark"] .hn-chrome-sidebar {
+  background: #1c1c1e;
+}

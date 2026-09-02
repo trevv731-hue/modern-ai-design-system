@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hybrid Native UI — motion lab</title>
+  <link rel="stylesheet" href="./motion.css" />
+  <link rel="stylesheet" href="./glass.css" />
+  <style>
+    :root {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", Inter, Roboto, sans-serif;
+      color: #1c1c1e;
+      background: #f7f7f9;
+    }
+    body { margin: 0; }
+    .lab-chrome {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      height: 48px;
+      padding: 0 20px;
+      font-weight: 600;
+    }
+    main {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+    }
+    h1 { font-size: 24px; letter-spacing: -0.01em; }
+    p.lead { color: #8e8e93; font-size: 14px; }
+    .row { display: flex; flex-wrap: wrap; gap: 12px; margin: 16px 0 32px; }
+    button.hn {
+      height: 44px;
+      padding: 0 20px;
+      border: 1px solid rgba(0,0,0,.06);
+      border-radius: 9999px;
+      background: #3b82f6;
+      color: #fff;
+      font: 600 14px/1 inherit;
+      cursor: pointer;
+    }
+    button.hn.secondary {
+      background: #fff;
+      color: #1c1c1e;
+    }
+    .card {
+      background: #fff;
+      border: 1px solid rgba(0,0,0,.06);
+      border-radius: 16px;
+      padding: 20px;
+    }
+    .sheet-root {
+      position: fixed;
+      inset: 0;
+      display: none;
+      z-index: 10;
+    }
+    .sheet-root.open { display: block; }
+    .hn-scrim {
+      position: absolute;
+      inset: 0;
+    }
+    .sheet {
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      width: min(480px, 100%);
+      margin-left: calc(min(480px, 100%) / -2);
+      background: #fff;
+      border-radius: 24px 24px 0 0;
+      padding: 12px 20px 32px;
+      touch-action: none;
+    }
+    .grabber {
+      width: 36px;
+      height: 5px;
+      border-radius: 99px;
+      background: #d1d5db;
+      margin: 8px auto 16px;
+    }
+    .list { display: grid; gap: 8px; }
+    .list div {
+      height: 44px;
+      border-radius: 8px;
+      background: #fff;
+      border: 1px solid rgba(0,0,0,.06);
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+    }
+  </style>
+</head>
+<body>
+  <header class="lab-chrome hn-chrome">Hybrid Native UI lab</header>
+  <main>
+    <h1>Press, spring, sheet, stagger</h1>
+    <p class="lead">Fine pointer: scale only. Touch: ripple. Sheet drag is interruptible. This file is standalone (logic inlined; agents should copy motion.ts / press.ts).</p>
+    <div class="row">
+      <button class="hn hn-pressable" id="primary" type="button">Primary</button>
+      <button class="hn secondary hn-pressable" id="sheetBtn" type="button">Open sheet</button>
+      <button class="hn secondary hn-pressable" id="staggerBtn" type="button">Stagger list</button>
+    </div>
+    <div class="card">
+      <div class="list" id="list"></div>
+    </div>
+  </main>
+  <div class="sheet-root" id="root">
+    <div class="hn-scrim" id="scrim"></div>
+    <div class="sheet" id="sheet">
+      <div class="grabber"></div>
+      <p>Drag down to dismiss. Spatial spring; scrim is effects fade.</p>
+    </div>
+  </div>
+  <script>
+    const reduced = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const fine = () => matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+    function attachRipple(el) {
+      if (getComputedStyle(el).position === "static") el.style.position = "relative";
+      el.style.overflow = "hidden";
+      el.addEventListener("pointerdown", (e) => {
+        if (e.button !== 0 || fine()) return;
+        const rect = el.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height) * 2;
+        const ink = document.createElement("span");
+        ink.style.cssText = `position:absolute;left:${e.clientX - rect.left - size / 2}px;top:${e.clientY - rect.top - size / 2}px;width:${size}px;height:${size}px;border-radius:50%;background:rgba(0,0,0,.12);transform:scale(0);pointer-events:none;transition:transform 225ms cubic-bezier(0.2,0,0,1),opacity 225ms cubic-bezier(0.2,0,0,1)`;
+        el.appendChild(ink);
+        requestAnimationFrame(() => { ink.style.transform = "scale(1)"; });
+        const clear = () => { ink.style.opacity = "0"; setTimeout(() => ink.remove(), 225); };
+        el.addEventListener("pointerup", clear, { once: true });
+        el.addEventListener("pointerleave", clear, { once: true });
+      });
+    }
+
+    function stepSpring(state, target, dt) {
+      const duration = 0.35;
+      const k = Math.pow((2 * Math.PI) / duration, 2);
+      const zeta = 0.92;
+      const c = 2 * zeta * Math.sqrt(k);
+      const x = state.value - target;
+      const acc = -k * x - c * state.velocity;
+      const velocity = state.velocity + acc * dt;
+      return { value: state.value + velocity * dt, velocity };
+    }
+
+    attachRipple(document.getElementById("primary"));
+
+    const root = document.getElementById("root");
+    const scrim = document.getElementById("scrim");
+    const sheet = document.getElementById("sheet");
+    let currentY = 0;
+    let dragging = false;
+    let startY = 0;
+    let base = 0;
+    let raf = 0;
+
+    function setY(y) {
+      currentY = y;
+      sheet.style.transform = "translate3d(0," + y + "px,0)";
+    }
+
+    function openSheet() {
+      root.classList.add("open");
+      setY(0);
+      requestAnimationFrame(() => scrim.classList.add("is-open"));
+    }
+    function closeSheet() {
+      scrim.classList.remove("is-open");
+      root.classList.remove("open");
+      setY(0);
+    }
+
+    function springTo(target, then) {
+      cancelAnimationFrame(raf);
+      if (reduced()) { setY(target); then && then(); return; }
+      let state = { value: currentY, velocity: 0 };
+      let last = performance.now();
+      const tick = (now) => {
+        const dt = Math.min(0.032, (now - last) / 1000);
+        last = now;
+        state = stepSpring(state, target, dt);
+        setY(state.value);
+        if (Math.abs(state.value - target) < 0.5 && Math.abs(state.velocity) < 0.5) {
+          setY(target);
+          then && then();
+          return;
+        }
+        raf = requestAnimationFrame(tick);
+      };
+      raf = requestAnimationFrame(tick);
+    }
+
+    document.getElementById("sheetBtn").onclick = openSheet;
+    scrim.onclick = closeSheet;
+    sheet.addEventListener("pointerdown", (e) => {
+      dragging = true;
+      cancelAnimationFrame(raf);
+      startY = e.clientY;
+      base = currentY;
+      sheet.setPointerCapture(e.pointerId);
+    });
+    sheet.addEventListener("pointermove", (e) => {
+      if (!dragging) return;
+      setY(Math.max(0, base + (e.clientY - startY)));
+    });
+    sheet.addEventListener("pointerup", () => {
+      if (!dragging) return;
+      dragging = false;
+      const dismiss = currentY > 96;
+      springTo(dismiss ? sheet.getBoundingClientRect().height : 0, dismiss ? closeSheet : undefined);
+    });
+
+    document.getElementById("staggerBtn").onclick = () => {
+      const list = document.getElementById("list");
+      list.innerHTML = "";
+      for (let i = 0; i < 12; i++) {
+        const el = document.createElement("div");
+        el.textContent = "Row " + (i + 1);
+        if (!reduced()) {
+          el.className = "hn-enter";
+          el.style.animationDelay = Math.min(i, 7) * 32 + "ms";
+        }
+        list.appendChild(el);
+      }
+    };
+  </script>
+</body>
+</html>

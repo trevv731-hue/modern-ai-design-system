@@ -1,0 +1,7 @@
+---
+description: Apply Hybrid Native UI (Apple springs + Android 8dp/motion split) for layout, animation, and performance.
+globs: "*.{css,scss,html,js,ts,tsx,swift,kt,kts,vue}"
+alwaysApply: false
+---
+
+When building or changing UI, motion, glass, sheets, buttons, lists, or theme, follow `.cursor/skills/hybrid-native-ui/SKILL.md`. Animate transform and opacity only. Glass on chrome only. Read `code/` for copy-paste implementations.
