@@ -1,0 +1,290 @@
+/*
+ * Modern AI Design System - JavaFX Theme
+ * Auto-generated from Design Tokens. DO NOT EDIT DIRECTLY.
+ *
+ * 注意：JavaFX CSS 不原生支持 CSS 自定义属性（--var）。
+ * 本文件以注释形式列出所有 token 值，并提供常用样式类供直接引用。
+ * 在 JavaFX 代码中可通过 setStyle() 或 FXML styleClass 使用。
+ */
+
+.root {
+
+  /* ===== 颜色 Tokens (作为参考，使用时复制值) ===== */
+  /* color-bg-base = #f7f7f9 */
+  /* color-bg-base-alt = #f2f2f5 */
+  /* color-bg-surface = #ffffff */
+  /* color-bg-surface-alt = #fafafb */
+  /* color-bg-elevated = #ffffff */
+  /* color-bg-hover = rgba(0, 0, 0, 0.03) */
+  /* color-bg-active = rgba(0, 0, 0, 0.06) */
+  /* color-bg-selected = rgba(59, 130, 246, 0.08) */
+  /* color-bg-overlay = rgba(0, 0, 0, 0.4) */
+  /* color-bg-overlay-strong = rgba(0, 0, 0, 0.6) */
+  /* color-border-subtle = rgba(0, 0, 0, 0.04) */
+  /* color-border-default = #e5e7eb */
+  /* color-border-strong = #d1d5db */
+  /* color-border-focus = #3b82f6 */
+  /* color-border-divider = rgba(0, 0, 0, 0.06) */
+  /* color-text-primary = #1c1c1e */
+  /* color-text-secondary = #374151 */
+  /* color-text-tertiary = #8e8e93 */
+  /* color-text-quaternary = #9ca3af */
+  /* color-text-inverse = #ffffff */
+  /* color-text-link = #3b82f6 */
+  /* color-text-placeholder = #9ca3af */
+  /* color-text-disabled = #9ca3af */
+  /* color-accent-primary = #3b82f6 */
+  /* color-accent-primary-hover = #2563eb */
+  /* color-accent-primary-active = #1d4ed8 */
+  /* color-accent-primary-bg = rgba(59, 130, 246, 0.08) */
+  /* color-accent-primary-bg-strong = rgba(59, 130, 246, 0.14) */
+  /* color-accent-ai = #10a37f */
+  /* color-accent-ai-hover = #0e8c6d */
+  /* color-accent-ai-bg = rgba(16, 163, 127, 0.08) */
+  /* color-accent-ai-bg-strong = rgba(16, 163, 127, 0.14) */
+  /* color-neutral-50 = #f9fafb */
+  /* color-neutral-100 = #f3f4f6 */
+  /* color-neutral-200 = #e5e7eb */
+  /* color-neutral-300 = #d1d5db */
+  /* color-neutral-400 = #9ca3af */
+  /* color-neutral-500 = #6b7280 */
+  /* color-neutral-600 = #4b5563 */
+  /* color-neutral-700 = #374151 */
+  /* color-neutral-800 = #1f2937 */
+  /* color-neutral-900 = #111827 */
+  /* color-success = #10b981 */
+  /* color-success-hover = #059669 */
+  /* color-success-bg = rgba(16, 185, 129, 0.08) */
+  /* color-success-bg-strong = rgba(16, 185, 129, 0.14) */
+  /* color-warning = #f59e0b */
+  /* color-warning-hover = #d97706 */
+  /* color-warning-bg = rgba(245, 158, 11, 0.08) */
+  /* color-warning-bg-strong = rgba(245, 158, 11, 0.14) */
+  /* color-error = #ef4444 */
+  /* color-error-hover = #dc2626 */
+  /* color-error-bg = rgba(239, 68, 68, 0.08) */
+  /* color-error-bg-strong = rgba(239, 68, 68, 0.14) */
+  /* color-info = #3b82f6 */
+  /* color-info-bg = rgba(59, 130, 246, 0.08) */
+  /* color-chat-user-bubble = #f9fafb */
+  /* color-chat-ai-bubble = #ffffff */
+  /* color-chat-code-bg = #f6f8fa */
+  /* color-chat-code-border = #e5e7eb */
+  /* color-chat-input-bg = #ffffff */
+  /* color-chat-divider = rgba(0, 0, 0, 0.06) */
+  /* color-dark-bg-base = #1c1c1e */
+  /* color-dark-bg-surface = #2c2c2e */
+  /* color-dark-bg-elevated = #3a3a3c */
+  /* color-dark-border-subtle = rgba(255, 255, 255, 0.08) */
+  /* color-dark-border-default = #38383a */
+  /* color-dark-text-primary = #ffffff */
+  /* color-dark-text-secondary = #e5e7eb */
+  /* color-dark-text-tertiary = #8e8e93 */
+  /* color-dark-accent-primary = #60a5fa */
+  /* color-dark-accent-ai = #34d399 */
+
+  /* ===== 尺寸 Tokens ===== */
+  /* radius-none = 0px */
+  /* radius-2xs = 2px */
+  /* radius-xs = 4px */
+  /* radius-sm = 8px */
+  /* radius-md = 12px */
+  /* radius-lg = 16px */
+  /* radius-xl = 20px */
+  /* radius-2xl = 24px */
+  /* radius-3xl = 32px */
+  /* radius-4xl = 40px */
+  /* radius-pill = 9999px */
+  /* radius-full = 9999px */
+  /* space-0 = 0px */
+  /* space-1 = 4px */
+  /* space-2 = 8px */
+  /* space-3 = 12px */
+  /* space-4 = 16px */
+  /* space-5 = 20px */
+  /* space-6 = 24px */
+  /* space-7 = 28px */
+  /* space-8 = 32px */
+  /* space-9 = 36px */
+  /* space-10 = 40px */
+  /* space-11 = 44px */
+  /* space-12 = 48px */
+  /* space-14 = 56px */
+  /* space-16 = 64px */
+  /* space-20 = 80px */
+  /* space-24 = 96px */
+  /* space-0-5 = 2px */
+  /* space-1-5 = 6px */
+  /* space-2-5 = 10px */
+  /* space-3-5 = 14px */
+  /* font-family-sans = -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Inter', 'Roboto', 'Helvetica Neue', Arial, sans-serif */
+  /* font-family-mono = 'SF Mono', 'JetBrains Mono', 'Fira Code', 'Consolas', Monaco, monospace */
+  /* font-family-apple = -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', sans-serif */
+  /* font-family-android = 'Roboto', 'Google Sans', sans-serif */
+  /* font-family-display = -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', 'Helvetica Neue', sans-serif */
+  /* font-size-display = 40px */
+  /* font-size-display-lg = 48px */
+  /* font-size-display-sm = 34px */
+  /* font-size-h1 = 32px */
+  /* font-size-h2 = 24px */
+  /* font-size-h3 = 20px */
+  /* font-size-lg = 18px */
+  /* font-size-base = 16px */
+  /* font-size-sm = 14px */
+  /* font-size-xs = 12px */
+  /* font-size-2xs = 11px */
+  /* font-size-caption = 12px */
+  /* font-size-overline = 11px */
+  /* font-line-height-display = 48px */
+  /* font-line-height-display-lg = 56px */
+  /* font-line-height-display-sm = 40px */
+  /* font-line-height-h1 = 40px */
+  /* font-line-height-h2 = 32px */
+  /* font-line-height-h3 = 28px */
+  /* font-line-height-lg = 28px */
+  /* font-line-height-base = 24px */
+  /* font-line-height-sm = 20px */
+  /* font-line-height-xs = 16px */
+  /* font-line-height-2xs = 14px */
+  /* font-line-height-caption = 16px */
+  /* font-line-height-overline = 14px */
+  /* font-line-height-code = 1.6 */
+  /* font-weight-thin = 100 */
+  /* font-weight-light = 300 */
+  /* font-weight-regular = 400 */
+  /* font-weight-medium = 500 */
+  /* font-weight-semibold = 600 */
+  /* font-weight-bold = 700 */
+  /* font-weight-heavy = 800 */
+  /* font-weight-black = 900 */
+  /* font-letter-spacing-tightest = -0.03em */
+  /* font-letter-spacing-tight = -0.01em */
+  /* font-letter-spacing-normal = 0 */
+  /* font-letter-spacing-wide = 0.01em */
+  /* font-letter-spacing-wider = 0.05em */
+  /* font-letter-spacing-widest = 0.1em */
+  /* font-variant-tabular-nums = tabular-nums */
+  /* font-variant-proportional-nums = proportional-nums */
+  /* font-variant-oldstyle-nums = oldstyle-nums */
+
+  /* ===== JavaFX 基础样式映射 ===== */
+  -fx-background-color: #F7F7F9;
+  -fx-font-family: -apple-system, "SF Pro Text", "Roboto", sans-serif;
+  -fx-font-size: 16px;
+  -fx-text-fill: #1C1C1E;
+}
+
+/* ===== 背景色类 ===== */
+.bg-base { -fx-background-color: #F7F7F9; }
+.bg-surface { -fx-background-color: #FFFFFF; }
+.bg-hover { -fx-background-color: rgba(0, 0, 0, 0.03); }
+.bg-selected { -fx-background-color: rgba(59, 130, 246, 0.08); }
+.bg-ai { -fx-background-color: rgba(16, 163, 127, 0.08); }
+
+/* ===== 文字色类 ===== */
+.text-primary { -fx-text-fill: #1C1C1E; }
+.text-secondary { -fx-text-fill: #374151; }
+.text-tertiary { -fx-text-fill: #8E8E93; }
+.text-accent { -fx-text-fill: #3B82F6; }
+.text-ai { -fx-text-fill: #10A37F; }
+.text-success { -fx-text-fill: #10B981; }
+.text-warning { -fx-text-fill: #F59E0B; }
+.text-error { -fx-text-fill: #EF4444; }
+
+/* ===== 边框类 ===== */
+.border-subtle { -fx-border-color: rgba(0, 0, 0, 0.06); -fx-border-width: 1px; }
+.border-default { -fx-border-color: #E5E7EB; -fx-border-width: 1px; }
+.border-focus { -fx-border-color: #3B82F6; -fx-border-width: 1px; }
+
+/* ===== 圆角类 ===== */
+.radius-sm { -fx-background-radius: 8px; -fx-border-radius: 8px; }
+.radius-md { -fx-background-radius: 12px; -fx-border-radius: 12px; }
+.radius-lg { -fx-background-radius: 16px; -fx-border-radius: 16px; }
+.radius-xl { -fx-background-radius: 24px; -fx-border-radius: 24px; }
+.radius-pill { -fx-background-radius: 9999px; -fx-border-radius: 9999px; }
+
+/* ===== 按钮样式 ===== */
+.button-primary {
+  -fx-background-color: #3B82F6;
+  -fx-text-fill: #FFFFFF;
+  -fx-background-radius: 9999px;
+  -fx-font-size: 14px;
+  -fx-font-weight: 500;
+  -fx-cursor: hand;
+}
+.button-primary:hover { -fx-background-color: #2563EB; }
+.button-primary:pressed { -fx-background-color: #1D4ED8; -fx-scale-x: 0.98; -fx-scale-y: 0.98; }
+
+.button-ai {
+  -fx-background-color: #10A37F;
+  -fx-text-fill: #FFFFFF;
+  -fx-background-radius: 9999px;
+  -fx-font-size: 14px;
+  -fx-font-weight: 500;
+  -fx-cursor: hand;
+}
+.button-ai:hover { -fx-background-color: #0E8C6D; }
+
+.button-secondary {
+  -fx-background-color: #FFFFFF;
+  -fx-text-fill: #1C1C1E;
+  -fx-border-color: #E5E7EB;
+  -fx-border-width: 1px;
+  -fx-background-radius: 9999px;
+  -fx-border-radius: 9999px;
+  -fx-font-size: 14px;
+  -fx-cursor: hand;
+}
+.button-secondary:hover { -fx-background-color: rgba(0, 0, 0, 0.03); }
+
+/* ===== 输入框样式 ===== */
+.text-field-pill {
+  -fx-background-color: #FFFFFF;
+  -fx-border-color: #E5E7EB;
+  -fx-border-width: 1px;
+  -fx-background-radius: 9999px;
+  -fx-border-radius: 9999px;
+  -fx-font-size: 16px;
+  -fx-padding: 0 20px;
+  -fx-pref-height: 48px;
+}
+.text-field-pill:focused {
+  -fx-border-color: #3B82F6;
+  -fx-effect: dropshadow(gaussian, rgba(59, 130, 246, 0.1), 0, 0, 0, 0);
+}
+
+/* ===== 卡片样式 ===== */
+.card {
+  -fx-background-color: #FFFFFF;
+  -fx-border-color: rgba(0, 0, 0, 0.06);
+  -fx-border-width: 1px;
+  -fx-background-radius: 16px;
+  -fx-border-radius: 16px;
+  -fx-padding: 24px;
+}
+.card-hover:hover { -fx-background-color: rgba(0, 0, 0, 0.02); -fx-cursor: hand; }
+
+/* ===== 侧边栏样式 ===== */
+.sidebar {
+  -fx-background-color: #F7F7F9;
+  -fx-border-color: rgba(0, 0, 0, 0.06);
+  -fx-border-width: 0 1px 0 0;
+}
+.sidebar-item {
+  -fx-background-radius: 8px;
+  -fx-padding: 0 12px;
+  -fx-pref-height: 40px;
+  -fx-cursor: hand;
+}
+.sidebar-item:hover { -fx-background-color: rgba(0, 0, 0, 0.03); }
+.sidebar-item-selected {
+  -fx-background-color: rgba(59, 130, 246, 0.08);
+  -fx-text-fill: #3B82F6;
+}
+
+/* ===== 毛玻璃效果 (需要 JavaFX 8+) ===== */
+.glass {
+  -fx-background-color: rgba(255, 255, 255, 0.7);
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.05), 10, 0, 0, 4);
+}
+

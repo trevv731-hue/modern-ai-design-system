@@ -1,0 +1,256 @@
+{
+  "component": {
+    "button": {
+      "height": {
+        "lg": { "value": "56px" },
+        "md": { "value": "48px" },
+        "sm": { "value": "36px" },
+        "xs": { "value": "30px" },
+        "icon": { "value": "40px" },
+        "iconSm": { "value": "32px" }
+      },
+      "paddingX": {
+        "lg": { "value": "24px" },
+        "md": { "value": "20px" },
+        "sm": { "value": "16px" },
+        "xs": { "value": "12px" }
+      },
+      "fontSize": {
+        "lg": { "value": "16px" },
+        "md": { "value": "14px" },
+        "sm": { "value": "13px" },
+        "xs": { "value": "12px" }
+      },
+      "radius": { "value": "12px" },
+      "radiusPill": { "value": "9999px" },
+      "activeScale": { "value": "0.98" },
+      "hoverLift": { "value": "1.02" },
+      "gap": { "value": "8px" }
+    },
+    "input": {
+      "height": {
+        "md": { "value": "48px" },
+        "lg": { "value": "56px" },
+        "sm": { "value": "40px" }
+      },
+      "paddingX": { "value": "16px" },
+      "paddingXPill": { "value": "20px" },
+      "fontSize": { "value": "16px" },
+      "radius": { "value": "12px" },
+      "radiusPill": { "value": "9999px" },
+      "radiusFilled": { "value": "8px" },
+      "focusRing": { "value": "0 0 0 3px rgba(59, 130, 246, 0.1)" }
+    },
+    "card": {
+      "radius": { "value": "16px" },
+      "radiusLg": { "value": "20px" },
+      "radiusXl": { "value": "24px" },
+      "padding": { "value": "24px" },
+      "paddingMin": { "value": "20px" },
+      "paddingSm": { "value": "16px" },
+      "activeScale": { "value": "0.99" },
+      "hoverBorder": { "value": "rgba(0, 0, 0, 0.1)" }
+    },
+    "list": {
+      "itemHeight": { "value": "52px" },
+      "itemHeightSm": { "value": "44px" },
+      "itemHeightLg": { "value": "60px" },
+      "itemRadius": { "value": "10px" },
+      "itemPaddingX": { "value": "16px" },
+      "itemGap": { "value": "12px" },
+      "divider": { "value": "rgba(0, 0, 0, 0.06)" },
+      "groupTitleFontSize": { "value": "12px" },
+      "groupTitleColor": { "value": "#8E8E93" }
+    },
+    "chip": {
+      "height": { "value": "30px" },
+      "heightSm": { "value": "26px" },
+      "paddingX": { "value": "12px" },
+      "paddingXSm": { "value": "10px" },
+      "fontSize": { "value": "12px" },
+      "radius": { "value": "8px" },
+      "radiusPill": { "value": "9999px" },
+      "gap": { "value": "6px" },
+      "activeScale": { "value": "0.95" }
+    },
+    "avatar": {
+      "size": { "value": "40px" },
+      "sizeSm": { "value": "32px" },
+      "sizeLg": { "value": "56px" },
+      "sizeXl": { "value": "72px" },
+      "radius": { "value": "12px" },
+      "radiusCircle": { "value": "9999px" },
+      "fontSize": { "value": "16px" }
+    },
+    "bottomNav": {
+      "height": { "value": "56px" },
+      "heightWithSafe": { "value": "calc(56px + env(safe-area-inset-bottom))" },
+      "iconSize": { "value": "22px" },
+      "iconSizeActive": { "value": "24px" },
+      "fontSize": { "value": "10px" },
+      "indicatorWidth": { "value": "24px" },
+      "indicatorHeight": { "value": "3px" },
+      "indicatorRadius": { "value": "9999px" },
+      "itemGap": { "value": "3px" }
+    },
+    "fab": {
+      "size": { "value": "56px" },
+      "sizeSm": { "value": "48px" },
+      "sizeLg": { "value": "64px" },
+      "radius": { "value": "9999px" },
+      "iconSize": { "value": "24px" },
+      "offsetBottom": { "value": "80px" },
+      "offsetRight": { "value": "20px" },
+      "activeScale": { "value": "0.95" },
+      "hoverScale": { "value": "1.05" }
+    },
+    "sheet": {
+      "radius": { "value": "16px" },
+      "radiusLg": { "value": "24px" },
+      "handleWidth": { "value": "36px" },
+      "handleHeight": { "value": "4px" },
+      "handleRadius": { "value": "9999px" },
+      "handleMargin": { "value": "16px" },
+      "padding": { "value": "20px" },
+      "paddingBottom": { "value": "calc(24px + env(safe-area-inset-bottom))" },
+      "maxHeight": { "value": "85vh" },
+      "backdropBlur": { "value": "4px" }
+    },
+    "sidebar": {
+      "width": {
+        "narrow": { "value": "240px" },
+        "standard": { "value": "280px" },
+        "wide": { "value": "320px" },
+        "collapsed": { "value": "64px" }
+      },
+      "itemHeight": { "value": "40px" },
+      "itemRadius": { "value": "8px" },
+      "itemPaddingX": { "value": "12px" },
+      "groupTitleFontSize": { "value": "12px" },
+      "indicatorWidth": { "value": "3px" }
+    },
+    "navbar": {
+      "heightMobile": { "value": "56px" },
+      "heightDesktop": { "value": "48px" },
+      "iconSize": { "value": "20px" },
+      "hitArea": { "value": "40px" }
+    },
+    "modal": {
+      "width": {
+        "sm": { "value": "400px" },
+        "md": { "value": "480px" },
+        "lg": { "value": "640px" }
+      },
+      "radius": { "value": "16px" },
+      "radiusLg": { "value": "24px" },
+      "padding": { "value": "24px" },
+      "backdropOpacity": { "value": "0.4" },
+      "backdropBlur": { "value": "4px" },
+      "appearScale": { "value": "0.95" },
+      "appearOffset": { "value": "8px" }
+    },
+    "dropdown": {
+      "radius": { "value": "12px" },
+      "paddingY": { "value": "8px" },
+      "itemHeight": { "value": "40px" },
+      "itemRadius": { "value": "8px" },
+      "itemPaddingX": { "value": "12px" },
+      "appearOffset": { "value": "-4px" }
+    },
+    "codeBlock": {
+      "radius": { "value": "12px" },
+      "headerHeight": { "value": "40px" },
+      "padding": { "value": "16px" },
+      "fontSize": { "value": "13px" },
+      "lineHeight": { "value": "1.6" }
+    },
+    "chat": {
+      "bubbleRadius": { "value": "16px" },
+      "bubblePadding": { "value": "12px 16px" },
+      "messageOffset": { "value": "8px" },
+      "typewriterCharDelay": { "value": "25ms" },
+      "cursorBlink": { "value": "530ms" }
+    },
+    "badge": {
+      "fontSize": { "value": "11px" },
+      "radius": { "value": "9999px" },
+      "padding": { "value": "2px 6px" },
+      "minWidth": { "value": "18px" },
+      "height": { "value": "18px" }
+    },
+    "tag": {
+      "fontSize": { "value": "12px" },
+      "radius": { "value": "8px" },
+      "padding": { "value": "4px 10px" }
+    },
+    "progress": {
+      "height": {
+        "xs": { "value": "2px" },
+        "sm": { "value": "4px" },
+        "md": { "value": "6px" },
+        "lg": { "value": "8px" },
+        "xl": { "value": "12px" }
+      },
+      "radius": { "value": "9999px" },
+      "indeterminateDuration": { "value": "1.5s" }
+    },
+    "spinner": {
+      "size": {
+        "xs": { "value": "12px" },
+        "sm": { "value": "16px" },
+        "md": { "value": "24px" },
+        "lg": { "value": "32px" },
+        "xl": { "value": "48px" }
+      },
+      "strokeWidth": { "value": "2.5px" },
+      "duration": { "value": "0.8s" }
+    },
+    "skeleton": {
+      "radius": { "value": "8px" },
+      "bg": { "value": "#F3F4F6" },
+      "highlight": { "value": "rgba(255, 255, 255, 0.6)" },
+      "duration": { "value": "1.5s" }
+    },
+    "toast": {
+      "radius": { "value": "12px" },
+      "padding": { "value": "12px 20px" },
+      "fontSize": { "value": "14px" },
+      "offsetBottom": { "value": "24px" },
+      "appearOffset": { "value": "20px" },
+      "durationDefault": { "value": "3000ms" },
+      "durationAction": { "value": "5000ms" }
+    },
+    "segmented": {
+      "height": { "value": "36px" },
+      "radius": { "value": "9px" },
+      "padding": { "value": "2px" },
+      "itemRadius": { "value": "7px" },
+      "fontSize": { "value": "13px" },
+      "activeBg": { "value": "#FFFFFF" },
+      "bg": { "value": "#F2F2F5" }
+    },
+    "material": {
+      "glass": {
+        "bg": { "value": "rgba(255, 255, 255, 0.7)" },
+        "bgStrong": { "value": "rgba(255, 255, 255, 0.85)" },
+        "blur": { "value": "12px" },
+        "blurLg": { "value": "20px" },
+        "saturation": { "value": "180%" },
+        "border": { "value": "1px solid rgba(255, 255, 255, 0.5)" }
+      },
+      "ripple": {
+        "colorLight": { "value": "rgba(0, 0, 0, 0.08)" },
+        "colorDark": { "value": "rgba(255, 255, 255, 0.12)" },
+        "duration": { "value": "225ms" }
+      }
+    },
+    "elevation": {
+      "level0": { "value": "0dp" },
+      "level1": { "value": "1dp" },
+      "level2": { "value": "3dp" },
+      "level3": { "value": "6dp" },
+      "level4": { "value": "8dp" },
+      "level5": { "value": "12dp" }
+    }
+  }
+}

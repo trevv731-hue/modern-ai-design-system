@@ -1,0 +1,77 @@
+{
+  "duration": {
+    "micro": { "value": "50ms" },
+    "instant": { "value": "100ms" },
+    "fast": { "value": "150ms" },
+    "standard": { "value": "250ms" },
+    "slow": { "value": "350ms" },
+    "emphasized": { "value": "500ms" },
+    "extraSlow": { "value": "700ms" }
+  },
+  "ease": {
+    "standard": { "value": "cubic-bezier(0.2, 0, 0, 1)" },
+    "standardAccelerate": { "value": "cubic-bezier(0.3, 0, 1, 1)" },
+    "standardDecelerate": { "value": "cubic-bezier(0, 0, 0, 1)" },
+    "sharp": { "value": "cubic-bezier(0.4, 0, 0.2, 1)" },
+    "spring": { "value": "cubic-bezier(0.34, 1.56, 0.64, 1)" },
+    "springSoft": { "value": "cubic-bezier(0.25, 1.2, 0.5, 1)" },
+    "springGentle": { "value": "cubic-bezier(0.22, 1, 0.36, 1)" },
+    "emphasis": { "value": "cubic-bezier(0.2, 0, 0, 1)" },
+    "emphasisAccelerate": { "value": "cubic-bezier(0.05, 0.7, 0.1, 1)" },
+    "emphasisDecelerate": { "value": "cubic-bezier(0, 0, 0, 1)" },
+    "linear": { "value": "linear" },
+    "outExpo": { "value": "cubic-bezier(0.16, 1, 0.3, 1)" },
+    "inOutExpo": { "value": "cubic-bezier(0.87, 0, 0.13, 1)" }
+  },
+  "stagger": {
+    "micro": { "value": "20ms" },
+    "small": { "value": "40ms" },
+    "medium": { "value": "60ms" },
+    "large": { "value": "80ms" },
+    "xl": { "value": "120ms" }
+  },
+  "hover": {
+    "scale": { "value": "1.02" },
+    "scaleCard": { "value": "1.01" },
+    "brightness": { "value": "1.02" }
+  },
+  "press": {
+    "scale": { "value": "0.97" },
+    "scaleButton": { "value": "0.98" },
+    "scaleCard": { "value": "0.99" },
+    "scaleIcon": { "value": "0.94" }
+  },
+  "animation": {
+    "fadeIn": { "value": "fadeIn 250ms cubic-bezier(0.2, 0, 0, 1) both" },
+    "fadeOut": { "value": "fadeOut 150ms cubic-bezier(0.3, 0, 1, 1) both" },
+    "slideUp": { "value": "slideUp 350ms cubic-bezier(0.22, 1, 0.36, 1) both" },
+    "slideDown": { "value": "slideDown 350ms cubic-bezier(0.22, 1, 0.36, 1) both" },
+    "slideLeft": { "value": "slideLeft 300ms cubic-bezier(0.22, 1, 0.36, 1) both" },
+    "slideRight": { "value": "slideRight 300ms cubic-bezier(0.22, 1, 0.36, 1) both" },
+    "scaleIn": { "value": "scaleIn 250ms cubic-bezier(0.22, 1, 0.36, 1) both" },
+    "scaleOut": { "value": "scaleOut 150ms cubic-bezier(0.3, 0, 1, 1) both" },
+    "springIn": { "value": "springIn 400ms cubic-bezier(0.34, 1.56, 0.64, 1) both" },
+    "fadeThrough": { "value": "fadeThrough 300ms cubic-bezier(0.2, 0, 0, 1) both" },
+    "sharedAxisX": { "value": "sharedAxisX 300ms cubic-bezier(0.2, 0, 0, 1) both" },
+    "sharedAxisY": { "value": "sharedAxisY 300ms cubic-bezier(0.2, 0, 0, 1) both" },
+    "pulse": { "value": "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite" },
+    "pulseSoft": { "value": "pulseSoft 3s ease-in-out infinite" },
+    "breathe": { "value": "breathe 4s ease-in-out infinite" },
+    "shimmer": { "value": "shimmer 1.5s linear infinite" },
+    "spin": { "value": "spin 0.8s linear infinite" },
+    "float": { "value": "float 3s ease-in-out infinite" },
+    "ripple": { "value": "ripple 225ms cubic-bezier(0.2, 0, 0, 1) both" }
+  },
+  "transition": {
+    "color": { "value": "color 150ms cubic-bezier(0.2, 0, 0, 1)" },
+    "bg": { "value": "background-color 150ms cubic-bezier(0.2, 0, 0, 1)" },
+    "border": { "value": "border-color 150ms cubic-bezier(0.2, 0, 0, 1)" },
+    "opacity": { "value": "opacity 150ms cubic-bezier(0.2, 0, 0, 1)" },
+    "transform": { "value": "transform 200ms cubic-bezier(0.22, 1, 0.36, 1)" },
+    "all": { "value": "all 200ms cubic-bezier(0.2, 0, 0, 1)" },
+    "allSpring": { "value": "all 300ms cubic-bezier(0.34, 1.56, 0.64, 1)" },
+    "height": { "value": "height 300ms cubic-bezier(0.22, 1, 0.36, 1)" },
+    "width": { "value": "width 300ms cubic-bezier(0.22, 1, 0.36, 1)" },
+    "boxShadow": { "value": "box-shadow 200ms cubic-bezier(0.2, 0, 0, 1)" }
+  }
+}

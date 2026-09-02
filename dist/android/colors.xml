@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Do not edit directly
+  Generated on Wed, 02 Sep 2026 09:53:49 GMT
+-->
+<resources>
+  <color name="color_bg_base">#fff7f7f9</color>
+  <color name="color_bg_base_alt">#fff2f2f5</color>
+  <color name="color_bg_surface">#ffffffff</color>
+  <color name="color_bg_surface_alt">#fffafafb</color>
+  <color name="color_bg_elevated">#ffffffff</color>
+  <color name="color_bg_hover">#08000000</color>
+  <color name="color_bg_active">#0f000000</color>
+  <color name="color_bg_selected">#143b82f6</color>
+  <color name="color_bg_overlay">#66000000</color>
+  <color name="color_bg_overlay_strong">#99000000</color>
+  <color name="color_border_subtle">#0a000000</color>
+  <color name="color_border_default">#ffe5e7eb</color>
+  <color name="color_border_strong">#ffd1d5db</color>
+  <color name="color_border_focus">#ff3b82f6</color>
+  <color name="color_border_divider">#0f000000</color>
+  <color name="color_text_primary">#ff1c1c1e</color>
+  <color name="color_text_secondary">#ff374151</color>
+  <color name="color_text_tertiary">#ff8e8e93</color>
+  <color name="color_text_quaternary">#ff9ca3af</color>
+  <color name="color_text_inverse">#ffffffff</color>
+  <color name="color_text_link">#ff3b82f6</color>
+  <color name="color_text_placeholder">#ff9ca3af</color>
+  <color name="color_text_disabled">#ff9ca3af</color>
+  <color name="color_accent_primary">#ff3b82f6</color>
+  <color name="color_accent_primary_hover">#ff2563eb</color>
+  <color name="color_accent_primary_active">#ff1d4ed8</color>
+  <color name="color_accent_primary_bg">#143b82f6</color>
+  <color name="color_accent_primary_bg_strong">#243b82f6</color>
+  <color name="color_accent_ai">#ff10a37f</color>
+  <color name="color_accent_ai_hover">#ff0e8c6d</color>
+  <color name="color_accent_ai_bg">#1410a37f</color>
+  <color name="color_accent_ai_bg_strong">#2410a37f</color>
+  <color name="color_neutral_50">#fff9fafb</color>
+  <color name="color_neutral_100">#fff3f4f6</color>
+  <color name="color_neutral_200">#ffe5e7eb</color>
+  <color name="color_neutral_300">#ffd1d5db</color>
+  <color name="color_neutral_400">#ff9ca3af</color>
+  <color name="color_neutral_500">#ff6b7280</color>
+  <color name="color_neutral_600">#ff4b5563</color>
+  <color name="color_neutral_700">#ff374151</color>
+  <color name="color_neutral_800">#ff1f2937</color>
+  <color name="color_neutral_900">#ff111827</color>
+  <color name="color_success">#ff10b981</color>
+  <color name="color_success_hover">#ff059669</color>
+  <color name="color_success_bg">#1410b981</color>
+  <color name="color_success_bg_strong">#2410b981</color>
+  <color name="color_warning">#fff59e0b</color>
+  <color name="color_warning_hover">#ffd97706</color>
+  <color name="color_warning_bg">#14f59e0b</color>
+  <color name="color_warning_bg_strong">#24f59e0b</color>
+  <color name="color_error">#ffef4444</color>
+  <color name="color_error_hover">#ffdc2626</color>
+  <color name="color_error_bg">#14ef4444</color>
+  <color name="color_error_bg_strong">#24ef4444</color>
+  <color name="color_info">#ff3b82f6</color>
+  <color name="color_info_bg">#143b82f6</color>
+  <color name="color_chat_user_bubble">#fff9fafb</color>
+  <color name="color_chat_ai_bubble">#ffffffff</color>
+  <color name="color_chat_code_bg">#fff6f8fa</color>
+  <color name="color_chat_code_border">#ffe5e7eb</color>
+  <color name="color_chat_input_bg">#ffffffff</color>
+  <color name="color_chat_divider">#0f000000</color>
+  <color name="color_dark_bg_base">#ff1c1c1e</color>
+  <color name="color_dark_bg_surface">#ff2c2c2e</color>
+  <color name="color_dark_bg_elevated">#ff3a3a3c</color>
+  <color name="color_dark_border_subtle">#14ffffff</color>
+  <color name="color_dark_border_default">#ff38383a</color>
+  <color name="color_dark_text_primary">#ffffffff</color>
+  <color name="color_dark_text_secondary">#ffe5e7eb</color>
+  <color name="color_dark_text_tertiary">#ff8e8e93</color>
+  <color name="color_dark_accent_primary">#ff60a5fa</color>
+  <color name="color_dark_accent_ai">#ff34d399</color>
+  
+</resources>

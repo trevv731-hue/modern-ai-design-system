@@ -1,0 +1,23 @@
+{
+  "name": "modern-ai-design-system",
+  "version": "1.0.0",
+  "description": "现代 AI 生产力设计系统 - 融合 Apple、Android、ChatGPT 的跨平台 Design Tokens",
+  "main": "build.js",
+  "scripts": {
+    "build": "node build.js",
+    "watch": "node build.js --watch"
+  },
+  "keywords": [
+    "design-tokens",
+    "design-system",
+    "ui",
+    "apple",
+    "android",
+    "chatgpt"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "style-dictionary": "^3.9.2"
+  }
+}

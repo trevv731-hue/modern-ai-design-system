@@ -1,0 +1,64 @@
+{
+  "border": {
+    "width": {
+      "0": { "value": "0px" },
+      "1": { "value": "1px" },
+      "2": { "value": "2px" },
+      "3": { "value": "3px" },
+      "4": { "value": "4px" }
+    },
+    "style": {
+      "solid": { "value": "solid" },
+      "dashed": { "value": "dashed" },
+      "dotted": { "value": "dotted" }
+    }
+  },
+  "opacity": {
+    "0": { "value": "0" },
+    "5": { "value": "0.05" },
+    "10": { "value": "0.1" },
+    "20": { "value": "0.2" },
+    "30": { "value": "0.3" },
+    "40": { "value": "0.4" },
+    "50": { "value": "0.5" },
+    "60": { "value": "0.6" },
+    "70": { "value": "0.7" },
+    "80": { "value": "0.8" },
+    "90": { "value": "0.9" },
+    "100": { "value": "1" }
+  },
+  "backdrop": {
+    "blur": {
+      "none": { "value": "blur(0px)" },
+      "sm": { "value": "blur(4px)" },
+      "md": { "value": "blur(8px)" },
+      "lg": { "value": "blur(12px)" },
+      "xl": { "value": "blur(20px)" },
+      "2xl": { "value": "blur(32px)" }
+    },
+    "saturation": {
+      "none": { "value": "saturate(100%)" },
+      "md": { "value": "saturate(150%)" },
+      "lg": { "value": "saturate(180%)" },
+      "xl": { "value": "saturate(200%)" }
+    }
+  },
+  "safeArea": {
+    "top": { "value": "env(safe-area-inset-top, 0px)" },
+    "bottom": { "value": "env(safe-area-inset-bottom, 0px)" },
+    "left": { "value": "env(safe-area-inset-left, 0px)" },
+    "right": { "value": "env(safe-area-inset-right, 0px)" }
+  },
+  "zIndex": {
+    "hide": { "value": "-1" },
+    "base": { "value": "0" },
+    "dropdown": { "value": "1000" },
+    "sticky": { "value": "1020" },
+    "fixed": { "value": "1030" },
+    "modalBackdrop": { "value": "1040" },
+    "modal": { "value": "1050" },
+    "popover": { "value": "1060" },
+    "tooltip": { "value": "1070" },
+    "toast": { "value": "1080" }
+  }
+}

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Modern AI Design System - Android Styles
+  Auto-generated from Design Tokens. DO NOT EDIT DIRECTLY.
+-->
+<resources>
+
+    <!-- ===== 应用主题 ===== -->
+    <style name="Theme.ModernAI" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/accent_primary</item>
+        <item name="colorOnPrimary">@color/text_inverse</item>
+        <item name="colorPrimaryContainer">@color/info_bg</item>
+        <item name="colorOnPrimaryContainer">@color/accent_primary</item>
+        <item name="colorSecondary">@color/accent_ai</item>
+        <item name="colorOnSecondary">@color/text_inverse</item>
+        <item name="colorSecondaryContainer">@color/accent_ai_bg</item>
+        <item name="colorOnSecondaryContainer">@color/accent_ai</item>
+        <item name="android:colorBackground">@color/bg_base</item>
+        <item name="colorSurface">@color/bg_surface</item>
+        <item name="colorOnSurface">@color/text_primary</item>
+        <item name="android:statusBarColor">@color/bg_base</item>
+        <item name="android:navigationBarColor">@color/bg_base</item>
+    </style>
+
+    <!-- ===== 按钮样式 ===== -->
+    <style name="Widget.ModernAI.Button.Primary" parent="Widget.Material3.Button">
+        <item name="backgroundTint">@color/accent_primary</item>
+        <item name="android:textColor">@color/text_inverse</item>
+        <item name="cornerRadius">9999dp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:minHeight">48dp</item>
+    </style>
+
+    <style name="Widget.ModernAI.Button.AI" parent="Widget.Material3.Button">
+        <item name="backgroundTint">@color/accent_ai</item>
+        <item name="android:textColor">@color/text_inverse</item>
+        <item name="cornerRadius">9999dp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:minHeight">48dp</item>
+    </style>
+
+    <style name="Widget.ModernAI.Button.Secondary" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="strokeColor">@color/border_default</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="cornerRadius">9999dp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:minHeight">48dp</item>
+    </style>
+
+    <!-- ===== 输入框样式 ===== -->
+    <style name="Widget.ModernAI.TextInputLayout.Outlined" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="boxCornerRadiusTopStart">12dp</item>
+        <item name="boxCornerRadiusTopEnd">12dp</item>
+        <item name="boxCornerRadiusBottomStart">12dp</item>
+        <item name="boxCornerRadiusBottomEnd">12dp</item>
+        <item name="boxStrokeColor">@color/border_default</item>
+        <item name="hintTextColor">@color/text_tertiary</item>
+    </style>
+
+    <style name="Widget.ModernAI.TextInputLayout.Pill" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="boxCornerRadiusTopStart">9999dp</item>
+        <item name="boxCornerRadiusTopEnd">9999dp</item>
+        <item name="boxCornerRadiusBottomStart">9999dp</item>
+        <item name="boxCornerRadiusBottomEnd">9999dp</item>
+        <item name="boxStrokeColor">@color/border_default</item>
+        <item name="android:minHeight">56dp</item>
+    </style>
+
+    <!-- ===== 卡片样式 ===== -->
+    <style name="Widget.ModernAI.Card" parent="Widget.Material3.CardView.Elevated">
+        <item name="cardBackgroundColor">@color/bg_surface</item>
+        <item name="cardElevation">0dp</item>
+        <item name="strokeColor">@color/border_subtle</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="cardCornerRadius">16dp</item>
+        <item name="contentPadding">24dp</item>
+    </style>
+
+    <!-- ===== 聊天消息样式 ===== -->
+    <style name="Widget.ModernAI.Chat.UserBubble">
+        <item name="android:background">@color/chat_user_bubble</item>
+        <item name="android:padding">12dp</item>
+    </style>
+
+    <style name="Widget.ModernAI.Chat.AIBubble">
+        <item name="android:background">@color/chat_ai_bubble</item>
+        <item name="android:padding">12dp</item>
+    </style>
+
+</resources>
