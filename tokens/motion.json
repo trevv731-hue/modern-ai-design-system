@@ -5,6 +5,7 @@
     "fast": { "value": "150ms" },
     "standard": { "value": "250ms" },
     "slow": { "value": "350ms" },
+    "page": { "value": "400ms" },
     "emphasized": { "value": "500ms" },
     "extraSlow": { "value": "700ms" }
   },
@@ -15,31 +16,87 @@
     "sharp": { "value": "cubic-bezier(0.4, 0, 0.2, 1)" },
     "spring": { "value": "cubic-bezier(0.34, 1.56, 0.64, 1)" },
     "springSoft": { "value": "cubic-bezier(0.25, 1.2, 0.5, 1)" },
-    "springGentle": { "value": "cubic-bezier(0.22, 1, 0.36, 1)" },
+    "springGentle": { "value": "cubic-bezier(0.25, 1.2, 0.4, 1)" },
     "emphasis": { "value": "cubic-bezier(0.2, 0, 0, 1)" },
     "emphasisAccelerate": { "value": "cubic-bezier(0.05, 0.7, 0.1, 1)" },
     "emphasisDecelerate": { "value": "cubic-bezier(0, 0, 0, 1)" },
     "linear": { "value": "linear" },
     "outExpo": { "value": "cubic-bezier(0.16, 1, 0.3, 1)" },
-    "inOutExpo": { "value": "cubic-bezier(0.87, 0, 0.13, 1)" }
+    "inOutExpo": { "value": "cubic-bezier(0.87, 0, 0.13, 1)" },
+    "materialStandard": { "value": "cubic-bezier(0.2, 0, 0, 1)" },
+    "materialEmphasized": { "value": "cubic-bezier(0.05, 0.7, 0.1, 1)" }
+  },
+  "spring": {
+    "snappy": { "response": "0.25s", "damping": "0.05" },
+    "default": { "response": "0.35s", "damping": "0.10" },
+    "bouncy": { "response": "0.40s", "damping": "0.20" },
+    "smooth": { "response": "0.50s", "damping": "0.00" },
+    "bounceBudget": { "value": "4%" },
+    "cardHover": { "response": "0.35s", "damping": "0.80" }
   },
   "stagger": {
     "micro": { "value": "20ms" },
     "small": { "value": "40ms" },
     "medium": { "value": "60ms" },
     "large": { "value": "80ms" },
-    "xl": { "value": "120ms" }
+    "xl": { "value": "120ms" },
+    "maxItems": { "value": "8" },
+    "maxTotal": { "value": "300ms" }
   },
   "hover": {
     "scale": { "value": "1.02" },
-    "scaleCard": { "value": "1.01" },
-    "brightness": { "value": "1.02" }
+    "scaleCard": { "value": "1.015" },
+    "translateYCard": { "value": "-3px" },
+    "brightness": { "value": "1.02" },
+    "button": { "scale": "1", "translateY": "0" }
   },
   "press": {
     "scale": { "value": "0.97" },
     "scaleButton": { "value": "0.98" },
-    "scaleCard": { "value": "0.99" },
-    "scaleIcon": { "value": "0.94" }
+    "scaleCard": { "value": "0.98" },
+    "scaleIcon": { "value": "0.94" },
+    "scalePill": { "value": "0.98" }
+  },
+  "sharedAxis": {
+    "translateX": { "value": "16px" },
+    "translateY": { "value": "16px" },
+    "duration": { "value": "300ms" },
+    "enterEase": { "value": "cubic-bezier(0, 0, 0, 1)" },
+    "exitEase": { "value": "cubic-bezier(0.3, 0, 1, 1)" }
+  },
+  "modal": {
+    "enterScale": { "value": "0.95" },
+    "enterTranslateY": { "value": "10px" },
+    "duration": { "value": "250ms" },
+    "ease": { "value": "cubic-bezier(0.2, 0, 0, 1)" }
+  },
+  "sheet": {
+    "duration": { "value": "350ms" },
+    "ease": { "value": "cubic-bezier(0.34, 1.56, 0.64, 1)" },
+    "grabberWidth": { "value": "36px" },
+    "grabberHeight": { "value": "5px" }
+  },
+  "switch": {
+    "trackWidth": { "value": "52px" },
+    "trackHeight": { "value": "32px" },
+    "thumbSize": { "value": "24px" },
+    "thumbPadding": { "value": "4px" },
+    "thumbTranslate": { "value": "20px" },
+    "duration": { "value": "250ms" },
+    "ease": { "value": "cubic-bezier(0.2, 0, 0, 1)" },
+    "colorDuration": { "value": "150ms" }
+  },
+  "input": {
+    "floatingLabelDuration": { "value": "200ms" },
+    "floatingLabelEase": { "value": "cubic-bezier(0.2, 0, 0, 1)" },
+    "underlineFocusWidth": { "value": "2px" },
+    "underlineDefaultWidth": { "value": "1px" }
+  },
+  "ripple": {
+    "expandDuration": { "value": "225ms" },
+    "fadeDuration": { "value": "225ms" },
+    "colorLight": { "value": "rgba(0, 0, 0, 0.12)" },
+    "colorDark": { "value": "rgba(255, 255, 255, 0.15)" }
   },
   "animation": {
     "fadeIn": { "value": "fadeIn 250ms cubic-bezier(0.2, 0, 0, 1) both" },
@@ -51,9 +108,11 @@
     "scaleIn": { "value": "scaleIn 250ms cubic-bezier(0.22, 1, 0.36, 1) both" },
     "scaleOut": { "value": "scaleOut 150ms cubic-bezier(0.3, 0, 1, 1) both" },
     "springIn": { "value": "springIn 400ms cubic-bezier(0.34, 1.56, 0.64, 1) both" },
+    "cardHover": { "value": "cardHover 350ms cubic-bezier(0.34, 1.56, 0.64, 1) both" },
     "fadeThrough": { "value": "fadeThrough 300ms cubic-bezier(0.2, 0, 0, 1) both" },
     "sharedAxisX": { "value": "sharedAxisX 300ms cubic-bezier(0.2, 0, 0, 1) both" },
     "sharedAxisY": { "value": "sharedAxisY 300ms cubic-bezier(0.2, 0, 0, 1) both" },
+    "modalIn": { "value": "modalIn 250ms cubic-bezier(0.2, 0, 0, 1) both" },
     "pulse": { "value": "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite" },
     "pulseSoft": { "value": "pulseSoft 3s ease-in-out infinite" },
     "breathe": { "value": "breathe 4s ease-in-out infinite" },
@@ -68,10 +127,13 @@
     "border": { "value": "border-color 150ms cubic-bezier(0.2, 0, 0, 1)" },
     "opacity": { "value": "opacity 150ms cubic-bezier(0.2, 0, 0, 1)" },
     "transform": { "value": "transform 200ms cubic-bezier(0.22, 1, 0.36, 1)" },
-    "all": { "value": "all 200ms cubic-bezier(0.2, 0, 0, 1)" },
-    "allSpring": { "value": "all 300ms cubic-bezier(0.34, 1.56, 0.64, 1)" },
-    "height": { "value": "height 300ms cubic-bezier(0.22, 1, 0.36, 1)" },
-    "width": { "value": "width 300ms cubic-bezier(0.22, 1, 0.36, 1)" },
-    "boxShadow": { "value": "box-shadow 200ms cubic-bezier(0.2, 0, 0, 1)" }
+    "transformSpring": { "value": "transform 350ms cubic-bezier(0.34, 1.56, 0.64, 1)" },
+    "boxShadow": { "value": "box-shadow 300ms cubic-bezier(0.2, 0, 0, 1)" },
+    "button": { "value": "background-color 150ms cubic-bezier(0.2, 0, 0, 1), transform 0.1s ease" },
+    "card": { "value": "transform 350ms cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 300ms cubic-bezier(0.2, 0, 0, 1)" },
+    "all": { "value": "all 200ms cubic-bezier(0.2, 0, 0, 1)", "comment": "LEGACY - banned in new code" },
+    "allSpring": { "value": "all 300ms cubic-bezier(0.34, 1.56, 0.64, 1)", "comment": "LEGACY - banned in new code" },
+    "height": { "value": "height 300ms cubic-bezier(0.22, 1, 0.36, 1)", "comment": "avoid - use scale or grid-template-rows" },
+    "width": { "value": "width 300ms cubic-bezier(0.22, 1, 0.36, 1)", "comment": "avoid - use transform" }
   }
 }

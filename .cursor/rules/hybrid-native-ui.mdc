@@ -1,0 +1,26 @@
+---
+description: Apply Hybrid Native UI v2.0 (Apple glass chrome + Android shared axis/input/switch + hybrid buttons/lists/modals) for layout, animation, and performance.
+globs: "*.{css,scss,html,js,ts,tsx,swift,kt,kts,vue}"
+alwaysApply: false
+---
+
+When building or changing UI, motion, glass, sheets, buttons, lists, theme, input fields, or switches, follow `.cursor/skills/hybrid-native-ui/SKILL.md`.
+
+v2.0 user preferences (authoritative):
+- Layout: Apple — glass only on chrome (sidebar/toolbar), content opaque, hairline borders
+- Button: Hybrid — hover color darken, active scale(0.98), 150ms ease, NO spring, NO ripple on mouse
+- Card: Apple — hover translateY(-3px) scale(1.015) + shadow, 350ms spring
+- Page switch: Android — shared axis directional translate, 300ms, incoming decelerate / outgoing accelerate
+- List selection: Hybrid — floating pill (white bg + shadow on #F7F7F9 list), 8-10px radius
+- Input: Android — filled style, bottom underline + floating label, focus color #6750A4 purple
+- Modal: Hybrid — centered scale(0.95)+opacity fade in, 250ms ease
+- Switch: Android Material 3 — track #6750A4 when on, thumb #E8DEF8, 250ms translate
+
+Hard rules:
+- Animate transform + opacity only. Never animate top/left/width/height/margin.
+- Glass on chrome only. Never backdrop-filter on content cards or scrolling content.
+- ≤2 live blur regions.
+- No `transition: all`.
+- Spatial (position/scale) may spring; effects (opacity/color/blur) must tween.
+- Respect prefers-reduced-motion.
+- Read `code/` for copy-paste implementations. Run `node .cursor/skills/hybrid-native-ui/scripts/check-css-motion.mjs <file.css>` on CSS you write.

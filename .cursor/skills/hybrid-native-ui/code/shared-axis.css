@@ -1,0 +1,159 @@
+/* ============================================================
+   Hybrid Native UI v2.0 — Shared Axis Transitions (Android M3)
+   Page/panel switches use directional translate to show spatial
+   relationship. Incoming decelerates, outgoing accelerates.
+   ============================================================ */
+
+/* ---------- Shared Axis X (Horizontal, peer pages) ---------- */
+.shared-axis-x {
+  position: relative;
+  overflow: hidden;
+}
+
+.shared-axis-x .page {
+  position: absolute;
+  inset: 0;
+  transition: transform 300ms cubic-bezier(0.2, 0, 0, 1),
+              opacity 200ms ease;
+}
+
+/* Enter from right */
+.shared-axis-x .page.enter-from-right {
+  transform: translateX(16px);
+  opacity: 0;
+}
+.shared-axis-x .page.enter-from-right.active {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+/* Exit to left */
+.shared-axis-x .page.exit-to-left {
+  transform: translateX(-16px);
+  opacity: 0;
+}
+
+/* Enter from left (back navigation) */
+.shared-axis-x .page.enter-from-left {
+  transform: translateX(-16px);
+  opacity: 0;
+}
+.shared-axis-x .page.enter-from-left.active {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+/* Exit to right (back navigation) */
+.shared-axis-x .page.exit-to-right {
+  transform: translateX(16px);
+  opacity: 0;
+}
+
+/* ---------- Shared Axis Y (Vertical, parent → child) ---------- */
+.shared-axis-y {
+  position: relative;
+  overflow: hidden;
+}
+
+.shared-axis-y .page {
+  position: absolute;
+  inset: 0;
+  transition: transform 300ms cubic-bezier(0.2, 0, 0, 1),
+              opacity 200ms ease;
+}
+
+.shared-axis-y .page.enter-from-bottom {
+  transform: translateY(16px);
+  opacity: 0;
+}
+.shared-axis-y .page.enter-from-bottom.active {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.shared-axis-y .page.exit-to-top {
+  transform: translateY(-16px);
+  opacity: 0;
+}
+
+/* ---------- Shared Axis Z (Container transform, card → fullscreen) ---------- */
+.shared-axis-z {
+  position: relative;
+  overflow: hidden;
+}
+
+.shared-axis-z .page {
+  position: absolute;
+  inset: 0;
+  transition: transform 350ms cubic-bezier(0.2, 0, 0, 1),
+              opacity 200ms ease;
+}
+
+.shared-axis-z .page.enter {
+  transform: scale(0.92);
+  opacity: 0;
+}
+.shared-axis-z .page.enter.active {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.shared-axis-z .page.exit {
+  transform: scale(1.05);
+  opacity: 0;
+}
+
+/* ---------- Tab Indicator (Shared Axis) ---------- */
+.tab-indicator {
+  position: absolute;
+  bottom: 0;
+  height: 2px;
+  background: #3B82F6;
+  border-radius: 999px;
+  transition: transform 250ms cubic-bezier(0.34, 1.56, 0.64, 1),
+              width 250ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Segmented control indicator */
+.segmented-indicator-axis {
+  position: absolute;
+  top: 2px;
+  bottom: 2px;
+  background: #fff;
+  border-radius: 7px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  transition: transform 250ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ---------- Fade Through (alternative for unrelated pages) ---------- */
+.fade-through .page {
+  position: absolute;
+  inset: 0;
+  transition: opacity 200ms ease, transform 300ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+.fade-through .page.exit {
+  transform: scale(0.98);
+  opacity: 0;
+}
+
+.fade-through .page.enter {
+  transform: scale(1.02);
+  opacity: 0;
+}
+
+.fade-through .page.enter.active {
+  transform: scale(1);
+  opacity: 1;
+}
+
+/* ---------- Reduced Motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .shared-axis-x .page,
+  .shared-axis-y .page,
+  .shared-axis-z .page,
+  .fade-through .page {
+    transition: opacity 80ms ease !important;
+    transform: none !important;
+  }
+}

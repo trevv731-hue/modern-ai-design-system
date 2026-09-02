@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hybrid Native UI v2.0 — Demo</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #F5F5F7;
+    color: #1C1C1E;
+    padding: 40px 20px;
+    min-height: 100vh;
+  }
+  .container { max-width: 960px; margin: 0 auto; }
+  h1 { font-size: 32px; font-weight: 700; margin-bottom: 8px; }
+  .subtitle { color: #8E8E93; font-size: 14px; margin-bottom: 40px; }
+  .section {
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 24px;
+  }
+  .section-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .section-desc {
+    font-size: 13px;
+    color: #8E8E93;
+    margin-bottom: 20px;
+  }
+  .tag {
+    display: inline-block;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: #E8DEF8;
+    color: #21005D;
+    font-weight: 500;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+  .tag.apple { background: #E5F0FF; color: #1D4ED8; }
+  .tag.android { background: #E8DEF8; color: #21005D; }
+  .tag.hybrid { background: #D1FAE5; color: #065F46; }
+
+  /* Buttons */
+  .btn-row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    gap: 8px; padding: 12px 28px; height: 48px;
+    border: none; border-radius: 9999px;
+    background: #3B82F6; color: #fff;
+    font-size: 14px; font-weight: 500; font-family: inherit;
+    cursor: pointer; user-select: none;
+    transition: background-color 150ms ease, transform 0.1s ease;
+  }
+  .btn:hover { background: #2563EB; }
+  .btn:active { transform: scale(0.98); }
+  .btn-secondary { background: #fff; color: #1C1C1E; border: 1px solid #E5E7EB; }
+  .btn-secondary:hover { background: rgba(0,0,0,0.04); }
+  .btn-ghost { background: transparent; color: #374151; border-radius: 8px; padding: 8px 16px; height: auto; }
+  .btn-ghost:hover { background: rgba(0,0,0,0.04); color: #1C1C1E; }
+  .btn-ai { background: #10A37F; }
+  .btn-ai:hover { background: #0E8C6D; }
+  .btn-danger { background: #EF4444; }
+  .btn-danger:hover { background: #DC2626; }
+  .btn-lg { height: 56px; padding: 0 24px; font-size: 16px; }
+  .btn-sm { height: 36px; padding: 0 16px; font-size: 13px; }
+
+  /* Cards */
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+  .card {
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 16px;
+    padding: 24px;
+    cursor: pointer;
+    transition: transform 350ms cubic-bezier(0.34, 1.56, 0.64, 1),
+                box-shadow 300ms ease;
+  }
+  .card:hover {
+    transform: translateY(-3px) scale(1.015);
+    box-shadow: 0 4px 8px -2px rgba(0,0,0,0.08), 0 2px 4px -2px rgba(0,0,0,0.04);
+  }
+  .card:active { transform: scale(0.98); }
+  .card-icon {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    background: #E5F0FF;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    margin-bottom: 12px;
+  }
+  .card-title { font-size: 15px; font-weight: 600; margin-bottom: 6px; }
+  .card-desc { font-size: 13px; color: #8E8E93; line-height: 1.5; }
+
+  /* Floating Pill List */
+  .list-pill {
+    background: #F7F7F9;
+    padding: 4px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    max-width: 360px;
+  }
+  .list-pill-item {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 16px; min-height: 44px;
+    border-radius: 8px;
+    color: #374151; font-size: 14px;
+    cursor: pointer;
+    transition: background-color 150ms ease, transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .list-pill-item:hover { background: rgba(0,0,0,0.04); }
+  .list-pill-item:active { transform: scale(0.98); }
+  .list-pill-item.active {
+    background: #fff;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    color: #1C1C1E;
+    font-weight: 500;
+  }
+  .list-dot { width: 8px; height: 8px; border-radius: 50%; background: #D1D5DB; flex-shrink: 0; }
+  .list-pill-item.active .list-dot { background: #3B82F6; }
+  .list-chevron { margin-left: auto; color: #C7C9CC; font-size: 12px; }
+
+  /* Input (Android Filled) */
+  .input-row { display: flex; gap: 24px; flex-wrap: wrap; }
+  .input-field { position: relative; padding-top: 18px; flex: 1; min-width: 240px; }
+  .input-field input {
+    width: 100%; padding: 8px 0;
+    border: none; border-bottom: 1px solid #79747E;
+    background: transparent;
+    font-size: 16px; font-family: inherit;
+    color: #1C1C1E; outline: none;
+    transition: border-color 0.2s ease;
+  }
+  .input-field input:focus { border-bottom: 2px solid #6750A4; padding-bottom: 7px; }
+  .input-field label {
+    position: absolute; left: 0; top: 28px;
+    font-size: 16px; color: #79747E;
+    transition: all 0.2s ease;
+    pointer-events: none;
+  }
+  .input-field input:focus + label,
+  .input-field input:not(:placeholder-shown) + label {
+    top: 0; font-size: 12px; color: #6750A4;
+  }
+  .input-field.error input { border-bottom-color: #EF4444; }
+  .input-field.error label { color: #EF4444; }
+  .helper-text { font-size: 12px; color: #8E8E93; margin-top: 4px; }
+  .input-field.error .helper-text { color: #EF4444; }
+
+  /* Switch (Android M3) */
+  .switch-row { display: flex; align-items: center; gap: 16px; }
+  .switch {
+    position: relative; width: 52px; height: 32px;
+    border-radius: 9999px; background: #E0E0E0;
+    cursor: pointer; flex-shrink: 0;
+    transition: background-color 150ms ease;
+  }
+  .switch::after {
+    content: ''; position: absolute; top: 4px; left: 4px;
+    width: 24px; height: 24px; border-radius: 50%;
+    background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    transition: transform 250ms cubic-bezier(0.2, 0, 0, 1), background-color 150ms ease;
+  }
+  .switch.on { background: #6750A4; }
+  .switch.on::after { transform: translateX(20px); background: #E8DEF8; }
+  .switch-label { font-size: 14px; color: #374151; }
+
+  /* Segmented */
+  .segmented {
+    display: flex; background: #F2F2F5;
+    border-radius: 9px; padding: 2px;
+    position: relative; width: fit-content;
+  }
+  .segmented-item {
+    padding: 7px 16px; text-align: center;
+    font-size: 13px; border-radius: 7px;
+    cursor: pointer; color: #374151;
+    position: relative; z-index: 1;
+    transition: color 150ms ease;
+  }
+  .segmented-item.active { color: #1C1C1E; font-weight: 500; }
+  .segmented-indicator {
+    position: absolute; top: 2px; bottom: 2px;
+    width: 80px; background: #fff;
+    border-radius: 7px; box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    transition: transform 250ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  /* Modal */
+  .modal-overlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.4);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 1050; opacity: 0; pointer-events: none;
+    transition: opacity 0.2s ease;
+  }
+  .modal-overlay.show { opacity: 1; pointer-events: auto; }
+  .modal {
+    background: #fff; border-radius: 16px;
+    padding: 24px; width: 480px; max-width: 90vw;
+    transform: scale(0.95) translateY(10px); opacity: 0;
+    transition: transform 0.25s cubic-bezier(0.2, 0, 0, 1), opacity 0.25s cubic-bezier(0.2, 0, 0, 1);
+  }
+  .modal-overlay.show .modal { transform: scale(1) translateY(0); opacity: 1; }
+  .modal-title { font-size: 20px; font-weight: 600; margin-bottom: 12px; }
+  .modal-body { font-size: 14px; color: #374151; line-height: 1.6; margin-bottom: 20px; }
+  .modal-actions { display: flex; justify-content: flex-end; gap: 8px; }
+
+  /* Sheet */
+  .sheet-overlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 1050; opacity: 0; pointer-events: none;
+    transition: opacity 0.15s ease;
+  }
+  .sheet-overlay.show { opacity: 1; pointer-events: auto; }
+  .sheet {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: #fff;
+    border-radius: 24px 24px 0 0;
+    padding: 8px 20px 24px;
+    max-height: 85vh; overflow-y: auto;
+    transform: translateY(100%);
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    z-index: 1051;
+  }
+  .sheet.show { transform: translateY(0); }
+  .sheet-grabber {
+    width: 36px; height: 5px;
+    border-radius: 999px; background: rgba(0,0,0,0.15);
+    margin: 0 auto 16px; cursor: grab;
+  }
+
+  /* Toast */
+  .toast {
+    position: fixed; bottom: 24px; left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: #1C1C1E; color: #fff;
+    padding: 12px 20px; border-radius: 12px;
+    font-size: 14px; box-shadow: 0 12px 24px -4px rgba(0,0,0,0.1);
+    opacity: 0; pointer-events: none;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+    z-index: 1080;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+  /* Checkbox / Radio */
+  .form-row { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+  .checkbox {
+    width: 18px; height: 18px;
+    border: 2px solid #D1D5DB; border-radius: 4px;
+    cursor: pointer; display: inline-flex;
+    align-items: center; justify-content: center;
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+  }
+  .checkbox.checked { background: #3B82F6; border-color: #3B82F6; }
+  .checkbox.checked::after {
+    content: ''; width: 5px; height: 9px;
+    border: solid #fff; border-width: 0 2px 2px 0;
+    transform: rotate(45deg) translate(-1px, -1px);
+  }
+  .radio {
+    width: 18px; height: 18px;
+    border: 2px solid #D1D5DB; border-radius: 50%;
+    cursor: pointer; display: inline-flex;
+    align-items: center; justify-content: center;
+    transition: border-color 0.15s ease;
+  }
+  .radio.checked { border-color: #3B82F6; }
+  .radio.checked::after { content: ''; width: 10px; height: 10px; border-radius: 50%; background: #3B82F6; }
+
+  /* Progress / Spinner */
+  .progress-bar {
+    height: 6px; background: #E5E7EB;
+    border-radius: 9999px; overflow: hidden;
+    margin-bottom: 16px;
+  }
+  .progress-fill {
+    height: 100%; background: #3B82F6;
+    border-radius: 9999px;
+    transition: width 0.5s ease;
+  }
+  .spinner {
+    width: 24px; height: 24px;
+    border: 2.5px solid #E5E7EB;
+    border-top-color: #3B82F6;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* Badge / Tag */
+  .badge {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 18px; height: 18px;
+    padding: 0 6px; border-radius: 999px;
+    background: #EF4444; color: #fff;
+    font-size: 11px; font-weight: 600;
+  }
+  .tag {
+    display: inline-flex; align-items: center;
+    padding: 4px 10px; border-radius: 8px;
+    font-size: 12px; font-weight: 500;
+  }
+  .tag-blue { background: #E5F0FF; color: #1D4ED8; }
+  .tag-purple { background: #E8DEF8; color: #21005D; }
+  .tag-green { background: #D1FAE5; color: #065F46; }
+  .tag-gray { background: #F3F4F6; color: #374151; }
+
+  /* FAB */
+  .fab {
+    position: fixed; bottom: 24px; right: 20px;
+    width: 56px; height: 56px;
+    border-radius: 16px;
+    background: #6750A4; color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px; cursor: pointer;
+    box-shadow: 0 4px 8px -2px rgba(103,80,164,0.35);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    z-index: 1030;
+  }
+  .fab:hover { transform: scale(1.05); box-shadow: 0 6px 12px -2px rgba(103,80,164,0.45); }
+  .fab:active { transform: scale(0.95); }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+    .card:hover { transform: none; }
+    .btn:active { transform: none; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Hybrid Native UI v2.0</h1>
+  <p class="subtitle">基于用户 A/B 选择的混血设计系统 — Apple 布局 + 混合按钮 + Android 输入/开关/页面切换</p>
+
+  <!-- Buttons -->
+  <div class="section">
+    <div class="section-title">按钮 Button <span class="tag hybrid">混合</span></div>
+    <div class="section-desc">hover 背景色加深（150ms），active scale(0.98)（100ms），无 spring，鼠标端无涟漪</div>
+    <div class="btn-row">
+      <button class="btn">主要按钮</button>
+      <button class="btn btn-secondary">次要按钮</button>
+      <button class="btn btn-ghost">幽灵按钮</button>
+      <button class="btn btn-ai">AI 按钮</button>
+      <button class="btn btn-danger">危险按钮</button>
+    </div>
+    <div class="btn-row" style="margin-top: 16px;">
+      <button class="btn btn-lg">大号按钮</button>
+      <button class="btn">中号按钮</button>
+      <button class="btn btn-sm">小号按钮</button>
+      <button class="btn" disabled>禁用按钮</button>
+    </div>
+  </div>
+
+  <!-- Cards -->
+  <div class="section">
+    <div class="section-title">卡片 Card <span class="tag apple">Apple</span></div>
+    <div class="section-desc">hover translateY(-3px) scale(1.015) + shadow，transform 350ms spring，box-shadow 300ms ease</div>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-icon">🎨</div>
+        <div class="card-title">设计系统</div>
+        <div class="card-desc">完整的设计 token、组件规范和动效指南，支持多平台。</div>
+      </div>
+      <div class="card">
+        <div class="card-icon" style="background:#E8DEF8;">⚡</div>
+        <div class="card-title">高性能动效</div>
+        <div class="card-desc">只动 transform / opacity，活着的 blur ≤ 2 块，60fps 流畅。</div>
+      </div>
+      <div class="card">
+        <div class="card-icon" style="background:#D1FAE5;">🔧</div>
+        <div class="card-title">开箱即用</div>
+        <div class="card-desc">CSS / TS / Swift / Compose 多语言代码，复制即可使用。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Pill List -->
+  <div class="section">
+    <div class="section-title">列表选中 List <span class="tag hybrid">混合</span></div>
+    <div class="section-desc">浮动胶囊：列表背景 #F7F7F9，选中项白底 + shadow，点击 scale(0.98) spring 回弹</div>
+    <div class="list-pill" id="demoList">
+      <div class="list-pill-item active"><span class="list-dot"></span>项目概览<span class="list-chevron">›</span></div>
+      <div class="list-pill-item"><span class="list-dot"></span>设计规范<span class="list-chevron">›</span></div>
+      <div class="list-pill-item"><span class="list-dot"></span>组件库<span class="list-chevron">›</span></div>
+      <div class="list-pill-item"><span class="list-dot"></span>动效指南<span class="list-chevron">›</span></div>
+      <div class="list-pill-item"><span class="list-dot"></span>性能优化<span class="list-chevron">›</span></div>
+    </div>
+  </div>
+
+  <!-- Input -->
+  <div class="section">
+    <div class="section-title">输入框 Input <span class="tag android">Android</span></div>
+    <div class="section-desc">filled 风格，底部下划线 + 浮动标签，聚焦紫色 #6750A4，200ms ease</div>
+    <div class="input-row">
+      <div class="input-field">
+        <input type="text" id="input1" placeholder=" ">
+        <label for="input1">用户名</label>
+        <div class="helper-text">请输入您的用户名</div>
+      </div>
+      <div class="input-field">
+        <input type="email" id="input2" placeholder=" " value="hello@example.com">
+        <label for="input2">邮箱地址</label>
+      </div>
+      <div class="input-field error">
+        <input type="password" id="input3" placeholder=" " value="123">
+        <label for="input3">密码</label>
+        <div class="helper-text">密码至少需要 8 位字符</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Switch -->
+  <div class="section">
+    <div class="section-title">开关 Switch <span class="tag android">Android M3</span></div>
+    <div class="section-desc">轨道 52×32px 药丸，滑块 24px，打开时轨道 #6750A4 滑块 #E8DEF8，translate 250ms</div>
+    <div class="switch-row">
+      <div class="switch on" onclick="this.classList.toggle('on')"></div>
+      <span class="switch-label">通知提醒（已开启）</span>
+    </div>
+    <div class="switch-row" style="margin-top: 12px;">
+      <div class="switch" onclick="this.classList.toggle('on')"></div>
+      <span class="switch-label">深色模式（已关闭）</span>
+    </div>
+    <div class="switch-row" style="margin-top: 12px;">
+      <div class="switch on" onclick="this.classList.toggle('on')"></div>
+      <span class="switch-label">自动更新（已开启）</span>
+    </div>
+  </div>
+
+  <!-- Segmented -->
+  <div class="section">
+    <div class="section-title">分段控件 Segmented <span class="tag apple">Apple</span></div>
+    <div class="section-desc">背景 #F2F2F5，选中项白底 + shadow，指示器 spring 滑动</div>
+    <div class="segmented" id="demoSegmented">
+      <div class="segmented-indicator" id="segIndicator"></div>
+      <div class="segmented-item active" data-index="0">列表</div>
+      <div class="segmented-item" data-index="1">网格</div>
+      <div class="segmented-item" data-index="2">时间线</div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="section">
+    <div class="section-title">弹窗 Modal <span class="tag hybrid">混合</span></div>
+    <div class="section-desc">居中，scale(0.95) translateY(10px) opacity(0) → 1，250ms ease，遮罩 rgba(0,0,0,0.4)</div>
+    <button class="btn" onclick="document.getElementById('demoModal').classList.add('show')">打开弹窗</button>
+  </div>
+
+  <!-- Sheet -->
+  <div class="section">
+    <div class="section-title">底部面板 Sheet <span class="tag apple">Apple</span></div>
+    <div class="section-desc">从底部滑入，spring 动效，支持拖拽关闭，grabber 指示器</div>
+    <button class="btn btn-secondary" onclick="document.getElementById('demoSheet').classList.add('show'); document.getElementById('demoSheetOverlay').classList.add('show')">打开底部面板</button>
+  </div>
+
+  <!-- Form Controls -->
+  <div class="section">
+    <div class="section-title">表单控件 Form Controls</div>
+    <div class="section-desc">复选框、单选框、进度条、加载指示器</div>
+    <div class="form-row">
+      <div class="checkbox checked" onclick="this.classList.toggle('checked')"></div>
+      <span style="font-size:14px;">接受服务条款</span>
+    </div>
+    <div class="form-row">
+      <div class="checkbox" onclick="this.classList.toggle('checked')"></div>
+      <span style="font-size:14px;">订阅新闻通讯</span>
+    </div>
+    <div class="form-row">
+      <div class="radio checked" onclick="document.querySelectorAll('.radio').forEach(r=>r.classList.remove('checked'));this.classList.add('checked')"></div>
+      <span style="font-size:14px;">按月付费</span>
+    </div>
+    <div class="form-row">
+      <div class="radio" onclick="document.querySelectorAll('.radio').forEach(r=>r.classList.remove('checked'));this.classList.add('checked')"></div>
+      <span style="font-size:14px;">按年付费（省 20%）</span>
+    </div>
+    <div style="margin-top: 16px;">
+      <div class="progress-bar"><div class="progress-fill" style="width: 65%;"></div></div>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="spinner"></div>
+        <span style="font-size:13px;color:#8E8E93;">加载中...</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Badges / Tags -->
+  <div class="section">
+    <div class="section-title">徽章与标签 Badge & Tag</div>
+    <div class="section-desc">数字徽章、状态标签</div>
+    <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
+      <span class="badge">3</span>
+      <span class="badge">99+</span>
+      <span class="tag tag-blue">进行中</span>
+      <span class="tag tag-purple">已审核</span>
+      <span class="tag tag-green">已完成</span>
+      <span class="tag tag-gray">草稿</span>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="section">
+    <div class="section-title">轻提示 Toast</div>
+    <div class="section-desc">底部居中，translateY + fade，250ms ease</div>
+    <button class="btn btn-ghost" onclick="showToast('操作成功完成！')">显示 Toast</button>
+  </div>
+
+  <div style="height: 80px;"></div>
+</div>
+
+<!-- FAB -->
+<div class="fab" onclick="showToast('新建项目')">+</div>
+
+<!-- Modal -->
+<div class="modal-overlay" id="demoModal" onclick="if(event.target===this)this.classList.remove('show')">
+  <div class="modal">
+    <div class="modal-title">确认操作</div>
+    <div class="modal-body">您确定要执行此操作吗？此操作可能会影响您的数据，请谨慎确认。</div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="document.getElementById('demoModal').classList.remove('show')">取消</button>
+      <button class="btn" onclick="document.getElementById('demoModal').classList.remove('show');showToast('操作已确认')">确认</button>
+    </div>
+  </div>
+</div>
+
+<!-- Sheet -->
+<div class="sheet-overlay" id="demoSheetOverlay" onclick="document.getElementById('demoSheet').classList.remove('show');this.classList.remove('show')"></div>
+<div class="sheet" id="demoSheet">
+  <div class="sheet-grabber"></div>
+  <div style="font-size:18px;font-weight:600;margin-bottom:16px;">更多选项</div>
+  <div class="list-pill" style="max-width:none;">
+    <div class="list-pill-item"><span class="list-dot"></span>分享<span class="list-chevron">›</span></div>
+    <div class="list-pill-item"><span class="list-dot"></span>收藏<span class="list-chevron">›</span></div>
+    <div class="list-pill-item"><span class="list-dot"></span>编辑<span class="list-chevron">›</span></div>
+    <div class="list-pill-item" style="color:#EF4444;"><span class="list-dot" style="background:#EF4444;"></span>删除</div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="demoToast">操作成功</div>
+
+<script>
+  // Floating pill list
+  document.querySelectorAll('#demoList .list-pill-item').forEach(item => {
+    item.addEventListener('click', () => {
+      document.querySelectorAll('#demoList .list-pill-item').forEach(i => i.classList.remove('active'));
+      item.classList.add('active');
+    });
+  });
+
+  // Segmented control
+  const segItems = document.querySelectorAll('#demoSegmented .segmented-item');
+  const segIndicator = document.getElementById('segIndicator');
+  segItems.forEach((item, index) => {
+    item.addEventListener('click', () => {
+      segItems.forEach(i => i.classList.remove('active'));
+      item.classList.add('active');
+      segIndicator.style.transform = `translateX(${index * 80}px)`;
+    });
+  });
+
+  // Toast
+  let toastTimer;
+  function showToast(message) {
+    const toast = document.getElementById('demoToast');
+    toast.textContent = message;
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 2500);
+  }
+</script>
+</body>
+</html>

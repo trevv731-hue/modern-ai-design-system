@@ -24,46 +24,106 @@
       "radius": { "value": "12px" },
       "radiusPill": { "value": "9999px" },
       "activeScale": { "value": "0.98" },
-      "hoverLift": { "value": "1.02" },
-      "gap": { "value": "8px" }
+      "hoverLift": { "value": "1" },
+      "hoverDuration": { "value": "150ms" },
+      "activeDuration": { "value": "100ms" },
+      "useSpring": { "value": "false" },
+      "useRippleMouse": { "value": "false" },
+      "useRippleTouch": { "value": "true" },
+      "gap": { "value": "8px" },
+      "style": { "value": "hybrid" }
     },
     "input": {
       "height": {
         "md": { "value": "48px" },
         "lg": { "value": "56px" },
-        "sm": { "value": "40px" }
+        "sm": { "value": "40px" },
+        "withLabel": { "value": "56px" }
       },
       "paddingX": { "value": "16px" },
       "paddingXPill": { "value": "20px" },
+      "paddingTopLabel": { "value": "18px" },
       "fontSize": { "value": "16px" },
+      "labelFontSize": { "value": "16px" },
+      "labelFontSizeFloat": { "value": "12px" },
       "radius": { "value": "12px" },
       "radiusPill": { "value": "9999px" },
-      "radiusFilled": { "value": "8px" },
-      "focusRing": { "value": "0 0 0 3px rgba(59, 130, 246, 0.1)" }
+      "radiusFilled": { "value": "4px" },
+      "underlineWidth": { "value": "1px" },
+      "underlineWidthFocus": { "value": "2px" },
+      "underlineColor": { "value": "#79747E" },
+      "underlineColorFocus": { "value": "#6750A4" },
+      "labelColor": { "value": "#79747E" },
+      "labelColorFocus": { "value": "#6750A4" },
+      "focusRing": { "value": "0 0 0 3px rgba(59, 130, 246, 0.1)" },
+      "focusRingAndroid": { "value": "0 0 0 3px rgba(103, 80, 164, 0.12)" },
+      "style": { "value": "android-filled" },
+      "floatingLabel": { "value": "true" },
+      "floatDuration": { "value": "200ms" }
     },
     "card": {
       "radius": { "value": "16px" },
       "radiusLg": { "value": "20px" },
       "radiusXl": { "value": "24px" },
+      "continuousCorner": { "value": "true" },
       "padding": { "value": "24px" },
       "paddingMin": { "value": "20px" },
       "paddingSm": { "value": "16px" },
-      "activeScale": { "value": "0.99" },
-      "hoverBorder": { "value": "rgba(0, 0, 0, 0.1)" }
+      "activeScale": { "value": "0.98" },
+      "hoverScale": { "value": "1.015" },
+      "hoverTranslateY": { "value": "-3px" },
+      "hoverShadow": { "value": "0 4px 8px -2px rgba(0, 0, 0, 0.08)" },
+      "hoverDuration": { "value": "350ms" },
+      "hoverEase": { "value": "cubic-bezier(0.34, 1.56, 0.64, 1)" },
+      "defaultShadow": { "value": "none" },
+      "border": { "value": "1px solid rgba(0, 0, 0, 0.06)" },
+      "useGlass": { "value": "false" },
+      "style": { "value": "apple" }
     },
     "list": {
-      "itemHeight": { "value": "52px" },
-      "itemHeightSm": { "value": "44px" },
-      "itemHeightLg": { "value": "60px" },
-      "itemRadius": { "value": "10px" },
+      "itemHeight": { "value": "44px" },
+      "itemHeightSm": { "value": "40px" },
+      "itemHeightLg": { "value": "52px" },
+      "itemRadius": { "value": "8px" },
+      "itemRadiusLg": { "value": "10px" },
       "itemPaddingX": { "value": "16px" },
-      "itemGap": { "value": "12px" },
-      "divider": { "value": "rgba(0, 0, 0, 0.06)" },
+      "itemGap": { "value": "2px" },
+      "containerBg": { "value": "#F7F7F9" },
+      "containerPadding": { "value": "4px" },
+      "containerRadius": { "value": "10px" },
+      "selectedBg": { "value": "#FFFFFF" },
+      "selectedShadow": { "value": "0 1px 2px rgba(0, 0, 0, 0.04)" },
+      "selectedTextColor": { "value": "#1C1C1E" },
+      "selectedIndicatorColor": { "value": "#3B82F6" },
+      "hoverBg": { "value": "rgba(0, 0, 0, 0.04)" },
+      "pressScale": { "value": "0.98" },
+      "divider": { "value": "none" },
+      "useDivider": { "value": "false" },
       "groupTitleFontSize": { "value": "12px" },
-      "groupTitleColor": { "value": "#8E8E93" }
+      "groupTitleColor": { "value": "#8E8E93" },
+      "style": { "value": "hybrid-floating-pill" }
+    },
+    "switch": {
+      "trackWidth": { "value": "52px" },
+      "trackHeight": { "value": "32px" },
+      "thumbSize": { "value": "24px" },
+      "thumbPadding": { "value": "4px" },
+      "thumbTranslate": { "value": "20px" },
+      "trackRadius": { "value": "9999px" },
+      "thumbRadius": { "value": "9999px" },
+      "trackColorOff": { "value": "#E0E0E0" },
+      "trackColorOn": { "value": "#6750A4" },
+      "thumbColorOff": { "value": "#FFFFFF" },
+      "thumbColorOn": { "value": "#E8DEF8" },
+      "thumbShadow": { "value": "0 1px 3px rgba(0, 0, 0, 0.3)" },
+      "duration": { "value": "250ms" },
+      "ease": { "value": "cubic-bezier(0.2, 0, 0, 1)" },
+      "colorDuration": { "value": "150ms" },
+      "useRipple": { "value": "true" },
+      "style": { "value": "android-material3" }
     },
     "chip": {
-      "height": { "value": "30px" },
+      "height": { "value": "32px" },
       "heightSm": { "value": "26px" },
       "paddingX": { "value": "12px" },
       "paddingXSm": { "value": "10px" },
@@ -71,7 +131,9 @@
       "radius": { "value": "8px" },
       "radiusPill": { "value": "9999px" },
       "gap": { "value": "6px" },
-      "activeScale": { "value": "0.95" }
+      "activeScale": { "value": "0.95" },
+      "selectedBg": { "value": "#E8DEF8" },
+      "selectedText": { "value": "#21005D" }
     },
     "avatar": {
       "size": { "value": "40px" },
@@ -97,24 +159,31 @@
       "size": { "value": "56px" },
       "sizeSm": { "value": "48px" },
       "sizeLg": { "value": "64px" },
-      "radius": { "value": "9999px" },
+      "radius": { "value": "16px" },
       "iconSize": { "value": "24px" },
       "offsetBottom": { "value": "80px" },
       "offsetRight": { "value": "20px" },
       "activeScale": { "value": "0.95" },
-      "hoverScale": { "value": "1.05" }
+      "hoverScale": { "value": "1.05" },
+      "bgColor": { "value": "#6750A4" },
+      "restingShadow": { "value": "0 4px 8px -2px rgba(103, 80, 164, 0.35)" },
+      "pressedShadow": { "value": "0 6px 12px -2px rgba(103, 80, 164, 0.45)" }
     },
     "sheet": {
       "radius": { "value": "16px" },
       "radiusLg": { "value": "24px" },
       "handleWidth": { "value": "36px" },
-      "handleHeight": { "value": "4px" },
-      "handleRadius": { "value": "9999px" },
+      "handleHeight": { "value": "5px" },
+      "handleRadius": { "value": "999px" },
+      "handleColor": { "value": "rgba(0, 0, 0, 0.15)" },
       "handleMargin": { "value": "16px" },
       "padding": { "value": "20px" },
       "paddingBottom": { "value": "calc(24px + env(safe-area-inset-bottom))" },
       "maxHeight": { "value": "85vh" },
-      "backdropBlur": { "value": "4px" }
+      "backdropBlur": { "value": "4px" },
+      "duration": { "value": "350ms" },
+      "ease": { "value": "cubic-bezier(0.34, 1.56, 0.64, 1)" },
+      "draggable": { "value": "true" }
     },
     "sidebar": {
       "width": {
@@ -127,13 +196,26 @@
       "itemRadius": { "value": "8px" },
       "itemPaddingX": { "value": "12px" },
       "groupTitleFontSize": { "value": "12px" },
-      "indicatorWidth": { "value": "3px" }
+      "indicatorWidth": { "value": "3px" },
+      "bg": { "value": "rgba(255, 255, 255, 0.72)" },
+      "blur": { "value": "blur(20px)" },
+      "saturation": { "value": "saturate(180%)" },
+      "border": { "value": "1px solid rgba(255, 255, 255, 0.5)" },
+      "selectedBg": { "value": "rgba(0, 0, 0, 0.06)" },
+      "selectedText": { "value": "#1C1C1E" },
+      "hoverBg": { "value": "rgba(0, 0, 0, 0.04)" },
+      "useGlass": { "value": "true" },
+      "style": { "value": "apple-glass" }
     },
     "navbar": {
       "heightMobile": { "value": "56px" },
       "heightDesktop": { "value": "48px" },
       "iconSize": { "value": "20px" },
-      "hitArea": { "value": "40px" }
+      "hitArea": { "value": "40px" },
+      "bg": { "value": "rgba(255, 255, 255, 0.6)" },
+      "blur": { "value": "blur(12px)" },
+      "border": { "value": "1px solid rgba(0, 0, 0, 0.06)" },
+      "useGlass": { "value": "true" }
     },
     "modal": {
       "width": {
@@ -143,11 +225,16 @@
       },
       "radius": { "value": "16px" },
       "radiusLg": { "value": "24px" },
+      "continuousCorner": { "value": "true" },
       "padding": { "value": "24px" },
       "backdropOpacity": { "value": "0.4" },
       "backdropBlur": { "value": "4px" },
       "appearScale": { "value": "0.95" },
-      "appearOffset": { "value": "8px" }
+      "appearOffsetY": { "value": "10px" },
+      "duration": { "value": "250ms" },
+      "ease": { "value": "cubic-bezier(0.2, 0, 0, 1)" },
+      "useSpring": { "value": "false" },
+      "style": { "value": "hybrid" }
     },
     "dropdown": {
       "radius": { "value": "12px" },
@@ -155,7 +242,8 @@
       "itemHeight": { "value": "40px" },
       "itemRadius": { "value": "8px" },
       "itemPaddingX": { "value": "12px" },
-      "appearOffset": { "value": "-4px" }
+      "appearOffset": { "value": "-4px" },
+      "useGlass": { "value": "optional" }
     },
     "codeBlock": {
       "radius": { "value": "12px" },
@@ -169,7 +257,9 @@
       "bubblePadding": { "value": "12px 16px" },
       "messageOffset": { "value": "8px" },
       "typewriterCharDelay": { "value": "25ms" },
-      "cursorBlink": { "value": "530ms" }
+      "cursorBlink": { "value": "530ms" },
+      "inputHeight": { "value": "56px" },
+      "inputRadius": { "value": "9999px" }
     },
     "badge": {
       "fontSize": { "value": "11px" },
@@ -192,7 +282,8 @@
         "xl": { "value": "12px" }
       },
       "radius": { "value": "9999px" },
-      "indeterminateDuration": { "value": "1.5s" }
+      "indeterminateDuration": { "value": "1.5s" },
+      "indeterminateTranslate": { "value": "30%" }
     },
     "spinner": {
       "size": {
@@ -209,7 +300,8 @@
       "radius": { "value": "8px" },
       "bg": { "value": "#F3F4F6" },
       "highlight": { "value": "rgba(255, 255, 255, 0.6)" },
-      "duration": { "value": "1.5s" }
+      "duration": { "value": "1.5s" },
+      "useTransform": { "value": "true" }
     },
     "toast": {
       "radius": { "value": "12px" },
@@ -218,7 +310,8 @@
       "offsetBottom": { "value": "24px" },
       "appearOffset": { "value": "20px" },
       "durationDefault": { "value": "3000ms" },
-      "durationAction": { "value": "5000ms" }
+      "durationAction": { "value": "5000ms" },
+      "maxStack": { "value": "1" }
     },
     "segmented": {
       "height": { "value": "36px" },
@@ -227,22 +320,38 @@
       "itemRadius": { "value": "7px" },
       "fontSize": { "value": "13px" },
       "activeBg": { "value": "#FFFFFF" },
-      "bg": { "value": "#F2F2F5" }
+      "bg": { "value": "#F2F2F5" },
+      "indicatorDuration": { "value": "250ms" },
+      "indicatorEase": { "value": "cubic-bezier(0.34, 1.56, 0.64, 1)" }
     },
-    "material": {
-      "glass": {
-        "bg": { "value": "rgba(255, 255, 255, 0.7)" },
-        "bgStrong": { "value": "rgba(255, 255, 255, 0.85)" },
-        "blur": { "value": "12px" },
-        "blurLg": { "value": "20px" },
-        "saturation": { "value": "180%" },
+    "sharedAxis": {
+      "translateX": { "value": "16px" },
+      "translateY": { "value": "16px" },
+      "duration": { "value": "300ms" },
+      "enterEase": { "value": "cubic-bezier(0, 0, 0, 1)" },
+      "exitEase": { "value": "cubic-bezier(0.3, 0, 1, 1)" },
+      "fadeDuration": { "value": "200ms" }
+    },
+    "glass": {
+      "chrome": {
+        "bg": { "value": "rgba(255, 255, 255, 0.72)" },
+        "bgLight": { "value": "rgba(255, 255, 255, 0.6)" },
+        "blur": { "value": "blur(20px)" },
+        "blurLight": { "value": "blur(12px)" },
+        "saturation": { "value": "saturate(180%)" },
         "border": { "value": "1px solid rgba(255, 255, 255, 0.5)" }
       },
-      "ripple": {
-        "colorLight": { "value": "rgba(0, 0, 0, 0.08)" },
-        "colorDark": { "value": "rgba(255, 255, 255, 0.12)" },
-        "duration": { "value": "225ms" }
-      }
+      "maxLiveRegions": { "value": "2" },
+      "maxBlurRadius": { "value": "24px" },
+      "useOnContent": { "value": "false" }
+    },
+    "ripple": {
+      "colorLight": { "value": "rgba(0, 0, 0, 0.12)" },
+      "colorDark": { "value": "rgba(255, 255, 255, 0.15)" },
+      "expandDuration": { "value": "225ms" },
+      "fadeDuration": { "value": "225ms" },
+      "useOnMouse": { "value": "false" },
+      "useOnTouch": { "value": "true" }
     },
     "elevation": {
       "level0": { "value": "0dp" },

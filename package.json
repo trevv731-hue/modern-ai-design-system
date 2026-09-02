@@ -1,11 +1,12 @@
 {
   "name": "modern-ai-design-system",
-  "version": "1.0.0",
-  "description": "现代 AI 生产力设计系统 - 融合 Apple、Android、ChatGPT 的跨平台 Design Tokens",
+  "version": "2.0.0",
+  "description": "现代 AI 生产力设计系统 v2.0 - 基于用户 A/B 选择的混血设计系统（Apple+Android），含 Design Tokens + AI 协作 Skill + 四端组件代码",
   "main": "build.js",
   "scripts": {
     "build": "node build.js",
-    "watch": "node build.js --watch"
+    "watch": "node build.js --watch",
+    "lint:motion": "node .cursor/skills/hybrid-native-ui/scripts/check-css-motion.mjs .cursor/skills/hybrid-native-ui/code/motion.css .cursor/skills/hybrid-native-ui/code/glass.css .cursor/skills/hybrid-native-ui/code/shared-axis.css"
   },
   "keywords": [
     "design-tokens",
@@ -13,7 +14,10 @@
     "ui",
     "apple",
     "android",
-    "chatgpt"
+    "material-design",
+    "hybrid-ui",
+    "cursor-ai",
+    "design-skill"
   ],
   "author": "",
   "license": "MIT",

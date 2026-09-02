@@ -1,17 +1,25 @@
 {
   "shadow": {
     "none": { "value": "none" },
-    "xs": { "value": "0 1px 1px 0 rgba(0, 0, 0, 0.03)" },
-    "sm": { "value": "0 1px 2px 0 rgba(0, 0, 0, 0.05)" },
-    "md": { "value": "0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.02)" },
-    "lg": { "value": "0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.02)" },
-    "xl": { "value": "0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.03)" },
+    "xs": { "value": "0 1px 2px 0 rgba(0, 0, 0, 0.04)" },
+    "sm": { "value": "0 1px 3px 0 rgba(0, 0, 0, 0.06), 0 1px 2px -1px rgba(0, 0, 0, 0.04)" },
+    "md": { "value": "0 4px 8px -2px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.04)" },
+    "lg": { "value": "0 12px 24px -4px rgba(0, 0, 0, 0.1), 0 4px 8px -4px rgba(0, 0, 0, 0.06)" },
+    "xl": { "value": "0 20px 40px -8px rgba(0, 0, 0, 0.12), 0 8px 16px -8px rgba(0, 0, 0, 0.06)" },
     "2xl": { "value": "0 25px 50px -12px rgba(0, 0, 0, 0.12)" },
+    "cardHover": { "value": "0 4px 8px -2px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.04)" },
+    "cardHoverStrong": { "value": "0 12px 24px -4px rgba(0, 0, 0, 0.1), 0 4px 8px -4px rgba(0, 0, 0, 0.06)" },
+    "floatingPill": { "value": "0 1px 2px 0 rgba(0, 0, 0, 0.04)" },
     "inner": { "value": "inset 0 2px 4px 0 rgba(0, 0, 0, 0.04)" },
     "focus": { "value": "0 0 0 3px rgba(59, 130, 246, 0.1)" },
+    "focusAndroid": { "value": "0 0 0 3px rgba(103, 80, 164, 0.12)" },
     "focusAi": { "value": "0 0 0 3px rgba(16, 163, 127, 0.12)" },
     "coloredPrimary": { "value": "0 4px 12px -2px rgba(59, 130, 246, 0.25)" },
+    "coloredSecondary": { "value": "0 4px 12px -2px rgba(103, 80, 164, 0.25)" },
     "coloredAi": { "value": "0 4px 12px -2px rgba(16, 163, 127, 0.25)" },
-    "coloredError": { "value": "0 4px 12px -2px rgba(239, 68, 68, 0.25)" }
+    "coloredError": { "value": "0 4px 12px -2px rgba(239, 68, 68, 0.25)" },
+    "switchThumb": { "value": "0 1px 3px rgba(0, 0, 0, 0.3)" },
+    "fab": { "value": "0 4px 8px -2px rgba(103, 80, 164, 0.35)" },
+    "fabPressed": { "value": "0 6px 12px -2px rgba(103, 80, 164, 0.45)" }
   }
 }
