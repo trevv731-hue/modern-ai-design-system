@@ -10,7 +10,7 @@ for name in ['tokens', 'web', 'scripts', 'docs', 'dist', '.cursor']:
     inputs.extend(file for file in (root / name).rglob('*')
                   if file.is_file() and '__pycache__' not in file.parts)
 for name in ['README.md', 'DESIGN-SPEC.md', 'compare.html', 'index.html',
-             'handbook.html', 'build.js', 'package.json', 'package-lock.json', '.gitignore']:
+             'handbook.html', 'build.js', 'package.json', 'package-lock.json', '.gitignore', 'LICENSE']:
     inputs.append(root / name)
 inputs.extend((root / 'artifacts').glob('*.png'))
 inputs.extend((root / 'artifacts').glob('*.md'))
