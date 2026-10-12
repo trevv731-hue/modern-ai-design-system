@@ -1,0 +1,13 @@
+{
+  "version": "3.0.0",
+  "componentCount": 28,
+  "reactComponentCount": 11,
+  "themeCount": 2,
+  "densities": [
+    "compact",
+    "comfortable",
+    "touch"
+  ],
+  "source": "tokens/web.json",
+  "license": "MIT"
+}

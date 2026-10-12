@@ -237,3 +237,13 @@
     background: rgba(255, 255, 255, 0.95);
   }
 }
+
+/* Reduced motion does not animate materials. High contrast uses opaque surfaces. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+}
+@media (forced-colors: active) {
+  .glass, .glass-light, .glass-strong, .sidebar, .toolbar {
+    backdrop-filter: none; -webkit-backdrop-filter: none; background: Canvas; border-color: CanvasText;
+  }
+}

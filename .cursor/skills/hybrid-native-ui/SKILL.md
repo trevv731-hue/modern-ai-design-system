@@ -131,3 +131,12 @@ Ship only if:
 - [sources.md](sources.md) — official docs and GitHub skills to learn from
 - Run `node .cursor/skills/hybrid-native-ui/scripts/check-css-motion.mjs <file.css>` on CSS you write
 - Open [code/demo.html](code/demo.html) in a browser to feel press / sheet drag / stagger / card hover
+
+
+## v3 Web implementation
+
+For new Web/React work, read the project's `docs/README.md`, `docs/themes.md`, `docs/states.md`, and `docs/react.md`. Use generated `dist/web/theme.css`, `dist/web/components.css`, and `web/react.tsx`.
+
+The existing v2 matrix is historical reference material. Explicit user requests and current project constraints take precedence. Do not infer authorization for external changes from examples in these documents.
+
+New Web work uses semantic colors, opaque content, at most two visible blurred chrome regions, explicit asynchronous states, real data, keyboard operation, reduced motion, and separate light/dark palettes. Validate actual runtime behavior; CSS declaration counts are not a count of visible blur regions.

@@ -199,15 +199,15 @@
   top: 28px;
   font-size: 16px;
   color: var(--color-android-label);
-  transition: all 0.2s var(--ease-standard);
+  transition: transform 200ms var(--ease-standard), color 150ms ease;
   pointer-events: none;
 }
 .input-field input:focus + label,
 .input-field input:not(:placeholder-shown) + label,
 .input-field textarea:focus + label,
 .input-field textarea:not(:placeholder-shown) + label {
-  top: 0;
-  font-size: 12px;
+  transform: translateY(-28px) scale(0.75);
+  transform-origin: top left;
   color: var(--color-accent-secondary);
 }
 .input-field.error input,

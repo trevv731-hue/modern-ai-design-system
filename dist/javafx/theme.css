@@ -10,20 +10,27 @@
 .root {
 
   /* ===== 颜色 Tokens (作为参考，使用时复制值) ===== */
-  /* color-bg-base = #f7f7f9 */
+  /* color-bg-base = #f5f5f7 */
   /* color-bg-base-alt = #f2f2f5 */
   /* color-bg-surface = #ffffff */
   /* color-bg-surface-alt = #fafafb */
   /* color-bg-elevated = #ffffff */
-  /* color-bg-hover = rgba(0, 0, 0, 0.03) */
+  /* color-bg-chrome = rgba(255, 255, 255, 0.72) */
+  /* color-bg-chrome-light = rgba(255, 255, 255, 0.6) */
+  /* color-bg-hover = rgba(0, 0, 0, 0.04) */
   /* color-bg-active = rgba(0, 0, 0, 0.06) */
-  /* color-bg-selected = rgba(59, 130, 246, 0.08) */
+  /* color-bg-selected = #ffffff */
+  /* color-bg-selected-soft = rgba(0, 0, 0, 0.06) */
+  /* color-bg-selected-blue = rgba(59, 130, 246, 0.08) */
   /* color-bg-overlay = rgba(0, 0, 0, 0.4) */
   /* color-bg-overlay-strong = rgba(0, 0, 0, 0.6) */
+  /* color-border-hairline = rgba(0, 0, 0, 0.06) */
   /* color-border-subtle = rgba(0, 0, 0, 0.04) */
   /* color-border-default = #e5e7eb */
   /* color-border-strong = #d1d5db */
   /* color-border-focus = #3b82f6 */
+  /* color-border-android-focus = #6750a4 */
+  /* color-border-chrome = rgba(255, 255, 255, 0.5) */
   /* color-border-divider = rgba(0, 0, 0, 0.06) */
   /* color-text-primary = #1c1c1e */
   /* color-text-secondary = #374151 */
@@ -33,11 +40,18 @@
   /* color-text-link = #3b82f6 */
   /* color-text-placeholder = #9ca3af */
   /* color-text-disabled = #9ca3af */
+  /* color-text-android-label = #79747e */
+  /* color-text-android-label-focus = #6750a4 */
   /* color-accent-primary = #3b82f6 */
   /* color-accent-primary-hover = #2563eb */
   /* color-accent-primary-active = #1d4ed8 */
   /* color-accent-primary-bg = rgba(59, 130, 246, 0.08) */
   /* color-accent-primary-bg-strong = rgba(59, 130, 246, 0.14) */
+  /* color-accent-secondary = #6750a4 */
+  /* color-accent-secondary-hover = #5a4594 */
+  /* color-accent-secondary-container = #e8def8 */
+  /* color-accent-secondary-on-container = #21005d */
+  /* color-accent-secondary-thumb = #e8def8 */
   /* color-accent-ai = #10a37f */
   /* color-accent-ai-hover = #0e8c6d */
   /* color-accent-ai-bg = rgba(16, 163, 127, 0.08) */
@@ -72,16 +86,35 @@
   /* color-chat-code-border = #e5e7eb */
   /* color-chat-input-bg = #ffffff */
   /* color-chat-divider = rgba(0, 0, 0, 0.06) */
+  /* color-material-primary = #6750a4 */
+  /* color-material-on-primary = #ffffff */
+  /* color-material-primary-container = #e8def8 */
+  /* color-material-on-primary-container = #21005d */
+  /* color-material-surface = #fef7ff */
+  /* color-material-on-surface = #1c1b1f */
+  /* color-material-surface-variant = #e7e0ec */
+  /* color-material-on-surface-variant = #49454f */
+  /* color-material-outline = #79747e */
+  /* color-material-outline-variant = #cac4d0 */
   /* color-dark-bg-base = #1c1c1e */
   /* color-dark-bg-surface = #2c2c2e */
   /* color-dark-bg-elevated = #3a3a3c */
-  /* color-dark-border-subtle = rgba(255, 255, 255, 0.08) */
+  /* color-dark-bg-chrome = rgba(28, 28, 30, 0.72) */
+  /* color-dark-bg-selected = #3a3a3c */
+  /* color-dark-border-hairline = rgba(255, 255, 255, 0.08) */
+  /* color-dark-border-subtle = rgba(255, 255, 255, 0.06) */
   /* color-dark-border-default = #38383a */
+  /* color-dark-border-chrome = rgba(255, 255, 255, 0.1) */
   /* color-dark-text-primary = #ffffff */
   /* color-dark-text-secondary = #e5e7eb */
   /* color-dark-text-tertiary = #8e8e93 */
   /* color-dark-accent-primary = #60a5fa */
+  /* color-dark-accent-secondary = #d0bcff */
+  /* color-dark-accent-secondary-thumb = #21005d */
   /* color-dark-accent-ai = #34d399 */
+  /* color-dark-switch-track-off = #4a4a4c */
+  /* color-dark-switch-track-on = #d0bcff */
+  /* color-dark-switch-thumb-on = #21005d */
 
   /* ===== 尺寸 Tokens ===== */
   /* radius-none = 0px */

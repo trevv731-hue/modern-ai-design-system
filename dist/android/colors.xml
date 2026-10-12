@@ -2,23 +2,30 @@
 
 <!--
   Do not edit directly
-  Generated on Wed, 02 Sep 2026 09:53:49 GMT
+  Generated on Mon, 12 Oct 2026 12:25:32 GMT
 -->
 <resources>
-  <color name="color_bg_base">#fff7f7f9</color>
+  <color name="color_bg_base">#fff5f5f7</color>
   <color name="color_bg_base_alt">#fff2f2f5</color>
   <color name="color_bg_surface">#ffffffff</color>
   <color name="color_bg_surface_alt">#fffafafb</color>
   <color name="color_bg_elevated">#ffffffff</color>
-  <color name="color_bg_hover">#08000000</color>
+  <color name="color_bg_chrome">#b8ffffff</color>
+  <color name="color_bg_chrome_light">#99ffffff</color>
+  <color name="color_bg_hover">#0a000000</color>
   <color name="color_bg_active">#0f000000</color>
-  <color name="color_bg_selected">#143b82f6</color>
+  <color name="color_bg_selected">#ffffffff</color>
+  <color name="color_bg_selected_soft">#0f000000</color>
+  <color name="color_bg_selected_blue">#143b82f6</color>
   <color name="color_bg_overlay">#66000000</color>
   <color name="color_bg_overlay_strong">#99000000</color>
+  <color name="color_border_hairline">#0f000000</color>
   <color name="color_border_subtle">#0a000000</color>
   <color name="color_border_default">#ffe5e7eb</color>
   <color name="color_border_strong">#ffd1d5db</color>
   <color name="color_border_focus">#ff3b82f6</color>
+  <color name="color_border_android_focus">#ff6750a4</color>
+  <color name="color_border_chrome">#80ffffff</color>
   <color name="color_border_divider">#0f000000</color>
   <color name="color_text_primary">#ff1c1c1e</color>
   <color name="color_text_secondary">#ff374151</color>
@@ -28,11 +35,18 @@
   <color name="color_text_link">#ff3b82f6</color>
   <color name="color_text_placeholder">#ff9ca3af</color>
   <color name="color_text_disabled">#ff9ca3af</color>
+  <color name="color_text_android_label">#ff79747e</color>
+  <color name="color_text_android_label_focus">#ff6750a4</color>
   <color name="color_accent_primary">#ff3b82f6</color>
   <color name="color_accent_primary_hover">#ff2563eb</color>
   <color name="color_accent_primary_active">#ff1d4ed8</color>
   <color name="color_accent_primary_bg">#143b82f6</color>
   <color name="color_accent_primary_bg_strong">#243b82f6</color>
+  <color name="color_accent_secondary">#ff6750a4</color>
+  <color name="color_accent_secondary_hover">#ff5a4594</color>
+  <color name="color_accent_secondary_container">#ffe8def8</color>
+  <color name="color_accent_secondary_on_container">#ff21005d</color>
+  <color name="color_accent_secondary_thumb">#ffe8def8</color>
   <color name="color_accent_ai">#ff10a37f</color>
   <color name="color_accent_ai_hover">#ff0e8c6d</color>
   <color name="color_accent_ai_bg">#1410a37f</color>
@@ -67,15 +81,34 @@
   <color name="color_chat_code_border">#ffe5e7eb</color>
   <color name="color_chat_input_bg">#ffffffff</color>
   <color name="color_chat_divider">#0f000000</color>
+  <color name="color_material_primary">#ff6750a4</color>
+  <color name="color_material_on_primary">#ffffffff</color>
+  <color name="color_material_primary_container">#ffe8def8</color>
+  <color name="color_material_on_primary_container">#ff21005d</color>
+  <color name="color_material_surface">#fffef7ff</color>
+  <color name="color_material_on_surface">#ff1c1b1f</color>
+  <color name="color_material_surface_variant">#ffe7e0ec</color>
+  <color name="color_material_on_surface_variant">#ff49454f</color>
+  <color name="color_material_outline">#ff79747e</color>
+  <color name="color_material_outline_variant">#ffcac4d0</color>
   <color name="color_dark_bg_base">#ff1c1c1e</color>
   <color name="color_dark_bg_surface">#ff2c2c2e</color>
   <color name="color_dark_bg_elevated">#ff3a3a3c</color>
-  <color name="color_dark_border_subtle">#14ffffff</color>
+  <color name="color_dark_bg_chrome">#b81c1c1e</color>
+  <color name="color_dark_bg_selected">#ff3a3a3c</color>
+  <color name="color_dark_border_hairline">#14ffffff</color>
+  <color name="color_dark_border_subtle">#0fffffff</color>
   <color name="color_dark_border_default">#ff38383a</color>
+  <color name="color_dark_border_chrome">#1affffff</color>
   <color name="color_dark_text_primary">#ffffffff</color>
   <color name="color_dark_text_secondary">#ffe5e7eb</color>
   <color name="color_dark_text_tertiary">#ff8e8e93</color>
   <color name="color_dark_accent_primary">#ff60a5fa</color>
+  <color name="color_dark_accent_secondary">#ffd0bcff</color>
+  <color name="color_dark_accent_secondary_thumb">#ff21005d</color>
   <color name="color_dark_accent_ai">#ff34d399</color>
+  <color name="color_dark_switch_track_off">#ff4a4a4c</color>
+  <color name="color_dark_switch_track_on">#ffd0bcff</color>
+  <color name="color_dark_switch_thumb_on">#ff21005d</color>
   
 </resources>

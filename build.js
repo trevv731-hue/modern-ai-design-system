@@ -534,3 +534,6 @@ console.log('   📄 android/styles.xml      - Android 样式资源');
 console.log('   📄 ios/DesignTokens.swift  - iOS Swift 常量');
 console.log('   📄 json/tokens.json        - JSON 格式');
 console.log('   📄 typescript/tokens.ts    - TypeScript 常量');
+
+// v3 Web semantic themes, component docs and offline gallery.
+require('./scripts/build-web.cjs');

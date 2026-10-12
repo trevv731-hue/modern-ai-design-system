@@ -10,8 +10,8 @@ public final class DesignTokens {
 
     private DesignTokens() {}
 
-    /** ColorBgBase = #f7f7f9 */
-    public static final String COLORBGBASE = "#f7f7f9";
+    /** ColorBgBase = #f5f5f7 */
+    public static final String COLORBGBASE = "#f5f5f7";
 
     /** ColorBgBaseAlt = #f2f2f5 */
     public static final String COLORBGBASEALT = "#f2f2f5";
@@ -25,20 +25,35 @@ public final class DesignTokens {
     /** ColorBgElevated = #ffffff */
     public static final String COLORBGELEVATED = "#ffffff";
 
+    /** ColorBgChrome = #ffffff */
+    public static final String COLORBGCHROME = "#ffffff";
+
+    /** ColorBgChromeLight = #ffffff */
+    public static final String COLORBGCHROMELIGHT = "#ffffff";
+
     /** ColorBgHover = #000000 */
     public static final String COLORBGHOVER = "#000000";
 
     /** ColorBgActive = #000000 */
     public static final String COLORBGACTIVE = "#000000";
 
-    /** ColorBgSelected = #3b82f6 */
-    public static final String COLORBGSELECTED = "#3b82f6";
+    /** ColorBgSelected = #ffffff */
+    public static final String COLORBGSELECTED = "#ffffff";
+
+    /** ColorBgSelectedSoft = #000000 */
+    public static final String COLORBGSELECTEDSOFT = "#000000";
+
+    /** ColorBgSelectedBlue = #3b82f6 */
+    public static final String COLORBGSELECTEDBLUE = "#3b82f6";
 
     /** ColorBgOverlay = #000000 */
     public static final String COLORBGOVERLAY = "#000000";
 
     /** ColorBgOverlayStrong = #000000 */
     public static final String COLORBGOVERLAYSTRONG = "#000000";
+
+    /** ColorBorderHairline = #000000 */
+    public static final String COLORBORDERHAIRLINE = "#000000";
 
     /** ColorBorderSubtle = #000000 */
     public static final String COLORBORDERSUBTLE = "#000000";
@@ -51,6 +66,12 @@ public final class DesignTokens {
 
     /** ColorBorderFocus = #3b82f6 */
     public static final String COLORBORDERFOCUS = "#3b82f6";
+
+    /** ColorBorderAndroidFocus = #6750a4 */
+    public static final String COLORBORDERANDROIDFOCUS = "#6750a4";
+
+    /** ColorBorderChrome = #ffffff */
+    public static final String COLORBORDERCHROME = "#ffffff";
 
     /** ColorBorderDivider = #000000 */
     public static final String COLORBORDERDIVIDER = "#000000";
@@ -79,6 +100,12 @@ public final class DesignTokens {
     /** ColorTextDisabled = #9ca3af */
     public static final String COLORTEXTDISABLED = "#9ca3af";
 
+    /** ColorTextAndroidLabel = #79747e */
+    public static final String COLORTEXTANDROIDLABEL = "#79747e";
+
+    /** ColorTextAndroidLabelFocus = #6750a4 */
+    public static final String COLORTEXTANDROIDLABELFOCUS = "#6750a4";
+
     /** ColorAccentPrimary = #3b82f6 */
     public static final String COLORACCENTPRIMARY = "#3b82f6";
 
@@ -93,6 +120,21 @@ public final class DesignTokens {
 
     /** ColorAccentPrimaryBgStrong = #3b82f6 */
     public static final String COLORACCENTPRIMARYBGSTRONG = "#3b82f6";
+
+    /** ColorAccentSecondary = #6750a4 */
+    public static final String COLORACCENTSECONDARY = "#6750a4";
+
+    /** ColorAccentSecondaryHover = #5a4594 */
+    public static final String COLORACCENTSECONDARYHOVER = "#5a4594";
+
+    /** ColorAccentSecondaryContainer = #e8def8 */
+    public static final String COLORACCENTSECONDARYCONTAINER = "#e8def8";
+
+    /** ColorAccentSecondaryOnContainer = #21005d */
+    public static final String COLORACCENTSECONDARYONCONTAINER = "#21005d";
+
+    /** ColorAccentSecondaryThumb = #e8def8 */
+    public static final String COLORACCENTSECONDARYTHUMB = "#e8def8";
 
     /** ColorAccentAi = #10a37f */
     public static final String COLORACCENTAI = "#10a37f";
@@ -196,6 +238,36 @@ public final class DesignTokens {
     /** ColorChatDivider = #000000 */
     public static final String COLORCHATDIVIDER = "#000000";
 
+    /** ColorMaterialPrimary = #6750a4 */
+    public static final String COLORMATERIALPRIMARY = "#6750a4";
+
+    /** ColorMaterialOnPrimary = #ffffff */
+    public static final String COLORMATERIALONPRIMARY = "#ffffff";
+
+    /** ColorMaterialPrimaryContainer = #e8def8 */
+    public static final String COLORMATERIALPRIMARYCONTAINER = "#e8def8";
+
+    /** ColorMaterialOnPrimaryContainer = #21005d */
+    public static final String COLORMATERIALONPRIMARYCONTAINER = "#21005d";
+
+    /** ColorMaterialSurface = #fef7ff */
+    public static final String COLORMATERIALSURFACE = "#fef7ff";
+
+    /** ColorMaterialOnSurface = #1c1b1f */
+    public static final String COLORMATERIALONSURFACE = "#1c1b1f";
+
+    /** ColorMaterialSurfaceVariant = #e7e0ec */
+    public static final String COLORMATERIALSURFACEVARIANT = "#e7e0ec";
+
+    /** ColorMaterialOnSurfaceVariant = #49454f */
+    public static final String COLORMATERIALONSURFACEVARIANT = "#49454f";
+
+    /** ColorMaterialOutline = #79747e */
+    public static final String COLORMATERIALOUTLINE = "#79747e";
+
+    /** ColorMaterialOutlineVariant = #cac4d0 */
+    public static final String COLORMATERIALOUTLINEVARIANT = "#cac4d0";
+
     /** ColorDarkBgBase = #1c1c1e */
     public static final String COLORDARKBGBASE = "#1c1c1e";
 
@@ -205,11 +277,23 @@ public final class DesignTokens {
     /** ColorDarkBgElevated = #3a3a3c */
     public static final String COLORDARKBGELEVATED = "#3a3a3c";
 
+    /** ColorDarkBgChrome = #1c1c1e */
+    public static final String COLORDARKBGCHROME = "#1c1c1e";
+
+    /** ColorDarkBgSelected = #3a3a3c */
+    public static final String COLORDARKBGSELECTED = "#3a3a3c";
+
+    /** ColorDarkBorderHairline = #ffffff */
+    public static final String COLORDARKBORDERHAIRLINE = "#ffffff";
+
     /** ColorDarkBorderSubtle = #ffffff */
     public static final String COLORDARKBORDERSUBTLE = "#ffffff";
 
     /** ColorDarkBorderDefault = #38383a */
     public static final String COLORDARKBORDERDEFAULT = "#38383a";
+
+    /** ColorDarkBorderChrome = #ffffff */
+    public static final String COLORDARKBORDERCHROME = "#ffffff";
 
     /** ColorDarkTextPrimary = #ffffff */
     public static final String COLORDARKTEXTPRIMARY = "#ffffff";
@@ -223,8 +307,23 @@ public final class DesignTokens {
     /** ColorDarkAccentPrimary = #60a5fa */
     public static final String COLORDARKACCENTPRIMARY = "#60a5fa";
 
+    /** ColorDarkAccentSecondary = #d0bcff */
+    public static final String COLORDARKACCENTSECONDARY = "#d0bcff";
+
+    /** ColorDarkAccentSecondaryThumb = #21005d */
+    public static final String COLORDARKACCENTSECONDARYTHUMB = "#21005d";
+
     /** ColorDarkAccentAi = #34d399 */
     public static final String COLORDARKACCENTAI = "#34d399";
+
+    /** ColorDarkSwitchTrackOff = #4a4a4c */
+    public static final String COLORDARKSWITCHTRACKOFF = "#4a4a4c";
+
+    /** ColorDarkSwitchTrackOn = #d0bcff */
+    public static final String COLORDARKSWITCHTRACKON = "#d0bcff";
+
+    /** ColorDarkSwitchThumbOn = #21005d */
+    public static final String COLORDARKSWITCHTHUMBON = "#21005d";
 
     /** ComponentButtonHeightLg = 56px */
     public static final double COMPONENTBUTTONHEIGHTLG = 56;
@@ -277,11 +376,29 @@ public final class DesignTokens {
     /** ComponentButtonActiveScale = 0.98 */
     public static final String COMPONENTBUTTONACTIVESCALE = "0.98";
 
-    /** ComponentButtonHoverLift = 1.02 */
-    public static final String COMPONENTBUTTONHOVERLIFT = "1.02";
+    /** ComponentButtonHoverLift = 1 */
+    public static final String COMPONENTBUTTONHOVERLIFT = "1";
+
+    /** ComponentButtonHoverDuration = 150ms */
+    public static final int COMPONENTBUTTONHOVERDURATION = 150;
+
+    /** ComponentButtonActiveDuration = 100ms */
+    public static final int COMPONENTBUTTONACTIVEDURATION = 100;
+
+    /** ComponentButtonUseSpring = false */
+    public static final String COMPONENTBUTTONUSESPRING = "false";
+
+    /** ComponentButtonUseRippleMouse = false */
+    public static final String COMPONENTBUTTONUSERIPPLEMOUSE = "false";
+
+    /** ComponentButtonUseRippleTouch = true */
+    public static final String COMPONENTBUTTONUSERIPPLETOUCH = "true";
 
     /** ComponentButtonGap = 8px */
     public static final double COMPONENTBUTTONGAP = 8;
+
+    /** ComponentButtonStyle = hybrid */
+    public static final String COMPONENTBUTTONSTYLE = "hybrid";
 
     /** ComponentInputHeightMd = 48px */
     public static final double COMPONENTINPUTHEIGHTMD = 48;
@@ -292,14 +409,26 @@ public final class DesignTokens {
     /** ComponentInputHeightSm = 40px */
     public static final double COMPONENTINPUTHEIGHTSM = 40;
 
+    /** ComponentInputHeightWithLabel = 56px */
+    public static final double COMPONENTINPUTHEIGHTWITHLABEL = 56;
+
     /** ComponentInputPaddingX = 16px */
     public static final double COMPONENTINPUTPADDINGX = 16;
 
     /** ComponentInputPaddingXPill = 20px */
     public static final double COMPONENTINPUTPADDINGXPILL = 20;
 
+    /** ComponentInputPaddingTopLabel = 18px */
+    public static final double COMPONENTINPUTPADDINGTOPLABEL = 18;
+
     /** ComponentInputFontSize = 16px */
     public static final double COMPONENTINPUTFONTSIZE = 16;
+
+    /** ComponentInputLabelFontSize = 16px */
+    public static final double COMPONENTINPUTLABELFONTSIZE = 16;
+
+    /** ComponentInputLabelFontSizeFloat = 12px */
+    public static final double COMPONENTINPUTLABELFONTSIZEFLOAT = 12;
 
     /** ComponentInputRadius = 12px */
     public static final double COMPONENTINPUTRADIUS = 12;
@@ -307,11 +436,41 @@ public final class DesignTokens {
     /** ComponentInputRadiusPill = 9999px */
     public static final double COMPONENTINPUTRADIUSPILL = 9999;
 
-    /** ComponentInputRadiusFilled = 8px */
-    public static final double COMPONENTINPUTRADIUSFILLED = 8;
+    /** ComponentInputRadiusFilled = 4px */
+    public static final double COMPONENTINPUTRADIUSFILLED = 4;
+
+    /** ComponentInputUnderlineWidth = 1px */
+    public static final double COMPONENTINPUTUNDERLINEWIDTH = 1;
+
+    /** ComponentInputUnderlineWidthFocus = 2px */
+    public static final double COMPONENTINPUTUNDERLINEWIDTHFOCUS = 2;
+
+    /** ComponentInputUnderlineColor = #79747E */
+    public static final String COMPONENTINPUTUNDERLINECOLOR = "#79747E";
+
+    /** ComponentInputUnderlineColorFocus = #6750A4 */
+    public static final String COMPONENTINPUTUNDERLINECOLORFOCUS = "#6750A4";
+
+    /** ComponentInputLabelColor = #79747E */
+    public static final String COMPONENTINPUTLABELCOLOR = "#79747E";
+
+    /** ComponentInputLabelColorFocus = #6750A4 */
+    public static final String COMPONENTINPUTLABELCOLORFOCUS = "#6750A4";
 
     /** ComponentInputFocusRing = 0 0 0 3px rgba(59, 130, 246, 0.1) */
     public static final String COMPONENTINPUTFOCUSRING = "0 0 0 3px rgba(59, 130, 246, 0.1)";
+
+    /** ComponentInputFocusRingAndroid = 0 0 0 3px rgba(103, 80, 164, 0.12) */
+    public static final String COMPONENTINPUTFOCUSRINGANDROID = "0 0 0 3px rgba(103, 80, 164, 0.12)";
+
+    /** ComponentInputStyle = android-filled */
+    public static final String COMPONENTINPUTSTYLE = "android-filled";
+
+    /** ComponentInputFloatingLabel = true */
+    public static final String COMPONENTINPUTFLOATINGLABEL = "true";
+
+    /** ComponentInputFloatDuration = 200ms */
+    public static final int COMPONENTINPUTFLOATDURATION = 200;
 
     /** ComponentCardRadius = 16px */
     public static final double COMPONENTCARDRADIUS = 16;
@@ -322,6 +481,9 @@ public final class DesignTokens {
     /** ComponentCardRadiusXl = 24px */
     public static final double COMPONENTCARDRADIUSXL = 24;
 
+    /** ComponentCardContinuousCorner = true */
+    public static final String COMPONENTCARDCONTINUOUSCORNER = "true";
+
     /** ComponentCardPadding = 24px */
     public static final double COMPONENTCARDPADDING = 24;
 
@@ -331,32 +493,89 @@ public final class DesignTokens {
     /** ComponentCardPaddingSm = 16px */
     public static final double COMPONENTCARDPADDINGSM = 16;
 
-    /** ComponentCardActiveScale = 0.99 */
-    public static final String COMPONENTCARDACTIVESCALE = "0.99";
+    /** ComponentCardActiveScale = 0.98 */
+    public static final String COMPONENTCARDACTIVESCALE = "0.98";
 
-    /** ComponentCardHoverBorder = rgba(0, 0, 0, 0.1) */
-    public static final String COMPONENTCARDHOVERBORDER = "rgba(0, 0, 0, 0.1)";
+    /** ComponentCardHoverScale = 1.015 */
+    public static final String COMPONENTCARDHOVERSCALE = "1.015";
 
-    /** ComponentListItemHeight = 52px */
-    public static final double COMPONENTLISTITEMHEIGHT = 52;
+    /** ComponentCardHoverTranslateY = -3px */
+    public static final double COMPONENTCARDHOVERTRANSLATEY = -3;
 
-    /** ComponentListItemHeightSm = 44px */
-    public static final double COMPONENTLISTITEMHEIGHTSM = 44;
+    /** ComponentCardHoverShadow = 0 4px 8px -2px rgba(0, 0, 0, 0.08) */
+    public static final String COMPONENTCARDHOVERSHADOW = "0 4px 8px -2px rgba(0, 0, 0, 0.08)";
 
-    /** ComponentListItemHeightLg = 60px */
-    public static final double COMPONENTLISTITEMHEIGHTLG = 60;
+    /** ComponentCardHoverDuration = 350ms */
+    public static final int COMPONENTCARDHOVERDURATION = 350;
 
-    /** ComponentListItemRadius = 10px */
-    public static final double COMPONENTLISTITEMRADIUS = 10;
+    /** ComponentCardHoverEase = cubic-bezier(0.34, 1.56, 0.64, 1) */
+    public static final String COMPONENTCARDHOVEREASE = "cubic-bezier(0.34, 1.56, 0.64, 1)";
+
+    /** ComponentCardDefaultShadow = none */
+    public static final String COMPONENTCARDDEFAULTSHADOW = "none";
+
+    /** ComponentCardBorder = 1px solid rgba(0, 0, 0, 0.06) */
+    public static final String COMPONENTCARDBORDER = "1px solid rgba(0, 0, 0, 0.06)";
+
+    /** ComponentCardUseGlass = false */
+    public static final String COMPONENTCARDUSEGLASS = "false";
+
+    /** ComponentCardStyle = apple */
+    public static final String COMPONENTCARDSTYLE = "apple";
+
+    /** ComponentListItemHeight = 44px */
+    public static final double COMPONENTLISTITEMHEIGHT = 44;
+
+    /** ComponentListItemHeightSm = 40px */
+    public static final double COMPONENTLISTITEMHEIGHTSM = 40;
+
+    /** ComponentListItemHeightLg = 52px */
+    public static final double COMPONENTLISTITEMHEIGHTLG = 52;
+
+    /** ComponentListItemRadius = 8px */
+    public static final double COMPONENTLISTITEMRADIUS = 8;
+
+    /** ComponentListItemRadiusLg = 10px */
+    public static final double COMPONENTLISTITEMRADIUSLG = 10;
 
     /** ComponentListItemPaddingX = 16px */
     public static final double COMPONENTLISTITEMPADDINGX = 16;
 
-    /** ComponentListItemGap = 12px */
-    public static final double COMPONENTLISTITEMGAP = 12;
+    /** ComponentListItemGap = 2px */
+    public static final double COMPONENTLISTITEMGAP = 2;
 
-    /** ComponentListDivider = rgba(0, 0, 0, 0.06) */
-    public static final String COMPONENTLISTDIVIDER = "rgba(0, 0, 0, 0.06)";
+    /** ComponentListContainerBg = #F7F7F9 */
+    public static final String COMPONENTLISTCONTAINERBG = "#F7F7F9";
+
+    /** ComponentListContainerPadding = 4px */
+    public static final double COMPONENTLISTCONTAINERPADDING = 4;
+
+    /** ComponentListContainerRadius = 10px */
+    public static final double COMPONENTLISTCONTAINERRADIUS = 10;
+
+    /** ComponentListSelectedBg = #FFFFFF */
+    public static final String COMPONENTLISTSELECTEDBG = "#FFFFFF";
+
+    /** ComponentListSelectedShadow = 0 1px 2px rgba(0, 0, 0, 0.04) */
+    public static final String COMPONENTLISTSELECTEDSHADOW = "0 1px 2px rgba(0, 0, 0, 0.04)";
+
+    /** ComponentListSelectedTextColor = #1C1C1E */
+    public static final String COMPONENTLISTSELECTEDTEXTCOLOR = "#1C1C1E";
+
+    /** ComponentListSelectedIndicatorColor = #3B82F6 */
+    public static final String COMPONENTLISTSELECTEDINDICATORCOLOR = "#3B82F6";
+
+    /** ComponentListHoverBg = rgba(0, 0, 0, 0.04) */
+    public static final String COMPONENTLISTHOVERBG = "rgba(0, 0, 0, 0.04)";
+
+    /** ComponentListPressScale = 0.98 */
+    public static final String COMPONENTLISTPRESSSCALE = "0.98";
+
+    /** ComponentListDivider = none */
+    public static final String COMPONENTLISTDIVIDER = "none";
+
+    /** ComponentListUseDivider = false */
+    public static final String COMPONENTLISTUSEDIVIDER = "false";
 
     /** ComponentListGroupTitleFontSize = 12px */
     public static final double COMPONENTLISTGROUPTITLEFONTSIZE = 12;
@@ -364,8 +583,62 @@ public final class DesignTokens {
     /** ComponentListGroupTitleColor = #8E8E93 */
     public static final String COMPONENTLISTGROUPTITLECOLOR = "#8E8E93";
 
-    /** ComponentChipHeight = 30px */
-    public static final double COMPONENTCHIPHEIGHT = 30;
+    /** ComponentListStyle = hybrid-floating-pill */
+    public static final String COMPONENTLISTSTYLE = "hybrid-floating-pill";
+
+    /** ComponentSwitchTrackWidth = 52px */
+    public static final double COMPONENTSWITCHTRACKWIDTH = 52;
+
+    /** ComponentSwitchTrackHeight = 32px */
+    public static final double COMPONENTSWITCHTRACKHEIGHT = 32;
+
+    /** ComponentSwitchThumbSize = 24px */
+    public static final double COMPONENTSWITCHTHUMBSIZE = 24;
+
+    /** ComponentSwitchThumbPadding = 4px */
+    public static final double COMPONENTSWITCHTHUMBPADDING = 4;
+
+    /** ComponentSwitchThumbTranslate = 20px */
+    public static final double COMPONENTSWITCHTHUMBTRANSLATE = 20;
+
+    /** ComponentSwitchTrackRadius = 9999px */
+    public static final double COMPONENTSWITCHTRACKRADIUS = 9999;
+
+    /** ComponentSwitchThumbRadius = 9999px */
+    public static final double COMPONENTSWITCHTHUMBRADIUS = 9999;
+
+    /** ComponentSwitchTrackColorOff = #E0E0E0 */
+    public static final String COMPONENTSWITCHTRACKCOLOROFF = "#E0E0E0";
+
+    /** ComponentSwitchTrackColorOn = #6750A4 */
+    public static final String COMPONENTSWITCHTRACKCOLORON = "#6750A4";
+
+    /** ComponentSwitchThumbColorOff = #FFFFFF */
+    public static final String COMPONENTSWITCHTHUMBCOLOROFF = "#FFFFFF";
+
+    /** ComponentSwitchThumbColorOn = #E8DEF8 */
+    public static final String COMPONENTSWITCHTHUMBCOLORON = "#E8DEF8";
+
+    /** ComponentSwitchThumbShadow = 0 1px 3px rgba(0, 0, 0, 0.3) */
+    public static final String COMPONENTSWITCHTHUMBSHADOW = "0 1px 3px rgba(0, 0, 0, 0.3)";
+
+    /** ComponentSwitchDuration = 250ms */
+    public static final int COMPONENTSWITCHDURATION = 250;
+
+    /** ComponentSwitchEase = cubic-bezier(0.2, 0, 0, 1) */
+    public static final String COMPONENTSWITCHEASE = "cubic-bezier(0.2, 0, 0, 1)";
+
+    /** ComponentSwitchColorDuration = 150ms */
+    public static final int COMPONENTSWITCHCOLORDURATION = 150;
+
+    /** ComponentSwitchUseRipple = true */
+    public static final String COMPONENTSWITCHUSERIPPLE = "true";
+
+    /** ComponentSwitchStyle = android-material3 */
+    public static final String COMPONENTSWITCHSTYLE = "android-material3";
+
+    /** ComponentChipHeight = 32px */
+    public static final double COMPONENTCHIPHEIGHT = 32;
 
     /** ComponentChipHeightSm = 26px */
     public static final double COMPONENTCHIPHEIGHTSM = 26;
@@ -390,6 +663,12 @@ public final class DesignTokens {
 
     /** ComponentChipActiveScale = 0.95 */
     public static final String COMPONENTCHIPACTIVESCALE = "0.95";
+
+    /** ComponentChipSelectedBg = #E8DEF8 */
+    public static final String COMPONENTCHIPSELECTEDBG = "#E8DEF8";
+
+    /** ComponentChipSelectedText = #21005D */
+    public static final String COMPONENTCHIPSELECTEDTEXT = "#21005D";
 
     /** ComponentAvatarSize = 40px */
     public static final double COMPONENTAVATARSIZE = 40;
@@ -448,8 +727,8 @@ public final class DesignTokens {
     /** ComponentFabSizeLg = 64px */
     public static final double COMPONENTFABSIZELG = 64;
 
-    /** ComponentFabRadius = 9999px */
-    public static final double COMPONENTFABRADIUS = 9999;
+    /** ComponentFabRadius = 16px */
+    public static final double COMPONENTFABRADIUS = 16;
 
     /** ComponentFabIconSize = 24px */
     public static final double COMPONENTFABICONSIZE = 24;
@@ -466,6 +745,15 @@ public final class DesignTokens {
     /** ComponentFabHoverScale = 1.05 */
     public static final String COMPONENTFABHOVERSCALE = "1.05";
 
+    /** ComponentFabBgColor = #6750A4 */
+    public static final String COMPONENTFABBGCOLOR = "#6750A4";
+
+    /** ComponentFabRestingShadow = 0 4px 8px -2px rgba(103, 80, 164, 0.35) */
+    public static final String COMPONENTFABRESTINGSHADOW = "0 4px 8px -2px rgba(103, 80, 164, 0.35)";
+
+    /** ComponentFabPressedShadow = 0 6px 12px -2px rgba(103, 80, 164, 0.45) */
+    public static final String COMPONENTFABPRESSEDSHADOW = "0 6px 12px -2px rgba(103, 80, 164, 0.45)";
+
     /** ComponentSheetRadius = 16px */
     public static final double COMPONENTSHEETRADIUS = 16;
 
@@ -475,11 +763,14 @@ public final class DesignTokens {
     /** ComponentSheetHandleWidth = 36px */
     public static final double COMPONENTSHEETHANDLEWIDTH = 36;
 
-    /** ComponentSheetHandleHeight = 4px */
-    public static final double COMPONENTSHEETHANDLEHEIGHT = 4;
+    /** ComponentSheetHandleHeight = 5px */
+    public static final double COMPONENTSHEETHANDLEHEIGHT = 5;
 
-    /** ComponentSheetHandleRadius = 9999px */
-    public static final double COMPONENTSHEETHANDLERADIUS = 9999;
+    /** ComponentSheetHandleRadius = 999px */
+    public static final double COMPONENTSHEETHANDLERADIUS = 999;
+
+    /** ComponentSheetHandleColor = rgba(0, 0, 0, 0.15) */
+    public static final String COMPONENTSHEETHANDLECOLOR = "rgba(0, 0, 0, 0.15)";
 
     /** ComponentSheetHandleMargin = 16px */
     public static final double COMPONENTSHEETHANDLEMARGIN = 16;
@@ -495,6 +786,15 @@ public final class DesignTokens {
 
     /** ComponentSheetBackdropBlur = 4px */
     public static final double COMPONENTSHEETBACKDROPBLUR = 4;
+
+    /** ComponentSheetDuration = 350ms */
+    public static final int COMPONENTSHEETDURATION = 350;
+
+    /** ComponentSheetEase = cubic-bezier(0.34, 1.56, 0.64, 1) */
+    public static final String COMPONENTSHEETEASE = "cubic-bezier(0.34, 1.56, 0.64, 1)";
+
+    /** ComponentSheetDraggable = true */
+    public static final String COMPONENTSHEETDRAGGABLE = "true";
 
     /** ComponentSidebarWidthNarrow = 240px */
     public static final double COMPONENTSIDEBARWIDTHNARROW = 240;
@@ -523,6 +823,33 @@ public final class DesignTokens {
     /** ComponentSidebarIndicatorWidth = 3px */
     public static final double COMPONENTSIDEBARINDICATORWIDTH = 3;
 
+    /** ComponentSidebarBg = rgba(255, 255, 255, 0.72) */
+    public static final String COMPONENTSIDEBARBG = "rgba(255, 255, 255, 0.72)";
+
+    /** ComponentSidebarBlur = blur(20px) */
+    public static final String COMPONENTSIDEBARBLUR = "blur(20px)";
+
+    /** ComponentSidebarSaturation = saturate(180%) */
+    public static final String COMPONENTSIDEBARSATURATION = "saturate(180%)";
+
+    /** ComponentSidebarBorder = 1px solid rgba(255, 255, 255, 0.5) */
+    public static final String COMPONENTSIDEBARBORDER = "1px solid rgba(255, 255, 255, 0.5)";
+
+    /** ComponentSidebarSelectedBg = rgba(0, 0, 0, 0.06) */
+    public static final String COMPONENTSIDEBARSELECTEDBG = "rgba(0, 0, 0, 0.06)";
+
+    /** ComponentSidebarSelectedText = #1C1C1E */
+    public static final String COMPONENTSIDEBARSELECTEDTEXT = "#1C1C1E";
+
+    /** ComponentSidebarHoverBg = rgba(0, 0, 0, 0.04) */
+    public static final String COMPONENTSIDEBARHOVERBG = "rgba(0, 0, 0, 0.04)";
+
+    /** ComponentSidebarUseGlass = true */
+    public static final String COMPONENTSIDEBARUSEGLASS = "true";
+
+    /** ComponentSidebarStyle = apple-glass */
+    public static final String COMPONENTSIDEBARSTYLE = "apple-glass";
+
     /** ComponentNavbarHeightMobile = 56px */
     public static final double COMPONENTNAVBARHEIGHTMOBILE = 56;
 
@@ -534,6 +861,18 @@ public final class DesignTokens {
 
     /** ComponentNavbarHitArea = 40px */
     public static final double COMPONENTNAVBARHITAREA = 40;
+
+    /** ComponentNavbarBg = rgba(255, 255, 255, 0.6) */
+    public static final String COMPONENTNAVBARBG = "rgba(255, 255, 255, 0.6)";
+
+    /** ComponentNavbarBlur = blur(12px) */
+    public static final String COMPONENTNAVBARBLUR = "blur(12px)";
+
+    /** ComponentNavbarBorder = 1px solid rgba(0, 0, 0, 0.06) */
+    public static final String COMPONENTNAVBARBORDER = "1px solid rgba(0, 0, 0, 0.06)";
+
+    /** ComponentNavbarUseGlass = true */
+    public static final String COMPONENTNAVBARUSEGLASS = "true";
 
     /** ComponentModalWidthSm = 400px */
     public static final double COMPONENTMODALWIDTHSM = 400;
@@ -550,6 +889,9 @@ public final class DesignTokens {
     /** ComponentModalRadiusLg = 24px */
     public static final double COMPONENTMODALRADIUSLG = 24;
 
+    /** ComponentModalContinuousCorner = true */
+    public static final String COMPONENTMODALCONTINUOUSCORNER = "true";
+
     /** ComponentModalPadding = 24px */
     public static final double COMPONENTMODALPADDING = 24;
 
@@ -562,8 +904,20 @@ public final class DesignTokens {
     /** ComponentModalAppearScale = 0.95 */
     public static final String COMPONENTMODALAPPEARSCALE = "0.95";
 
-    /** ComponentModalAppearOffset = 8px */
-    public static final double COMPONENTMODALAPPEAROFFSET = 8;
+    /** ComponentModalAppearOffsetY = 10px */
+    public static final double COMPONENTMODALAPPEAROFFSETY = 10;
+
+    /** ComponentModalDuration = 250ms */
+    public static final int COMPONENTMODALDURATION = 250;
+
+    /** ComponentModalEase = cubic-bezier(0.2, 0, 0, 1) */
+    public static final String COMPONENTMODALEASE = "cubic-bezier(0.2, 0, 0, 1)";
+
+    /** ComponentModalUseSpring = false */
+    public static final String COMPONENTMODALUSESPRING = "false";
+
+    /** ComponentModalStyle = hybrid */
+    public static final String COMPONENTMODALSTYLE = "hybrid";
 
     /** ComponentDropdownRadius = 12px */
     public static final double COMPONENTDROPDOWNRADIUS = 12;
@@ -582,6 +936,9 @@ public final class DesignTokens {
 
     /** ComponentDropdownAppearOffset = -4px */
     public static final double COMPONENTDROPDOWNAPPEAROFFSET = -4;
+
+    /** ComponentDropdownUseGlass = optional */
+    public static final String COMPONENTDROPDOWNUSEGLASS = "optional";
 
     /** ComponentCodeBlockRadius = 12px */
     public static final double COMPONENTCODEBLOCKRADIUS = 12;
@@ -612,6 +969,12 @@ public final class DesignTokens {
 
     /** ComponentChatCursorBlink = 530ms */
     public static final int COMPONENTCHATCURSORBLINK = 530;
+
+    /** ComponentChatInputHeight = 56px */
+    public static final double COMPONENTCHATINPUTHEIGHT = 56;
+
+    /** ComponentChatInputRadius = 9999px */
+    public static final double COMPONENTCHATINPUTRADIUS = 9999;
 
     /** ComponentBadgeFontSize = 11px */
     public static final double COMPONENTBADGEFONTSIZE = 11;
@@ -658,6 +1021,9 @@ public final class DesignTokens {
     /** ComponentProgressIndeterminateDuration = 1.5s */
     public static final String COMPONENTPROGRESSINDETERMINATEDURATION = "1.5s";
 
+    /** ComponentProgressIndeterminateTranslate = 30% */
+    public static final String COMPONENTPROGRESSINDETERMINATETRANSLATE = "30%";
+
     /** ComponentSpinnerSizeXs = 12px */
     public static final double COMPONENTSPINNERSIZEXS = 12;
 
@@ -691,6 +1057,9 @@ public final class DesignTokens {
     /** ComponentSkeletonDuration = 1.5s */
     public static final String COMPONENTSKELETONDURATION = "1.5s";
 
+    /** ComponentSkeletonUseTransform = true */
+    public static final String COMPONENTSKELETONUSETRANSFORM = "true";
+
     /** ComponentToastRadius = 12px */
     public static final double COMPONENTTOASTRADIUS = 12;
 
@@ -711,6 +1080,9 @@ public final class DesignTokens {
 
     /** ComponentToastDurationAction = 5000ms */
     public static final int COMPONENTTOASTDURATIONACTION = 5000;
+
+    /** ComponentToastMaxStack = 1 */
+    public static final String COMPONENTTOASTMAXSTACK = "1";
 
     /** ComponentSegmentedHeight = 36px */
     public static final double COMPONENTSEGMENTEDHEIGHT = 36;
@@ -733,32 +1105,74 @@ public final class DesignTokens {
     /** ComponentSegmentedBg = #F2F2F5 */
     public static final String COMPONENTSEGMENTEDBG = "#F2F2F5";
 
-    /** ComponentMaterialGlassBg = rgba(255, 255, 255, 0.7) */
-    public static final String COMPONENTMATERIALGLASSBG = "rgba(255, 255, 255, 0.7)";
+    /** ComponentSegmentedIndicatorDuration = 250ms */
+    public static final int COMPONENTSEGMENTEDINDICATORDURATION = 250;
 
-    /** ComponentMaterialGlassBgStrong = rgba(255, 255, 255, 0.85) */
-    public static final String COMPONENTMATERIALGLASSBGSTRONG = "rgba(255, 255, 255, 0.85)";
+    /** ComponentSegmentedIndicatorEase = cubic-bezier(0.34, 1.56, 0.64, 1) */
+    public static final String COMPONENTSEGMENTEDINDICATOREASE = "cubic-bezier(0.34, 1.56, 0.64, 1)";
 
-    /** ComponentMaterialGlassBlur = 12px */
-    public static final double COMPONENTMATERIALGLASSBLUR = 12;
+    /** ComponentSharedAxisTranslateX = 16px */
+    public static final double COMPONENTSHAREDAXISTRANSLATEX = 16;
 
-    /** ComponentMaterialGlassBlurLg = 20px */
-    public static final double COMPONENTMATERIALGLASSBLURLG = 20;
+    /** ComponentSharedAxisTranslateY = 16px */
+    public static final double COMPONENTSHAREDAXISTRANSLATEY = 16;
 
-    /** ComponentMaterialGlassSaturation = 180% */
-    public static final String COMPONENTMATERIALGLASSSATURATION = "180%";
+    /** ComponentSharedAxisDuration = 300ms */
+    public static final int COMPONENTSHAREDAXISDURATION = 300;
 
-    /** ComponentMaterialGlassBorder = 1px solid rgba(255, 255, 255, 0.5) */
-    public static final String COMPONENTMATERIALGLASSBORDER = "1px solid rgba(255, 255, 255, 0.5)";
+    /** ComponentSharedAxisEnterEase = cubic-bezier(0, 0, 0, 1) */
+    public static final String COMPONENTSHAREDAXISENTEREASE = "cubic-bezier(0, 0, 0, 1)";
 
-    /** ComponentMaterialRippleColorLight = rgba(0, 0, 0, 0.08) */
-    public static final String COMPONENTMATERIALRIPPLECOLORLIGHT = "rgba(0, 0, 0, 0.08)";
+    /** ComponentSharedAxisExitEase = cubic-bezier(0.3, 0, 1, 1) */
+    public static final String COMPONENTSHAREDAXISEXITEASE = "cubic-bezier(0.3, 0, 1, 1)";
 
-    /** ComponentMaterialRippleColorDark = rgba(255, 255, 255, 0.12) */
-    public static final String COMPONENTMATERIALRIPPLECOLORDARK = "rgba(255, 255, 255, 0.12)";
+    /** ComponentSharedAxisFadeDuration = 200ms */
+    public static final int COMPONENTSHAREDAXISFADEDURATION = 200;
 
-    /** ComponentMaterialRippleDuration = 225ms */
-    public static final int COMPONENTMATERIALRIPPLEDURATION = 225;
+    /** ComponentGlassChromeBg = rgba(255, 255, 255, 0.72) */
+    public static final String COMPONENTGLASSCHROMEBG = "rgba(255, 255, 255, 0.72)";
+
+    /** ComponentGlassChromeBgLight = rgba(255, 255, 255, 0.6) */
+    public static final String COMPONENTGLASSCHROMEBGLIGHT = "rgba(255, 255, 255, 0.6)";
+
+    /** ComponentGlassChromeBlur = blur(20px) */
+    public static final String COMPONENTGLASSCHROMEBLUR = "blur(20px)";
+
+    /** ComponentGlassChromeBlurLight = blur(12px) */
+    public static final String COMPONENTGLASSCHROMEBLURLIGHT = "blur(12px)";
+
+    /** ComponentGlassChromeSaturation = saturate(180%) */
+    public static final String COMPONENTGLASSCHROMESATURATION = "saturate(180%)";
+
+    /** ComponentGlassChromeBorder = 1px solid rgba(255, 255, 255, 0.5) */
+    public static final String COMPONENTGLASSCHROMEBORDER = "1px solid rgba(255, 255, 255, 0.5)";
+
+    /** ComponentGlassMaxLiveRegions = 2 */
+    public static final String COMPONENTGLASSMAXLIVEREGIONS = "2";
+
+    /** ComponentGlassMaxBlurRadius = 24px */
+    public static final double COMPONENTGLASSMAXBLURRADIUS = 24;
+
+    /** ComponentGlassUseOnContent = false */
+    public static final String COMPONENTGLASSUSEONCONTENT = "false";
+
+    /** ComponentRippleColorLight = rgba(0, 0, 0, 0.12) */
+    public static final String COMPONENTRIPPLECOLORLIGHT = "rgba(0, 0, 0, 0.12)";
+
+    /** ComponentRippleColorDark = rgba(255, 255, 255, 0.15) */
+    public static final String COMPONENTRIPPLECOLORDARK = "rgba(255, 255, 255, 0.15)";
+
+    /** ComponentRippleExpandDuration = 225ms */
+    public static final int COMPONENTRIPPLEEXPANDDURATION = 225;
+
+    /** ComponentRippleFadeDuration = 225ms */
+    public static final int COMPONENTRIPPLEFADEDURATION = 225;
+
+    /** ComponentRippleUseOnMouse = false */
+    public static final String COMPONENTRIPPLEUSEONMOUSE = "false";
+
+    /** ComponentRippleUseOnTouch = true */
+    public static final String COMPONENTRIPPLEUSEONTOUCH = "true";
 
     /** ComponentElevationLevel0 = 0dp */
     public static final String COMPONENTELEVATIONLEVEL0 = "0dp";
@@ -925,6 +1339,9 @@ public final class DesignTokens {
     /** DurationSlow = 350ms */
     public static final int DURATIONSLOW = 350;
 
+    /** DurationPage = 400ms */
+    public static final int DURATIONPAGE = 400;
+
     /** DurationEmphasized = 500ms */
     public static final int DURATIONEMPHASIZED = 500;
 
@@ -949,8 +1366,8 @@ public final class DesignTokens {
     /** EaseSpringSoft = cubic-bezier(0.25, 1.2, 0.5, 1) */
     public static final String EASESPRINGSOFT = "cubic-bezier(0.25, 1.2, 0.5, 1)";
 
-    /** EaseSpringGentle = cubic-bezier(0.22, 1, 0.36, 1) */
-    public static final String EASESPRINGGENTLE = "cubic-bezier(0.22, 1, 0.36, 1)";
+    /** EaseSpringGentle = cubic-bezier(0.25, 1.2, 0.4, 1) */
+    public static final String EASESPRINGGENTLE = "cubic-bezier(0.25, 1.2, 0.4, 1)";
 
     /** EaseEmphasis = cubic-bezier(0.2, 0, 0, 1) */
     public static final String EASEEMPHASIS = "cubic-bezier(0.2, 0, 0, 1)";
@@ -970,6 +1387,15 @@ public final class DesignTokens {
     /** EaseInOutExpo = cubic-bezier(0.87, 0, 0.13, 1) */
     public static final String EASEINOUTEXPO = "cubic-bezier(0.87, 0, 0.13, 1)";
 
+    /** EaseMaterialStandard = cubic-bezier(0.2, 0, 0, 1) */
+    public static final String EASEMATERIALSTANDARD = "cubic-bezier(0.2, 0, 0, 1)";
+
+    /** EaseMaterialEmphasized = cubic-bezier(0.05, 0.7, 0.1, 1) */
+    public static final String EASEMATERIALEMPHASIZED = "cubic-bezier(0.05, 0.7, 0.1, 1)";
+
+    /** SpringBounceBudget = 4% */
+    public static final String SPRINGBOUNCEBUDGET = "4%";
+
     /** StaggerMicro = 20ms */
     public static final int STAGGERMICRO = 20;
 
@@ -985,11 +1411,20 @@ public final class DesignTokens {
     /** StaggerXl = 120ms */
     public static final int STAGGERXL = 120;
 
+    /** StaggerMaxItems = 8 */
+    public static final String STAGGERMAXITEMS = "8";
+
+    /** StaggerMaxTotal = 300ms */
+    public static final int STAGGERMAXTOTAL = 300;
+
     /** HoverScale = 1.02 */
     public static final String HOVERSCALE = "1.02";
 
-    /** HoverScaleCard = 1.01 */
-    public static final String HOVERSCALECARD = "1.01";
+    /** HoverScaleCard = 1.015 */
+    public static final String HOVERSCALECARD = "1.015";
+
+    /** HoverTranslateYCard = -3px */
+    public static final double HOVERTRANSLATEYCARD = -3;
 
     /** HoverBrightness = 1.02 */
     public static final String HOVERBRIGHTNESS = "1.02";
@@ -1000,11 +1435,101 @@ public final class DesignTokens {
     /** PressScaleButton = 0.98 */
     public static final String PRESSSCALEBUTTON = "0.98";
 
-    /** PressScaleCard = 0.99 */
-    public static final String PRESSSCALECARD = "0.99";
+    /** PressScaleCard = 0.98 */
+    public static final String PRESSSCALECARD = "0.98";
 
     /** PressScaleIcon = 0.94 */
     public static final String PRESSSCALEICON = "0.94";
+
+    /** PressScalePill = 0.98 */
+    public static final String PRESSSCALEPILL = "0.98";
+
+    /** SharedAxisTranslateX = 16px */
+    public static final double SHAREDAXISTRANSLATEX = 16;
+
+    /** SharedAxisTranslateY = 16px */
+    public static final double SHAREDAXISTRANSLATEY = 16;
+
+    /** SharedAxisDuration = 300ms */
+    public static final int SHAREDAXISDURATION = 300;
+
+    /** SharedAxisEnterEase = cubic-bezier(0, 0, 0, 1) */
+    public static final String SHAREDAXISENTEREASE = "cubic-bezier(0, 0, 0, 1)";
+
+    /** SharedAxisExitEase = cubic-bezier(0.3, 0, 1, 1) */
+    public static final String SHAREDAXISEXITEASE = "cubic-bezier(0.3, 0, 1, 1)";
+
+    /** ModalEnterScale = 0.95 */
+    public static final String MODALENTERSCALE = "0.95";
+
+    /** ModalEnterTranslateY = 10px */
+    public static final double MODALENTERTRANSLATEY = 10;
+
+    /** ModalDuration = 250ms */
+    public static final int MODALDURATION = 250;
+
+    /** ModalEase = cubic-bezier(0.2, 0, 0, 1) */
+    public static final String MODALEASE = "cubic-bezier(0.2, 0, 0, 1)";
+
+    /** SheetDuration = 350ms */
+    public static final int SHEETDURATION = 350;
+
+    /** SheetEase = cubic-bezier(0.34, 1.56, 0.64, 1) */
+    public static final String SHEETEASE = "cubic-bezier(0.34, 1.56, 0.64, 1)";
+
+    /** SheetGrabberWidth = 36px */
+    public static final double SHEETGRABBERWIDTH = 36;
+
+    /** SheetGrabberHeight = 5px */
+    public static final double SHEETGRABBERHEIGHT = 5;
+
+    /** SwitchTrackWidth = 52px */
+    public static final double SWITCHTRACKWIDTH = 52;
+
+    /** SwitchTrackHeight = 32px */
+    public static final double SWITCHTRACKHEIGHT = 32;
+
+    /** SwitchThumbSize = 24px */
+    public static final double SWITCHTHUMBSIZE = 24;
+
+    /** SwitchThumbPadding = 4px */
+    public static final double SWITCHTHUMBPADDING = 4;
+
+    /** SwitchThumbTranslate = 20px */
+    public static final double SWITCHTHUMBTRANSLATE = 20;
+
+    /** SwitchDuration = 250ms */
+    public static final int SWITCHDURATION = 250;
+
+    /** SwitchEase = cubic-bezier(0.2, 0, 0, 1) */
+    public static final String SWITCHEASE = "cubic-bezier(0.2, 0, 0, 1)";
+
+    /** SwitchColorDuration = 150ms */
+    public static final int SWITCHCOLORDURATION = 150;
+
+    /** InputFloatingLabelDuration = 200ms */
+    public static final int INPUTFLOATINGLABELDURATION = 200;
+
+    /** InputFloatingLabelEase = cubic-bezier(0.2, 0, 0, 1) */
+    public static final String INPUTFLOATINGLABELEASE = "cubic-bezier(0.2, 0, 0, 1)";
+
+    /** InputUnderlineFocusWidth = 2px */
+    public static final double INPUTUNDERLINEFOCUSWIDTH = 2;
+
+    /** InputUnderlineDefaultWidth = 1px */
+    public static final double INPUTUNDERLINEDEFAULTWIDTH = 1;
+
+    /** RippleExpandDuration = 225ms */
+    public static final int RIPPLEEXPANDDURATION = 225;
+
+    /** RippleFadeDuration = 225ms */
+    public static final int RIPPLEFADEDURATION = 225;
+
+    /** RippleColorLight = rgba(0, 0, 0, 0.12) */
+    public static final String RIPPLECOLORLIGHT = "rgba(0, 0, 0, 0.12)";
+
+    /** RippleColorDark = rgba(255, 255, 255, 0.15) */
+    public static final String RIPPLECOLORDARK = "rgba(255, 255, 255, 0.15)";
 
     /** AnimationFadeIn = fadeIn 250ms cubic-bezier(0.2, 0, 0, 1) both */
     public static final String ANIMATIONFADEIN = "fadeIn 250ms cubic-bezier(0.2, 0, 0, 1) both";
@@ -1033,6 +1558,9 @@ public final class DesignTokens {
     /** AnimationSpringIn = springIn 400ms cubic-bezier(0.34, 1.56, 0.64, 1) both */
     public static final String ANIMATIONSPRINGIN = "springIn 400ms cubic-bezier(0.34, 1.56, 0.64, 1) both";
 
+    /** AnimationCardHover = cardHover 350ms cubic-bezier(0.34, 1.56, 0.64, 1) both */
+    public static final String ANIMATIONCARDHOVER = "cardHover 350ms cubic-bezier(0.34, 1.56, 0.64, 1) both";
+
     /** AnimationFadeThrough = fadeThrough 300ms cubic-bezier(0.2, 0, 0, 1) both */
     public static final String ANIMATIONFADETHROUGH = "fadeThrough 300ms cubic-bezier(0.2, 0, 0, 1) both";
 
@@ -1041,6 +1569,9 @@ public final class DesignTokens {
 
     /** AnimationSharedAxisY = sharedAxisY 300ms cubic-bezier(0.2, 0, 0, 1) both */
     public static final String ANIMATIONSHAREDAXISY = "sharedAxisY 300ms cubic-bezier(0.2, 0, 0, 1) both";
+
+    /** AnimationModalIn = modalIn 250ms cubic-bezier(0.2, 0, 0, 1) both */
+    public static final String ANIMATIONMODALIN = "modalIn 250ms cubic-bezier(0.2, 0, 0, 1) both";
 
     /** AnimationPulse = pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite */
     public static final String ANIMATIONPULSE = "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite";
@@ -1078,6 +1609,18 @@ public final class DesignTokens {
     /** TransitionTransform = transform 200ms cubic-bezier(0.22, 1, 0.36, 1) */
     public static final String TRANSITIONTRANSFORM = "transform 200ms cubic-bezier(0.22, 1, 0.36, 1)";
 
+    /** TransitionTransformSpring = transform 350ms cubic-bezier(0.34, 1.56, 0.64, 1) */
+    public static final String TRANSITIONTRANSFORMSPRING = "transform 350ms cubic-bezier(0.34, 1.56, 0.64, 1)";
+
+    /** TransitionBoxShadow = box-shadow 300ms cubic-bezier(0.2, 0, 0, 1) */
+    public static final String TRANSITIONBOXSHADOW = "box-shadow 300ms cubic-bezier(0.2, 0, 0, 1)";
+
+    /** TransitionButton = background-color 150ms cubic-bezier(0.2, 0, 0, 1), transform 0.1s ease */
+    public static final String TRANSITIONBUTTON = "background-color 150ms cubic-bezier(0.2, 0, 0, 1), transform 0.1s ease";
+
+    /** TransitionCard = transform 350ms cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 300ms cubic-bezier(0.2, 0, 0, 1) */
+    public static final String TRANSITIONCARD = "transform 350ms cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 300ms cubic-bezier(0.2, 0, 0, 1)";
+
     /** TransitionAll = all 200ms cubic-bezier(0.2, 0, 0, 1) */
     public static final String TRANSITIONALL = "all 200ms cubic-bezier(0.2, 0, 0, 1)";
 
@@ -1089,9 +1632,6 @@ public final class DesignTokens {
 
     /** TransitionWidth = width 300ms cubic-bezier(0.22, 1, 0.36, 1) */
     public static final String TRANSITIONWIDTH = "width 300ms cubic-bezier(0.22, 1, 0.36, 1)";
-
-    /** TransitionBoxShadow = box-shadow 200ms cubic-bezier(0.2, 0, 0, 1) */
-    public static final String TRANSITIONBOXSHADOW = "box-shadow 200ms cubic-bezier(0.2, 0, 0, 1)";
 
     /** RadiusNone = 0px */
     public static final double RADIUSNONE = 0;
@@ -1132,23 +1672,32 @@ public final class DesignTokens {
     /** ShadowNone = none */
     public static final String SHADOWNONE = "none";
 
-    /** ShadowXs = 0 1px 1px 0 rgba(0, 0, 0, 0.03) */
-    public static final String SHADOWXS = "0 1px 1px 0 rgba(0, 0, 0, 0.03)";
+    /** ShadowXs = 0 1px 2px 0 rgba(0, 0, 0, 0.04) */
+    public static final String SHADOWXS = "0 1px 2px 0 rgba(0, 0, 0, 0.04)";
 
-    /** ShadowSm = 0 1px 2px 0 rgba(0, 0, 0, 0.05) */
-    public static final String SHADOWSM = "0 1px 2px 0 rgba(0, 0, 0, 0.05)";
+    /** ShadowSm = 0 1px 3px 0 rgba(0, 0, 0, 0.06), 0 1px 2px -1px rgba(0, 0, 0, 0.04) */
+    public static final String SHADOWSM = "0 1px 3px 0 rgba(0, 0, 0, 0.06), 0 1px 2px -1px rgba(0, 0, 0, 0.04)";
 
-    /** ShadowMd = 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.02) */
-    public static final String SHADOWMD = "0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.02)";
+    /** ShadowMd = 0 4px 8px -2px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.04) */
+    public static final String SHADOWMD = "0 4px 8px -2px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.04)";
 
-    /** ShadowLg = 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.02) */
-    public static final String SHADOWLG = "0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.02)";
+    /** ShadowLg = 0 12px 24px -4px rgba(0, 0, 0, 0.1), 0 4px 8px -4px rgba(0, 0, 0, 0.06) */
+    public static final String SHADOWLG = "0 12px 24px -4px rgba(0, 0, 0, 0.1), 0 4px 8px -4px rgba(0, 0, 0, 0.06)";
 
-    /** ShadowXl = 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.03) */
-    public static final String SHADOWXL = "0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.03)";
+    /** ShadowXl = 0 20px 40px -8px rgba(0, 0, 0, 0.12), 0 8px 16px -8px rgba(0, 0, 0, 0.06) */
+    public static final String SHADOWXL = "0 20px 40px -8px rgba(0, 0, 0, 0.12), 0 8px 16px -8px rgba(0, 0, 0, 0.06)";
 
     /** Shadow2xl = 0 25px 50px -12px rgba(0, 0, 0, 0.12) */
     public static final String SHADOW2XL = "0 25px 50px -12px rgba(0, 0, 0, 0.12)";
+
+    /** ShadowCardHover = 0 4px 8px -2px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.04) */
+    public static final String SHADOWCARDHOVER = "0 4px 8px -2px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.04)";
+
+    /** ShadowCardHoverStrong = 0 12px 24px -4px rgba(0, 0, 0, 0.1), 0 4px 8px -4px rgba(0, 0, 0, 0.06) */
+    public static final String SHADOWCARDHOVERSTRONG = "0 12px 24px -4px rgba(0, 0, 0, 0.1), 0 4px 8px -4px rgba(0, 0, 0, 0.06)";
+
+    /** ShadowFloatingPill = 0 1px 2px 0 rgba(0, 0, 0, 0.04) */
+    public static final String SHADOWFLOATINGPILL = "0 1px 2px 0 rgba(0, 0, 0, 0.04)";
 
     /** ShadowInner = inset 0 2px 4px 0 rgba(0, 0, 0, 0.04) */
     public static final String SHADOWINNER = "inset 0 2px 4px 0 rgba(0, 0, 0, 0.04)";
@@ -1156,17 +1705,32 @@ public final class DesignTokens {
     /** ShadowFocus = 0 0 0 3px rgba(59, 130, 246, 0.1) */
     public static final String SHADOWFOCUS = "0 0 0 3px rgba(59, 130, 246, 0.1)";
 
+    /** ShadowFocusAndroid = 0 0 0 3px rgba(103, 80, 164, 0.12) */
+    public static final String SHADOWFOCUSANDROID = "0 0 0 3px rgba(103, 80, 164, 0.12)";
+
     /** ShadowFocusAi = 0 0 0 3px rgba(16, 163, 127, 0.12) */
     public static final String SHADOWFOCUSAI = "0 0 0 3px rgba(16, 163, 127, 0.12)";
 
     /** ShadowColoredPrimary = 0 4px 12px -2px rgba(59, 130, 246, 0.25) */
     public static final String SHADOWCOLOREDPRIMARY = "0 4px 12px -2px rgba(59, 130, 246, 0.25)";
 
+    /** ShadowColoredSecondary = 0 4px 12px -2px rgba(103, 80, 164, 0.25) */
+    public static final String SHADOWCOLOREDSECONDARY = "0 4px 12px -2px rgba(103, 80, 164, 0.25)";
+
     /** ShadowColoredAi = 0 4px 12px -2px rgba(16, 163, 127, 0.25) */
     public static final String SHADOWCOLOREDAI = "0 4px 12px -2px rgba(16, 163, 127, 0.25)";
 
     /** ShadowColoredError = 0 4px 12px -2px rgba(239, 68, 68, 0.25) */
     public static final String SHADOWCOLOREDERROR = "0 4px 12px -2px rgba(239, 68, 68, 0.25)";
+
+    /** ShadowSwitchThumb = 0 1px 3px rgba(0, 0, 0, 0.3) */
+    public static final String SHADOWSWITCHTHUMB = "0 1px 3px rgba(0, 0, 0, 0.3)";
+
+    /** ShadowFab = 0 4px 8px -2px rgba(103, 80, 164, 0.35) */
+    public static final String SHADOWFAB = "0 4px 8px -2px rgba(103, 80, 164, 0.35)";
+
+    /** ShadowFabPressed = 0 6px 12px -2px rgba(103, 80, 164, 0.45) */
+    public static final String SHADOWFABPRESSED = "0 6px 12px -2px rgba(103, 80, 164, 0.45)";
 
     /** Space0 = 0px */
     public static final double SPACE0 = 0;
@@ -1377,5 +1941,257 @@ public final class DesignTokens {
 
     /** FontVariantOldstyleNums = oldstyle-nums */
     public static final int FONTVARIANTOLDSTYLENUMS = oldstyle-nu;
+
+    /** WebLightCanvas = #F6F7F9 */
+    public static final String WEBLIGHTCANVAS = "#F6F7F9";
+
+    /** WebLightSurface = #FFFFFF */
+    public static final String WEBLIGHTSURFACE = "#FFFFFF";
+
+    /** WebLightInset = #F0F2F5 */
+    public static final String WEBLIGHTINSET = "#F0F2F5";
+
+    /** WebLightChrome = rgba(247,248,251,0.86) */
+    public static final String WEBLIGHTCHROME = "rgba(247,248,251,0.86)";
+
+    /** WebLightInk = #20232B */
+    public static final String WEBLIGHTINK = "#20232B";
+
+    /** WebLightMuted = #596170 */
+    public static final String WEBLIGHTMUTED = "#596170";
+
+    /** WebLightLine = #E1E4EA */
+    public static final String WEBLIGHTLINE = "#E1E4EA";
+
+    /** WebLightControlLine = #788293 */
+    public static final String WEBLIGHTCONTROLLINE = "#788293";
+
+    /** WebLightAccent = #1D4ED8 */
+    public static final String WEBLIGHTACCENT = "#1D4ED8";
+
+    /** WebLightAccentSoft = #E8EFFF */
+    public static final String WEBLIGHTACCENTSOFT = "#E8EFFF";
+
+    /** WebLightAction = #2563EB */
+    public static final String WEBLIGHTACTION = "#2563EB";
+
+    /** WebLightOnAction = #FFFFFF */
+    public static final String WEBLIGHTONACTION = "#FFFFFF";
+
+    /** WebLightActionHover = #1D4ED8 */
+    public static final String WEBLIGHTACTIONHOVER = "#1D4ED8";
+
+    /** WebLightSecondary = #1D4ED8 */
+    public static final String WEBLIGHTSECONDARY = "#1D4ED8";
+
+    /** WebLightSecondarySoft = #E8EFFF */
+    public static final String WEBLIGHTSECONDARYSOFT = "#E8EFFF";
+
+    /** WebLightSuccess = #08734F */
+    public static final String WEBLIGHTSUCCESS = "#08734F";
+
+    /** WebLightSuccessSoft = #E4F5ED */
+    public static final String WEBLIGHTSUCCESSSOFT = "#E4F5ED";
+
+    /** WebLightWarning = #92400E */
+    public static final String WEBLIGHTWARNING = "#92400E";
+
+    /** WebLightWarningSoft = #FFF2D5 */
+    public static final String WEBLIGHTWARNINGSOFT = "#FFF2D5";
+
+    /** WebLightDanger = #B42332 */
+    public static final String WEBLIGHTDANGER = "#B42332";
+
+    /** WebLightDangerSoft = #FDE9ED */
+    public static final String WEBLIGHTDANGERSOFT = "#FDE9ED";
+
+    /** WebLightFocus = #1D4ED8 */
+    public static final String WEBLIGHTFOCUS = "#1D4ED8";
+
+    /** WebLightOverlay = rgba(20,24,35,0.42) */
+    public static final String WEBLIGHTOVERLAY = "rgba(20,24,35,0.42)";
+
+    /** WebLightShadow = 0 4px 18px rgba(22,29,45,0.05) */
+    public static final String WEBLIGHTSHADOW = "0 4px 18px rgba(22,29,45,0.05)";
+
+    /** WebDarkCanvas = #121418 */
+    public static final String WEBDARKCANVAS = "#121418";
+
+    /** WebDarkSurface = #1C1F25 */
+    public static final String WEBDARKSURFACE = "#1C1F25";
+
+    /** WebDarkInset = #262A32 */
+    public static final String WEBDARKINSET = "#262A32";
+
+    /** WebDarkChrome = rgba(26,28,34,0.90) */
+    public static final String WEBDARKCHROME = "rgba(26,28,34,0.90)";
+
+    /** WebDarkInk = #F3F4F8 */
+    public static final String WEBDARKINK = "#F3F4F8";
+
+    /** WebDarkMuted = #B1B7C5 */
+    public static final String WEBDARKMUTED = "#B1B7C5";
+
+    /** WebDarkLine = #343944 */
+    public static final String WEBDARKLINE = "#343944";
+
+    /** WebDarkControlLine = #8B95A9 */
+    public static final String WEBDARKCONTROLLINE = "#8B95A9";
+
+    /** WebDarkAccent = #9ABBFF */
+    public static final String WEBDARKACCENT = "#9ABBFF";
+
+    /** WebDarkAccentSoft = #233457 */
+    public static final String WEBDARKACCENTSOFT = "#233457";
+
+    /** WebDarkAction = #9ABBFF */
+    public static final String WEBDARKACTION = "#9ABBFF";
+
+    /** WebDarkOnAction = #10213D */
+    public static final String WEBDARKONACTION = "#10213D";
+
+    /** WebDarkActionHover = #B3CAFF */
+    public static final String WEBDARKACTIONHOVER = "#B3CAFF";
+
+    /** WebDarkSecondary = #9ABBFF */
+    public static final String WEBDARKSECONDARY = "#9ABBFF";
+
+    /** WebDarkSecondarySoft = #233457 */
+    public static final String WEBDARKSECONDARYSOFT = "#233457";
+
+    /** WebDarkSuccess = #75D9B0 */
+    public static final String WEBDARKSUCCESS = "#75D9B0";
+
+    /** WebDarkSuccessSoft = #153A2D */
+    public static final String WEBDARKSUCCESSSOFT = "#153A2D";
+
+    /** WebDarkWarning = #FFD18D */
+    public static final String WEBDARKWARNING = "#FFD18D";
+
+    /** WebDarkWarningSoft = #44321A */
+    public static final String WEBDARKWARNINGSOFT = "#44321A";
+
+    /** WebDarkDanger = #FFADB8 */
+    public static final String WEBDARKDANGER = "#FFADB8";
+
+    /** WebDarkDangerSoft = #47232D */
+    public static final String WEBDARKDANGERSOFT = "#47232D";
+
+    /** WebDarkFocus = #9ABBFF */
+    public static final String WEBDARKFOCUS = "#9ABBFF";
+
+    /** WebDarkOverlay = rgba(0,0,0,0.65) */
+    public static final String WEBDARKOVERLAY = "rgba(0,0,0,0.65)";
+
+    /** WebDarkShadow = 0 4px 18px rgba(0,0,0,0.18) */
+    public static final String WEBDARKSHADOW = "0 4px 18px rgba(0,0,0,0.18)";
+
+    /** WebSpace1 = 4px */
+    public static final double WEBSPACE1 = 4;
+
+    /** WebSpace2 = 8px */
+    public static final double WEBSPACE2 = 8;
+
+    /** WebSpace3 = 12px */
+    public static final double WEBSPACE3 = 12;
+
+    /** WebSpace4 = 16px */
+    public static final double WEBSPACE4 = 16;
+
+    /** WebSpace5 = 20px */
+    public static final double WEBSPACE5 = 20;
+
+    /** WebSpace6 = 24px */
+    public static final double WEBSPACE6 = 24;
+
+    /** WebSpace8 = 32px */
+    public static final double WEBSPACE8 = 32;
+
+    /** WebSpace10 = 40px */
+    public static final double WEBSPACE10 = 40;
+
+    /** WebSpace12 = 48px */
+    public static final double WEBSPACE12 = 48;
+
+    /** WebRadiusSmall = 8px */
+    public static final double WEBRADIUSSMALL = 8;
+
+    /** WebRadiusControl = 10px */
+    public static final double WEBRADIUSCONTROL = 10;
+
+    /** WebRadiusPanel = 16px */
+    public static final double WEBRADIUSPANEL = 16;
+
+    /** WebRadiusModal = 20px */
+    public static final double WEBRADIUSMODAL = 20;
+
+    /** WebRadiusPill = 999px */
+    public static final double WEBRADIUSPILL = 999;
+
+    /** WebSizeControl = 44px */
+    public static final double WEBSIZECONTROL = 44;
+
+    /** WebSizeControlCompact = 36px */
+    public static final double WEBSIZECONTROLCOMPACT = 36;
+
+    /** WebSizeControlTouch = 48px */
+    public static final double WEBSIZECONTROLTOUCH = 48;
+
+    /** WebSizeSidebar = 212px */
+    public static final double WEBSIZESIDEBAR = 212;
+
+    /** WebSizeTitlebar = 52px */
+    public static final double WEBSIZETITLEBAR = 52;
+
+    /** WebSizeContent = 1280px */
+    public static final double WEBSIZECONTENT = 1280;
+
+    /** WebMotionFast = 120ms */
+    public static final int WEBMOTIONFAST = 120;
+
+    /** WebMotionStandard = 200ms */
+    public static final int WEBMOTIONSTANDARD = 200;
+
+    /** WebMotionPage = 180ms */
+    public static final int WEBMOTIONPAGE = 180;
+
+    /** WebMotionEase = cubic-bezier(0.2,0,0,1) */
+    public static final String WEBMOTIONEASE = "cubic-bezier(0.2,0,0,1)";
+
+    /** WebMotionCard = cubic-bezier(0.2,0.8,0.2,1) */
+    public static final String WEBMOTIONCARD = "cubic-bezier(0.2,0.8,0.2,1)";
+
+    /** WebTypeSans = 'Aether Sans', 'Noto Sans SC', 'Microsoft YaHei UI', 'Microsoft YaHei', 'Segoe UI', sans-serif */
+    public static final String WEBTYPESANS = "'Aether Sans', 'Noto Sans SC', 'Microsoft YaHei UI', 'Microsoft YaHei', 'Segoe UI', sans-serif";
+
+    /** WebTypeMono = 'Cascadia Code', Consolas, 'Aether Sans', 'Noto Sans SC', monospace */
+    public static final String WEBTYPEMONO = "'Cascadia Code', Consolas, 'Aether Sans', 'Noto Sans SC', monospace";
+
+    /** WebTypeBody = 14px */
+    public static final double WEBTYPEBODY = 14;
+
+    /** WebTypeSmall = 12px */
+    public static final double WEBTYPESMALL = 12;
+
+    /** WebTypeHeading = 26px */
+    public static final double WEBTYPEHEADING = 26;
+
+    /** WebTypeMetric = 32px */
+    public static final double WEBTYPEMETRIC = 32;
+
+    /** WebLayerBase = 0 */
+    public static final String WEBLAYERBASE = "0";
+
+    /** WebLayerChrome = 10 */
+    public static final String WEBLAYERCHROME = "10";
+
+    /** WebLayerMenu = 30 */
+    public static final String WEBLAYERMENU = "30";
+
+    /** WebLayerModal = 50 */
+    public static final String WEBLAYERMODAL = "50";
+
+    /** WebLayerToast = 70 */
+    public static final String WEBLAYERTOAST = "70";
 
 }

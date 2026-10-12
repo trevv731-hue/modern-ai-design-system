@@ -1,3 +1,20 @@
+# Modern AI 设计规范 v3
+
+本版的详细规范已拆分为 [实施手册](docs/README.md) 和 28 篇组件规范，便于按任务查阅。
+v3 Web 的语义主题、状态、无障碍与验证说明以新手册为准；下面保留 v2 历史资料及原生参考。
+
+| 主题 | 入口 |
+|---|---|
+| 视觉与层级 | [基础规范](docs/foundations.md) |
+| Token 和主题 | [主题与密度](docs/themes.md)、[变量表](docs/token-reference.md) |
+| 交互与状态 | [状态规范](docs/states.md)、[组件目录](docs/README.md#组件目录) |
+| 可访问性 | [键盘与无障碍](docs/accessibility.md) |
+| 性能与动效 | [动效规范](docs/motion.md) |
+| 实施与验收 | [React 接入](docs/react.md)、[质量检查](docs/quality.md) |
+| 产品场景 | [连接客户端](docs/patterns/network-client.md)、[数据工作区](docs/patterns/data-workspace.md)、[设置](docs/patterns/settings.md) |
+
+---
+
 # 现代 AI 生产力设计系统 v2.0 (Modern AI Productivity Design System)
 
 > 融合 Apple 分层视觉、Android Material 动效与表单、混合交互反馈的跨平台设计规范。

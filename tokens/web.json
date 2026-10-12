@@ -1,0 +1,272 @@
+{
+  "web": {
+    "light": {
+      "canvas": {
+        "value": "#F6F7F9"
+      },
+      "surface": {
+        "value": "#FFFFFF"
+      },
+      "inset": {
+        "value": "#F0F2F5"
+      },
+      "chrome": {
+        "value": "rgba(247,248,251,0.86)"
+      },
+      "ink": {
+        "value": "#20232B"
+      },
+      "muted": {
+        "value": "#596170"
+      },
+      "line": {
+        "value": "#E1E4EA"
+      },
+      "controlLine": {
+        "value": "#788293"
+      },
+      "accent": {
+        "value": "#1D4ED8"
+      },
+      "accentSoft": {
+        "value": "#E8EFFF"
+      },
+      "action": {
+        "value": "#2563EB"
+      },
+      "onAction": {
+        "value": "#FFFFFF"
+      },
+      "actionHover": {
+        "value": "#1D4ED8"
+      },
+      "secondary": {
+        "value": "#1D4ED8"
+      },
+      "secondarySoft": {
+        "value": "#E8EFFF"
+      },
+      "success": {
+        "value": "#08734F"
+      },
+      "successSoft": {
+        "value": "#E4F5ED"
+      },
+      "warning": {
+        "value": "#92400E"
+      },
+      "warningSoft": {
+        "value": "#FFF2D5"
+      },
+      "danger": {
+        "value": "#B42332"
+      },
+      "dangerSoft": {
+        "value": "#FDE9ED"
+      },
+      "focus": {
+        "value": "#1D4ED8"
+      },
+      "overlay": {
+        "value": "rgba(20,24,35,0.42)"
+      },
+      "shadow": {
+        "value": "0 4px 18px rgba(22,29,45,0.05)"
+      }
+    },
+    "dark": {
+      "canvas": {
+        "value": "#121418"
+      },
+      "surface": {
+        "value": "#1C1F25"
+      },
+      "inset": {
+        "value": "#262A32"
+      },
+      "chrome": {
+        "value": "rgba(26,28,34,0.90)"
+      },
+      "ink": {
+        "value": "#F3F4F8"
+      },
+      "muted": {
+        "value": "#B1B7C5"
+      },
+      "line": {
+        "value": "#343944"
+      },
+      "controlLine": {
+        "value": "#8B95A9"
+      },
+      "accent": {
+        "value": "#9ABBFF"
+      },
+      "accentSoft": {
+        "value": "#233457"
+      },
+      "action": {
+        "value": "#9ABBFF"
+      },
+      "onAction": {
+        "value": "#10213D"
+      },
+      "actionHover": {
+        "value": "#B3CAFF"
+      },
+      "secondary": {
+        "value": "#9ABBFF"
+      },
+      "secondarySoft": {
+        "value": "#233457"
+      },
+      "success": {
+        "value": "#75D9B0"
+      },
+      "successSoft": {
+        "value": "#153A2D"
+      },
+      "warning": {
+        "value": "#FFD18D"
+      },
+      "warningSoft": {
+        "value": "#44321A"
+      },
+      "danger": {
+        "value": "#FFADB8"
+      },
+      "dangerSoft": {
+        "value": "#47232D"
+      },
+      "focus": {
+        "value": "#9ABBFF"
+      },
+      "overlay": {
+        "value": "rgba(0,0,0,0.65)"
+      },
+      "shadow": {
+        "value": "0 4px 18px rgba(0,0,0,0.18)"
+      }
+    },
+    "space": {
+      "1": {
+        "value": "4px"
+      },
+      "2": {
+        "value": "8px"
+      },
+      "3": {
+        "value": "12px"
+      },
+      "4": {
+        "value": "16px"
+      },
+      "5": {
+        "value": "20px"
+      },
+      "6": {
+        "value": "24px"
+      },
+      "8": {
+        "value": "32px"
+      },
+      "10": {
+        "value": "40px"
+      },
+      "12": {
+        "value": "48px"
+      }
+    },
+    "radius": {
+      "small": {
+        "value": "8px"
+      },
+      "control": {
+        "value": "10px"
+      },
+      "panel": {
+        "value": "16px"
+      },
+      "modal": {
+        "value": "20px"
+      },
+      "pill": {
+        "value": "999px"
+      }
+    },
+    "size": {
+      "control": {
+        "value": "44px"
+      },
+      "controlCompact": {
+        "value": "36px"
+      },
+      "controlTouch": {
+        "value": "48px"
+      },
+      "sidebar": {
+        "value": "212px"
+      },
+      "titlebar": {
+        "value": "52px"
+      },
+      "content": {
+        "value": "1280px"
+      }
+    },
+    "motion": {
+      "fast": {
+        "value": "120ms"
+      },
+      "standard": {
+        "value": "200ms"
+      },
+      "page": {
+        "value": "180ms"
+      },
+      "ease": {
+        "value": "cubic-bezier(0.2,0,0,1)"
+      },
+      "card": {
+        "value": "cubic-bezier(0.2,0.8,0.2,1)"
+      }
+    },
+    "type": {
+      "sans": {
+        "value": "'Aether Sans', 'Noto Sans SC', 'Microsoft YaHei UI', 'Microsoft YaHei', 'Segoe UI', sans-serif"
+      },
+      "mono": {
+        "value": "'Cascadia Code', Consolas, 'Aether Sans', 'Noto Sans SC', monospace"
+      },
+      "body": {
+        "value": "14px"
+      },
+      "small": {
+        "value": "12px"
+      },
+      "heading": {
+        "value": "26px"
+      },
+      "metric": {
+        "value": "32px"
+      }
+    },
+    "layer": {
+      "base": {
+        "value": "0"
+      },
+      "chrome": {
+        "value": "10"
+      },
+      "menu": {
+        "value": "30"
+      },
+      "modal": {
+        "value": "50"
+      },
+      "toast": {
+        "value": "70"
+      }
+    }
+  }
+}

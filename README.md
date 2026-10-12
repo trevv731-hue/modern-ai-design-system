@@ -1,4 +1,32 @@
-# 现代 AI 生产力设计系统 v2.0 (Modern AI Design System)
+# Modern AI Design System v3.0
+
+v3 新增可运行的 Web 系统，并保留下面的 v2 原生参考资料。
+
+- **28 类组件**：独立结构、状态、键盘行为、HTML 示例与验收清单。
+- **11 个 React 封装**：按钮、输入框、开关、徽标、面板、指标、空状态、提示、进度、分段控件、对话框。
+- **2 套语义主题 + 3 种密度**：对比度检查、减少动效与高对比回退。
+- **详细手册和场景**：无障碍、异步、隐私、数据、布局、国际化、平台、维护与迁移。
+- **离线交互目录与可读手册**：[index.html](index.html)、[handbook.html](handbook.html)，可搜索、切主题、切密度、复制代码、体验键盘与弹窗。
+- **AetherLink 集成**：同步产物后在项目中使用，无需运行时访问设计系统目录。
+
+```bash
+npm ci
+npm run build
+npm test
+npm run lint:motion
+```
+
+入口：[完整手册](docs/README.md) · [变量参考](docs/token-reference.md) · [迁移说明](docs/migration.md) · [交付检查](docs/quality.md)。
+
+可选使用 `python scripts/package.py` 生成不含依赖与 Git 历史的便携压缩包。
+
+Web/React 已通过实际工程验证；原生示例需要在相应平台构建和测试。不会为增加体积复制重复素材；系统体积主要由有效源码、规范、示例与验证截图决定。
+
+---
+
+## v2 历史参考
+
+### 现代 AI 生产力设计系统 v2.0 (Modern AI Design System)
 
 > 融合 Apple macOS/iOS、Android 原生 Material Design 3 的跨平台 Design Tokens 包 + AI 协作 Skill。
 > 基于用户 A/B 对比选择的混血设计方案：Apple 布局 + 混合按钮 + Android 输入/开关/页面切换。
