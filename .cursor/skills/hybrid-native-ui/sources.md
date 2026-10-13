@@ -1,6 +1,6 @@
 # 官方依据与 v3 手册
 
-完整来源及适用边界见 [docs/sources.md](../../../docs/sources.md)。v3 Web 接入见 [docs/react.md](../../../docs/react.md)，组件目录见项目根目录 `index.html`。
+完整来源及适用边界见 [来源与边界](../../../docs/guides/sources.md)。v3 Web 接入见 [React 接入](../../../docs/guides/react.md)，组件目录见项目根目录 `index.html`。
 
 - [Apple HIG Materials](https://developer.apple.com/design/human-interface-guidelines/materials)
 - [Material Design Foundations](https://m3.material.io/foundations/)

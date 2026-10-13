@@ -135,7 +135,7 @@ Ship only if:
 
 ## v3 Web implementation
 
-For new Web/React work, read the project's `docs/README.md`, `docs/themes.md`, `docs/states.md`, and `docs/react.md`. Use generated `dist/web/theme.css`, `dist/web/components.css`, and `web/react.tsx`.
+For new Web/React work, read the project's `docs/README.md`, `docs/guides/themes.md`, `docs/guides/states.md`, and `docs/guides/react.md`. Use generated `dist/web/theme.css`, `dist/web/components.css`, and `web/react.tsx`.
 
 The existing v2 matrix is historical reference material. Explicit user requests and current project constraints take precedence. Do not infer authorization for external changes from examples in these documents.
 

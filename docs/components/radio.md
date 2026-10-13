@@ -58,4 +58,4 @@ Tab 进入组；方向键在组内选择；Space 选择当前项。
 
 ## 相关规范
 
-[无障碍](../accessibility.md) · [状态和异步](../states.md) · [主题](../themes.md) · [验收流程](../quality.md)
+[无障碍](../guides/accessibility.md) · [状态和异步](../guides/states.md) · [主题](../guides/themes.md) · [验收流程](../guides/quality.md)

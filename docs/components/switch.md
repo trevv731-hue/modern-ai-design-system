@@ -65,4 +65,4 @@ Tab 进入；Space 切换；role=switch；原生 checked 是唯一真值。
 
 ## 相关规范
 
-[无障碍](../accessibility.md) · [状态和异步](../states.md) · [主题](../themes.md) · [验收流程](../quality.md)
+[无障碍](../guides/accessibility.md) · [状态和异步](../guides/states.md) · [主题](../guides/themes.md) · [验收流程](../guides/quality.md)

@@ -4,28 +4,29 @@
 
 ## 阅读顺序
 
-1. [基础视觉与层级](foundations.md)：确定页面骨架和内容优先级。
-2. [主题与密度](themes.md)、[完整 Token 表](token-reference.md)：选择角色而不是抄色值。
+1. [基础视觉与层级](guides/foundations.md)：确定页面骨架和内容优先级。
+2. [主题与密度](guides/themes.md)、[完整 Token 表](guides/token-reference.md)：选择角色而不是抄色值。
 3. [组件目录](#组件目录)：按任务选组件，再检查状态和键盘行为。
-4. [异步状态](states.md)、[无障碍](accessibility.md)：保证失败、等待和键盘路径完整。
-5. [React 接入](react.md)、[跨平台边界](platforms.md)、[迁移](migration.md)：把规范接到实际工程。
-6. [交付检查](quality.md)：记录已验证的能力，避免宣称未测试的平台支持。
+4. [异步状态](guides/states.md)、[无障碍](guides/accessibility.md)：保证失败、等待和键盘路径完整。
+5. [React 接入](guides/react.md)、[跨平台边界](guides/platforms.md)、[迁移](guides/migration.md)：把规范接到实际工程。
+6. [交付检查](guides/quality.md)：记录已验证的能力，避免宣称未测试的平台支持。
 
 ## 专题
 
-- [布局与响应式](layout.md)
-- [动效与性能](motion.md)
-- [文字、错误与隐私](content.md)
-- [数据与图表](data.md)
-- [图标与资源](assets.md)
-- [国际化](internationalization.md)
-- [版本与维护](governance.md)
-- [设计评审清单](review.md)
-- [官方来源与解释边界](sources.md)
+- [布局与响应式](guides/layout.md)
+- [动效与性能](guides/motion.md)
+- [文字、错误与隐私](guides/content.md)
+- [数据与图表](guides/data.md)
+- [图标与资源](guides/assets.md)
+- [国际化](guides/internationalization.md)
+- [版本与维护](guides/governance.md)
+- [设计评审清单](guides/review.md)
+- [官方来源与解释边界](guides/sources.md)
 
 ## 页面场景
 
 - [连接客户端与订阅导入](patterns/network-client.md)
+- [订阅与节点分组](patterns/subscription-groups.md)
 - [列表、搜索与筛选工作区](patterns/data-workspace.md)
 - [设置、权限与未实现功能](patterns/settings.md)
 - [AI 对话与生成任务](patterns/ai-workspace.md)
@@ -45,8 +46,6 @@
 
 ## 可运行入口
 
-在系统目录运行 `npm run build` 和 `npm test`。浏览器打开 [index.html](../index.html) 可直接体验目录，无服务器和远程字体依赖。
+开发前运行 `npm ci`，再运行 `npm run build` 和 `npm test`。浏览器打开 [index.html](../index.html) 可直接体验目录，无需安装依赖或启动服务器。
 
 Web/CSS 输出在 `dist/web/`；React 源码在 `web/react.tsx`。React 组件通过 AetherLink 的 TypeScript 与打包流程验证。Swift、Compose、JavaFX 等已有输出仍属于需要对应平台验证的参考产物。
-
-- [订阅与节点分组](patterns/subscription-groups.md)

@@ -2,12 +2,13 @@
   "name": "modern-ai-design-system",
   "version": "3.0.0",
   "description": "Modern AI 设计系统 v3：跨平台 tokens、语义主题、28 类组件规范、11 个 React 组件、交互目录与详细实施指南",
-  "main": "build.js",
+  "main": "scripts/build.cjs",
   "scripts": {
-    "build": "node build.js",
+    "build": "node scripts/build.cjs",
     "lint:motion": "node .cursor/skills/hybrid-native-ui/scripts/check-css-motion.mjs web/components.css web/motion.css .cursor/skills/hybrid-native-ui/code/motion.css .cursor/skills/hybrid-native-ui/code/glass.css .cursor/skills/hybrid-native-ui/code/shared-axis.css",
     "build:web": "node scripts/build-web.cjs",
-    "test": "node scripts/validate.cjs && node --test scripts/test-motion.cjs"
+    "test": "node scripts/validate.cjs && node --test scripts/test-motion.cjs",
+    "package": "python scripts/package.py"
   },
   "keywords": [
     "design-tokens",

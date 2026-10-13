@@ -1,6 +1,9 @@
 const StyleDictionary = require('style-dictionary');
 const path = require('path');
 
+// Resolve token sources and output paths from the project root.
+process.chdir(path.resolve(__dirname, '..'));
+
 // ============================================================
 // 自定义格式注册
 // ============================================================
@@ -536,4 +539,4 @@ console.log('   📄 json/tokens.json        - JSON 格式');
 console.log('   📄 typescript/tokens.ts    - TypeScript 常量');
 
 // v3 Web semantic themes, component docs and offline gallery.
-require('./scripts/build-web.cjs');
+require('./build-web.cjs');

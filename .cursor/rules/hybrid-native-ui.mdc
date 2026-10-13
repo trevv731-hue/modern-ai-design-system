@@ -6,7 +6,9 @@ alwaysApply: false
 
 When building or changing UI, motion, glass, sheets, buttons, lists, theme, input fields, or switches, follow `.cursor/skills/hybrid-native-ui/SKILL.md`.
 
-v2.0 user preferences (authoritative):
+For Web/React, use `docs/README.md`, `docs/guides/` and `dist/web/` as the current v3 reference.
+
+Historical v2 native preferences (current user requests and project constraints take precedence):
 - Layout: Apple — glass only on chrome (sidebar/toolbar), content opaque, hairline borders
 - Button: Hybrid — hover color darken, active scale(0.98), 150ms ease, NO spring, NO ripple on mouse
 - Card: Apple — hover translateY(-3px) scale(1.015) + shadow, 350ms spring

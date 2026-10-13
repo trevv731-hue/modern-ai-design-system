@@ -18,4 +18,4 @@ Web 产物内置 Noto Sans SC 可变字体，通过本地 @font-face 加载，�
 
 桌面应用品牌图标保留 SVG 原件，导出 512px PNG 和包含 16／32／48／64／128／256px 的 ICO；检查任务栏、窗口标题和高缩放下的可读性。示例实现已用于 SSH Desk。业务图标继续沿用统一笔画，不把每个动作换成品牌标识。
 
-源资源放在 `assets/`，衍生截图放在 `artifacts/`，构建 CSS/JSON 放在 `dist/`。不把 node_modules 体积当作设计系统的内容价值。原始资源与演示资源分离。
+字体源文件和许可放在 `web/fonts/`，构建 CSS/JSON 放在 `dist/`。既有截图和旧压缩包已移入项目同级的整理备份；运行 `npm run package` 时才创建 `artifacts/` 输出目录。不把 node_modules 体积当作设计系统的内容价值。原始资源与演示资源分离。

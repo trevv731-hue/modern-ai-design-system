@@ -37,7 +37,7 @@
 
 ## 桌面产品动效细化
 
-可选引入 `dist/web/motion.css` 与 `dist/web/motion.js`。Vanilla DOM 接口 `DSMotion.create()` 提供 `enter`（页面短淡入）、`update`（确认改变的数值短淡入）和 `cancel`；连续操作取消同一节点的旧动画，读取系统减少动效偏好。该模块不包含品牌配色或业务状态，已在 SSH Desk 的原生 Electron 弹窗、服务器卡片和实时监控页验证。具体接入见 [实时监控工作区](patterns/live-telemetry.md)。
+可选引入 `dist/web/motion.css` 与 `dist/web/motion.js`。Vanilla DOM 接口 `DSMotion.create()` 提供 `enter`（页面短淡入）、`update`（确认改变的数值短淡入）和 `cancel`；连续操作取消同一节点的旧动画，读取系统减少动效偏好。该模块不包含品牌配色或业务状态，已在 SSH Desk 的原生 Electron 弹窗、服务器卡片和实时监控页验证。具体接入见 [实时监控工作区](../patterns/live-telemetry.md)。
 
 参考 [Microsoft Fluent 2 Motion](https://fluent2.microsoft.design/motion)：顶层导航采用短淡入，避免用大面积滑动暗示页面层级。AetherLink 使用 180ms opacity 动画，切换页面时取消旧动画；控件状态仍立即更新，不等待动画结束。
 
