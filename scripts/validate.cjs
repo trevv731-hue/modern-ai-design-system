@@ -60,7 +60,7 @@ function walk(dir) {
   }
 }
 walk(path.join(root,'docs'));
-for (const file of ['theme.css','components.css','react.tsx','tokens.ts','tokens.json','catalog.json','manifest.json']) {
+for (const file of ['theme.css','components.css','motion.css','motion.js','react.tsx','tokens.ts','tokens.json','catalog.json','manifest.json']) {
   assert.ok(fs.existsSync(path.join(root,'dist/web',file)), `missing ${file}`);
 }
 console.log(`PASS: 28 component specifications, 11 React exports, 2 themes, ${pairs} text contrast pairs, ${docs} docs and relative links, reduced motion and forced colors`);

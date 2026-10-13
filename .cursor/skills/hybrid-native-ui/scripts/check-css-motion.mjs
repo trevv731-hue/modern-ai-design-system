@@ -68,7 +68,7 @@ function checkCSS(content, filename) {
 
     // 2. Banned: animating layout properties
     for (const prop of BANNED_PROPERTIES) {
-      const regex = new RegExp(`transition\\s*:.*\\b${prop}\\b`, 'i');
+      const regex = new RegExp(`transition\\s*:[^;{}]*\\b${prop}\\b`, 'i');
       if (regex.test(line)) {
         errors.push(`[${filename}:${lineNum}] BANNED: animating "${prop}" (layout property). Use transform (translate/scale) instead.`);
       }
@@ -102,7 +102,7 @@ function checkCSS(content, filename) {
     }
 
     // 7. Warn: very long transition (>500ms) for micro-interactions
-    const durationMatch = line.match(/transition\s*:.*?(\d+(?:\.\d+)?)(ms|s)/i);
+    const durationMatch = line.match(/transition\s*:[^;{}]*?(\d*\.?\d+)(ms|s)/i);
     if (durationMatch) {
       const duration = durationMatch[2] === 's' ? parseFloat(durationMatch[1]) * 1000 : parseFloat(durationMatch[1]);
       if (duration > 500 && !currentSelector.includes('sheet') && !currentSelector.includes('modal') && !currentSelector.includes('page')) {

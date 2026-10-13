@@ -5,9 +5,9 @@
   "main": "build.js",
   "scripts": {
     "build": "node build.js",
-    "lint:motion": "node .cursor/skills/hybrid-native-ui/scripts/check-css-motion.mjs web/components.css .cursor/skills/hybrid-native-ui/code/motion.css .cursor/skills/hybrid-native-ui/code/glass.css .cursor/skills/hybrid-native-ui/code/shared-axis.css",
+    "lint:motion": "node .cursor/skills/hybrid-native-ui/scripts/check-css-motion.mjs web/components.css web/motion.css .cursor/skills/hybrid-native-ui/code/motion.css .cursor/skills/hybrid-native-ui/code/glass.css .cursor/skills/hybrid-native-ui/code/shared-axis.css",
     "build:web": "node scripts/build-web.cjs",
-    "test": "node scripts/validate.cjs"
+    "test": "node scripts/validate.cjs && node --test scripts/test-motion.cjs"
   },
   "keywords": [
     "design-tokens",

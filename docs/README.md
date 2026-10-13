@@ -29,6 +29,7 @@
 - [列表、搜索与筛选工作区](patterns/data-workspace.md)
 - [设置、权限与未实现功能](patterns/settings.md)
 - [AI 对话与生成任务](patterns/ai-workspace.md)
+- [实时 GPU／服务器监控](patterns/live-telemetry.md)：采样生命周期、使用账号、未知与零值、桌面动效
 
 ## 组件目录
 

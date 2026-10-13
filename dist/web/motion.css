@@ -1,0 +1,28 @@
+/* Optional v3 motion layer. Colors and layout remain owned by the product. */
+:root {
+  --ds-motion-press: 100ms;
+  --ds-motion-feedback: 150ms;
+  --ds-motion-page: 180ms;
+  --ds-motion-dialog: 200ms;
+  --ds-motion-ease: cubic-bezier(.2, 0, 0, 1);
+}
+.ds-motion-button {
+  transition: transform var(--ds-motion-press) var(--ds-motion-ease), background-color var(--ds-motion-feedback) ease, color var(--ds-motion-feedback) ease, border-color var(--ds-motion-feedback) ease;
+}
+.ds-motion-button:active:not(:disabled) { transform: scale(.98); }
+.ds-motion-hover { transition: transform 200ms var(--ds-motion-ease), border-color 150ms ease; }
+@media (hover: hover) and (pointer: fine) {
+  .ds-motion-hover:hover { transform: translateY(-1px); }
+}
+.ds-motion-dialog[open] { animation: ds-dialog-enter var(--ds-motion-dialog) var(--ds-motion-ease) both; }
+.ds-motion-dialog[open]::backdrop { animation: ds-backdrop-enter 150ms ease both; }
+@keyframes ds-dialog-enter {
+  from { opacity: 0; transform: translateY(6px) scale(.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes ds-backdrop-enter { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .ds-motion-button, .ds-motion-hover { transition: none; }
+  .ds-motion-button:active:not(:disabled), .ds-motion-hover:hover { transform: none; }
+  .ds-motion-dialog[open], .ds-motion-dialog[open]::backdrop { animation: none; }
+}
