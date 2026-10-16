@@ -4,7 +4,7 @@ const assert = require('assert/strict');
 const root = path.resolve(__dirname, '..');
 const source = require('../tokens/web.json').web;
 const catalog = require('../web/catalog.cjs');
-assert.equal(catalog.length, 28);
+assert.equal(catalog.length, 206);
 assert.deepEqual(Object.keys(source.light).sort(), Object.keys(source.dark).sort(), 'themes have identical roles');
 const luminance = color => {
   const channels = color.slice(1).match(/../g).map(value => parseInt(value,16)/255)
@@ -42,7 +42,7 @@ assert.ok(!/transition\s*:\s*all/.test(sourceCss));
 assert.ok(sourceCss.includes('prefers-reduced-motion'));
 assert.ok(sourceCss.includes('forced-colors'));
 const exported=fs.readFileSync(path.join(root,'web/react.tsx'),'utf8').match(/export function /g)||[];
-assert.equal(exported.length,11);
+assert.equal(exported.length, 189);
 let docs=0;
 function walk(dir) {
   for (const entry of fs.readdirSync(dir,{withFileTypes:true})) {
@@ -63,4 +63,4 @@ walk(path.join(root,'docs'));
 for (const file of ['theme.css','components.css','motion.css','motion.js','react.tsx','tokens.ts','tokens.json','catalog.json','manifest.json']) {
   assert.ok(fs.existsSync(path.join(root,'dist/web',file)), `missing ${file}`);
 }
-console.log(`PASS: 28 component specifications, 11 React exports, 2 themes, ${pairs} text contrast pairs, ${docs} docs and relative links, reduced motion and forced colors`);
+console.log(`PASS: ${catalog.length} component specifications, ${exported.length} React exports, 2 themes, ${pairs} text contrast pairs, ${docs} docs and relative links, reduced motion and forced colors`);

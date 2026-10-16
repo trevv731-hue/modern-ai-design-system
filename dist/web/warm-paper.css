@@ -1,0 +1,1695 @@
+/* Optional product palettes. Load after theme.css; use data-palette="name". */
+[data-palette="warm-paper"] {
+  color-scheme: light;
+  --ds-canvas: #F5F3ED;
+  --ds-surface: #FCFBF8;
+  --ds-inset: #ECE9E1;
+  --ds-chrome: #F5F3ED;
+  --ds-ink: #38352F;
+  --ds-muted: #6E685F;
+  --ds-line: #E3DFD5;
+  --ds-control-line: #AAA294;
+  --ds-accent: #92583F;
+  --ds-accent-soft: #EEE2D7;
+  --ds-action: #92583F;
+  --ds-action-hover: #7D4934;
+  --ds-on-action: #FFFDFA;
+  --ds-secondary: #92583F;
+  --ds-secondary-soft: #EEE2D7;
+  --ds-success: #566044;
+  --ds-success-soft: #E9EADF;
+  --ds-warning: #92400E;
+  --ds-warning-soft: #FFF2D5;
+  --ds-danger: #B42332;
+  --ds-danger-soft: #FDE9ED;
+  --ds-focus: #92583F;
+  --ds-overlay: rgba(57,51,42,.28);
+  --ds-shadow: 0 4px 18px rgba(57,51,42,.035);
+}
+
+/* Tokyo Night — Cyberpunk neon on deep indigo */
+[data-palette="tokyo-night"] {
+  color-scheme: dark;
+  --ds-canvas: #16161E;
+  --ds-surface: #1F2335;
+  --ds-inset: #13141C;
+  --ds-chrome: rgba(26,27,38,.88);
+  --ds-ink: #C0CAF5;
+  --ds-muted: #7AA2F7;
+  --ds-line: #292E42;
+  --ds-control-line: #565F89;
+  --ds-accent: #7AA2F7;
+  --ds-accent-soft: #1E253B;
+  --ds-action: #7AA2F7;
+  --ds-action-hover: #89B4FA;
+  --ds-on-action: #15161E;
+  --ds-secondary: #BB9AF7;
+  --ds-secondary-soft: #2D2342;
+  --ds-success: #9ECE6A;
+  --ds-success-soft: #1C2E24;
+  --ds-warning: #E0AF68;
+  --ds-warning-soft: #382C1B;
+  --ds-danger: #F7768E;
+  --ds-danger-soft: #381A25;
+  --ds-focus: #7AA2F7;
+  --ds-overlay: rgba(10,10,16,.75);
+  --ds-shadow: 0 8px 32px rgba(0,0,0,.5);
+}
+
+/* Nord — Arctic, north-bluish clean slate */
+[data-palette="nord"] {
+  color-scheme: dark;
+  --ds-canvas: #2E3440;
+  --ds-surface: #3B4252;
+  --ds-inset: #242933;
+  --ds-chrome: rgba(46,52,64,.9);
+  --ds-ink: #ECEFF4;
+  --ds-muted: #D8DEE9;
+  --ds-line: #4C566A;
+  --ds-control-line: #64728D;
+  --ds-accent: #88C0D0;
+  --ds-accent-soft: #2B3D4F;
+  --ds-action: #88C0D0;
+  --ds-action-hover: #81A1C1;
+  --ds-on-action: #2E3440;
+  --ds-secondary: #81A1C1;
+  --ds-secondary-soft: #253446;
+  --ds-success: #A3BE8C;
+  --ds-success-soft: #243320;
+  --ds-warning: #EBCB8B;
+  --ds-warning-soft: #38311D;
+  --ds-danger: #BF616A;
+  --ds-danger-soft: #3B2024;
+  --ds-focus: #88C0D0;
+  --ds-overlay: rgba(20,24,30,.65);
+  --ds-shadow: 0 8px 30px rgba(0,0,0,.4);
+}
+
+/* OLED Black — True 0 IRE black contrast */
+[data-palette="oled-black"] {
+  color-scheme: dark;
+  --ds-canvas: #000000;
+  --ds-surface: #0C0C0E;
+  --ds-inset: #141418;
+  --ds-chrome: rgba(10,10,12,.85);
+  --ds-ink: #F4F4F6;
+  --ds-muted: #8E8E96;
+  --ds-line: #26262A;
+  --ds-control-line: #52525A;
+  --ds-accent: #3B82F6;
+  --ds-accent-soft: #0F1D38;
+  --ds-action: #F4F4F6;
+  --ds-action-hover: #E2E2E8;
+  --ds-on-action: #000000;
+  --ds-secondary: #3B82F6;
+  --ds-secondary-soft: #0F1D38;
+  --ds-success: #22C55E;
+  --ds-success-soft: #0C2615;
+  --ds-warning: #EAB308;
+  --ds-warning-soft: #2D2407;
+  --ds-danger: #EF4444;
+  --ds-danger-soft: #2F1012;
+  --ds-focus: #3B82F6;
+  --ds-overlay: rgba(0,0,0,.85);
+  --ds-shadow: 0 8px 32px rgba(0,0,0,.8);
+}
+
+/* Catppuccin Mocha — Velvety dark pastel */
+[data-palette="catppuccin-mocha"] {
+  color-scheme: dark;
+  --ds-canvas: #1e1e2e;
+  --ds-surface: #181825;
+  --ds-inset: #11111b;
+  --ds-chrome: rgba(30,30,46,.9);
+  --ds-ink: #cdd6f4;
+  --ds-muted: #a6adc8;
+  --ds-line: #313244;
+  --ds-control-line: #45475a;
+  --ds-accent: #cba6f7;
+  --ds-accent-soft: #282038;
+  --ds-action: #cba6f7;
+  --ds-action-hover: #b48ead;
+  --ds-on-action: #11111b;
+  --ds-secondary: #89b4fa;
+  --ds-secondary-soft: #1d2b45;
+  --ds-success: #a6e3a1;
+  --ds-success-soft: #1e3324;
+  --ds-warning: #f9e2af;
+  --ds-warning-soft: #38301c;
+  --ds-danger: #f38ba8;
+  --ds-danger-soft: #381b25;
+  --ds-focus: #cba6f7;
+  --ds-overlay: rgba(17,17,27,.75);
+  --ds-shadow: 0 8px 32px rgba(0,0,0,.45);
+}
+
+/* Matrix Emerald — Hacker phosphor terminal on obsidian */
+[data-palette="matrix-emerald"] {
+  color-scheme: dark;
+  --ds-canvas: #020905;
+  --ds-surface: #04140a;
+  --ds-inset: #010503;
+  --ds-chrome: rgba(4,20,10,.92);
+  --ds-ink: #d1fae5;
+  --ds-muted: #6ee7b7;
+  --ds-line: #064e3b;
+  --ds-control-line: #047857;
+  --ds-accent: #10b981;
+  --ds-accent-soft: #062b1a;
+  --ds-action: #10b981;
+  --ds-action-hover: #059669;
+  --ds-on-action: #02140a;
+  --ds-secondary: #34d399;
+  --ds-secondary-soft: #053322;
+  --ds-success: #10b981;
+  --ds-success-soft: #042917;
+  --ds-warning: #f59e0b;
+  --ds-warning-soft: #332004;
+  --ds-danger: #ef4444;
+  --ds-danger-soft: #360c0c;
+  --ds-focus: #10b981;
+  --ds-overlay: rgba(2,9,5,.85);
+  --ds-shadow: 0 8px 32px rgba(0,0,0,.7);
+}
+
+/* Dracula — Legendary high-contrast vampire dark theme */
+[data-palette="dracula"] {
+  color-scheme: dark;
+  --ds-canvas: #21222c;
+  --ds-surface: #282a36;
+  --ds-inset: #191a21;
+  --ds-chrome: rgba(40,42,54,.92);
+  --ds-ink: #f8f8f2;
+  --ds-muted: #bd93f9;
+  --ds-line: #44475a;
+  --ds-control-line: #6272a4;
+  --ds-accent: #ff79c6;
+  --ds-accent-soft: #382435;
+  --ds-action: #ff79c6;
+  --ds-action-hover: #ff92d0;
+  --ds-on-action: #282a36;
+  --ds-secondary: #8be9fd;
+  --ds-secondary-soft: #1f3640;
+  --ds-success: #50fa7b;
+  --ds-success-soft: #1c3825;
+  --ds-warning: #f1fa8c;
+  --ds-warning-soft: #383a22;
+  --ds-danger: #ff5555;
+  --ds-danger-soft: #3b1e22;
+  --ds-focus: #ff79c6;
+  --ds-overlay: rgba(25,26,33,.8);
+  --ds-shadow: 0 8px 32px rgba(0,0,0,.6);
+}
+
+/* Solarized Light — Ethan Schoonover's precision daylight palette */
+[data-palette="solarized-light"] {
+  color-scheme: light;
+  --ds-canvas: #fdf6e3;
+  --ds-surface: #eee8d5;
+  --ds-inset: #e0d8c3;
+  --ds-chrome: rgba(253,246,227,.9);
+  --ds-ink: #073642;
+  --ds-muted: #586e75;
+  --ds-line: #d3cbb7;
+  --ds-control-line: #93a1a1;
+  --ds-accent: #268bd2;
+  --ds-accent-soft: #d2e4f0;
+  --ds-action: #268bd2;
+  --ds-action-hover: #1f70a8;
+  --ds-on-action: #fdf6e3;
+  --ds-secondary: #2aa198;
+  --ds-secondary-soft: #cfebe8;
+  --ds-success: #859900;
+  --ds-success-soft: #e2e8cc;
+  --ds-warning: #b58900;
+  --ds-warning-soft: #f4ebd1;
+  --ds-danger: #dc322f;
+  --ds-danger-soft: #f8d5d4;
+  --ds-focus: #268bd2;
+  --ds-overlay: rgba(7,54,66,.25);
+  --ds-shadow: 0 4px 18px rgba(7,54,66,.05);
+}
+
+/* Monokai Pro — Timeless charcoal dark palette with vivid spectrum */
+[data-palette="monokai-pro"] {
+  color-scheme: dark;
+  --ds-canvas: #221f22;
+  --ds-surface: #2d2a2e;
+  --ds-inset: #19181a;
+  --ds-chrome: rgba(45,42,46,.92);
+  --ds-ink: #fcfcfa;
+  --ds-muted: #939293;
+  --ds-line: #403e41;
+  --ds-control-line: #5b595c;
+  --ds-accent: #ffd866;
+  --ds-accent-soft: #383424;
+  --ds-action: #ff6188;
+  --ds-action-hover: #ff789c;
+  --ds-on-action: #2d2a2e;
+  --ds-secondary: #78dce8;
+  --ds-secondary-soft: #203538;
+  --ds-success: #a9dc76;
+  --ds-success-soft: #25331c;
+  --ds-warning: #ffd866;
+  --ds-warning-soft: #383424;
+  --ds-danger: #ff6188;
+  --ds-danger-soft: #381c24;
+  --ds-focus: #ffd866;
+  --ds-overlay: rgba(25,24,26,.8);
+  --ds-shadow: 0 8px 32px rgba(0,0,0,.6);
+}
+
+/* Synthwave '84 — Outrun retro-cyberpunk with neon glow */
+[data-palette="synthwave-84"] {
+  color-scheme: dark;
+  --ds-canvas: #1a1528;
+  --ds-surface: #262335;
+  --ds-inset: #161221;
+  --ds-chrome: rgba(38,35,53,.92);
+  --ds-ink: #ffffff;
+  --ds-muted: #b6b1cc;
+  --ds-line: #3b3553;
+  --ds-control-line: #5b537d;
+  --ds-accent: #36f9f6;
+  --ds-accent-soft: #173b3e;
+  --ds-action: #ff7edb;
+  --ds-action-hover: #ff94e3;
+  --ds-on-action: #1a1528;
+  --ds-secondary: #fe4450;
+  --ds-secondary-soft: #38161e;
+  --ds-success: #72f1b8;
+  --ds-success-soft: #19382b;
+  --ds-warning: #fede5d;
+  --ds-warning-soft: #3b3618;
+  --ds-danger: #fe4450;
+  --ds-danger-soft: #3b171c;
+  --ds-focus: #36f9f6;
+  --ds-overlay: rgba(20,16,33,.85);
+  --ds-shadow: 0 8px 32px rgba(0,0,0,.7);
+}
+
+/* Nord — Arctic Ice Studio legendary blue-slate palette */
+[data-palette="nord"] {
+  color-scheme: dark;
+  --ds-canvas: #2e3440;
+  --ds-surface: #3b4252;
+  --ds-inset: #242933;
+  --ds-chrome: rgba(46,52,64,.92);
+  --ds-ink: #eceff4;
+  --ds-muted: #d8dee9;
+  --ds-line: #434c5e;
+  --ds-control-line: #4c566a;
+  --ds-accent: #88c0d0;
+  --ds-accent-soft: #1e353f;
+  --ds-action: #88c0d0;
+  --ds-action-hover: #81a1c1;
+  --ds-on-action: #242933;
+  --ds-secondary: #81a1c1;
+  --ds-secondary-soft: #233347;
+  --ds-success: #a3be8c;
+  --ds-success-soft: #293822;
+  --ds-warning: #ebcb8b;
+  --ds-warning-soft: #3d341d;
+  --ds-danger: #bf616a;
+  --ds-danger-soft: #3d1d22;
+  --ds-focus: #88c0d0;
+  --ds-overlay: rgba(36,41,51,.85);
+  --ds-shadow: 0 8px 32px rgba(0,0,0,.55);
+}
+
+/* Tokyo Night — Neon violet and cyan cyberpunk midnight */
+[data-palette="tokyo-night"] {
+  color-scheme: dark;
+  --ds-canvas: #1a1b26;
+  --ds-surface: #1f2335;
+  --ds-inset: #16161e;
+  --ds-chrome: rgba(31,35,53,.92);
+  --ds-ink: #c0caf5;
+  --ds-muted: #9aa5ce;
+  --ds-line: #292e42;
+  --ds-control-line: #3b4261;
+  --ds-accent: #7aa2f7;
+  --ds-accent-soft: #1d2745;
+  --ds-action: #bb9af7;
+  --ds-action-hover: #c9aff9;
+  --ds-on-action: #16161e;
+  --ds-secondary: #7dcfff;
+  --ds-secondary-soft: #173342;
+  --ds-success: #9ece6a;
+  --ds-success-soft: #233519;
+  --ds-warning: #e0af68;
+  --ds-warning-soft: #382b17;
+  --ds-danger: #f7768e;
+  --ds-danger-soft: #3b1d25;
+  --ds-focus: #7aa2f7;
+  --ds-overlay: rgba(22,22,30,.85);
+  --ds-shadow: 0 8px 32px rgba(0,0,0,.65);
+}
+
+/* Everforest — Natural, comfortable forest green & cream */
+[data-palette="everforest"] {
+  color-scheme: dark;
+  --ds-canvas: #272e33;
+  --ds-surface: #2d353b;
+  --ds-inset: #232a2e;
+  --ds-chrome: rgba(45,53,59,.92);
+  --ds-ink: #d3c6aa;
+  --ds-muted: #9da9a0;
+  --ds-line: #3d484d;
+  --ds-control-line: #4f5b58;
+  --ds-accent: #a7c080;
+  --ds-accent-soft: #283328;
+  --ds-action: #a7c080;
+  --ds-action-hover: #b5ce8e;
+  --ds-on-action: #232a2e;
+  --ds-secondary: #7fbbb3;
+  --ds-secondary-soft: #223738;
+  --ds-success: #a7c080;
+  --ds-success-soft: #253822;
+  --ds-warning: #dbbc7f;
+  --ds-warning-soft: #3b3520;
+  --ds-danger: #e67e80;
+  --ds-danger-soft: #3d2325;
+  --ds-focus: #a7c080;
+  --ds-overlay: rgba(35,42,46,.85);
+  --ds-shadow: 0 8px 32px rgba(0,0,0,.5);
+}
+
+/* Rosé Pine — Soho vintage aesthetic with dusty rose & iris */
+[data-palette="rose-pine"] {
+  color-scheme: dark;
+  --ds-canvas: #191724;
+  --ds-surface: #1f1d2e;
+  --ds-inset: #14131d;
+  --ds-chrome: rgba(31,29,46,.92);
+  --ds-ink: #e0def4;
+  --ds-muted: #908caa;
+  --ds-line: #26233a;
+  --ds-control-line: #403d52;
+  --ds-accent: #ebbcba;
+  --ds-accent-soft: #2d2630;
+  --ds-action: #c4a7e7;
+  --ds-action-hover: #d2bbf2;
+  --ds-on-action: #191724;
+  --ds-secondary: #9ccfd8;
+  --ds-secondary-soft: #1b2f38;
+  --ds-success: #9ccfd8;
+  --ds-success-soft: #1e363b;
+  --ds-warning: #f6c177;
+  --ds-warning-soft: #3b311e;
+  --ds-danger: #eb6f92;
+  --ds-danger-soft: #3b1e28;
+  --ds-focus: #c4a7e7;
+  --ds-overlay: rgba(20,19,29,.85);
+  --ds-shadow: 0 8px 32px rgba(0,0,0,.6);
+}
+
+/* Gruvbox Dark — Retro groove warm contrast palette */
+[data-palette="gruvbox-dark"] {
+  color-scheme: dark;
+  --ds-canvas: #282828;
+  --ds-surface: #32302f;
+  --ds-inset: #1d2021;
+  --ds-chrome: rgba(50,48,47,.92);
+  --ds-ink: #ebdbb2;
+  --ds-muted: #a89984;
+  --ds-line: #3c3836;
+  --ds-control-line: #504945;
+  --ds-accent: #fabd2f;
+  --ds-accent-soft: #38321e;
+  --ds-action: #fe8019;
+  --ds-action-hover: #ff9538;
+  --ds-on-action: #282828;
+  --ds-secondary: #83a598;
+  --ds-secondary-soft: #233130;
+  --ds-success: #b8bb26;
+  --ds-success-soft: #28331e;
+  --ds-warning: #fabd2f;
+  --ds-warning-soft: #38321e;
+  --ds-danger: #fb4934;
+  --ds-danger-soft: #3d201e;
+  --ds-focus: #fabd2f;
+  --ds-overlay: rgba(29,32,33,.85);
+  --ds-shadow: 0 8px 32px rgba(0,0,0,.6);
+}
+
+/* One Dark Pro — Standard clean dark Atom & VS Code palette */
+[data-palette="one-dark-pro"] {
+  color-scheme: dark;
+  --ds-canvas: #1e2227;
+  --ds-surface: #21252b;
+  --ds-inset: #181a1f;
+  --ds-chrome: rgba(33,37,43,.92);
+  --ds-ink: #abb2bf;
+  --ds-muted: #9da5b4;
+  --ds-line: #2c313a;
+  --ds-control-line: #3e4451;
+  --ds-accent: #61afef;
+  --ds-accent-soft: #1e2c3d;
+  --ds-action: #98c379;
+  --ds-action-hover: #a7d488;
+  --ds-on-action: #1e2227;
+  --ds-secondary: #c678dd;
+  --ds-secondary-soft: #32213d;
+  --ds-success: #98c379;
+  --ds-success-soft: #223320;
+  --ds-warning: #e5c07b;
+  --ds-warning-soft: #383120;
+  --ds-danger: #e06c75;
+  --ds-danger-soft: #382024;
+  --ds-focus: #61afef;
+  --ds-overlay: rgba(24,26,31,.85);
+  --ds-shadow: 0 8px 32px rgba(0,0,0,.6);
+}
+
+/* Palenight — Deep elegant indigo Material Theme */
+[data-palette="palenight"] {
+  color-scheme: dark;
+  --ds-canvas: #292d3e;
+  --ds-surface: #2f3448;
+  --ds-inset: #202331;
+  --ds-chrome: rgba(47,52,72,.92);
+  --ds-ink: #eeffff;
+  --ds-muted: #959dcb;
+  --ds-line: #3d445f;
+  --ds-control-line: #50587a;
+  --ds-accent: #89ddff;
+  --ds-accent-soft: #1d3245;
+  --ds-action: #c792ea;
+  --ds-action-hover: #d6a6f5;
+  --ds-on-action: #202331;
+  --ds-secondary: #82aaff;
+  --ds-secondary-soft: #1c2b48;
+  --ds-success: #c3e88d;
+  --ds-success-soft: #243521;
+  --ds-warning: #ffcb6b;
+  --ds-warning-soft: #3b321c;
+  --ds-danger: #ff5370;
+  --ds-danger-soft: #3b1b22;
+  --ds-focus: #89ddff;
+  --ds-overlay: rgba(32,35,49,.85);
+  --ds-shadow: 0 8px 32px rgba(0,0,0,.6);
+}
+
+/* Ayu Mirage — Twilight slate with sunset mango and ocean blue */
+[data-palette="ayu-mirage"] {
+  color-scheme: dark;
+  --ds-canvas: #1f2430;
+  --ds-surface: #242936;
+  --ds-inset: #191e2a;
+  --ds-chrome: rgba(36,41,54,.92);
+  --ds-ink: #cbccc6;
+  --ds-muted: #9da4ad;
+  --ds-line: #323847;
+  --ds-control-line: #454e61;
+  --ds-accent: #ffcc66;
+  --ds-accent-soft: #38321e;
+  --ds-action: #f28779;
+  --ds-action-hover: #ff998c;
+  --ds-on-action: #1f2430;
+  --ds-secondary: #73d0ff;
+  --ds-secondary-soft: #173245;
+  --ds-success: #bae67e;
+  --ds-success-soft: #26361e;
+  --ds-warning: #ffcc66;
+  --ds-warning-soft: #38321e;
+  --ds-danger: #f28779;
+  --ds-danger-soft: #381f21;
+  --ds-focus: #ffcc66;
+  --ds-overlay: rgba(25,30,42,.85);
+  --ds-shadow: 0 8px 32px rgba(0,0,0,.6);
+}
+
+/* GitHub Dark Dimmed — Primer gentle twilight slate palette */
+[data-palette="github-dark-dimmed"] {
+  color-scheme: dark;
+  --ds-canvas: #1c2128;
+  --ds-surface: #22272e;
+  --ds-inset: #181b20;
+  --ds-chrome: rgba(34,39,46,.92);
+  --ds-ink: #adbac7;
+  --ds-muted: #768390;
+  --ds-line: #373e47;
+  --ds-control-line: #444c56;
+  --ds-accent: #539bf5;
+  --ds-accent-soft: #1c2d42;
+  --ds-action: #539bf5;
+  --ds-action-hover: #6cb6ff;
+  --ds-on-action: #1c2128;
+  --ds-secondary: #b083f0;
+  --ds-secondary-soft: #2d223c;
+  --ds-success: #57ab5a;
+  --ds-success-soft: #1c3322;
+  --ds-warning: #c69026;
+  --ds-warning-soft: #362a14;
+  --ds-danger: #e5534b;
+  --ds-danger-soft: #381c1c;
+  --ds-focus: #539bf5;
+  --ds-overlay: rgba(24,27,32,.85);
+  --ds-shadow: 0 8px 32px rgba(0,0,0,.6);
+}
+
+/* Solarized Dark — Ethan Schoonover's legendary cyan-teal deep dark */
+[data-palette="solarized-dark"] {
+  color-scheme: dark;
+  --ds-canvas: #00212b;
+  --ds-surface: #002b36;
+  --ds-inset: #00171f;
+  --ds-chrome: rgba(0,43,54,.92);
+  --ds-ink: #839496;
+  --ds-muted: #586e75;
+  --ds-line: #073642;
+  --ds-control-line: #0d4857;
+  --ds-accent: #2aa198;
+  --ds-accent-soft: #05363b;
+  --ds-action: #268bd2;
+  --ds-action-hover: #3498db;
+  --ds-on-action: #002b36;
+  --ds-secondary: #6c71c4;
+  --ds-secondary-soft: #1c1f38;
+  --ds-success: #859900;
+  --ds-success-soft: #202905;
+  --ds-warning: #b58900;
+  --ds-warning-soft: #2e2604;
+  --ds-danger: #dc322f;
+  --ds-danger-soft: #381212;
+  --ds-focus: #2aa198;
+  --ds-overlay: rgba(0,23,31,.85);
+  --ds-shadow: 0 8px 32px rgba(0,0,0,.6);
+}
+
+/* Laserwave — Vibrant 80s outrun vapor neon palette */
+[data-palette="laserwave"] {
+  color-scheme: dark;
+  --ds-canvas: #181824;
+  --ds-surface: #1e1e2e;
+  --ds-inset: #13131c;
+  --ds-chrome: rgba(30,30,46,.92);
+  --ds-ink: #ffffff;
+  --ds-muted: #91889b;
+  --ds-line: #322f44;
+  --ds-control-line: #4b4566;
+  --ds-accent: #00ffff;
+  --ds-accent-soft: #14353d;
+  --ds-action: #eb64b9;
+  --ds-action-hover: #fa7ccb;
+  --ds-on-action: #181824;
+  --ds-secondary: #b381c5;
+  --ds-secondary-soft: #32213d;
+  --ds-success: #74dfc4;
+  --ds-success-soft: #173830;
+  --ds-warning: #ffe261;
+  --ds-warning-soft: #3d3516;
+  --ds-danger: #fc644d;
+  --ds-danger-soft: #3d1b16;
+  --ds-focus: #00ffff;
+  --ds-overlay: rgba(19,19,28,.85);
+  --ds-shadow: 0 8px 32px rgba(0,0,0,.65);
+}
+
+/* Zenburn — Classic low-contrast soothing warm earth-tone palette */
+[data-palette="zenburn"] {
+  color-scheme: dark;
+  --ds-canvas: #383838;
+  --ds-surface: #3f3f3f;
+  --ds-inset: #2e2e2e;
+  --ds-chrome: rgba(63,63,63,.92);
+  --ds-ink: #dcdccc;
+  --ds-muted: #9fafaf;
+  --ds-line: #4f4f4f;
+  --ds-control-line: #5f5f5f;
+  --ds-accent: #dfaf8f;
+  --ds-accent-soft: #383028;
+  --ds-action: #dfaf8f;
+  --ds-action-hover: #eed0be;
+  --ds-on-action: #2e2e2e;
+  --ds-secondary: #7f9f7f;
+  --ds-secondary-soft: #273327;
+  --ds-success: #7f9f7f;
+  --ds-success-soft: #283628;
+  --ds-warning: #dfaf8f;
+  --ds-warning-soft: #383028;
+  --ds-danger: #cc9393;
+  --ds-danger-soft: #362626;
+  --ds-focus: #dfaf8f;
+  --ds-overlay: rgba(30,30,30,.85);
+  --ds-shadow: 0 8px 32px rgba(0,0,0,.5);
+}
+
+/* Aura Dark — Beautiful dark slate with vivid violet and mint neon */
+[data-palette="aura-dark"] {
+  color-scheme: dark;
+  --ds-canvas: #111015;
+  --ds-surface: #15141b;
+  --ds-inset: #0c0b0e;
+  --ds-chrome: rgba(21,20,27,.92);
+  --ds-ink: #edecee;
+  --ds-muted: #6d6d7a;
+  --ds-line: #292736;
+  --ds-control-line: #3d3a4f;
+  --ds-accent: #a277ff;
+  --ds-accent-soft: #261d3d;
+  --ds-action: #a277ff;
+  --ds-action-hover: #b692ff;
+  --ds-on-action: #111015;
+  --ds-secondary: #61ffca;
+  --ds-secondary-soft: #15382e;
+  --ds-success: #61ffca;
+  --ds-success-soft: #15382e;
+  --ds-warning: #ffca85;
+  --ds-warning-soft: #3d3020;
+  --ds-danger: #ff6767;
+  --ds-danger-soft: #3d1c1c;
+  --ds-focus: #a277ff;
+  --ds-overlay: rgba(12,11,14,.85);
+  --ds-shadow: 0 8px 32px rgba(0,0,0,.65);
+}
+
+/* Shades of Purple — Ahmad Awais iconic electric violet & gold palette */
+[data-palette="shades-of-purple"] {
+  color-scheme: dark;
+  --ds-canvas: #222144;
+  --ds-surface: #2d2b55;
+  --ds-inset: #1a1936;
+  --ds-chrome: rgba(45,43,85,.92);
+  --ds-ink: #ffffff;
+  --ds-muted: #a599e9;
+  --ds-line: #3c396e;
+  --ds-control-line: #524d94;
+  --ds-accent: #fad000;
+  --ds-accent-soft: #383212;
+  --ds-action: #fad000;
+  --ds-action-hover: #ffe033;
+  --ds-on-action: #222144;
+  --ds-secondary: #b362ff;
+  --ds-secondary-soft: #2d1f42;
+  --ds-success: #3ad900;
+  --ds-success-soft: #15360a;
+  --ds-warning: #fad000;
+  --ds-warning-soft: #383212;
+  --ds-danger: #ec3a37;
+  --ds-danger-soft: #3d1b1b;
+  --ds-focus: #fad000;
+  --ds-overlay: rgba(26,25,54,.85);
+  --ds-shadow: 0 8px 32px rgba(0,0,0,.6);
+}
+
+/* Cobalt2 — Wes Bos iconic electric cobalt & neon gold theme */
+[data-palette="cobalt2"] {
+  color-scheme: dark;
+  --ds-canvas: #15232d;
+  --ds-surface: #193549;
+  --ds-inset: #0d171f;
+  --ds-chrome: rgba(25,53,73,.92);
+  --ds-ink: #ffffff;
+  --ds-muted: #799bb4;
+  --ds-line: #21435e;
+  --ds-control-line: #2a5679;
+  --ds-accent: #ffc600;
+  --ds-accent-soft: #382e0a;
+  --ds-action: #0088ff;
+  --ds-action-hover: #2498ff;
+  --ds-on-action: #ffffff;
+  --ds-secondary: #ff9d00;
+  --ds-secondary-soft: #38240a;
+  --ds-success: #3ad900;
+  --ds-success-soft: #133807;
+  --ds-warning: #ffc600;
+  --ds-warning-soft: #382e0a;
+  --ds-danger: #ff0055;
+  --ds-danger-soft: #3d081b;
+  --ds-focus: #ffc600;
+  --ds-overlay: rgba(13,23,31,.85);
+  --ds-shadow: 0 8px 32px rgba(0,0,0,.6);
+}
+
+/* Vitesse Dark — Anthony Fu clean high-contrast obsidian & sage palette */
+[data-palette="vitesse-dark"] {
+  color-scheme: dark;
+  --ds-canvas: #121212;
+  --ds-surface: #181818;
+  --ds-inset: #0a0a0a;
+  --ds-chrome: rgba(24,24,24,.92);
+  --ds-ink: #dbd7ca;
+  --ds-muted: #757575;
+  --ds-line: #282828;
+  --ds-control-line: #383838;
+  --ds-accent: #4d9375;
+  --ds-accent-soft: #152e22;
+  --ds-action: #4d9375;
+  --ds-action-hover: #5ea987;
+  --ds-on-action: #121212;
+  --ds-secondary: #5ea1ff;
+  --ds-secondary-soft: #14253d;
+  --ds-success: #4d9375;
+  --ds-success-soft: #152e22;
+  --ds-warning: #db9a34;
+  --ds-warning-soft: #38290f;
+  --ds-danger: #e05561;
+  --ds-danger-soft: #3d191d;
+  --ds-focus: #4d9375;
+  --ds-overlay: rgba(10,10,10,.85);
+  --ds-shadow: 0 8px 32px rgba(0,0,0,.65);
+}
+
+/* GitHub Light Default — Clean crisp developer paper light theme */
+[data-palette="github-light-default"] {
+  color-scheme: light;
+  --ds-canvas: #f6f8fa;
+  --ds-surface: #ffffff;
+  --ds-inset: #eff1f3;
+  --ds-chrome: rgba(255,255,255,.92);
+  --ds-ink: #1f2328;
+  --ds-muted: #656d76;
+  --ds-line: #d0d7de;
+  --ds-control-line: #afb8c1;
+  --ds-accent: #0969da;
+  --ds-accent-soft: #ddf4ff;
+  --ds-action: #1f883d;
+  --ds-action-hover: #1a7f37;
+  --ds-on-action: #ffffff;
+  --ds-secondary: #8250df;
+  --ds-secondary-soft: #fbefff;
+  --ds-success: #1a7f37;
+  --ds-success-soft: #dafbe1;
+  --ds-warning: #9a6700;
+  --ds-warning-soft: #fff8c5;
+  --ds-danger: #cf222e;
+  --ds-danger-soft: #ffebe9;
+  --ds-focus: #0969da;
+  --ds-overlay: rgba(31,35,40,.6);
+  --ds-shadow: 0 8px 24px rgba(140,149,159,.2);
+}
+
+/* Kanagawa — Japanese ukiyo-e aesthetic lacquer & wave theme */
+[data-palette="kanagawa"] {
+  color-scheme: dark;
+  --ds-canvas: #16161d;
+  --ds-surface: #1f1f28;
+  --ds-inset: #121217;
+  --ds-chrome: rgba(31,31,40,.92);
+  --ds-ink: #dcd7ba;
+  --ds-muted: #727169;
+  --ds-line: #2a2a37;
+  --ds-control-line: #363646;
+  --ds-accent: #7aa89f;
+  --ds-accent-soft: #1a2a28;
+  --ds-action: #7e9cd8;
+  --ds-action-hover: #93aee6;
+  --ds-on-action: #16161d;
+  --ds-secondary: #957fb8;
+  --ds-secondary-soft: #252033;
+  --ds-success: #76946a;
+  --ds-success-soft: #1b2619;
+  --ds-warning: #c0a36e;
+  --ds-warning-soft: #302919;
+  --ds-danger: #c34043;
+  --ds-danger-soft: #331617;
+  --ds-focus: #7aa89f;
+  --ds-overlay: rgba(18,18,23,.85);
+  --ds-shadow: 0 8px 32px rgba(0,0,0,.65);
+}
+
+/* Tokyo Night Storm — Atmospheric steel blue night palette */
+[data-palette="tokyo-night-storm"] {
+  color-scheme: dark;
+  --ds-canvas: #24283b;
+  --ds-surface: #1f2335;
+  --ds-inset: #1a1b26;
+  --ds-chrome: rgba(31,35,53,.92);
+  --ds-ink: #c0caf5;
+  --ds-muted: #7aa2f7;
+  --ds-line: #292e42;
+  --ds-control-line: #3b4261;
+  --ds-accent: #7dcfff;
+  --ds-accent-soft: #1e3a47;
+  --ds-action: #7aa2f7;
+  --ds-action-hover: #8cb2ff;
+  --ds-on-action: #1a1b26;
+  --ds-secondary: #bb9af7;
+  --ds-secondary-soft: #2d2642;
+  --ds-success: #9ece6a;
+  --ds-success-soft: #233418;
+  --ds-warning: #e0af68;
+  --ds-warning-soft: #3b2f1c;
+  --ds-danger: #f7768e;
+  --ds-danger-soft: #3d1c25;
+  --ds-focus: #7dcfff;
+  --ds-overlay: rgba(26,27,38,.85);
+  --ds-shadow: 0 8px 32px rgba(0,0,0,.6);
+}
+
+/* Catppuccin Latte — Cozy warm pastel cream light palette */
+[data-palette="catppuccin-latte"] {
+  color-scheme: light;
+  --ds-canvas: #eff1f5;
+  --ds-surface: #ffffff;
+  --ds-inset: #e6e9ef;
+  --ds-chrome: rgba(255,255,255,.92);
+  --ds-ink: #4c4f69;
+  --ds-muted: #8c8fa1;
+  --ds-line: #ccd0da;
+  --ds-control-line: #bcc0cc;
+  --ds-accent: #7287fd;
+  --ds-accent-soft: #e8ebff;
+  --ds-action: #1e66f5;
+  --ds-action-hover: #3275f7;
+  --ds-on-action: #ffffff;
+  --ds-secondary: #8839ef;
+  --ds-secondary-soft: #f2e6ff;
+  --ds-success: #40a02b;
+  --ds-success-soft: #e3f5df;
+  --ds-warning: #df8e1d;
+  --ds-warning-soft: #fcf2e0;
+  --ds-danger: #d20f39;
+  --ds-danger-soft: #fce7eb;
+  --ds-focus: #7287fd;
+  --ds-overlay: rgba(76,79,105,.5);
+  --ds-shadow: 0 8px 24px rgba(140,143,161,.2);
+}
+
+/* Catppuccin Frappe — Balanced comforting medium dark pastel */
+[data-palette="catppuccin-frappe"] {
+  color-scheme: dark;
+  --ds-canvas: #303446;
+  --ds-surface: #292c3c;
+  --ds-inset: #232634;
+  --ds-chrome: rgba(41,44,60,.92);
+  --ds-ink: #c6d0f5;
+  --ds-muted: #838ba7;
+  --ds-line: #414559;
+  --ds-control-line: #51576d;
+  --ds-accent: #ca9ee6;
+  --ds-accent-soft: #382c44;
+  --ds-action: #8caaee;
+  --ds-action-hover: #9bb7f2;
+  --ds-on-action: #232634;
+  --ds-secondary: #ea999c;
+  --ds-secondary-soft: #3d2b2f;
+  --ds-success: #a6d189;
+  --ds-success-soft: #243522;
+  --ds-warning: #e5c890;
+  --ds-warning-soft: #383222;
+  --ds-danger: #e78284;
+  --ds-danger-soft: #3a2225;
+  --ds-focus: #ca9ee6;
+  --ds-overlay: rgba(35,38,52,.75);
+  --ds-shadow: 0 10px 30px rgba(18,20,28,.45);
+}
+
+/* Poimandres — Minimal dark neo-futuristic palette */
+[data-palette="poimandres"] {
+  color-scheme: dark;
+  --ds-canvas: #1b1e28;
+  --ds-surface: #171922;
+  --ds-inset: #13151d;
+  --ds-chrome: rgba(23,25,34,.92);
+  --ds-ink: #e4f0fb;
+  --ds-muted: #767c9d;
+  --ds-line: #2b3045;
+  --ds-control-line: #3f4561;
+  --ds-accent: #5de4c7;
+  --ds-accent-soft: #173330;
+  --ds-action: #5de4c7;
+  --ds-action-hover: #76ebd1;
+  --ds-on-action: #13151d;
+  --ds-secondary: #89ddff;
+  --ds-secondary-soft: #1a2f3d;
+  --ds-success: #5de4c7;
+  --ds-success-soft: #173330;
+  --ds-warning: #fffac2;
+  --ds-warning-soft: #383622;
+  --ds-danger: #d0679d;
+  --ds-danger-soft: #361c28;
+  --ds-focus: #5de4c7;
+  --ds-overlay: rgba(19,21,29,.8);
+  --ds-shadow: 0 10px 32px rgba(10,12,18,.6);
+}
+
+/* Catppuccin Macchiato — Rich velvety medium dark palette */
+[data-palette="catppuccin-macchiato"] {
+  color-scheme: dark;
+  --ds-canvas: #24273a;
+  --ds-surface: #1e2030;
+  --ds-inset: #181926;
+  --ds-chrome: rgba(30,32,48,.92);
+  --ds-ink: #cad3f5;
+  --ds-muted: #8087a2;
+  --ds-line: #363a4f;
+  --ds-control-line: #494d64;
+  --ds-accent: #c6a0f6;
+  --ds-accent-soft: #352a45;
+  --ds-action: #8aadf4;
+  --ds-action-hover: #9bbaf5;
+  --ds-on-action: #181926;
+  --ds-secondary: #f5bde6;
+  --ds-secondary-soft: #3d2c39;
+  --ds-success: #a6da95;
+  --ds-success-soft: #233722;
+  --ds-warning: #eed49f;
+  --ds-warning-soft: #393323;
+  --ds-danger: #ed8796;
+  --ds-danger-soft: #392226;
+  --ds-focus: #c6a0f6;
+  --ds-overlay: rgba(24,25,38,.8);
+  --ds-shadow: 0 10px 32px rgba(14,15,24,.5);
+}
+
+/* Tokyo Night Day — Refined and crisp daylight indigo palette */
+[data-palette="tokyo-night-day"] {
+  color-scheme: light;
+  --ds-canvas: #e1e2e7;
+  --ds-surface: #e9e9ed;
+  --ds-inset: #d5d6db;
+  --ds-chrome: rgba(233,233,237,.92);
+  --ds-ink: #3760bf;
+  --ds-muted: #6172b0;
+  --ds-line: #c4c8da;
+  --ds-control-line: #b4b8cb;
+  --ds-accent: #9854f1;
+  --ds-accent-soft: #f0e6ff;
+  --ds-action: #2e7de9;
+  --ds-action-hover: #4088eb;
+  --ds-on-action: #ffffff;
+  --ds-secondary: #007197;
+  --ds-secondary-soft: #e2f4fb;
+  --ds-success: #587539;
+  --ds-success-soft: #eaf3e3;
+  --ds-warning: #8c6c3e;
+  --ds-warning-soft: #f7efe4;
+  --ds-danger: #f52a65;
+  --ds-danger-soft: #fde8ee;
+  --ds-focus: #2e7de9;
+  --ds-overlay: rgba(55,96,191,.4);
+  --ds-shadow: 0 8px 24px rgba(97,114,176,.2);
+}
+
+/* Copper Sand — Luxury editorial warm bronze and metallic ochre */
+[data-palette="copper-sand"] {
+  color-scheme: dark;
+  --ds-canvas: #1c1917;
+  --ds-surface: #292524;
+  --ds-inset: #141210;
+  --ds-chrome: rgba(41,37,36,.92);
+  --ds-ink: #fbf7f4;
+  --ds-muted: #a8a29e;
+  --ds-line: #44403c;
+  --ds-control-line: #57534e;
+  --ds-accent: #fbbf24;
+  --ds-accent-soft: #3a2818;
+  --ds-action: #f59e0b;
+  --ds-action-hover: #d97706;
+  --ds-on-action: #1c1917;
+  --ds-secondary: #f97316;
+  --ds-secondary-soft: #3a1e12;
+  --ds-success: #84cc16;
+  --ds-success-soft: #223311;
+  --ds-warning: #f59e0b;
+  --ds-warning-soft: #332611;
+  --ds-danger: #f43f5e;
+  --ds-danger-soft: #36141c;
+  --ds-focus: #fbbf24;
+  --ds-overlay: rgba(18,16,15,.8);
+  --ds-shadow: 0 10px 32px rgba(12,10,9,.5);
+}
+
+/* Vesper — Clean minimalist obsidian dark with warm amber and violet */
+[data-palette="vesper"] {
+  color-scheme: dark;
+  --ds-canvas: #101010;
+  --ds-surface: #161616;
+  --ds-inset: #0a0a0a;
+  --ds-chrome: rgba(22,22,22,.92);
+  --ds-ink: #ffffff;
+  --ds-muted: #999999;
+  --ds-line: #282828;
+  --ds-control-line: #3e3e3e;
+  --ds-accent: #ffc799;
+  --ds-accent-soft: #2c2016;
+  --ds-action: #ffc799;
+  --ds-action-hover: #ffd6b3;
+  --ds-on-action: #101010;
+  --ds-secondary: #a78bfa;
+  --ds-secondary-soft: #241c33;
+  --ds-success: #6ee7b7;
+  --ds-success-soft: #142920;
+  --ds-warning: #fbbf24;
+  --ds-warning-soft: #2e2311;
+  --ds-danger: #f87171;
+  --ds-danger-soft: #331616;
+  --ds-focus: #ffc799;
+  --ds-overlay: rgba(0,0,0,.8);
+  --ds-shadow: 0 10px 32px rgba(0,0,0,.6);
+}
+
+/* GitHub Dark High Contrast — Ultra-crisp OLED black with maximum legibility */
+[data-palette="github-dark-high-contrast"] {
+  color-scheme: dark;
+  --ds-canvas: #010409;
+  --ds-surface: #0d1117;
+  --ds-inset: #010409;
+  --ds-chrome: rgba(13,17,23,.95);
+  --ds-ink: #f0f6fc;
+  --ds-muted: #8b949e;
+  --ds-line: #30363d;
+  --ds-control-line: #6e7681;
+  --ds-accent: #79c0ff;
+  --ds-accent-soft: #0c2d6b;
+  --ds-action: #2f81f7;
+  --ds-action-hover: #58a6ff;
+  --ds-on-action: #ffffff;
+  --ds-secondary: #d2a8ff;
+  --ds-secondary-soft: #271052;
+  --ds-success: #3fb950;
+  --ds-success-soft: #0e4429;
+  --ds-warning: #d29922;
+  --ds-warning-soft: #341a04;
+  --ds-danger: #f85149;
+  --ds-danger-soft: #490202;
+  --ds-focus: #79c0ff;
+  --ds-overlay: rgba(1,4,9,.85);
+  --ds-shadow: 0 12px 40px rgba(0,0,0,.7);
+}
+
+/* Rosé Pine Moon — Celestial twilight dusky pastel aesthetic */
+[data-palette="rose-pine-moon"] {
+  color-scheme: dark;
+  --ds-canvas: #232136;
+  --ds-surface: #2a273f;
+  --ds-inset: #1f1d2e;
+  --ds-chrome: rgba(42,39,63,.92);
+  --ds-ink: #e0def4;
+  --ds-muted: #908caa;
+  --ds-line: #393552;
+  --ds-control-line: #56526e;
+  --ds-accent: #c4a7e7;
+  --ds-accent-soft: #382c4d;
+  --ds-action: #ea9a97;
+  --ds-action-hover: #eb6f92;
+  --ds-on-action: #232136;
+  --ds-secondary: #3e8fb0;
+  --ds-secondary-soft: #1d3644;
+  --ds-success: #9ccfd8;
+  --ds-success-soft: #1c353a;
+  --ds-warning: #f6c177;
+  --ds-warning-soft: #3b3223;
+  --ds-danger: #eb6f92;
+  --ds-danger-soft: #3d202d;
+  --ds-focus: #c4a7e7;
+  --ds-overlay: rgba(20,19,30,.8);
+  --ds-shadow: 0 10px 32px rgba(15,14,24,.5);
+}
+
+/* Flexoki Dark — Kepano's warm inky paper dark theme */
+[data-palette="flexoki-dark"] {
+  color-scheme: dark;
+  --ds-canvas: #100f0f;
+  --ds-surface: #1c1b1a;
+  --ds-inset: #161514;
+  --ds-chrome: rgba(28,27,26,.92);
+  --ds-ink: #cecdc3;
+  --ds-muted: #878580;
+  --ds-line: #282726;
+  --ds-control-line: #403e3c;
+  --ds-accent: #205ea6;
+  --ds-accent-soft: #14283d;
+  --ds-action: #d14d41;
+  --ds-action-hover: #af3029;
+  --ds-on-action: #fffcf0;
+  --ds-secondary: #879a39;
+  --ds-secondary-soft: #232c12;
+  --ds-success: #879a39;
+  --ds-success-soft: #232c12;
+  --ds-warning: #d0a215;
+  --ds-warning-soft: #342805;
+  --ds-danger: #af3029;
+  --ds-danger-soft: #331310;
+  --ds-focus: #205ea6;
+  --ds-overlay: rgba(16,15,15,.8);
+  --ds-shadow: 0 10px 32px rgba(10,9,9,.6);
+}
+
+/* Flexoki Light — Warm inky paper light theme */
+[data-palette="flexoki-light"] {
+  color-scheme: light;
+  --ds-canvas: #fffcf0;
+  --ds-surface: #f2f0e5;
+  --ds-inset: #e6e4d9;
+  --ds-chrome: rgba(242,240,229,.92);
+  --ds-ink: #100f0f;
+  --ds-muted: #6f6e69;
+  --ds-line: #cecdc3;
+  --ds-control-line: #b7b5ac;
+  --ds-accent: #205ea6;
+  --ds-accent-soft: #e2ecf7;
+  --ds-action: #d14d41;
+  --ds-action-hover: #af3029;
+  --ds-on-action: #fffcf0;
+  --ds-secondary: #879a39;
+  --ds-secondary-soft: #f0f4dc;
+  --ds-success: #879a39;
+  --ds-success-soft: #f0f4dc;
+  --ds-warning: #ad8301;
+  --ds-warning-soft: #fbf3d5;
+  --ds-danger: #af3029;
+  --ds-danger-soft: #fce8e6;
+  --ds-focus: #205ea6;
+  --ds-overlay: rgba(16,15,15,.25);
+  --ds-shadow: 0 8px 24px rgba(16,15,15,.06);
+}
+
+/* Night Owl — Sarah Drasner's acclaimed nocturnal palette */
+[data-palette="night-owl"] {
+  color-scheme: dark;
+  --ds-canvas: #011627;
+  --ds-surface: #0b253a;
+  --ds-inset: #010e1a;
+  --ds-chrome: rgba(11,37,58,.92);
+  --ds-ink: #d6deeb;
+  --ds-muted: #5f7e97;
+  --ds-line: #1d3b53;
+  --ds-control-line: #2e5170;
+  --ds-accent: #7fdbca;
+  --ds-accent-soft: #083438;
+  --ds-action: #c792ea;
+  --ds-action-hover: #ae75d3;
+  --ds-on-action: #011627;
+  --ds-secondary: #addb67;
+  --ds-secondary-soft: #173812;
+  --ds-success: #22da6e;
+  --ds-success-soft: #0c331a;
+  --ds-warning: #ecc48d;
+  --ds-warning-soft: #382c11;
+  --ds-danger: #ef5350;
+  --ds-danger-soft: #3a1617;
+  --ds-focus: #7fdbca;
+  --ds-overlay: rgba(1,22,39,.82);
+  --ds-shadow: 0 10px 32px rgba(1,10,18,.6);
+}
+
+/* GitHub Light High Contrast — Maximum clarity accessibility palette */
+[data-palette="github-light-high-contrast"] {
+  color-scheme: light;
+  --ds-canvas: #ffffff;
+  --ds-surface: #ffffff;
+  --ds-inset: #f6f8fa;
+  --ds-chrome: rgba(255,255,255,.94);
+  --ds-ink: #0e1116;
+  --ds-muted: #4b535d;
+  --ds-line: #20252c;
+  --ds-control-line: #0e1116;
+  --ds-accent: #0969da;
+  --ds-accent-soft: #ddf4ff;
+  --ds-action: #1a7f37;
+  --ds-action-hover: #116329;
+  --ds-on-action: #ffffff;
+  --ds-secondary: #0969da;
+  --ds-secondary-soft: #ddf4ff;
+  --ds-success: #1a7f37;
+  --ds-success-soft: #dafbe1;
+  --ds-warning: #9a6700;
+  --ds-warning-soft: #fff8c5;
+  --ds-danger: #cf222e;
+  --ds-danger-soft: #ffebe9;
+  --ds-focus: #0969da;
+  --ds-overlay: rgba(14,17,22,.3);
+  --ds-shadow: 0 8px 24px rgba(14,17,22,.12);
+}
+
+/* Monokai Classic — Wimer Hazenberg's timeless 2006 Sublime palette */
+[data-palette="monokai-classic"] {
+  color-scheme: dark;
+  --ds-canvas: #272822;
+  --ds-surface: #383830;
+  --ds-inset: #1e1f1c;
+  --ds-chrome: rgba(56,56,48,.92);
+  --ds-ink: #f8f8f2;
+  --ds-muted: #75715e;
+  --ds-line: #49483e;
+  --ds-control-line: #5c5a4d;
+  --ds-accent: #66d9ef;
+  --ds-accent-soft: #1c353d;
+  --ds-action: #f92672;
+  --ds-action-hover: #e01b60;
+  --ds-on-action: #f8f8f2;
+  --ds-secondary: #a6e22e;
+  --ds-secondary-soft: #273812;
+  --ds-success: #a6e22e;
+  --ds-success-soft: #273812;
+  --ds-warning: #fd971f;
+  --ds-warning-soft: #3b2812;
+  --ds-danger: #f92672;
+  --ds-danger-soft: #38121d;
+  --ds-focus: #66d9ef;
+  --ds-overlay: rgba(30,31,28,.82);
+  --ds-shadow: 0 10px 32px rgba(18,19,16,.65);
+}
+
+/* Tokyo Night Light — High-elegance day editor theme */
+[data-palette="tokyo-night-light"] {
+  color-scheme: light;
+  --ds-canvas: #d5d6db;
+  --ds-surface: #e1e2e7;
+  --ds-inset: #cbccd1;
+  --ds-chrome: rgba(225,226,231,.92);
+  --ds-ink: #343b58;
+  --ds-muted: #565a6e;
+  --ds-line: #b4b5be;
+  --ds-control-line: #999ba8;
+  --ds-accent: #34548a;
+  --ds-accent-soft: #d0daf0;
+  --ds-action: #8c4351;
+  --ds-action-hover: #733441;
+  --ds-on-action: #ffffff;
+  --ds-secondary: #485e30;
+  --ds-secondary-soft: #d8e5cb;
+  --ds-success: #485e30;
+  --ds-success-soft: #d8e5cb;
+  --ds-warning: #8f5e15;
+  --ds-warning-soft: #faebd2;
+  --ds-danger: #8c4351;
+  --ds-danger-soft: #f8dbdf;
+  --ds-focus: #34548a;
+  --ds-overlay: rgba(52,59,88,.28);
+  --ds-shadow: 0 8px 24px rgba(52,59,88,.1);
+}
+
+/* Vitesse Light — Anthony Fu's clean muted minimalist light theme */
+[data-palette="vitesse-light"] {
+  color-scheme: light;
+  --ds-canvas: #ffffff;
+  --ds-surface: #f7f7f8;
+  --ds-inset: #eeeeee;
+  --ds-chrome: rgba(247,247,248,.92);
+  --ds-ink: #393a34;
+  --ds-muted: #787b80;
+  --ds-line: #e0e0e0;
+  --ds-control-line: #c8c8c8;
+  --ds-accent: #4d9375;
+  --ds-accent-soft: #e2f0e8;
+  --ds-action: #2f6a4f;
+  --ds-action-hover: #24523d;
+  --ds-on-action: #ffffff;
+  --ds-secondary: #d97706;
+  --ds-secondary-soft: #fef3c7;
+  --ds-success: #4d9375;
+  --ds-success-soft: #e2f0e8;
+  --ds-warning: #b45309;
+  --ds-warning-soft: #fef3c7;
+  --ds-danger: #e11d48;
+  --ds-danger-soft: #ffe4e6;
+  --ds-focus: #4d9375;
+  --ds-overlay: rgba(57,58,52,.25);
+  --ds-shadow: 0 8px 24px rgba(57,58,52,.08);
+}
+
+/* Poimandres Storm — Deep ethereal dark slate & mint cyan theme */
+[data-palette="poimandres-storm"] {
+  color-scheme: dark;
+  --ds-canvas: #1b1e28;
+  --ds-surface: #252936;
+  --ds-inset: #171922;
+  --ds-chrome: rgba(37,41,54,.92);
+  --ds-ink: #e4f0fb;
+  --ds-muted: #767c9d;
+  --ds-line: #303340;
+  --ds-control-line: #404558;
+  --ds-accent: #5de4c7;
+  --ds-accent-soft: #163a35;
+  --ds-action: #add7ff;
+  --ds-action-hover: #8ec2fc;
+  --ds-on-action: #1b1e28;
+  --ds-secondary: #d0679d;
+  --ds-secondary-soft: #3c1b2c;
+  --ds-success: #5de4c7;
+  --ds-success-soft: #163a35;
+  --ds-warning: #fffac2;
+  --ds-warning-soft: #3e3816;
+  --ds-danger: #f087bd;
+  --ds-danger-soft: #3d1c2e;
+  --ds-focus: #5de4c7;
+  --ds-overlay: rgba(23,25,34,.78);
+  --ds-shadow: 0 12px 36px rgba(11,13,18,.6);
+}
+
+/* Ayu Dark — Warm golden obsidian night theme */
+[data-palette="ayu-dark"] {
+  color-scheme: dark;
+  --ds-canvas: #0f1419;
+  --ds-surface: #14191f;
+  --ds-inset: #0b0e14;
+  --ds-chrome: rgba(20,25,31,.92);
+  --ds-ink: #e6e1cf;
+  --ds-muted: #6c7380;
+  --ds-line: #242936;
+  --ds-control-line: #3b4252;
+  --ds-accent: #39bae6;
+  --ds-accent-soft: #103342;
+  --ds-action: #ffb454;
+  --ds-action-hover: #e59d40;
+  --ds-on-action: #0f1419;
+  --ds-secondary: #c2d94c;
+  --ds-secondary-soft: #2a3311;
+  --ds-success: #c2d94c;
+  --ds-success-soft: #2a3311;
+  --ds-warning: #e6b450;
+  --ds-warning-soft: #382c14;
+  --ds-danger: #f07178;
+  --ds-danger-soft: #381a1c;
+  --ds-focus: #39bae6;
+  --ds-overlay: rgba(11,14,20,.82);
+  --ds-shadow: 0 12px 36px rgba(5,7,10,.65);
+}
+
+/* Nord Snow — Polar white high-clarity arctic daylight theme */
+[data-palette="nord-snow"] {
+  color-scheme: light;
+  --ds-canvas: #eceff4;
+  --ds-surface: #e5e9f0;
+  --ds-inset: #d8dee9;
+  --ds-chrome: rgba(229,233,240,.92);
+  --ds-ink: #2e3440;
+  --ds-muted: #4c566a;
+  --ds-line: #c8d0de;
+  --ds-control-line: #abb7cc;
+  --ds-accent: #5e81ac;
+  --ds-accent-soft: #d3dfed;
+  --ds-action: #88c0d0;
+  --ds-action-hover: #72a9b8;
+  --ds-on-action: #2e3440;
+  --ds-secondary: #a3be8c;
+  --ds-secondary-soft: #e2edd8;
+  --ds-success: #a3be8c;
+  --ds-success-soft: #e2edd8;
+  --ds-warning: #ebcb8b;
+  --ds-warning-soft: #faeed1;
+  --ds-danger: #bf616a;
+  --ds-danger-soft: #f4d9dc;
+  --ds-focus: #5e81ac;
+  --ds-overlay: rgba(46,52,64,.28);
+  --ds-shadow: 0 8px 24px rgba(46,52,64,.12);
+}
+
+/* Osaka Jade — Cyberpunk rain neon emerald & cyan night theme */
+[data-palette="osaka-jade"] {
+  color-scheme: dark;
+  --ds-canvas: #081414;
+  --ds-surface: #0f2020;
+  --ds-inset: #050d0d;
+  --ds-chrome: rgba(15,32,32,.92);
+  --ds-ink: #e0f2f1;
+  --ds-muted: #53777a;
+  --ds-line: #1b3838;
+  --ds-control-line: #2a5252;
+  --ds-accent: #10b981;
+  --ds-accent-soft: #063124;
+  --ds-action: #06b6d4;
+  --ds-action-hover: #0891b2;
+  --ds-on-action: #081414;
+  --ds-secondary: #f59e0b;
+  --ds-secondary-soft: #382403;
+  --ds-success: #10b981;
+  --ds-success-soft: #063124;
+  --ds-warning: #f59e0b;
+  --ds-warning-soft: #382403;
+  --ds-danger: #f43f5e;
+  --ds-danger-soft: #3b0c16;
+  --ds-focus: #10b981;
+  --ds-overlay: rgba(8,20,20,.82);
+  --ds-shadow: 0 12px 36px rgba(3,8,8,.65);
+}
+
+/* PaperColor Light — High-readability newspaper ink & parchment theme */
+[data-palette="papercolor-light"] {
+  color-scheme: light;
+  --ds-canvas: #eeeeee;
+  --ds-surface: #f5f5f5;
+  --ds-inset: #e0e0e0;
+  --ds-chrome: rgba(245,245,245,.92);
+  --ds-ink: #444444;
+  --ds-muted: #757575;
+  --ds-line: #cccccc;
+  --ds-control-line: #bbbbbb;
+  --ds-accent: #005f87;
+  --ds-accent-soft: #d0e4f2;
+  --ds-action: #0087af;
+  --ds-action-hover: #006b8c;
+  --ds-on-action: #ffffff;
+  --ds-secondary: #5f8700;
+  --ds-secondary-soft: #e2f0c7;
+  --ds-success: #5f8700;
+  --ds-success-soft: #e2f0c7;
+  --ds-warning: #d75f00;
+  --ds-warning-soft: #fde8d7;
+  --ds-danger: #af0000;
+  --ds-danger-soft: #fbd9d9;
+  --ds-focus: #005f87;
+  --ds-overlay: rgba(68,68,68,.25);
+  --ds-shadow: 0 8px 24px rgba(68,68,68,.1);
+}
+
+/* Cyber Tokyo — Neon magenta, electric cyan & midnight indigo theme */
+[data-palette="cyber-tokyo"] {
+  color-scheme: dark;
+  --ds-canvas: #0b0e17;
+  --ds-surface: #131826;
+  --ds-inset: #080a10;
+  --ds-chrome: rgba(19,24,38,.92);
+  --ds-ink: #e2f1ff;
+  --ds-muted: #8da2c4;
+  --ds-line: #1e263d;
+  --ds-control-line: #2d3859;
+  --ds-accent: #ff2a85;
+  --ds-accent-soft: #380d22;
+  --ds-action: #00f0ff;
+  --ds-action-hover: #33f3ff;
+  --ds-on-action: #080a10;
+  --ds-secondary: #ff2a85;
+  --ds-secondary-soft: #380d22;
+  --ds-success: #00e676;
+  --ds-success-soft: #003319;
+  --ds-warning: #ffd600;
+  --ds-warning-soft: #382e00;
+  --ds-danger: #ff1744;
+  --ds-danger-soft: #38050e;
+  --ds-focus: #00f0ff;
+  --ds-overlay: rgba(8,10,16,.85);
+  --ds-shadow: 0 12px 36px rgba(0,0,0,.7);
+}
+
+/* Alpenglow Dawn — Alpine sunrise blush, rose gold & warm cedar theme */
+[data-palette="alpenglow-dawn"] {
+  color-scheme: light;
+  --ds-canvas: #fdfbf7;
+  --ds-surface: #f7f2eb;
+  --ds-inset: #ede6dc;
+  --ds-chrome: rgba(247,242,235,.92);
+  --ds-ink: #2c2523;
+  --ds-muted: #6e615c;
+  --ds-line: #dcd3c5;
+  --ds-control-line: #c8bdad;
+  --ds-accent: #c23b38;
+  --ds-accent-soft: #fbe6e5;
+  --ds-action: #c23b38;
+  --ds-action-hover: #aa3330;
+  --ds-on-action: #ffffff;
+  --ds-secondary: #2e7d32;
+  --ds-secondary-soft: #e4f1e5;
+  --ds-success: #2e7d32;
+  --ds-success-soft: #e4f1e5;
+  --ds-warning: #b25900;
+  --ds-warning-soft: #fbeedb;
+  --ds-danger: #c2185b;
+  --ds-danger-soft: #fae3ec;
+  --ds-focus: #c23b38;
+  --ds-overlay: rgba(44,37,35,.25);
+  --ds-shadow: 0 8px 24px rgba(44,37,35,.1);
+}
+
+/* Nordic Aurora — Glacial fjord dark slate, aurora teal & polar violet */
+[data-palette="nordic-aurora"] {
+  color-scheme: dark;
+  --ds-canvas: #0d131a;
+  --ds-surface: #141d27;
+  --ds-inset: #0a0e14;
+  --ds-chrome: rgba(20,29,39,.92);
+  --ds-ink: #e6f1f8;
+  --ds-muted: #8aa3b8;
+  --ds-line: #1f2c3b;
+  --ds-control-line: #2f4055;
+  --ds-accent: #2dd4bf;
+  --ds-accent-soft: #042f2e;
+  --ds-action: #2dd4bf;
+  --ds-action-hover: #5eead4;
+  --ds-on-action: #0a0e14;
+  --ds-secondary: #a78bfa;
+  --ds-secondary-soft: #2e1065;
+  --ds-success: #34d399;
+  --ds-success-soft: #064e3b;
+  --ds-warning: #fbbf24;
+  --ds-warning-soft: #451a03;
+  --ds-danger: #f87171;
+  --ds-danger-soft: #450a0a;
+  --ds-focus: #2dd4bf;
+  --ds-overlay: rgba(10,14,20,.85);
+  --ds-shadow: 0 12px 36px rgba(0,0,0,.65);
+}
+
+/* Espresso Crema — Italian barista dark roast, caramel bronze & steamed foam */
+[data-palette="espresso-crema"] {
+  color-scheme: light;
+  --ds-canvas: #fcfaf7;
+  --ds-surface: #f5efe6;
+  --ds-inset: #ebe2d5;
+  --ds-chrome: rgba(245,239,230,.92);
+  --ds-ink: #241813;
+  --ds-muted: #6c564a;
+  --ds-line: #dcd1c2;
+  --ds-control-line: #c6b7a3;
+  --ds-accent: #b45309;
+  --ds-accent-soft: #fef3c7;
+  --ds-action: #b45309;
+  --ds-action-hover: #92400e;
+  --ds-on-action: #ffffff;
+  --ds-secondary: #78350f;
+  --ds-secondary-soft: #fef3c7;
+  --ds-success: #2b7038;
+  --ds-success-soft: #e6f4ea;
+  --ds-warning: #b45309;
+  --ds-warning-soft: #fef3c7;
+  --ds-danger: #b91c1c;
+  --ds-danger-soft: #fee2e2;
+  --ds-focus: #b45309;
+  --ds-overlay: rgba(36,24,19,.25);
+  --ds-shadow: 0 8px 24px rgba(36,24,19,.12);
+}
+
+/* Cyber Matrix Ghost — Terminal phosphorus emerald, cyber mint & obsidian */
+[data-palette="cyber-matrix-ghost"] {
+  color-scheme: dark;
+  --ds-canvas: #060d09;
+  --ds-surface: #0a140f;
+  --ds-inset: #040806;
+  --ds-chrome: rgba(10,20,15,.92);
+  --ds-ink: #cbf9dc;
+  --ds-muted: #4e8062;
+  --ds-line: #133824;
+  --ds-control-line: #1d5234;
+  --ds-accent: #00ff73;
+  --ds-accent-soft: #032a13;
+  --ds-action: #00ff73;
+  --ds-action-hover: #33ff8f;
+  --ds-on-action: #040806;
+  --ds-secondary: #10e796;
+  --ds-secondary-soft: #05331c;
+  --ds-success: #00ff73;
+  --ds-success-soft: #032a13;
+  --ds-warning: #ffd600;
+  --ds-warning-soft: #332b00;
+  --ds-danger: #ff334b;
+  --ds-danger-soft: #33050b;
+  --ds-focus: #00ff73;
+  --ds-overlay: rgba(4,8,6,.88);
+  --ds-shadow: 0 12px 36px rgba(0,0,0,.75);
+}
+
+/* Morandi Sage — Muted dusty sage, warm chalk linen & soft graphite */
+[data-palette="morandi-sage"] {
+  color-scheme: light;
+  --ds-canvas: #f4f3ee;
+  --ds-surface: #eae9e2;
+  --ds-inset: #dfded6;
+  --ds-chrome: rgba(234,233,226,.92);
+  --ds-ink: #38423b;
+  --ds-muted: #6b7a70;
+  --ds-line: #c8c7bd;
+  --ds-control-line: #b0af9f;
+  --ds-accent: #5e7a68;
+  --ds-accent-soft: #dde6e0;
+  --ds-action: #5e7a68;
+  --ds-action-hover: #4e6656;
+  --ds-on-action: #ffffff;
+  --ds-secondary: #7d8b82;
+  --ds-secondary-soft: #e3eae5;
+  --ds-success: #52796f;
+  --ds-success-soft: #e1edea;
+  --ds-warning: #9a8c66;
+  --ds-warning-soft: #f2eee3;
+  --ds-danger: #9a6566;
+  --ds-danger-soft: #f4e8e8;
+  --ds-focus: #5e7a68;
+  --ds-overlay: rgba(56,66,59,.25);
+  --ds-shadow: 0 8px 24px rgba(56,66,59,.1);
+}
+
+/* Retro Mac Platinum — Apple System 7 & Platinum OS 8/9 heritage */
+[data-palette="retro-mac-platinum"] {
+  color-scheme: light;
+  --ds-canvas: #dcd7ce;
+  --ds-surface: #e8e4dc;
+  --ds-inset: #cfcac0;
+  --ds-chrome: rgba(232,228,220,.92);
+  --ds-ink: #111111;
+  --ds-muted: #595650;
+  --ds-line: #a6a096;
+  --ds-control-line: #8c867c;
+  --ds-accent: #3a6ea5;
+  --ds-accent-soft: #dbe7f5;
+  --ds-action: #3a6ea5;
+  --ds-action-hover: #2d5580;
+  --ds-on-action: #ffffff;
+  --ds-secondary: #5e7288;
+  --ds-secondary-soft: #e2e8f0;
+  --ds-success: #2b7538;
+  --ds-success-soft: #def0e2;
+  --ds-warning: #9e6a00;
+  --ds-warning-soft: #faeed2;
+  --ds-danger: #b32a2a;
+  --ds-danger-soft: #fae1e1;
+  --ds-focus: #3a6ea5;
+  --ds-overlay: rgba(0,0,0,.35);
+  --ds-shadow: 0 6px 20px rgba(0,0,0,.18);
+}
+
+/* Neo Brutalism Sun — High-voltage cyber gold, stark black border & pop contrast */
+[data-palette="neo-brutalism-sun"] {
+  color-scheme: light;
+  --ds-canvas: #fffbeb;
+  --ds-surface: #ffffff;
+  --ds-inset: #fef08a;
+  --ds-chrome: rgba(255,255,255,.95);
+  --ds-ink: #000000;
+  --ds-muted: #4b5563;
+  --ds-line: #000000;
+  --ds-control-line: #000000;
+  --ds-accent: #eab308;
+  --ds-accent-soft: #fef9c3;
+  --ds-action: #000000;
+  --ds-action-hover: #262626;
+  --ds-on-action: #ffffff;
+  --ds-secondary: #7c3aed;
+  --ds-secondary-soft: #ede9fe;
+  --ds-success: #16a34a;
+  --ds-success-soft: #dcfce7;
+  --ds-warning: #ca8a04;
+  --ds-warning-soft: #fef08a;
+  --ds-danger: #dc2626;
+  --ds-danger-soft: #fee2e2;
+  --ds-focus: #000000;
+  --ds-overlay: rgba(0,0,0,.5);
+  --ds-shadow: 4px 4px 0px #000000;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

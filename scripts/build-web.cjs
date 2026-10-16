@@ -19,12 +19,14 @@ const themePath = path.join(output, 'theme.css');
 fs.writeFileSync(themePath, fs.readFileSync(path.join(root, 'web/fonts.css'), 'utf8') + fs.readFileSync(themePath, 'utf8'));
 fs.cpSync(path.join(root, 'web/fonts'), path.join(output, 'fonts'), { recursive: true });
 fs.copyFileSync(path.join(root, 'web/components.css'), path.join(output, 'components.css'));
+fs.copyFileSync(path.join(root, 'web/warm-paper.css'), path.join(output, 'warm-paper.css'));
 for (const file of ['motion.css','motion.js']) fs.copyFileSync(path.join(root,'web',file),path.join(output,file));
 fs.copyFileSync(path.join(root, 'web/react.tsx'), path.join(output, 'react.tsx'));
 fs.writeFileSync(path.join(output, 'tokens.json'), JSON.stringify({ version:'3.0.0', themes, shared }, null, 2));
 fs.writeFileSync(path.join(output, 'tokens.ts'), `// Generated; runtime colors are CSS variables.\nexport const themes = ${JSON.stringify(themes,null,2)} as const;\nexport const sharedTokens = ${JSON.stringify(shared,null,2)} as const;\nexport type ThemeName = keyof typeof themes;\nexport type SemanticColor = keyof typeof themes.light;\n`);
 fs.writeFileSync(path.join(output, 'catalog.json'), JSON.stringify(catalog, null, 2));
-fs.writeFileSync(path.join(output, 'manifest.json'), JSON.stringify({version:'3.0.0',componentCount:catalog.length,reactComponentCount:11,themeCount:2,densities:['compact','comfortable','touch'],source:'tokens/web.json',license:'MIT'},null,2));
+const reactExports = (fs.readFileSync(path.join(root, 'web/react.tsx'), 'utf8').match(/export function /g) || []).length;
+fs.writeFileSync(path.join(output, 'manifest.json'), JSON.stringify({version:'3.0.0',componentCount:catalog.length,reactComponentCount:reactExports,themeCount:2,densities:['compact','comfortable','touch'],source:'tokens/web.json',license:'MIT'},null,2));
 const docsDir = path.join(root, 'docs/components');
 fs.mkdirSync(docsDir, { recursive:true });
 for (const item of catalog) {
