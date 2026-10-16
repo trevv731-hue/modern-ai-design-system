@@ -1970,6 +1970,60 @@
   --ds-shadow: 0 6px 20px rgba(138,59,41,.12);
 }
 
+/* Kyoto Moss Bamboo — Arashiyama tranquil moss garden and bamboo grove */
+[data-palette="kyoto-moss-bamboo"] {
+  color-scheme: light;
+  --ds-canvas: #f5f7f2;
+  --ds-surface: #ffffff;
+  --ds-inset: #e9efe6;
+  --ds-chrome: rgba(255,255,255,.94);
+  --ds-ink: #122417;
+  --ds-muted: #445c4c;
+  --ds-line: #d4ded6;
+  --ds-control-line: #b8c9bc;
+  --ds-accent: #226138;
+  --ds-accent-soft: #eaf4ed;
+  --ds-action: #1d5732;
+  --ds-action-hover: #276e40;
+  --ds-on-action: #ffffff;
+  --ds-secondary: #475e3e;
+  --ds-secondary-soft: #edf2ea;
+  --ds-success: #1d5f35;
+  --ds-success-soft: #e6f5eb;
+  --ds-warning: #87480a;
+  --ds-warning-soft: #fef3e3;
+  --ds-danger: #991f24;
+  --ds-danger-soft: #fde8e9;
+  --ds-focus: #226138;
+  --ds-overlay: rgba(18,36,23,.4);
+  --ds-shadow: 0 6px 20px rgba(29,87,50,.1);
+}
 
-
-
+/* Synthwave Sunset 80s — Outrun retro synthwave twilight neon dusk */
+[data-palette="synthwave-sunset-80s"] {
+  color-scheme: dark;
+  --ds-canvas: #0c0a1a;
+  --ds-surface: #16132b;
+  --ds-inset: #080614;
+  --ds-chrome: rgba(22,19,43,.92);
+  --ds-ink: #f3e8ff;
+  --ds-muted: #b09ec4;
+  --ds-line: #332959;
+  --ds-control-line: #4b3c7d;
+  --ds-accent: #e879f9;
+  --ds-accent-soft: #2f1445;
+  --ds-action: #e11d74;
+  --ds-action-hover: #f43f8d;
+  --ds-on-action: #ffffff;
+  --ds-secondary: #38bdf8;
+  --ds-secondary-soft: #0c2b42;
+  --ds-success: #34d399;
+  --ds-success-soft: #063726;
+  --ds-warning: #fbbf24;
+  --ds-warning-soft: #382604;
+  --ds-danger: #fb7185;
+  --ds-danger-soft: #3c0c16;
+  --ds-focus: #e879f9;
+  --ds-overlay: rgba(5,4,12,.7);
+  --ds-shadow: 0 8px 30px rgba(225,29,116,.2);
+}

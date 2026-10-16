@@ -6259,5 +6259,161 @@
     ],
     "react": "<FigmaCanvasColorContrastCheckerBadge ratio=\"19.4:1\" level=\"AAA\" isPass={true} foreground=\"#0a0a0c\" background=\"#ffffff\" />",
     "status": "CSS / HTML / React"
+  },
+  {
+    "id": "linear-cycle-scope-velocity-spark",
+    "name": "Linear 迭代周期团队开发速率走势图",
+    "category": "数据",
+    "purpose": "Linear 与 Jira 敏捷迭代开发速率与团队燃尽速度微走势图（Team Cycle Velocity & Velocity Trend Spark）；已完成点数与目标、燃尽速度百分比折线微标、每日完成点数柱状微图及工作日跨度统计。",
+    "anatomy": [
+      "紧凑数据走势外框 (.ds-cycle-velocity-spark)",
+      "加粗速率数值头部 (.ds-cycle-velocity-spark__header, .ds-cycle-velocity-spark__val)",
+      "每日速率微柱状图 (.ds-cycle-velocity-spark__bars, .ds-cycle-velocity-spark__bar)",
+      "底部燃尽进度与工作日信息 (.ds-cycle-velocity-spark__footer)"
+    ],
+    "keyboard": "Tab 聚焦速率图；各柱状图单元悬浮展示当日工时点数提示。",
+    "guidance": [
+      "具备 role=\"region\" 与 aria-label 完整播报迭代名称、已完成与总点数及燃尽百分比。",
+      "柱状图带悬浮缩放动效，当前工作日柱体高亮强调。",
+      "适合敏捷迭代看板、项目进度概览仪表板、团队生产力监控。"
+    ],
+    "preview": "<div class=\"ds-cycle-velocity-spark\" role=\"region\" aria-label=\"Cycle 28 团队开发速率：已完成 64/80 点 (80%)\"><div class=\"ds-cycle-velocity-spark__header\"><span>Cycle 28 速率</span><span class=\"ds-cycle-velocity-spark__val\">64 / 80 pt</span></div><div class=\"ds-cycle-velocity-spark__bars\" aria-hidden=\"true\"><div class=\"ds-cycle-velocity-spark__bar\" style=\"height:33%\" title=\"Day 1: 6 pt\"></div><div class=\"ds-cycle-velocity-spark__bar\" style=\"height:66%\" title=\"Day 2: 12 pt\"></div><div class=\"ds-cycle-velocity-spark__bar\" style=\"height:55%\" title=\"Day 3: 10 pt\"></div><div class=\"ds-cycle-velocity-spark__bar\" style=\"height:77%\" title=\"Day 4: 14 pt\"></div><div class=\"ds-cycle-velocity-spark__bar\" style=\"height:100%\" title=\"Day 5: 18 pt\"></div><div class=\"ds-cycle-velocity-spark__bar is-current\" style=\"height:22%\" title=\"Day 6: 4 pt\"></div></div><div class=\"ds-cycle-velocity-spark__footer\"><span>燃尽进度: 80%</span><span>6 个工作日</span></div></div>",
+    "checks": [
+      "64 / 80 pt 等宽醒目",
+      "6 根柱状图动态起伏",
+      "最后一天高亮强调"
+    ],
+    "react": "<LinearCycleScopeVelocitySpark cycleName=\"Cycle 28\" completedPoints={64} totalPoints={80} />",
+    "status": "CSS / HTML / React"
+  },
+  {
+    "id": "macos-airdrop-target-radar",
+    "name": "macOS 隔空投送动态雷达发现面板",
+    "category": "容器",
+    "purpose": "macOS Sequoia 与 iOS 18 AirDrop 隔空投送雷达脉冲扫描与周围设备发现面板（AirDrop Dynamic Discovery Radar Wave）；三层同心微光雷达波纹环绕、发现的周围联系人设备头像、设备型号名称及一键发送文件进度环。",
+    "anatomy": [
+      "大圆角居中雷达面板 (.ds-airdrop-radar)",
+      "同心脉冲雷达波纹框 (.ds-airdrop-radar__wave-box, .ds-airdrop-radar__ring)",
+      "中心发光天线标志 (.ds-airdrop-radar__center)",
+      "水平排列的周围目标头像与名称 (.ds-airdrop-radar__targets, .ds-airdrop-radar__target)"
+    ],
+    "keyboard": "Tab 在周围设备间导航；Enter 触发向选定设备发送文件。",
+    "guidance": [
+      "具备 role=\"region\" 与 aria-label 说明隔空投送雷达发现面板。",
+      "每个目标按键具备独立的 aria-label 发送操作指引。",
+      "适合系统分享菜单、局域网快速传输工具、多设备协同面板。"
+    ],
+    "preview": "<div class=\"ds-airdrop-radar\" role=\"region\" aria-label=\"隔空投送动态雷达发现面板\"><div class=\"ds-airdrop-radar__wave-box\" aria-hidden=\"true\"><div class=\"ds-airdrop-radar__ring\"></div><div class=\"ds-airdrop-radar__ring ds-airdrop-radar__ring--mid\"></div><div class=\"ds-airdrop-radar__ring ds-airdrop-radar__ring--inner\"></div><div class=\"ds-airdrop-radar__center\">📡</div></div><span style=\"font-size:11px;color:var(--ds-muted);font-weight:600\">正在扫描周围隔空投送设备…</span><div class=\"ds-airdrop-radar__targets\"><button type=\"button\" class=\"ds-airdrop-radar__target\" aria-label=\"发送文件至 Sarah's Mac\"><div class=\"ds-airdrop-radar__target-avatar\">S</div><span class=\"ds-airdrop-radar__target-name\">Sarah's Mac</span></button><button type=\"button\" class=\"ds-airdrop-radar__target\" aria-label=\"发送文件至 Alex's iPad\"><div class=\"ds-airdrop-radar__target-avatar\">A</div><span class=\"ds-airdrop-radar__target-name\">Alex's iPad</span></button></div></div>",
+    "checks": [
+      "三层同心波纹层次丰富",
+      "中心发光雷达天线点睛",
+      "两台周围设备并列待选"
+    ],
+    "react": "<MacAirDropTargetRadar discovering={true} />",
+    "status": "CSS / HTML / React"
+  },
+  {
+    "id": "cassette-tape-bias-calibration-selector",
+    "name": "磁带机物理偏磁校准与均衡选择器",
+    "category": "多媒体",
+    "purpose": "专业开盘母带录音机磁带物理偏磁校准与 EQ 均衡选择按键组（Tape Bias & EQ Calibration Rotary Selector）；Normal (Type I, 120µs) / CrO2 (Type II, 70µs) / Metal (Type IV, 70µs) 三联微机械按键及独立微型绿色/琥珀色 LED 状态灯。",
+    "anatomy": [
+      "嵌入式微质感基框 (.ds-tape-bias-selector)",
+      "标题与当前选定档位读数 (.ds-tape-bias-selector__header)",
+      "三列等宽档位按键网格 (.ds-tape-bias-selector__group)",
+      "独立按键与微型发光 LED (.ds-tape-bias-selector__btn, .ds-tape-bias-selector__led)",
+      "带磁带型号与均衡时间常数文本 (.ds-tape-bias-selector__type, .ds-tape-bias-selector__eq)"
+    ],
+    "keyboard": "Tab 聚焦选择器；ArrowLeft / ArrowRight 或直接点击按键切换磁带偏磁档位。",
+    "guidance": [
+      "具备 role=\"region\" 与 role=\"radiogroup\"，按键具备 role=\"radio\" 与 aria-checked。",
+      "选定状态通过边框、背景及发光微型 LED 三重强化。",
+      "适合模拟音频母带工作站、复古音频播放器、专业声学插件。"
+    ],
+    "preview": "<div class=\"ds-tape-bias-selector\" role=\"region\" aria-label=\"磁带物理偏磁校准：当前选定 CrO2\"><div class=\"ds-tape-bias-selector__header\"><span>TAPE BIAS / EQ</span><span style=\"font-family:var(--ds-type-mono);color:var(--ds-accent)\">CrO2</span></div><div class=\"ds-tape-bias-selector__group\" role=\"radiogroup\" aria-label=\"磁带规格档位\"><button type=\"button\" role=\"radio\" aria-checked=\"false\" class=\"ds-tape-bias-selector__btn\"><div class=\"ds-tape-bias-selector__led\" aria-hidden=\"true\"></div><span class=\"ds-tape-bias-selector__type\">Type I</span><span class=\"ds-tape-bias-selector__eq\">120 µs</span></button><button type=\"button\" role=\"radio\" aria-checked=\"true\" class=\"ds-tape-bias-selector__btn is-active\"><div class=\"ds-tape-bias-selector__led\" aria-hidden=\"true\"></div><span class=\"ds-tape-bias-selector__type\">Type II</span><span class=\"ds-tape-bias-selector__eq\">70 µs</span></button><button type=\"button\" role=\"radio\" aria-checked=\"false\" class=\"ds-tape-bias-selector__btn\"><div class=\"ds-tape-bias-selector__led\" aria-hidden=\"true\"></div><span class=\"ds-tape-bias-selector__type\">Type IV</span><span class=\"ds-tape-bias-selector__eq\">70 µs</span></button></div></div>",
+    "checks": [
+      "Type I / II / IV 三联排布",
+      "Type II 绿色微 LED 点亮",
+      "120µs / 70µs 刻度专业准确"
+    ],
+    "react": "<AnalogTapeBiasCalibrationSelector selectedType=\"CrO2\" />",
+    "status": "CSS / HTML / React"
+  },
+  {
+    "id": "apple-vision-spatial-anchor-pin-lock",
+    "name": "VisionOS 空间世界坐标锚点图钉",
+    "category": "布局",
+    "purpose": "Apple VisionOS 空间计算 3D 空间实体对象世界坐标锁定微型图钉（Spatial World Coordinate Anchor Pin）；全息发光图钉微图标、世界绝对坐标 X/Y/Z 三轴读数胶囊及解开/固定状态切换按键。",
+    "anatomy": [
+      "圆角深色高斯毛玻璃胶囊浮条 (.ds-spatial-anchor-pin)",
+      "发光全息图钉微图标 (.ds-spatial-anchor-pin__icon)",
+      "等宽 X/Y/Z 三维坐标读数 (.ds-spatial-anchor-pin__coords)",
+      "微型胶囊锁定/解锁按键 (.ds-spatial-anchor-pin__btn)"
+    ],
+    "keyboard": "Tab 聚焦图钉按键；Enter 或 Space 切换空间固定与自由浮动模式。",
+    "guidance": [
+      "具备 role=\"status\" 与 aria-label 完整播报当前世界锚定状态与三维坐标。",
+      "锁定与未锁定状态具备色彩、图示与文字的三重区分。",
+      "适合 VisionOS 空间计算应用、3D AR 锚定系统、虚拟现实工作台。"
+    ],
+    "preview": "<div class=\"ds-spatial-anchor-pin is-locked\" role=\"status\" aria-label=\"空间世界锚点图钉：已锁定世界坐标\"><span class=\"ds-spatial-anchor-pin__icon\" aria-hidden=\"true\">📌</span><span>空间锚定</span><span class=\"ds-spatial-anchor-pin__coords\">X: 1.28m, Y: 0.85m, Z: -2.10m</span><button type=\"button\" class=\"ds-spatial-anchor-pin__btn\" aria-label=\"解除世界坐标锁定\">解锁</button></div>",
+    "checks": [
+      "绿色发光图钉图标",
+      "X/Y/Z 米级三维绝对坐标",
+      "微胶囊解锁操作钮"
+    ],
+    "react": "<VisionSpatialAnchorPinLock isLocked={true} coordinates=\"X: 1.28m, Y: 0.85m, Z: -2.10m\" />",
+    "status": "CSS / HTML / React"
+  },
+  {
+    "id": "github-actions-matrix-job-grid",
+    "name": "GitHub Actions 跨平台矩阵构建网格",
+    "category": "反馈",
+    "purpose": "GitHub Actions CI/CD 多操作系统与多运行时矩阵构建状态网格（Multi-OS & Arch Matrix Build Job Grid）；按 Ubuntu / macOS / Windows 行划分、针对 Node.js 18 / 20 / 22 矩阵单元格展示成功、失败与运行中状态微标。",
+    "anatomy": [
+      "紧凑圆角矩阵容器 (.ds-matrix-job-grid)",
+      "工作流名称与版本标签头部 (.ds-matrix-job-grid__header)",
+      "操作系统行单元 (.ds-matrix-job-grid__row, .ds-matrix-job-grid__os)",
+      "矩阵单元格网格及绿勾/红叉/黄点状态微标 (.ds-matrix-job-grid__cells, .ds-matrix-job-grid__cell)"
+    ],
+    "keyboard": "Tab 导航进入网格；各构建单元格 title 播报对应 OS 与运行时的构建结果。",
+    "guidance": [
+      "具备 role=\"region\" 与 aria-label 说明跨平台构建矩阵状态。",
+      "状态单元格通过颜色与语义符号（✓/✕/●）双重传递状态，无障碍合规。",
+      "适合自动化 CI/CD 仪表板、多平台发布监控、DevOps 流水线。"
+    ],
+    "preview": "<div class=\"ds-matrix-job-grid\" role=\"region\" aria-label=\"test-matrix 跨平台构建矩阵状态\"><div class=\"ds-matrix-job-grid__header\"><span>构建矩阵: test-matrix</span><span style=\"font-family:var(--ds-type-mono);font-size:11px;color:var(--ds-muted)\">Node 18/20/22</span></div><div class=\"ds-matrix-job-grid__rows\"><div class=\"ds-matrix-job-grid__row\"><span class=\"ds-matrix-job-grid__os\">Ubuntu</span><div class=\"ds-matrix-job-grid__cells\"><span class=\"ds-matrix-job-grid__cell is-success\" title=\"Ubuntu Node v18: pass\">✓</span><span class=\"ds-matrix-job-grid__cell is-success\" title=\"Ubuntu Node v20: pass\">✓</span><span class=\"ds-matrix-job-grid__cell is-success\" title=\"Ubuntu Node v22: pass\">✓</span></div></div><div class=\"ds-matrix-job-grid__row\"><span class=\"ds-matrix-job-grid__os\">macOS</span><div class=\"ds-matrix-job-grid__cells\"><span class=\"ds-matrix-job-grid__cell is-success\" title=\"macOS Node v18: pass\">✓</span><span class=\"ds-matrix-job-grid__cell is-success\" title=\"macOS Node v20: pass\">✓</span><span class=\"ds-matrix-job-grid__cell is-running\" title=\"macOS Node v22: running\">●</span></div></div><div class=\"ds-matrix-job-grid__row\"><span class=\"ds-matrix-job-grid__os\">Windows</span><div class=\"ds-matrix-job-grid__cells\"><span class=\"ds-matrix-job-grid__cell is-success\" title=\"Windows Node v18: pass\">✓</span><span class=\"ds-matrix-job-grid__cell is-failure\" title=\"Windows Node v20: fail\">✕</span><span class=\"ds-matrix-job-grid__cell is-success\" title=\"Windows Node v22: pass\">✓</span></div></div></div></div>",
+    "checks": [
+      "Ubuntu/macOS/Windows 三行分立",
+      "9 格矩阵状态符号清晰",
+      "失败项红底白叉醒目"
+    ],
+    "react": "<GitHubActionsMatrixJobGrid workflowName=\"test-matrix\" />",
+    "status": "CSS / HTML / React"
+  },
+  {
+    "id": "figma-canvas-dimension-label-hud",
+    "name": "Figma 画布图层测量尺寸标注药丸",
+    "category": "表单",
+    "purpose": "Figma 画布图层选中时动态距离测量与尺寸标注浮动药丸（Canvas Selection Distance & Dimensions Floating Pill）；实时显示选框宽度与高度（W × H 等宽粗体大字）、与父级或相邻图层相对间距微标。",
+    "anatomy": [
+      "高对比度洋红/玫红药丸徽标 (.ds-dimension-label-hud)",
+      "等宽尺寸宽高数值 (.ds-dimension-label-hud__dim)",
+      "微型半透明间距距离标签 (.ds-dimension-label-hud__dist)"
+    ],
+    "keyboard": "Tab 聚焦尺寸标注；屏幕阅读器自动播报当前图层测量宽高与间距距离。",
+    "guidance": [
+      "具备 role=\"status\" 与 aria-label 完整播报图层测量尺寸与间距。",
+      "高饱和玫红底色在任意复杂画布背景上均清晰可辨。",
+      "适合设计画布测量工具、CSS 盒子模型检查器、前端尺寸标记插件。"
+    ],
+    "preview": "<div class=\"ds-dimension-label-hud\" role=\"status\" aria-label=\"图层测量尺寸：宽 380，高 240，与父容器间距 16 像素\"><span class=\"ds-dimension-label-hud__dim\">380 <span class=\"ds-dimension-label-hud__sep\">×</span> 240</span><span class=\"ds-dimension-label-hud__dist\" title=\"间距\">16px</span></div>",
+    "checks": [
+      "380 × 240 鲜红标注浮条",
+      "16px 间距微型黑透胶囊",
+      "等宽数字规范工整"
+    ],
+    "react": "<FigmaCanvasDimensionLabelHud width={380} height={240} distance={16} />",
+    "status": "CSS / HTML / React"
   }
 ]

@@ -6424,3 +6424,243 @@ export function FigmaCanvasColorContrastCheckerBadge({
     </div>
   );
 }
+
+export function LinearCycleScopeVelocitySpark({
+  cycleName = 'Cycle 28',
+  completedPoints = 64,
+  totalPoints = 80,
+  dailyPoints = [6, 12, 10, 14, 18, 4],
+}: {
+  cycleName?: string;
+  completedPoints?: number;
+  totalPoints?: number;
+  dailyPoints?: number[];
+}) {
+  const maxPt = Math.max(...dailyPoints, 1);
+  const pct = Math.round((completedPoints / totalPoints) * 100);
+  return (
+    <div
+      className="ds-cycle-velocity-spark"
+      role="region"
+      aria-label={`${cycleName} 团队开发速率：已完成 ${completedPoints}/${totalPoints} 点 (${pct}%)`}
+    >
+      <div className="ds-cycle-velocity-spark__header">
+        <span>{cycleName} 速率</span>
+        <span className="ds-cycle-velocity-spark__val">{completedPoints} / {totalPoints} pt</span>
+      </div>
+      <div className="ds-cycle-velocity-spark__bars" aria-hidden="true">
+        {dailyPoints.map((pt, i) => (
+          <div
+            key={i}
+            className={`ds-cycle-velocity-spark__bar ${i === dailyPoints.length - 1 ? 'is-current' : ''}`}
+            style={{ height: `${Math.round((pt / maxPt) * 100)}%` }}
+            title={`Day ${i + 1}: ${pt} pt`}
+          />
+        ))}
+      </div>
+      <div className="ds-cycle-velocity-spark__footer">
+        <span>燃尽进度: {pct}%</span>
+        <span>{dailyPoints.length} 个工作日</span>
+      </div>
+    </div>
+  );
+}
+
+export function MacAirDropTargetRadar({
+  discovering = true,
+  targets = [
+    { id: '1', name: "Sarah's Mac", initial: 'S' },
+    { id: '2', name: "Alex's iPad", initial: 'A' },
+  ],
+  onSelectTarget,
+}: {
+  discovering?: boolean;
+  targets?: Array<{ id: string; name: string; initial: string }>;
+  onSelectTarget?: (id: string) => void;
+}) {
+  return (
+    <div
+      className="ds-airdrop-radar"
+      role="region"
+      aria-label="隔空投送动态雷达发现面板"
+    >
+      <div className="ds-airdrop-radar__wave-box" aria-hidden="true">
+        <div className="ds-airdrop-radar__ring" />
+        <div className="ds-airdrop-radar__ring ds-airdrop-radar__ring--mid" />
+        <div className="ds-airdrop-radar__ring ds-airdrop-radar__ring--inner" />
+        <div className="ds-airdrop-radar__center">📡</div>
+      </div>
+      <span style={{ fontSize: '11px', color: 'var(--ds-muted)', fontWeight: 600 }}>
+        {discovering ? '正在扫描周围隔空投送设备…' : '已停止扫描'}
+      </span>
+      <div className="ds-airdrop-radar__targets">
+        {targets.map((t) => (
+          <button
+            key={t.id}
+            type="button"
+            className="ds-airdrop-radar__target"
+            onClick={() => onSelectTarget?.(t.id)}
+            aria-label={`发送文件至 ${t.name}`}
+          >
+            <div className="ds-airdrop-radar__target-avatar">{t.initial}</div>
+            <span className="ds-airdrop-radar__target-name">{t.name}</span>
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export function AnalogTapeBiasCalibrationSelector({
+  selectedType = 'CrO2',
+  onSelectType,
+}: {
+  selectedType?: 'Normal' | 'CrO2' | 'Metal';
+  onSelectType?: (type: 'Normal' | 'CrO2' | 'Metal') => void;
+}) {
+  const types: Array<{ id: 'Normal' | 'CrO2' | 'Metal'; label: string; eq: string }> = [
+    { id: 'Normal', label: 'Type I', eq: '120 µs' },
+    { id: 'CrO2', label: 'Type II', eq: '70 µs' },
+    { id: 'Metal', label: 'Type IV', eq: '70 µs' },
+  ];
+  return (
+    <div
+      className="ds-tape-bias-selector"
+      role="region"
+      aria-label={`磁带物理偏磁校准：当前选定 ${selectedType}`}
+    >
+      <div className="ds-tape-bias-selector__header">
+        <span>TAPE BIAS / EQ</span>
+        <span style={{ fontFamily: 'var(--ds-type-mono)', color: 'var(--ds-accent)' }}>
+          {selectedType}
+        </span>
+      </div>
+      <div className="ds-tape-bias-selector__group" role="radiogroup" aria-label="磁带规格档位">
+        {types.map((t) => {
+          const isActive = selectedType === t.id;
+          return (
+            <button
+              key={t.id}
+              type="button"
+              role="radio"
+              aria-checked={isActive}
+              className={`ds-tape-bias-selector__btn ${isActive ? 'is-active' : ''}`}
+              onClick={() => onSelectType?.(t.id)}
+            >
+              <div className="ds-tape-bias-selector__led" aria-hidden="true" />
+              <span className="ds-tape-bias-selector__type">{t.label}</span>
+              <span className="ds-tape-bias-selector__eq">{t.eq}</span>
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+export function VisionSpatialAnchorPinLock({
+  isLocked = true,
+  coordinates = 'X: 1.28m, Y: 0.85m, Z: -2.10m',
+  onToggleLock,
+}: {
+  isLocked?: boolean;
+  coordinates?: string;
+  onToggleLock?: () => void;
+}) {
+  return (
+    <div
+      className={`ds-spatial-anchor-pin ${isLocked ? 'is-locked' : ''}`}
+      role="status"
+      aria-label={`空间世界锚点图钉：${isLocked ? '已锁定世界坐标' : '自由跟随视线'}`}
+    >
+      <span className="ds-spatial-anchor-pin__icon" aria-hidden="true">
+        {isLocked ? '📌' : '📍'}
+      </span>
+      <span>{isLocked ? '空间锚定' : '自由浮动'}</span>
+      <span className="ds-spatial-anchor-pin__coords">{coordinates}</span>
+      <button
+        type="button"
+        className="ds-spatial-anchor-pin__btn"
+        onClick={onToggleLock}
+        aria-label={isLocked ? '解除世界坐标锁定' : '固定至当前世界坐标'}
+      >
+        {isLocked ? '解锁' : '锚定'}
+      </button>
+    </div>
+  );
+}
+
+export function GitHubActionsMatrixJobGrid({
+  workflowName = 'test-matrix',
+  jobs = [
+    { os: 'Ubuntu', versions: [{ ver: '18', status: 'pass' }, { ver: '20', status: 'pass' }, { ver: '22', status: 'pass' }] },
+    { os: 'macOS', versions: [{ ver: '18', status: 'pass' }, { ver: '20', status: 'pass' }, { ver: '22', status: 'running' }] },
+    { os: 'Windows', versions: [{ ver: '18', status: 'pass' }, { ver: '20', status: 'fail' }, { ver: '22', status: 'pass' }] },
+  ],
+}: {
+  workflowName?: string;
+  jobs?: Array<{
+    os: string;
+    versions: Array<{ ver: string; status: 'pass' | 'fail' | 'running' }>;
+  }>;
+}) {
+  return (
+    <div
+      className="ds-matrix-job-grid"
+      role="region"
+      aria-label={`${workflowName} 跨平台构建矩阵状态`}
+    >
+      <div className="ds-matrix-job-grid__header">
+        <span>构建矩阵: {workflowName}</span>
+        <span style={{ fontFamily: 'var(--ds-type-mono)', fontSize: '11px', color: 'var(--ds-muted)' }}>
+          Node 18/20/22
+        </span>
+      </div>
+      <div className="ds-matrix-job-grid__rows">
+        {jobs.map((j) => (
+          <div key={j.os} className="ds-matrix-job-grid__row">
+            <span className="ds-matrix-job-grid__os">{j.os}</span>
+            <div className="ds-matrix-job-grid__cells">
+              {j.versions.map((v) => (
+                <span
+                  key={v.ver}
+                  className={`ds-matrix-job-grid__cell is-${v.status === 'pass' ? 'success' : v.status === 'fail' ? 'failure' : 'running'}`}
+                  title={`${j.os} Node v${v.ver}: ${v.status}`}
+                >
+                  {v.status === 'pass' ? '✓' : v.status === 'fail' ? '✕' : '●'}
+                </span>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export function FigmaCanvasDimensionLabelHud({
+  width = 380,
+  height = 240,
+  distance = 16,
+}: {
+  width?: number;
+  height?: number;
+  distance?: number;
+}) {
+  return (
+    <div
+      className="ds-dimension-label-hud"
+      role="status"
+      aria-label={`图层测量尺寸：宽 ${width}，高 ${height}，与父容器间距 ${distance} 像素`}
+    >
+      <span className="ds-dimension-label-hud__dim">
+        {width} <span className="ds-dimension-label-hud__sep">×</span> {height}
+      </span>
+      {distance !== undefined && (
+        <span className="ds-dimension-label-hud__dist" title="间距">
+          {distance}px
+        </span>
+      )}
+    </div>
+  );
+}
