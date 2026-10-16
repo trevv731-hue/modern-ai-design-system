@@ -6162,22 +6162,265 @@ export function GitHubMergeConflictResolverBadge({
     </div>
   );
 }
+export function LinearHotkeyCheatSheetPill({
+  hotkeys = [
+    { key: 'C', label: '新建 Issue' },
+    { key: 'K', label: '全局命令' },
+    { key: '?', label: '快捷键' },
+  ],
+  onClick,
+}: {
+  hotkeys?: Array<{ key: string; label: string }>;
+  onClick?: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      className="ds-hotkey-cheat-pill"
+      onClick={onClick}
+      aria-label="快捷键提示浮条"
+    >
+      <span aria-hidden="true">⌨️</span>
+      <span>快捷键</span>
+      <div className="ds-hotkey-cheat-pill__keys">
+        {hotkeys.map((h, i) => (
+          <span key={i} className="ds-hotkey-cheat-pill__key" title={h.label}>
+            {h.key}
+          </span>
+        ))}
+      </div>
+    </button>
+  );
+}
 
+export function MacBatteryHealthSheet({
+  healthPercentage = 94,
+  cycleCount = 182,
+  condition = '正常',
+  peakPerformance = true,
+}: {
+  healthPercentage?: number;
+  cycleCount?: number;
+  condition?: string;
+  peakPerformance?: boolean;
+}) {
+  return (
+    <div
+      className="ds-battery-health-sheet"
+      role="region"
+      aria-label="电池健康状况面板"
+    >
+      <div className="ds-battery-health-sheet__row">
+        <span>电池最大容量</span>
+        <span className="ds-battery-health-sheet__val">{healthPercentage}%</span>
+      </div>
+      <div className="ds-battery-health-sheet__row">
+        <span style={{ fontSize: '11px', color: 'var(--ds-muted)' }}>循环计数</span>
+        <span style={{ fontFamily: 'var(--ds-type-mono)', fontSize: '11px', color: 'var(--ds-ink)' }}>
+          {cycleCount} 次
+        </span>
+      </div>
+      <div className="ds-battery-health-sheet__row">
+        <span style={{ fontSize: '11px', color: 'var(--ds-muted)' }}>状态</span>
+        <span style={{ fontSize: '11px', color: 'var(--ds-success)', fontWeight: 700 }}>{condition}</span>
+      </div>
+      <p className="ds-battery-health-sheet__desc">
+        {peakPerformance
+          ? '电池目前支持正常的峰值性能。'
+          : '电池健康度显著降低，建议前往服务网点检修。'}
+      </p>
+    </div>
+  );
+}
 
+export function AnalogHeadCleaningCycleMeter({
+  hoursElapsed = 38,
+  thresholdHours = 50,
+  lastCleanedDate = '2026-09-28',
+  onCleanNow,
+}: {
+  hoursElapsed?: number;
+  thresholdHours?: number;
+  lastCleanedDate?: string;
+  onCleanNow?: () => void;
+}) {
+  const percent = Math.min(100, Math.round((hoursElapsed / thresholdHours) * 100));
+  return (
+    <div
+      className="ds-cleaning-cycle-meter"
+      role="region"
+      aria-label={`磁头清洁维护周期：已播放 ${hoursElapsed} 小时，推荐周期 ${thresholdHours} 小时`}
+    >
+      <div className="ds-cleaning-cycle-meter__header">
+        <span>磁头清洁周期</span>
+        <span style={{ fontFamily: 'var(--ds-type-mono)' }}>{percent}%</span>
+      </div>
+      <div className="ds-cleaning-cycle-meter__track" aria-hidden="true">
+        <div className="ds-cleaning-cycle-meter__bar" style={{ width: `${percent}%` }} />
+      </div>
+      <div className="ds-cleaning-cycle-meter__footer">
+        <span>上次清洁: {lastCleanedDate}</span>
+        {onCleanNow ? (
+          <button
+            type="button"
+            onClick={onCleanNow}
+            style={{
+              border: 'none',
+              background: 'none',
+              color: 'var(--ds-action)',
+              fontSize: '10px',
+              fontWeight: 700,
+              cursor: 'pointer',
+              padding: 0,
+            }}
+          >
+            重置周期
+          </button>
+        ) : (
+          <span>{hoursElapsed}/{thresholdHours}h</span>
+        )}
+      </div>
+    </div>
+  );
+}
 
+export function VisionSpatialGazeKeyboardMatrix({
+  value = 'PIN: 849',
+  onKeyPress,
+  keys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '⌫', '0', '✓'],
+}: {
+  value?: string;
+  onKeyPress?: (k: string) => void;
+  keys?: string[];
+}) {
+  const rows = [
+    keys.slice(0, 3),
+    keys.slice(3, 6),
+    keys.slice(6, 9),
+    keys.slice(9, 12),
+  ];
+  return (
+    <div
+      className="ds-spatial-gaze-keyboard"
+      role="region"
+      aria-label="空间注视虚拟数字按键矩阵"
+    >
+      <div className="ds-spatial-gaze-keyboard__preview" aria-live="polite">
+        {value}
+      </div>
+      {rows.map((row, rIdx) => (
+        <div key={rIdx} className="ds-spatial-gaze-keyboard__row">
+          {row.map((k) => (
+            <button
+              key={k}
+              type="button"
+              className="ds-spatial-gaze-keyboard__key"
+              onClick={() => onKeyPress?.(k)}
+              aria-label={`按键 ${k}`}
+            >
+              {k}
+            </button>
+          ))}
+        </div>
+      ))}
+    </div>
+  );
+}
 
+export function GitHubCodeSearchRegexToggle({
+  caseSensitive = false,
+  wholeWord = false,
+  useRegex = true,
+  onToggleCase,
+  onToggleWord,
+  onToggleRegex,
+}: {
+  caseSensitive?: boolean;
+  wholeWord?: boolean;
+  useRegex?: boolean;
+  onToggleCase?: () => void;
+  onToggleWord?: () => void;
+  onToggleRegex?: () => void;
+}) {
+  return (
+    <div
+      className="ds-regex-search-toggle"
+      role="group"
+      aria-label="代码搜索过滤器模式切换"
+    >
+      <button
+        type="button"
+        className={`ds-regex-search-toggle__btn ${caseSensitive ? 'is-active' : ''}`}
+        onClick={onToggleCase}
+        aria-pressed={caseSensitive}
+        title="大小写匹配 (Match Case, Alt+C)"
+      >
+        Aa
+      </button>
+      <button
+        type="button"
+        className={`ds-regex-search-toggle__btn ${wholeWord ? 'is-active' : ''}`}
+        onClick={onToggleWord}
+        aria-pressed={wholeWord}
+        title="全字匹配 (Match Whole Word, Alt+W)"
+      >
+        \b
+      </button>
+      <button
+        type="button"
+        className={`ds-regex-search-toggle__btn ${useRegex ? 'is-active' : ''}`}
+        onClick={onToggleRegex}
+        aria-pressed={useRegex}
+        title="使用正则表达式 (Use Regular Expression, Alt+R)"
+      >
+        .*
+      </button>
+    </div>
+  );
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+export function FigmaCanvasColorContrastCheckerBadge({
+  foreground = '#0a0a0c',
+  background = '#ffffff',
+  ratio = '19.4:1',
+  level = 'AAA',
+  isPass = true,
+}: {
+  foreground?: string;
+  background?: string;
+  ratio?: string;
+  level?: 'AA' | 'AAA' | 'FAIL';
+  isPass?: boolean;
+}) {
+  return (
+    <div
+      className="ds-contrast-checker-badge"
+      role="status"
+      aria-label={`色彩对比度检测：${ratio}，符合 ${level} 级规范`}
+    >
+      <span className="ds-contrast-checker-badge__ratio">{ratio}</span>
+      <span
+        className="ds-contrast-checker-badge__pill"
+        style={{
+          background: isPass ? 'var(--ds-success-soft)' : 'var(--ds-danger-soft)',
+          color: isPass ? 'var(--ds-success)' : 'var(--ds-danger)',
+          borderColor: isPass ? 'var(--ds-success)' : 'var(--ds-danger)',
+        }}
+      >
+        {level}
+      </span>
+      <div className="ds-contrast-checker-badge__samples" aria-hidden="true">
+        <span
+          className="ds-contrast-checker-badge__sample"
+          style={{ background: foreground }}
+          title={`前景色: ${foreground}`}
+        />
+        <span
+          className="ds-contrast-checker-badge__sample"
+          style={{ background: background }}
+          title={`背景色: ${background}`}
+        />
+      </div>
+    </div>
+  );
+}

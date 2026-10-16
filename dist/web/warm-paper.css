@@ -1912,5 +1912,64 @@
   --ds-shadow: 0 6px 22px rgba(36,107,76,.1);
 }
 
+/* Monochrome Editorial Ink — Swiss stark typography & pure ivory print aesthetic */
+[data-palette="monochrome-editorial-ink"] {
+  color-scheme: light;
+  --ds-canvas: #f8f8f8;
+  --ds-surface: #ffffff;
+  --ds-inset: #efefef;
+  --ds-chrome: rgba(255,255,255,.94);
+  --ds-ink: #0a0a0c;
+  --ds-muted: #55555c;
+  --ds-line: #e4e4e7;
+  --ds-control-line: #d4d4d8;
+  --ds-accent: #0a0a0c;
+  --ds-accent-soft: #f4f4f5;
+  --ds-action: #0a0a0c;
+  --ds-action-hover: #27272a;
+  --ds-on-action: #ffffff;
+  --ds-secondary: #3f3f46;
+  --ds-secondary-soft: #f4f4f5;
+  --ds-success: #166534;
+  --ds-success-soft: #dcfce7;
+  --ds-warning: #9a3412;
+  --ds-warning-soft: #ffedd5;
+  --ds-danger: #991b1b;
+  --ds-danger-soft: #fee2e2;
+  --ds-focus: #0a0a0c;
+  --ds-overlay: rgba(10,10,12,.45);
+  --ds-shadow: 0 4px 16px rgba(0,0,0,.08);
+}
+
+/* Terracotta Clay Warmth — Tuscan sunbaked earth, warm terracotta and olive grove */
+[data-palette="terracotta-clay-warmth"] {
+  color-scheme: light;
+  --ds-canvas: #fdf8f4;
+  --ds-surface: #ffffff;
+  --ds-inset: #f7ece2;
+  --ds-chrome: rgba(255,255,255,.94);
+  --ds-ink: #2c1810;
+  --ds-muted: #6e5246;
+  --ds-line: #e8dacd;
+  --ds-control-line: #d5c1af;
+  --ds-accent: #8a3b29;
+  --ds-accent-soft: #fbeeeb;
+  --ds-action: #8a3b29;
+  --ds-action-hover: #9e4531;
+  --ds-on-action: #ffffff;
+  --ds-secondary: #3d5a45;
+  --ds-secondary-soft: #edf4ef;
+  --ds-success: #2d5f38;
+  --ds-success-soft: #eaf5ec;
+  --ds-warning: #995308;
+  --ds-warning-soft: #fef3e1;
+  --ds-danger: #a12c2c;
+  --ds-danger-soft: #fde8e8;
+  --ds-focus: #8a3b29;
+  --ds-overlay: rgba(44,24,16,.4);
+  --ds-shadow: 0 6px 20px rgba(138,59,41,.12);
+}
+
+
 
 
