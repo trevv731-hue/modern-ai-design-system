@@ -2027,3 +2027,62 @@
   --ds-overlay: rgba(5,4,12,.7);
   --ds-shadow: 0 8px 30px rgba(225,29,116,.2);
 }
+
+/* Amethyst Crystal Geode — Deep violet amethyst crystal cave & glistening quartz */
+[data-palette="amethyst-crystal-geode"] {
+  color-scheme: dark;
+  --ds-canvas: #0c0817;
+  --ds-surface: #17112c;
+  --ds-inset: #090613;
+  --ds-chrome: rgba(23,17,44,.92);
+  --ds-ink: #f5f3ff;
+  --ds-muted: #ad9ec5;
+  --ds-line: #342557;
+  --ds-control-line: #4e3a80;
+  --ds-accent: #c084fc;
+  --ds-accent-soft: #281447;
+  --ds-action: #9333ea;
+  --ds-action-hover: #a855f7;
+  --ds-on-action: #ffffff;
+  --ds-secondary: #818cf8;
+  --ds-secondary-soft: #151c4a;
+  --ds-success: #34d399;
+  --ds-success-soft: #073525;
+  --ds-warning: #fbbf24;
+  --ds-warning-soft: #382604;
+  --ds-danger: #f87171;
+  --ds-danger-soft: #3c1214;
+  --ds-focus: #c084fc;
+  --ds-overlay: rgba(6,4,11,.7);
+  --ds-shadow: 0 8px 30px rgba(147,51,234,.22);
+}
+
+/* Bamboo Matcha Mist — Uji ceremonial matcha tea garden & morning mountain mist */
+[data-palette="bamboo-matcha-mist"] {
+  color-scheme: light;
+  --ds-canvas: #f6f9f5;
+  --ds-surface: #ffffff;
+  --ds-inset: #eaf0e8;
+  --ds-chrome: rgba(255,255,255,.94);
+  --ds-ink: #122415;
+  --ds-muted: #445e48;
+  --ds-line: #d1ded3;
+  --ds-control-line: #b5c7b8;
+  --ds-accent: #2d5c36;
+  --ds-accent-soft: #e8f4ea;
+  --ds-action: #25522e;
+  --ds-action-hover: #31693c;
+  --ds-on-action: #ffffff;
+  --ds-secondary: #45634e;
+  --ds-secondary-soft: #ebf2ed;
+  --ds-success: #1d5f35;
+  --ds-success-soft: #e6f5eb;
+  --ds-warning: #87480a;
+  --ds-warning-soft: #fef3e3;
+  --ds-danger: #991f24;
+  --ds-danger-soft: #fde8e9;
+  --ds-focus: #2d5c36;
+  --ds-overlay: rgba(18,36,21,.4);
+  --ds-shadow: 0 6px 20px rgba(37,82,46,.1);
+}
+

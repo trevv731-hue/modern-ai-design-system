@@ -6664,3 +6664,218 @@ export function FigmaCanvasDimensionLabelHud({
     </div>
   );
 }
+
+export function LinearCycleTimeDistributionSpark({
+  avgDays = 2.4,
+  p80Days = 4.1,
+  buckets = [
+    { label: '<1d', count: 18, pct: 36 },
+    { label: '1-3d', count: 22, pct: 44 },
+    { label: '3-7d', count: 7, pct: 14 },
+    { label: '>7d', count: 3, pct: 6 },
+  ],
+}: {
+  avgDays?: number;
+  p80Days?: number;
+  buckets?: Array<{ label: string; count: number; pct: number }>;
+}) {
+  return (
+    <div
+      className="ds-cycle-time-distribution"
+      role="region"
+      aria-label={`工单周转周期分布直方图：平均 ${avgDays} 天，P80 交付分位 ${p80Days} 天`}
+    >
+      <div className="ds-cycle-time-distribution__header">
+        <span>Cycle Time 分布</span>
+        <span className="ds-cycle-time-distribution__avg">平均 {avgDays}d</span>
+      </div>
+      <div className="ds-cycle-time-distribution__bars" aria-hidden="true">
+        {buckets.map((b) => (
+          <div key={b.label} className="ds-cycle-time-distribution__row">
+            <span className="ds-cycle-time-distribution__label">{b.label}</span>
+            <div className="ds-cycle-time-distribution__track">
+              <div className="ds-cycle-time-distribution__fill" style={{ width: `${b.pct}%` }} />
+            </div>
+            <span className="ds-cycle-time-distribution__count">{b.count}</span>
+          </div>
+        ))}
+      </div>
+      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '10px', color: 'var(--ds-muted)', fontFamily: 'var(--ds-type-mono)' }}>
+        <span>P80: {p80Days} 天</span>
+        <span>共 50 个已交付工单</span>
+      </div>
+    </div>
+  );
+}
+
+export function MacNetworkInterfaceSpeedDial({
+  interfaceName = 'en0 (Wi-Fi 6E)',
+  ipAddress = '192.168.1.84',
+  uploadSpeed = '4.2 MB/s',
+  downloadSpeed = '28.6 MB/s',
+  status = '活跃',
+}: {
+  interfaceName?: string;
+  ipAddress?: string;
+  uploadSpeed?: string;
+  downloadSpeed?: string;
+  status?: string;
+}) {
+  return (
+    <div
+      className="ds-network-interface-dial"
+      role="region"
+      aria-label={`网络接口 ${interfaceName}：下载 ${downloadSpeed}，上传 ${uploadSpeed}`}
+    >
+      <div className="ds-network-interface-dial__header">
+        <span>{interfaceName}</span>
+        <span className="ds-network-interface-dial__badge">{status}</span>
+      </div>
+      <div className="ds-network-interface-dial__speeds">
+        <div className="ds-network-interface-dial__stat">
+          <span className="ds-network-interface-dial__label">↓ 下载</span>
+          <span className="ds-network-interface-dial__val">{downloadSpeed}</span>
+        </div>
+        <div className="ds-network-interface-dial__stat">
+          <span className="ds-network-interface-dial__label">↑ 上传</span>
+          <span className="ds-network-interface-dial__val">{uploadSpeed}</span>
+        </div>
+      </div>
+      <div className="ds-network-interface-dial__ip">IP: {ipAddress}</div>
+    </div>
+  );
+}
+
+export function AnalogReelTapeTensionArm({
+  tensionPercent = 58,
+  channel = 'Left Supply Reel',
+  status = '正常',
+}: {
+  tensionPercent?: number;
+  channel?: string;
+  status?: '正常' | '警告' | '过载';
+}) {
+  return (
+    <div
+      className="ds-tape-tension-arm"
+      role="region"
+      aria-label={`磁带张力缓冲臂：${channel}，张力负载 ${tensionPercent}% (${status})`}
+    >
+      <div className="ds-tape-tension-arm__header">
+        <span>TENSION ARM</span>
+        <span style={{ fontFamily: 'var(--ds-type-mono)', color: 'var(--ds-accent)' }}>
+          {tensionPercent}%
+        </span>
+      </div>
+      <div className="ds-tape-tension-arm__arc-box" aria-hidden="true">
+        <div className="ds-tape-tension-arm__track">
+          <div
+            className="ds-tape-tension-arm__indicator"
+            style={{ left: `${tensionPercent}%` }}
+          />
+        </div>
+      </div>
+      <div className="ds-tape-tension-arm__labels">
+        <span>LO (松弛)</span>
+        <span>IDEAL (理想)</span>
+        <span>HI (过紧)</span>
+      </div>
+    </div>
+  );
+}
+
+export function VisionSpatialMeshOcclusionWireframe({
+  surfaceType = 'Floor Surface',
+  meshPolygons = 4120,
+  distanceMeters = 1.45,
+  isOccluding = true,
+}: {
+  surfaceType?: string;
+  meshPolygons?: number;
+  distanceMeters?: number;
+  isOccluding?: boolean;
+}) {
+  return (
+    <div
+      className="ds-spatial-mesh-wireframe"
+      role="region"
+      aria-label={`空间环境扫描线框：${surfaceType}，距离 ${distanceMeters} 米，多边形面数 ${meshPolygons}`}
+    >
+      <div className="ds-spatial-mesh-wireframe__header">
+        <span>空间几何网格重建</span>
+        <span className="ds-spatial-mesh-wireframe__surface">{surfaceType}</span>
+      </div>
+      <div className="ds-spatial-mesh-wireframe__grid" aria-hidden="true">
+        <span>🕸️</span>
+      </div>
+      <div className="ds-spatial-mesh-wireframe__meta">
+        <span>多边形: {meshPolygons.toLocaleString()}</span>
+        <span>距离: {distanceMeters}m</span>
+        <span style={{ color: isOccluding ? '#38bdf8' : 'rgba(255,255,255,0.5)' }}>
+          {isOccluding ? '虚实遮挡: 开' : '虚实遮挡: 关'}
+        </span>
+      </div>
+    </div>
+  );
+}
+
+export function GitHubPRReviewTimerBadge({
+  waitDuration = '3h 42m',
+  slaStatus = 'normal',
+  onRemind,
+}: {
+  waitDuration?: string;
+  slaStatus?: 'normal' | 'warning' | 'breached';
+  onRemind?: () => void;
+}) {
+  return (
+    <div
+      className="ds-pr-review-timer"
+      role="status"
+      aria-label={`PR 评审等待时间：${waitDuration}，SLA 状态：${slaStatus}`}
+    >
+      <span className="ds-pr-review-timer__icon" aria-hidden="true">⏱️</span>
+      <span>等待评审</span>
+      <span className="ds-pr-review-timer__val">{waitDuration}</span>
+      <span className={`ds-pr-review-timer__sla is-${slaStatus}`}>
+        {slaStatus}
+      </span>
+      {onRemind && (
+        <button
+          type="button"
+          className="ds-pr-review-timer__ping-btn"
+          onClick={onRemind}
+          aria-label="向审查者发送提醒"
+        >
+          提醒
+        </button>
+      )}
+    </div>
+  );
+}
+
+export function FigmaCanvasBezierHandleHud({
+  handleType = 'Mirrored',
+  angleDegrees = 45.0,
+  lengthPx = 72,
+}: {
+  handleType?: 'Mirrored' | 'Disconnected' | 'Asymmetric';
+  angleDegrees?: number;
+  lengthPx?: number;
+}) {
+  return (
+    <div
+      className="ds-bezier-handle-hud"
+      role="status"
+      aria-label={`贝塞尔矢量手柄：${handleType} 模式，角度 ${angleDegrees}°，长度 ${lengthPx} 像素`}
+    >
+      <span className="ds-bezier-handle-hud__type">{handleType}</span>
+      <span className="ds-bezier-handle-hud__stat">
+        角度: <strong>{angleDegrees.toFixed(1)}°</strong>
+      </span>
+      <span className="ds-bezier-handle-hud__stat">
+        长: <strong>{lengthPx}px</strong>
+      </span>
+    </div>
+  );
+}
