@@ -5657,6 +5657,269 @@ export function VisionSpatialVolumeBoundingCube({
   );
 }
 
+export function LinearSyncStatusIndicator({
+  status = 'SYNCED',
+  latencyMs = 18,
+  socketEndpoint = 'wss://linear.app/live',
+  onReconnect
+}: {
+  status?: string;
+  latencyMs?: number;
+  socketEndpoint?: string;
+  onReconnect?: () => void;
+}) {
+  return (
+    <div
+      className="ds-linear-sync-status"
+      role="status"
+      aria-label={`实时同步状态：${status}，延迟：${latencyMs}ms，端点：${socketEndpoint}`}
+      onClick={onReconnect}
+      style={{ cursor: onReconnect ? 'pointer' : 'default' }}
+    >
+      <span className="ds-linear-sync-status__dot">
+        <span className="ds-linear-sync-status__ping" aria-hidden="true" />
+      </span>
+      <span>{status}</span>
+      <span className="ds-linear-sync-status__latency">{latencyMs}ms</span>
+    </div>
+  );
+}
+
+export function MacSoundBalanceSlider({
+  balance = 0,
+  min = -10,
+  max = 10,
+  onChange
+}: {
+  balance?: number;
+  min?: number;
+  max?: number;
+  onChange?: (val: number) => void;
+}) {
+  return (
+    <div className="ds-sound-balance" role="group" aria-label="立体声平衡调节">
+      <div className="ds-sound-balance__header">
+        <span>平衡 Balance</span>
+        <span style={{ fontFamily: 'var(--ds-type-mono)', fontSize: 11, color: 'var(--ds-muted)' }}>
+          {balance === 0 ? '居中' : balance < 0 ? `L ${Math.abs(balance)}` : `R ${balance}`}
+        </span>
+      </div>
+      <div className="ds-sound-balance__track-wrapper">
+        <span className="ds-sound-balance__notch" aria-hidden="true" />
+        <input
+          type="range"
+          className="ds-sound-balance__input"
+          min={min}
+          max={max}
+          value={balance}
+          aria-label="左右声道平衡滑块"
+          onChange={(e) => onChange?.(Number(e.target.value))}
+        />
+      </div>
+      <div className="ds-sound-balance__labels" aria-hidden="true">
+        <span>左</span>
+        <span>中</span>
+        <span>右</span>
+      </div>
+    </div>
+  );
+}
+
+export function AnalogBiDirectionalTapeLoop({
+  speedIps = 7.5,
+  tapeLengthSec = 12.8,
+  isRolling = true,
+  onTogglePlay
+}: {
+  speedIps?: number;
+  tapeLengthSec?: number;
+  isRolling?: boolean;
+  onTogglePlay?: () => void;
+}) {
+  return (
+    <div
+      className="ds-tape-loop-deck"
+      role="region"
+      aria-label={`双向循环磁带机，走带速度：${speedIps} IPS，循环时长：${tapeLengthSec}秒`}
+    >
+      <div className="ds-tape-loop-deck__meta">
+        <span>ENDLESS TAPE LOOP DELAY</span>
+        <span style={{ color: isRolling ? 'var(--ds-success)' : 'var(--ds-muted)', fontFamily: 'var(--ds-type-mono)', fontSize: 10 }}>
+          {isRolling ? 'RUNNING 7.5 IPS' : 'STANDBY'}
+        </span>
+      </div>
+      <div className="ds-tape-loop-deck__ribbon" aria-hidden="true" />
+      <div className="ds-tape-loop-deck__rollers">
+        <div
+          className="ds-tape-loop-deck__roller"
+          style={{ transform: isRolling ? 'rotate(45deg)' : 'none' }}
+          aria-hidden="true"
+        >
+          <div className="ds-tape-loop-deck__roller-hub" />
+        </div>
+        <div
+          className="ds-tape-loop-deck__roller"
+          style={{ transform: isRolling ? 'rotate(-45deg)' : 'none' }}
+          aria-hidden="true"
+        >
+          <div className="ds-tape-loop-deck__roller-hub" />
+        </div>
+      </div>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 11 }}>
+        <span style={{ color: 'var(--ds-muted)', fontFamily: 'var(--ds-type-mono)' }}>LOOP: {tapeLengthSec}s</span>
+        {onTogglePlay && (
+          <button
+            type="button"
+            className="ds-button ds-button--ghost"
+            style={{ padding: '2px 8px', fontSize: 11 }}
+            onClick={onTogglePlay}
+          >
+            {isRolling ? '暂停' : '启动'}
+          </button>
+        )}
+      </div>
+    </div>
+  );
+}
+
+export function IosActionButtonRadialSelector({
+  selectedAction = 'camera',
+  actions = [
+    { id: 'silent', label: '静音模式', icon: '🔔' },
+    { id: 'focus', label: '专注模式', icon: '🌙' },
+    { id: 'camera', label: '相机启动', icon: '📷' },
+    { id: 'torch', label: '手电筒', icon: '🔦' },
+    { id: 'shortcut', label: '快捷指令', icon: '⚡' }
+  ],
+  onSelect
+}: {
+  selectedAction?: string;
+  actions?: Array<{ id: string; label: string; icon: string }>;
+  onSelect?: (id: string) => void;
+}) {
+  return (
+    <div className="ds-action-btn-radial" role="radiogroup" aria-label="iPhone 操作按钮功能配置">
+      {actions.map((act) => {
+        const isSelected = selectedAction === act.id;
+        return (
+          <button
+            key={act.id}
+            type="button"
+            role="radio"
+            aria-checked={isSelected}
+            className={`ds-action-btn-radial__item ${isSelected ? 'is-active' : ''}`}
+            onClick={() => onSelect?.(act.id)}
+          >
+            <span className="ds-action-btn-radial__icon" aria-hidden="true">{act.icon}</span>
+            <span className="ds-action-btn-radial__label">{act.label}</span>
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+export function FigmaCanvasExportMatrix({
+  density = '2x',
+  format = 'PNG',
+  colorSpace = 'Display P3',
+  onDensityChange,
+  onFormatChange,
+  onExport
+}: {
+  density?: string;
+  format?: string;
+  colorSpace?: string;
+  onDensityChange?: (v: string) => void;
+  onFormatChange?: (v: string) => void;
+  onExport?: () => void;
+}) {
+  return (
+    <div className="ds-figma-export-matrix" role="region" aria-label="Figma 导出规格矩阵">
+      <div className="ds-figma-export-matrix__row">
+        <span style={{ fontSize: 12, fontWeight: 700, color: 'var(--ds-ink)' }}>导出 Export</span>
+        <span className="ds-figma-export-matrix__suffix">{colorSpace}</span>
+      </div>
+      <div className="ds-figma-export-matrix__row">
+        <select
+          className="ds-figma-export-matrix__select"
+          value={density}
+          aria-label="导出分辨率倍率"
+          onChange={(e) => onDensityChange?.(e.target.value)}
+        >
+          <option value="0.5x">0.5x</option>
+          <option value="1x">1x</option>
+          <option value="2x">2x (Retina)</option>
+          <option value="3x">3x (Super Retina)</option>
+        </select>
+        <select
+          className="ds-figma-export-matrix__select"
+          value={format}
+          aria-label="导出文件格式"
+          onChange={(e) => onFormatChange?.(e.target.value)}
+        >
+          <option value="PNG">PNG</option>
+          <option value="JPG">JPG</option>
+          <option value="SVG">SVG</option>
+          <option value="PDF">PDF</option>
+        </select>
+      </div>
+      <button
+        type="button"
+        className="ds-figma-export-matrix__btn"
+        onClick={onExport}
+      >
+        <span>📤 导出选定图层 ({density} {format})</span>
+      </button>
+    </div>
+  );
+}
+
+export function VisionSpatialSharePlayCluster({
+  sessionTitle = '3D CAD 空间协同评审',
+  participants = ['Alex', 'Sarah', 'Kenji'],
+  isAudioSpatial = true,
+  onJoin
+}: {
+  sessionTitle?: string;
+  participants?: string[];
+  isAudioSpatial?: boolean;
+  onJoin?: () => void;
+}) {
+  return (
+    <div
+      className="ds-spatial-shareplay-cluster"
+      role="region"
+      aria-label={`${sessionTitle} SharePlay 空间同在坞`}
+      onClick={onJoin}
+      style={{ cursor: onJoin ? 'pointer' : 'default' }}
+    >
+      <div className="ds-spatial-shareplay-cluster__avatars" aria-hidden="true">
+        {participants.map((name, i) => (
+          <div key={i} className="ds-spatial-shareplay-cluster__avatar" title={name}>
+            {name.charAt(0)}
+          </div>
+        ))}
+      </div>
+      <div>
+        <div style={{ fontSize: 12, fontWeight: 700, color: '#ffffff' }}>{sessionTitle}</div>
+        <span className="ds-spatial-shareplay-cluster__badge">
+          ● {participants.length} 人空间同在
+        </span>
+      </div>
+      {isAudioSpatial && (
+        <span
+          className="ds-spatial-shareplay-cluster__spatial-audio"
+          title="空间音频 3D 锚定激活"
+          aria-label="空间音频已启用"
+        >
+          🎧
+        </span>
+      )}
+    </div>
+  );
+}
+
 
 
 

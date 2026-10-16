@@ -1796,3 +1796,62 @@
   --ds-shadow: 0 8px 32px rgba(16,185,129,.15), 0 4px 16px rgba(0,0,0,.6);
 }
 
+/* Linear Twilight Slate — Linear.app refined twilight indigo & slate dark theme */
+[data-palette="linear-twilight-slate"] {
+  color-scheme: dark;
+  --ds-canvas: #0f1117;
+  --ds-surface: #181b24;
+  --ds-inset: #0a0b10;
+  --ds-chrome: rgba(24,27,36,.94);
+  --ds-ink: #f3f4f6;
+  --ds-muted: #8a8f98;
+  --ds-line: #232733;
+  --ds-control-line: #383d4f;
+  --ds-accent: #5e6ad2;
+  --ds-accent-soft: #1e2238;
+  --ds-action: #6266f0;
+  --ds-action-hover: #777bf5;
+  --ds-on-action: #ffffff;
+  --ds-secondary: #70a5f5;
+  --ds-secondary-soft: #17263c;
+  --ds-success: #2ecc71;
+  --ds-success-soft: #12331f;
+  --ds-warning: #f39c12;
+  --ds-warning-soft: #38270e;
+  --ds-danger: #eb5757;
+  --ds-danger-soft: #381919;
+  --ds-focus: #5e6ad2;
+  --ds-overlay: rgba(10,11,16,.85);
+  --ds-shadow: 0 8px 30px rgba(0,0,0,.45);
+}
+
+/* Matcha Latte — Japanese Uji green tea & velvety warm oat milk */
+[data-palette="matcha-latte"] {
+  color-scheme: light;
+  --ds-canvas: #fcfaf4;
+  --ds-surface: #ffffff;
+  --ds-inset: #f4efe4;
+  --ds-chrome: rgba(255,255,255,.94);
+  --ds-ink: #24221e;
+  --ds-muted: #757064;
+  --ds-line: #e5decb;
+  --ds-control-line: #cec3ab;
+  --ds-accent: #385e42;
+  --ds-accent-soft: #ebf3ec;
+  --ds-action: #4e875a;
+  --ds-action-hover: #5f9d6c;
+  --ds-on-action: #ffffff;
+  --ds-secondary: #8c7355;
+  --ds-secondary-soft: #f7f1e6;
+  --ds-success: #2e7d32;
+  --ds-success-soft: #e8f5e9;
+  --ds-warning: #b8740c;
+  --ds-warning-soft: #fef3dc;
+  --ds-danger: #b72b2b;
+  --ds-danger-soft: #fee8e8;
+  --ds-focus: #385e42;
+  --ds-overlay: rgba(36,34,30,.4);
+  --ds-shadow: 0 6px 20px rgba(56,94,66,.1);
+}
+
+
