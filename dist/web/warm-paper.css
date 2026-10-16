@@ -2144,3 +2144,61 @@
   --ds-shadow: 0 6px 22px rgba(146,64,14,.12);
 }
 
+/* Emerald Moss Terrarium — Lush terrarium deep botanical moss emerald & humid earthy olive */
+[data-palette="emerald-moss-terrarium"] {
+  color-scheme: dark;
+  --ds-canvas: #05120a;
+  --ds-surface: #091f12;
+  --ds-inset: #030c06;
+  --ds-chrome: rgba(9,31,18,.92);
+  --ds-ink: #e2f5e8;
+  --ds-muted: #72a180;
+  --ds-line: #163923;
+  --ds-control-line: #235235;
+  --ds-accent: #10b981;
+  --ds-accent-soft: #0a2e1d;
+  --ds-action: #059669;
+  --ds-action-hover: #10b981;
+  --ds-on-action: #ffffff;
+  --ds-secondary: #34d399;
+  --ds-secondary-soft: #072617;
+  --ds-success: #10b981;
+  --ds-success-soft: #082e1c;
+  --ds-warning: #f59e0b;
+  --ds-warning-soft: #382606;
+  --ds-danger: #ef4444;
+  --ds-danger-soft: #3d1113;
+  --ds-focus: #10b981;
+  --ds-overlay: rgba(5,18,10,.75);
+  --ds-shadow: 0 8px 30px rgba(5,150,105,.22);
+}
+
+/* Crimson Velvet Opera — Grand opera house crimson velvet curtain & antique gilded brass */
+[data-palette="crimson-velvet-opera"] {
+  color-scheme: light;
+  --ds-canvas: #fdf6f6;
+  --ds-surface: #ffffff;
+  --ds-inset: #f8ecec;
+  --ds-chrome: rgba(255,255,255,.94);
+  --ds-ink: #2e0d10;
+  --ds-muted: #7a4347;
+  --ds-line: #ecd2d4;
+  --ds-control-line: #d9b2b5;
+  --ds-accent: #b91c1c;
+  --ds-accent-soft: #fde8e8;
+  --ds-action: #991b1b;
+  --ds-action-hover: #b91c1c;
+  --ds-on-action: #ffffff;
+  --ds-secondary: #7f1d1d;
+  --ds-secondary-soft: #fae8e8;
+  --ds-success: #15803d;
+  --ds-success-soft: #dcfce7;
+  --ds-warning: #b45309;
+  --ds-warning-soft: #fef3c7;
+  --ds-danger: #dc2626;
+  --ds-danger-soft: #fee2e2;
+  --ds-focus: #b91c1c;
+  --ds-overlay: rgba(46,13,16,.4);
+  --ds-shadow: 0 6px 24px rgba(153,27,27,.12);
+}
+

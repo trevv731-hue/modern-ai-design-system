@@ -7136,3 +7136,287 @@ export function FigmaCanvasExportSliceHud({
     </div>
   );
 }
+
+export function LinearCycleLeadTimeTrendSpark({
+  avgDays = 3.6,
+  p90Days = 6.2,
+  deltaPct = -18,
+  bars = [4.2, 5.0, 3.8, 3.6, 2.9, 3.2],
+}: {
+  avgDays?: number;
+  p90Days?: number;
+  deltaPct?: number;
+  bars?: number[];
+}) {
+  const maxVal = Math.max(...bars, 1);
+  return (
+    <div
+      className="ds-lead-time-spark"
+      role="region"
+      aria-label={`工单前置时间趋势：平均 ${avgDays} 天，P90 ${p90Days} 天，环比优化 ${Math.abs(deltaPct)}%`}
+    >
+      <div className="ds-lead-time-spark__header">
+        <span>Lead Time 交付周期</span>
+        <span className="ds-lead-time-spark__delta">
+          {deltaPct <= 0 ? '↓ ' : '↑ '}
+          {Math.abs(deltaPct)}%
+        </span>
+      </div>
+      <div className="ds-lead-time-spark__chart" aria-hidden="true">
+        {bars.map((val, idx) => (
+          <div
+            key={idx}
+            className="ds-lead-time-spark__bar"
+            style={{ height: `${(val / maxVal) * 100}%` }}
+          />
+        ))}
+      </div>
+      <div className="ds-lead-time-spark__stats">
+        <span>平均: <strong>{avgDays}d</strong></span>
+        <span>P90: <strong>{p90Days}d</strong></span>
+      </div>
+    </div>
+  );
+}
+
+export function MacDisplayColorProfileCalibrator({
+  activeProfile = 'Apple Display (P3-1600 nits)',
+  profiles = [
+    { name: 'Apple Display (P3-1600 nits)', gamma: 'Gamma 2.2 / D65' },
+    { name: 'Display P3', gamma: 'Gamma 2.2 / D65' },
+    { name: 'sRGB IEC61966-2.1', gamma: 'sRGB / D65' },
+  ],
+  onSelectProfile,
+}: {
+  activeProfile?: string;
+  profiles?: Array<{ name: string; gamma: string }>;
+  onSelectProfile?: (profile: string) => void;
+}) {
+  return (
+    <div
+      className="ds-color-profile-calibrator"
+      role="radiogroup"
+      aria-label="macOS 显示器色彩描述文件校准器"
+    >
+      <div className="ds-color-profile-calibrator__header">
+        <span>色彩描述文件</span>
+        <span className="ds-color-profile-calibrator__d65">D65 标定</span>
+      </div>
+      <div className="ds-color-profile-calibrator__profiles">
+        {profiles.map((p) => {
+          const isActive = p.name === activeProfile;
+          return (
+            <div
+              key={p.name}
+              role="radio"
+              tabIndex={0}
+              aria-checked={isActive}
+              className={`ds-color-profile-calibrator__item ${isActive ? 'is-active' : ''}`}
+              onClick={() => onSelectProfile?.(p.name)}
+              onKeyDown={(e) => {
+                if (e.key === ' ' || e.key === 'Enter') {
+                  e.preventDefault();
+                  onSelectProfile?.(p.name);
+                }
+              }}
+            >
+              <span>{p.name}</span>
+              <span className="ds-color-profile-calibrator__gamma">{p.gamma}</span>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+export function AnalogHeadphoneAmpVolumePot({
+  dbValue = -12,
+  impedanceOhms = 250,
+  isMuted = false,
+  onToggleMute,
+}: {
+  dbValue?: number;
+  impedanceOhms?: number;
+  isMuted?: boolean;
+  onToggleMute?: () => void;
+}) {
+  const rotationDeg = Math.max(-135, Math.min(135, (dbValue + 40) * 4.5));
+  return (
+    <div
+      className="ds-headphone-amp-pot"
+      role="group"
+      aria-label={`耳机放大器步进衰减电位器：当前 ${dbValue} dB`}
+    >
+      <div className="ds-headphone-amp-pot__header">
+        <span>HEADPHONE AMP</span>
+        <button
+          type="button"
+          onClick={onToggleMute}
+          style={{
+            border: 'none',
+            background: isMuted ? 'var(--ds-danger-soft)' : 'var(--ds-inset)',
+            color: isMuted ? 'var(--ds-danger)' : 'var(--ds-muted)',
+            padding: '2px 6px',
+            borderRadius: '4px',
+            cursor: 'pointer',
+            fontSize: '10px',
+            fontWeight: 700,
+          }}
+        >
+          {isMuted ? 'MUTED' : 'MUTE'}
+        </button>
+      </div>
+      <div className="ds-headphone-amp-pot__knob-stage" aria-hidden="true">
+        <div
+          className="ds-headphone-amp-pot__pointer"
+          style={{ transform: `rotate(${rotationDeg}deg)`, transformOrigin: '50% 32px' }}
+        />
+        <span className="ds-headphone-amp-pot__db">{isMuted ? '-∞' : `${dbValue}dB`}</span>
+      </div>
+      <div className="ds-headphone-amp-pot__footer">
+        <span>IMPEDANCE: {impedanceOhms}Ω</span>
+        <span>1/4" TRS JACK</span>
+      </div>
+    </div>
+  );
+}
+
+export function VisionSpatialAudioRadiationCone({
+  innerAngleDeg = 60,
+  outerAngleDeg = 120,
+  attenuationModel = 'Inverse Square',
+  reverbSend = 0.45,
+}: {
+  innerAngleDeg?: number;
+  outerAngleDeg?: number;
+  attenuationModel?: string;
+  reverbSend?: number;
+}) {
+  return (
+    <div
+      className="ds-spatial-audio-cone"
+      role="region"
+      aria-label={`空间音频定向辐射锥体：内角 ${innerAngleDeg}°，外角 ${outerAngleDeg}°，${attenuationModel}`}
+    >
+      <div className="ds-spatial-audio-cone__header">
+        <span>定向音频辐射锥体</span>
+        <span className="ds-spatial-audio-cone__model">{attenuationModel}</span>
+      </div>
+      <div className="ds-spatial-audio-cone__diagram" aria-hidden="true">
+        <div className="ds-spatial-audio-cone__speaker">📢</div>
+      </div>
+      <div className="ds-spatial-audio-cone__meta">
+        <span>内角: {innerAngleDeg}° / 外角: {outerAngleDeg}°</span>
+        <span>混响: {(reverbSend * 100).toFixed(0)}%</span>
+      </div>
+    </div>
+  );
+}
+
+export function GitHubStatusCheckDurationBar({
+  jobName = 'CI / build-and-test (ubuntu-latest)',
+  totalDuration = '2m 25s',
+  segments = [
+    { name: 'Setup', duration: '12s', pct: 8, type: 'setup' as const },
+    { name: 'Build', duration: '45s', pct: 31, type: 'build' as const },
+    { name: 'Test', duration: '1m 20s', pct: 55, type: 'test' as const },
+    { name: 'Upload', duration: '8s', pct: 6, type: 'upload' as const },
+  ],
+}: {
+  jobName?: string;
+  totalDuration?: string;
+  segments?: Array<{ name: string; duration: string; pct: number; type: 'setup' | 'build' | 'test' | 'upload' }>;
+}) {
+  return (
+    <div
+      className="ds-check-duration-bar"
+      role="region"
+      aria-label={`状态检查耗时细分：${jobName}，总耗时 ${totalDuration}`}
+    >
+      <div className="ds-check-duration-bar__header">
+        <span style={{ maxWidth: '200px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+          {jobName}
+        </span>
+        <span className="ds-check-duration-bar__total">{totalDuration}</span>
+      </div>
+      <div className="ds-check-duration-bar__track" aria-hidden="true">
+        {segments.map((seg) => (
+          <div
+            key={seg.name}
+            className={`ds-check-duration-bar__seg--${seg.type}`}
+            style={{ width: `${seg.pct}%` }}
+            title={`${seg.name}: ${seg.duration}`}
+          />
+        ))}
+      </div>
+      <div className="ds-check-duration-bar__legend">
+        {segments.map((seg) => (
+          <span key={seg.name} className="ds-check-duration-bar__item">
+            <span
+              className="ds-check-duration-bar__dot"
+              style={{
+                backgroundColor:
+                  seg.type === 'setup'
+                    ? '#38bdf8'
+                    : seg.type === 'build'
+                    ? '#f59e0b'
+                    : seg.type === 'test'
+                    ? '#10b981'
+                    : '#a855f7',
+              }}
+            />
+            {seg.name}: {seg.duration}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export function FigmaCanvasPaletteGeneratorChip({
+  baseColorName = 'Brand Blue',
+  baseHex = '#0284c7',
+  contrastLevel = 'WCAG AAA (7.2:1)',
+  steps = [
+    { label: '100', bg: '#e0f2fe', fg: '#0369a1' },
+    { label: '300', bg: '#7dd3fc', fg: '#0c4a6e' },
+    { label: '500', bg: '#0284c7', fg: '#ffffff' },
+    { label: '700', bg: '#0369a1', fg: '#ffffff' },
+    { label: '900', bg: '#0c4a6e', fg: '#ffffff' },
+  ],
+}: {
+  baseColorName?: string;
+  baseHex?: string;
+  contrastLevel?: string;
+  steps?: Array<{ label: string; bg: string; fg: string }>;
+}) {
+  return (
+    <div
+      className="ds-palette-generator-chip"
+      role="group"
+      aria-label={`调色板色阶生成器：${baseColorName} (${baseHex})，${contrastLevel}`}
+    >
+      <div className="ds-palette-generator-chip__header">
+        <span>{baseColorName}</span>
+        <span className="ds-palette-generator-chip__wcag">{contrastLevel}</span>
+      </div>
+      <div className="ds-palette-generator-chip__ramp" aria-hidden="true">
+        {steps.map((st) => (
+          <div
+            key={st.label}
+            className="ds-palette-generator-chip__step"
+            style={{ backgroundColor: st.bg, color: st.fg }}
+          >
+            {st.label}
+          </div>
+        ))}
+      </div>
+      <div className="ds-palette-generator-chip__footer">
+        <span>基准: {baseHex}</span>
+        <span>5 阶无障碍梯度</span>
+      </div>
+    </div>
+  );
+}
+

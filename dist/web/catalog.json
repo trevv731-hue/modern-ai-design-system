@@ -6729,5 +6729,162 @@
     ],
     "react": "<FigmaCanvasExportSliceHud activeDensity=\"@2x\" densities={[\"@1x\", \"@2x\", \"@3x\"]} format=\"PNG\" />",
     "status": "CSS / HTML / React"
+  },
+  {
+    "id": "linear-cycle-lead-time-trend-spark",
+    "name": "Linear 敏捷开发 Lead Time 前置用时趋势走势微图",
+    "category": "数据",
+    "purpose": "Linear 与 Jira 敏捷开发团队交付效率 Lead Time 前置用时走势直方图（Lead Time Trend & Percentile Sparkline）；统计工单从创建到最终部署全链路周转天数（平均 3.6d，P90 6.2d）、环比优化百分比（↓ 18%）及周期柱状对比微图。",
+    "anatomy": [
+      "紧凑前置时间面板 (.ds-lead-time-spark)",
+      "平均用时与环比优化绿色徽标 (.ds-lead-time-spark__header, .ds-lead-time-spark__delta)",
+      "多周期柱状直方图视窗 (.ds-lead-time-spark__chart, .ds-lead-time-spark__bar)",
+      "底部均值与 P90 分位数等宽读数 (.ds-lead-time-spark__stats)"
+    ],
+    "keyboard": "Tab 聚焦前置用时图表；屏幕阅读器自动播报当前平均周转天数、P90 分位点与环比优化百分比。",
+    "guidance": [
+      "具备 role=\"region\" 与完整 aria-label 播报全链路前置时间与 P90 分位。",
+      "环比优化率带绿色软背景，正向收益提示清晰。",
+      "适合工程交付度量体系、研发效能看板、敏捷复盘报表。"
+    ],
+    "preview": "<div class=\"ds-lead-time-spark\" role=\"region\" aria-label=\"工单前置时间趋势：平均 3.6 天，P90 6.2 天，环比优化 18%\"><div class=\"ds-lead-time-spark__header\"><span>Lead Time 交付周期</span><span class=\"ds-lead-time-spark__delta\">↓ 18%</span></div><div class=\"ds-lead-time-spark__chart\" aria-hidden=\"true\"><div class=\"ds-lead-time-spark__bar\" style=\"height:84%\"></div><div class=\"ds-lead-time-spark__bar\" style=\"height:100%\"></div><div class=\"ds-lead-time-spark__bar\" style=\"height:76%\"></div><div class=\"ds-lead-time-spark__bar\" style=\"height:72%\"></div><div class=\"ds-lead-time-spark__bar\" style=\"height:58%\"></div><div class=\"ds-lead-time-spark__bar\" style=\"height:64%\"></div></div><div class=\"ds-lead-time-spark__stats\"><span>平均: <strong>3.6d</strong></span><span>P90: <strong>6.2d</strong></span></div></div>",
+    "checks": [
+      "平均 3.6d 加粗突出",
+      "P90 6.2d 等宽对比",
+      "环比 ↓ 18% 绿色微标"
+    ],
+    "react": "<LinearCycleLeadTimeTrendSpark avgDays={3.6} p90Days={6.2} deltaPct={-18} />",
+    "status": "CSS / HTML / React"
+  },
+  {
+    "id": "macos-display-color-profile-calibrator",
+    "name": "macOS 显示器色彩描述文件校准器",
+    "category": "表单",
+    "purpose": "macOS Sequoia 与 Apple Pro Display XDR 风格显示器专业色彩空间与伽马曲线校准微面板（Display Color Profile & Gamma Ramp Calibrator）；包含 Apple Display (P3-1600 nits) / Display P3 / sRGB 预设单选列表、D65 白点标定标签及伽马曲线参数。",
+    "anatomy": [
+      "专业色彩配置面板 (.ds-color-profile-calibrator)",
+      "标题与 D65 白点微芯片 (.ds-color-profile-calibrator__header, .ds-color-profile-calibrator__d65)",
+      "单选项色彩预设列表 (.ds-color-profile-calibrator__profiles, .ds-color-profile-calibrator__item)",
+      "右侧等宽伽马与白点读数 (.ds-color-profile-calibrator__gamma)"
+    ],
+    "keyboard": "Tab 遍历预设列表；上下方向键或 Space / Enter 激活当前选中的色彩描述文件。",
+    "guidance": [
+      "具备 role=\"radiogroup\" 与内部 role=\"radio\" 键盘无障碍规范。",
+      "当前激活预设采用焦点描边与轻量立体微投影。",
+      "适合系统偏好设置、设计软件色彩管理、专业校色客户端。"
+    ],
+    "preview": "<div class=\"ds-color-profile-calibrator\" role=\"radiogroup\" aria-label=\"macOS 显示器色彩描述文件校准器\"><div class=\"ds-color-profile-calibrator__header\"><span>色彩描述文件</span><span class=\"ds-color-profile-calibrator__d65\">D65 标定</span></div><div class=\"ds-color-profile-calibrator__profiles\"><div role=\"radio\" tabindex=\"0\" aria-checked=\"true\" class=\"ds-color-profile-calibrator__item is-active\"><span>Apple Display (P3-1600 nits)</span><span class=\"ds-color-profile-calibrator__gamma\">Gamma 2.2 / D65</span></div><div role=\"radio\" tabindex=\"-1\" aria-checked=\"false\" class=\"ds-color-profile-calibrator__item\"><span>Display P3</span><span class=\"ds-color-profile-calibrator__gamma\">Gamma 2.2 / D65</span></div><div role=\"radio\" tabindex=\"-1\" aria-checked=\"false\" class=\"ds-color-profile-calibrator__item\"><span>sRGB IEC61966-2.1</span><span class=\"ds-color-profile-calibrator__gamma\">sRGB / D65</span></div></div></div>",
+    "checks": [
+      "D65 标定高亮芯片",
+      "Apple P3 1600 nits 选项",
+      "Gamma 2.2 等宽参数清晰"
+    ],
+    "react": "<MacDisplayColorProfileCalibrator activeProfile=\"Apple Display (P3-1600 nits)\" />",
+    "status": "CSS / HTML / React"
+  },
+  {
+    "id": "cassette-stereo-headphone-amp-volume-pot",
+    "name": "录音室耳机放大器步进衰减电位器",
+    "category": "多媒体",
+    "purpose": "复古专业母带监听耳机放大器 24 阶分立步进衰减大旋钮电位器（Stereo Headphone Amp Stepped Volume Attenuator Potentiometer）；展示金属滚花大旋钮与红色发光指示针、当前分贝衰减读数（-12dB）、阻抗匹配（250Ω）与独立静音键。",
+    "anatomy": [
+      "同心立体金属旋钮外框 (.ds-headphone-amp-pot)",
+      "标题与静音按键栏 (.ds-headphone-amp-pot__header)",
+      "立体金属旋钮盘与红色指示针 (.ds-headphone-amp-pot__knob-stage, .ds-headphone-amp-pot__pointer)",
+      "中央白色等宽分贝读数 (.ds-headphone-amp-pot__db)",
+      "底部阻抗与物理 1/4\" TRS 插孔标签 (.ds-headphone-amp-pot__footer)"
+    ],
+    "keyboard": "Tab 聚焦静音按键及控制面板；Enter 触发一键立体声静音切换。",
+    "guidance": [
+      "具备 role=\"group\" 与 aria-label 完整描述当前耳机放大器衰减分贝。",
+      "旋转指示针具备红色高亮与微光投影。",
+      "适合专业母带工作站、发烧级耳放控制面板、音频硬件仿真器。"
+    ],
+    "preview": "<div class=\"ds-headphone-amp-pot\" role=\"group\" aria-label=\"耳机放大器步进衰减电位器：当前 -12 dB\"><div class=\"ds-headphone-amp-pot__header\"><span>HEADPHONE AMP</span><button type=\"button\" style=\"border:none;background:var(--ds-inset);color:var(--ds-muted);padding:2px 6px;border-radius:4px;cursor:pointer;font-size:10px;font-weight:700\">MUTE</button></div><div class=\"ds-headphone-amp-pot__knob-stage\" aria-hidden=\"true\"><div class=\"ds-headphone-amp-pot__pointer\" style=\"transform:rotate(-9deg);transform-origin:50% 32px\"></div><span class=\"ds-headphone-amp-pot__db\">-12dB</span></div><div class=\"ds-headphone-amp-pot__footer\"><span>IMPEDANCE: 250Ω</span><span>1/4\" TRS JACK</span></div></div>",
+    "checks": [
+      "金属滚花大旋钮",
+      "-12dB 居中清晰",
+      "250Ω 阻抗发烧匹配"
+    ],
+    "react": "<AnalogHeadphoneAmpVolumePot dbValue={-12} impedanceOhms={250} isMuted={false} />",
+    "status": "CSS / HTML / React"
+  },
+  {
+    "id": "apple-vision-spatial-audio-cone-polar",
+    "name": "VisionOS 空间音频定向辐射锥体视窗",
+    "category": "多媒体",
+    "purpose": "Apple VisionOS 空间音频定向声源辐射锥体与极坐标衰减模型视窗（Spatial Audio Directional Radiation Cone & Polar Pattern）；展示声源扬声器图元、内角与外角极坐标覆盖度（内角 60° / 外角 120°）、衰减模型（Inverse Square）及混响发送量。",
+    "anatomy": [
+      "深色全息半透磨砂玻璃卡片 (.ds-spatial-audio-cone)",
+      "标题与几何衰减模型蓝色徽标 (.ds-spatial-audio-cone__header, .ds-spatial-audio-cone__model)",
+      "声源虚线极坐标视窗与扬声器图标 (.ds-spatial-audio-cone__diagram, .ds-spatial-audio-cone__speaker)",
+      "底部角度与空间混响比率等宽底栏 (.ds-spatial-audio-cone__meta)"
+    ],
+    "keyboard": "Tab 聚焦空间音频锥体视窗；屏幕阅读器自动播报辐射内角/外角度数与衰减模型。",
+    "guidance": [
+      "具备 role=\"region\" 与完整 aria-label 描述空间音频定向辐射属性。",
+      "Inverse Square 蓝色微标高光醒目，全息空间感强烈。",
+      "适合 VisionOS 空间音频混音器、游戏 3D 声学引擎调试、元宇宙声场构建。"
+    ],
+    "preview": "<div class=\"ds-spatial-audio-cone\" role=\"region\" aria-label=\"空间音频定向辐射锥体：内角 60°，外角 120°，Inverse Square\"><div class=\"ds-spatial-audio-cone__header\"><span>定向音频辐射锥体</span><span class=\"ds-spatial-audio-cone__model\">Inverse Square</span></div><div class=\"ds-spatial-audio-cone__diagram\" aria-hidden=\"true\"><div class=\"ds-spatial-audio-cone__speaker\">📢</div></div><div class=\"ds-spatial-audio-cone__meta\"><span>内角: 60° / 外角: 120°</span><span>混响: 45%</span></div></div>",
+    "checks": [
+      "Inverse Square 极客蓝标",
+      "极坐标声学视窗",
+      "内角 60° / 外角 120° 规范"
+    ],
+    "react": "<VisionSpatialAudioRadiationCone innerAngleDeg={60} outerAngleDeg={120} attenuationModel=\"Inverse Square\" reverbSend={0.45} />",
+    "status": "CSS / HTML / React"
+  },
+  {
+    "id": "github-status-check-duration-bar",
+    "name": "GitHub 自动化构建检查耗时细分条",
+    "category": "反馈",
+    "purpose": "GitHub Actions CI/CD 与 GitLab CI 流水线状态检查多阶段耗时细分与瓶颈分析条（Status Check Duration Breakdown Bar）；包含 Setup / Build / Test / Upload 四阶段彩色拼接进度条、总耗时（2m 25s）及阶段图例耗时读数。",
+    "anatomy": [
+      "紧凑圆角任务耗时面板 (.ds-check-duration-bar)",
+      "任务名称与等宽总耗时头部 (.ds-check-duration-bar__header, .ds-check-duration-bar__total)",
+      "多色段拼合进度滑槽 (.ds-check-duration-bar__track)",
+      "底部阶段图例色点与分项时长 (.ds-check-duration-bar__legend, .ds-check-duration-bar__item)"
+    ],
+    "keyboard": "Tab 聚焦检查耗时面板；屏幕阅读器自动播报检查总用时与各阶段具体耗时。",
+    "guidance": [
+      "具备 role=\"region\" 与完整 aria-label 播报工作流名称与总耗时。",
+      "各阶段色彩（青/橙/绿/紫）在 forced-colors 高对比度模式下均提供明晰分界。",
+      "适合 CI/CD 性能分析工具、工程构建加速仪表板、PR 检查状态浮层。"
+    ],
+    "preview": "<div class=\"ds-check-duration-bar\" role=\"region\" aria-label=\"状态检查耗时细分：CI / build-and-test (ubuntu-latest)，总耗时 2m 25s\"><div class=\"ds-check-duration-bar__header\"><span style=\"max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap\">CI / build-and-test</span><span class=\"ds-check-duration-bar__total\">2m 25s</span></div><div class=\"ds-check-duration-bar__track\" aria-hidden=\"true\"><div class=\"ds-check-duration-bar__seg--setup\" style=\"width:8%\" title=\"Setup: 12s\"></div><div class=\"ds-check-duration-bar__seg--build\" style=\"width:31%\" title=\"Build: 45s\"></div><div class=\"ds-check-duration-bar__seg--test\" style=\"width:55%\" title=\"Test: 1m 20s\"></div><div class=\"ds-check-duration-bar__seg--upload\" style=\"width:6%\" title=\"Upload: 8s\"></div></div><div class=\"ds-check-duration-bar__legend\"><span class=\"ds-check-duration-bar__item\"><span class=\"ds-check-duration-bar__dot\" style=\"background:#38bdf8\"></span>Setup: 12s</span><span class=\"ds-check-duration-bar__item\"><span class=\"ds-check-duration-bar__dot\" style=\"background:#f59e0b\"></span>Build: 45s</span><span class=\"ds-check-duration-bar__item\"><span class=\"ds-check-duration-bar__dot\" style=\"background:#10b981\"></span>Test: 1m 20s</span><span class=\"ds-check-duration-bar__item\"><span class=\"ds-check-duration-bar__dot\" style=\"background:#a855f7\"></span>Upload: 8s</span></div></div>",
+    "checks": [
+      "四段色彩拼合流畅",
+      "2m 25s 总用时亮眼",
+      "分项图例标注完备"
+    ],
+    "react": "<GitHubStatusCheckDurationBar jobName=\"CI / build-and-test\" totalDuration=\"2m 25s\" />",
+    "status": "CSS / HTML / React"
+  },
+  {
+    "id": "figma-canvas-color-palette-generator-chip",
+    "name": "Figma 调色板无障碍色阶生成微芯片",
+    "category": "表单",
+    "purpose": "Figma 调色板生成器与色彩设计系统（Color Palette Generator & Contrast Ramp Chip）；展示基准主色（Brand Blue #0284c7）、5阶明度梯度（100/300/500/700/900）、WCAG AAA 高对比合规评级与无障碍梯度标尺。",
+    "anatomy": [
+      "紧凑圆角色阶卡片 (.ds-palette-generator-chip)",
+      "色卡名称与 WCAG AAA 绿色合规微标 (.ds-palette-generator-chip__header, .ds-palette-generator-chip__wcag)",
+      "5 阶渐变色块排布 (.ds-palette-generator-chip__ramp, .ds-palette-generator-chip__step)",
+      "底部等宽基准十六进制色值与梯度说明 (.ds-palette-generator-chip__footer)"
+    ],
+    "keyboard": "Tab 聚焦调色板生成器；屏幕阅读器播报基准色值名称、十六进制代码与无障碍等级。",
+    "guidance": [
+      "具备 role=\"group\" 与 aria-label 完整播报色彩名称与 WCAG 评级。",
+      "5阶明度色块文字均符合对应底色的对比度规范。",
+      "适合设计系统变量管理插件、WCAG 无障碍配色工具、前端色板构建器。"
+    ],
+    "preview": "<div class=\"ds-palette-generator-chip\" role=\"group\" aria-label=\"调色板色阶生成器：Brand Blue (#0284c7)，WCAG AAA (7.2:1)\"><div class=\"ds-palette-generator-chip__header\"><span>Brand Blue</span><span class=\"ds-palette-generator-chip__wcag\">WCAG AAA (7.2:1)</span></div><div class=\"ds-palette-generator-chip__ramp\" aria-hidden=\"true\"><div class=\"ds-palette-generator-chip__step\" style=\"background:#e0f2fe;color:#0369a1\">100</div><div class=\"ds-palette-generator-chip__step\" style=\"background:#7dd3fc;color:#0c4a6e\">300</div><div class=\"ds-palette-generator-chip__step\" style=\"background:#0284c7;color:#ffffff\">500</div><div class=\"ds-palette-generator-chip__step\" style=\"background:#0369a1;color:#ffffff\">700</div><div class=\"ds-palette-generator-chip__step\" style=\"background:#0c4a6e;color:#ffffff\">900</div></div><div class=\"ds-palette-generator-chip__footer\"><span>基准: #0284c7</span><span>5 阶无障碍梯度</span></div></div>",
+    "checks": [
+      "WCAG AAA 绿色评级",
+      "5 阶色阶平滑过渡",
+      "基准十六进制标定工整"
+    ],
+    "react": "<FigmaCanvasPaletteGeneratorChip baseColorName=\"Brand Blue\" baseHex=\"#0284c7\" />",
+    "status": "CSS / HTML / React"
   }
 ]
