@@ -5628,5 +5628,167 @@
     ],
     "react": "<VisionSpatialHoverHaloRing label=\"空间注视焦点光环\" />",
     "status": "CSS / HTML / React"
+  },
+  {
+    "id": "raycast-confetti-celebration-canvas",
+    "name": "Raycast 里程碑达成彩带礼花卡片",
+    "category": "反馈",
+    "purpose": "Raycast 与 Linear 任务全量交付时的彩带礼花与里程碑庆祝卡片（Milestone Celebration Confetti Canvas）；全圆角轻拟物白底/暗底浮层、居中奖杯金徽标、高亮彩屑飘散效果、达成总结文案及一键继续动作按键。",
+    "anatomy": [
+      "圆角轻阴影卡片基底 (.ds-confetti-canvas)",
+      "多色飘散细长彩带与五彩纸屑 (.ds-confetti-canvas__particles, .ds-confetti-canvas__p)",
+      "居中胜利庆祝奖杯图标 (.ds-confetti-canvas__trophy)",
+      "加粗里程碑达成大标题与说明 (.ds-confetti-canvas__title, .ds-confetti-canvas__desc)",
+      "醒目操作确认按键 (.ds-confetti-canvas__btn)"
+    ],
+    "keyboard": "Tab 聚焦确认按键；Enter 或 Space 关闭庆祝卡片。",
+    "guidance": [
+      "具备 role=\"region\" 与 aria-label 说明里程碑达成庆祝卡片。",
+      "彩屑动效轻量优雅，在 prefers-reduced-motion 下自动静态停靠。",
+      "适合任务完成、迭代交付、打卡里程碑、成就解锁庆祝场景。"
+    ],
+    "preview": "<div class=\"ds-confetti-canvas\" role=\"region\" aria-label=\"里程碑达成庆祝卡片：全部里程碑已达成！\"><div class=\"ds-confetti-canvas__particles\" aria-hidden=\"true\"><span class=\"ds-confetti-canvas__p\" style=\"left:15%;top:20%;background-color:#ff3b88\"></span><span class=\"ds-confetti-canvas__p\" style=\"left:45%;top:15%;background-color:#00f0ff\"></span><span class=\"ds-confetti-canvas__p\" style=\"left:75%;top:25%;background-color:#84cc16\"></span></div><div class=\"ds-confetti-canvas__content\"><span class=\"ds-confetti-canvas__trophy\" aria-hidden=\"true\">🎉</span><h4 class=\"ds-confetti-canvas__title\">全部里程碑已达成！</h4><p class=\"ds-confetti-canvas__desc\">本季度交付任务 100% 验收通过，系统稳定性指标达标。</p><button type=\"button\" class=\"ds-confetti-canvas__btn\">太棒了，继续前进</button></div></div>",
+    "checks": [
+      "奖杯与文字居中平衡",
+      "微型彩屑飘散点缀",
+      "确认按键颜色鲜明"
+    ],
+    "react": "<RaycastConfettiCelebration title=\"全部里程碑已达成！\" />",
+    "status": "CSS / HTML / React"
+  },
+  {
+    "id": "macos-safari-reader-font-switcher",
+    "name": "Safari 阅读器字体与版式选择微面板",
+    "category": "表单",
+    "purpose": "macOS 与 iOS Safari 阅读器（Reader Mode）顶栏点击弹出字体与纸张配色选择面板（Reader Typographic Font & Theme Switcher）；顶部四颗圆形纸张底色药丸（白纸、羊皮纸、深灰、夜间纯黑）及经典高质量排版字体列表单选。",
+    "anatomy": [
+      "规整浮动气泡容器 (.ds-safari-font-switcher)",
+      "顶部四色圆形纸质主题选择药丸 (.ds-safari-font-switcher__themes, .ds-safari-font-switcher__pill)",
+      "垂直经典阅读字体列表项 (.ds-safari-font-switcher__fonts, .ds-safari-font-switcher__item)",
+      "选中状态高亮浅底与右侧对勾标记 (.is-selected)",
+      "符合人机工程学的舒适行高与触控热区"
+    ],
+    "keyboard": "ArrowDown / ArrowUp 切换字体；Enter 选中当前字体或主题；Escape 关闭面板。",
+    "guidance": [
+      "具备 role=\"dialog\" 与 aria-label 说明 Safari 阅读器字体与版式面板。",
+      "四色主题药丸均配备明确无障碍标签，对勾状态清晰可感知。",
+      "适合电子书阅读器、文档沉浸模式、富文本排版定制工具。"
+    ],
+    "preview": "<div class=\"ds-safari-font-switcher\" role=\"dialog\" aria-label=\"Safari 阅读器字体与版式面板\"><div class=\"ds-safari-font-switcher__themes\"><button type=\"button\" class=\"ds-safari-font-switcher__pill is-active\" style=\"background-color:#ffffff\" aria-label=\"主题：白纸\"></button><button type=\"button\" class=\"ds-safari-font-switcher__pill\" style=\"background-color:#fbf0d9\" aria-label=\"主题：羊皮纸\"></button><button type=\"button\" class=\"ds-safari-font-switcher__pill\" style=\"background-color:#4a4a4c\" aria-label=\"主题：深灰\"></button><button type=\"button\" class=\"ds-safari-font-switcher__pill\" style=\"background-color:#1c1c1e\" aria-label=\"主题：夜间\"></button></div><div class=\"ds-safari-font-switcher__fonts\"><button type=\"button\" class=\"ds-safari-font-switcher__item is-selected\"><span>San Francisco</span><span>✓</span></button><button type=\"button\" class=\"ds-safari-font-switcher__item\"><span>New York (Serif)</span></button><button type=\"button\" class=\"ds-safari-font-switcher__item\"><span>Charter</span></button></div></div>",
+    "checks": [
+      "四色主题圆点排列整齐",
+      "字体列表紧凑易点",
+      "当前字体选中带浅色底与勾号"
+    ],
+    "react": "<MacSafariReaderFontSwitcher currentFont=\"San Francisco\" currentTheme=\"white\" />",
+    "status": "CSS / HTML / React"
+  },
+  {
+    "id": "cassette-tape-head-demagnetizer-wand",
+    "name": "复古开盘磁头消磁仪动态残磁表",
+    "category": "多媒体",
+    "purpose": "专业录音母带开盘机磁头消磁校准仪（Tape Head Demagnetizer AC Flux Meter）；深黑防爆工程塑料外壳、残磁量百分比光电刻度条（绿黄红瞬态渐变）、消磁进行中告警指示与 50Hz 交流强磁脉冲触发物理按键。",
+    "anatomy": [
+      "纯黑工程级机身槽板 (.ds-demagnetizer-wand)",
+      "顶部状态双态微指示 (.ds-demagnetizer-wand__head)",
+      "横向残余磁通量刻度光条 (.ds-demagnetizer-wand__gauge, .ds-demagnetizer-wand__bar)",
+      "等宽百分比读数与标尺 (.ds-demagnetizer-wand__flux)",
+      "红色危险高磁脉冲瞬态按钮 (.ds-demagnetizer-wand__trigger)"
+    ],
+    "keyboard": "点击触发脉冲高频消磁循环；自动倒计时完成退磁消磁动作。",
+    "guidance": [
+      "具备 role=\"region\" 与 aria-label 说明磁带机磁头退磁校准仪。",
+      "高压/高磁危险提示具备明显视觉警示，红黄绿刻度层次丰富。",
+      "适合复古录音室拟物设备、硬件声卡控制面板、复古音频交互套件。"
+    ],
+    "preview": "<div class=\"ds-demagnetizer-wand\" role=\"region\" aria-label=\"磁带机磁头退磁校准仪\"><div class=\"ds-demagnetizer-wand__head\"><span>DEMAGNETIZER AC FLUX</span><span style=\"color:#10b981\">○ READY</span></div><div class=\"ds-demagnetizer-wand__gauge\"><div class=\"ds-demagnetizer-wand__bar\" style=\"width:42%\"></div><span class=\"ds-demagnetizer-wand__flux\">RESIDUAL FLUX</span><span class=\"ds-demagnetizer-wand__flux\">42%</span></div><button type=\"button\" class=\"ds-demagnetizer-wand__trigger\">⚡ 脉冲高频消磁循环 (50Hz AC)</button></div>",
+    "checks": [
+      "纯黑仪表壳扎实",
+      "42% 残磁进度条清晰",
+      "红色消磁按钮拟物有力"
+    ],
+    "react": "<AnalogTapeHeadDemagnetizer fluxPercentage={42} isDemagnetizing={false} />",
+    "status": "CSS / HTML / React"
+  },
+  {
+    "id": "figma-canvas-pixel-grid-toggle",
+    "name": "Figma 画布像素网格与对齐切换控制栏",
+    "category": "导航",
+    "purpose": "Figma 矢量设计画布超高倍率缩放时的像素网格与像素吸附动态指示栏（Pixel Grid & Snap Toggle Bar）；显示当前画布放大倍数（如 1200%）、网格显示开关状态与图元对齐到整数像素（Snap to Pixel）快捷切换按键。",
+    "anatomy": [
+      "紧凑长圆角工作栏 (.ds-pixel-grid-toggle)",
+      "前置矢量像素网格微图标 (.ds-pixel-grid-toggle__icon)",
+      "等宽放大率数字标签 (.ds-pixel-grid-toggle__zoom)",
+      "像素网格显示状态微胶囊 (.ds-pixel-grid-toggle__btn)",
+      "像素吸附对齐开关微胶囊 (.ds-pixel-grid-toggle__btn.is-active)"
+    ],
+    "keyboard": "Ctrl+Shift+' 切换像素网格；Ctrl+Alt+' 切换对齐像素；Tab 导航按键。",
+    "guidance": [
+      "具备 role=\"toolbar\" 与 aria-label 说明 Figma 画布像素网格控制。",
+      "按钮具备 aria-pressed 状态，放大率等宽对齐。",
+      "适合设计画布视图控制、像素画编辑器、位图矢量混合工作区。"
+    ],
+    "preview": "<div class=\"ds-pixel-grid-toggle\" role=\"toolbar\" aria-label=\"Figma 画布像素网格控制\"><span class=\"ds-pixel-grid-toggle__icon\" aria-hidden=\"true\">▦</span><span class=\"ds-pixel-grid-toggle__zoom\">1200%</span><button type=\"button\" class=\"ds-pixel-grid-toggle__btn is-active\" aria-pressed=\"true\">像素网格</button><button type=\"button\" class=\"ds-pixel-grid-toggle__btn is-active\" aria-pressed=\"true\">对齐像素</button></div>",
+    "checks": [
+      "▦ 图标与 1200% 标签紧凑连体",
+      "像素网格与对齐像素按钮微圆角规范",
+      "悬浮与激活反馈灵敏"
+    ],
+    "react": "<FigmaCanvasPixelGridToggle zoom={1200} isGridVisible={true} isSnapToPixel={true} />",
+    "status": "CSS / HTML / React"
+  },
+  {
+    "id": "ios-control-center-connectivity-cluster",
+    "name": "iOS 18 控制中心 2×2 连接矩阵面板",
+    "category": "容器",
+    "purpose": "iOS 18 经典深色毛玻璃控制中心 2×2 连接性快捷模块（Connectivity Quick Action Matrix）；高透磨砂圆角容器中排列飞行模式、蜂窝网络、Wi-Fi 与蓝牙四大核心无线功能高亮触控微药丸。",
+    "anatomy": [
+      "大圆角高斯模糊磨砂底板 (.ds-connectivity-cluster)",
+      "2×2 极简网格布局 (display: grid)",
+      "圆形大触控按钮与各功能原生色彩 (.ds-connectivity-cluster__item)",
+      "飞行模式暖橙高亮、蜂窝网络鲜绿高亮、Wi-Fi/蓝牙纯蓝高亮",
+      "原生弹簧触感缩放交互 (transform: scale)"
+    ],
+    "keyboard": "Tab 在 4 个按键间循环导航；Space 或 Enter 切换对应开关状态。",
+    "guidance": [
+      "具备 role=\"group\" 与 aria-label 说明 iOS 控制中心连接矩阵。",
+      "每个子按键均有独立 aria-label 与 aria-pressed 开关状态。",
+      "适合系统快捷控制中心、多状态无线管理器、车载移动终端主屏。"
+    ],
+    "preview": "<div class=\"ds-connectivity-cluster\" role=\"group\" aria-label=\"iOS 控制中心连接矩阵\"><button type=\"button\" class=\"ds-connectivity-cluster__item\" aria-label=\"飞行模式\" aria-pressed=\"false\">✈️</button><button type=\"button\" class=\"ds-connectivity-cluster__item is-active\" style=\"background-color:#34c759\" aria-label=\"蜂窝移动网络\" aria-pressed=\"true\">📶</button><button type=\"button\" class=\"ds-connectivity-cluster__item is-active\" aria-label=\"无线局域网 Wi-Fi\" aria-pressed=\"true\">📡</button><button type=\"button\" class=\"ds-connectivity-cluster__item is-active\" aria-label=\"蓝牙连接\" aria-pressed=\"true\">ᛒ</button></div>",
+    "checks": [
+      "2x2 四个正圆大按钮排列工整",
+      "深色毛玻璃底板通透",
+      "绿色蜂窝与蓝色 Wi-Fi/蓝牙各具色彩"
+    ],
+    "react": "<IosControlCenterConnectivityCluster isAirplane={false} isCellular={true} isWifi={true} isBluetooth={true} />",
+    "status": "CSS / HTML / React"
+  },
+  {
+    "id": "apple-vision-spatial-volume-cube",
+    "name": "VisionOS 空间容积场景边界线框卡",
+    "category": "布局",
+    "purpose": "Apple VisionOS 空间计算 3D 容积场景边界指示框（Volumetric Scene Bounding Cube）；四角空间坐标瞄准刻度拐角、虚线空间容积框架、空间定位锚点状态徽标（ANCHORED）及实时米制空间画幅尺寸（1.2m × 0.8m × 0.6m）。",
+    "anatomy": [
+      "空间微透虚线边界框 (.ds-spatial-volume-cube)",
+      "四角高亮坐标直角刻线 (.ds-spatial-volume-cube__corner)",
+      "顶部场景标题与定位徽标 (.ds-spatial-volume-cube__meta, .ds-spatial-volume-cube__badge)",
+      "居中空间三维尺寸读数 (.ds-spatial-volume-cube__dims)",
+      "底部空间定位基准提示"
+    ],
+    "keyboard": "眼动追踪注视查看空间尺寸；通过空间变换捏合手势调整容积包围盒。",
+    "guidance": [
+      "具备 role=\"region\" 与 aria-label 完整描述空间容积边界与三维尺寸。",
+      "虚线框架与拐角刻度高对比度可见，不影响内部全息内容展示。",
+      "适合 VisionOS 空间应用、AR 场景锚定器、3D 物体空间定位器。"
+    ],
+    "preview": "<div class=\"ds-spatial-volume-cube\" role=\"region\" aria-label=\"空间容积场景边界，尺寸：1.2m × 0.8m × 0.6m\"><span class=\"ds-spatial-volume-cube__corner ds-spatial-volume-cube__corner--tl\" aria-hidden=\"true\"></span><span class=\"ds-spatial-volume-cube__corner ds-spatial-volume-cube__corner--br\" aria-hidden=\"true\"></span><div class=\"ds-spatial-volume-cube__meta\"><span>空间容积场景边界</span><span class=\"ds-spatial-volume-cube__badge\">ANCHORED</span></div><div class=\"ds-spatial-volume-cube__dims\"><span>📦</span><span>1.2m × 0.8m × 0.6m</span></div><div style=\"font-size:11px;color:var(--ds-muted);text-align:center\">空间定位基准点保持锁定</div></div>",
+    "checks": [
+      "虚线框通透带科技感",
+      "拐角坐标刻度鲜明",
+      "ANCHORED 胶囊与三维尺寸居中"
+    ],
+    "react": "<VisionSpatialVolumeBoundingCube dimensions=\"1.2m × 0.8m × 0.6m\" anchorStatus=\"ANCHORED\" />",
+    "status": "CSS / HTML / React"
   }
 ]

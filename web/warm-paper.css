@@ -1737,3 +1737,62 @@
   --ds-overlay: rgba(43,27,23,.45);
   --ds-shadow: 0 6px 22px rgba(67,42,34,.12);
 }
+
+/* Solarized Amber Terminal — Vintage cathode-ray phosphorus amber monochrome glow */
+[data-palette="solarized-amber-terminal"] {
+  color-scheme: dark;
+  --ds-canvas: #121008;
+  --ds-surface: #1c180d;
+  --ds-inset: #0a0904;
+  --ds-chrome: rgba(28,24,13,.92);
+  --ds-ink: #ffb000;
+  --ds-muted: #9e7520;
+  --ds-line: #2e2410;
+  --ds-control-line: #4d3c16;
+  --ds-accent: #ffc030;
+  --ds-accent-soft: #2b2005;
+  --ds-action: #ff9000;
+  --ds-action-hover: #ffa526;
+  --ds-on-action: #121008;
+  --ds-secondary: #d97706;
+  --ds-secondary-soft: #291c06;
+  --ds-success: #84cc16;
+  --ds-success-soft: #22330a;
+  --ds-warning: #f59e0b;
+  --ds-warning-soft: #382606;
+  --ds-danger: #ef4444;
+  --ds-danger-soft: #381414;
+  --ds-focus: #ffb000;
+  --ds-overlay: rgba(10,9,4,.85);
+  --ds-shadow: 0 8px 32px rgba(255,176,0,.15), 0 4px 16px rgba(0,0,0,.6);
+}
+
+/* Fuji Film Velvia — Vibrant saturated landscape chrome & velvety emeralds */
+[data-palette="fuji-film-velvia"] {
+  color-scheme: dark;
+  --ds-canvas: #0d1715;
+  --ds-surface: #152421;
+  --ds-inset: #09100e;
+  --ds-chrome: rgba(21,36,33,.92);
+  --ds-ink: #eefbf7;
+  --ds-muted: #88a89e;
+  --ds-line: #233833;
+  --ds-control-line: #38544d;
+  --ds-accent: #10b981;
+  --ds-accent-soft: #13382c;
+  --ds-action: #d13860;
+  --ds-action-hover: #e24f75;
+  --ds-on-action: #ffffff;
+  --ds-secondary: #18b0c8;
+  --ds-secondary-soft: #11333b;
+  --ds-success: #059669;
+  --ds-success-soft: #103628;
+  --ds-warning: #f59e0b;
+  --ds-warning-soft: #382a0d;
+  --ds-danger: #e11d48;
+  --ds-danger-soft: #3d111d;
+  --ds-focus: #18b0c8;
+  --ds-overlay: rgba(9,16,14,.85);
+  --ds-shadow: 0 8px 32px rgba(16,185,129,.15), 0 4px 16px rgba(0,0,0,.6);
+}
+

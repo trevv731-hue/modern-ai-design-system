@@ -5406,6 +5406,258 @@ export function VisionSpatialHoverHaloRing({
   );
 }
 
+export function RaycastConfettiCelebration({
+  title = '全部里程碑已达成！',
+  subtitle = '本季度交付任务 100% 验收通过，系统稳定性指标达标。',
+  onDismiss
+}: {
+  title?: string;
+  subtitle?: string;
+  onDismiss?: () => void;
+}) {
+  const particles = [
+    { left: '15%', top: '20%', bg: '#ff3b88' },
+    { left: '25%', top: '60%', bg: '#d2ff32' },
+    { left: '45%', top: '15%', bg: '#00f0ff' },
+    { left: '60%', top: '75%', bg: '#ff9000' },
+    { left: '75%', top: '25%', bg: '#84cc16' },
+    { left: '85%', top: '55%', bg: '#c4a7e7' }
+  ];
+  return (
+    <div className="ds-confetti-canvas" role="region" aria-label={`里程碑达成庆祝卡片：${title}`}>
+      <div className="ds-confetti-canvas__particles" aria-hidden="true">
+        {particles.map((p, i) => (
+          <span
+            key={i}
+            className="ds-confetti-canvas__p"
+            style={{ left: p.left, top: p.top, backgroundColor: p.bg }}
+          />
+        ))}
+      </div>
+      <div className="ds-confetti-canvas__content">
+        <span className="ds-confetti-canvas__trophy" aria-hidden="true">🎉</span>
+        <h4 className="ds-confetti-canvas__title">{title}</h4>
+        <p className="ds-confetti-canvas__desc">{subtitle}</p>
+        <button
+          type="button"
+          className="ds-confetti-canvas__btn"
+          onClick={onDismiss}
+        >
+          太棒了，继续前进
+        </button>
+      </div>
+    </div>
+  );
+}
+
+export function MacSafariReaderFontSwitcher({
+  currentFont = 'San Francisco',
+  currentTheme = 'white',
+  onSelectFont,
+  onSelectTheme
+}: {
+  currentFont?: string;
+  currentTheme?: 'white' | 'sepia' | 'gray' | 'night';
+  onSelectFont?: (font: string) => void;
+  onSelectTheme?: (theme: 'white' | 'sepia' | 'gray' | 'night') => void;
+}) {
+  const themes = [
+    { id: 'white', bg: '#ffffff', label: '白纸' },
+    { id: 'sepia', bg: '#fbf0d9', label: '羊皮纸' },
+    { id: 'gray', bg: '#4a4a4c', label: '深灰' },
+    { id: 'night', bg: '#1c1c1e', label: '夜间' }
+  ] as const;
+  const fonts = ['San Francisco', 'New York (Serif)', 'Charter', 'Athelas', 'Georgia'];
+  return (
+    <div className="ds-safari-font-switcher" role="dialog" aria-label="Safari 阅读器字体与版式面板">
+      <div className="ds-safari-font-switcher__themes">
+        {themes.map(t => (
+          <button
+            key={t.id}
+            type="button"
+            className={`ds-safari-font-switcher__pill ${currentTheme === t.id ? 'is-active' : ''}`}
+            style={{ backgroundColor: t.bg }}
+            aria-label={`主题：${t.label}`}
+            onClick={() => onSelectTheme?.(t.id)}
+          />
+        ))}
+      </div>
+      <div className="ds-safari-font-switcher__fonts">
+        {fonts.map(f => (
+          <button
+            key={f}
+            type="button"
+            className={`ds-safari-font-switcher__item ${currentFont === f ? 'is-selected' : ''}`}
+            onClick={() => onSelectFont?.(f)}
+          >
+            <span>{f}</span>
+            {currentFont === f && <span aria-hidden="true">✓</span>}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export function AnalogTapeHeadDemagnetizer({
+  fluxPercentage = 42,
+  isDemagnetizing = false,
+  onTrigger
+}: {
+  fluxPercentage?: number;
+  isDemagnetizing?: boolean;
+  onTrigger?: () => void;
+}) {
+  return (
+    <div className="ds-demagnetizer-wand" role="region" aria-label="磁带机磁头退磁校准仪">
+      <div className="ds-demagnetizer-wand__head">
+        <span>DEMAGNETIZER AC FLUX</span>
+        <span style={{ color: isDemagnetizing ? '#ef4444' : '#10b981' }}>
+          {isDemagnetizing ? '● DE-GAUSSING' : '○ READY'}
+        </span>
+      </div>
+      <div className="ds-demagnetizer-wand__gauge">
+        <div
+          className="ds-demagnetizer-wand__bar"
+          style={{ width: `${Math.min(100, Math.max(0, fluxPercentage))}%` }}
+        />
+        <span className="ds-demagnetizer-wand__flux">RESIDUAL FLUX</span>
+        <span className="ds-demagnetizer-wand__flux">{fluxPercentage}%</span>
+      </div>
+      <button
+        type="button"
+        className="ds-demagnetizer-wand__trigger"
+        onClick={onTrigger}
+      >
+        ⚡ 脉冲高频消磁循环 (50Hz AC)
+      </button>
+    </div>
+  );
+}
+
+export function FigmaCanvasPixelGridToggle({
+  zoom = 1200,
+  isGridVisible = true,
+  isSnapToPixel = true,
+  onToggleGrid,
+  onToggleSnap
+}: {
+  zoom?: number;
+  isGridVisible?: boolean;
+  isSnapToPixel?: boolean;
+  onToggleGrid?: () => void;
+  onToggleSnap?: () => void;
+}) {
+  return (
+    <div className="ds-pixel-grid-toggle" role="toolbar" aria-label="Figma 画布像素网格控制">
+      <span className="ds-pixel-grid-toggle__icon" aria-hidden="true">▦</span>
+      <span className="ds-pixel-grid-toggle__zoom">{zoom}%</span>
+      <button
+        type="button"
+        className={`ds-pixel-grid-toggle__btn ${isGridVisible ? 'is-active' : ''}`}
+        aria-pressed={isGridVisible}
+        onClick={onToggleGrid}
+      >
+        像素网格
+      </button>
+      <button
+        type="button"
+        className={`ds-pixel-grid-toggle__btn ${isSnapToPixel ? 'is-active' : ''}`}
+        aria-pressed={isSnapToPixel}
+        onClick={onToggleSnap}
+      >
+        对齐像素
+      </button>
+    </div>
+  );
+}
+
+export function IosControlCenterConnectivityCluster({
+  isAirplane = false,
+  isCellular = true,
+  isWifi = true,
+  isBluetooth = true,
+  onToggle
+}: {
+  isAirplane?: boolean;
+  isCellular?: boolean;
+  isWifi?: boolean;
+  isBluetooth?: boolean;
+  onToggle?: (item: 'airplane' | 'cellular' | 'wifi' | 'bluetooth') => void;
+}) {
+  return (
+    <div className="ds-connectivity-cluster" role="group" aria-label="iOS 控制中心连接矩阵">
+      <button
+        type="button"
+        className={`ds-connectivity-cluster__item ${isAirplane ? 'is-active' : ''}`}
+        style={isAirplane ? { backgroundColor: '#ff9500' } : undefined}
+        aria-label="飞行模式"
+        aria-pressed={isAirplane}
+        onClick={() => onToggle?.('airplane')}
+      >
+        ✈️
+      </button>
+      <button
+        type="button"
+        className={`ds-connectivity-cluster__item ${isCellular ? 'is-active' : ''}`}
+        style={isCellular ? { backgroundColor: '#34c759' } : undefined}
+        aria-label="蜂窝移动网络"
+        aria-pressed={isCellular}
+        onClick={() => onToggle?.('cellular')}
+      >
+        📶
+      </button>
+      <button
+        type="button"
+        className={`ds-connectivity-cluster__item ${isWifi ? 'is-active' : ''}`}
+        aria-label="无线局域网 Wi-Fi"
+        aria-pressed={isWifi}
+        onClick={() => onToggle?.('wifi')}
+      >
+        📡
+      </button>
+      <button
+        type="button"
+        className={`ds-connectivity-cluster__item ${isBluetooth ? 'is-active' : ''}`}
+        aria-label="蓝牙连接"
+        aria-pressed={isBluetooth}
+        onClick={() => onToggle?.('bluetooth')}
+      >
+        ᛒ
+      </button>
+    </div>
+  );
+}
+
+export function VisionSpatialVolumeBoundingCube({
+  dimensions = '1.2m × 0.8m × 0.6m',
+  anchorStatus = 'ANCHORED',
+  label = '空间容积场景边界'
+}: {
+  dimensions?: string;
+  anchorStatus?: string;
+  label?: string;
+}) {
+  return (
+    <div className="ds-spatial-volume-cube" role="region" aria-label={`${label}，尺寸：${dimensions}`}>
+      <span className="ds-spatial-volume-cube__corner ds-spatial-volume-cube__corner--tl" aria-hidden="true" />
+      <span className="ds-spatial-volume-cube__corner ds-spatial-volume-cube__corner--br" aria-hidden="true" />
+      <div className="ds-spatial-volume-cube__meta">
+        <span>{label}</span>
+        <span className="ds-spatial-volume-cube__badge">{anchorStatus}</span>
+      </div>
+      <div className="ds-spatial-volume-cube__dims">
+        <span>📦</span>
+        <span>{dimensions}</span>
+      </div>
+      <div style={{ fontSize: '11px', color: 'var(--ds-muted)', textAlign: 'center' }}>
+        空间定位基准点保持锁定
+      </div>
+    </div>
+  );
+}
+
+
 
 
 
