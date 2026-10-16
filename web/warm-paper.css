@@ -2260,3 +2260,61 @@
   --ds-shadow: 0 6px 24px rgba(135,70,9,.12);
 }
 
+/* Valkyrie Aurora Borealis — Arctic glacial night, glowing turquoise aurora & frosted violet sky */
+[data-palette="valkyrie-aurora-borealis"] {
+  color-scheme: dark;
+  --ds-canvas: #090f17;
+  --ds-surface: #101a26;
+  --ds-inset: #05090f;
+  --ds-chrome: rgba(16,26,38,.92);
+  --ds-ink: #e0f2fe;
+  --ds-muted: #829cb5;
+  --ds-line: #1e3147;
+  --ds-control-line: #2b4666;
+  --ds-accent: #2dd4bf;
+  --ds-accent-soft: #09332d;
+  --ds-action: #14b8a6;
+  --ds-action-hover: #2dd4bf;
+  --ds-on-action: #042f2e;
+  --ds-secondary: #38bdf8;
+  --ds-secondary-soft: #08293b;
+  --ds-success: #34d399;
+  --ds-success-soft: #072e21;
+  --ds-warning: #fbbf24;
+  --ds-warning-soft: #382806;
+  --ds-danger: #f87171;
+  --ds-danger-soft: #3d1414;
+  --ds-focus: #2dd4bf;
+  --ds-overlay: rgba(9,15,23,.85);
+  --ds-shadow: 0 8px 32px rgba(45,212,191,.22);
+}
+
+/* Kyoto Autumn Maple — Aged cedar temple deck, crimson momiji maple leaves & warm tatami gold */
+[data-palette="kyoto-autumn-maple"] {
+  color-scheme: light;
+  --ds-canvas: #fcf8f5;
+  --ds-surface: #ffffff;
+  --ds-inset: #f7ede6;
+  --ds-chrome: rgba(255,255,255,.94);
+  --ds-ink: #2b1715;
+  --ds-muted: #6b4340;
+  --ds-line: #e8d0cb;
+  --ds-control-line: #d6b2ab;
+  --ds-accent: #b91c1c;
+  --ds-accent-soft: #fde8e8;
+  --ds-action: #991b1b;
+  --ds-action-hover: #b91c1c;
+  --ds-on-action: #ffffff;
+  --ds-secondary: #c2410c;
+  --ds-secondary-soft: #ffedd5;
+  --ds-success: #15803d;
+  --ds-success-soft: #dcfce7;
+  --ds-warning: #b45309;
+  --ds-warning-soft: #fef3c7;
+  --ds-danger: #dc2626;
+  --ds-danger-soft: #fee2e2;
+  --ds-focus: #b91c1c;
+  --ds-overlay: rgba(43,23,21,.4);
+  --ds-shadow: 0 6px 24px rgba(153,27,27,.12);
+}
+

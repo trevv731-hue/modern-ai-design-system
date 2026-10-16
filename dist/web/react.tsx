@@ -7641,3 +7641,197 @@ export function FigmaCanvasVariantMatrixHud({
   );
 }
 
+export function LinearCycleVelocityPredictionCard({
+  cycleName = 'Cycle 42',
+  predictedPoints = 42,
+  confidenceRange = '38 - 46 pts',
+  completedPoints = 28,
+  confidenceLevel = '80% Confidence',
+}: {
+  cycleName?: string;
+  predictedPoints?: number;
+  confidenceRange?: string;
+  completedPoints?: number;
+  confidenceLevel?: string;
+}) {
+  const pct = Math.min(100, Math.round((completedPoints / predictedPoints) * 100));
+  return (
+    <div
+      className="ds-cycle-velocity-card"
+      role="region"
+      aria-label={`${cycleName} 迭代预测：预测 ${predictedPoints} 点，已完成 ${completedPoints} 点 (${pct}%)，置信区间 ${confidenceRange}`}
+    >
+      <div className="ds-cycle-velocity-card__header">
+        <span>{cycleName} 速率预测</span>
+        <span className="ds-cycle-velocity-card__confidence">{confidenceLevel}</span>
+      </div>
+      <div className="ds-cycle-velocity-card__stat-row">
+        <span className="ds-cycle-velocity-card__predicted">{predictedPoints} pts</span>
+        <span className="ds-cycle-velocity-card__range">范围: {confidenceRange}</span>
+      </div>
+      <div className="ds-cycle-velocity-card__track" aria-hidden="true">
+        <div className="ds-cycle-velocity-card__fill" style={{ width: `${pct}%` }} />
+      </div>
+      <div className="ds-cycle-velocity-card__footer">
+        <span>已完成: {completedPoints} pts</span>
+        <span>进度: {pct}%</span>
+      </div>
+    </div>
+  );
+}
+
+export function MacAudioMidiNetworkSessionPill({
+  hostName = 'MacBook-Pro.local:5004',
+  rttMs = 1.2,
+  packetLoss = 0.0,
+  isConnected = true,
+  onDisconnect,
+}: {
+  hostName?: string;
+  rttMs?: number;
+  packetLoss?: number;
+  isConnected?: boolean;
+  onDisconnect?: () => void;
+}) {
+  return (
+    <div
+      className="ds-midi-network-pill"
+      role="group"
+      aria-label={`MIDI 网络会话：${hostName}，${isConnected ? '已连接' : '未连接'}，延迟 ${rttMs}ms，丢包率 ${packetLoss}%`}
+    >
+      <span className="ds-midi-network-pill__dot" aria-hidden="true" />
+      <span className="ds-midi-network-pill__host">{hostName}</span>
+      <span className="ds-midi-network-pill__latency">RTT: {rttMs}ms</span>
+      <button
+        type="button"
+        className="ds-midi-network-pill__btn"
+        aria-label={`断开与 ${hostName} 的 MIDI 会话`}
+        onClick={onDisconnect}
+      >
+        ✕
+      </button>
+    </div>
+  );
+}
+
+export function CassetteReelHubLockingClamp({
+  adapterType = 'NAB 10.5" Reel',
+  isLocked = true,
+  torqueNm = 1.8,
+  onToggleLock,
+}: {
+  adapterType?: string;
+  isLocked?: boolean;
+  torqueNm?: number;
+  onToggleLock?: () => void;
+}) {
+  return (
+    <div
+      className="ds-reel-clamp-hud"
+      role="group"
+      aria-label={`NAB 盘片适配器锁紧夹：${adapterType}，状态 ${isLocked ? '已锁紧' : '已松开'}，扭矩 ${torqueNm} N·m`}
+    >
+      <div className="ds-reel-clamp-hud__header">
+        <span>NAB REEL CLAMP</span>
+        <span className="ds-reel-clamp-hud__status">{isLocked ? 'LOCKED' : 'RELEASED'}</span>
+      </div>
+      <div className="ds-reel-clamp-hud__knob-stage" aria-hidden="true">
+        <div
+          className="ds-reel-clamp-hud__disc"
+          style={{ transform: isLocked ? 'rotate(45deg)' : 'rotate(0deg)' }}
+        >
+          ⚙
+        </div>
+      </div>
+      <div className="ds-reel-clamp-hud__footer">
+        <span>{adapterType}</span>
+        <span>TORQUE: {torqueNm} N·m</span>
+      </div>
+    </div>
+  );
+}
+
+export function VisionSpatialOcclusionMaskPill({
+  mode = 'Dynamic Hands',
+  featherRadius = '4px',
+  confidence = 'Precision Tracked',
+}: {
+  mode?: string;
+  featherRadius?: string;
+  confidence?: string;
+}) {
+  return (
+    <div
+      className="ds-occlusion-mask-pill"
+      role="status"
+      aria-label={`空间遮挡掩膜：${mode}，羽化半径 ${featherRadius}，${confidence}`}
+    >
+      <span className="ds-occlusion-mask-pill__icon" aria-hidden="true" />
+      <span className="ds-occlusion-mask-pill__mode">{mode}</span>
+      <span className="ds-occlusion-mask-pill__feather">Feather: {featherRadius}</span>
+    </div>
+  );
+}
+
+export function GitHubActionsConcurrencyGroupBadge({
+  groupName = 'ci-preview-pr-104',
+  queueCount = 2,
+  cancelInProgress = true,
+}: {
+  groupName?: string;
+  queueCount?: number;
+  cancelInProgress?: boolean;
+}) {
+  return (
+    <div
+      className="ds-concurrency-group-badge"
+      role="status"
+      aria-label={`并发控制组：${groupName}，排队中 ${queueCount}，${cancelInProgress ? '自动取消旧作业' : '顺序排队'}`}
+    >
+      <span className="ds-concurrency-group-badge__lock" aria-hidden="true">🔒</span>
+      <span className="ds-concurrency-group-badge__group" title={groupName}>
+        {groupName}
+      </span>
+      {queueCount > 0 && (
+        <span className="ds-concurrency-group-badge__queue">Queue: {queueCount}</span>
+      )}
+    </div>
+  );
+}
+
+export function FigmaCanvasColorTokenBindingChip({
+  tokenPath = 'color/surface/elevated',
+  resolvedHex = '#ffffff',
+  libraryName = 'Core DS 3.0',
+  onDetach,
+}: {
+  tokenPath?: string;
+  resolvedHex?: string;
+  libraryName?: string;
+  onDetach?: () => void;
+}) {
+  return (
+    <div
+      className="ds-color-binding-chip"
+      role="group"
+      aria-label={`色彩变量绑定：${tokenPath} (${resolvedHex})，来自 ${libraryName}`}
+    >
+      <span
+        className="ds-color-binding-chip__swatch"
+        style={{ backgroundColor: resolvedHex }}
+        aria-hidden="true"
+      />
+      <span className="ds-color-binding-chip__token">{tokenPath}</span>
+      <button
+        type="button"
+        className="ds-color-binding-chip__detach"
+        aria-label={`解绑变量 ${tokenPath}`}
+        onClick={onDetach}
+      >
+        ✕
+      </button>
+    </div>
+  );
+}
+
+
