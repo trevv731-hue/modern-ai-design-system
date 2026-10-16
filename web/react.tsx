@@ -7420,3 +7420,224 @@ export function FigmaCanvasPaletteGeneratorChip({
   );
 }
 
+export function LinearIssueSLACountdownBadge({
+  issueKey = 'ENG-4092',
+  priority = 'Urgent',
+  remainingTime = '18m',
+  targetType = 'First Response',
+  isBreached = false,
+}: {
+  issueKey?: string;
+  priority?: string;
+  remainingTime?: string;
+  targetType?: string;
+  isBreached?: boolean;
+}) {
+  return (
+    <div
+      className="ds-sla-countdown-badge"
+      role="status"
+      aria-label={`工单 ${issueKey} SLA 倒计时：${isBreached ? '已违约' : '剩余'} ${remainingTime}，目标 ${targetType}`}
+    >
+      <span className="ds-sla-countdown-badge__priority">{priority}</span>
+      <span className="ds-sla-countdown-badge__timer">
+        <span className="ds-sla-countdown-badge__pulse" aria-hidden="true" />
+        {isBreached ? `+${remainingTime} breach` : `${remainingTime} left`}
+      </span>
+      <span className="ds-sla-countdown-badge__target">({targetType})</span>
+    </div>
+  );
+}
+
+export function MacMenuBarBatteryPopover({
+  percent = 84,
+  isCharging = true,
+  health = 'Normal',
+  energyDrainers = [
+    { name: 'Xcode', energy: 'High' },
+    { name: 'Google Chrome', energy: 'Medium' },
+    { name: 'Simulator', energy: 'Low' },
+  ],
+}: {
+  percent?: number;
+  isCharging?: boolean;
+  health?: string;
+  energyDrainers?: Array<{ name: string; energy: string }>;
+}) {
+  return (
+    <div
+      className="ds-menu-bar-battery-popover"
+      role="dialog"
+      aria-label={`电池详情：${percent}% ${isCharging ? '充电中' : '使用电池'}，状态 ${health}`}
+    >
+      <div className="ds-menu-bar-battery-popover__header">
+        <span>电池电量</span>
+        <span className="ds-menu-bar-battery-popover__pct">{percent}%</span>
+      </div>
+      <div className="ds-menu-bar-battery-popover__status">
+        {isCharging ? '⚡ 电源适配器供电中' : '🔋 电池供电'} · 健康度: {health}
+      </div>
+      <div className="ds-menu-bar-battery-popover__drainers">
+        <span className="ds-menu-bar-battery-popover__drainer-title">消耗大量电能的应用程序</span>
+        {energyDrainers.map((app) => (
+          <div key={app.name} className="ds-menu-bar-battery-popover__app-row">
+            <span>{app.name}</span>
+            <span className="ds-menu-bar-battery-popover__app-energy">{app.energy}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export function CassetteCapstanFlywheelTachometer({
+  rpm = 3000,
+  ips = 15,
+  wowFlutter = 0.03,
+  isLocked = true,
+}: {
+  rpm?: number;
+  ips?: number;
+  wowFlutter?: number;
+  isLocked?: boolean;
+}) {
+  return (
+    <div
+      className="ds-capstan-tachometer"
+      role="region"
+      aria-label={`主导轴转速计：${rpm} RPM，带速 ${ips} ips，抖晃率 ±${wowFlutter}%，${isLocked ? 'PLL锁相已锁定' : '锁相失锁'}`}
+    >
+      <div className="ds-capstan-tachometer__header">
+        <span>CAPSTAN TACHOMETER</span>
+        <span className="ds-capstan-tachometer__lock">
+          {isLocked ? '● PLL LOCKED' : '○ UNLOCKED'}
+        </span>
+      </div>
+      <div className="ds-capstan-tachometer__dial">
+        <span className="ds-capstan-tachometer__rpm">{rpm}</span>
+        <span className="ds-capstan-tachometer__unit">RPM</span>
+      </div>
+      <div className="ds-capstan-tachometer__stats">
+        <span>SPEED: {ips} IPS</span>
+        <span>W&F: ±{wowFlutter}%</span>
+      </div>
+    </div>
+  );
+}
+
+export function VisionSpatialSurfacePlaneDetector({
+  planeType = 'Horizontal Table',
+  alignment = 'Gravity Aligned',
+  dimensions = '1.4m × 0.8m',
+  confidence = 'High (98%)',
+}: {
+  planeType?: string;
+  alignment?: string;
+  dimensions?: string;
+  confidence?: string;
+}) {
+  return (
+    <div
+      className="ds-spatial-surface-detector"
+      role="region"
+      aria-label={`空间平面检测视窗：${planeType}，${alignment}，尺寸 ${dimensions}，置信度 ${confidence}`}
+    >
+      <div className="ds-spatial-surface-detector__header">
+        <span>空间实景表面检测</span>
+        <span className="ds-spatial-surface-detector__plane-type">{planeType}</span>
+      </div>
+      <div className="ds-spatial-surface-detector__mesh-view" aria-hidden="true">
+        <div className="ds-spatial-surface-detector__grid" />
+      </div>
+      <div className="ds-spatial-surface-detector__footer">
+        <span>{dimensions}</span>
+        <span>{alignment} · {confidence}</span>
+      </div>
+    </div>
+  );
+}
+
+export function GitHubActionsArtifactRetentionPill({
+  artifactName = 'production-dist.zip',
+  size = '142.8 MB',
+  expiresIn = '14 days',
+  onDownload,
+}: {
+  artifactName?: string;
+  size?: string;
+  expiresIn?: string;
+  onDownload?: () => void;
+}) {
+  return (
+    <div
+      className="ds-artifact-retention-pill"
+      role="group"
+      aria-label={`构建产物 ${artifactName}，大小 ${size}，保留期 ${expiresIn}`}
+    >
+      <span className="ds-artifact-retention-pill__name">{artifactName}</span>
+      <span className="ds-artifact-retention-pill__size">{size}</span>
+      <span className="ds-artifact-retention-pill__expire">Expires in {expiresIn}</span>
+      <button
+        type="button"
+        className="ds-artifact-retention-pill__download"
+        aria-label={`下载构建产物 ${artifactName}`}
+        onClick={onDownload}
+      >
+        Download
+      </button>
+    </div>
+  );
+}
+
+export function FigmaCanvasVariantMatrixHud({
+  componentName = 'Button',
+  componentId = '1402:88',
+  variants = [
+    { name: 'Size', options: ['sm', 'md', 'lg'], active: 'md' },
+    { name: 'Hierarchy', options: ['Primary', 'Secondary'], active: 'Primary' },
+    { name: 'State', options: ['Default', 'Hover', 'Pressed'], active: 'Default' },
+  ],
+  onSelectVariant,
+}: {
+  componentName?: string;
+  componentId?: string;
+  variants?: Array<{ name: string; options: string[]; active: string }>;
+  onSelectVariant?: (prop: string, val: string) => void;
+}) {
+  return (
+    <div
+      className="ds-variant-matrix-hud"
+      role="region"
+      aria-label={`组件变体矩阵：${componentName} (${componentId})`}
+    >
+      <div className="ds-variant-matrix-hud__header">
+        <span>{componentName}</span>
+        <span className="ds-variant-matrix-hud__id">#{componentId}</span>
+      </div>
+      <div className="ds-variant-matrix-hud__props">
+        {variants.map((v) => (
+          <div key={v.name} className="ds-variant-matrix-hud__row">
+            <span className="ds-variant-matrix-hud__prop-name">{v.name}:</span>
+            <div className="ds-variant-matrix-hud__chips">
+              {v.options.map((opt) => {
+                const isActive = opt === v.active;
+                return (
+                  <button
+                    key={opt}
+                    type="button"
+                    className={`ds-variant-matrix-hud__chip ${isActive ? 'is-active' : ''}`}
+                    aria-pressed={isActive}
+                    onClick={() => onSelectVariant?.(v.name, opt)}
+                  >
+                    {opt}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+

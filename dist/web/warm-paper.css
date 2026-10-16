@@ -2202,3 +2202,61 @@
   --ds-shadow: 0 6px 24px rgba(153,27,27,.12);
 }
 
+/* Basalt Lava Ember — Dark volcanic rock, basalt obsidian & glowing molten ember */
+[data-palette="basalt-lava-ember"] {
+  color-scheme: dark;
+  --ds-canvas: #121013;
+  --ds-surface: #1d181c;
+  --ds-inset: #0c0a0c;
+  --ds-chrome: rgba(29,24,28,.92);
+  --ds-ink: #f8ebe6;
+  --ds-muted: #ad9a96;
+  --ds-line: #382d33;
+  --ds-control-line: #544149;
+  --ds-accent: #ff5722;
+  --ds-accent-soft: #381206;
+  --ds-action: #ff5722;
+  --ds-action-hover: #ff7043;
+  --ds-on-action: #1c0902;
+  --ds-secondary: #ff9800;
+  --ds-secondary-soft: #361f03;
+  --ds-success: #4caf50;
+  --ds-success-soft: #0e2910;
+  --ds-warning: #ffb300;
+  --ds-warning-soft: #332400;
+  --ds-danger: #f44336;
+  --ds-danger-soft: #380d09;
+  --ds-focus: #ff7043;
+  --ds-overlay: rgba(18,16,19,.85);
+  --ds-shadow: 0 8px 32px rgba(255,87,34,.2);
+}
+
+/* Nordic Birch Sauna — Pale Scandinavian birch timber, warm amber glow & toasted wood grain */
+[data-palette="nordic-birch-sauna"] {
+  color-scheme: light;
+  --ds-canvas: #fcf9f2;
+  --ds-surface: #ffffff;
+  --ds-inset: #f5ede1;
+  --ds-chrome: rgba(255,255,255,.94);
+  --ds-ink: #2b231a;
+  --ds-muted: #6b5744;
+  --ds-line: #e3d5c1;
+  --ds-control-line: #cbba9f;
+  --ds-accent: #9e530e;
+  --ds-accent-soft: #faebd9;
+  --ds-action: #874609;
+  --ds-action-hover: #9e530e;
+  --ds-on-action: #ffffff;
+  --ds-secondary: #704018;
+  --ds-secondary-soft: #f4e5d3;
+  --ds-success: #15803d;
+  --ds-success-soft: #dcfce7;
+  --ds-warning: #b45309;
+  --ds-warning-soft: #fef3c7;
+  --ds-danger: #dc2626;
+  --ds-danger-soft: #fee2e2;
+  --ds-focus: #9e530e;
+  --ds-overlay: rgba(43,35,26,.4);
+  --ds-shadow: 0 6px 24px rgba(135,70,9,.12);
+}
+
