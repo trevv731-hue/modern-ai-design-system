@@ -1854,4 +1854,63 @@
   --ds-shadow: 0 6px 20px rgba(56,94,66,.1);
 }
 
+/* Cyberpunk Neon Matrix — High-contrast Night City acid neon & deep obsidian matrix */
+[data-palette="cyberpunk-neon-matrix"] {
+  color-scheme: dark;
+  --ds-canvas: #08090d;
+  --ds-surface: #12131a;
+  --ds-inset: #040508;
+  --ds-chrome: rgba(18,19,26,.94);
+  --ds-ink: #f0f2f8;
+  --ds-muted: #8b90a0;
+  --ds-line: #212330;
+  --ds-control-line: #36394e;
+  --ds-accent: #00f5d4;
+  --ds-accent-soft: #072b25;
+  --ds-action: #00f5d4;
+  --ds-action-hover: #33f7dc;
+  --ds-on-action: #000000;
+  --ds-secondary: #f72585;
+  --ds-secondary-soft: #2e0d1f;
+  --ds-success: #00f5d4;
+  --ds-success-soft: #072b25;
+  --ds-warning: #fee440;
+  --ds-warning-soft: #2b2605;
+  --ds-danger: #ff0055;
+  --ds-danger-soft: #330312;
+  --ds-focus: #00f5d4;
+  --ds-overlay: rgba(4,5,8,.85);
+  --ds-shadow: 0 8px 32px rgba(0,245,212,.12), 0 4px 16px rgba(0,0,0,.6);
+}
+
+/* Nordic Sage Frost — Scandinavian winter pine forest & muted frosted sage */
+[data-palette="nordic-sage-frost"] {
+  color-scheme: light;
+  --ds-canvas: #f3f6f4;
+  --ds-surface: #ffffff;
+  --ds-inset: #e8eee9;
+  --ds-chrome: rgba(255,255,255,.94);
+  --ds-ink: #1b2923;
+  --ds-muted: #5b6c64;
+  --ds-line: #d9e2dc;
+  --ds-control-line: #bfcdc4;
+  --ds-accent: #246b4c;
+  --ds-accent-soft: #e5f3ec;
+  --ds-action: #246b4c;
+  --ds-action-hover: #2d825d;
+  --ds-on-action: #ffffff;
+  --ds-secondary: #3e5c68;
+  --ds-secondary-soft: #e6f0f4;
+  --ds-success: #216b47;
+  --ds-success-soft: #e4f4ec;
+  --ds-warning: #945305;
+  --ds-warning-soft: #fef3e2;
+  --ds-danger: #a82b2b;
+  --ds-danger-soft: #fde8e8;
+  --ds-focus: #246b4c;
+  --ds-overlay: rgba(27,41,35,.4);
+  --ds-shadow: 0 6px 22px rgba(36,107,76,.1);
+}
+
+
 

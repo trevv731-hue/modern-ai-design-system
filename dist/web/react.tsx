@@ -5920,6 +5920,249 @@ export function VisionSpatialSharePlayCluster({
   );
 }
 
+export function LinearSwimlaneCollapseToggle({
+  name = 'Core Runtime',
+  count = 14,
+  isCollapsed = false,
+  onToggle
+}: {
+  name?: string;
+  count?: number;
+  isCollapsed?: boolean;
+  onToggle?: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      className={`ds-swimlane-toggle ${isCollapsed ? 'is-collapsed' : ''}`}
+      aria-expanded={!isCollapsed}
+      aria-label={`${name} 看板泳道，包含 ${count} 个工单，当前${isCollapsed ? '已折叠' : '已展开'}`}
+      onClick={onToggle}
+    >
+      <span className="ds-swimlane-toggle__chevron" aria-hidden="true">▼</span>
+      <span>{name}</span>
+      <span className="ds-swimlane-toggle__count">{count}</span>
+    </button>
+  );
+}
+
+export function MacStageManagerShelf({
+  groups = [
+    { id: 'dev', name: 'Xcode · Simulator', icon: '🛠️', count: 3 },
+    { id: 'design', name: 'Figma · Keynote', icon: '🎨', count: 2 },
+    { id: 'chat', name: 'Slack · Mail', icon: '💬', count: 4 }
+  ],
+  activeGroupId = 'dev',
+  onSelectGroup
+}: {
+  groups?: Array<{ id: string; name: string; icon: string; count: number }>;
+  activeGroupId?: string;
+  onSelectGroup?: (id: string) => void;
+}) {
+  return (
+    <div className="ds-stage-manager-shelf" role="toolbar" aria-label="macOS 台前调度工作区挂架">
+      {groups.map((g) => {
+        const isActive = activeGroupId === g.id;
+        return (
+          <button
+            key={g.id}
+            type="button"
+            className={`ds-stage-manager-shelf__item ${isActive ? 'is-active' : ''}`}
+            aria-label={`${g.name} 窗口组，包含 ${g.count} 个窗口`}
+            aria-pressed={isActive}
+            onClick={() => onSelectGroup?.(g.id)}
+          >
+            <div className="ds-stage-manager-shelf__preview">
+              <span aria-hidden="true">{g.icon}</span>
+            </div>
+            <span className="ds-stage-manager-shelf__label">{g.name}</span>
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+export function AnalogTapeSplicingBlock({
+  tapeFormat = '1/4" Master Tape',
+  cutAngle = '45°',
+  onCut
+}: {
+  tapeFormat?: string;
+  cutAngle?: '45°' | '90°';
+  onCut?: (angle: '45°' | '90°') => void;
+}) {
+  return (
+    <div className="ds-tape-splicing-block" role="region" aria-label={`磁带精密剪接台，格式：${tapeFormat}`}>
+      <div className="ds-tape-splicing-block__meta">
+        <span>EDITING SPLICING BLOCK</span>
+        <span style={{ color: '#f59e0b' }}>{tapeFormat}</span>
+      </div>
+      <div className="ds-tape-splicing-block__groove">
+        <div className="ds-tape-splicing-block__tape" aria-hidden="true" />
+        <span className="ds-tape-splicing-block__cutter-45" title="45度编辑斜切槽" aria-hidden="true" />
+        <span className="ds-tape-splicing-block__cutter-90" title="90度拼接垂直槽" aria-hidden="true" />
+      </div>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <span style={{ fontSize: 10, color: 'var(--ds-muted)', fontFamily: 'var(--ds-type-mono)' }}>SLOT: 45°/90° CNC</span>
+        {onCut && (
+          <button
+            type="button"
+            className="ds-button ds-button--ghost"
+            style={{ padding: '2px 8px', fontSize: 11 }}
+            onClick={() => onCut(cutAngle)}
+          >
+            ✂️ 裁切 ({cutAngle})
+          </button>
+        )}
+      </div>
+    </div>
+  );
+}
+
+export function VisionSpatialPortalAnchor({
+  portalName = '火星地表空间全息视界',
+  immersionPct = 65,
+  isLocked = true,
+  onImmersionChange,
+  onToggleLock
+}: {
+  portalName?: string;
+  immersionPct?: number;
+  isLocked?: boolean;
+  onImmersionChange?: (val: number) => void;
+  onToggleLock?: () => void;
+}) {
+  return (
+    <div className="ds-spatial-portal-anchor" role="region" aria-label={`空间传送门锚点：${portalName}，沉浸度：${immersionPct}%`}>
+      <div className="ds-spatial-portal-anchor__ring" aria-hidden="true">
+        <span className="ds-spatial-portal-anchor__target">🪐</span>
+      </div>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <span style={{ fontSize: 12, fontWeight: 700, color: '#ffffff' }}>{portalName}</span>
+        <button
+          type="button"
+          className="ds-badge"
+          style={{ cursor: 'pointer', background: isLocked ? 'rgba(0,245,212,0.2)' : 'rgba(255,255,255,0.1)', color: isLocked ? '#00f5d4' : '#ffffff' }}
+          onClick={onToggleLock}
+        >
+          {isLocked ? '🔒 空间锚定' : '🔓 自由浮动'}
+        </button>
+      </div>
+      <div className="ds-spatial-portal-anchor__slider-row">
+        <span>沉浸度</span>
+        <input
+          type="range"
+          className="ds-spatial-portal-anchor__range"
+          min={0}
+          max={100}
+          value={immersionPct}
+          aria-label="空间沉浸深度滑块"
+          onChange={(e) => onImmersionChange?.(Number(e.target.value))}
+        />
+        <span style={{ fontFamily: 'var(--ds-type-mono)' }}>{immersionPct}%</span>
+      </div>
+    </div>
+  );
+}
+
+export function FigmaCanvasColorPaletteRamp({
+  scaleName = 'Indigo Scale',
+  colors = [
+    { step: 50, hex: '#eef2ff' },
+    { step: 100, hex: '#e0e7ff' },
+    { step: 200, hex: '#c7d2fe' },
+    { step: 300, hex: '#a5b4fc' },
+    { step: 400, hex: '#818cf8' },
+    { step: 500, hex: '#6366f1' },
+    { step: 600, hex: '#4f46e5' },
+    { step: 700, hex: '#4338ca' },
+    { step: 800, hex: '#3730a3' },
+    { step: 900, hex: '#312e81' }
+  ],
+  selectedStep = 500,
+  onSelectStep
+}: {
+  scaleName?: string;
+  colors?: Array<{ step: number; hex: string }>;
+  selectedStep?: number;
+  onSelectStep?: (step: number, hex: string) => void;
+}) {
+  const current = colors.find((c) => c.step === selectedStep) || colors[5];
+  return (
+    <div className="ds-color-palette-ramp" role="region" aria-label={`${scaleName} 设计变量色阶条`}>
+      <div className="ds-color-palette-ramp__header">
+        <span>{scaleName}</span>
+        <span style={{ fontFamily: 'var(--ds-type-mono)', color: 'var(--ds-accent)' }}>
+          {current?.step}: {current?.hex}
+        </span>
+      </div>
+      <div className="ds-color-palette-ramp__swatches">
+        {colors.map((c) => (
+          <button
+            key={c.step}
+            type="button"
+            className={`ds-color-palette-ramp__swatch ${c.step === selectedStep ? 'is-selected' : ''}`}
+            style={{ backgroundColor: c.hex }}
+            title={`${scaleName} ${c.step} (${c.hex})`}
+            aria-label={`${scaleName} ${c.step} 色值 ${c.hex}`}
+            aria-pressed={c.step === selectedStep}
+            onClick={() => onSelectStep?.(c.step, c.hex)}
+          />
+        ))}
+      </div>
+      <div className="ds-color-palette-ramp__meta">
+        <span>50 (Light)</span>
+        <span>900 (Dark)</span>
+      </div>
+    </div>
+  );
+}
+
+export function GitHubMergeConflictResolverBadge({
+  conflictCount = 2,
+  currentBranch = 'feat/spatial-dock',
+  targetBranch = 'main',
+  onAcceptCurrent,
+  onAcceptIncoming
+}: {
+  conflictCount?: number;
+  currentBranch?: string;
+  targetBranch?: string;
+  onAcceptCurrent?: () => void;
+  onAcceptIncoming?: () => void;
+}) {
+  return (
+    <div
+      className="ds-conflict-resolver-badge"
+      role="status"
+      aria-label={`合并冲突：${conflictCount} 个冲突文件，源分支 ${currentBranch}，目标分支 ${targetBranch}`}
+    >
+      <span className="ds-conflict-resolver-badge__icon" aria-hidden="true">⚠️</span>
+      <span>{conflictCount} 个合并冲突</span>
+      <span className="ds-conflict-resolver-badge__tag">{currentBranch}</span>
+      <div className="ds-conflict-resolver-badge__actions">
+        <button
+          type="button"
+          className="ds-conflict-resolver-badge__btn"
+          onClick={onAcceptCurrent}
+          title="采用当前更改 (Accept Current)"
+        >
+          采用当前
+        </button>
+        <button
+          type="button"
+          className="ds-conflict-resolver-badge__btn"
+          onClick={onAcceptIncoming}
+          title="采用传入更改 (Accept Incoming)"
+        >
+          采用传入
+        </button>
+      </div>
+    </div>
+  );
+}
+
 
 
 
