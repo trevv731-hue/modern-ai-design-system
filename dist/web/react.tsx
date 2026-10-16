@@ -7834,4 +7834,245 @@ export function FigmaCanvasColorTokenBindingChip({
   );
 }
 
+export function LinearProjectMilestoneBurndownGauge({
+  milestone = 'v3.2 Foundation Engine',
+  targetDate = 'Nov 14',
+  completedPct = 68,
+  creepPct = 12,
+  varianceDays = -2,
+}: {
+  milestone?: string;
+  targetDate?: string;
+  completedPct?: number;
+  creepPct?: number;
+  varianceDays?: number;
+}) {
+  return (
+    <div
+      className="ds-milestone-burndown-gauge"
+      role="region"
+      aria-label={`里程碑燃尽图：${milestone}，完成率 ${completedPct}%，范围变更 +${creepPct}%，预计交付 ${targetDate}，偏差 ${varianceDays > 0 ? `+${varianceDays}` : varianceDays} 天`}
+    >
+      <div className="ds-milestone-burndown-gauge__header">
+        <span>{milestone}</span>
+        <span className="ds-milestone-burndown-gauge__eta">ETA: {targetDate}</span>
+      </div>
+      <div className="ds-milestone-burndown-gauge__stats">
+        <span className="ds-milestone-burndown-gauge__progress">{completedPct}% Complete</span>
+        <span
+          className="ds-milestone-burndown-gauge__variance"
+          style={{ color: varianceDays <= 0 ? 'var(--ds-success)' : 'var(--ds-warning)' }}
+        >
+          {varianceDays <= 0 ? `${Math.abs(varianceDays)}d ahead` : `+${varianceDays}d delayed`}
+        </span>
+      </div>
+      <div className="ds-milestone-burndown-gauge__track" aria-hidden="true">
+        <div
+          className="ds-milestone-burndown-gauge__fill"
+          style={{ width: `${completedPct}%` }}
+        />
+        <div
+          className="ds-milestone-burndown-gauge__creep"
+          style={{ width: `${creepPct}%` }}
+        />
+      </div>
+      <div className="ds-milestone-burndown-gauge__footer">
+        <span>Scope: {completedPct + creepPct}% total</span>
+        <span>Creep: +{creepPct}%</span>
+      </div>
+    </div>
+  );
+}
+
+export function MacStageManagerWindowClusterStrip({
+  clusterName = 'Development & Docs',
+  windowCount = 3,
+  appIcons = ['⚡', '📝', '🌐'],
+  onActivate,
+}: {
+  clusterName?: string;
+  windowCount?: number;
+  appIcons?: string[];
+  onActivate?: () => void;
+}) {
+  return (
+    <div
+      className="ds-stage-cluster-strip"
+      role="group"
+      aria-label={`台前调度窗口集群：${clusterName}，包含 ${windowCount} 个窗口`}
+    >
+      <div className="ds-stage-cluster-strip__thumb-stack" aria-hidden="true">
+        {appIcons.slice(0, 3).map((icon, idx) => (
+          <div key={idx} className="ds-stage-cluster-strip__thumb">
+            {icon}
+          </div>
+        ))}
+      </div>
+      <div className="ds-stage-cluster-strip__meta">
+        <span className="ds-stage-cluster-strip__title">{clusterName}</span>
+        <span className="ds-stage-cluster-strip__count">{windowCount} windows</span>
+      </div>
+      <button
+        type="button"
+        className="ds-stage-cluster-strip__action"
+        aria-label={`切换到窗口组：${clusterName}`}
+        onClick={onActivate}
+      >
+        ↗
+      </button>
+    </div>
+  );
+}
+
+export function CassetteHeadAzimuthAlignmentOscilloscope({
+  trackName = 'Stereo Master Tape 15 IPS',
+  phaseDifferentialDeg = 1.4,
+  isPhaseLocked = true,
+  frequencyKhz = 10.0,
+}: {
+  trackName?: string;
+  phaseDifferentialDeg?: number;
+  isPhaseLocked?: boolean;
+  frequencyKhz?: number;
+}) {
+  return (
+    <div
+      className="ds-azimuth-scope-hud"
+      role="region"
+      aria-label={`磁头方位角李萨如图示仪：${trackName}，相位差 ${phaseDifferentialDeg}°，状态 ${isPhaseLocked ? '已校准' : '失步'}，测试频率 ${frequencyKhz}kHz`}
+    >
+      <div className="ds-azimuth-scope-hud__header">
+        <span>AZIMUTH LISSAJOUS</span>
+        <span className="ds-azimuth-scope-hud__lock">{isPhaseLocked ? 'LOCKED' : 'OUT-OF-PHASE'}</span>
+      </div>
+      <div className="ds-azimuth-scope-hud__screen" aria-hidden="true">
+        <div className="ds-azimuth-scope-hud__grid" />
+        <div
+          className="ds-azimuth-scope-hud__lissajous"
+          style={{
+            transform: `rotate(${45 + phaseDifferentialDeg}deg)`,
+            opacity: isPhaseLocked ? 1 : 0.6
+          }}
+        />
+      </div>
+      <div className="ds-azimuth-scope-hud__footer">
+        <span>ΔΦ: {phaseDifferentialDeg > 0 ? `+${phaseDifferentialDeg}` : phaseDifferentialDeg}°</span>
+        <span>TEST TONE: {frequencyKhz} kHz</span>
+      </div>
+    </div>
+  );
+}
+
+export function VisionSpatialPortalVignetteFrame({
+  destination = 'Pacific Atoll Immersion',
+  portalDepthMeters = 3.2,
+  featherRadius = '28px',
+  passThroughPct = 94,
+}: {
+  destination?: string;
+  portalDepthMeters?: number;
+  featherRadius?: string;
+  passThroughPct?: number;
+}) {
+  return (
+    <div
+      className="ds-portal-vignette-frame"
+      role="region"
+      aria-label={`空间沉浸传送门视口：${destination}，视深 ${portalDepthMeters}m，羽化透光度 ${passThroughPct}%`}
+    >
+      <div className="ds-portal-vignette-frame__header">
+        <span>{destination}</span>
+        <span className="ds-portal-vignette-frame__badge">{portalDepthMeters}m Depth</span>
+      </div>
+      <div className="ds-portal-vignette-frame__aperture" aria-hidden="true">
+        <div className="ds-portal-vignette-frame__depth-ring" />
+      </div>
+      <div className="ds-portal-vignette-frame__footer">
+        <span>Vignette: {featherRadius}</span>
+        <span>Pass-through: {passThroughPct}%</span>
+      </div>
+    </div>
+  );
+}
+
+export function GitHubActionsMatrixJobDrilldownSheet({
+  workflow = 'Cross-Platform CI Tests',
+  matrixTotal = 9,
+  passedCount = 9,
+  permutations = [
+    { os: 'ubuntu-22.04', node: 'v20.x', status: 'PASS' },
+    { os: 'macos-14', node: 'v20.x', status: 'PASS' },
+    { os: 'windows-2022', node: 'v20.x', status: 'PASS' }
+  ],
+}: {
+  workflow?: string;
+  matrixTotal?: number;
+  passedCount?: number;
+  permutations?: Array<{ os: string; node: string; status: string }>;
+}) {
+  return (
+    <div
+      className="ds-matrix-drilldown-sheet"
+      role="region"
+      aria-label={`矩阵作业执行清单：${workflow}，通过 ${passedCount}/${matrixTotal} 项作业`}
+    >
+      <div className="ds-matrix-drilldown-sheet__header">
+        <span>{workflow}</span>
+        <span className="ds-matrix-drilldown-sheet__badge">Matrix: {matrixTotal}</span>
+      </div>
+      <div className="ds-matrix-drilldown-sheet__grid" role="list">
+        {permutations.map((perm, idx) => (
+          <div key={idx} className="ds-matrix-drilldown-sheet__cell" role="listitem">
+            <span className="ds-matrix-drilldown-sheet__cell-os">{perm.os}</span>
+            <span className="ds-matrix-drilldown-sheet__cell-node">Node {perm.node}</span>
+            <span className="ds-matrix-drilldown-sheet__cell-status">✓ {perm.status}</span>
+          </div>
+        ))}
+      </div>
+      <div className="ds-matrix-drilldown-sheet__footer">
+        <span>ALL JOBS CONCURRENT</span>
+        <span>Status: {passedCount}/{matrixTotal} Success</span>
+      </div>
+    </div>
+  );
+}
+
+export function FigmaCanvasVectorAnchorTangentHandle({
+  anchorId = 'P4_BEZIER_VERTEX',
+  tangentMode = 'Mirrored Symmetrical',
+  coordX = 248.5,
+  coordY = 112.0,
+  handleLength = 48,
+}: {
+  anchorId?: string;
+  tangentMode?: string;
+  coordX?: number;
+  coordY?: number;
+  handleLength?: number;
+}) {
+  return (
+    <div
+      className="ds-vector-anchor-handle"
+      role="group"
+      aria-label={`矢量贝塞尔控制点：${anchorId}，模式 ${tangentMode}，坐标 (${coordX}, ${coordY})，切线长 ${handleLength}px`}
+    >
+      <div className="ds-vector-anchor-handle__header">
+        <span>{anchorId}</span>
+        <span className="ds-vector-anchor-handle__mode">{tangentMode}</span>
+      </div>
+      <div className="ds-vector-anchor-handle__canvas" aria-hidden="true">
+        <div className="ds-vector-anchor-handle__line" />
+        <div className="ds-vector-anchor-handle__tangent-left" />
+        <div className="ds-vector-anchor-handle__node" />
+        <div className="ds-vector-anchor-handle__tangent-right" />
+      </div>
+      <div className="ds-vector-anchor-handle__coords">
+        <span>X: {coordX} Y: {coordY}</span>
+        <span>LEN: {handleLength}px</span>
+      </div>
+    </div>
+  );
+}
+
+
 

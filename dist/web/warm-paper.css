@@ -2318,3 +2318,62 @@
   --ds-shadow: 0 6px 24px rgba(153,27,27,.12);
 }
 
+/* Sahara Oasis Mirage — Sun-drenched desert sand dunes, emerald date palms & terracotta earthen clay */
+[data-palette="sahara-oasis-mirage"] {
+  color-scheme: light;
+  --ds-canvas: #fbf7ef;
+  --ds-surface: #ffffff;
+  --ds-inset: #f3ebdc;
+  --ds-chrome: rgba(255,255,255,.94);
+  --ds-ink: #2b2114;
+  --ds-muted: #6e583c;
+  --ds-line: #e3d2ba;
+  --ds-control-line: #ccb495;
+  --ds-accent: #b45309;
+  --ds-accent-soft: #fef3c7;
+  --ds-action: #15803d;
+  --ds-action-hover: #166534;
+  --ds-on-action: #ffffff;
+  --ds-secondary: #c2410c;
+  --ds-secondary-soft: #ffedd5;
+  --ds-success: #15803d;
+  --ds-success-soft: #dcfce7;
+  --ds-warning: #b45309;
+  --ds-warning-soft: #fef3c7;
+  --ds-danger: #b91c1c;
+  --ds-danger-soft: #fee2e2;
+  --ds-focus: #b45309;
+  --ds-overlay: rgba(43,33,20,.42);
+  --ds-shadow: 0 8px 24px rgba(180,83,9,.12);
+}
+
+/* Tokyo Cyber Rain — Midnight asphalt puddles, electric neon magenta & illuminated rain-slick cyan */
+[data-palette="tokyo-cyber-rain"] {
+  color-scheme: dark;
+  --ds-canvas: #090b14;
+  --ds-surface: #101424;
+  --ds-inset: #06080e;
+  --ds-chrome: rgba(16,20,36,.92);
+  --ds-ink: #f0f4ff;
+  --ds-muted: #8590b5;
+  --ds-line: #222b48;
+  --ds-control-line: #33406a;
+  --ds-accent: #f43f5e;
+  --ds-accent-soft: #380d19;
+  --ds-action: #06b6d4;
+  --ds-action-hover: #22d3ee;
+  --ds-on-action: #04242d;
+  --ds-secondary: #a855f7;
+  --ds-secondary-soft: #270e3d;
+  --ds-success: #10b981;
+  --ds-success-soft: #052e20;
+  --ds-warning: #f59e0b;
+  --ds-warning-soft: #382404;
+  --ds-danger: #f43f5e;
+  --ds-danger-soft: #3b0e1a;
+  --ds-focus: #22d3ee;
+  --ds-overlay: rgba(6,8,14,.86);
+  --ds-shadow: 0 8px 32px rgba(6,182,212,.24);
+}
+
+
