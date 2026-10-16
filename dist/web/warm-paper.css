@@ -2086,3 +2086,61 @@
   --ds-shadow: 0 6px 20px rgba(37,82,46,.1);
 }
 
+/* Glacier Fjord Ice — Nordic deep fjord glacial sapphire & crystalline frost */
+[data-palette="glacier-fjord-ice"] {
+  color-scheme: dark;
+  --ds-canvas: #061017;
+  --ds-surface: #0b1a24;
+  --ds-inset: #040a0f;
+  --ds-chrome: rgba(11,26,36,.92);
+  --ds-ink: #e1f0f8;
+  --ds-muted: #7ea5be;
+  --ds-line: #142735;
+  --ds-control-line: #1f384a;
+  --ds-accent: #38bdf8;
+  --ds-accent-soft: #0e2a3a;
+  --ds-action: #0284c7;
+  --ds-action-hover: #0ea5e9;
+  --ds-on-action: #ffffff;
+  --ds-secondary: #7dd3fc;
+  --ds-secondary-soft: #082030;
+  --ds-success: #34d399;
+  --ds-success-soft: #063124;
+  --ds-warning: #fbbf24;
+  --ds-warning-soft: #382503;
+  --ds-danger: #f87171;
+  --ds-danger-soft: #3c1314;
+  --ds-focus: #38bdf8;
+  --ds-overlay: rgba(6,16,23,.75);
+  --ds-shadow: 0 8px 32px rgba(2,132,199,.25);
+}
+
+/* Desert Dune Ochre — Sahara desert warm golden sand & sunburnt ochre earth */
+[data-palette="desert-dune-ochre"] {
+  color-scheme: light;
+  --ds-canvas: #f6efe0;
+  --ds-surface: #fffdf8;
+  --ds-inset: #ede2cd;
+  --ds-chrome: rgba(255,253,248,.94);
+  --ds-ink: #2b1d0c;
+  --ds-muted: #705537;
+  --ds-line: #e3d2be;
+  --ds-control-line: #cbb49c;
+  --ds-accent: #b45309;
+  --ds-accent-soft: #fef3c7;
+  --ds-action: #92400e;
+  --ds-action-hover: #b45309;
+  --ds-on-action: #ffffff;
+  --ds-secondary: #78350f;
+  --ds-secondary-soft: #faebd7;
+  --ds-success: #15803d;
+  --ds-success-soft: #dcfce7;
+  --ds-warning: #a16207;
+  --ds-warning-soft: #fef9c3;
+  --ds-danger: #b91c1c;
+  --ds-danger-soft: #fee2e2;
+  --ds-focus: #b45309;
+  --ds-overlay: rgba(43,29,12,.4);
+  --ds-shadow: 0 6px 22px rgba(146,64,14,.12);
+}
+

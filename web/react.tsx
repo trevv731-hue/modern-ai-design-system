@@ -6879,3 +6879,260 @@ export function FigmaCanvasBezierHandleHud({
     </div>
   );
 }
+
+export function LinearRoadmapMilestoneMarker({
+  quarter = 'Q4 2026',
+  title = 'Design System v3 Multi-Platform Parity',
+  completionPct = 85,
+  onClick,
+}: {
+  quarter?: string;
+  title?: string;
+  completionPct?: number;
+  onClick?: () => void;
+}) {
+  return (
+    <div
+      className="ds-roadmap-milestone"
+      role="button"
+      tabIndex={0}
+      onClick={onClick}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onClick?.();
+        }
+      }}
+      aria-label={`产品路线图里程碑：${quarter} ${title}，完成率 ${completionPct}%`}
+    >
+      <div className="ds-roadmap-milestone__diamond" aria-hidden="true" />
+      <span className="ds-roadmap-milestone__quarter">{quarter}</span>
+      <span className="ds-roadmap-milestone__title">{title}</span>
+      <span className="ds-roadmap-milestone__progress">{completionPct}%</span>
+    </div>
+  );
+}
+
+export function MacAudioMidiJackMatrix({
+  sampleRate = '96 kHz / 24-bit',
+  activeChannel = 0,
+  ports = ['IN 1', 'IN 2', 'OUT 1', 'OUT 2'],
+  onSelectPort,
+}: {
+  sampleRate?: string;
+  activeChannel?: number;
+  ports?: string[];
+  onSelectPort?: (index: number) => void;
+}) {
+  return (
+    <div
+      className="ds-audio-midi-jack"
+      role="region"
+      aria-label="macOS 音频 MIDI 设置物理插孔矩阵"
+    >
+      <div className="ds-audio-midi-jack__header">
+        <span>Audio Interface</span>
+        <span className="ds-audio-midi-jack__rate">{sampleRate}</span>
+      </div>
+      <div className="ds-audio-midi-jack__ports" role="radiogroup" aria-label="物理音频输入输出端口">
+        {ports.map((port, idx) => {
+          const isActive = idx === activeChannel;
+          return (
+            <button
+              key={port}
+              type="button"
+              role="radio"
+              aria-checked={isActive}
+              className={`ds-audio-midi-jack__port ${isActive ? 'is-active' : ''}`}
+              onClick={() => onSelectPort?.(idx)}
+              aria-label={`端口 ${port}${isActive ? ' (已路由)' : ''}`}
+            >
+              <div className="ds-audio-midi-jack__socket" aria-hidden="true">
+                <div className="ds-audio-midi-jack__hole" />
+              </div>
+              <span className="ds-audio-midi-jack__label">{port}</span>
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+export function AnalogTapePlaybackSpeedPitchFader({
+  pitchPct = 0.0,
+  strobeLocked = true,
+  onChangePitch,
+}: {
+  pitchPct?: number;
+  strobeLocked?: boolean;
+  onChangePitch?: (val: number) => void;
+}) {
+  const clampPct = Math.max(-10, Math.min(10, pitchPct));
+  const thumbLeft = `${50 + (clampPct / 10) * 45}%`;
+
+  return (
+    <div
+      className="ds-tape-pitch-fader"
+      role="group"
+      aria-label="磁带机播放速度与音调微调推子"
+    >
+      <div className="ds-tape-pitch-fader__header">
+        <span>PITCH / SPEED DETENT</span>
+        <span className="ds-tape-pitch-fader__strobe">
+          <span style={{ fontSize: '8px' }}>●</span> {strobeLocked ? 'STROBE LOCK' : 'VARISPEED'}
+        </span>
+      </div>
+      <div
+        className="ds-tape-pitch-fader__slot"
+        tabIndex={0}
+        role="slider"
+        aria-valuemin={-10}
+        aria-valuemax={10}
+        aria-valuenow={clampPct}
+        aria-valuetext={`${clampPct >= 0 ? '+' : ''}${clampPct.toFixed(1)}%`}
+        aria-label="带速微调"
+        onKeyDown={(e) => {
+          if (e.key === 'ArrowRight' || e.key === 'ArrowUp') {
+            e.preventDefault();
+            onChangePitch?.(Math.min(10, clampPct + 0.5));
+          } else if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') {
+            e.preventDefault();
+            onChangePitch?.(Math.max(-10, clampPct - 0.5));
+          } else if (e.key === 'Home') {
+            e.preventDefault();
+            onChangePitch?.(0);
+          }
+        }}
+      >
+        <div className="ds-tape-pitch-fader__track">
+          <div className="ds-tape-pitch-fader__center-detent" />
+          <div
+            className="ds-tape-pitch-fader__thumb"
+            style={{ left: thumbLeft }}
+            aria-hidden="true"
+          />
+        </div>
+      </div>
+      <div className="ds-tape-pitch-fader__scale" aria-hidden="true">
+        <span>-10%</span>
+        <span>0 (LOCK)</span>
+        <span>+10%</span>
+      </div>
+    </div>
+  );
+}
+
+export function VisionSpatialHandGestureReticle({
+  isPinched = false,
+  confidencePct = 98,
+  gestureState = 'Direct Pinch Ready',
+}: {
+  isPinched?: boolean;
+  confidencePct?: number;
+  gestureState?: string;
+}) {
+  return (
+    <div
+      className={`ds-spatial-hand-gesture ${isPinched ? 'is-pinched' : ''}`}
+      role="status"
+      aria-live="polite"
+      aria-label={`空间双指捏合手势状态：${gestureState}，置信度 ${confidencePct}%`}
+    >
+      <div className="ds-spatial-hand-gesture__reticle" aria-hidden="true">
+        <div className="ds-spatial-hand-gesture__ring" />
+        <div className="ds-spatial-hand-gesture__dot" />
+      </div>
+      <span className="ds-spatial-hand-gesture__state">{gestureState}</span>
+    </div>
+  );
+}
+
+export function GitHubReleaseAssetChecksumPill({
+  architecture = 'x86_64',
+  sha256 = 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
+  isVerified = true,
+  onCopyHash,
+}: {
+  architecture?: string;
+  sha256?: string;
+  isVerified?: boolean;
+  onCopyHash?: () => void;
+}) {
+  return (
+    <div
+      className="ds-release-asset-checksum"
+      role="group"
+      aria-label={`发布资产校验和与安全签名：${architecture} 架构`}
+    >
+      <span className="ds-release-asset-checksum__arch">{architecture}</span>
+      <span className="ds-release-asset-checksum__hash" title={sha256}>
+        SHA: {sha256.slice(0, 12)}…
+      </span>
+      {isVerified && (
+        <span className="ds-release-asset-checksum__signed" title="GPG Signature Verified">
+          ✓ GPG
+        </span>
+      )}
+      {onCopyHash && (
+        <button
+          type="button"
+          className="ds-release-asset-checksum__btn"
+          onClick={onCopyHash}
+          aria-label="复制 SHA256 完整哈希"
+        >
+          复制
+        </button>
+      )}
+    </div>
+  );
+}
+
+export function FigmaCanvasExportSliceHud({
+  activeDensity = '@2x',
+  densities = ['@1x', '@2x', '@3x'],
+  format = 'PNG',
+  onSelectDensity,
+  onExport,
+}: {
+  activeDensity?: string;
+  densities?: string[];
+  format?: 'PNG' | 'SVG' | 'JPG' | 'PDF';
+  onSelectDensity?: (density: string) => void;
+  onExport?: () => void;
+}) {
+  return (
+    <div
+      className="ds-export-slice-hud"
+      role="toolbar"
+      aria-label="画布切片导出预设工具栏"
+    >
+      <div className="ds-export-slice-hud__density-chips" role="radiogroup" aria-label="切片导出缩放比例">
+        {densities.map((density) => {
+          const isActive = density === activeDensity;
+          return (
+            <button
+              key={density}
+              type="button"
+              role="radio"
+              aria-checked={isActive}
+              className={`ds-export-slice-hud__chip ${isActive ? 'is-active' : ''}`}
+              onClick={() => onSelectDensity?.(density)}
+            >
+              {density}
+            </button>
+          );
+        })}
+      </div>
+      <span className="ds-export-slice-hud__format">{format}</span>
+      <button
+        type="button"
+        className="ds-export-slice-hud__export-btn"
+        onClick={onExport}
+        aria-label={`导出 ${activeDensity} ${format} 切片`}
+      >
+        Export
+      </button>
+    </div>
+  );
+}
