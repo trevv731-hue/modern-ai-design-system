@@ -5219,6 +5219,194 @@ export function VisionSpatialWindowResizeCorner({
   );
 }
 
+export function RaycastFloatingAiDockPill({
+  model = 'Claude 3.7 Sonnet',
+  placeholder = '询问任何问题或输入 / 调用系统指令…',
+  onListen,
+  onDismiss
+}: {
+  model?: string;
+  placeholder?: string;
+  onListen?: () => void;
+  onDismiss?: () => void;
+}) {
+  return (
+    <div className="ds-ai-dock-pill" role="region" aria-label="Raycast 悬浮 AI 智能体应用坞胶囊">
+      <div className="ds-ai-dock-pill__aura" aria-hidden="true" />
+      <span className="ds-ai-dock-pill__model">✦ {model}</span>
+      <span className="ds-ai-dock-pill__query">{placeholder}</span>
+      <button
+        type="button"
+        className="ds-ai-dock-pill__mic"
+        aria-label="实时语音听写"
+        onClick={onListen}
+      >
+        🎙
+      </button>
+      <kbd
+        className="ds-ai-dock-pill__esc"
+        aria-label="按 Esc 键收起"
+        onClick={onDismiss}
+      >
+        esc
+      </kbd>
+    </div>
+  );
+}
+
+export function FigmaCanvasSnapGuides({
+  snapDist = '16px',
+  activeAxis = 'both'
+}: {
+  snapDist?: string;
+  activeAxis?: 'x' | 'y' | 'both';
+}) {
+  return (
+    <div className="ds-canvas-snap-guides" role="region" aria-label="Figma 画布磁吸对齐参考线与间距指示">
+      <div className="ds-canvas-snap-guides__box" style={{ left: 24, top: 20, width: 90, height: 50 }} />
+      <div className="ds-canvas-snap-guides__box" style={{ left: 170, top: 70, width: 120, height: 50 }} />
+      {(activeAxis === 'x' || activeAxis === 'both') && <div className="ds-canvas-snap-guides__line-x" />}
+      {(activeAxis === 'y' || activeAxis === 'both') && <div className="ds-canvas-snap-guides__line-y" />}
+      <span className="ds-canvas-snap-guides__tag">{snapDist}</span>
+    </div>
+  );
+}
+
+export function IosStandbyClockCard({
+  hours = '09',
+  minutes = '41',
+  seconds = '28',
+  date = '10月16日 星期四',
+  alarm = '07:30',
+  mode = 'night'
+}: {
+  hours?: string;
+  minutes?: string;
+  seconds?: string;
+  date?: string;
+  alarm?: string;
+  mode?: 'night' | 'solar' | 'standard';
+}) {
+  const modeClass = mode === 'night' ? 'ds-standby-clock--night' : (mode === 'solar' ? 'ds-standby-clock--solar' : '');
+  return (
+    <div className={`ds-standby-clock ${modeClass}`} role="region" aria-label={`iOS StandBy 待机时钟：${hours}:${minutes}`}>
+      <div className="ds-standby-clock__meta">
+        <span>{date}</span>
+        <span>⏰ {alarm}</span>
+      </div>
+      <div className="ds-standby-clock__time">
+        <span>{hours}:{minutes}</span>
+        <span className="ds-standby-clock__sec">{seconds}</span>
+      </div>
+      <div className="ds-standby-clock__footer">
+        <span>STANDBY MODE</span>
+        <span>☀️ 日出 06:12</span>
+      </div>
+    </div>
+  );
+}
+
+export function AnalogVuPeakLimiterMeter({
+  levelDb = -4,
+  gainReductionDb = -2,
+  isClipping = false
+}: {
+  levelDb?: number;
+  gainReductionDb?: number;
+  isClipping?: boolean;
+}) {
+  const steps = [-24, -18, -12, -8, -4, -2, 0, 2, 4, 6];
+  return (
+    <div className="ds-vu-peak-limiter" role="meter" aria-label={`模拟峰值电平指示器：${levelDb} dB`} aria-valuenow={levelDb}>
+      <div className="ds-vu-peak-limiter__head">
+        <span>PEAK LIMITER & GR</span>
+        <span style={{ color: isClipping ? '#ef4444' : '#64748b' }}>
+          {isClipping ? '● CLIP' : '○ NORMAL'}
+        </span>
+      </div>
+      <div className="ds-vu-peak-limiter__ladder">
+        {steps.map((db, i) => {
+          const isLit = levelDb >= db;
+          const colorType = db >= 2 ? 'red' : (db >= 0 ? 'yellow' : 'green');
+          return (
+            <div
+              key={i}
+              className={`ds-vu-peak-limiter__led ds-vu-peak-limiter__led--${colorType} ${isLit ? 'is-lit' : ''}`}
+            />
+          );
+        })}
+      </div>
+      <div className="ds-vu-peak-limiter__scale">
+        <span>-24</span>
+        <span>-12</span>
+        <span>-4</span>
+        <span>0dB</span>
+        <span>+6dB</span>
+      </div>
+    </div>
+  );
+}
+
+export function GithubPrMergeQueueNode({
+  queuePosition = 2,
+  prNumber = 1042,
+  title = 'feat(tokens): add spatial hover halo ring & standby clock',
+  branch = 'codex/batch-30',
+  ciStatus = '运行中 4/5',
+  onCancel
+}: {
+  queuePosition?: number;
+  prNumber?: number;
+  title?: string;
+  branch?: string;
+  ciStatus?: string;
+  onCancel?: () => void;
+}) {
+  return (
+    <div className="ds-pr-merge-queue-node" role="region" aria-label={`GitHub 合并队列第 ${queuePosition} 位：PR #${prNumber}`}>
+      <span className="ds-pr-merge-queue-node__badge">#{queuePosition} QUEUE</span>
+      <div className="ds-pr-merge-queue-node__body">
+        <span className="ds-pr-merge-queue-node__title">#{prNumber} {title}</span>
+        <span className="ds-pr-merge-queue-node__meta">
+          <span>{branch}</span>
+          <span>·</span>
+          <span style={{ color: 'var(--ds-accent)' }}>⏳ {ciStatus}</span>
+        </span>
+      </div>
+      <button
+        type="button"
+        className="ds-pr-merge-queue-node__cancel"
+        aria-label="从合并队列中移除"
+        onClick={onCancel}
+      >
+        移出队列
+      </button>
+    </div>
+  );
+}
+
+export function VisionSpatialHoverHaloRing({
+  label = '空间注视焦点光环',
+  isPinched = false,
+  onClick
+}: {
+  label?: string;
+  isPinched?: boolean;
+  onClick?: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      className={`ds-spatial-halo-ring ${isPinched ? 'is-pinched' : ''}`}
+      aria-label={label}
+      onClick={onClick}
+    >
+      <div className="ds-spatial-halo-ring__dot" />
+    </button>
+  );
+}
+
+
 
 
 

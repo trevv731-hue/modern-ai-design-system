@@ -1680,16 +1680,60 @@
   --ds-shadow: 4px 4px 0px #000000;
 }
 
+/* Arc Boost Neon — Arc Browser electric neon gradient glass aesthetic */
+[data-palette="arc-boost-neon"] {
+  color-scheme: dark;
+  --ds-canvas: #0d111e;
+  --ds-surface: #161c2e;
+  --ds-inset: #080b14;
+  --ds-chrome: rgba(22,28,46,.92);
+  --ds-ink: #f3f6fc;
+  --ds-muted: #8e9ab5;
+  --ds-line: #232d48;
+  --ds-control-line: #38466b;
+  --ds-accent: #d2ff32;
+  --ds-accent-soft: #222f12;
+  --ds-action: #ff3b88;
+  --ds-action-hover: #ff5a9d;
+  --ds-on-action: #ffffff;
+  --ds-secondary: #00f0ff;
+  --ds-secondary-soft: #102d38;
+  --ds-success: #00f59b;
+  --ds-success-soft: #103525;
+  --ds-warning: #ffd000;
+  --ds-warning-soft: #383010;
+  --ds-danger: #ff3355;
+  --ds-danger-soft: #3d141e;
+  --ds-focus: #00f0ff;
+  --ds-overlay: rgba(8,11,20,.85);
+  --ds-shadow: 0 8px 32px rgba(0,240,255,.15), 0 4px 16px rgba(0,0,0,.6);
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
+/* Espresso Macchiato — Steamed velvety milk foam & dark roasted coffee crema */
+[data-palette="espresso-macchiato"] {
+  color-scheme: light;
+  --ds-canvas: #f9f6f0;
+  --ds-surface: #ffffff;
+  --ds-inset: #f0eae1;
+  --ds-chrome: rgba(255,255,255,.94);
+  --ds-ink: #2b1b17;
+  --ds-muted: #786862;
+  --ds-line: #e5dcd3;
+  --ds-control-line: #cbbdb1;
+  --ds-accent: #c68642;
+  --ds-accent-soft: #faefe3;
+  --ds-action: #432a22;
+  --ds-action-hover: #58392f;
+  --ds-on-action: #ffffff;
+  --ds-secondary: #8d5b4c;
+  --ds-secondary-soft: #f2e6e1;
+  --ds-success: #2e6b45;
+  --ds-success-soft: #e6f2eb;
+  --ds-warning: #b86a04;
+  --ds-warning-soft: #fbf0de;
+  --ds-danger: #a83232;
+  --ds-danger-soft: #fae6e6;
+  --ds-focus: #c68642;
+  --ds-overlay: rgba(43,27,23,.45);
+  --ds-shadow: 0 6px 22px rgba(67,42,34,.12);
+}
