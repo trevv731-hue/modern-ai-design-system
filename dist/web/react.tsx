@@ -11953,3 +11953,139 @@ export function IOSAmbientIslandMinimalPill({
   );
 }
 
+export function IconButton({ label, variant = 'secondary', className = '', children, ...props }:
+  Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'aria-label'> & { label: string; variant?: 'primary' | 'secondary' | 'ghost' | 'danger' }) {
+  return <button type="button" {...props} aria-label={label} title={props.title || label}
+    className={`ds-button ds-button--${variant} ds-button--icon ${className}`}>{children}</button>;
+}
+
+export function Textarea({ label, hint, id, rows = 4, className = '', ...props }:
+  React.TextareaHTMLAttributes<HTMLTextAreaElement> & { label: string; hint?: string }) {
+  const generated = useId();
+  const fieldId = id || generated;
+  return <div className={`ds-field ${className}`}><div className="ds-field__control">
+    <textarea {...props} id={fieldId} rows={rows} placeholder={props.placeholder || ' '}
+      aria-describedby={[props['aria-describedby'], hint && `${fieldId}-help`].filter(Boolean).join(' ') || undefined} />
+    <label className="ds-field__label" htmlFor={fieldId}>{label}</label></div>
+    {hint && <span id={`${fieldId}-help`} className="ds-field__hint">{hint}</span>}
+  </div>;
+}
+
+export function Select({ label, value, options, onChange, className = '', ...props }:
+  Omit<React.SelectHTMLAttributes<HTMLSelectElement>, 'value' | 'onChange'> & { label: string; value?: string; options: string[]; onChange?: (value: string) => void }) {
+  const id = useId();
+  return <label htmlFor={id} className={className}>{label}
+    <select {...props} id={id} aria-label={label} value={value} className="ds-button ds-button--secondary"
+      onChange={event => onChange?.(event.target.value)}>
+      {options.map(option => <option key={option} value={option}>{option}</option>)}
+    </select></label>;
+}
+
+export function Checkbox({ label, indeterminate = false, className = '', ...props }:
+  Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type'> & { label: string; indeterminate?: boolean }) {
+  const ref = useRef<HTMLInputElement>(null);
+  useEffect(() => { if (ref.current) ref.current.indeterminate = indeterminate; }, [indeterminate]);
+  return <label className={`ds-check ${className}`}><input {...props} ref={ref} type="checkbox" />{label}</label>;
+}
+
+export function RadioGroup<T extends string>({ legend, name, value, options, onChange }:
+  { legend: string; name: string; value?: T; options: { value: T; label: string }[]; onChange?: (value: T) => void }) {
+  return <fieldset style={{ border: 0, padding: 0 }}><legend>{legend}</legend>
+    {options.map(option => <label className="ds-check" key={option.value}>
+      <input type="radio" name={name} checked={value === option.value} onChange={() => onChange?.(option.value)} />{option.label}
+    </label>)}</fieldset>;
+}
+
+export function Tabs({ label, tabs, onChange }:
+  { label: string; tabs: { id: string; label: string; content: React.ReactNode }[]; onChange?: (id: string) => void }) {
+  const base = useId();
+  const [active, setActive] = useState(tabs[0]?.id);
+  const select = (id: string) => { setActive(id); onChange?.(id); };
+  const move = (event: React.KeyboardEvent<HTMLButtonElement>, index: number) => {
+    const last = tabs.length - 1;
+    let next = index;
+    if (event.key === 'ArrowRight' || event.key === 'ArrowDown') next = index === last ? 0 : index + 1;
+    else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') next = index === 0 ? last : index - 1;
+    else if (event.key === 'Home') next = 0;
+    else if (event.key === 'End') next = last;
+    else return;
+    event.preventDefault();
+    select(tabs[next].id);
+    const buttons = event.currentTarget.parentElement?.querySelectorAll<HTMLButtonElement>('[role=tab]');
+    buttons?.[next]?.focus();
+  };
+  return <>
+    <div className="ds-segment" role="tablist" aria-label={label}>
+      {tabs.map((tab, index) => <button type="button" role="tab" id={`${base}-tab-${tab.id}`} key={tab.id}
+        aria-selected={tab.id === active} aria-controls={`${base}-panel-${tab.id}`} tabIndex={tab.id === active ? 0 : -1}
+        onClick={() => select(tab.id)} onKeyDown={event => move(event, index)}>{tab.label}</button>)}
+    </div>
+    {tabs.map(tab => <div role="tabpanel" id={`${base}-panel-${tab.id}`} key={tab.id}
+      aria-labelledby={`${base}-tab-${tab.id}`} hidden={tab.id !== active}>{tab.content}</div>)}
+  </>;
+}
+
+export function Navigation({ label = '应用导航', items }:
+  { label?: string; items: { href: string; label: string; current?: boolean }[] }) {
+  return <nav className="ds-nav" aria-label={label}>
+    {items.map(item => <a href={item.href} key={item.href} aria-current={item.current ? 'page' : undefined}>{item.label}</a>)}
+  </nav>;
+}
+
+export function Breadcrumb({ items }: { items: { href?: string; label: string }[] }) {
+  return <nav aria-label="面包屑">
+    {items.map((item, index) => <React.Fragment key={item.label}>
+      {index > 0 && <span aria-hidden="true"> / </span>}
+      {item.href ? <a href={item.href}>{item.label}</a> : <span aria-current="page">{item.label}</span>}
+    </React.Fragment>)}
+  </nav>;
+}
+
+export function Toast({ message, action }: { message: string; action?: React.ReactNode }) {
+  return <div className="ds-toast" role="status">{message}{action}</div>;
+}
+
+export function Disclosure({ summary, defaultOpen = false, children }:
+  { summary: string; defaultOpen?: boolean; children: React.ReactNode }) {
+  return <details className="ds-panel" open={defaultOpen}><summary>{summary}</summary>{children}</details>;
+}
+
+export function DataTable({ caption, columns, rows }:
+  { caption: string; columns: string[]; rows: React.ReactNode[][] }) {
+  return <div className="ds-table-scroll" tabIndex={0} aria-label={`${caption}表格`}>
+    <table className="ds-table"><caption className="ds-sr-only">{caption}</caption>
+      <thead><tr>{columns.map(column => <th scope="col" key={column}>{column}</th>)}</tr></thead>
+      <tbody>{rows.map((row, index) => <tr key={index}>{row.map((cell, cellIndex) => <td key={cellIndex}>{cell}</td>)}</tr>)}</tbody>
+    </table></div>;
+}
+
+export function Skeleton({ lines = 3, widths, label = '正在加载内容' }:
+  { lines?: number; widths?: string[]; label?: string }) {
+  return <div aria-busy="true" aria-label={label}>
+    {Array.from({ length: lines }, (_, index) =>
+      <div className="ds-skeleton" aria-hidden="true" key={index} style={{ width: widths?.[index] }} />)}
+  </div>;
+}
+
+export function Avatar({ name, className = '' }: { name: string; className?: string }) {
+  const initials = name.trim().slice(0, 2).toUpperCase();
+  return <span className={`ds-avatar ${className}`} aria-label={`头像 ${name}`}>{initials}</span>;
+}
+
+export function KeyboardHint({ label, keys }: { label: string; keys: string[] }) {
+  return <span>{label} {keys.map((key, index) => (
+    <React.Fragment key={key}>{index > 0 ? ' + ' : ''}<kbd className="ds-key">{key}</kbd></React.Fragment>))}</span>;
+}
+
+export function Toolbar({ title, children, className = '' }:
+  { title: string; children?: React.ReactNode; className?: string }) {
+  return <div className={`ds-toolbar ${className}`}><strong>{title}</strong><div>{children}</div></div>;
+}
+
+export function CodeBlock({ code, label = '代码' }: { code: string; label?: string }) {
+  return <pre className="ds-code" tabIndex={0} aria-label={`${label}示例`}><code>{code}</code></pre>;
+}
+
+export function Divider({ className = '' }: { className?: string }) {
+  return <hr className={`ds-divider ${className}`} />;
+}

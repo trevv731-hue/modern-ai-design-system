@@ -49,8 +49,8 @@
       "键盘焦点完整可见",
       "图标与文字动作结果一致"
     ],
-    "react": "",
-    "status": "CSS / HTML"
+    "react": "<IconButton label=\"刷新列表\" onClick={refresh}>↻</IconButton>",
+    "status": "CSS / HTML / React"
   },
   {
     "id": "field",
@@ -102,8 +102,8 @@
       "粘贴 1000 行仍可编辑",
       "超长单行不撑开页面"
     ],
-    "react": "",
-    "status": "CSS / HTML"
+    "react": "<Textarea label=\"节点内容\" hint=\"每行一个分享链接\" rows={5} value={text} onChange={event => setText(event.target.value)} />",
+    "status": "CSS / HTML / React"
   },
   {
     "id": "select",
@@ -128,8 +128,8 @@
       "标签和当前值均可被读取",
       "缩放后菜单可使用"
     ],
-    "react": "",
-    "status": "CSS / HTML"
+    "react": "<Select label=\"默认路由\" value={route} options={[\"规则分流\", \"全局代理\", \"完全直连\"]} onChange={setRoute} />",
+    "status": "CSS / HTML / React"
   },
   {
     "id": "switch",
@@ -181,8 +181,8 @@
       "可见标签正确绑定",
       "触摸标签区域也能切换"
     ],
-    "react": "",
-    "status": "CSS / HTML"
+    "react": "<Checkbox label=\"仅显示已测速节点\" checked={onlyTested} onChange={event => setOnlyTested(event.target.checked)} />",
+    "status": "CSS / HTML / React"
   },
   {
     "id": "radio",
@@ -207,8 +207,8 @@
       "组名称可读",
       "用户可以撤销尚未提交的选择"
     ],
-    "react": "",
-    "status": "CSS / HTML"
+    "react": "<RadioGroup legend=\"刷新策略\" name=\"refresh\" value={policy} options={[{ value: \"manual\", label: \"手动刷新\" }, { value: \"6h\", label: \"每 6 小时刷新\" }]} onChange={setPolicy} />",
+    "status": "CSS / HTML / React"
   },
   {
     "id": "segmented",
@@ -259,8 +259,8 @@
       "隐藏面板内不能获得焦点",
       "切换后标题与内容一致"
     ],
-    "react": "",
-    "status": "CSS / HTML"
+    "react": "<Tabs label=\"示例信息\" tabs={[{ id: \"a\", label: \"概览\", content: \"概览内容\" }, { id: \"b\", label: \"详情\", content: \"详情内容\" }]} />",
+    "status": "CSS / HTML / React"
   },
   {
     "id": "navigation",
@@ -285,8 +285,8 @@
       "导航折叠仍有可访问名称",
       "长标签不挤压图标"
     ],
-    "react": "",
-    "status": "CSS / HTML"
+    "react": "<Navigation items={[{ href: \"#overview\", label: \"概览\", current: true }, { href: \"#components\", label: \"组件\" }]} />",
+    "status": "CSS / HTML / React"
   },
   {
     "id": "breadcrumb",
@@ -311,8 +311,8 @@
       "当前页面有 aria-current",
       "分隔符不会被反复读出"
     ],
-    "react": "",
-    "status": "CSS / HTML"
+    "react": "<Breadcrumb items={[{ href: \"#overview\", label: \"设计系统\" }, { href: \"#components\", label: \"组件\" }, { label: \"按钮\" }]} />",
+    "status": "CSS / HTML / React"
   },
   {
     "id": "card",
@@ -440,8 +440,8 @@
       "屏幕阅读器收到一次通知",
       "通知不遮住当前焦点"
     ],
-    "react": "",
-    "status": "CSS / HTML"
+    "react": "<Toast message=\"已复制示例代码\" />",
+    "status": "CSS / HTML / React"
   },
   {
     "id": "dialog",
@@ -492,8 +492,8 @@
       "屏幕阅读器读出折叠状态",
       "展开内容无布局动画"
     ],
-    "react": "",
-    "status": "CSS / HTML"
+    "react": "<Disclosure summary=\"高级配置说明\"><p>修改端口前请停止代理。</p></Disclosure>",
+    "status": "CSS / HTML / React"
   },
   {
     "id": "table",
@@ -518,8 +518,8 @@
       "表格滚动不改变整个页面宽度",
       "排序后的视觉和读屏结果一致"
     ],
-    "react": "",
-    "status": "CSS / HTML"
+    "react": "<DataTable caption=\"节点信息\" columns={[\"名称\", \"协议\", \"状态\"]} rows={[[\"香港线路\", \"VLESS\", <Badge tone=\"success\">就绪</Badge>]]} />",
+    "status": "CSS / HTML / React"
   },
   {
     "id": "empty",
@@ -594,8 +594,8 @@
       "减少动效下保持静态",
       "最终内容不发生大幅跳动"
     ],
-    "react": "",
-    "status": "CSS / HTML"
+    "react": "<Skeleton lines={3} widths={[\"100%\", \"70%\", \"45%\"]} />",
+    "status": "CSS / HTML / React"
   },
   {
     "id": "avatar",
@@ -619,8 +619,8 @@
       "身份名称可读",
       "不从凭据生成公开头像"
     ],
-    "react": "",
-    "status": "CSS / HTML"
+    "react": "<Avatar name=\"AetherLink 工作区\" />",
+    "status": "CSS / HTML / React"
   },
   {
     "id": "keyboard",
@@ -644,8 +644,8 @@
       "输入框中行为不冲突",
       "不同平台标签正确"
     ],
-    "react": "",
-    "status": "CSS / HTML"
+    "react": "<KeyboardHint label=\"搜索组件\" keys={[\"Ctrl\", \"K\"]} />",
+    "status": "CSS / HTML / React"
   },
   {
     "id": "toolbar",
@@ -670,8 +670,8 @@
       "操作依赖状态时正确禁用",
       "工具栏标题说明上下文"
     ],
-    "react": "",
-    "status": "CSS / HTML"
+    "react": "<Toolbar title=\"节点中心\"><Button onClick={add}>添加节点</Button></Toolbar>",
+    "status": "CSS / HTML / React"
   },
   {
     "id": "code",
@@ -696,8 +696,8 @@
       "脚本字符显示为文字",
       "复制失败有替代办法"
     ],
-    "react": "",
-    "status": "CSS / HTML"
+    "react": "<CodeBlock label=\"日志\" code=\"[info] Controller ready\" />",
+    "status": "CSS / HTML / React"
   },
   {
     "id": "divider",
@@ -721,8 +721,8 @@
       "没有无意义焦点",
       "边界不替代信息标题"
     ],
-    "react": "",
-    "status": "CSS / HTML"
+    "react": "<Divider />",
+    "status": "CSS / HTML / React"
   },
   {
     "id": "chip",

@@ -1,6 +1,6 @@
 # 临时通知
 
-[返回组件目录](../README.md) · 反馈 · CSS / HTML
+[返回组件目录](../README.md) · 反馈 · CSS / HTML / React
 
 ## 目的与边界
 
@@ -46,7 +46,13 @@
 <button class="ds-button ds-button--secondary" data-toast="已复制示例代码">触发通知</button>
 ```
 
-该组件提供 HTML/CSS 示例，尚未提供独立 React 封装；业务代码应保留原生语义。
+## React 示例
+
+```tsx
+<Toast message="已复制示例代码" />
+```
+
+组件源码见 [web/react.tsx](../../web/react.tsx)。
 
 ## 验收
 

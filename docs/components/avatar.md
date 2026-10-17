@@ -1,6 +1,6 @@
 # 头像
 
-[返回组件目录](../README.md) · 数据 · CSS / HTML
+[返回组件目录](../README.md) · 数据 · CSS / HTML / React
 
 ## 目的与边界
 
@@ -45,7 +45,13 @@
 <span class="ds-avatar" aria-label="工作区 AL">AL</span>
 ```
 
-该组件提供 HTML/CSS 示例，尚未提供独立 React 封装；业务代码应保留原生语义。
+## React 示例
+
+```tsx
+<Avatar name="AetherLink 工作区" />
+```
+
+组件源码见 [web/react.tsx](../../web/react.tsx)。
 
 ## 验收
 

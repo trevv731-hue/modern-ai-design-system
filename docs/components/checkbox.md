@@ -1,6 +1,6 @@
 # 复选框
 
-[返回组件目录](../README.md) · 表单 · CSS / HTML
+[返回组件目录](../README.md) · 表单 · CSS / HTML / React
 
 ## 目的与边界
 
@@ -46,7 +46,13 @@ Tab 导航；Space 切换；父级全选需要同步 indeterminate。
 <label class="ds-check"><input type="checkbox">仅显示已测速节点</label><label class="ds-check"><input type="checkbox" checked>保留本地节点</label>
 ```
 
-该组件提供 HTML/CSS 示例，尚未提供独立 React 封装；业务代码应保留原生语义。
+## React 示例
+
+```tsx
+<Checkbox label="仅显示已测速节点" checked={onlyTested} onChange={event => setOnlyTested(event.target.checked)} />
+```
+
+组件源码见 [web/react.tsx](../../web/react.tsx)。
 
 ## 验收
 

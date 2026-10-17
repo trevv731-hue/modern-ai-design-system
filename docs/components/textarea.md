@@ -1,6 +1,6 @@
 # 多行输入
 
-[返回组件目录](../README.md) · 表单 · CSS / HTML
+[返回组件目录](../README.md) · 表单 · CSS / HTML / React
 
 ## 目的与边界
 
@@ -46,7 +46,13 @@ Enter 换行；Tab 移动焦点；若提供提交快捷键，需在帮助文本�
 <div class="ds-field"><div class="ds-field__control"><textarea id="gallery-text" placeholder=" "></textarea><label class="ds-field__label" for="gallery-text">节点内容</label></div><span class="ds-field__hint">每行一个分享链接</span></div>
 ```
 
-该组件提供 HTML/CSS 示例，尚未提供独立 React 封装；业务代码应保留原生语义。
+## React 示例
+
+```tsx
+<Textarea label="节点内容" hint="每行一个分享链接" rows={5} value={text} onChange={event => setText(event.target.value)} />
+```
+
+组件源码见 [web/react.tsx](../../web/react.tsx)。
 
 ## 验收
 

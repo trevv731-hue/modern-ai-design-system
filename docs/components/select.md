@@ -1,6 +1,6 @@
 # 选择器
 
-[返回组件目录](../README.md) · 表单 · CSS / HTML
+[返回组件目录](../README.md) · 表单 · CSS / HTML / React
 
 ## 目的与边界
 
@@ -46,7 +46,13 @@
 <label>默认路由<select class="ds-button ds-button--secondary" aria-label="默认路由"><option>规则分流</option><option>全局代理</option><option>完全直连</option></select></label>
 ```
 
-该组件提供 HTML/CSS 示例，尚未提供独立 React 封装；业务代码应保留原生语义。
+## React 示例
+
+```tsx
+<Select label="默认路由" value={route} options={["规则分流", "全局代理", "完全直连"]} onChange={setRoute} />
+```
+
+组件源码见 [web/react.tsx](../../web/react.tsx)。
 
 ## 验收
 

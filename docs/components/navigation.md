@@ -1,6 +1,6 @@
 # 侧边导航
 
-[返回组件目录](../README.md) · 导航 · CSS / HTML
+[返回组件目录](../README.md) · 导航 · CSS / HTML / React
 
 ## 目的与边界
 
@@ -46,7 +46,13 @@
 <nav class="ds-nav" aria-label="应用导航"><a href="#overview" aria-current="page">概览</a><a href="#components">组件</a><a href="#tokens">设计变量</a></nav>
 ```
 
-该组件提供 HTML/CSS 示例，尚未提供独立 React 封装；业务代码应保留原生语义。
+## React 示例
+
+```tsx
+<Navigation items={[{ href: "#overview", label: "概览", current: true }, { href: "#components", label: "组件" }]} />
+```
+
+组件源码见 [web/react.tsx](../../web/react.tsx)。
 
 ## 验收
 

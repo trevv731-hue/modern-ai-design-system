@@ -1,6 +1,6 @@
 # 工具栏
 
-[返回组件目录](../README.md) · 布局 · CSS / HTML
+[返回组件目录](../README.md) · 布局 · CSS / HTML / React
 
 ## 目的与边界
 
@@ -46,7 +46,13 @@
 <div class="ds-toolbar"><strong>节点中心</strong><div><button class="ds-button ds-button--secondary">测速</button> <button class="ds-button" data-toast="打开导入任务">添加节点</button></div></div>
 ```
 
-该组件提供 HTML/CSS 示例，尚未提供独立 React 封装；业务代码应保留原生语义。
+## React 示例
+
+```tsx
+<Toolbar title="节点中心"><Button onClick={add}>添加节点</Button></Toolbar>
+```
+
+组件源码见 [web/react.tsx](../../web/react.tsx)。
 
 ## 验收
 

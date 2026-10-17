@@ -1,6 +1,6 @@
 # 折叠面板
 
-[返回组件目录](../README.md) · 容器 · CSS / HTML
+[返回组件目录](../README.md) · 容器 · CSS / HTML / React
 
 ## 目的与边界
 
@@ -45,7 +45,13 @@
 <details class="ds-panel"><summary>高级配置说明</summary><p>修改端口前请停止代理，控制器与混合端口不能相同。</p></details>
 ```
 
-该组件提供 HTML/CSS 示例，尚未提供独立 React 封装；业务代码应保留原生语义。
+## React 示例
+
+```tsx
+<Disclosure summary="高级配置说明"><p>修改端口前请停止代理。</p></Disclosure>
+```
+
+组件源码见 [web/react.tsx](../../web/react.tsx)。
 
 ## 验收
 

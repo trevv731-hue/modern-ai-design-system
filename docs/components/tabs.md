@@ -1,6 +1,6 @@
 # 标签页
 
-[返回组件目录](../README.md) · 导航 · CSS / HTML
+[返回组件目录](../README.md) · 导航 · CSS / HTML / React
 
 ## 目的与边界
 
@@ -46,7 +46,13 @@
 <div class="ds-segment" role="tablist" aria-label="示例信息"><button role="tab" id="tab-a" aria-selected="true" aria-controls="panel-a">概览</button><button role="tab" id="tab-b" tabindex="-1" aria-selected="false" aria-controls="panel-b">详情</button></div><div role="tabpanel" id="panel-a" aria-labelledby="tab-a">概览内容</div><div role="tabpanel" id="panel-b" aria-labelledby="tab-b" hidden>详情内容</div>
 ```
 
-该组件提供 HTML/CSS 示例，尚未提供独立 React 封装；业务代码应保留原生语义。
+## React 示例
+
+```tsx
+<Tabs label="示例信息" tabs={[{ id: "a", label: "概览", content: "概览内容" }, { id: "b", label: "详情", content: "详情内容" }]} />
+```
+
+组件源码见 [web/react.tsx](../../web/react.tsx)。
 
 ## 验收
 

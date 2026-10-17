@@ -1,6 +1,6 @@
 # 面包屑
 
-[返回组件目录](../README.md) · 导航 · CSS / HTML
+[返回组件目录](../README.md) · 导航 · CSS / HTML / React
 
 ## 目的与边界
 
@@ -46,7 +46,13 @@ Tab 到父级链接；当前页无需做重复可点击链接。
 <nav aria-label="面包屑"><a href="#overview">设计系统</a> <span aria-hidden="true"> / </span><a href="#components">组件</a> <span aria-hidden="true"> / </span><span aria-current="page">按钮</span></nav>
 ```
 
-该组件提供 HTML/CSS 示例，尚未提供独立 React 封装；业务代码应保留原生语义。
+## React 示例
+
+```tsx
+<Breadcrumb items={[{ href: "#overview", label: "设计系统" }, { href: "#components", label: "组件" }, { label: "按钮" }]} />
+```
+
+组件源码见 [web/react.tsx](../../web/react.tsx)。
 
 ## 验收
 

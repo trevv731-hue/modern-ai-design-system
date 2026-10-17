@@ -1,6 +1,6 @@
 # 单选项
 
-[返回组件目录](../README.md) · 表单 · CSS / HTML
+[返回组件目录](../README.md) · 表单 · CSS / HTML / React
 
 ## 目的与边界
 
@@ -46,7 +46,13 @@ Tab 进入组；方向键在组内选择；Space 选择当前项。
 <fieldset style="border:0;padding:0"><legend>刷新策略</legend><label class="ds-check"><input type="radio" name="refresh" checked>手动刷新</label><label class="ds-check"><input type="radio" name="refresh">每 6 小时刷新</label></fieldset>
 ```
 
-该组件提供 HTML/CSS 示例，尚未提供独立 React 封装；业务代码应保留原生语义。
+## React 示例
+
+```tsx
+<RadioGroup legend="刷新策略" name="refresh" value={policy} options={[{ value: "manual", label: "手动刷新" }, { value: "6h", label: "每 6 小时刷新" }]} onChange={setPolicy} />
+```
+
+组件源码见 [web/react.tsx](../../web/react.tsx)。
 
 ## 验收
 

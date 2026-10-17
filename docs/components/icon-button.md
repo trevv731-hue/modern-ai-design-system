@@ -1,6 +1,6 @@
 # 图标按钮
 
-[返回组件目录](../README.md) · 操作 · CSS / HTML
+[返回组件目录](../README.md) · 操作 · CSS / HTML / React
 
 ## 目的与边界
 
@@ -46,7 +46,13 @@ Tab 导航；Enter/Space 激活。不要让 tooltip 成为唯一名称。
 <button class="ds-button ds-button--secondary ds-button--icon" aria-label="刷新列表" title="刷新列表" data-toast="列表已刷新">↻</button>
 ```
 
-该组件提供 HTML/CSS 示例，尚未提供独立 React 封装；业务代码应保留原生语义。
+## React 示例
+
+```tsx
+<IconButton label="刷新列表" onClick={refresh}>↻</IconButton>
+```
+
+组件源码见 [web/react.tsx](../../web/react.tsx)。
 
 ## 验收
 

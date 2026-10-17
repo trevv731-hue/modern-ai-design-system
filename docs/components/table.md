@@ -1,6 +1,6 @@
 # 数据表格
 
-[返回组件目录](../README.md) · 数据 · CSS / HTML
+[返回组件目录](../README.md) · 数据 · CSS / HTML / React
 
 ## 目的与边界
 
@@ -46,7 +46,13 @@
 <div class="ds-table-scroll" tabindex="0" aria-label="节点示例表格"><table class="ds-table"><caption class="ds-sr-only">节点信息</caption><thead><tr><th scope="col">名称</th><th scope="col">协议</th><th scope="col">状态</th></tr></thead><tbody><tr><td>香港线路</td><td>VLESS</td><td><span class="ds-badge ds-badge--success">就绪</span></td></tr><tr><td>日本线路</td><td>Trojan</td><td><span class="ds-badge ds-badge--warning">未测速</span></td></tr></tbody></table></div>
 ```
 
-该组件提供 HTML/CSS 示例，尚未提供独立 React 封装；业务代码应保留原生语义。
+## React 示例
+
+```tsx
+<DataTable caption="节点信息" columns={["名称", "协议", "状态"]} rows={[["香港线路", "VLESS", <Badge tone="success">就绪</Badge>]]} />
+```
+
+组件源码见 [web/react.tsx](../../web/react.tsx)。
 
 ## 验收
 
