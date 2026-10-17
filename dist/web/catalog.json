@@ -11758,5 +11758,356 @@
       "键盘可操作块内控件"
     ],
     "react": "<LinearDocumentInlineBlock kind=\"任务清单\" items={[{ label: \"确认订阅链接有效\", done: true }, { label: \"对比历史延迟记录\" }]} />"
+  },
+  {
+    "id": "github-code-review-thread",
+    "name": "GitHub 代码评审讨论串",
+    "category": "研发协作",
+    "status": "v3 新增",
+    "purpose": "把针对某一处代码的评论按串聚合，显示解决状态与参与人，避免评审意见散落。",
+    "anatomy": [
+      "讨论串外壳 (ds-review-thread)",
+      "代码位置提示",
+      "评论列表",
+      "解决与回复入口"
+    ],
+    "keyboard": "Tab 进入每条评论的操作按钮；Enter 回复；Escape 收起长串。",
+    "guidance": [
+      "代码位置写明文件与行号，跳转后保留讨论串状态。",
+      "解决状态由提出者或被指派者确认，不自动关闭。",
+      "过期讨论（代码已改）明确标注。"
+    ],
+    "preview": "<section class=\"ds-review-thread\" role=\"region\" aria-label=\"代码评审讨论串\"><header class=\"ds-review-thread__head\"><strong>subscription.ts:48</strong><span class=\"ds-badge ds-badge--warning\">待解决</span></header><ul class=\"ds-review-thread__list\"><li class=\"ds-review-thread__comment\"><strong>周舟</strong><p>这里的重试次数建议改为配置项。</p></li></ul><footer class=\"ds-review-thread__foot\"><button type=\"button\" class=\"ds-button ds-button--ghost\">回复</button><button type=\"button\" class=\"ds-button ds-button--secondary\">标记解决</button></footer></section>",
+    "checks": [
+      "代码位置写明文件与行号",
+      "解决需人工确认",
+      "过期讨论明确标注",
+      "键盘可完成回复与标记"
+    ],
+    "react": "<GithubCodeReviewThread location=\"subscription.ts:48\" status=\"待解决\" comments={[{ author: \"周舟\", body: \"这里的重试次数建议改为配置项。\" }]} />"
+  },
+  {
+    "id": "github-blame-hud",
+    "name": "GitHub 行级溯源 HUD",
+    "category": "研发协作",
+    "status": "v3 新增",
+    "purpose": "在行首显示最近修改者、提交号与时间，便于快速找到上下文负责人。",
+    "anatomy": [
+      "HUD 外壳 (ds-blame-hud)",
+      "作者头像",
+      "提交号与时间",
+      "提交说明入口"
+    ],
+    "keyboard": "HUD 不参与 Tab；键盘用户通过命令面板查看相同信息。",
+    "guidance": [
+      "提交号使用短哈希并链接到完整提交。",
+      "时间显示绝对时间，不使用“几天前”这类模糊描述。",
+      "信息缺失时说明无法溯因而非留空。"
+    ],
+    "preview": "<div class=\"ds-blame-hud\" role=\"status\" aria-label=\"最近修改信息\"><span class=\"ds-persona\" aria-label=\"修改者 Aether\">AE</span><span class=\"ds-blame-hud__sha\">a91f0c2</span><span class=\"ds-blame-hud__time\">10-14 18:22</span><button type=\"button\" class=\"ds-button ds-button--ghost\">查看提交</button></div>",
+    "checks": [
+      "提交号可跳转完整提交",
+      "时间显示绝对时间",
+      "缺失信息有明确说明",
+      "键盘有等效获取路径"
+    ],
+    "react": "<GithubBlameHud author=\"Aether\" sha=\"a91f0c2\" time=\"10-14 18:22\" />"
+  },
+  {
+    "id": "github-file-tree-diff-stat",
+    "name": "GitHub 文件树变更统计",
+    "category": "研发协作",
+    "status": "v3 新增",
+    "purpose": "在变更列表里同时给出文件层级、增删行数与折叠状态，便于快速审阅大改。",
+    "anatomy": [
+      "文件树容器 (ds-diff-tree)",
+      "文件节点 (ds-diff-tree__node)",
+      "增删统计条",
+      "折叠与已读标记"
+    ],
+    "keyboard": "上下方向键移动；Enter 展开或收起；Space 标记已读。",
+    "guidance": [
+      "增删行数来自实际差异，不为美观做缩放。",
+      "已读状态可切换，不与展开状态混淆。",
+      "二进制文件显示类型与大小，不显示伪差异。"
+    ],
+    "preview": "<div class=\"ds-diff-tree\" role=\"region\" aria-label=\"文件变更统计\"><div class=\"ds-diff-tree__node\" tabindex=\"0\" role=\"button\" aria-expanded=\"true\"><strong>src/subscription.ts</strong><span class=\"ds-diff-tree__stat\"><span style=\"width:70%;background:var(--ds-success)\"></span><span class=\"ds-diff-tree__num\">+42 −6</span></span></div></div>",
+    "checks": [
+      "增删行数来自实际差异",
+      "已读与展开状态互不干扰",
+      "二进制文件显示类型与大小",
+      "键盘可审阅全部节点"
+    ],
+    "react": "<GithubFileTreeDiffStat files={[{ path: \"src/subscription.ts\", added: 42, removed: 6 }]} />"
+  },
+  {
+    "id": "github-issue-linked-branch-badge",
+    "name": "GitHub 关联分支徽标",
+    "category": "研发协作",
+    "status": "v3 新增",
+    "purpose": "在工作项上标明已关联的分支与合并状态，避免重复开发或遗漏合并。",
+    "anatomy": [
+      "徽标外壳 (ds-branch-badge)",
+      "分支名",
+      "合并状态图标",
+      "打开分支入口"
+    ],
+    "keyboard": "徽标内入口是链接，Tab 可达。",
+    "guidance": [
+      "分支名完整显示或可展开，不截断为不可辨认。",
+      "合并状态区分未合并、已合并、已关闭。",
+      "分支被删除时给出提示。"
+    ],
+    "preview": "<div class=\"ds-branch-badge\" role=\"status\" aria-label=\"关联分支 feat/subscription-retry，未合并\"><span aria-hidden=\"true\">⑂</span><span>feat/subscription-retry</span><span class=\"ds-branch-badge__state\">未合并</span><button type=\"button\" class=\"ds-button ds-button--ghost\">打开分支</button></div>",
+    "checks": [
+      "分支名完整可辨",
+      "合并状态明确区分",
+      "分支删除有提示",
+      "键盘可打开分支"
+    ],
+    "react": "<GithubIssueLinkedBranchBadge branch=\"feat/subscription-retry\" merged={false} />"
+  },
+  {
+    "id": "github-release-notes-block",
+    "name": "GitHub 版本说明区块",
+    "category": "研发协作",
+    "status": "v3 新增",
+    "purpose": "按新增、修复、变更分组展示版本内容，并标明影响范围与升级提示。",
+    "anatomy": [
+      "版本头 (ds-release-notes__head)",
+      "分组列表",
+      "条目与关联问题编号",
+      "升级提示"
+    ],
+    "keyboard": "静态文本；链接与编号可 Tab 到达。",
+    "guidance": [
+      "每条说明附问题编号，便于追溯。",
+      "破坏性变更单独分组并给出迁移路径。",
+      "未完成的条目不写入正式版本说明。"
+    ],
+    "preview": "<article class=\"ds-release-notes\"><header class=\"ds-release-notes__head\"><strong>v3.4.0</strong><span>发布于 10-17</span></header><section><h3>修复</h3><ul><li>订阅刷新失败后保留输入内容（AET-248）</li></ul></section><section><h3>变更</h3><ul><li>默认密度改为舒适（AET-251）</li></ul></section></article>",
+    "checks": [
+      "每条说明附问题编号",
+      "破坏性变更单独分组",
+      "未完成条目不写入",
+      "链接可键盘访问"
+    ],
+    "react": "<GithubReleaseNotesBlock version=\"v3.4.0\" releasedAt=\"发布于 10-17\" groups={[{ title: \"修复\", items: [\"订阅刷新失败后保留输入内容（AET-248）\"] }]} />"
+  },
+  {
+    "id": "github-copilot-inline-suggest",
+    "name": "GitHub Copilot 内联建议",
+    "category": "研发协作",
+    "status": "v3 新增",
+    "purpose": "在光标处以内联幽灵文本展示补全建议，并说明接受、拒绝与查看备选的方式。",
+    "anatomy": [
+      "幽灵文本 (ds-inline-suggest)",
+      "接受提示键",
+      "备选切换入口",
+      "忽略入口"
+    ],
+    "keyboard": "Tab 接受；Escape 拒绝；Alt+] 与 Alt+[ 切换备选。",
+    "guidance": [
+      "幽灵文本与真实代码视觉可区分，不误导为已输入内容。",
+      "拒绝后短时间内不再重复同一建议。",
+      "未提供来源时说明为自动补全。"
+    ],
+    "preview": "<div class=\"ds-inline-suggest\" role=\"status\" aria-label=\"内联补全建议\"><code>const retryCount = config.retry ?? 3;</code><span class=\"ds-inline-suggest__hint\">Tab 接受 · Alt+] 下一个</span><button type=\"button\" class=\"ds-button ds-button--ghost\">忽略</button></div>",
+    "checks": [
+      "幽灵文本与真实代码可区分",
+      "拒绝后不立即重复",
+      "说明为自动补全来源",
+      "键盘可接受与切换"
+    ],
+    "react": "<GithubCopilotInlineSuggest code=\"const retryCount = config.retry ?? 3;\" />"
+  },
+  {
+    "id": "github-branch-protection-row",
+    "name": "GitHub 分支保护规则行",
+    "category": "研发协作",
+    "status": "v3 新增",
+    "purpose": "列出分支的强制检查、审阅要求与绕过权限，说明为什么不能直接推送。",
+    "anatomy": [
+      "规则行 (ds-protect-row)",
+      "检查项列表",
+      "审阅要求",
+      "绕过说明"
+    ],
+    "keyboard": "Tab 进入每个规则入口；Enter 打开配置。",
+    "guidance": [
+      "被拒绝的推送给出具体违反规则，不只提示无权限。",
+      "绕过权限逐项列出，不笼统显示“管理员可绕过”。",
+      "检查项缺失时说明需要配置的检查。"
+    ],
+    "preview": "<div class=\"ds-protect-row\" role=\"group\" aria-label=\"分支保护规则\"><strong>main</strong><span class=\"ds-badge\">需 1 项审阅</span><span class=\"ds-badge ds-badge--success\">状态检查全部通过</span><span class=\"ds-protect-row__meta\">绕过：发布管理员 · 强制推送已禁用</span></div>",
+    "checks": [
+      "拒绝推送给出具体规则",
+      "绕过权限逐项列出",
+      "缺失检查有说明",
+      "键盘可打开配置"
+    ],
+    "react": "<GithubBranchProtectionRow branch=\"main\" reviews={1} bypass=\"发布管理员\" />"
+  },
+  {
+    "id": "github-secret-scan-alert-card",
+    "name": "GitHub 密钥扫描告警卡",
+    "category": "研发协作",
+    "status": "v3 新增",
+    "purpose": "提示仓库中疑似泄露的凭据，说明位置、类型与处置步骤，不展示完整密钥。",
+    "anatomy": [
+      "告警卡外壳 (ds-secret-alert)",
+      "凭据类型与位置",
+      "风险说明",
+      "处置入口"
+    ],
+    "keyboard": "Tab 进入处置入口；Enter 执行；处置结果通过 polite live region 播报。",
+    "guidance": [
+      "只展示凭据类型与部分前缀，不回显完整值。",
+      "处置路径写明撤销与轮换顺序。",
+      "误报可关闭并说明影响。"
+    ],
+    "preview": "<article class=\"ds-secret-alert\" role=\"alert\"><header class=\"ds-secret-alert__head\"><strong>疑似 API 令牌</strong><span class=\"ds-badge ds-badge--danger\">高风险</span></header><p>位置：config/default.json:12 · 前缀 gh****</p><footer class=\"ds-secret-alert__foot\"><button type=\"button\" class=\"ds-button\">撤销并轮换</button><button type=\"button\" class=\"ds-button ds-button--secondary\">标记误报</button></footer></article>",
+    "checks": [
+      "不展示完整密钥",
+      "处置路径说明撤销与轮换",
+      "误报可关闭并说明",
+      "键盘可完成处置"
+    ],
+    "react": "<GithubSecretScanAlertCard kind=\"疑似 API 令牌\" location=\"config/default.json:12\" prefix=\"gh****\" />"
+  },
+  {
+    "id": "github-actions-log-viewer",
+    "name": "GitHub Actions 日志查看器",
+    "category": "研发协作",
+    "status": "v3 新增",
+    "purpose": "按步骤展示工作流日志，支持折叠、搜索与定位失败行，减少翻找时间。",
+    "anatomy": [
+      "日志外壳 (ds-log-view)",
+      "步骤分组",
+      "日志行",
+      "搜索与跳转控件"
+    ],
+    "keyboard": "上下方向键移动；Enter 展开步骤；Ctrl+F 搜索；Escape 关闭搜索。",
+    "guidance": [
+      "失败行直接定位，不要求用户手动滚动。",
+      "日志中的密钥始终脱敏显示。",
+      "超长日志分页加载并说明进度。"
+    ],
+    "preview": "<div class=\"ds-log-view\" role=\"region\" aria-label=\"工作流日志\"><div class=\"ds-log-view__step\" tabindex=\"0\" role=\"button\" aria-expanded=\"true\"><strong>安装依赖</strong></div><pre class=\"ds-log-view__body\">added 312 packages in 8s\n[error] 步骤 3 失败：测试未通过</pre><span class=\"ds-log-view__hint\">Ctrl + F 搜索日志</span></div>",
+    "checks": [
+      "失败行可自动定位",
+      "日志密钥脱敏",
+      "分页加载说明进度",
+      "键盘可搜索与跳转"
+    ],
+    "react": "<GithubActionsLogViewer steps={[{ label: \"安装依赖\", log: \"added 312 packages in 8s\" }]} />"
+  },
+  {
+    "id": "github-discussion-thread-card",
+    "name": "GitHub 讨论帖卡",
+    "category": "研发协作",
+    "status": "v3 新增",
+    "purpose": "把开放式讨论按主题聚合，显示回答状态与参与情况，区别于缺陷工作项。",
+    "anatomy": [
+      "讨论卡外壳 (ds-discussion-card)",
+      "标题与分类标签",
+      "回答状态",
+      "参与者与回复数"
+    ],
+    "keyboard": "Tab 进入标题链接与回复入口；Enter 打开。",
+    "guidance": [
+      "分类标签与仓库讨论分类一致。",
+      "已回答与未回答状态明确区分。",
+      "回复数与实际条目一致。"
+    ],
+    "preview": "<article class=\"ds-discussion-card\"><header class=\"ds-discussion-card__head\"><a href=\"#discussion\">如何设计离线优先的同步策略？</a><span class=\"ds-badge\">问答</span></header><footer class=\"ds-discussion-card__foot\"><span class=\"ds-badge ds-badge--success\">已回答</span><span>6 条回复 · 3 人参与</span></footer></article>",
+    "checks": [
+      "分类标签与仓库一致",
+      "回答状态明确区分",
+      "回复数与实际一致",
+      "键盘可打开讨论"
+    ],
+    "react": "<GithubDiscussionThreadCard title=\"如何设计离线优先的同步策略？\" category=\"问答\" answered replies={6} />"
+  },
+  {
+    "id": "github-contributor-avatar-wall",
+    "name": "GitHub 贡献者头像墙",
+    "category": "研发协作",
+    "status": "v3 新增",
+    "purpose": "按贡献量排列参与者头像，超出部分折叠为计数，并链接到完整贡献者列表。",
+    "anatomy": [
+      "头像墙容器 (ds-avatar-wall)",
+      "头像单元",
+      "溢出计数",
+      "完整列表入口"
+    ],
+    "keyboard": "头像是链接，Tab 可达；溢出计数也是链接。",
+    "guidance": [
+      "排序依据写明，例如按提交数。",
+      "折叠部分保留可访问入口。",
+      "头像失败显示姓名首字。"
+    ],
+    "preview": "<div class=\"ds-avatar-wall\" role=\"region\" aria-label=\"贡献者\"><span class=\"ds-persona\" aria-label=\"贡献者 Aether\">AE</span><span class=\"ds-persona\" aria-label=\"贡献者 周舟\">周</span><span class=\"ds-persona ds-persona--more\" aria-label=\"另有 18 名贡献者\">+18</span></div>",
+    "checks": [
+      "排序依据明确",
+      "折叠部分有入口",
+      "头像失败有文字回退",
+      "键盘可访问完整列表"
+    ],
+    "react": "<GithubContributorAvatarWall people={[\"Aether\", \"周舟\"]} extra={18} />"
+  },
+  {
+    "id": "github-fork-sync-banner",
+    "name": "GitHub 分支落后提示条",
+    "category": "研发协作",
+    "status": "v3 新增",
+    "purpose": "在派生仓库落后于上游时提示落后提交数，并提供更新或比对入口。",
+    "anatomy": [
+      "提示条外壳 (ds-fork-sync)",
+      "落后提交数",
+      "比较入口",
+      "更新按钮"
+    ],
+    "keyboard": "Tab 进入比较与更新按钮；Enter 执行。",
+    "guidance": [
+      "落后数量来自实际比对，不缓存过久。",
+      "存在冲突时提示需要手动处理。",
+      "更新后提示结果并刷新计数。"
+    ],
+    "preview": "<div class=\"ds-fork-sync\" role=\"region\" aria-label=\"派生仓库同步状态\"><strong>此分支落后上游 7 个提交</strong><span>上次同步：10-12</span><button type=\"button\" class=\"ds-button ds-button--ghost\">比较</button><button type=\"button\" class=\"ds-button\">更新分支</button></div>",
+    "checks": [
+      "落后数量来自实际比对",
+      "冲突时提示手动处理",
+      "更新后刷新计数",
+      "键盘可完成更新"
+    ],
+    "react": "<GithubForkSyncBanner behind={7} lastSync=\"上次同步：10-12\" hasConflict={false} />"
+  },
+  {
+    "id": "github-code-search-regex-row",
+    "name": "GitHub 代码搜索表达式行",
+    "category": "研发协作",
+    "status": "v3 新增",
+    "purpose": "在搜索框旁显示当前生效的过滤表达式与匹配范围，便于核对搜索条件。",
+    "anatomy": [
+      "表达式行 (ds-code-search)",
+      "关键字与正则标记",
+      "范围限定",
+      "清除入口"
+    ],
+    "keyboard": "Tab 进入清除入口；Enter 清空条件。",
+    "guidance": [
+      "正则开关状态清楚可见。",
+      "范围限定写明仓库与分支。",
+      "语法错误时提示具体问题。"
+    ],
+    "preview": "<div class=\"ds-code-search\" role=\"search\"><input id=\"code-search-input\" value=\"retryCount:\\\\s*\\\\d+\" aria-label=\"代码搜索表达式\"><span class=\"ds-badge ds-badge--info\">正则</span><span class=\"ds-code-search__scope\">AetherLink · main</span><button type=\"button\" class=\"ds-button ds-button--ghost\">清除</button></div>",
+    "checks": [
+      "正则状态可见",
+      "范围写明仓库与分支",
+      "语法错误有具体提示",
+      "键盘可清除条件"
+    ],
+    "react": "<GithubCodeSearchRegexRow expression=\"retryCount:\\\\s*\\\\d+\" regex scope=\"AetherLink · main\" />"
   }
 ]

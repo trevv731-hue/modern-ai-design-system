@@ -13112,3 +13112,145 @@ export function LinearDocumentInlineBlock({ kind = '任务清单', items }:
     <span className="ds-inline-block__note">完成 {done} / {items.length}</span>
   </div>;
 }
+
+export function GithubCodeReviewThread({ comments = [], resolved = false, onReply, onResolve }:
+  { comments?: { id?: string; author: string; body: string }[]; resolved?: boolean; onReply?: (body: string) => void; onResolve?: () => void }) {
+  const [draft, setDraft] = useState('');
+  const id = useId();
+  return <section className="ds-review-thread" role="region" aria-label="代码评审讨论串">
+    <header className="ds-review-thread__head"><strong>评审讨论</strong>
+      <span className={`ds-badge ds-badge--${resolved ? 'success' : 'warning'}`}>{resolved ? '已解决' : '待解决'}</span></header>
+    <ul className="ds-review-thread__list">
+      {comments.map((comment, index) => <li className="ds-review-thread__comment" key={comment.id || index}>
+        <strong>{comment.author}</strong><p>{comment.body}</p></li>)}
+    </ul>
+    <footer className="ds-review-thread__foot">
+      <label className="ds-sr-only" htmlFor={id}>回复内容</label>
+      <input id={id} value={draft} placeholder="回复…" onChange={event => setDraft(event.target.value)} />
+      <button type="button" className="ds-button ds-button--ghost"
+        onClick={() => { onReply?.(draft); setDraft(''); }}>回复</button>
+      {!resolved && <button type="button" className="ds-button ds-button--secondary" onClick={onResolve}>标记解决</button>}
+    </footer>
+  </section>;
+}
+
+export function GithubFileTreeDiffStat({ files }:
+  { files: { id?: string; path: string; added?: number; removed?: number }[] }) {
+  return <div className="ds-diff-tree" role="region" aria-label="文件变更统计">
+    {files.map((file, index) => <div className="ds-diff-tree__node" tabIndex={0} role="button" key={file.id || index}
+      aria-label={`${file.path}，新增 ${file.added ?? 0} 行，删除 ${file.removed ?? 0} 行`}>
+      <strong>{file.path}</strong>
+      <span className="ds-diff-tree__stat"><span style={{ width: '70%' }} />
+        <span className="ds-diff-tree__num">+{file.added ?? 0} −{file.removed ?? 0}</span></span>
+    </div>)}
+  </div>;
+}
+
+export function GithubBlameHud({ author, sha, time }:
+  { author: string; sha?: string; time?: string }) {
+  return <div className="ds-blame-hud" role="status" aria-label={`最近修改：${author}${sha ? '，提交 ' + sha : ''}`}>
+    <span className="ds-persona" aria-label={`修改者 ${author}`}>{author.trim().slice(0, 1).toUpperCase()}</span>
+    {sha && <span className="ds-blame-hud__sha">{sha}</span>}
+    {time && <span className="ds-blame-hud__time">{time}</span>}
+  </div>;
+}
+
+export function GithubSecretScanAlertCard({ kind, location, prefix, onRevoke, onDismiss }:
+  { kind: string; location?: string; prefix?: string; onRevoke?: () => void; onDismiss?: () => void }) {
+  return <article className="ds-secret-alert" role="alert">
+    <header className="ds-secret-alert__head"><strong>{kind}</strong><span className="ds-badge ds-badge--danger">高风险</span></header>
+    <p>位置：{location || '未标注'}{prefix ? ' · 前缀 ' + prefix : ''}</p>
+    <footer className="ds-secret-alert__foot">
+      <button type="button" className="ds-button" onClick={onRevoke}>撤销并轮换</button>
+      <button type="button" className="ds-button ds-button--secondary" onClick={onDismiss}>标记误报</button>
+    </footer>
+  </article>;
+}
+
+export function GithubActionsLogViewer({ lines = [] }: { lines: string[] }) {
+  return <div className="ds-log-view" role="region" aria-label="工作流日志">
+    <pre className="ds-log-view__body">{lines.join('
+')}</pre>
+    <span className="ds-log-view__hint">Ctrl + F 搜索日志</span>
+  </div>;
+}
+
+export function GithubCopilotInlineSuggest({ code, onAccept, onDismiss }:
+  { code: string; onAccept?: () => void; onDismiss?: () => void }) {
+  return <div className="ds-inline-suggest" role="status" aria-label="内联补全建议">
+    <code>{code}</code>
+    <span className="ds-inline-suggest__hint">Tab 接受 · Alt+] 下一个</span>
+    <button type="button" className="ds-button ds-button--ghost" onClick={onDismiss}>忽略</button>
+  </div>;
+}
+
+export function GithubBranchProtectionRow({ branch, rules = [], bypass }:
+  { branch: string; rules?: string[]; bypass?: string }) {
+  return <div className="ds-protect-row" role="group" aria-label={`分支保护 ${branch}`}>
+    <strong>{branch}</strong>
+    {rules.map(rule => <span className="ds-badge" key={rule}>{rule}</span>)}
+    {bypass && <span className="ds-protect-row__meta">绕过：{bypass}</span>}
+  </div>;
+}
+
+export function GithubIssueLinkedBranchBadge({ branch, merged = false, onOpen }:
+  { branch: string; merged?: boolean; onOpen?: () => void }) {
+  return <div className="ds-branch-badge" role="status"
+    aria-label={`关联分支 ${branch}，${merged ? '已合并' : '未合并'}`}>
+    <span aria-hidden="true">⑂</span><span>{branch}</span>
+    <span className="ds-branch-badge__state">{merged ? '已合并' : '未合并'}</span>
+    <button type="button" className="ds-button ds-button--ghost" onClick={onOpen}>打开分支</button>
+  </div>;
+}
+
+export function GithubReleaseNotesBlock({ version, releasedAt, groups = [] }:
+  { version: string; releasedAt?: string; groups?: { id?: string; title: string; items: string[] }[] }) {
+  return <article className="ds-release-notes">
+    <header className="ds-release-notes__head"><strong>{version}</strong>{releasedAt && <span>{releasedAt}</span>}</header>
+    {groups.map((group, index) => <section className="ds-release-notes__group" key={group.id || index}>
+      <h3>{group.title}</h3>
+      <ul>{group.items.map(item => <li key={item}>{item}</li>)}</ul>
+    </section>)}
+  </article>;
+}
+
+export function GithubDiscussionThreadCard({ title, category, answered = false, replies = 0, participants = 0 }:
+  { title: string; category?: string; answered?: boolean; replies?: number; participants?: number }) {
+  return <article className="ds-discussion-card">
+    <header className="ds-discussion-card__head"><a href="#discussion">{title}</a>
+      {category && <span className="ds-badge">{category}</span>}</header>
+    <footer className="ds-discussion-card__foot">
+      <span className={`ds-badge ds-badge--${answered ? 'success' : 'neutral'}`}>{answered ? '已回答' : '待回答'}</span>
+      <span>{replies} 条回复 · {participants} 人参与</span></footer>
+  </article>;
+}
+
+export function GithubContributorAvatarWall({ people = [], extra = 0 }:
+  { people?: string[]; extra?: number }) {
+  return <div className="ds-avatar-wall" role="region" aria-label="贡献者">
+    {people.map(person => <span className="ds-persona" key={person} aria-label={`贡献者 ${person}`}>
+      {person.trim().slice(0, 1).toUpperCase()}</span>)}
+    {extra > 0 && <span className="ds-persona ds-persona--more" aria-label={`另有 ${extra} 名贡献者`}>+{extra}</span>}
+  </div>;
+}
+
+export function GithubForkSyncBanner({ behind = 0, lastSync, hasConflict = false, onSync }:
+  { behind?: number; lastSync?: string; hasConflict?: boolean; onSync?: () => void }) {
+  return <div className="ds-fork-sync" role="region" aria-label="派生仓库同步状态">
+    <strong>{behind > 0 ? '此分支落后上游 ' + behind + ' 个提交' : '此分支与上游一致'}</strong>
+    {lastSync && <span>{lastSync}</span>}
+    {hasConflict && <span className="ds-fork-sync__meta">存在冲突，需要手动处理</span>}
+    <button type="button" className="ds-button" disabled={behind === 0} onClick={onSync}>更新分支</button>
+  </div>;
+}
+
+export function GithubCodeSearchRegexRow({ expression, regex = false, scope, onClear }:
+  { expression?: string; regex?: boolean; scope?: string; onClear?: () => void }) {
+  return <div className="ds-code-search" role="search">
+    <label className="ds-sr-only" htmlFor="code-search-input">代码搜索表达式</label>
+    <input id="code-search-input" defaultValue={expression} aria-label="代码搜索表达式" />
+    <span className={`ds-badge ds-badge--${regex ? 'info' : 'neutral'}`}>{regex ? '正则' : '纯文本'}</span>
+    {scope && <span className="ds-code-search__scope">{scope}</span>}
+    <button type="button" className="ds-button ds-button--ghost" onClick={onClear}>清除</button>
+  </div>;
+}
