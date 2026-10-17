@@ -12387,3 +12387,137 @@ export function SlackReminderSchedulerRow({ times = [], targets = [], onCreate }
     <button type="button" className="ds-button" onClick={() => onCreate?.({ time, target })}>创建提醒</button>
   </div>;
 }
+
+export function NotionDatabaseViewTabs({ views, active, onSelect, onAdd }:
+  { views: { id: string; label: string }[]; active?: string; onSelect?: (id: string) => void; onAdd?: () => void }) {
+  const [current, setCurrent] = useState(active || views[0]?.id);
+  return <div className="ds-db-views" role="tablist" aria-label="数据库视图">
+    {views.map(view => <button type="button" role="tab" key={view.id} aria-selected={view.id === current}
+      aria-current={view.id === current || undefined}
+      onClick={() => { setCurrent(view.id); onSelect?.(view.id); }}>{view.label}</button>)}
+    <button type="button" className="ds-db-views__add" aria-label="新建视图" onClick={onAdd}>+</button>
+  </div>;
+}
+
+export function NotionSyncedBlock({ source, references = 0, onOpen, children }:
+  { source: string; references?: number; onOpen?: () => void; children: React.ReactNode }) {
+  return <div className="ds-synced-block" role="region" aria-label={`同步块：${source}`}>
+    <header className="ds-synced-block__head"><span className="ds-badge ds-badge--info">同步自 {source}</span>
+      <span className="ds-synced-block__count">{references} 处引用</span></header>
+    <p>{children}</p>
+    <button type="button" className="ds-button ds-button--ghost" onClick={onOpen}>前往来源</button>
+  </div>;
+}
+
+export function NotionFormulaPropertyRow({ name, value, formula }:
+  { name: string; value: React.ReactNode; formula: string }) {
+  return <div className="ds-prop-row" role="group" aria-label={`公式属性 ${name}`}>
+    <span className="ds-prop-row__name">{name}</span><span className="ds-badge">公式</span>
+    <strong className="ds-prop-row__value">{value}</strong>
+    <code className="ds-prop-row__formula">{formula}</code>
+  </div>;
+}
+
+export function VSCodeMinimap({ lines = 100, viewport = { start: 0, size: 20 }, marks = [] }:
+  { lines?: number; viewport?: { start: number; size: number }; marks?: { line: number; tone?: 'error' | 'warning' }[] }) {
+  const top = lines > 0 ? (viewport.start / lines) * 100 : 0;
+  const height = lines > 0 ? Math.min(100, (viewport.size / lines) * 100) : 100;
+  return <div className="ds-minimap" role="presentation" aria-label="文档缩略图">
+    <div className="ds-minimap__lines" aria-hidden="true" />
+    <div className="ds-minimap__viewport" style={{ top: top + '%', height: height + '%' }} />
+    {marks.map(mark => <span key={mark.line}
+      className={`ds-minimap__mark${mark.tone === 'error' ? ' ds-minimap__mark--error' : ''}`}
+      style={{ top: (mark.line / lines) * 100 + '%' }} aria-hidden="true" />)}
+  </div>;
+}
+
+export function VSCodeBreadcrumbPicker({ path, onPick }:
+  { path: { href?: string; label: string }[]; onPick?: (label: string) => void }) {
+  return <nav className="ds-crumb-pick" aria-label="符号路径">
+    {path.map((item, index) => <React.Fragment key={item.label}>
+      {index > 0 && <span className="ds-crumb-pick__sep" aria-hidden="true">›</span>}
+      {item.href
+        ? <button type="button" onClick={() => onPick?.(item.label)}>{item.label}</button>
+        : <span aria-current="page">{item.label}</span>}
+    </React.Fragment>)}
+  </nav>;
+}
+
+export function VSCodeProblemsInlineHud({ issues = [], onExpand }:
+  { issues?: string[]; onExpand?: () => void }) {
+  return <div className="ds-prob-hud" role="status" aria-label={`${issues.length} 个问题`}>
+    <span className="ds-prob-hud__icon" aria-hidden="true">⚠</span>
+    <span>{issues.length ? issues.join(' · ') : '当前行没有问题'}</span>
+    {issues.length > 0 && <button type="button" className="ds-button ds-button--ghost" onClick={onExpand}>展开</button>}
+  </div>;
+}
+
+export function ArcSidebarFolderStack({ name, tabs = 0, onExpand }:
+  { name: string; tabs?: number; onExpand?: () => void }) {
+  return <div className="ds-arc-folder" tabIndex={0} role="button"
+    aria-label={`文件夹：${name}，${tabs} 个标签页`}
+    onClick={() => onExpand?.()}
+    onKeyDown={event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); onExpand?.(); } }}>
+    <span className="ds-arc-folder__stack" aria-hidden="true" />
+    <div className="ds-arc-folder__meta"><strong>{name}</strong><span>{tabs} 个标签页</span></div>
+  </div>;
+}
+
+export function ArcEaselCanvasCard({ cards }:
+  { cards: { id?: string; title: string; source: string; time?: string }[] }) {
+  return <div className="ds-easel" role="region" aria-label="Easel 收集画布">
+    <div className="ds-easel__grid">
+      {cards.map((card, index) => <article className="ds-easel-card" key={card.id || index}>
+        <strong>{card.title}</strong><span>{card.source}</span>
+        {card.time && <span className="ds-easel-card__time">{card.time}</span>}
+      </article>)}
+    </div>
+  </div>;
+}
+
+export function ArcSplitViewTabPair({ left, right, active = 'left', onMerge }:
+  { left: string; right: string; active?: 'left' | 'right'; onMerge?: () => void }) {
+  return <div className="ds-split-tabs" role="group" aria-label="分屏标签">
+    <div className={`ds-split-tabs__side${active === 'left' ? ' ds-split-tabs__side--active' : ''}`}><span>{left}</span></div>
+    <div className={`ds-split-tabs__side${active === 'right' ? ' ds-split-tabs__side--active' : ''}`}><span>{right}</span></div>
+    <button type="button" className="ds-button ds-button--ghost" onClick={onMerge}>合并</button>
+  </div>;
+}
+
+export function ArcCommandBarPill({ commands = [], onRun, placeholder = '搜索命令或页面…' }:
+  { commands?: { label: string; keys?: string[] }[]; onRun?: (label: string) => void; placeholder?: string }) {
+  return <div className="ds-arc-cmd" role="search">
+    <input id="arc-cmd-input" type="search" placeholder={placeholder} aria-label="搜索命令" />
+    <ul className="ds-arc-cmd__list">
+      {commands.map(command => <li className="ds-arc-cmd__row" key={command.label}>
+        <span>{command.label}</span>
+        {command.keys?.map(key => <kbd className="ds-key" key={key}>{key}</kbd>)}
+      </li>)}
+    </ul>
+  </div>;
+}
+
+export function NotionToggleListBlock({ title, defaultOpen = false, children }:
+  { title: string; defaultOpen?: boolean; children: React.ReactNode }) {
+  const [open, setOpen] = useState(defaultOpen);
+  return <div className="ds-toggle-block">
+    <button type="button" className="ds-toggle-block__head" aria-expanded={open} onClick={() => setOpen(!open)}>
+      <span className="ds-toggle-block__icon" aria-hidden="true">▾</span><span>{title}</span>
+    </button>
+    {open && <div className="ds-toggle-block__body">{children}</div>}
+  </div>;
+}
+
+export function VSCodeDebugCallStackNode({ frames, onSelect }:
+  { frames: { id?: string; name: string; location?: string; current?: boolean; async?: boolean; noSource?: boolean }[]; onSelect?: (name: string) => void }) {
+  return <div className="ds-call-stack" role="list" aria-label="调用栈">
+    {frames.map((frame, index) => <div key={frame.id || index} role="listitem" tabIndex={0}
+      className={`ds-call-stack__frame${frame.async ? ' ds-call-stack__frame--async' : ''}${frame.noSource ? ' ds-call-stack__frame--muted' : ''}`}
+      aria-current={frame.current || undefined}
+      onClick={() => onSelect?.(frame.name)}
+      onKeyDown={event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); onSelect?.(frame.name); } }}>
+      <strong>{frame.name}</strong>
+      <span className="ds-call-stack__note">{frame.location || (frame.async ? '异步边界' : frame.noSource ? '无源码' : '')}</span>
+    </div>)}
+  </div>;
+}
