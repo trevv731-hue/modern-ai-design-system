@@ -12089,3 +12089,141 @@ export function CodeBlock({ code, label = '代码' }: { code: string; label?: st
 export function Divider({ className = '' }: { className?: string }) {
   return <hr className={`ds-divider ${className}`} />;
 }
+
+export function WindowsSnapLayoutsPicker({ open = false, layouts = [2, 3], onPick }:
+  { open?: boolean; layouts?: number[]; onPick?: (columns: number) => void }) {
+  const [expanded, setExpanded] = useState(open);
+  return <div className="ds-snap-layouts">
+    <button type="button" className="ds-snap-layouts__trigger" aria-label="选择贴靠布局"
+      aria-expanded={expanded} onClick={() => setExpanded(!expanded)}>▣</button>
+    {expanded && <div className="ds-snap-layouts__panel" role="menu" aria-label="贴靠布局">
+      {layouts.map(columns => <button type="button" role="menuitemradio" key={columns}
+        aria-checked={columns === 2} aria-label={`分为 ${columns} 个区域`}
+        onClick={() => onPick?.(columns)}>
+        {Array.from({ length: columns }, (_, index) => <span className="ds-snap-layouts__cell" key={index} style={{ flex: 1 }} />)}
+      </button>)}
+      <span className="ds-snap-layouts__hint">Win + Z 打开布局</span>
+    </div>}
+  </div>;
+}
+
+export function WindowsWidgetsBoardPanel({ cards }:
+  { cards: { id?: string; label: string; value: string; note?: string }[] }) {
+  return <div className="ds-widgets-board" role="region" aria-label="小组件面板">
+    <div className="ds-widgets-board__bar"><strong>小组件</strong><span className="ds-badge">速览</span></div>
+    <div className="ds-widgets-board__grid">
+      {cards.map((card, index) => <article className="ds-widget-card" key={card.id || index}>
+        <span className="ds-widget-card__label">{card.label}</span>
+        <strong className="ds-widget-card__value">{card.value}</strong>
+        {card.note && <span className="ds-widget-card__note">{card.note}</span>}
+      </article>)}
+    </div>
+  </div>;
+}
+
+export function FluentCommandBar({ primary, overflow = [], onRun }:
+  { primary: string[]; overflow?: string[]; onRun?: (command: string) => void }) {
+  const [menuOpen, setMenuOpen] = useState(false);
+  return <div className="ds-command-bar" role="toolbar" aria-label="命令栏">
+    {primary.map(command => <button type="button" className="ds-button ds-button--secondary" key={command}
+      onClick={() => onRun?.(command)}>{command}</button>)}
+    {overflow.length > 0 && <>
+      <span className="ds-command-bar__sep" aria-hidden="true" />
+      <button type="button" className="ds-button ds-button--secondary ds-command-bar__more"
+        aria-label="更多命令" aria-haspopup="menu" aria-expanded={menuOpen}
+        onClick={() => setMenuOpen(!menuOpen)}>···</button>
+      {menuOpen && <div className="ds-acrylic-menu" role="menu" aria-label="更多命令">
+        {overflow.map(command => <button type="button" className="ds-acrylic-menu__item" role="menuitem" key={command}
+          onClick={() => { onRun?.(command); setMenuOpen(false); }}>{command}</button>)}
+      </div>}
+    </>}
+  </div>;
+}
+
+export function FluentAcrylicContextMenu({ items, onSelect }:
+  { items: { label: string; hint?: string; disabled?: boolean }[]; onSelect?: (label: string) => void }) {
+  return <div className="ds-acrylic-menu" role="menu" aria-label="上下文菜单">
+    {items.map(item => <React.Fragment key={item.label}>
+      {item.disabled && <hr className="ds-acrylic-menu__sep" />}
+      <button type="button" className="ds-acrylic-menu__item" role="menuitem"
+        aria-disabled={item.disabled || undefined}
+        onClick={() => { if (!item.disabled) onSelect?.(item.label); }}>
+        <span>{item.label}</span>{item.hint && <kbd className="ds-key">{item.hint}</kbd>}
+      </button>
+    </React.Fragment>)}
+  </div>;
+}
+
+export function WindowsNotificationCenterGroup({ app, items, onClear }:
+  { app: string; items: { id?: string; title: string; body: string }[]; onClear?: () => void }) {
+  return <section className="ds-notify-group" aria-label={`${app} 通知分组`}>
+    <header className="ds-notify-group__head"><strong>{app}</strong>
+      <span className="ds-badge ds-badge--info">{items.length} 条</span>
+      <button type="button" className="ds-button ds-button--ghost" onClick={onClear}>清除</button></header>
+    <ul className="ds-notify-group__list">
+      {items.map((item, index) => <li className="ds-notify-item" key={item.id || index}>
+        <strong>{item.title}</strong><span>{item.body}</span></li>)}
+    </ul>
+  </section>;
+}
+
+export function FluentInfoBadge({ count, label, tone = 'accent' }:
+  { count?: number; label: string; tone?: 'accent' | 'danger' | 'muted' }) {
+  if (count === undefined) return <span className="ds-info-badge ds-info-badge--dot" role="status" aria-label={label} />;
+  const text = count > 99 ? '99+' : String(count);
+  return <span className={`ds-info-badge${tone === 'muted' ? ' ds-info-badge--muted' : ''}`}
+    role="status" aria-label={`${label} ${text}`}>{text}</span>;
+}
+
+export function FluentPersonaStack({ people, max = 3 }: { people: string[]; max?: number }) {
+  const shown = people.slice(0, max);
+  const extra = people.length - shown.length;
+  return <div className="ds-persona-stack" role="group" aria-label={`协作成员 ${people.length} 人`}>
+    {shown.map(person => <span className="ds-persona" key={person} aria-label={`成员 ${person}`}>
+      {person.trim().slice(0, 1).toUpperCase()}</span>)}
+    {extra > 0 && <span className="ds-persona ds-persona--more" aria-label={`另有 ${extra} 名成员`}>+{extra}</span>}
+  </div>;
+}
+
+export function FluentBreadcrumbBar({ items }: { items: { href?: string; label: string }[] }) {
+  return <nav className="ds-crumb-bar" aria-label="面包屑">
+    {items.map((item, index) => <React.Fragment key={item.label}>
+      {index > 0 && <span className="ds-crumb-bar__sep" aria-hidden="true">›</span>}
+      {item.href ? <a href={item.href}>{item.label}</a> : <span aria-current="page">{item.label}</span>}
+    </React.Fragment>)}
+  </nav>;
+}
+
+export function FluentTeachingCallout({ title, children, onDismiss }:
+  { title: string; children: React.ReactNode; onDismiss?: () => void }) {
+  return <div className="ds-teach-callout" role="dialog" aria-label="新功能提示">
+    <strong>{title}</strong><p>{children}</p>
+    <button type="button" className="ds-button" onClick={onDismiss}>知道了</button>
+  </div>;
+}
+
+export function FluentTabViewStrip({ tabs, active, onSelect, onClose, onAdd }:
+  { tabs: { id: string; label: string }[]; active?: string; onSelect?: (id: string) => void; onClose?: (id: string) => void; onAdd?: () => void }) {
+  const [current, setCurrent] = useState(active || tabs[0]?.id);
+  const open = (id: string) => { setCurrent(id); onSelect?.(id); };
+  const move = (event: React.KeyboardEvent<HTMLDivElement>, index: number) => {
+    const last = tabs.length - 1;
+    let next = index;
+    if (event.key === 'ArrowRight') next = index === last ? 0 : index + 1;
+    else if (event.key === 'ArrowLeft') next = index === 0 ? last : index - 1;
+    else return;
+    event.preventDefault();
+    open(tabs[next].id);
+    const strip = event.currentTarget.parentElement as HTMLElement;
+    strip.querySelectorAll<HTMLElement>('[role=tab]')[next]?.focus();
+  };
+  return <div className="ds-tab-strip" role="tablist" aria-label="打开的文档">
+    {tabs.map((tab, index) => <div className="ds-tab-strip__tab" role="tab" key={tab.id}
+      aria-selected={tab.id === current} tabIndex={tab.id === current ? 0 : -1}
+      onClick={() => open(tab.id)} onKeyDown={event => move(event, index)}>
+      <span>{tab.label}</span>
+      <button type="button" aria-label={`关闭 ${tab.label}`} onClick={event => { event.stopPropagation(); onClose?.(tab.id); }}>×</button>
+    </div>)}
+    <button type="button" className="ds-tab-strip__add" aria-label="新建标签" onClick={onAdd}>+</button>
+  </div>;
+}
