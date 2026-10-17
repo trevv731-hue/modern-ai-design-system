@@ -12831,3 +12831,130 @@ export function AIWebSearchResultList({ results }:
     </ol>
   </div>;
 }
+
+export function FigmaAutoLayoutResizeHud({ width = 0, height = 0, gap = 0 }:
+  { width?: number; height?: number; gap?: number }) {
+  return <div className="ds-al-hud" role="status" aria-label={`宽 ${width} 高 ${height} 间距 ${gap}`}>
+    <span className="ds-al-hud__size">宽 {width} · 高 {height}</span>
+    <span className="ds-al-hud__gap">间距 {gap}</span>
+  </div>;
+}
+
+export function FigmaConstraintPinGrid({ horizontal = 'left', vertical = 'top', onChange }:
+  { horizontal?: 'left' | 'center' | 'right' | 'stretch'; vertical?: 'top' | 'middle' | 'bottom' | 'stretch'; onChange?: (value: { horizontal: string; vertical: string }) => void }) {
+  const options: { key: string; label: string }[] = [
+    { key: 'left', label: '↖' }, { key: 'center', label: '↑' }, { key: 'right', label: '↗' },
+    { key: 'left', label: '←' }, { key: 'center', label: '·' }, { key: 'right', label: '→' },
+    { key: 'left', label: '↙' }, { key: 'center', label: '↓' }, { key: 'right', label: '↘' },
+  ];
+  return <div className="ds-constraint-grid" role="group" aria-label="约束定位">
+    {options.map((option, index) => <div className={`ds-constraint-grid__cell${option.key === horizontal ? ' ds-constraint-grid__cell--active' : ''}`}
+      key={index} aria-hidden="true">{option.label}</div>)}
+  </div>;
+}
+
+export function FigmaSectionThumbnailCard({ name, size, editedAt }:
+  { name: string; size: string; editedAt?: string }) {
+  return <article className="ds-section-card" tabIndex={0} role="link" aria-label={`区块：${name}`}>
+    <div className="ds-section-card__thumb" aria-hidden="true">▤</div>
+    <div className="ds-section-card__meta"><strong>{name}</strong><span>{size}{editedAt ? ` · ${editedAt}` : ''}</span></div>
+  </article>;
+}
+
+export function FigmaPrototypeFlowConnector({ from, to, trigger, transition }:
+  { from: string; to: string; trigger?: string; transition?: string }) {
+  return <div className="ds-flow-connector" role="group" aria-label={`原型流程：${from} 到 ${to}`}>
+    <span className="ds-flow-connector__node">{from}</span>
+    <span className="ds-flow-connector__line" aria-hidden="true" />
+    <span className="ds-flow-connector__label">{[trigger, transition].filter(Boolean).join(' · ')}</span>
+    <span className="ds-flow-connector__line" aria-hidden="true" />
+    <span className="ds-flow-connector__node">{to}</span>
+  </div>;
+}
+
+export function FigmaVariableModeSwitcher({ modes, active, onChange }:
+  { modes: string[]; active?: string; onChange?: (mode: string) => void }) {
+  const [current, setCurrent] = useState(active || modes[0]);
+  return <div className="ds-mode-switch" role="group" aria-label="变量模式">
+    {modes.map(mode => <button type="button" key={mode} aria-pressed={mode === current}
+      onClick={() => { setCurrent(mode); onChange?.(mode); }}>{mode}</button>)}
+  </div>;
+}
+
+export function FigmaDevModeInspectRow({ name, value = '未设置' }: { name: string; value?: string }) {
+  return <div className="ds-inspect-row" role="group" aria-label={`属性 ${name}`}>
+    <span className="ds-inspect-row__name">{name}</span>
+    <code className="ds-inspect-row__value">{value}</code>
+  </div>;
+}
+
+export function FigmaBranchMergeBanner({ changes = 0, conflicts = 0, onPublish, onReview }:
+  { changes?: number; conflicts?: number; onPublish?: () => void; onReview?: () => void }) {
+  return <div className="ds-branch-banner" role="region" aria-label="分支合并">
+    <div className="ds-branch-banner__meta"><strong>{changes} 项变更 · {conflicts} 处冲突</strong>
+      <span>{conflicts ? '请先解决冲突后再合并' : '可以合并到主分支'}</span></div>
+    {conflicts > 0 && <button type="button" className="ds-button ds-button--ghost" onClick={onReview}>查看冲突</button>}
+    <button type="button" className="ds-button" disabled={conflicts > 0} onClick={onPublish}>合并到主分支</button>
+  </div>;
+}
+
+export function FigmaCommentPinBubble({ name, note }: { name: string; note?: string }) {
+  return <div className="ds-comment-pin" role="status" aria-label={`协作者 ${name} 的评论`}>
+    <button type="button" className="ds-comment-pin__dot" aria-expanded={!!note}>{name.trim().slice(0, 1).toUpperCase()}</button>
+    {note && <div className="ds-comment-pin__bubble">
+      <header><strong>{name}</strong><span>刚刚</span></header><p>{note}</p>
+    </div>}
+  </div>;
+}
+
+export function FigmaInstanceSwapPanel({ options, onSwap }:
+  { options: { id?: string; name: string; note?: string }[]; onSwap?: (name: string) => void }) {
+  return <div className="ds-swap-panel" role="region" aria-label="实例替换">
+    <input id="swap-search" type="search" placeholder="搜索组件…" aria-label="搜索组件" />
+    <ul className="ds-swap-panel__list">
+      {options.map((option, index) => <li className="ds-swap-panel__item" key={option.id || index}>
+        <strong>{option.name}</strong>{option.note && <span>{option.note}</span>}
+        <button type="button" className="ds-button ds-button--ghost" onClick={() => onSwap?.(option.name)}>替换</button>
+      </li>)}
+    </ul>
+  </div>;
+}
+
+export function FigmaPublishUpdateModal({ changes = [], notes = '', onPublish, onCancel }:
+  { changes?: string[]; notes?: string; onPublish?: (notes: string) => void; onCancel?: () => void }) {
+  const [value, setValue] = useState(notes);
+  return <div className="ds-publish-modal" role="dialog" aria-label="发布库更新">
+    <header><strong>发布更新</strong></header>
+    <ul className="ds-publish-modal__list">
+      {changes.map(change => <li key={change}>{change}</li>)}
+    </ul>
+    <label htmlFor="publish-notes">版本说明
+      <input id="publish-notes" value={value} placeholder="描述本次变更…" onChange={event => setValue(event.target.value)} />
+    </label>
+    <footer className="ds-publish-modal__foot">
+      <button type="button" className="ds-button ds-button--secondary" onClick={onCancel}>取消</button>
+      <button type="button" className="ds-button" onClick={() => onPublish?.(value)}>发布</button>
+    </footer>
+  </div>;
+}
+
+export function FigmaCursorChatBubble({ name, note }: { name: string; note?: string }) {
+  return <div className="ds-collab-cursor" role="status" aria-label={`协作者 ${name} 的光标`}>
+    <span className="ds-collab-cursor__arrow" aria-hidden="true">➤</span>
+    <span className="ds-collab-cursor__name">{name}</span>
+    {note && <span className="ds-collab-cursor__note">{note}</span>}
+  </div>;
+}
+
+export function FigmaGridLayoutGapHud({ columns = 3, columnGap = 12, rowGap = 12, onChange }:
+  { columns?: number; columnGap?: number; rowGap?: number; onChange?: (value: { columns: number; columnGap: number; rowGap: number }) => void }) {
+  const update = (next: Partial<{ columns: number; columnGap: number; rowGap: number }>) =>
+    onChange?.({ columns, columnGap, rowGap, ...next });
+  return <div className="ds-grid-hud" role="group" aria-label="网格布局参数">
+    <span className="ds-grid-hud__label">列数 {columns}</span>
+    <span className="ds-grid-hud__label">列间距 {columnGap}</span>
+    <span className="ds-grid-hud__label">行间距 {rowGap}</span>
+    <span className="ds-grid-hud__note">拖动可实时预览</span>
+    <button type="button" className="ds-button ds-button--ghost" onClick={() => update({ columns: columns + 1 })}>增加列</button>
+  </div>;
+}
