@@ -12227,3 +12227,163 @@ export function FluentTabViewStrip({ tabs, active, onSelect, onClose, onAdd }:
     <button type="button" className="ds-tab-strip__add" aria-label="新建标签" onClick={onAdd}>+</button>
   </div>;
 }
+
+export function DiscordVoiceChannelTile({ name, members, onSelect }:
+  { name: string; members: { name: string; speaking?: boolean; muted?: boolean }[]; onSelect?: (name: string) => void }) {
+  return <section className="ds-voice-channel" aria-label={`语音频道 ${name}`}>
+    <header className="ds-voice-channel__head"><strong>{name}</strong>
+      <span className="ds-badge">{members.length} 人</span></header>
+    <div className="ds-voice-channel__grid">
+      {members.map(member => <div className={`ds-voice-tile${member.speaking ? ' ds-voice-tile--speaking' : ''}`}
+        tabIndex={0} role="button" key={member.name}
+        aria-label={`成员 ${member.name}，${member.speaking ? '正在发言' : member.muted ? '已静音' : '已连接'}`}
+        onClick={() => onSelect?.(member.name)}
+        onKeyDown={event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); onSelect?.(member.name); } }}>
+        <span className="ds-voice-tile__avatar">{member.name.trim().slice(0, 2).toUpperCase()}</span>
+        <span className="ds-voice-tile__name">{member.name}</span>
+        <span className="ds-voice-tile__flag" aria-hidden="true">{member.speaking ? '🎙' : member.muted ? '🔇' : ''}</span>
+      </div>)}
+    </div>
+  </section>;
+}
+
+export function DiscordServerBoostBadge({ tier, boosts, target, perks = [] }:
+  { tier: number; boosts: number; target: number; perks?: string[] }) {
+  const percent = target > 0 ? Math.min(100, Math.round((boosts / target) * 100)) : 0;
+  return <div className="ds-boost-badge" role="region" aria-label="服务器助力等级">
+    <div className="ds-boost-badge__tier">LV {tier}</div>
+    <div className="ds-boost-badge__count">{boosts} / {target} 次助力</div>
+    <div className="ds-boost-badge__bar"><span style={{ width: percent + '%' }} /></div>
+    <ul className="ds-boost-badge__perks">{perks.map(perk => <li key={perk}>{perk}</li>)}</ul>
+  </div>;
+}
+
+export function DiscordForumPostCard({ title, tags = [], replies = 0, activity, children }:
+  { title: string; tags?: string[]; replies?: number; activity?: string; children: React.ReactNode }) {
+  return <article className="ds-forum-post">
+    <header className="ds-forum-post__head"><a href="#topic">{title}</a>
+      {tags.map(tag => <span className="ds-badge" key={tag}>{tag}</span>)}</header>
+    <p className="ds-forum-post__body">{children}</p>
+    <footer className="ds-forum-post__meta"><span>{replies} 条回复</span>{activity && <span>{activity}</span>}</footer>
+  </article>;
+}
+
+export function DiscordThreadSidebarItem({ threads, onOpen }:
+  { threads: { title: string; unread?: number; archived?: boolean }[]; onOpen?: (title: string) => void }) {
+  return <aside className="ds-thread-list" aria-label="讨论区">
+    {threads.map(thread => <div className={`ds-thread-item${thread.archived ? ' ds-thread-item--archived' : ''}`}
+      tabIndex={0} role="button" key={thread.title}
+      aria-label={`线程：${thread.title}${thread.unread ? `，${thread.unread} 条未读` : ''}${thread.archived ? '，已归档' : ''}`}
+      onClick={() => onOpen?.(thread.title)}
+      onKeyDown={event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); onOpen?.(thread.title); } }}>
+      <strong>{thread.title}</strong>
+      <span className="ds-thread-item__note">{thread.archived ? '已归档' : thread.unread ? thread.unread + ' 条未读' : '无未读'}</span>
+    </div>)}
+  </aside>;
+}
+
+export function DiscordPollRuntimeCard({ question, options, endsIn, onVote }:
+  { question: string; options: { label: string; votes: number }[]; endsIn: string; onVote?: (label: string) => void }) {
+  const total = options.reduce((sum, option) => sum + option.votes, 0);
+  return <div className="ds-poll-card" role="region" aria-label="频道投票">
+    <header className="ds-poll-card__head"><strong>{question}</strong><span className="ds-badge">{endsIn}</span></header>
+    {options.map(option => {
+      const percent = total > 0 ? Math.round((option.votes / total) * 100) : 0;
+      return <div className="ds-poll-card__option" tabIndex={0} role="button" key={option.label}
+        aria-label={`选项：${option.label}，当前 ${option.votes} 票，${percent}%`}
+        onClick={() => onVote?.(option.label)}
+        onKeyDown={event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); onVote?.(option.label); } }}>
+        <span className="ds-poll-card__bar" style={{ width: percent + '%' }} />
+        <span>{option.label}</span>
+        <span className="ds-poll-card__count">{option.votes} 票 · {percent}%</span>
+      </div>;
+    })}
+    <footer className="ds-poll-card__meta">共 {total} 票</footer>
+  </div>;
+}
+
+export function DiscordStageAudienceMeter({ title, speakers = [], audience, onRaiseHand }:
+  { title: string; speakers?: string[]; audience?: number; onRaiseHand?: () => void }) {
+  return <div className="ds-stage-meter" role="region" aria-label={`舞台频道 ${title}`}>
+    <header className="ds-stage-meter__head"><strong>{title}</strong>
+      <span className="ds-badge ds-badge--success">进行中</span></header>
+    <div className="ds-stage-meter__speakers">
+      {speakers.map(speaker => <span className="ds-persona" key={speaker} aria-label={`发言者 ${speaker}`}>
+        {speaker.trim().slice(0, 1).toUpperCase()}</span>)}
+    </div>
+    <div className="ds-stage-meter__audience">观众 {audience === undefined ? '—' : audience + ' 人'}</div>
+    <button type="button" className="ds-button ds-button--secondary" onClick={onRaiseHand}>举手</button>
+  </div>;
+}
+
+export function SlackHuddleTile({ participants = [], sharing = false, joined = false, onToggle }:
+  { participants?: string[]; sharing?: boolean; joined?: boolean; onToggle?: () => void }) {
+  return <div className="ds-huddle" role="region" aria-label="Huddle 语音会话">
+    <div className="ds-persona-stack">
+      {participants.slice(0, 3).map(person => <span className="ds-persona" key={person} aria-label={`参与者 ${person}`}>
+        {person.trim().slice(0, 1).toUpperCase()}</span>)}
+      {participants.length > 3 && <span className="ds-persona ds-persona--more"
+        aria-label={`另有 ${participants.length - 3} 名参与者`}>+{participants.length - 3}</span>}
+    </div>
+    <div className="ds-huddle__info"><strong>{participants.length} 人正在通话</strong>
+      <span>{sharing ? '有人正在共享屏幕' : '仅语音'}</span></div>
+    <button type="button" className="ds-button" onClick={onToggle}>{joined ? '离开' : '加入'}</button>
+  </div>;
+}
+
+export function SlackCanvasBlock({ title, meta, children }:
+  { title: string; meta?: string; children: React.ReactNode }) {
+  return <article className="ds-canvas-block">
+    <header className="ds-canvas-block__head"><strong>{title}</strong>{meta && <span>{meta}</span>}</header>
+    <div className="ds-canvas-block__body">{children}</div>
+  </article>;
+}
+
+export function SlackWorkflowStepCard({ steps, onRetry }:
+  { steps: { label: string; status: 'done' | 'failed' | 'blocked' | 'pending'; duration?: string }[]; onRetry?: (label: string) => void }) {
+  const label = { done: '已完成', failed: '失败', blocked: '被阻塞', pending: '待执行' };
+  return <div className="ds-step-card" role="region" aria-label="工作流步骤">
+    <ol className="ds-step-card__list">
+      {steps.map(step => <li className={`ds-step-card__item ds-step-card__item--${step.status}`} key={step.label}>
+        <span className="ds-step-card__dot" aria-hidden="true">{step.status === 'done' ? '✓' : step.status === 'failed' ? '!' : '–'}</span>
+        <span>{step.label}</span>
+        {step.status === 'failed' && <button type="button" className="ds-button ds-button--secondary"
+          onClick={() => onRetry?.(step.label)}>重试</button>}
+        <span className="ds-step-card__time">{step.duration || label[step.status]}</span>
+      </li>)}
+    </ol>
+  </div>;
+}
+
+export function SlackEmojiReactionBar({ reactions, onToggle }:
+  { reactions: { emoji: string; count: number; mine?: boolean }[]; onToggle?: (emoji: string) => void }) {
+  return <div className="ds-reaction-bar" role="group" aria-label="表情回应">
+    {reactions.map(reaction => <button type="button" className="ds-reaction-bar__pill" key={reaction.emoji}
+      aria-pressed={!!reaction.mine}
+      aria-label={`${reaction.emoji} ${reaction.count} 人${reaction.mine ? '，含你' : ''}`}
+      onClick={() => onToggle?.(reaction.emoji)}>{reaction.emoji} {reaction.count}</button>)}
+    <button type="button" className="ds-reaction-bar__add" aria-label="添加表情回应">☺+</button>
+  </div>;
+}
+
+export function SlackChannelMentionChip({ name, private: isPrivate = false, onOpen }:
+  { name: string; private?: boolean; onOpen?: (name: string) => void }) {
+  return <span className={`ds-mention-chip${isPrivate ? ' ds-mention-chip--private' : ''}`} role="link" tabIndex={0}
+    aria-label={`跳转到${isPrivate ? '私有' : ''}频道 ${name}`}
+    onClick={() => onOpen?.(name)}
+    onKeyDown={event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); onOpen?.(name); } }}>
+    {isPrivate ? '🔒 ' : '# '}{name}</span>;
+}
+
+export function SlackReminderSchedulerRow({ times = [], targets = [], onCreate }:
+  { times?: string[]; targets?: string[]; onCreate?: (payload: { time: string; target: string }) => void }) {
+  const [time, setTime] = useState(times[0] || '');
+  const [target, setTarget] = useState(targets[0] || '');
+  return <div className="ds-reminder-row" role="group" aria-label="设置提醒">
+    <span className="ds-reminder-row__label">时间</span>
+    <Select label="提醒时间" value={time} options={times} onChange={setTime} />
+    <span className="ds-reminder-row__label">对象</span>
+    <Select label="提醒对象" value={target} options={targets} onChange={setTarget} />
+    <button type="button" className="ds-button" onClick={() => onCreate?.({ time, target })}>创建提醒</button>
+  </div>;
+}
