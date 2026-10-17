@@ -1,0 +1,69 @@
+# GitHub Actions 组合动作步骤耗时汇总卡
+
+[返回组件目录](../README.md) · 数据 · CSS / HTML / React
+
+## 目的与边界
+
+CI 流水线中组合动作的分步耗时汇总（Composite Step Timer Summary）；列出总耗时、每个步骤的耗时与缓存命中状态，帮助快速定位最慢的步骤。
+
+## 结构
+
+- 汇总卡容器 (.ds-step-timer-summary)
+- 动作名与总耗时标题 (.ds-step-timer-summary__header, .ds-step-timer-summary__total)
+- 步骤清单 (.ds-step-timer-summary__steps, .ds-step-timer-summary__step)
+- 步骤名与命中标记 (.ds-step-timer-summary__step-name)
+- 单步耗时 (.ds-step-timer-summary__step-dur)
+- 缓存命中率与并发页脚 (.ds-step-timer-summary__footer)
+
+## 状态约定
+
+| 状态 | 处理 |
+|---|---|
+| 默认 | 使用语义主题变量；不由组件硬编码主题颜色 |
+| Hover | 仅精细指针启用；颜色与空间变化分开 |
+| Focus | focus-visible 清晰且不被容器裁切 |
+| Active | 保留标签与上下文；避免修改控件的宽高 |
+| Disabled | 仅对交互控件适用；原生 disabled 并说明原因 |
+| Loading | 只对异步任务适用；阻止重复请求并标明 busy |
+| Error | 在对应上下文提供原因和恢复操作 |
+| Empty | 无数据时明确说明原因，不伪造数据 |
+
+## 操作与键盘
+
+无需交互；步骤清单使用 role="list"，屏幕阅读器按顺序朗读步骤名与耗时。
+
+## 使用细则
+
+- 缓存命中用符号加文字双通道表达，不要只靠颜色。
+- 耗时数字必须带单位并保留一位小数，便于步骤之间比较。
+- 步骤超过 8 步时只展示最慢的若干步，避免长列表淹没重点。
+
+## 主题、密度与布局
+
+采用 `--ds-ink`、`--ds-muted`、`--ds-surface`、`--ds-line` 和对应语义颜色。浅色与深色分别构建，不做全局反相。默认 44px 控件高度；桌面紧凑模式可为 36px，触摸模式为 48px。内容层实底，不添加 backdrop-filter。
+
+## HTML 示例
+
+```html
+<div class="ds-step-timer-summary" role="region" aria-label="组合动作步骤耗时汇总：setup-node &amp; pnpm cache，总耗时 4.2s"><div class="ds-step-timer-summary__header"><span>setup-node &amp; pnpm cache</span><span class="ds-step-timer-summary__total">4.2s total</span></div><div class="ds-step-timer-summary__steps" role="list"><div class="ds-step-timer-summary__step" role="listitem"><span class="ds-step-timer-summary__step-name">⚡ Resolve dependency tree</span><span class="ds-step-timer-summary__step-dur">0.8s</span></div><div class="ds-step-timer-summary__step" role="listitem"><span class="ds-step-timer-summary__step-name">⚡ Fetch pnpm virtual store</span><span class="ds-step-timer-summary__step-dur">2.1s</span></div><div class="ds-step-timer-summary__step" role="listitem"><span class="ds-step-timer-summary__step-name">• Post-install workspace link</span><span class="ds-step-timer-summary__step-dur">1.3s</span></div></div><div class="ds-step-timer-summary__footer"><span>CACHE: HIT (2/3)</span><span>PARALLEL RUNNER</span></div></div>
+```
+
+## React 示例
+
+```tsx
+<GitHubActionsCompositeStepTimerSummary actionName="setup-node & pnpm cache" totalSeconds={4.2} />
+```
+
+组件源码见 [web/react.tsx](../../web/react.tsx)。
+
+## 验收
+
+- [ ] 总耗时明确
+- [ ] 每步耗时带单位
+- [ ] 缓存命中率可读
+- [ ] 浅色、深色、200% 缩放和减少动效均可完成任务
+- [ ] 错误、禁用和加载状态没有虚构成功结果
+
+## 相关规范
+
+[无障碍](../guides/accessibility.md) · [状态和异步](../guides/states.md) · [主题](../guides/themes.md) · [验收流程](../guides/quality.md)

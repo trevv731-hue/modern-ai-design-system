@@ -7360,5 +7360,166 @@
     ],
     "react": "<FigmaCanvasVectorAnchorTangentHandle anchorId=\"P4_BEZIER_VERTEX\" tangentMode=\"Mirrored Symmetrical\" coordX={248.5} coordY={112.0} handleLength={48} />",
     "status": "CSS / HTML / React"
+  },
+  {
+    "id": "linear-triage-sla-escalation-timer",
+    "name": "Linear 工单分流 SLA 紧急升级倒计时器",
+    "category": "反馈",
+    "purpose": "工单分流看板的 SLA 履约监控与一键升级控件（Triage SLA Escalation Timer）；展示工单编号、SLA 等级（Urgent P0）、剩余时间与紧急升级动作按钮，临近违约时给出强提示。",
+    "anatomy": [
+      "圆角倒计时容器 (.ds-triage-sla-timer)",
+      "状态指示环 (.ds-triage-sla-timer__ring)",
+      "SLA 等级标签 (.ds-triage-sla-timer__tier)",
+      "剩余时间等宽倒计时 (.ds-triage-sla-timer__countdown)",
+      "一键升级动作按钮 (.ds-triage-sla-timer__action)"
+    ],
+    "keyboard": "Tab 依次聚焦倒计时状态与升级按钮；Enter 或 Space 触发升级；屏幕阅读器播报工单编号、等级与剩余时间。",
+    "guidance": [
+      "容器使用 role=\"status\"，并在 aria-label 内完整播报工单、等级与剩余时间。",
+      "升级按钮必须带明确 aria-label，说明将升级哪一张工单。",
+      "倒计时归零后应切换为违约样式，而不是继续停留在 00:00。"
+    ],
+    "preview": "<div class=\"ds-triage-sla-timer\" role=\"status\" aria-label=\"工单分流 SLA 倒计时：SUP-1082，等级 Urgent P0，剩余 18m 42s\"><span class=\"ds-triage-sla-timer__ring\" aria-hidden=\"true\"></span><span class=\"ds-triage-sla-timer__tier\">Urgent P0</span><span class=\"ds-triage-sla-timer__countdown\">18m 42s</span><button type=\"button\" class=\"ds-triage-sla-timer__action\" aria-label=\"紧急升级工单 SUP-1082\">Escalate</button></div>",
+    "checks": [
+      "Urgent P0 等级标签醒目",
+      "18m 42s 倒计时等宽不跳动",
+      "Escalate 按钮触控区足够"
+    ],
+    "react": "<LinearTriageSlaEscalationTimer ticketId=\"SUP-1082\" slaTier=\"Urgent P0\" remainingTime=\"18m 42s\" />",
+    "status": "CSS / HTML / React"
+  },
+  {
+    "id": "mac-menu-bar-airplay-audio-route-sheet",
+    "name": "macOS 菜单栏隔空播放 2 多房间音频路由面板",
+    "category": "浮层",
+    "purpose": "macOS 顶部菜单栏音频输出切换面板（AirPlay 2 Multi-Room Route Sheet）；列出可用输出设备、分组状态与音量，并标注当前输出目标、无损格式与同步延迟。",
+    "anatomy": [
+      "半透明圆角路由面板 (.ds-airplay-route-sheet)",
+      "标题与同步状态徽标 (.ds-airplay-route-sheet__header, .ds-airplay-route-sheet__badge)",
+      "输出设备清单 (.ds-airplay-route-sheet__devices, .ds-airplay-route-sheet__row)",
+      "设备名与分组标记 (.ds-airplay-route-sheet__name)",
+      "单设备音量 (.ds-airplay-route-sheet__vol)",
+      "格式与延迟页脚 (.ds-airplay-route-sheet__footer)"
+    ],
+    "keyboard": "Tab 在设备行之间移动；Enter 或 Space 切换输出目标；Escape 关闭面板并把焦点交还菜单栏图标。",
+    "guidance": [
+      "面板使用 region 角色，aria-label 需说明当前输出设备。",
+      "设备清单使用 role=\"list\" 与 listitem，让屏幕阅读器读出设备数量。",
+      "已分组与未分组用不同符号区分，不能只靠颜色表达。"
+    ],
+    "preview": "<div class=\"ds-airplay-route-sheet\" role=\"region\" aria-label=\"隔空播放 2 多房间音频路由：当前输出至 Living Room Stereo HomePod\"><div class=\"ds-airplay-route-sheet__header\"><span>AirPlay 2 Multi-Room</span><span class=\"ds-airplay-route-sheet__badge\">Synced</span></div><div class=\"ds-airplay-route-sheet__devices\" role=\"list\"><div class=\"ds-airplay-route-sheet__row\" role=\"listitem\"><span class=\"ds-airplay-route-sheet__name\"><span>✓</span><span>MacBook Pro Speakers</span></span><span class=\"ds-airplay-route-sheet__vol\">72%</span></div><div class=\"ds-airplay-route-sheet__row\" role=\"listitem\"><span class=\"ds-airplay-route-sheet__name\"><span>✓</span><span>Living Room HomePod</span></span><span class=\"ds-airplay-route-sheet__vol\">85%</span></div><div class=\"ds-airplay-route-sheet__row\" role=\"listitem\"><span class=\"ds-airplay-route-sheet__name\"><span>○</span><span>Studio Display</span></span><span class=\"ds-airplay-route-sheet__vol\">0%</span></div></div><div class=\"ds-airplay-route-sheet__footer\"><span>Lossless 24-bit/48kHz</span><span>Latency: &lt;5ms</span></div></div>",
+    "checks": [
+      "当前输出设备明确",
+      "分组状态不只靠颜色",
+      "音量与无损格式信息完整"
+    ],
+    "react": "<MacMenuBarAirPlayAudioRouteSheet activeRoute=\"Living Room Stereo HomePod\" />",
+    "status": "CSS / HTML / React"
+  },
+  {
+    "id": "cassette-head-demagnetizer-pulse-meter",
+    "name": "卡带磁头消磁仪磁通脉冲衰减表",
+    "category": "多媒体",
+    "purpose": "模拟卡带机磁头消磁流程的仪表（Demagnetizer Gauss Pulse Meter）；以柱状衰减波形展示交流消磁脉冲的放电过程，并给出残余磁通量与安全阈值。",
+    "anatomy": [
+      "仪表容器 (.ds-demagnetizer-pulse-meter)",
+      "标题与安全状态栏 (.ds-demagnetizer-pulse-meter__header, .ds-demagnetizer-pulse-meter__status)",
+      "脉冲衰减柱形舞台 (.ds-demagnetizer-pulse-meter__stage, .ds-demagnetizer-pulse-meter__bar)",
+      "放电周期与残余值页脚 (.ds-demagnetizer-pulse-meter__footer)"
+    ],
+    "keyboard": "无需交互：柱形标记 aria-hidden，由容器以 region + aria-label 统一播报残余磁通量与状态。",
+    "guidance": [
+      "纯展示组件，柱形必须 aria-hidden，避免屏幕阅读器逐柱朗读。",
+      "状态文案直接给出是否安全，不要只显示一个数值。",
+      "适合作为复古设备面板的过程可视化，不作为精确测量读数使用。"
+    ],
+    "preview": "<div class=\"ds-demagnetizer-pulse-meter\" role=\"region\" aria-label=\"磁头消磁仪磁通量脉冲表：Playback &amp; Record Head，残余磁通量 0.08 Gauss，状态 已消磁\"><div class=\"ds-demagnetizer-pulse-meter__header\"><span>DEMAG GAUSS PULSE</span><span class=\"ds-demagnetizer-pulse-meter__status\">0.08 G SAFE</span></div><div class=\"ds-demagnetizer-pulse-meter__stage\" aria-hidden=\"true\"><div class=\"ds-demagnetizer-pulse-meter__bar\" style=\"height: 40%\"></div><div class=\"ds-demagnetizer-pulse-meter__bar\" style=\"height: 75%\"></div><div class=\"ds-demagnetizer-pulse-meter__bar\" style=\"height: 95%\"></div><div class=\"ds-demagnetizer-pulse-meter__bar\" style=\"height: 60%\"></div><div class=\"ds-demagnetizer-pulse-meter__bar\" style=\"height: 30%\"></div><div class=\"ds-demagnetizer-pulse-meter__bar\" style=\"height: 15%\"></div><div class=\"ds-demagnetizer-pulse-meter__bar\" style=\"height: 8%\"></div></div><div class=\"ds-demagnetizer-pulse-meter__footer\"><span>Decaying 60Hz AC</span><span>RESIDUAL: &lt;0.1 G</span></div></div>",
+    "checks": [
+      "0.08 G SAFE 状态醒目",
+      "衰减柱形由高到低可读",
+      "页脚残余阈值明确"
+    ],
+    "react": "<CassetteHeadDemagnetizerPulseMeter headUnit=\"Playback & Record Head\" residualGauss={0.08} isDemagComplete />",
+    "status": "CSS / HTML / React"
+  },
+  {
+    "id": "vision-spatial-world-anchor-transform-gizmo",
+    "name": "visionOS 空间世界锚点三维变换坐标轴控件",
+    "category": "数据",
+    "purpose": "空间计算场景下的世界锚点坐标读数与变换手柄（World Anchor Transform Gizmo）；显示锚点名称、坐标系、X/Y/Z 三轴位置，以及吸附网格与旋转四元数状态。",
+    "anatomy": [
+      "锚点控件容器 (.ds-spatial-transform-gizmo)",
+      "锚点名与坐标系标题 (.ds-spatial-transform-gizmo__header, .ds-spatial-transform-gizmo__coord-space)",
+      "三轴坐标读数 (.ds-spatial-transform-gizmo__axes, .ds-spatial-transform-gizmo__axis--x/y/z)",
+      "吸附网格与旋转状态页脚 (.ds-spatial-transform-gizmo__footer)"
+    ],
+    "keyboard": "Tab 聚焦控件整体；三轴读数仅供播报，方向调整应另有可聚焦的步进控件。",
+    "guidance": [
+      "坐标读数在 aria-label 内一次播报完整，避免逐轴朗读造成歧义。",
+      "三轴用文字加颜色双通道区分，不能只依赖颜色。",
+      "数值必须写明单位（米）：空间场景里不含单位的数字会被误读为像素。"
+    ],
+    "preview": "<div class=\"ds-spatial-transform-gizmo\" role=\"region\" aria-label=\"空间世界锚点 3D 变换坐标轴：Tabletop Anchor #3，坐标 X:0.42m Y:1.18m Z:-0.85m\"><div class=\"ds-spatial-transform-gizmo__header\"><span>Tabletop Anchor #3</span><span class=\"ds-spatial-transform-gizmo__coord-space\">RealityKit World XYZ</span></div><div class=\"ds-spatial-transform-gizmo__axes\" aria-hidden=\"true\"><span class=\"ds-spatial-transform-gizmo__axis--x\">X: 0.42m</span><span class=\"ds-spatial-transform-gizmo__axis--y\">Y: 1.18m</span><span class=\"ds-spatial-transform-gizmo__axis--z\">Z: -0.85m</span></div><div class=\"ds-spatial-transform-gizmo__footer\"><span>Grid: 5cm snap</span><span>Quaternion: identity</span></div></div>",
+    "checks": [
+      "三轴坐标各自带单位",
+      "坐标系名称明确",
+      "网格吸附与旋转状态可读"
+    ],
+    "react": "<VisionSpatialWorldAnchorTransformGizmo anchorName=\"Tabletop Anchor #3\" posX={0.42} posY={1.18} posZ={-0.85} />",
+    "status": "CSS / HTML / React"
+  },
+  {
+    "id": "github-actions-composite-step-timer-summary",
+    "name": "GitHub Actions 组合动作步骤耗时汇总卡",
+    "category": "数据",
+    "purpose": "CI 流水线中组合动作的分步耗时汇总（Composite Step Timer Summary）；列出总耗时、每个步骤的耗时与缓存命中状态，帮助快速定位最慢的步骤。",
+    "anatomy": [
+      "汇总卡容器 (.ds-step-timer-summary)",
+      "动作名与总耗时标题 (.ds-step-timer-summary__header, .ds-step-timer-summary__total)",
+      "步骤清单 (.ds-step-timer-summary__steps, .ds-step-timer-summary__step)",
+      "步骤名与命中标记 (.ds-step-timer-summary__step-name)",
+      "单步耗时 (.ds-step-timer-summary__step-dur)",
+      "缓存命中率与并发页脚 (.ds-step-timer-summary__footer)"
+    ],
+    "keyboard": "无需交互；步骤清单使用 role=\"list\"，屏幕阅读器按顺序朗读步骤名与耗时。",
+    "guidance": [
+      "缓存命中用符号加文字双通道表达，不要只靠颜色。",
+      "耗时数字必须带单位并保留一位小数，便于步骤之间比较。",
+      "步骤超过 8 步时只展示最慢的若干步，避免长列表淹没重点。"
+    ],
+    "preview": "<div class=\"ds-step-timer-summary\" role=\"region\" aria-label=\"组合动作步骤耗时汇总：setup-node &amp; pnpm cache，总耗时 4.2s\"><div class=\"ds-step-timer-summary__header\"><span>setup-node &amp; pnpm cache</span><span class=\"ds-step-timer-summary__total\">4.2s total</span></div><div class=\"ds-step-timer-summary__steps\" role=\"list\"><div class=\"ds-step-timer-summary__step\" role=\"listitem\"><span class=\"ds-step-timer-summary__step-name\">⚡ Resolve dependency tree</span><span class=\"ds-step-timer-summary__step-dur\">0.8s</span></div><div class=\"ds-step-timer-summary__step\" role=\"listitem\"><span class=\"ds-step-timer-summary__step-name\">⚡ Fetch pnpm virtual store</span><span class=\"ds-step-timer-summary__step-dur\">2.1s</span></div><div class=\"ds-step-timer-summary__step\" role=\"listitem\"><span class=\"ds-step-timer-summary__step-name\">• Post-install workspace link</span><span class=\"ds-step-timer-summary__step-dur\">1.3s</span></div></div><div class=\"ds-step-timer-summary__footer\"><span>CACHE: HIT (2/3)</span><span>PARALLEL RUNNER</span></div></div>",
+    "checks": [
+      "总耗时明确",
+      "每步耗时带单位",
+      "缓存命中率可读"
+    ],
+    "react": "<GitHubActionsCompositeStepTimerSummary actionName=\"setup-node & pnpm cache\" totalSeconds={4.2} />",
+    "status": "CSS / HTML / React"
+  },
+  {
+    "id": "figma-canvas-color-style-variable-migration-card",
+    "name": "Figma 画布颜色样式迁移至设计变量批量卡",
+    "category": "表单",
+    "purpose": "把旧颜色样式批量映射到设计变量的迁移卡（Style to Variable Migration Card）；展示源样式、目标变量与受影响实例数量，并提供一键批量迁移动作。",
+    "anatomy": [
+      "迁移卡容器 (.ds-style-migration-card)",
+      "标题与实例数量 (.ds-style-migration-card__header, .ds-style-migration-card__count)",
+      "样式到变量的映射行 (.ds-style-migration-card__mapping, .ds-style-migration-card__old, .ds-style-migration-card__arrow, .ds-style-migration-card__new)",
+      "批量迁移按钮 (.ds-style-migration-card__btn)"
+    ],
+    "keyboard": "Tab 聚焦迁移按钮；Enter 或 Space 执行迁移；按钮 aria-label 需说明会影响的实例数量。",
+    "guidance": [
+      "高影响操作必须在 aria-label 与可见文案中同时给出影响范围。",
+      "映射关系用箭头明确表达方向，避免源与目标混淆。",
+      "迁移前应可预览差异，确认后才真正写入。"
+    ],
+    "preview": "<div class=\"ds-style-migration-card\" role=\"region\" aria-label=\"样式迁移至设计变量：将 Color / Primary / Accent 映射至 color.action.primary，影响 84 处图层实例\"><div class=\"ds-style-migration-card__header\"><span>Style → Variable</span><span class=\"ds-style-migration-card__count\">84 instances</span></div><div class=\"ds-style-migration-card__mapping\" aria-hidden=\"true\"><span class=\"ds-style-migration-card__old\">Color / Primary / Accent</span><span class=\"ds-style-migration-card__arrow\">➔</span><span class=\"ds-style-migration-card__new\">color.action.primary</span></div><button type=\"button\" class=\"ds-style-migration-card__btn\" aria-label=\"一键批量迁移 84 处样式至变量\">Batch Migrate to Variables</button></div>",
+    "checks": [
+      "源样式与目标变量方向明确",
+      "84 处实例数量醒目",
+      "批量迁移按钮可聚焦且后果说明明确"
+    ],
+    "react": "<FigmaCanvasColorStyleVariableMigrationCard sourceStyle=\"Color / Primary / Accent\" targetVariable=\"color.action.primary\" unlinkedCount={84} />",
+    "status": "CSS / HTML / React"
   }
 ]

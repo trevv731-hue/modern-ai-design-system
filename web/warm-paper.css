@@ -2376,4 +2376,63 @@
   --ds-shadow: 0 8px 32px rgba(6,182,212,.24);
 }
 
+/* Icelandic Geysir Mineral — Arctic glacial cyan ice, geothermal mineral springs & volcanic basalt */
+[data-palette="icelandic-geysir-mineral"] {
+  color-scheme: light;
+  --ds-canvas: #f2f8fa;
+  --ds-surface: #ffffff;
+  --ds-inset: #e6f1f4;
+  --ds-chrome: rgba(255,255,255,.94);
+  --ds-ink: #0f242e;
+  --ds-muted: #4e6e7c;
+  --ds-line: #cde0e6;
+  --ds-control-line: #afd0da;
+  --ds-accent: #0284c7;
+  --ds-accent-soft: #e0f2fe;
+  --ds-action: #0284c7;
+  --ds-action-hover: #0369a1;
+  --ds-on-action: #ffffff;
+  --ds-secondary: #0d9488;
+  --ds-secondary-soft: #ccfbf1;
+  --ds-success: #059669;
+  --ds-success-soft: #d1fae5;
+  --ds-warning: #d97706;
+  --ds-warning-soft: #fef3c7;
+  --ds-danger: #e11d48;
+  --ds-danger-soft: #ffe4e6;
+  --ds-focus: #0284c7;
+  --ds-overlay: rgba(15,36,46,.35);
+  --ds-shadow: 0 8px 28px rgba(2,132,199,.12);
+}
+
+/* Bavarian Autumn Forest — Deep Black Forest pine greens, autumnal golden larch & alpine mist */
+[data-palette="bavarian-autumn-forest"] {
+  color-scheme: dark;
+  --ds-canvas: #09120c;
+  --ds-surface: #101e15;
+  --ds-inset: #060d09;
+  --ds-chrome: rgba(16,30,21,.92);
+  --ds-ink: #ecfdf5;
+  --ds-muted: #7da58a;
+  --ds-line: #223829;
+  --ds-control-line: #33543e;
+  --ds-accent: #f59e0b;
+  --ds-accent-soft: #382404;
+  --ds-action: #10b981;
+  --ds-action-hover: #34d399;
+  --ds-on-action: #022c1b;
+  --ds-secondary: #d97706;
+  --ds-secondary-soft: #331d04;
+  --ds-success: #10b981;
+  --ds-success-soft: #052e20;
+  --ds-warning: #f59e0b;
+  --ds-warning-soft: #382404;
+  --ds-danger: #f43f5e;
+  --ds-danger-soft: #3b0e1a;
+  --ds-focus: #f59e0b;
+  --ds-overlay: rgba(6,13,9,.86);
+  --ds-shadow: 0 8px 32px rgba(16,185,129,.18);
+}
+
+
 

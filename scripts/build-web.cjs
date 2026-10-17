@@ -17,7 +17,14 @@ const declarations = tokens => Object.entries(tokens).map(([key, value]) => `  -
 fs.writeFileSync(path.join(output, 'theme.css'), `/* Generated from tokens/web.json. Do not edit. */\n:root {\n${declarations({...shared,...themes.light})}\n  color-scheme: light;\n}\n[data-theme="dark"] {\n${declarations(themes.dark)}\n  color-scheme: dark;\n}\n[data-theme="light"] { color-scheme:light; }\n`);
 const themePath = path.join(output, 'theme.css');
 fs.writeFileSync(themePath, fs.readFileSync(path.join(root, 'web/fonts.css'), 'utf8') + fs.readFileSync(themePath, 'utf8'));
-fs.cpSync(path.join(root, 'web/fonts'), path.join(output, 'fonts'), { recursive: true });
+// 字体体积大且极少变动：目标已一致时跳过，避免每次构建重写整个目录。
+fs.mkdirSync(path.join(output, 'fonts'), { recursive: true });
+for (const file of fs.readdirSync(path.join(root, 'web/fonts'))) {
+  const from = path.join(root, 'web/fonts', file);
+  const to = path.join(output, 'fonts', file);
+  if (fs.existsSync(to) && fs.readFileSync(from).equals(fs.readFileSync(to))) continue;
+  fs.copyFileSync(from, to);
+}
 fs.copyFileSync(path.join(root, 'web/components.css'), path.join(output, 'components.css'));
 fs.copyFileSync(path.join(root, 'web/warm-paper.css'), path.join(output, 'warm-paper.css'));
 for (const file of ['motion.css','motion.js']) fs.copyFileSync(path.join(root,'web',file),path.join(output,file));

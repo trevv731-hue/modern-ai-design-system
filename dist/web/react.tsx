@@ -8074,5 +8074,234 @@ export function FigmaCanvasVectorAnchorTangentHandle({
   );
 }
 
+export function LinearTriageSlaEscalationTimer({
+  ticketId = 'SUP-1082',
+  slaTier = 'Urgent P0',
+  remainingTime = '18m 42s',
+  onEscalate,
+}: {
+  ticketId?: string;
+  slaTier?: string;
+  remainingTime?: string;
+  onEscalate?: () => void;
+}) {
+  return (
+    <div
+      className="ds-triage-sla-timer"
+      role="status"
+      aria-label={`工单分流 SLA 倒计时：${ticketId}，等级 ${slaTier}，剩余 ${remainingTime}`}
+    >
+      <span className="ds-triage-sla-timer__ring" aria-hidden="true" />
+      <span className="ds-triage-sla-timer__tier">{slaTier}</span>
+      <span className="ds-triage-sla-timer__countdown">{remainingTime}</span>
+      <button
+        type="button"
+        className="ds-triage-sla-timer__action"
+        aria-label={`紧急升级工单 ${ticketId}`}
+        onClick={onEscalate}
+      >
+        Escalate
+      </button>
+    </div>
+  );
+}
+
+export function MacMenuBarAirPlayAudioRouteSheet({
+  activeRoute = 'Living Room Stereo HomePod',
+  routes = [
+    { name: 'MacBook Pro Speakers', volume: '72%', isGrouped: true },
+    { name: 'Living Room HomePod', volume: '85%', isGrouped: true },
+    { name: 'Studio Studio Display', volume: '0%', isGrouped: false }
+  ],
+}: {
+  activeRoute?: string;
+  routes?: Array<{ name: string; volume: string; isGrouped: boolean }>;
+}) {
+  return (
+    <div
+      className="ds-airplay-route-sheet"
+      role="region"
+      aria-label={`隔空播放 2 多房间音频路由：当前输出至 ${activeRoute}`}
+    >
+      <div className="ds-airplay-route-sheet__header">
+        <span>AirPlay 2 Multi-Room</span>
+        <span className="ds-airplay-route-sheet__badge">Synced</span>
+      </div>
+      <div className="ds-airplay-route-sheet__devices" role="list">
+        {routes.map((dev, idx) => (
+          <div key={idx} className="ds-airplay-route-sheet__row" role="listitem">
+            <span className="ds-airplay-route-sheet__name">
+              <span>{dev.isGrouped ? '✓' : '○'}</span>
+              <span>{dev.name}</span>
+            </span>
+            <span className="ds-airplay-route-sheet__vol">{dev.volume}</span>
+          </div>
+        ))}
+      </div>
+      <div className="ds-airplay-route-sheet__footer">
+        <span>Lossless 24-bit/48kHz</span>
+        <span>Latency: &lt;5ms</span>
+      </div>
+    </div>
+  );
+}
+
+export function CassetteHeadDemagnetizerPulseMeter({
+  headUnit = 'Playback & Record Head',
+  residualGauss = 0.08,
+  isDemagComplete = true,
+  dischargeCycle = 'Decaying 60Hz AC',
+}: {
+  headUnit?: string;
+  residualGauss?: number;
+  isDemagComplete?: boolean;
+  dischargeCycle?: string;
+}) {
+  return (
+    <div
+      className="ds-demagnetizer-pulse-meter"
+      role="region"
+      aria-label={`磁头消磁仪磁通量脉冲表：${headUnit}，残余磁通量 ${residualGauss} Gauss，状态 ${isDemagComplete ? '已消磁' : '消磁中'}`}
+    >
+      <div className="ds-demagnetizer-pulse-meter__header">
+        <span>DEMAG GAUSS PULSE</span>
+        <span className="ds-demagnetizer-pulse-meter__status">
+          {isDemagComplete ? '0.08 G SAFE' : 'CHARGING'}
+        </span>
+      </div>
+      <div className="ds-demagnetizer-pulse-meter__stage" aria-hidden="true">
+        {[40, 75, 95, 60, 30, 15, 8].map((h, i) => (
+          <div
+            key={i}
+            className="ds-demagnetizer-pulse-meter__bar"
+            style={{ height: `${h}%` }}
+          />
+        ))}
+      </div>
+      <div className="ds-demagnetizer-pulse-meter__footer">
+        <span>{dischargeCycle}</span>
+        <span>RESIDUAL: &lt;0.1 G</span>
+      </div>
+    </div>
+  );
+}
+
+export function VisionSpatialWorldAnchorTransformGizmo({
+  anchorName = 'Tabletop Anchor #3',
+  coordSystem = 'RealityKit World XYZ',
+  posX = 0.42,
+  posY = 1.18,
+  posZ = -0.85,
+}: {
+  anchorName?: string;
+  coordSystem?: string;
+  posX?: number;
+  posY?: number;
+  posZ?: number;
+}) {
+  return (
+    <div
+      className="ds-spatial-transform-gizmo"
+      role="region"
+      aria-label={`空间世界锚点 3D 变换坐标轴：${anchorName}，坐标 X:${posX}m Y:${posY}m Z:${posZ}m`}
+    >
+      <div className="ds-spatial-transform-gizmo__header">
+        <span>{anchorName}</span>
+        <span className="ds-spatial-transform-gizmo__coord-space">{coordSystem}</span>
+      </div>
+      <div className="ds-spatial-transform-gizmo__axes" aria-hidden="true">
+        <span className="ds-spatial-transform-gizmo__axis--x">X: {posX}m</span>
+        <span className="ds-spatial-transform-gizmo__axis--y">Y: {posY}m</span>
+        <span className="ds-spatial-transform-gizmo__axis--z">Z: {posZ}m</span>
+      </div>
+      <div className="ds-spatial-transform-gizmo__footer">
+        <span>Grid: 5cm snap</span>
+        <span>Quaternion: identity</span>
+      </div>
+    </div>
+  );
+}
+
+export function GitHubActionsCompositeStepTimerSummary({
+  actionName = 'setup-node & pnpm cache',
+  totalSeconds = 4.2,
+  stepTimings = [
+    { step: 'Resolve dependency tree', duration: '0.8s', cacheHit: true },
+    { step: 'Fetch pnpm virtual store', duration: '2.1s', cacheHit: true },
+    { step: 'Post-install workspace link', duration: '1.3s', cacheHit: false }
+  ],
+}: {
+  actionName?: string;
+  totalSeconds?: number;
+  stepTimings?: Array<{ step: string; duration: string; cacheHit: boolean }>;
+}) {
+  return (
+    <div
+      className="ds-step-timer-summary"
+      role="region"
+      aria-label={`组合动作步骤耗时汇总：${actionName}，总耗时 ${totalSeconds}s`}
+    >
+      <div className="ds-step-timer-summary__header">
+        <span>{actionName}</span>
+        <span className="ds-step-timer-summary__total">{totalSeconds}s total</span>
+      </div>
+      <div className="ds-step-timer-summary__steps" role="list">
+        {stepTimings.map((st, idx) => (
+          <div key={idx} className="ds-step-timer-summary__step" role="listitem">
+            <span className="ds-step-timer-summary__step-name">
+              {st.cacheHit ? '⚡ ' : '• '}
+              {st.step}
+            </span>
+            <span className="ds-step-timer-summary__step-dur">{st.duration}</span>
+          </div>
+        ))}
+      </div>
+      <div className="ds-step-timer-summary__footer">
+        <span>CACHE: HIT (2/3)</span>
+        <span>PARALLEL RUNNER</span>
+      </div>
+    </div>
+  );
+}
+
+export function FigmaCanvasColorStyleVariableMigrationCard({
+  sourceStyle = 'Color / Primary / Accent',
+  targetVariable = 'color.action.primary',
+  unlinkedCount = 84,
+  onMigrate,
+}: {
+  sourceStyle?: string;
+  targetVariable?: string;
+  unlinkedCount?: number;
+  onMigrate?: () => void;
+}) {
+  return (
+    <div
+      className="ds-style-migration-card"
+      role="region"
+      aria-label={`样式迁移至设计变量：将 ${sourceStyle} 映射至 ${targetVariable}，影响 ${unlinkedCount} 处图层实例`}
+    >
+      <div className="ds-style-migration-card__header">
+        <span>Style → Variable</span>
+        <span className="ds-style-migration-card__count">{unlinkedCount} instances</span>
+      </div>
+      <div className="ds-style-migration-card__mapping" aria-hidden="true">
+        <span className="ds-style-migration-card__old">{sourceStyle}</span>
+        <span className="ds-style-migration-card__arrow">➔</span>
+        <span className="ds-style-migration-card__new">{targetVariable}</span>
+      </div>
+      <button
+        type="button"
+        className="ds-style-migration-card__btn"
+        aria-label={`一键批量迁移 ${unlinkedCount} 处样式至变量`}
+        onClick={onMigrate}
+      >
+        Batch Migrate to Variables
+      </button>
+    </div>
+  );
+}
+
+
 
 
