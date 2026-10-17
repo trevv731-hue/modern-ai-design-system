@@ -12521,3 +12521,157 @@ export function VSCodeDebugCallStackNode({ frames, onSelect }:
     </div>)}
   </div>;
 }
+
+export function SpotifyNowPlayingBar({ title, artist, elapsed = '00:00', duration = '00:00', paused = false, onToggle }:
+  { title: string; artist: string; elapsed?: string; duration?: string; paused?: boolean; onToggle?: () => void }) {
+  const [percent, setPercent] = useState(0);
+  useEffect(() => {
+    const toSeconds = (value: string) => value.split(':').reduce((total, part) => total * 60 + Number(part), 0);
+    const total = toSeconds(duration);
+    setPercent(total > 0 ? Math.min(100, Math.round((toSeconds(elapsed) / total) * 100)) : 0);
+  }, [elapsed, duration]);
+  return <div className="ds-nowbar" role="region" aria-label="正在播放">
+    <div className="ds-nowbar__track"><span className="ds-nowbar__art" aria-hidden="true">♪</span>
+      <div><strong>{title}</strong><span>{artist}</span></div></div>
+    <div className="ds-nowbar__controls">
+      <button type="button" className="ds-button ds-button--ghost" aria-label="上一首">⏮</button>
+      <button type="button" className="ds-button ds-button--secondary"
+        aria-label={paused ? '播放' : '暂停'} onClick={onToggle}>{paused ? '▶' : '⏸'}</button>
+      <button type="button" className="ds-button ds-button--ghost" aria-label="下一首">⏭</button>
+    </div>
+    <div className="ds-nowbar__progress"><span className="ds-nowbar__time">{elapsed}</span>
+      <div className="ds-nowbar__track-bar"><span style={{ width: percent + '%' }} /></div>
+      <span className="ds-nowbar__time">{duration}</span></div>
+  </div>;
+}
+
+export function SpotifyBlendCard({ people, match = 0, note, onOpen }:
+  { people: string[]; match?: number; note?: string; onOpen?: () => void }) {
+  return <article className="ds-blend-card" role="region" aria-label={`Blend 合奏卡，重合度 ${match}%`}>
+    <div className="ds-persona-stack">
+      {people.map(person => <span className="ds-persona" key={person} aria-label={`成员 ${person}`}>
+        {person.trim().slice(0, 1).toUpperCase()}</span>)}
+    </div>
+    <strong>{match}% 口味重合</strong>
+    {note && <span className="ds-blend-card__note">{note}</span>}
+    <button type="button" className="ds-button" onClick={onOpen}>打开 Blend</button>
+  </article>;
+}
+
+export function SpotifyDJTransitionCard({ reason, onSkip, onKeep }:
+  { reason: string; onSkip?: () => void; onKeep?: () => void }) {
+  return <article className="ds-dj-card" role="status">
+    <header className="ds-dj-card__head"><span className="ds-persona" aria-label="DJ">DJ</span><strong>接下来</strong></header>
+    <p>{reason || '随机推荐，暂无可解释的信号。'}</p>
+    <footer className="ds-dj-card__foot">
+      <button type="button" className="ds-button ds-button--secondary" onClick={onSkip}>跳过</button>
+      <button type="button" className="ds-button" onClick={onKeep}>保留</button>
+    </footer>
+  </article>;
+}
+
+export function SpotifyCanvasLoopBadge({ onDisable }: { onDisable?: () => void }) {
+  return <div className="ds-canvas-badge" role="status">
+    <span aria-hidden="true">🔁</span><span>循环画面</span>
+    <button type="button" className="ds-button ds-button--ghost" onClick={onDisable}>关闭</button>
+  </div>;
+}
+
+export function YouTubeChaptersBar({ chapters, current = 0, onSeek }:
+  { chapters: { time: string; title: string }[]; current?: number; onSeek?: (index: number) => void }) {
+  return <div className="ds-chapters" role="group" aria-label="视频章节">
+    <div className="ds-chapters__bar">
+      {chapters.map((chapter, index) => <span key={chapter.time}
+        className={`ds-chapters__seg${index === current ? ' ds-chapters__seg--current' : ''}`}
+        style={{ flex: 1 }} title={`${chapter.time} ${chapter.title}`} />)}
+    </div>
+    <ul className="ds-chapters__list">
+      {chapters.map((chapter, index) => <li key={chapter.time}>
+        <button type="button" onClick={() => onSeek?.(index)}>{chapter.time} {chapter.title}</button></li>)}
+    </ul>
+  </div>;
+}
+
+export function YouTubeMiniplayerDock({ title, channel, onExpand, onClose }:
+  { title: string; channel: string; onExpand?: () => void; onClose?: () => void }) {
+  return <div className="ds-mini" role="region" aria-label="迷你播放器">
+    <div className="ds-mini__video" aria-hidden="true">▶</div>
+    <div className="ds-mini__meta"><strong>{title}</strong><span>{channel}</span></div>
+    <button type="button" className="ds-button ds-button--ghost" aria-label="展开播放器" onClick={onExpand}>⤢</button>
+    <button type="button" className="ds-button ds-button--ghost" aria-label="关闭播放" onClick={onClose}>×</button>
+  </div>;
+}
+
+export function YouTubeEndScreenCard({ title, duration, secondsLeft = 0, onCancel }:
+  { title: string; duration: string; secondsLeft?: number; onCancel?: () => void }) {
+  return <article className="ds-endcard" role="region" aria-label="结束推荐">
+    <div className="ds-endcard__thumb" aria-hidden="true">▶</div>
+    <div className="ds-endcard__meta"><strong>{title}</strong><span>{duration}</span></div>
+    <span className="ds-endcard__count">{secondsLeft} 秒后自动播放</span>
+    <button type="button" className="ds-button ds-button--secondary" onClick={onCancel}>取消</button>
+  </article>;
+}
+
+export function YouTubeSuperThanksBadge({ level = 1 }: { level?: number }) {
+  return <span className="ds-thanks-badge" role="status" aria-label={`超级感谢支持者，等级 ${level}`}>❤ 超级感谢 · Lv{level}</span>;
+}
+
+export function XTimelineTabBar({ tabs, active, onSelect }:
+  { tabs: { id: string; label: string; unread?: number }[]; active?: string; onSelect?: (id: string) => void }) {
+  const [current, setCurrent] = useState(active || tabs[0]?.id);
+  return <div className="ds-xtabs" role="tablist" aria-label="时间线">
+    {tabs.map(tab => <button type="button" className="ds-xtabs__tab" role="tab" key={tab.id}
+      aria-selected={tab.id === current} aria-current={tab.id === current || undefined}
+      onClick={() => { setCurrent(tab.id); onSelect?.(tab.id); }}>
+      {tab.label}{tab.unread ? <span className="ds-xtabs__badge">{tab.unread}</span> : null}
+    </button>)}
+  </div>;
+}
+
+export function XCommunityNoteCard({ status, helpfulness, children }:
+  { status?: string; helpfulness?: string; children: React.ReactNode }) {
+  return <article className="ds-note-card" role="region" aria-label="社区注释">
+    <header className="ds-note-card__head"><span className="ds-badge">读者补充</span>
+      {status && <span className="ds-note-card__state">{status}</span>}</header>
+    <p>{children}</p>
+    <footer className="ds-note-card__foot"><a href="#sources">查看来源</a>
+      {helpfulness && <span>{helpfulness}</span>}</footer>
+  </article>;
+}
+
+export function XPostComposerDock({ placeholder = '有什么新鲜事？', remaining = 280, onPost }:
+  { placeholder?: string; remaining?: number; onPost?: (text: string) => void }) {
+  const [text, setText] = useState('');
+  const id = useId();
+  return <div className="ds-composer" role="group" aria-label="撰写帖子">
+    <label className="ds-sr-only" htmlFor={id}>帖子内容</label>
+    <input id={id} type="text" placeholder={placeholder} value={text} onChange={event => setText(event.target.value)} />
+    <button type="button" className="ds-button ds-button--ghost" aria-label="添加图片">🖼</button>
+    <button type="button" className="ds-button ds-button--ghost" aria-label="添加表情">☺</button>
+    <span className="ds-composer__count">剩余 {Math.max(0, remaining - text.length)} 字</span>
+    <button type="button" className="ds-button" onClick={() => { onPost?.(text); setText(''); }}>发布</button>
+  </div>;
+}
+
+export function XGrokInlineReply({ generatedAt, children }:
+  { generatedAt?: string; children: React.ReactNode }) {
+  return <article className="ds-grok-card" role="region" aria-label="AI 补充信息">
+    <header className="ds-grok-card__head"><strong>Grok 补充</strong>
+      <span>{generatedAt || '生成时间未知 · 可能不准确'}</span></header>
+    <p>{children}</p>
+    <footer className="ds-grok-card__foot"><a href="#sources">查看来源</a>
+      <button type="button" className="ds-button ds-button--ghost">展开说明</button></footer>
+  </article>;
+}
+
+export function XTimelineBookmarkStrip({ items, unread = 0, onClear }:
+  { items: { id?: string; title: string; author?: string }[]; unread?: number; onClear?: () => void }) {
+  return <div className="ds-bookmark-strip" role="region" aria-label="稍后阅读">
+    {items.map((item, index) => <div className="ds-bookmark-strip__item" tabIndex={0} role="button"
+      key={item.id || index} aria-label={`书签：${item.title}`}>
+      <strong>{item.title}</strong>{item.author && <span>{item.author} · 今天</span>}
+    </div>)}
+    <div className="ds-bookmark-strip__count">{unread} 条未读</div>
+    <button type="button" className="ds-button ds-button--ghost" onClick={onClear}>清空</button>
+  </div>;
+}

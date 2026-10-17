@@ -1,7 +1,7 @@
 {
   "name": "modern-ai-design-system",
   "version": "3.0.0",
-  "description": "Modern AI 设计系统 v3：跨平台 tokens、语义主题、390 类组件规范、390 个 React 组件、交互目录与详细实施指南",
+  "description": "Modern AI 设计系统 v3：跨平台 tokens、语义主题、403 类组件规范、403 个 React 组件、交互目录与详细实施指南",
   "main": "scripts/build.cjs",
   "scripts": {
     "build": "node scripts/build.cjs",
