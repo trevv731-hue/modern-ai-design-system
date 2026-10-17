@@ -12958,3 +12958,157 @@ export function FigmaGridLayoutGapHud({ columns = 3, columnGap = 12, rowGap = 12
     <button type="button" className="ds-button ds-button--ghost" onClick={() => update({ columns: columns + 1 })}>增加列</button>
   </div>;
 }
+
+export function LinearIssueDetailHeader({ id, title, status, assignee }:
+  { id: string; title: string; status?: string; assignee?: string }) {
+  return <header className="ds-issue-head" role="group" aria-label={`问题 ${id}`}>
+    <span className="ds-issue-head__id">{id}</span>
+    <strong className="ds-issue-head__title">{title}</strong>
+    {status && <span className="ds-badge ds-badge--warning">{status}</span>}
+    {assignee && <span className="ds-persona" aria-label={`负责人 ${assignee}`}>{assignee.trim().slice(0, 1)}</span>}
+  </header>;
+}
+
+export function LinearQuickAddModal({ onCreate }: { onCreate?: (title: string) => void }) {
+  const [title, setTitle] = useState('');
+  const id = useId();
+  return <div className="ds-quick-add" role="dialog" aria-label="快速新建">
+    <label htmlFor={id}>标题
+      <input id={id} value={title} placeholder="要做什么？" onChange={event => setTitle(event.target.value)} />
+    </label>
+    <div className="ds-quick-add__row"><span className="ds-badge">待处理</span>
+      <span className="ds-persona" aria-label="负责人未分配">?</span>
+      <button type="button" className="ds-button" onClick={() => { onCreate?.(title); setTitle(''); }}>创建</button>
+    </div>
+    <span className="ds-quick-add__hint">Ctrl + Enter 创建</span>
+  </div>;
+}
+
+export function LinearProjectHealthRing({ value = 0, label = '正常', note }:
+  { value?: number; label?: string; note?: string }) {
+  return <div className="ds-health-ring" role="status" aria-label={`项目健康度 ${value}%，${label}`}>
+    <span className="ds-health-ring__value">{value}%</span>
+    <span className="ds-health-ring__label">{label}</span>
+    {note && <span className="ds-health-ring__note">{note}</span>}
+  </div>;
+}
+
+export function LinearCycleSwitcherPill({ cycles, onChange }:
+  { cycles: { id?: string; label: string; range?: string; current?: boolean }[]; onChange?: (label: string) => void }) {
+  const [current, setCurrent] = useState(cycles.find(cycle => cycle.current)?.label || cycles[0]?.label);
+  return <div className="ds-cycle-pill" role="group" aria-label="周期切换">
+    {cycles.map(cycle => <button type="button" key={cycle.label} aria-pressed={cycle.label === current}
+      onClick={() => { setCurrent(cycle.label); onChange?.(cycle.label); }}>
+      {cycle.label}{cycle.range ? ' · ' + cycle.range : ''}
+    </button>)}
+    <span className="ds-cycle-pill__note">当前周期</span>
+  </div>;
+}
+
+export function LinearNotificationInboxRow({ summary, kind, time, unread = false, onArchive }:
+  { summary: string; kind?: string; time?: string; unread?: boolean; onArchive?: () => void }) {
+  return <div className="ds-inbox-row" role="group" aria-label={`通知：${summary}`}>
+    {unread && <span className="ds-inbox-row__dot" aria-hidden="true">•</span>}
+    {kind && <span className="ds-badge">{kind}</span>}
+    <strong>{summary}</strong>
+    {time && <span className="ds-inbox-row__time">{time}</span>}
+    <button type="button" className="ds-button ds-button--ghost" onClick={onArchive}>归档</button>
+  </div>;
+}
+
+export function LinearAttachmentDropRow({ files }:
+  { files: { id?: string; name: string; progress?: number; error?: string }[] }) {
+  return <div className="ds-drop-row" role="group" aria-label="附件拖放">
+    <span className="ds-drop-row__hint">把日志拖到这里，或</span>
+    <button type="button" className="ds-button ds-button--secondary">选择文件</button>
+    <ul className="ds-drop-row__files">
+      {files.map((file, index) => <li key={file.id || index}>
+        {file.name} · {file.error || (file.progress ?? 0) + '%'}
+      </li>)}
+    </ul>
+  </div>;
+}
+
+
+export function LinearIssueDependencyArrow({ from, to, relation = '阻塞', reason }:
+  { from: string; to: string; relation?: string; reason?: string }) {
+  return <div className="ds-dep-arrow" role="group" aria-label={`工作项依赖：${from} ${relation} ${to}`}>
+    <span className="ds-dep-arrow__node">{from}</span>
+    <span className="ds-dep-arrow__line" aria-hidden="true">→</span>
+    <span className="ds-dep-arrow__label">{[relation, reason].filter(Boolean).join(' · ')}</span>
+    <span className="ds-dep-arrow__node">{to}</span>
+  </div>;
+}
+
+export function LinearViewPresetTabBar({ presets, active, onSelect }:
+  { presets: { id?: string; label: string; scope?: 'personal' | 'team' }[]; active?: string; onSelect?: (label: string) => void }) {
+  const [current, setCurrent] = useState(active || presets[0]?.label);
+  return <div className="ds-preset-tabs" role="tablist" aria-label="视图预设">
+    {presets.map(preset => <button type="button" role="tab" key={preset.label}
+      aria-selected={preset.label === current}
+      onClick={() => { setCurrent(preset.label); onSelect?.(preset.label); }}>
+      {preset.label}{preset.scope === 'team' ? '（团队）' : ''}
+    </button>)}
+    <span className="ds-preset-tabs__note">筛选：负责人=我 · 排序：优先级</span>
+  </div>;
+}
+
+export function LinearIntegrationSyncRow({ source, status = '已同步', lastSuccess, reason, onRetry }:
+  { source: string; status?: string; lastSuccess?: string; reason?: string; onRetry?: () => void }) {
+  const failed = status.includes('失败');
+  return <div className="ds-sync-row" role="group" aria-label={`集成同步 ${source}`}>
+    <strong>{source}</strong>
+    <span className={`ds-badge ds-badge--${failed ? 'danger' : 'success'}`}>{status}</span>
+    <span className="ds-sync-row__meta">{[lastSuccess, reason].filter(Boolean).join(' · ') || '暂无同步记录'}</span>
+    {failed && <button type="button" className="ds-button ds-button--secondary" onClick={onRetry}>重试</button>}
+  </div>;
+}
+
+export function LinearEstimatePointsChip({ points, scale = '斐波那契口径 · 非工时', onChange }:
+  { points?: number; scale?: string; onChange?: (points: number) => void }) {
+  return <div className="ds-points-chip" role="group" aria-label={points === undefined ? '未估点' : '估点 ' + points + ' 点'}>
+    <strong>{points === undefined ? '未估点' : points + ' 点'}</strong>
+    <span className="ds-points-chip__note">{scale}</span>
+    {onChange && <button type="button" className="ds-button ds-button--ghost"
+      onClick={() => onChange((points ?? 0) + 1)}>修改</button>}
+  </div>;
+}
+
+export function LinearAssigneeAvatarSelector({ people, value }:
+  { people: { name: string; load?: number }[]; value?: string }) {
+  const [open, setOpen] = useState(false);
+  return <div className="ds-assignee" role="group" aria-label="负责人">
+    <button type="button" className="ds-persona" aria-expanded={open}
+      aria-label={`负责人 ${value || '未分配'}`} onClick={() => setOpen(!open)}>
+      {value ? value.trim().slice(0, 1) : '?'}
+    </button>
+    {open && <ul className="ds-assignee__list">
+      {people.map(person => <li key={person.name}>
+        <button type="button">
+          <span className="ds-persona">{person.name.trim().slice(0, 1)}</span>
+          {person.name}{person.load === undefined ? '' : ' · ' + person.load + ' 项'}
+        </button></li>)}
+    </ul>}
+  </div>;
+}
+
+export function LinearRoadmapMilestoneTrack({ milestones }:
+  { milestones: { id?: string; label: string; at: number; slipped?: boolean }[] }) {
+  return <div className="ds-roadmap" role="group" aria-label="路线图里程碑">
+    <div className="ds-roadmap__track">
+      {milestones.map((milestone, index) => <div key={milestone.id || index}
+        className={`ds-roadmap__milestone${milestone.slipped ? ' ds-roadmap__milestone--slipped' : ''}`}
+        style={{ left: milestone.at + '%' }}>{milestone.label}</div>)}
+    </div>
+  </div>;
+}
+
+export function LinearDocumentInlineBlock({ kind = '任务清单', items }:
+  { kind?: string; items: { id?: string; label: string; done?: boolean }[] }) {
+  const done = items.filter(item => item.done).length;
+  return <div className="ds-inline-block" role="group" aria-label={`文档内联块：${kind}`}>
+    <span className="ds-badge">{kind}</span>
+    <ul>{items.map((item, index) => <li key={item.id || index}>{item.label}{item.done ? ' ✓' : ''}</li>)}</ul>
+    <span className="ds-inline-block__note">完成 {done} / {items.length}</span>
+  </div>;
+}
