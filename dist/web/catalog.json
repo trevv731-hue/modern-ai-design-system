@@ -10732,5 +10732,356 @@
       "键盘可打开与清空"
     ],
     "react": "<XTimelineBookmarkStrip items={[{ title: \"延迟排查笔记\", author: \"@aether\" }]} unread={3} onClear={clear} />"
+  },
+  {
+    "id": "ai-tool-approval-card",
+    "name": "AI 工具调用审批卡",
+    "category": "AI 交互",
+    "status": "v3 新增",
+    "purpose": "在模型请求执行敏感工具前集中展示名称、参数与影响范围，由人明确批准或拒绝。",
+    "anatomy": [
+      "审批卡外壳 (ds-tool-approval)",
+      "工具名与风险等级",
+      "参数明细表",
+      "允许 / 拒绝按钮"
+    ],
+    "keyboard": "打开时焦点落在“拒绝”按钮；Tab 在按钮间移动；Enter 执行；Escape 等同拒绝。",
+    "guidance": [
+      "参数必须完整展示，不折叠关键路径与命令。",
+      "高危操作默认焦点给拒绝，不默认允许。",
+      "审批结果记录到日志，包含执行者与时间戳。"
+    ],
+    "preview": "<div class=\"ds-tool-approval\" role=\"alertdialog\" aria-label=\"工具调用审批\"><header class=\"ds-tool-approval__head\"><strong>执行 Shell 命令</strong><span class=\"ds-badge ds-badge--danger\">高风险</span></header><dl class=\"ds-tool-approval__params\"><div><dt>command</dt><dd>systemctl restart aether</dd></div><div><dt>cwd</dt><dd>/srv/aether</dd></div></dl><footer class=\"ds-tool-approval__foot\"><button type=\"button\" class=\"ds-button ds-button--secondary\">拒绝</button><button type=\"button\" class=\"ds-button ds-button--danger\">允许一次</button></footer></div>",
+    "checks": [
+      "参数完整可见且不被截断",
+      "高风险操作默认焦点在拒绝",
+      "审批记录包含执行者与时间",
+      "Escape 不会静默批准"
+    ],
+    "react": "<AIToolApprovalCard tool=\"执行 Shell 命令\" risk=\"high\" params={{ command: \"systemctl restart aether\" }} onDecide={decide} />"
+  },
+  {
+    "id": "ai-mcp-server-row",
+    "name": "AI MCP 服务器配置行",
+    "category": "AI 交互",
+    "status": "v3 新增",
+    "purpose": "以一行展示外部工具服务器的连接状态、可用工具数与开关，便于快速启用或停用。",
+    "anatomy": [
+      "配置行外壳 (ds-mcp-row)",
+      "服务器名与地址",
+      "状态徽标与工具数",
+      "启用开关"
+    ],
+    "keyboard": "Tab 进入开关；Space 切换；状态变化后立即更新徽标。",
+    "guidance": [
+      "连接失败时显示原因，不只显示“离线”。",
+      "工具数量来自实际握手结果，未连接显示“—”。",
+      "停用服务器不影响已缓存的结果说明。"
+    ],
+    "preview": "<div class=\"ds-mcp-row\" role=\"group\" aria-label=\"MCP 服务器\"><div class=\"ds-mcp-row__meta\"><strong>本地文件服务</strong><span>mcp://localhost:8787</span></div><span class=\"ds-badge ds-badge--success\">已连接 · 6 个工具</span><button type=\"button\" class=\"ds-button ds-button--secondary\" aria-pressed=\"true\">停用</button></div>",
+    "checks": [
+      "失败状态写明原因",
+      "未连接时工具数显示占位符",
+      "开关状态与连接状态一致",
+      "键盘可切换启用状态"
+    ],
+    "react": "<AIMCPServerRow name=\"本地文件服务\" endpoint=\"mcp://localhost:8787\" tools={6} connected onToggle={toggle} />"
+  },
+  {
+    "id": "ai-memory-entry-card",
+    "name": "AI 长期记忆条目卡",
+    "category": "AI 交互",
+    "status": "v3 新增",
+    "purpose": "让被记住的偏好、事实可见可删，说明来源与时间，避免模型悄悄积累不可控信息。",
+    "anatomy": [
+      "条目卡外壳 (ds-memory-card)",
+      "记忆内容",
+      "来源与时间",
+      "删除入口"
+    ],
+    "keyboard": "Tab 进入删除按钮；Enter 删除并给出撤销入口。",
+    "guidance": [
+      "每条记忆标明来源会话与写入时间。",
+      "删除后提供撤销，避免误删重要上下文。",
+      "敏感信息默认不写入，写入前给出提示。"
+    ],
+    "preview": "<article class=\"ds-memory-card\"><p>用户偏好：报告先给结论再给证据。</p><footer class=\"ds-memory-card__foot\"><span>来源：值班复盘 · 10-16 21:04</span><button type=\"button\" class=\"ds-button ds-button--ghost\">删除</button></footer></article>",
+    "checks": [
+      "每条记忆有来源与时间",
+      "删除可撤销",
+      "敏感信息默认不写入",
+      "键盘可完成删除与撤销"
+    ],
+    "react": "<AIMemoryEntryCard text=\"用户偏好：报告先给结论再给证据。\" source=\"值班复盘 · 10-16 21:04\" onDelete={remove} />"
+  },
+  {
+    "id": "ai-guardrail-block-banner",
+    "name": "AI 护栏拦截提示条",
+    "category": "AI 交互",
+    "status": "v3 新增",
+    "purpose": "当请求或输出被安全规则拦截时说明被拦截的原因与可替代的做法，而不是只显示失败。",
+    "anatomy": [
+      "提示条外壳 (ds-guard-banner)",
+      "拦截级别图标",
+      "原因说明",
+      "替代建议入口"
+    ],
+    "keyboard": "role=alert 或 status；交互按钮可 Tab 到达。",
+    "guidance": [
+      "说明属于哪类规则，不暴露可被绕过的细节。",
+      "给出可执行的替代方案。",
+      "不把拦截原因写成指责用户的措辞。"
+    ],
+    "preview": "<div class=\"ds-guard-banner\" role=\"alert\"><span class=\"ds-guard-banner__icon\" aria-hidden=\"true\">⛔</span><div><strong>该请求已被安全规则拦截</strong><p>请求包含凭据类信息，请移除后重试，或改用本地变量引用。</p></div><button type=\"button\" class=\"ds-button ds-button--secondary\">查看规范</button></div>",
+    "checks": [
+      "说明规则类别而不给出绕过方式",
+      "提供可执行的替代方案",
+      "措辞保持中立",
+      "提示可被屏幕阅读器播报"
+    ],
+    "react": "<AIGuardrailBlockBanner title=\"该请求已被安全规则拦截\">请求包含凭据类信息，请移除后重试。</AIGuardrailBlockBanner>"
+  },
+  {
+    "id": "ai-eval-scorecard-table",
+    "name": "AI 评测记分表",
+    "category": "AI 交互",
+    "status": "v3 新增",
+    "purpose": "用固定测试集对比各模型或提示词版本的表现，给出可复现的分数与差异。",
+    "anatomy": [
+      "表格外框 (ds-scorecard)",
+      "行：模型或版本",
+      "列：各项指标",
+      "差异标注"
+    ],
+    "keyboard": "表格可横向滚动并可通过键盘滚动；表头使用 th scope。",
+    "guidance": [
+      "写明测试集名称与样本量，不给无来源的分数。",
+      "差异用数值和方向同时表达。",
+      "运行失败的单元格显示失败原因，不留空白。"
+    ],
+    "preview": "<div class=\"ds-scorecard\" tabindex=\"0\" aria-label=\"评测记分表\"><table class=\"ds-table\"><caption class=\"ds-sr-only\">评测结果</caption><thead><tr><th scope=\"col\">版本</th><th scope=\"col\">准确率</th><th scope=\"col\">延迟</th></tr></thead><tbody><tr><td>v2.3</td><td>86% (+4%)</td><td>820 ms</td></tr><tr><td>v2.2</td><td>82%</td><td>910 ms</td></tr></tbody></table></div>",
+    "checks": [
+      "标明测试集与样本量",
+      "差异同时给出数值与方向",
+      "失败单元格写明原因",
+      "表格可通过键盘滚动"
+    ],
+    "react": "<AIEvalScorecardTable rows={[{ label: \"v2.3\", accuracy: \"86% (+4%)\", latency: \"820 ms\" }]} />"
+  },
+  {
+    "id": "ai-rag-chunk-inspector",
+    "name": "AI 检索片段检查器",
+    "category": "AI 交互",
+    "status": "v3 新增",
+    "purpose": "展示回答引用了哪些原文片段、相关度与出处，让依据可核验。",
+    "anatomy": [
+      "检查器外壳 (ds-rag-inspector)",
+      "片段文本",
+      "相关度与来源",
+      "跳转原文入口"
+    ],
+    "keyboard": "片段列表可用方向键浏览；跳转入口是链接，Enter 打开。",
+    "guidance": [
+      "片段保留原文，不做摘要替换。",
+      "相关度给出分值与排序依据。",
+      "未命中时明确说明“无相关片段”。"
+    ],
+    "preview": "<div class=\"ds-rag-inspector\" role=\"region\" aria-label=\"检索片段\"><ol class=\"ds-rag-inspector__list\"><li class=\"ds-rag-inspector__chunk\"><p>刷新失败通常与订阅链接有效期有关。</p><footer><span>相关度 0.82 · 值班手册 第 3 节</span><button type=\"button\" class=\"ds-button ds-button--ghost\">打开原文</button></footer></li></ol></div>",
+    "checks": [
+      "片段为原文而非摘要",
+      "相关度有分值与排序说明",
+      "无命中时给出明确空状态",
+      "键盘可浏览与跳转"
+    ],
+    "react": "<AIRagChunkInspector chunks={[{ text: \"刷新失败通常与订阅链接有效期有关。\", score: 0.82, source: \"值班手册 第 3 节\" }]} />"
+  },
+  {
+    "id": "ai-system-prompt-version-card",
+    "name": "AI 系统提示词版本卡",
+    "category": "AI 交互",
+    "status": "v3 新增",
+    "purpose": "管理提示词的迭代版本，显示生效状态、变更摘要与回滚入口。",
+    "anatomy": [
+      "版本卡外壳 (ds-prompt-card)",
+      "版本号与生效标记",
+      "变更摘要",
+      "对比与回滚入口"
+    ],
+    "keyboard": "Tab 进入对比与回滚按钮；Enter 执行；回滚需要确认。",
+    "guidance": [
+      "只标记一个生效版本，避免歧义。",
+      "变更摘要写具体差异，不写“优化了一下”。",
+      "回滚前提示影响范围。"
+    ],
+    "preview": "<article class=\"ds-prompt-card\"><header class=\"ds-prompt-card__head\"><strong>v2.3</strong><span class=\"ds-badge ds-badge--success\">生效中</span></header><p>新增输出长度限制与引用格式要求。</p><footer class=\"ds-prompt-card__foot\"><button type=\"button\" class=\"ds-button ds-button--ghost\">与上一版对比</button><button type=\"button\" class=\"ds-button ds-button--secondary\">回滚</button></footer></article>",
+    "checks": [
+      "同时只有一个生效版本",
+      "变更摘要具体可读",
+      "回滚前提示影响范围",
+      "键盘可完成对比与回滚"
+    ],
+    "react": "<AISystemPromptVersionCard version=\"v2.3\" active note=\"新增输出长度限制与引用格式要求。\" onRollback={rollback} />"
+  },
+  {
+    "id": "ai-batch-run-progress",
+    "name": "AI 批量运行进度条",
+    "category": "AI 交互",
+    "status": "v3 新增",
+    "purpose": "显示批量任务的完成数量、失败数量与预计剩余时间，可随时中止。",
+    "anatomy": [
+      "进度条外壳 (ds-batch-run)",
+      "完成 / 总数计数",
+      "进度轨道与填充",
+      "中止按钮"
+    ],
+    "keyboard": "Tab 进入中止按钮；Enter 中止；进度变化通过 polite live region 定期播报。",
+    "guidance": [
+      "显示真实完成数与失败数，不估算为乐观值。",
+      "预计剩余时间随实际速度更新，不可用时显示“计算中”。",
+      "中止后保留已完成结果。"
+    ],
+    "preview": "<div class=\"ds-batch-run\" role=\"status\" aria-label=\"批量运行进度\"><div class=\"ds-batch-run__meta\"><strong>已完成 128 / 200</strong><span>失败 3 · 预计剩余 2 分 10 秒</span></div><div class=\"ds-batch-run__track\"><span style=\"width:64%\"></span></div><button type=\"button\" class=\"ds-button ds-button--secondary\">中止</button></div>",
+    "checks": [
+      "完成数与失败数为真实统计",
+      "剩余时间不可用时说明计算中",
+      "中止后保留已完成结果",
+      "进度变化可被辅助技术感知"
+    ],
+    "react": "<AIBatchRunProgress done={128} total={200} failed={3} eta=\"预计剩余 2 分 10 秒\" onAbort={abort} />"
+  },
+  {
+    "id": "ai-human-handoff-card",
+    "name": "AI 转人工交接卡",
+    "category": "AI 交互",
+    "status": "v3 新增",
+    "purpose": "在模型无法继续时把会话连同上下文摘要交给人工，并说明已尝试了什么。",
+    "anatomy": [
+      "交接卡外壳 (ds-handoff-card)",
+      "转人工原因",
+      "上下文摘要",
+      "确认与取消入口"
+    ],
+    "keyboard": "Tab 进入确认与取消；Enter 执行；确认后提示排队位置。",
+    "guidance": [
+      "摘要包含已尝试的步骤，避免重复询问。",
+      "明确说明等待时长范围，不承诺具体时间。",
+      "取消后回到原会话且不丢失上下文。"
+    ],
+    "preview": "<div class=\"ds-handoff-card\" role=\"dialog\" aria-label=\"转人工交接\"><strong>已转接人工值班</strong><p>已尝试：重新拉取订阅、检查出口连通性。</p><footer class=\"ds-handoff-card__foot\"><button type=\"button\" class=\"ds-button ds-button--secondary\">取消</button><button type=\"button\" class=\"ds-button\">确认转接</button></footer></div>",
+    "checks": [
+      "摘要包含已尝试步骤",
+      "等待时长给出范围而非承诺",
+      "取消后上下文不丢失",
+      "键盘可完成确认与取消"
+    ],
+    "react": "<AIHumanHandoffCard reason=\"模型无法判断出口故障\">已尝试：重新拉取订阅。</AIHumanHandoffCard>"
+  },
+  {
+    "id": "ai-cost-budget-meter",
+    "name": "AI 成本预算计",
+    "category": "AI 交互",
+    "status": "v3 新增",
+    "purpose": "展示本期用量、预算上限与预计耗尽时间，在越界前提示而不是事后告警。",
+    "anatomy": [
+      "预算外框 (ds-budget-meter)",
+      "已用 / 上限数值",
+      "进度轨道与阈值标记",
+      "趋势说明"
+    ],
+    "keyboard": "静态指标无需 Tab；阈值状态用文字标注，不只用颜色。",
+    "guidance": [
+      "已用值与上限来自账单或计量接口，不估算。",
+      "达到 80% 时给出明确提示。",
+      "没有预算数据时显示“未设置预算”。"
+    ],
+    "preview": "<div class=\"ds-budget-meter\" role=\"status\" aria-label=\"成本预算\"><div class=\"ds-budget-meter__meta\"><strong>已用 ¥ 82.40 / ¥ 100.00</strong><span>预计 6 天后耗尽</span></div><div class=\"ds-budget-meter__track\"><span style=\"width:82%\"></span></div><span class=\"ds-budget-meter__note\">已达 82%，接近阈值 80%</span></div>",
+    "checks": [
+      "用量数据来自计量接口",
+      "超过阈值时给出文字提示",
+      "无预算时显示未设置",
+      "趋势说明与数值一致"
+    ],
+    "react": "<AICostBudgetMeter used=\"¥ 82.40\" limit=\"¥ 100.00\" eta=\"预计 6 天后耗尽\" />"
+  },
+  {
+    "id": "ai-redaction-badge",
+    "name": "AI 脱敏标识徽标",
+    "category": "AI 交互",
+    "status": "v3 新增",
+    "purpose": "标出内容中已被自动移除的敏感片段，说明脱敏规则与原文是否保留。",
+    "anatomy": [
+      "徽标外壳 (ds-redact-badge)",
+      "脱敏类型图标",
+      "类型文本",
+      "查看规则入口"
+    ],
+    "keyboard": "徽标静态展示；查看规则入口可 Tab 到达。",
+    "guidance": [
+      "说明脱敏类型与规则来源，不只显示“已隐藏”。",
+      "不回显被移除的原始内容。",
+      "规则可关闭时提示风险。"
+    ],
+    "preview": "<div class=\"ds-redact-badge\" role=\"status\" aria-label=\"已脱敏 2 处敏感信息\"><span aria-hidden=\"true\">🛡</span><span>已脱敏 · 令牌与密钥</span><button type=\"button\" class=\"ds-button ds-button--ghost\">查看规则</button></div>",
+    "checks": [
+      "说明脱敏类型与规则来源",
+      "不回显原始敏感内容",
+      "关闭规则时提示风险",
+      "屏幕阅读器可读出脱敏说明"
+    ],
+    "react": "<AIRedactionBadge count={2} kinds={[\"令牌\", \"密钥\"]} />"
+  },
+  {
+    "id": "ai-web-search-result-list",
+    "name": "AI 联网搜索结果列表",
+    "category": "AI 交互",
+    "status": "v3 新增",
+    "purpose": "列出模型参考的网页结果，包含标题、域名与时间，便于核验来源时效性。",
+    "anatomy": [
+      "列表外壳 (ds-search-list)",
+      "结果条目 (ds-search-item)",
+      "标题与域名",
+      "抓取时间"
+    ],
+    "keyboard": "条目是链接，Tab 可达；列表过长时可滚动。",
+    "guidance": [
+      "显示域名而不是完整长链接。",
+      "标注抓取时间，过期结果需要提示。",
+      "无法访问的结果标明失效。"
+    ],
+    "preview": "<div class=\"ds-search-list\" role=\"region\" aria-label=\"联网搜索结果\"><ol class=\"ds-search-list__items\"><li class=\"ds-search-item\"><a href=\"#result\">订阅刷新失败排查</a><span>aether.local · 抓取于 10-17 20:31</span></li><li class=\"ds-search-item ds-search-item--stale\"><a href=\"#result\">旧版延迟统计说明</a><span>aether.local · 抓取于 08-02，可能已过期</span></li></ol></div>",
+    "checks": [
+      "结果展示域名而非长链接",
+      "标注抓取时间",
+      "过期或失效结果有提示",
+      "键盘可遍历结果条目"
+    ],
+    "react": "<AIWebSearchResultList results={[{ title: \"订阅刷新失败排查\", domain: \"aether.local\", fetchedAt: \"抓取于 10-17 20:31\" }]} />"
+  },
+  {
+    "id": "ai-context-window-map",
+    "name": "AI 上下文窗口分布图",
+    "category": "AI 交互",
+    "status": "v3 新增",
+    "purpose": "用一条横向堆叠条展示系统提示、历史消息、工具结果与剩余空间的占比。",
+    "anatomy": [
+      "分布条外壳 (ds-ctx-map)",
+      "各分段 (ds-ctx-map__seg)",
+      "图例",
+      "剩余空间提示"
+    ],
+    "keyboard": "静态展示；图例文本可选可复制。",
+    "guidance": [
+      "各段宽度对应真实 token 占比，不等宽误导。",
+      "剩余空间用数值标注。",
+      "超出上限时说明将被截断的部分。"
+    ],
+    "preview": "<div class=\"ds-ctx-map\" role=\"img\" aria-label=\"上下文窗口：系统 12%，历史 46%，工具 14%，剩余 28%\"><div class=\"ds-ctx-map__bar\"><span class=\"ds-ctx-map__seg ds-ctx-map__seg--system\" style=\"width:12%\"></span><span class=\"ds-ctx-map__seg ds-ctx-map__seg--history\" style=\"width:46%\"></span><span class=\"ds-ctx-map__seg ds-ctx-map__seg--tool\" style=\"width:14%\"></span><span class=\"ds-ctx-map__seg ds-ctx-map__seg--free\" style=\"width:28%\"></span></div><ul class=\"ds-ctx-map__legend\"><li>系统提示 12%</li><li>历史消息 46%</li><li>工具结果 14%</li><li>剩余 28%</li></ul>",
+    "checks": [
+      "分段宽度对应真实占比",
+      "剩余空间给出数值",
+      "超限时说明截断范围",
+      "图例文本可选可复制"
+    ],
+    "react": "<AIContextWindowMap segments={[{ label: \"系统提示\", percent: 12 }, { label: \"历史消息\", percent: 46 }, { label: \"工具结果\", percent: 14 }, { label: \"剩余\", percent: 28 }]} />"
   }
 ]

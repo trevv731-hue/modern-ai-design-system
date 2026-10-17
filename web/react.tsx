@@ -12675,3 +12675,159 @@ export function XTimelineBookmarkStrip({ items, unread = 0, onClear }:
     <button type="button" className="ds-button ds-button--ghost" onClick={onClear}>清空</button>
   </div>;
 }
+
+export function AIToolApprovalCard({ tool, risk = 'low', params = {}, onDecide }:
+  { tool: string; risk?: 'low' | 'medium' | 'high'; params?: Record<string, string>; onDecide?: (allowed: boolean) => void }) {
+  const label = { low: '低风险', medium: '中风险', high: '高风险' }[risk];
+  const tone = risk === 'high' ? 'danger' : risk === 'medium' ? 'warning' : 'neutral';
+  return <div className="ds-tool-approval" role="alertdialog" aria-label={`工具调用审批：${tool}`}>
+    <header className="ds-tool-approval__head"><strong>{tool}</strong><span className={`ds-badge ds-badge--${tone}`}>{label}</span></header>
+    <dl className="ds-tool-approval__params">
+      {Object.entries(params).map(([key, value]) => <div key={key}><dt>{key}</dt><dd>{value}</dd></div>)}
+    </dl>
+    <footer className="ds-tool-approval__foot">
+      <button type="button" className="ds-button ds-button--secondary" onClick={() => onDecide?.(false)}>拒绝</button>
+      <button type="button" className="ds-button" onClick={() => onDecide?.(true)}>允许一次</button>
+    </footer>
+  </div>;
+}
+
+export function AIMCPServerRow({ name, endpoint, tools, connected = false, onToggle }:
+  { name: string; endpoint: string; tools?: number; connected?: boolean; onToggle?: () => void }) {
+  return <div className="ds-mcp-row" role="group" aria-label={`MCP 服务器 ${name}`}>
+    <div className="ds-mcp-row__meta"><strong>{name}</strong><span>{endpoint}</span></div>
+    <span className={`ds-badge ds-badge--${connected ? 'success' : 'warning'}`}>
+      {connected ? `已连接 · ${tools === undefined ? '—' : tools} 个工具` : '未连接'}
+    </span>
+    <button type="button" className="ds-button ds-button--secondary" aria-pressed={connected} onClick={onToggle}>
+      {connected ? '停用' : '启用'}
+    </button>
+  </div>;
+}
+
+export function AIMemoryEntryCard({ text, source, onDelete }:
+  { text: string; source?: string; onDelete?: () => void }) {
+  return <article className="ds-memory-card">
+    <p>{text}</p>
+    <footer className="ds-memory-card__foot">
+      {source && <span>来源：{source}</span>}
+      <button type="button" className="ds-button ds-button--ghost" onClick={onDelete}>删除</button>
+    </footer>
+  </article>;
+}
+
+export function AIRagChunkInspector({ chunks }:
+  { chunks: { text: string; score?: number; source?: string }[] }) {
+  return <div className="ds-rag-inspector" role="region" aria-label="检索片段">
+    <ol className="ds-rag-inspector__list">
+      {chunks.map((chunk, index) => <li className="ds-rag-inspector__chunk" key={index}>
+        <p>{chunk.text}</p>
+        <footer><span>相关度 {chunk.score ?? '—'} · {chunk.source || '未标注出处'}</span>
+          <button type="button" className="ds-button ds-button--ghost">打开原文</button></footer>
+      </li>)}
+    </ol>
+  </div>;
+}
+
+export function AIEvalScorecardTable({ rows }:
+  { rows: { id?: string; label: string; accuracy: string; latency: string }[] }) {
+  return <div className="ds-scorecard" tabIndex={0} aria-label="评测记分表">
+    <table className="ds-table">
+      <caption className="ds-sr-only">评测结果</caption>
+      <thead><tr><th scope="col">版本</th><th scope="col">准确率</th><th scope="col">延迟</th></tr></thead>
+      <tbody>{rows.map((row, index) => <tr key={row.id || index}>
+        <td>{row.label}</td><td>{row.accuracy}</td><td>{row.latency}</td></tr>)}</tbody>
+    </table>
+  </div>;
+}
+
+export function AISystemPromptVersionCard({ version, active = false, note, onCompare, onRollback }:
+  { version: string; active?: boolean; note?: string; onCompare?: () => void; onRollback?: () => void }) {
+  return <article className="ds-prompt-card">
+    <header className="ds-prompt-card__head"><strong>{version}</strong>
+      {active && <span className="ds-badge ds-badge--success">生效中</span>}</header>
+    {note && <p>{note}</p>}
+    <footer className="ds-prompt-card__foot">
+      <button type="button" className="ds-button ds-button--ghost" onClick={onCompare}>与上一版对比</button>
+      {!active && <button type="button" className="ds-button ds-button--secondary" onClick={onRollback}>回滚</button>}
+    </footer>
+  </article>;
+}
+
+export function AIGuardrailBlockBanner({ title, children, onReview }:
+  { title: string; children: React.ReactNode; onReview?: () => void }) {
+  return <div className="ds-guard-banner" role="alert">
+    <span className="ds-guard-banner__icon" aria-hidden="true">⛔</span>
+    <div><strong>{title}</strong><p>{children}</p></div>
+    <button type="button" className="ds-button ds-button--secondary" onClick={onReview}>查看规范</button>
+  </div>;
+}
+
+export function AIBatchRunProgress({ done = 0, total = 0, failed = 0, eta, onAbort }:
+  { done?: number; total?: number; failed?: number; eta?: string; onAbort?: () => void }) {
+  const percent = total > 0 ? Math.min(100, Math.round((done / total) * 100)) : 0;
+  return <div className="ds-batch-run" role="status" aria-label="批量运行进度">
+    <div className="ds-batch-run__meta"><strong>已完成 {done} / {total}</strong>
+      <span>失败 {failed} · {eta || '剩余时间计算中'}</span></div>
+    <div className="ds-batch-run__track"><span style={{ width: percent + '%' }} /></div>
+    <button type="button" className="ds-button ds-button--secondary" onClick={onAbort}>中止</button>
+  </div>;
+}
+
+export function AIHumanHandoffCard({ reason, children, onConfirm, onCancel }:
+  { reason?: string; children: React.ReactNode; onConfirm?: () => void; onCancel?: () => void }) {
+  return <div className="ds-handoff-card" role="dialog" aria-label="转人工交接">
+    <strong>已转接人工值班</strong>
+    {reason && <span>{reason}</span>}
+    <p>{children}</p>
+    <footer className="ds-handoff-card__foot">
+      <button type="button" className="ds-button ds-button--secondary" onClick={onCancel}>取消</button>
+      <button type="button" className="ds-button" onClick={onConfirm}>确认转接</button>
+    </footer>
+  </div>;
+}
+
+export function AICostBudgetMeter({ used, limit, eta }:
+  { used: string; limit: string; eta?: string }) {
+  return <div className="ds-budget-meter" role="status" aria-label="成本预算">
+    <div className="ds-budget-meter__meta"><strong>已用 {used} / {limit}</strong>
+      {eta && <span>{eta}</span>}</div>
+    <div className="ds-budget-meter__track"><span style={{ width: '64%' }} /></div>
+  </div>;
+}
+
+export function AIRedactionBadge({ count = 0, kinds = [] }:
+  { count?: number; kinds?: string[] }) {
+  return <div className="ds-redact-badge" role="status"
+    aria-label={`已脱敏 ${count} 处敏感信息${kinds.length ? '：' + kinds.join('、') : ''}`}>
+    <span aria-hidden="true">🛡</span>
+    <span>已脱敏{kinds.length ? ' · ' + kinds.join('与') : ''}</span>
+  </div>;
+}
+
+export function AIContextWindowMap({ segments }:
+  { segments: { id?: string; label: string; percent: number }[] }) {
+  return <div className="ds-ctx-map" role="img"
+    aria-label={`上下文窗口：${segments.map(segment => segment.label + ' ' + segment.percent + '%').join('、')}`}>
+    <div className="ds-ctx-map__bar">
+      {segments.map((segment, index) => <span key={segment.id || index}
+        className={`ds-ctx-map__seg ds-ctx-map__seg--${['system', 'history', 'tool', 'free'][index] || 'free'}`}
+        style={{ width: segment.percent + '%' }} />)}
+    </div>
+    <ul className="ds-ctx-map__legend">
+      {segments.map((segment, index) => <li key={segment.id || index}>{segment.label} {segment.percent}%</li>)}
+    </ul>
+  </div>;
+}
+
+export function AIWebSearchResultList({ results }:
+  { results: { href?: string; title: string; domain: string; fetchedAt?: string; stale?: boolean }[] }) {
+  return <div className="ds-search-list" role="region" aria-label="联网搜索结果">
+    <ol className="ds-search-list__items">
+      {results.map((result, index) => <li className={`ds-search-item${result.stale ? ' ds-search-item--stale' : ''}`} key={index}>
+        <a href={result.href || '#'}>{result.title}</a>
+        <span>{result.domain}{result.fetchedAt ? ` · ${result.fetchedAt}` : ''}</span>
+      </li>)}
+    </ol>
+  </div>;
+}
