@@ -5,6 +5,11 @@
   --ds-motion-page: 180ms;
   --ds-motion-dialog: 200ms;
   --ds-motion-ease: cubic-bezier(.2, 0, 0, 1);
+  --ds-motion-spring: cubic-bezier(.34, 1.56, .64, 1);
+  --ds-motion-spring-gentle: cubic-bezier(.25, 1.2, .4, 1);
+  --ds-motion-out-expo: cubic-bezier(.16, 1, .3, 1);
+  --ds-motion-m3-emphasized: cubic-bezier(.05, .7, .1, 1);
+  --ds-motion-m3-standard: cubic-bezier(.2, 0, 0, 1);
 }
 .ds-motion-button {
   transition: transform var(--ds-motion-press) var(--ds-motion-ease), background-color var(--ds-motion-feedback) ease, color var(--ds-motion-feedback) ease, border-color var(--ds-motion-feedback) ease;
@@ -14,6 +19,26 @@
 @media (hover: hover) and (pointer: fine) {
   .ds-motion-hover:hover { transform: translateY(-1px); }
 }
+.ds-motion-spring-card { transition: transform 300ms var(--ds-motion-spring), border-color 150ms ease; }
+@media (hover: hover) and (pointer: fine) {
+  .ds-motion-spring-card:hover { transform: translateY(-3px) scale(1.015); }
+}
+.ds-motion-spring-pop { transition: transform 200ms var(--ds-motion-spring), background-color 150ms ease; }
+@media (hover: hover) and (pointer: fine) {
+  .ds-motion-spring-pop:hover { transform: scale(1.35) translateY(-2px); }
+}
+.ds-motion-spring-pop:active { transform: scale(.92); }
+.ds-motion-morph { transition: transform 320ms var(--ds-motion-spring), opacity 200ms ease; }
+.ds-motion-pulse-orb { animation: ds-pulse-orb 2s ease-in-out infinite; }
+@keyframes ds-pulse-orb {
+  0%, 100% { transform: scale(.9); opacity: .7; }
+  50% { transform: scale(1.2); opacity: 1; }
+}
+.ds-motion-shared-x-enter { animation: ds-shared-x-enter 280ms var(--ds-motion-m3-emphasized) both; }
+@keyframes ds-shared-x-enter {
+  from { opacity: 0; transform: translateX(16px); }
+  to { opacity: 1; transform: translateX(0); }
+}
 .ds-motion-dialog[open] { animation: ds-dialog-enter var(--ds-motion-dialog) var(--ds-motion-ease) both; }
 .ds-motion-dialog[open]::backdrop { animation: ds-backdrop-enter 150ms ease both; }
 @keyframes ds-dialog-enter {
@@ -22,7 +47,7 @@
 }
 @keyframes ds-backdrop-enter { from { opacity: 0; } to { opacity: 1; } }
 @media (prefers-reduced-motion: reduce) {
-  .ds-motion-button, .ds-motion-hover { transition: none; }
-  .ds-motion-button:active:not(:disabled), .ds-motion-hover:hover { transform: none; }
-  .ds-motion-dialog[open], .ds-motion-dialog[open]::backdrop { animation: none; }
+  .ds-motion-button, .ds-motion-hover, .ds-motion-spring-card, .ds-motion-spring-pop, .ds-motion-morph { transition: none; }
+  .ds-motion-button:active:not(:disabled), .ds-motion-hover:hover, .ds-motion-spring-card:hover, .ds-motion-spring-pop:hover, .ds-motion-spring-pop:active { transform: none; }
+  .ds-motion-dialog[open], .ds-motion-dialog[open]::backdrop, .ds-motion-pulse-orb, .ds-motion-shared-x-enter { animation: none; }
 }

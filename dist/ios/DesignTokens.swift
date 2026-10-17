@@ -4,7 +4,7 @@
 //
 
 // Do not edit directly
-// Generated on Sat, 17 Oct 2026 03:32:45 GMT
+// Generated on Sat, 17 Oct 2026 15:59:29 GMT
 
 
 import UIKit
@@ -451,6 +451,8 @@ public class DesignTokens {
     public static let durationPage = 400ms
     public static let durationSlow = 350ms
     public static let durationStandard = 250ms
+    public static let dynamicIslandMorphDuration = 320ms
+    public static let dynamicIslandMorphEase = cubic-bezier(0.34, 1.56, 0.64, 1)
     public static let easeEmphasis = cubic-bezier(0.2, 0, 0, 1)
     public static let easeEmphasisAccelerate = cubic-bezier(0.05, 0.7, 0.1, 1)
     public static let easeEmphasisDecelerate = cubic-bezier(0, 0, 0, 1)
@@ -515,6 +517,13 @@ public class DesignTokens {
     public static let fontWeightRegular = "400"
     public static let fontWeightSemibold = "600"
     public static let fontWeightThin = "100"
+    public static let glassBackgroundDark = rgba(26, 28, 34, 0.75)
+    public static let glassBackgroundLight = rgba(255, 255, 255, 0.72)
+    public static let glassBackgroundStrong = rgba(255, 255, 255, 0.85)
+    public static let glassBackgroundSubtle = rgba(255, 255, 255, 0.55)
+    public static let glassBorderDark = rgba(255, 255, 255, 0.12)
+    public static let glassBorderLight = rgba(255, 255, 255, 0.45)
+    public static let glassHighlightSpecular = inset 0 1px 0 0 rgba(255, 255, 255, 0.55)
     public static let hoverBrightness = 1.02
     public static let hoverScale = 1.02
     public static let hoverScaleCard = 1.015
@@ -556,6 +565,9 @@ public class DesignTokens {
     public static let radiusSm = 8px
     public static let radiusXl = 20px
     public static let radiusXs = 4px
+    public static let reactionHoverScale = 1.35
+    public static let reactionPopDuration = 200ms
+    public static let reactionPopEase = cubic-bezier(0.34, 1.56, 0.64, 1)
     public static let rippleColorDark = rgba(255, 255, 255, 0.15)
     public static let rippleColorLight = rgba(0, 0, 0, 0.12)
     public static let rippleExpandDuration = 225ms
@@ -644,6 +656,8 @@ public class DesignTokens {
     public static let transitionTransform = transform 200ms cubic-bezier(0.22, 1, 0.36, 1)
     public static let transitionTransformSpring = transform 350ms cubic-bezier(0.34, 1.56, 0.64, 1)
     public static let transitionWidth = width 300ms cubic-bezier(0.22, 1, 0.36, 1) /* avoid - use transform */
+    public static let voiceWavePulseDuration = 1.2s
+    public static let voiceWavePulseEase = ease-in-out
     public static let webDarkAccent = #9ABBFF
     public static let webDarkAccentSoft = #233457
     public static let webDarkAction = #9ABBFF
@@ -668,6 +682,11 @@ public class DesignTokens {
     public static let webDarkSurface = #1C1F25
     public static let webDarkWarning = #FFD18D
     public static let webDarkWarningSoft = #44321A
+    public static let webGlassBlur = 20px
+    public static let webGlassFrosted = rgba(255,255,255,0.72)
+    public static let webGlassFrostedDark = rgba(26,28,34,0.75)
+    public static let webGlassSaturate = 180%
+    public static let webGlassSpecular = inset 0 1px 0 rgba(255,255,255,0.45)
     public static let webLayerBase = 0
     public static let webLayerChrome = 10
     public static let webLayerMenu = 30

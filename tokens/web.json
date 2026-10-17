@@ -231,6 +231,23 @@
         "value": "cubic-bezier(0.2,0.8,0.2,1)"
       }
     },
+    "glass": {
+      "frosted": {
+        "value": "rgba(255,255,255,0.72)"
+      },
+      "frostedDark": {
+        "value": "rgba(26,28,34,0.75)"
+      },
+      "blur": {
+        "value": "20px"
+      },
+      "saturate": {
+        "value": "180%"
+      },
+      "specular": {
+        "value": "inset 0 1px 0 rgba(255,255,255,0.45)"
+      }
+    },
     "type": {
       "sans": {
         "value": "'Aether Sans', 'Noto Sans SC', 'Microsoft YaHei UI', 'Microsoft YaHei', 'Segoe UI', sans-serif"

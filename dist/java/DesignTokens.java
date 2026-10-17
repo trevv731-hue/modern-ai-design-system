@@ -1282,6 +1282,27 @@ public final class DesignTokens {
     /** BackdropSaturationXl = saturate(200%) */
     public static final String BACKDROPSATURATIONXL = "saturate(200%)";
 
+    /** GlassBackgroundLight = rgba(255, 255, 255, 0.72) */
+    public static final String GLASSBACKGROUNDLIGHT = "rgba(255, 255, 255, 0.72)";
+
+    /** GlassBackgroundDark = rgba(26, 28, 34, 0.75) */
+    public static final String GLASSBACKGROUNDDARK = "rgba(26, 28, 34, 0.75)";
+
+    /** GlassBackgroundSubtle = rgba(255, 255, 255, 0.55) */
+    public static final String GLASSBACKGROUNDSUBTLE = "rgba(255, 255, 255, 0.55)";
+
+    /** GlassBackgroundStrong = rgba(255, 255, 255, 0.85) */
+    public static final String GLASSBACKGROUNDSTRONG = "rgba(255, 255, 255, 0.85)";
+
+    /** GlassBorderLight = rgba(255, 255, 255, 0.45) */
+    public static final String GLASSBORDERLIGHT = "rgba(255, 255, 255, 0.45)";
+
+    /** GlassBorderDark = rgba(255, 255, 255, 0.12) */
+    public static final String GLASSBORDERDARK = "rgba(255, 255, 255, 0.12)";
+
+    /** GlassHighlightSpecular = inset 0 1px 0 0 rgba(255, 255, 255, 0.55) */
+    public static final String GLASSHIGHLIGHTSPECULAR = "inset 0 1px 0 0 rgba(255, 255, 255, 0.55)";
+
     /** SafeAreaTop = env(safe-area-inset-top, 0px) */
     public static final String SAFEAREATOP = "env(safe-area-inset-top, 0px)";
 
@@ -1530,6 +1551,27 @@ public final class DesignTokens {
 
     /** RippleColorDark = rgba(255, 255, 255, 0.15) */
     public static final String RIPPLECOLORDARK = "rgba(255, 255, 255, 0.15)";
+
+    /** DynamicIslandMorphDuration = 320ms */
+    public static final int DYNAMICISLANDMORPHDURATION = 320;
+
+    /** DynamicIslandMorphEase = cubic-bezier(0.34, 1.56, 0.64, 1) */
+    public static final String DYNAMICISLANDMORPHEASE = "cubic-bezier(0.34, 1.56, 0.64, 1)";
+
+    /** ReactionPopDuration = 200ms */
+    public static final int REACTIONPOPDURATION = 200;
+
+    /** ReactionPopEase = cubic-bezier(0.34, 1.56, 0.64, 1) */
+    public static final String REACTIONPOPEASE = "cubic-bezier(0.34, 1.56, 0.64, 1)";
+
+    /** ReactionHoverScale = 1.35 */
+    public static final String REACTIONHOVERSCALE = "1.35";
+
+    /** VoiceWavePulseDuration = 1.2s */
+    public static final String VOICEWAVEPULSEDURATION = "1.2s";
+
+    /** VoiceWavePulseEase = ease-in-out */
+    public static final String VOICEWAVEPULSEEASE = "ease-in-out";
 
     /** AnimationFadeIn = fadeIn 250ms cubic-bezier(0.2, 0, 0, 1) both */
     public static final String ANIMATIONFADEIN = "fadeIn 250ms cubic-bezier(0.2, 0, 0, 1) both";
@@ -2160,6 +2202,21 @@ public final class DesignTokens {
 
     /** WebMotionCard = cubic-bezier(0.2,0.8,0.2,1) */
     public static final String WEBMOTIONCARD = "cubic-bezier(0.2,0.8,0.2,1)";
+
+    /** WebGlassFrosted = rgba(255,255,255,0.72) */
+    public static final String WEBGLASSFROSTED = "rgba(255,255,255,0.72)";
+
+    /** WebGlassFrostedDark = rgba(26,28,34,0.75) */
+    public static final String WEBGLASSFROSTEDDARK = "rgba(26,28,34,0.75)";
+
+    /** WebGlassBlur = 20px */
+    public static final double WEBGLASSBLUR = 20;
+
+    /** WebGlassSaturate = 180% */
+    public static final String WEBGLASSSATURATE = "180%";
+
+    /** WebGlassSpecular = inset 0 1px 0 rgba(255,255,255,0.45) */
+    public static final String WEBGLASSSPECULAR = "inset 0 1px 0 rgba(255,255,255,0.45)";
 
     /** WebTypeSans = 'Aether Sans', 'Noto Sans SC', 'Microsoft YaHei UI', 'Microsoft YaHei', 'Segoe UI', sans-serif */
     public static final String WEBTYPESANS = "'Aether Sans', 'Noto Sans SC', 'Microsoft YaHei UI', 'Microsoft YaHei', 'Segoe UI', sans-serif";

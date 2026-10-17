@@ -1975,13 +1975,1181 @@ module.exports = [
     '<div class="ds-style-migration-card" role="region" aria-label="样式迁移至设计变量：将 Color / Primary / Accent 映射至 color.action.primary，影响 84 处图层实例"><div class="ds-style-migration-card__header"><span>Style → Variable</span><span class="ds-style-migration-card__count">84 instances</span></div><div class="ds-style-migration-card__mapping" aria-hidden="true"><span class="ds-style-migration-card__old">Color / Primary / Accent</span><span class="ds-style-migration-card__arrow">➔</span><span class="ds-style-migration-card__new">color.action.primary</span></div><button type="button" class="ds-style-migration-card__btn" aria-label="一键批量迁移 84 处样式至变量">Batch Migrate to Variables</button></div>',
     ['源样式与目标变量方向明确','84 处实例数量醒目','批量迁移按钮可聚焦且后果说明明确'],
     '<FigmaCanvasColorStyleVariableMigrationCard sourceStyle="Color / Primary / Accent" targetVariable="color.action.primary" unlinkedCount={84} />'),
+  component('ai-reasoning-thought-block','AI 深度推理与思维链折叠块','反馈','展示大语言模型（OpenAI o1/o3、DeepSeek R1、Claude 3.7 Thinking）在生成内容前的多步思考与推理过程；支持动态思考呼吸光球、耗时计数（Thinking for 12.4s）、Token 消耗计量与带完成标记的分步推理链。',
+    ['折叠容器与呼吸光球 (.ds-thought-block, .ds-thought-block__orb)','标题、耗时等宽标签与 Token 开销 (.ds-thought-block__title, .ds-thought-block__timer, .ds-thought-block__tokens)','展开旋转手柄 (.ds-thought-block__chevron)','思维链列表与分步状态 (.ds-thought-block__content, .ds-thought-block__step, .ds-thought-block__step-icon)'],
+    'Tab 聚焦触发按钮；Enter 或 Space 展开或折叠推理过程；展开状态保持 aria-expanded 与 aria-controls 同步；屏幕阅读器完整播报思考用时与步骤。',
+    ['思考阶段使用柔光呼吸光球，生成结束后切换为静态成功标记。','耗时与 Token 统计采用等宽字体，数字跳变时不引发容器抖动。','默认折叠收起，避免冗长思维链遮挡主回复。'],
+    '<div class="ds-thought-block" role="region" aria-label="AI 深度推理思维链：思考中，已耗时 12.4s，已消耗 842 Tokens"><button type="button" class="ds-thought-block__header" aria-expanded="true" aria-controls="preview-thought-steps" id="preview-thought-btn"><span class="ds-thought-block__orb" aria-hidden="true"></span><span class="ds-thought-block__title">Thinking Process</span><span class="ds-thought-block__timer">12.4s</span><span class="ds-thought-block__tokens">842 tokens</span><span class="ds-thought-block__chevron" aria-hidden="true">▼</span></button><div class="ds-thought-block__content" id="preview-thought-steps" role="list"><div class="ds-thought-block__step" role="listitem"><span class="ds-thought-block__step-icon">✓</span><span>Analyzing system requirements and design token hierarchy</span></div><div class="ds-thought-block__step" role="listitem"><span class="ds-thought-block__step-icon">✓</span><span>Verifying WCAG AA 4.5:1 contrast and keyboard focus accessibility</span></div><div class="ds-thought-block__step is-active" role="listitem"><span class="ds-thought-block__step-icon">◉</span><span>Synthesizing cross-platform motion curves for iOS and Android</span></div></div></div>',
+    ['呼吸光球动效在减弱动态效果下降级为静态','折叠展开符合 ARIA 规范','用时与 Token 统计等宽排版不溢出'],
+    '<AIReasoningThoughtBlock isThinking={true} elapsedSeconds={12.4} tokenCount={842} steps={[{ title: "Analyzing system requirements", isDone: true }, { title: "Verifying WCAG AA contrast", isDone: true }, { title: "Synthesizing cross-platform curves", isActive: true }]} />'),
+  component('ai-multimodal-prompt-composer','现代 AI 多模态混合提示词输入中枢','表单','集成现代大语言模型交互核心的提示词输入底栏（Prompt Composer）；支持模型快捷切换胶囊（Claude 3.7 / GPT-4o / Gemini Flash）、多模态附件标签、实时语音麦克风、Token 预算余量微指示，以及带键盘快捷键提示（⌘↵）的渐变发送按钮。',
+    ['胶囊外壳与顶栏附件区 (.ds-prompt-composer, .ds-prompt-composer__top)','模型切换胶囊与附件标签 (.ds-prompt-composer__model-pill, .ds-prompt-composer__attachment)','自适应多行输入框 (.ds-prompt-composer__textarea)','底部功能区、语音按钮与 Token 计数 (.ds-prompt-composer__bottom, .ds-prompt-composer__tool-btn, .ds-prompt-composer__token-budget)','弹性发送主操作按钮与键盘快捷键徽标 (.ds-prompt-composer__send-btn, .ds-prompt-composer__kbd)'],
+    '原生文本编辑快捷键；Enter 换行；Cmd+Enter 或 Ctrl+Enter 提交；Tab 在模型切换、附件关闭和发送按钮间移动。',
+    ['采用 Apple Chrome 风格细边框与毛玻璃材质，浮于聊天滚动区域之上。','模型切换胶囊需标明版本号或上下文窗口，让用户对消耗有明确预期。','发送按钮在输入为空且无附件时呈现半透明禁用态。'],
+    '<div class="ds-prompt-composer" role="form" aria-label="AI 多模态提示词输入中枢"><div class="ds-prompt-composer__top"><button type="button" class="ds-prompt-composer__model-pill" aria-label="切换模型：当前 Claude 3.7 Sonnet"><span class="ds-prompt-composer__model-dot"></span><span>Claude 3.7 Sonnet</span><span class="ds-prompt-composer__model-caret">▾</span></button><div class="ds-prompt-composer__attachment"><span>📄 tokens.json</span><button type="button" class="ds-prompt-composer__attach-close" aria-label="移除 tokens.json">×</button></div></div><textarea class="ds-prompt-composer__textarea" id="preview-composer-input" placeholder="输入提示词或按 / 调用工具..." rows="2"></textarea><div class="ds-prompt-composer__bottom"><div class="ds-prompt-composer__tools"><button type="button" class="ds-prompt-composer__tool-btn" aria-label="上传附件">📎</button><button type="button" class="ds-prompt-composer__tool-btn" aria-label="语音输入">🎙️</button><span class="ds-prompt-composer__token-budget">1.2k / 128k</span></div><button type="button" class="ds-prompt-composer__send-btn" aria-label="发送消息 (Cmd+Enter)"><span>发送</span><kbd class="ds-prompt-composer__kbd">⌘↵</kbd></button></div></div>',
+    ['快捷键 ⌘↵ 提示清晰且不影响主要操作无障碍朗读','模型选择与附件标签具备独立键盘聚焦','毛玻璃底板在深浅主题下均有清晰分界线'],
+    '<AIMultimodalPromptComposer activeModel="Claude 3.7 Sonnet" attachments={["tokens.json"]} tokenUsage="1.2k / 128k" onSend={() => {}} />'),
+  component('ai-citation-source-card','AI 智能引用源与事实核查卡片','数据','现代 AI 搜索（Perplexity、ChatGPT Search）与 RAG 架构事实溯源卡片；展示溯源网站 Favicon、域名、匹配可信度百分比（98% Match）、引用原文摘要抽屉，以及安全外部链接跳转把手。',
+    ['卡片容器与头部信息 (.ds-citation-card, .ds-citation-card__header)','引用序号与站点图标 (.ds-citation-card__index, .ds-citation-card__favicon)','网站标题与纯净域名 (.ds-citation-card__title, .ds-citation-card__domain)','置信度匹配度药丸 (.ds-citation-card__match)','原文摘录引用块 (.ds-citation-card__snippet)','外部数据源跳转链接 (.ds-citation-card__link)'],
+    'Tab 聚焦卡片或跳转链接；Enter 新标签页安全打开外部溯源网页（带 rel="noopener noreferrer"）。',
+    ['域名必须清洗为纯净 host，防止钓鱼欺诈。','置信度指标需带清晰文本标签，禁止单用色阶代表匹配质量。','引用卡片可紧凑排列为数字气泡，也可展开为上下文卡片。'],
+    '<div class="ds-citation-card" role="article" aria-label="AI 事实引用源：developer.apple.com，置信度 98%，相关度极高"><div class="ds-citation-card__header"><span class="ds-citation-card__index">1</span><span class="ds-citation-card__favicon"></span><div class="ds-citation-card__meta"><span class="ds-citation-card__title">Human Interface Guidelines - Materials</span><span class="ds-citation-card__domain">developer.apple.com</span></div><span class="ds-citation-card__match">98% Match</span></div><blockquote class="ds-citation-card__snippet">“Materials create a visual hierarchy by establishing a relationship between background and foreground elements...”</blockquote><a href="https://developer.apple.com" target="_blank" rel="noopener noreferrer" class="ds-citation-card__link" aria-label="查看 Apple 开发文档原始出处"><span>查看原始网页</span><span aria-hidden="true">↗</span></a></div>',
+    ['引用序号与域名一目了然','外部链接带 target="_blank" 与 rel="noopener noreferrer"','引用摘要排版规范，对比度合格'],
+    '<AICitationSourceCard index={1} title="Human Interface Guidelines - Materials" domain="developer.apple.com" matchRate="98%" snippet="Materials create a visual hierarchy..." url="https://developer.apple.com" />'),
+  component('ai-artifact-split-viewer','AI 代码产物与实时渲染分屏视窗','容器','Claude Artifacts / v0 风格的动态产物视窗；集代码查看、实时渲染预览、版本切换、终端控制台输出以及一键复制代码于一体。为 AI 辅助编程、SVG 预览和网页原型提供专业交付容器。',
+    ['视窗外壳与顶部工具栏 (.ds-artifact-viewer, .ds-artifact-viewer__toolbar)','文件名、类型徽标与版本标签 (.ds-artifact-viewer__file-badge, .ds-artifact-viewer__version-tag)','视图切换分段器 (.ds-artifact-viewer__mode-switch, .ds-artifact-viewer__tab)','快捷操作按钮 (.ds-artifact-viewer__actions, .ds-artifact-viewer__action-btn)','渲染舞台容器 (.ds-artifact-viewer__stage)','编译耗时与版本页脚 (.ds-artifact-viewer__footer)'],
+    'Tab 在视图分段按钮和操作按钮间切换；Space 或 Enter 切换 Preview 与 Code 视图；全键盘可达。',
+    ['预览区使用独立沙箱或隔离样式，防止业务组件样式污染宿主系统。','复制代码操作在点击后必须立即提供“已复制 ✓”反馈并在 1.5 秒后复原。','提供等宽终端日志抽屉，展示编译日志与实时报错信息。'],
+    '<div class="ds-artifact-viewer" role="region" aria-label="AI 动态产物视窗：ButtonComponent.tsx，版本 v3"><div class="ds-artifact-viewer__toolbar"><div class="ds-artifact-viewer__file-badge"><span class="ds-artifact-viewer__file-icon">⚡</span><span class="ds-artifact-viewer__file-name">ButtonComponent.tsx</span><span class="ds-artifact-viewer__version-tag">v3</span></div><div class="ds-artifact-viewer__mode-switch" role="tablist"><button type="button" class="ds-artifact-viewer__tab is-active" role="tab" aria-selected="true">Preview</button><button type="button" class="ds-artifact-viewer__tab" role="tab" aria-selected="false">Code</button><button type="button" class="ds-artifact-viewer__tab" role="tab" aria-selected="false">Console</button></div><div class="ds-artifact-viewer__actions"><button type="button" class="ds-artifact-viewer__action-btn" aria-label="复制代码">Copy</button><button type="button" class="ds-artifact-viewer__action-btn" aria-label="全屏预览">⛶</button></div></div><div class="ds-artifact-viewer__stage"><div class="ds-toolbar"><button class="ds-button">Live Rendered Button</button></div></div><div class="ds-artifact-viewer__footer"><span>Compiled in 18ms</span><span>TypeScript 5.4 · React 19</span></div></div>',
+    ['视图切换 tablist 符合 ARIA 规范','复制与全屏动作带明确无障碍标签','产物头部与底部等宽排版不溢出'],
+    '<AIArtifactSplitViewer fileName="ButtonComponent.tsx" version="v3" activeTab="Preview" compileDuration="18ms" />'),
+  component('telegram-voice-waveform-player','Telegram 动态音频波形气泡播放器','多媒体','Telegram 与 WhatsApp 经典沉浸式语音留言播放组件；展示自适应振幅条阵列（Waveform Spectrum）、已播/未播双色渐进填充、播放/暂停弹性缩放圆形按钮、倍速播放切换药丸（1.0x / 1.5x / 2.0x），以及毫秒级剩余时长计时器。',
+    ['语音气泡外壳 (.ds-voice-bubble)','弹性播放控制按钮 (.ds-voice-bubble__play-btn)','振幅波形柱阵列 (.ds-voice-bubble__waveform, .ds-voice-bubble__bar)','时长显示与进度元数据 (.ds-voice-bubble__meta, .ds-voice-bubble__duration)','倍速切换胶囊 (.ds-voice-bubble__speed-btn)'],
+    'Tab 聚焦播放按钮；Space 或 Enter 切换播放与暂停；方向键 Left/Right 可快退或快进 5 秒；倍速按钮 Enter 循环切换。',
+    ['波形条振幅根据真实音频采样高度（10%–100%）呈现，未播部分为柔和浅色，已播部分为高对比强调色。','播放按钮点击时应用 scale(0.92) 瞬时弹性反馈。','状态文本直接朗读总时长与当前播放进度，屏幕阅读器对图形波形做 aria-hidden。'],
+    '<div class="ds-voice-bubble" role="region" aria-label="语音留言播放器：时长 0:38，当前进度 0:14，播放倍速 1.5x"><button type="button" class="ds-voice-bubble__play-btn" aria-label="播放语音留言"><span aria-hidden="true">▶</span></button><div class="ds-voice-bubble__body"><div class="ds-voice-bubble__waveform" aria-hidden="true"><span class="ds-voice-bubble__bar is-played" style="height: 35%"></span><span class="ds-voice-bubble__bar is-played" style="height: 70%"></span><span class="ds-voice-bubble__bar is-played" style="height: 100%"></span><span class="ds-voice-bubble__bar is-played" style="height: 55%"></span><span class="ds-voice-bubble__bar is-played" style="height: 85%"></span><span class="ds-voice-bubble__bar" style="height: 60%"></span><span class="ds-voice-bubble__bar" style="height: 40%"></span><span class="ds-voice-bubble__bar" style="height: 90%"></span><span class="ds-voice-bubble__bar" style="height: 45%"></span><span class="ds-voice-bubble__bar" style="height: 25%"></span></div><div class="ds-voice-bubble__meta"><span class="ds-voice-bubble__duration">0:14 / 0:38</span><button type="button" class="ds-voice-bubble__speed-btn" aria-label="切换播放倍速：当前 1.5x">1.5x</button></div></div></div>',
+    ['播放控制带明确播放与暂停状态无障碍播报','波形条已播与未播双色明确区分','倍速切换胶囊支持键盘聚焦与切换'],
+    '<TelegramVoiceWaveformPlayer duration="0:38" currentTime="0:14" playbackSpeed="1.5x" isPlaying={false} waveformAmplitudes={[35, 70, 100, 55, 85, 60, 40, 90, 45, 25]} />'),
+  component('telegram-reaction-spring-bar','Telegram & Meta 弹性表情微动效互动栏','操作','Telegram 与 Meta (Instagram/WhatsApp) 经典的浮动表情快捷回复条；采用半透明毛玻璃底板、Apple 弹簧物理（cubic-bezier(0.34, 1.56, 0.64, 1)）逐项悬停放大动效、选中数字气泡徽标与添加自定义 Emoji 胶囊。',
+    ['毛玻璃悬浮胶囊外壳 (.ds-spring-reaction-bar)','弹性表情选项按钮 (.ds-spring-reaction-bar__emoji-btn)','Emoji 符号与选中计数徽标 (.ds-spring-reaction-bar__char, .ds-spring-reaction-bar__count)','更多表情添加把手 (.ds-spring-reaction-bar__add-btn)'],
+    'Tab 或方向键 Left/Right 在表情间快速轮换；Enter 或 Space 切换表态选中；aria-pressed 动态反馈。',
+    ['悬停与聚焦时表情放大至 1.35 倍并伴随弹性回弹。','必须为每个表情提供可访问文字名称（如“点赞”、“爱心”、“热烈火焰”）。','触屏设备按下即发，桌面设备悬停提供平滑放大预览。'],
+    '<div class="ds-spring-reaction-bar" role="toolbar" aria-label="快捷表情表态工具栏"><button type="button" class="ds-spring-reaction-bar__emoji-btn is-selected" aria-label="表态：点赞 (12人)" aria-pressed="true"><span class="ds-spring-reaction-bar__char">👍</span><span class="ds-spring-reaction-bar__count">12</span></button><button type="button" class="ds-spring-reaction-bar__emoji-btn" aria-label="表态：爱心 (8人)" aria-pressed="false"><span class="ds-spring-reaction-bar__char">❤️</span><span class="ds-spring-reaction-bar__count">8</span></button><button type="button" class="ds-spring-reaction-bar__emoji-btn" aria-label="表态：热烈火焰 (24人)" aria-pressed="false"><span class="ds-spring-reaction-bar__char">🔥</span><span class="ds-spring-reaction-bar__count">24</span></button><button type="button" class="ds-spring-reaction-bar__emoji-btn" aria-label="表态：鼓掌 (5人)" aria-pressed="false"><span class="ds-spring-reaction-bar__char">👏</span><span class="ds-spring-reaction-bar__count">5</span></button><button type="button" class="ds-spring-reaction-bar__add-btn" aria-label="添加更多表情表态">+</button></div>',
+    ['悬停弹性缩放符合物理规律不引发重排','选中状态有双通道视觉区分（高亮底色与计数）','表情名称通过 aria-label 完整播报'],
+    '<TelegramReactionSpringBar reactions={[{ emoji: "👍", count: 12, isSelected: true }, { emoji: "❤️", count: 8 }, { emoji: "🔥", count: 24 }, { emoji: "👏", count: 5 }]} />'),
+  component('telegram-chat-bubble-receipt','Telegram / WhatsApp 消息气泡与双勾已读回执','反馈','Telegram 与 WhatsApp 最具代表性的即时通讯消息气泡；包含精美圆角、引用回复卡片（Quoted Reply Card）、富文本正文、右下角微型时间戳与经典的双勾（✓✓ 双蓝勾已读状态）。',
+    ['消息行布局容器 (.ds-msg-row, .ds-msg-row--out, .ds-msg-row--in)','气泡外壳 (.ds-msg-bubble)','引用回复卡片条 (.ds-msg-bubble__quote)','作者与引文摘要 (.ds-msg-bubble__quote-author, .ds-msg-bubble__quote-text)','消息正文 (.ds-msg-bubble__text)','时间戳与双勾状态徽标 (.ds-msg-bubble__footer, .ds-msg-bubble__time, .ds-msg-bubble__checks)'],
+    'Tab 聚焦消息卡片；无障碍播报包含发送方、引文内容、消息正文与送达状态。',
+    ['已读状态用双勾与蓝色表达，未读为双灰色勾，发送中为时钟图标。','气泡采用自适应最大宽度（桌面端 75%，移动端 85%）。','保持高可读性，浅色与深色主题均保持背景对比。'],
+    '<div class="ds-msg-row ds-msg-row--out" role="article" aria-label="你发送的消息：已于 14:32 送达并已读"><div class="ds-msg-bubble ds-msg-bubble--out"><div class="ds-msg-bubble__quote"><span class="ds-msg-bubble__quote-author">Alex</span><span class="ds-msg-bubble__quote-text">Can you check the new glass tokens?</span></div><div class="ds-msg-bubble__text">All merged! Added the Liquid Glass toolbar and Telegram reaction bar.</div><div class="ds-msg-bubble__footer"><span class="ds-msg-bubble__time">14:32</span><span class="ds-msg-bubble__checks" aria-label="已读">✓✓</span></div></div></div>',
+    ['双勾已读状态符合国际通用规范','引用回复卡片作者与摘要清晰区分','发送方与接收方左右对齐与气泡颜色符合直觉'],
+    '<TelegramChatBubbleReceipt sender="you" quote={{ author: "Alex", text: "Can you check the new glass tokens?" }} message="All merged! Added the Liquid Glass toolbar." time="14:32" status="read" />'),
+  component('telegram-pinned-broadcast-banner','Telegram 频道置顶广播通知与导航条','导航','Telegram 与 Discord 经典的顶部置顶公告横条；以毛玻璃材质贴紧群组或频道顶部，展示置顶喇叭指示条、公告标题与摘要、跳转到原消息位置的下钻把手，以及关闭按钮。',
+    ['置顶通栏外壳 (.ds-pinned-banner)','左侧广播微指示条 (.ds-pinned-banner__indicator)','公告标题与正文摘录 (.ds-pinned-banner__content, .ds-pinned-banner__title, .ds-pinned-banner__snippet)','快捷跳转与关闭操作组 (.ds-pinned-banner__actions, .ds-pinned-banner__jump-btn, .ds-pinned-banner__close-btn)'],
+    'Tab 聚焦横条内的跳转与关闭按钮；Enter 执行跳转；Escape 快速关闭公告栏。',
+    ['容器采用 Chrome 层级与毛玻璃，不遮挡主聊天区域第一条消息。','发生紧急全员通知时，左侧指示条可呈现柔和呼吸高亮色。','关闭操作需给予用户恢复或重新展开的入口。'],
+    '<div class="ds-pinned-banner" role="banner" aria-label="置顶公告：版本发布公告，点击可快速跳转到原始消息"><div class="ds-pinned-banner__indicator" aria-hidden="true"></div><div class="ds-pinned-banner__content"><span class="ds-pinned-banner__title">Pinned Message #42</span><span class="ds-pinned-banner__snippet">UI Design System v3.1 update is now live across all platforms.</span></div><div class="ds-pinned-banner__actions"><button type="button" class="ds-pinned-banner__jump-btn" aria-label="跳转至置顶原消息">View ➔</button><button type="button" class="ds-pinned-banner__close-btn" aria-label="关闭置顶公告">×</button></div></div>',
+    ['置顶横条具有明确的 role="banner" 与 aria-label','跳转与关闭操作触控区域符合标准规范','文本超长时自动截断并展示省略号'],
+    '<TelegramPinnedBroadcastBanner messageId={42} title="Pinned Message #42" snippet="UI Design System v3.1 update is now live across all platforms." onJump={() => {}} onClose={() => {}} />'),
+  component('macos-liquid-glass-toolbar','macOS 晶莹毛玻璃窗口控制主工具栏','导航','汲取 macOS 最新视觉精髓的窗口主顶栏；采用高通透度 Liquid Glass（毛玻璃模糊 24px + 饱和度增益 180% + 顶部反射高光）、红黄绿经典交通灯按键、拟真分段视图切换器，以及带 Cmd+K 快捷提示的模糊搜索输入条。',
+    ['毛玻璃顶栏外壳 (.ds-liquid-toolbar)','交通灯三色窗口控制组 (.ds-traffic-lights, .ds-traffic-lights__dot)','项目标题与文档名 (.ds-liquid-toolbar__title)','紧凑分段切换器 (.ds-liquid-toolbar__segments, .ds-liquid-toolbar__seg-btn)','搜索输入域与快捷键胶囊 (.ds-liquid-toolbar__search, .ds-liquid-toolbar__kbd)'],
+    'Tab 在窗口控制、分段器与搜索框间流转；Cmd+K 或 Ctrl+K 快速聚焦搜索框。',
+    ['仅用于顶层窗口 Chrome 层，不可置于正文滚动层内部。','顶部边缘带 1px 细微镜面高光反射，增强物理玻璃质感。','交通灯按键在非聚焦窗口时呈现低饱和度中性灰。'],
+    '<div class="ds-liquid-toolbar" role="region" aria-label="macOS 晶莹毛玻璃主工具栏：Workspace Project"><div class="ds-traffic-lights" aria-label="窗口控制"><span class="ds-traffic-lights__dot ds-traffic-lights__dot--red" title="关闭窗口"></span><span class="ds-traffic-lights__dot ds-traffic-lights__dot--yellow" title="最小化窗口"></span><span class="ds-traffic-lights__dot ds-traffic-lights__dot--green" title="全屏视窗"></span></div><div class="ds-liquid-toolbar__title">Workspace Project — Design System</div><div class="ds-liquid-toolbar__segments" role="tablist"><button type="button" class="ds-liquid-toolbar__seg-btn is-active" role="tab" aria-selected="true">Design</button><button type="button" class="ds-liquid-toolbar__seg-btn" role="tab" aria-selected="false">Tokens</button><button type="button" class="ds-liquid-toolbar__seg-btn" role="tab" aria-selected="false">Code</button></div><div class="ds-liquid-toolbar__search"><span aria-hidden="true">🔍</span><input type="search" placeholder="Search..." aria-label="搜索项目"><kbd class="ds-liquid-toolbar__kbd">⌘K</kbd></div></div>',
+    ['交通灯三色圆点高光与比例符合 macOS HIG','顶部镜面反射与毛玻璃层次分明','搜索框与分段器键盘完全可访问'],
+    '<MacOSLiquidGlassToolbar title="Workspace Project — Design System" activeTab="Design" tabs={["Design", "Tokens", "Code"]} />'),
+  component('ios-dynamic-island-morph-pill','iOS 灵动岛多态弹性形变状态胶囊','浮层','iOS 灵动岛（Dynamic Island）跨平台原生级动效胶囊；支持从紧凑药丸（Mini Pill 包含微型封面与波形）平滑弹性展开（Expanded Island 呈现播放控制、进度拖拽条与完成动作），运用 Apple 物理弹簧阻尼曲线保持极致跟手与生命力。',
+    ['纯黑超椭圆胶囊外壳 (.ds-dynamic-morph-island)','展开态主舞台 (.ds-dynamic-morph-island__expanded)','专辑微缩图标与歌曲信息 (.ds-dynamic-morph-island__art, .ds-dynamic-morph-island__track-info)','状态胶囊与进度微调条 (.ds-dynamic-morph-island__status-pill, .ds-dynamic-morph-island__scrubber, .ds-dynamic-morph-island__scrub-fill)','时间标签与播放控制按键组 (.ds-dynamic-morph-island__footer, .ds-dynamic-morph-island__btns)'],
+    'Tab 聚焦灵动岛胶囊；Enter 或长按切换展开与收起；展开后内部子控件支持独立键盘导航。',
+    ['采用全黑或深色半透明圆角底盘（border-radius: 28px 或 9999px）。','状态形变使用 CSS transform 驱动，避免改变尺寸触发布局回流。','移动端支持轻扫手势收起。'],
+    '<div class="ds-dynamic-morph-island is-expanded" role="region" aria-label="iOS 灵动岛实时活动：正在播放 Bohemian Rhapsody"><div class="ds-dynamic-morph-island__expanded"><div class="ds-dynamic-morph-island__header"><span class="ds-dynamic-morph-island__art">🎵</span><div class="ds-dynamic-morph-island__track-info"><span class="ds-dynamic-morph-island__song">Bohemian Rhapsody</span><span class="ds-dynamic-morph-island__artist">Queen — A Night at the Opera</span></div><span class="ds-dynamic-morph-island__status-pill">AirPlay</span></div><div class="ds-dynamic-morph-island__scrubber"><div class="ds-dynamic-morph-island__scrub-fill" style="width: 48%"></div></div><div class="ds-dynamic-morph-island__footer"><span>2:45</span><div class="ds-dynamic-morph-island__btns"><button type="button" aria-label="上一曲">⏮</button><button type="button" aria-label="暂停播放">⏸</button><button type="button" aria-label="下一曲">⏭</button></div><span>-3:09</span></div></div></div>',
+    ['展开与折叠具备清晰无障碍状态播报','媒体控制按键尺寸满足触控要求','进度指示清晰且无回流卡顿'],
+    '<IOSDynamicIslandMorphPill isExpanded={true} songTitle="Bohemian Rhapsody" artistName="Queen" currentTime="2:45" remainingTime="-3:09" progressPercent={48} />'),
+  component('android-m3-tonal-surface-card','Android Material You 动态色调感知卡片','容器','Google Android Material Design 3 (Material You) 核心色调表面卡片（Tonal Surface Container）；采用动态取色算法映射的主色容器背景、柔和连续圆角（radius.lg 16px）、触控中心波纹扩散（Material Ripple Effect），以及阶梯层次高亮。',
+    ['色调表面卡片外壳 (.ds-m3-tonal-card)','顶部功能图标与状态徽标 (.ds-m3-tonal-card__header, .ds-m3-tonal-card__icon, .ds-m3-tonal-card__badge)','卡片标题与正文说明 (.ds-m3-tonal-card__title, .ds-m3-tonal-card__desc)','底部动作栏与操作药丸按钮 (.ds-m3-tonal-card__footer, .ds-m3-tonal-card__action)'],
+    'Tab 聚焦卡片或内部动作按钮；Enter 或 Space 触发动作并展示从中心扩展的涟漪波纹。',
+    ['背景色使用主题中的动态色调（如 primaryContainer / secondaryContainer）。','触控反馈优先使用波纹而非单纯的缩放，符合 Material 3 物理材质规范。','边框极细或无边框，全靠色调明度差与环境投影区分层级。'],
+    '<div class="ds-m3-tonal-card" role="region" aria-label="Material You 动态色调感知卡片：智能电池优化"><div class="ds-m3-tonal-card__header"><span class="ds-m3-tonal-card__icon" aria-hidden="true">⚡</span><span class="ds-m3-tonal-card__badge">Adaptive Power</span></div><div class="ds-m3-tonal-card__title">智能动态电池管理</div><p class="ds-m3-tonal-card__desc">基于当前使用习惯自动调节后台刷新频率与屏幕刷新率，延长续航约 3.5 小时。</p><div class="ds-m3-tonal-card__footer"><button type="button" class="ds-m3-tonal-card__action" aria-label="启用自适应省电模式">启用模式</button></div></div>',
+    ['动态色调在浅色与深色主题下对比度均达标','按钮具有清晰的触控聚焦轮廓','圆角与间距严格遵循 8dp 节奏'],
+    '<AndroidM3TonalSurfaceCard title="智能动态电池管理" badge="Adaptive Power" description="基于当前使用习惯自动调节后台刷新频率..." actionLabel="启用模式" onAction={() => {}} />'),
+  component('meta-story-avatar-gradient-ring','Meta / Instagram 动态幻彩渐变故事头像环','反馈','Meta (Instagram/WhatsApp) 与主流移动端广泛使用的流光头像光环组件；支持未读故事（Conic Gradient 暖色动态流动环）、正在直播（LIVE 脉冲红点徽标）、已读灰环，以及头像点按时的弹性按压缩放反馈。',
+    ['头像光环包裹容器 (.ds-story-avatar-ring)','旋转渐变流光外圈 (.ds-story-avatar-ring__gradient)','隔离间隙圈 (.ds-story-avatar-ring__gap)','头像核心图像 (.ds-story-avatar-ring__img)','直播状态微胶囊 (.ds-story-avatar-ring__live-badge)'],
+    'Tab 聚焦头像；Enter 或 Space 打开故事全屏播放视窗；屏幕阅读器清晰播报用户名称与直播状态。',
+    ['渐变环使用 Instagram 标志性的紫-洋红-橙-黄多色渐变，或 AI 产品的极光青蓝渐变。','系统开启 prefers-reduced-motion 时，停止旋转动效，保留静态渐变彩环。','头像点击时提供 scale(0.94) 弹性形变反馈。'],
+    '<div class="ds-story-avatar-ring is-live" role="button" tabindex="0" aria-label="Elena Vance 的即时故事，正在直播中，点击观看"><div class="ds-story-avatar-ring__gradient" aria-hidden="true"></div><div class="ds-story-avatar-ring__gap"><img src="data:image/svg+xml,%3Csvg xmlns=\x27http://www.w3.org/2000/svg\x27 width=\x2748\x27 height=\x2748\x27 viewBox=\x270 0 48 48\x27%3E%3Ccircle cx=\x2724\x27 cy=\x2724\x27 r=\x2724\x27 fill=\x27%236366f1\x27/%3E%3Ctext x=\x2724\x27 y=\x2728\x27 font-size=\x2716\x27 text-anchor=\x27middle\x27 fill=\x27white\x27 font-family=\x27sans-serif\x27%3EEV%3C/text%3E%3C/svg%3E" alt="Elena Vance 头像" class="ds-story-avatar-ring__img"></div><span class="ds-story-avatar-ring__live-badge">LIVE</span></div>',
+    ['渐变环旋转在减弱动态效果下平稳暂停','LIVE 徽标对比度与文字清晰','头像支持键盘聚焦与回车触发'],
+    '<MetaStoryAvatarGradientRing userName="Elena Vance" avatarSrc="data:image/svg+xml,..." isLive={true} hasUnreadStory={true} onClick={() => {}} />'),
+  component('macos-raycast-command-palette','macOS & Raycast 悬浮模糊全局指令控制台','浮层','Raycast 与 Spotlight 风格的全局浮动指令面板；支持模糊搜索、分类动作流（建议、导航、工具）、选中项高光指示、热键胶囊（↵ 打开、⌘K 动作）与底部上下文动作栏。',
+    ['毛玻璃浮动底盘 (.ds-raycast-palette)','搜索输入框与微图标 (.ds-raycast-palette__input-box)','分组标题与结果列表 (.ds-raycast-palette__list, .ds-raycast-palette__group-title)','结果项、图标与快捷键标签 (.ds-raycast-palette__item, .ds-raycast-palette__item-icon, .ds-raycast-palette__kbd)','底部操作指示栏 (.ds-raycast-palette__footer)'],
+    'Tab 或上下方向键在指令列表间循环移动；Enter 执行选中动作；Cmd+K 展开辅助动作；Escape 关闭指令台。',
+    ['容器具备 role="combobox" 与 aria-expanded，列表项具备 role="option" 与 aria-selected。','输入框即时过滤结果，无匹配时展示清晰空状态。','底部热键与操作在深浅色主题下保持高对比度。'],
+    '<div class="ds-raycast-palette" role="dialog" aria-label="全局指令控制台"><div class="ds-raycast-palette__input-box"><span aria-hidden="true">🔍</span><input type="search" placeholder="Type a command or search..." aria-label="搜索指令" id="preview-more-palette-input"></div><ul class="ds-raycast-palette__list" role="listbox"><li class="ds-raycast-palette__group-title" role="presentation">Suggested</li><li class="ds-raycast-palette__item is-selected" role="option" aria-selected="true"><div class="ds-raycast-palette__item-left"><span class="ds-raycast-palette__item-icon">⚡</span><span>Open Modern AI Design System</span></div><kbd class="ds-raycast-palette__kbd">↵</kbd></li><li class="ds-raycast-palette__item" role="option" aria-selected="false"><div class="ds-raycast-palette__item-left"><span class="ds-raycast-palette__item-icon">🎨</span><span>Toggle Dark / Light Theme</span></div><kbd class="ds-raycast-palette__kbd">⌘T</kbd></li><li class="ds-raycast-palette__item" role="option" aria-selected="false"><div class="ds-raycast-palette__item-left"><span class="ds-raycast-palette__item-icon">📋</span><span>Copy CSS Variables Token</span></div><kbd class="ds-raycast-palette__kbd">⌘C</kbd></li></ul><div class="ds-raycast-palette__footer"><span>Raycast Core v2.4</span><div class="ds-raycast-palette__footer-actions"><span>Open <kbd class="ds-raycast-palette__kbd">↵</kbd></span><span>Actions <kbd class="ds-raycast-palette__kbd">⌘K</kbd></span></div></div></div>',
+    ['上下方向键导航与 Enter 执行反馈明确','选项选中状态与热键标签对比度合格','支持 Escape 键一键关闭并交还焦点'],
+    '<MacOSRaycastCommandPalette isOpen={true} query="" onSelect={() => {}} onClose={() => {}} />'),
+  component('ios-bottom-sheet-snap-drawer','iOS 物理弹簧阻尼抽屉工作台','容器','iOS 原生标准底栏抽屉（Bottom Sheet）；配备圆角抓手把手（Grabber）、半透明毛玻璃底板、多级吸附（Peek / Half / Full）与物理手势滚动阻尼。',
+    ['圆角抽屉容器 (.ds-bottom-sheet)','顶部滑动把手 (.ds-bottom-sheet__grabber)','标题与关闭按钮 (.ds-bottom-sheet__header, .ds-bottom-sheet__close-btn)','内容滚动主体 (.ds-bottom-sheet__body)'],
+    'Tab 聚焦把手或内部子项；Escape 关闭抽屉；向上轻扫或向下轻扫切换展开级别。',
+    ['抽屉具备 role="region" 与 aria-modal 属性。','内容滚动至顶部时才响应下拉关闭手势，避免手势冲突。','表单密集场景推荐使用实底或高不透明度，仅在轻量操作浮层使用透明毛玻璃。'],
+    '<div class="ds-bottom-sheet" role="region" aria-label="底栏抽屉：快速操作面板"><div class="ds-bottom-sheet__grabber" aria-hidden="true"></div><div class="ds-bottom-sheet__header"><span>Quick Actions</span><button type="button" class="ds-bottom-sheet__close-btn" aria-label="关闭底栏抽屉">×</button></div><div class="ds-bottom-sheet__body"><p>Select a quick action or swipe up to reveal more contextual tools.</p><div class="ds-toolbar"><button class="ds-button" type="button">Primary Tool</button><button class="ds-button ds-button--secondary" type="button">Secondary Tool</button></div></div></div>',
+    ['顶部抓手居中且触控区域充足','抽屉弹性展开与收起符合 Apple HIG 物理阻尼','全键盘可达且支持 Escape 退出'],
+    '<IOSBottomSheetSnapDrawer isOpen={true} title="Quick Actions" onClose={() => {}} />'),
+  component('android-predictive-back-container','Android M3 预测性返回流体容器变换','容器','Android 14/15 预测性返回（Predictive Back）交互动效容器；在用户从屏幕侧边滑动返回时，当前视窗平滑内缩（Scale 0.92 + Radius 24px + 阴影抬升），露出底层前驱页面，支持松手取消或顺畅提交返回。',
+    ['变换容器外壳 (.ds-predictive-back)','状态标题与返回指示 (.ds-predictive-back__header)','页面核心内容展示区 (.ds-predictive-back__content)'],
+    '原生 Back 键或 Alt+Left 返回；触屏手势侧滑拖拽交互。',
+    ['动画全程采用 Compositor 驱动（transform: scale + translate），严禁触发布局回流。','减弱动态效果下退化为即时切换，无内缩缩放。','卡片边角连续圆角过渡自然。'],
+    '<div class="ds-predictive-back is-swiping" role="region" aria-label="预测性返回视窗：正在滑动预览上级页面"><div class="ds-predictive-back__header"><span aria-hidden="true">←</span><span>Project Settings</span></div><div class="ds-predictive-back__content"><p>Swipe from screen edge to peek previous workspace canvas...</p></div></div>',
+    ['内缩状态边框与阴影层次分明','不发生文字换行与布局跳跃','支持键盘原生返回键触发'],
+    '<AndroidPredictiveBackContainer isSwiping={true} title="Project Settings" onBack={() => {}} />'),
+  component('ai-streaming-shimmer-cursor','AI 实时打字机流式输出与脉冲光标','反馈','大语言模型实时流式文本生成展示（Streaming Response）；包含等宽文本流动、平滑呼吸发光脉冲光标（Cursor Pulse）、生成速率指示器（如 84 tok/s）与带流光警示的立即终止按键。',
+    ['流式文本容器 (.ds-streaming-response)','文本正文 (.ds-streaming-response__text)','呼吸微光光标 (.ds-streaming-response__cursor)','速率指标与停止生成页脚 (.ds-streaming-response__footer, .ds-streaming-response__stop-btn)'],
+    'Tab 聚焦停止生成按钮；Space 或 Enter 立即中断当前推理并保留已生成文本。',
+    ['光标呼吸动画采用 CSS transform，在 prefers-reduced-motion 下静止显示。','流式文本平滑追加，不因长单词频繁截断导致视口上下跳动。','停止按钮点击后给出即时反馈，防止重复发送停止请求。'],
+    '<div class="ds-streaming-response" role="status" aria-live="polite" aria-label="AI 正在流式生成回答，速率 84 Tokens/s"><div class="ds-streaming-response__text">Modern AI design systems combine the physics of Apple with the predictability of Android Material 3...<span class="ds-streaming-response__cursor" aria-hidden="true"></span></div><div class="ds-streaming-response__footer"><span>84 tokens/s · Claude 3.7</span><button type="button" class="ds-streaming-response__stop-btn" aria-label="停止生成">⏹ Stop</button></div></div>',
+    ['具有 aria-live="polite" 屏幕阅读器友好广播','光标脉冲动效流畅不引起卡顿','停止按钮触控区域达标且状态清晰'],
+    '<AIStreamingShimmerCursor streamingText="Modern AI design systems combine the physics of Apple..." tokensPerSec={84} isGenerating={true} onStop={() => {}} />'),
+  component('ai-prompt-template-carousel','AI 场景提示词灵感胶囊轮播栏','导航','ChatGPT 与 Claude 首页核心的场景提示词灵感胶囊轮播组件；支持横向无缝惯性滑动、场景微图标、分类提示词摘要与单点一键填入输入框。',
+    ['横向胶囊轮播容器 (.ds-prompt-carousel)','场景胶囊按钮 (.ds-prompt-carousel__pill)','分类微图标与摘要文字 (.ds-prompt-carousel__icon, .ds-prompt-carousel__text)'],
+    'Tab 在胶囊间流转；Enter 或 Space 选中并将该提示词填入活动输入框；左右方向键快速浏览。',
+    ['滚动条默认隐藏，但保留键盘聚焦自动滚动至视口内（scrollIntoView）。','悬停时胶囊轻微上浮（translateY(-2px)）并亮起主题强调色描边。','每个胶囊包含清晰完整的 aria-label，说明具体将执行什么场景。'],
+    '<div class="ds-prompt-carousel" role="toolbar" aria-label="AI 场景提示词推荐"><button type="button" class="ds-prompt-carousel__pill" aria-label="填入提示词：分析系统性能"><span class="ds-prompt-carousel__icon">⚡</span><span>Analyze performance</span></button><button type="button" class="ds-prompt-carousel__pill" aria-label="填入提示词：审查设计变量"><span class="ds-prompt-carousel__icon">🎨</span><span>Review design tokens</span></button><button type="button" class="ds-prompt-carousel__pill" aria-label="填入提示词：生成单元测试"><span class="ds-prompt-carousel__icon">🧪</span><span>Write unit tests</span></button><button type="button" class="ds-prompt-carousel__pill" aria-label="填入提示词：重构组件无障碍"><span class="ds-prompt-carousel__icon">♿</span><span>Refactor a11y</span></button></div>',
+    ['胶囊横向滑动不破坏页面主滚动','聚焦时胶囊轮廓完整可见','单点填入具备明确即时动作反馈'],
+    '<AIPromptTemplateCarousel templates={[{ icon: "⚡", title: "Analyze performance" }, { icon: "🎨", title: "Review tokens" }]} onSelect={() => {}} />'),
+  component('ai-context-token-fuel-gauge','AI 上下文窗口容量与配额燃油表','数据','AI 深度对话与编程助手（Cursor / Claude）必备的上下文窗口容量监控仪表；展示已消耗 Tokens 与剩余配额、动态梯度色彩燃油条（绿色安全 / 橙色警告 / 红色超载），以及一键压缩历史会话建议。',
+    ['容量仪表容器 (.ds-token-fuel-gauge)','标题与占用百分比 (.ds-token-fuel-gauge__header, .ds-token-fuel-gauge__percent)','燃油进度轨道与梯度色彩指示条 (.ds-token-fuel-gauge__track, .ds-token-fuel-gauge__fill)','详细 Token 统计与上限页脚 (.ds-token-fuel-gauge__stats)'],
+    '无需频繁交互；容器具备 role="progressbar"，aria-valuenow 与 aria-valuemax 同步更新。',
+    ['当消耗超过 80% 时，色彩自动转换为橙红警告色。','Token 数量采用标准千位缩写（如 42.5k / 128k）。','提供当前会话预计剩余可用轮次评估。'],
+    '<div class="ds-token-fuel-gauge" role="progressbar" aria-valuenow="42500" aria-valuemin="0" aria-valuemax="128000" aria-label="AI 上下文窗口容量：已消耗 42.5k Tokens，占用 33%，状态 安全"><div class="ds-token-fuel-gauge__header"><span>Context Window</span><span class="ds-token-fuel-gauge__percent">33% Used</span></div><div class="ds-token-fuel-gauge__track"><div class="ds-token-fuel-gauge__fill" style="transform: scaleX(0.33)"></div></div><div class="ds-token-fuel-gauge__stats"><span>42.5k used</span><span>128k capacity</span></div></div>',
+    ['progressbar 规范无障碍属性齐备','梯度色彩在深浅色下对比度达标','比例动画平滑无跳跃卡顿'],
+    '<AIContextTokenFuelGauge usedTokens={42500} maxTokens={128000} />'),
+  component('ai-model-arena-compare-card','AI 双模型竞技场响应并排对比卡','数据','LMSYS Chatbot Arena 风格的双模型盲测并排对比视窗；并排展示 Model A 与 Model B 响应正文、首字延迟（TTFT）、吞吐速率，以及“A 更好 / B 更好 / 平局”投票动作组。',
+    ['对比卡容器 (.ds-model-arena-card)','左右双栏网格 (.ds-model-arena-card__grid, .ds-model-arena-card__col)','单栏模型标题与速率统计 (.ds-model-arena-card__col-header, .ds-model-arena-card__col-stats)','响应正文 (.ds-model-arena-card__col-body)','底部投票裁决栏 (.ds-model-arena-card__vote-bar, .ds-model-arena-card__vote-btn)'],
+    'Tab 在模型 A 投票、模型 B 投票和平局按钮间切换；Enter 提交裁决并揭晓真实模型名称。',
+    ['左右双栏在小屏设备（<=640px）自动堆叠为单栏。','投票前模型名称保密（显示 Model A / Model B），投票后方可解锁真实模型标签。','正文排版保持对比度并支持等宽代码高亮。'],
+    '<div class="ds-model-arena-card" role="region" aria-label="AI 双模型对比盲测竞技场"><div class="ds-model-arena-card__grid"><div class="ds-model-arena-card__col"><div class="ds-model-arena-card__col-header"><span>Model A</span><span class="ds-model-arena-card__col-stats">TTFT: 240ms · 92 tok/s</span></div><div class="ds-model-arena-card__col-body">Provides clean, modular code with comprehensive TypeScript annotations.</div></div><div class="ds-model-arena-card__col"><div class="ds-model-arena-card__col-header"><span>Model B</span><span class="ds-model-arena-card__col-stats">TTFT: 180ms · 114 tok/s</span></div><div class="ds-model-arena-card__col-body">Offers concise code snippets with detailed inline architectural rationale.</div></div></div><div class="ds-model-arena-card__vote-bar"><button type="button" class="ds-model-arena-card__vote-btn" aria-label="投票：Model A 表现更优">👈 Model A is better</button><button type="button" class="ds-model-arena-card__vote-btn" aria-label="投票：两者表现平局">🤝 Tie</button><button type="button" class="ds-model-arena-card__vote-btn" aria-label="投票：Model B 表现更优">Model B is better 👉</button></div></div>',
+    ['双栏响应并排对齐且支持移动端自适应','三项投票按键焦点与标签清晰','模型性能参数带明确单位说明'],
+    '<AIModelArenaCompareCard modelAName="Model A" modelBName="Model B" onVote={() => {}} />'),
+  component('telegram-video-note-circle-bubble','Telegram 圆形视讯留言泡泡与环形进度条','多媒体','Telegram 最具辨识度的圆形视讯留言泡泡（Telescope Circular Video Note）；包含圆形视讯视窗、外圈环形播放流光进度圈、静音切换微徽标与双击暂停互动。',
+    ['圆形外壳 (.ds-video-note)','环形旋转进度条 (.ds-video-note__ring)','微缩圆形视讯画面 (.ds-video-note__thumb)','扬声器与剩余时长胶囊 (.ds-video-note__badge)'],
+    'Tab 聚焦视讯气泡；Space 或 Enter 切换静音/播放；双击暂停视频流。',
+    ['环形进度条使用旋转变换，在减弱动态效果下平稳暂停。','视频圆形遮罩使用 border-radius: 9999px 与 overflow: hidden，确保 Compositor 硬件加速。','明确播报当前视频留言作者与时长。'],
+    '<div class="ds-video-note" role="region" aria-label="Telegram 圆形视讯留言：时长 0:28，点击切换播放与静音"><div class="ds-video-note__ring" aria-hidden="true"></div><img src="data:image/svg+xml,%3Csvg xmlns=\x27http://www.w3.org/2000/svg\x27 width=\x27140\x27 height=\x27140\x27 viewBox=\x270 0 140 140\x27%3E%3Ccircle cx=\x2770\x27 cy=\x2770\x27 r=\x2770\x27 fill=\x27%23374151\x27/%3E%3Ctext x=\x2770\x27 y=\x2776\x27 font-size=\x2724\x27 text-anchor=\x27middle\x27 fill=\x27white\x27 font-family=\x27sans-serif\x27%3EVIDEO%3C/text%3E%3C/svg%3E" alt="视讯留言画面预览" class="ds-video-note__thumb"><div class="ds-video-note__badge">🔊 0:28</div></div>',
+    ['圆形遮罩裁剪光滑无毛刺','环形进度条与视频中心完美同心','提供清晰的静音与时长状态播报'],
+    '<TelegramVideoNoteCircleBubble duration="0:28" isMuted={false} onToggle={() => {}} />'),
+  component('telegram-message-context-popover','Telegram & Meta 消息长按快捷动作浮动菜单','浮层','即时通讯应用中长按或右键消息唤起的浮动动作卡片（Message Context Popover）；包含回复、转发、复制、置顶、翻译与危险删除操作，带有 Apple 物理弹性弹出动画与微图标排版。',
+    ['毛玻璃浮动菜单外壳 (.ds-msg-context-menu)','菜单操作项 (.ds-msg-context-menu__item, .ds-msg-context-menu__item.is-danger)','操作图标与文字 (.ds-msg-context-menu__item-left)','键盘快捷键提示 (.ds-msg-context-menu__shortcut)'],
+    '方向键上下浏览操作；Enter 激活操作；Escape 快速关闭菜单并将焦点返还消息。',
+    ['菜单具有 role="menu"，每项具有 role="menuitem"。','危险操作（如删除）使用 danger 警示色，且与常规操作保持合理间距。','弹出位置自适应靠近被触发消息气泡边缘。'],
+    '<div class="ds-msg-context-menu" role="menu" aria-label="消息快捷操作"><button type="button" class="ds-msg-context-menu__item" role="menuitem"><div class="ds-msg-context-menu__item-left"><span>↩</span><span>Reply</span></div><span class="ds-msg-context-menu__shortcut">⌘R</span></button><button type="button" class="ds-msg-context-menu__item" role="menuitem"><div class="ds-msg-context-menu__item-left"><span>📋</span><span>Copy Text</span></div><span class="ds-msg-context-menu__shortcut">⌘C</span></button><button type="button" class="ds-msg-context-menu__item" role="menuitem"><div class="ds-msg-context-menu__item-left"><span>📌</span><span>Pin Message</span></div><span class="ds-msg-context-menu__shortcut">⌘P</span></button><button type="button" class="ds-msg-context-menu__item is-danger" role="menuitem"><div class="ds-msg-context-menu__item-left"><span>🗑</span><span>Delete</span></div><span class="ds-msg-context-menu__shortcut">⌫</span></button></div>',
+    ['菜单弹出动效利落平滑','快捷键标识等宽对齐','删除危险动作红字警示明确'],
+    '<TelegramMessageContextPopover isOpen={true} onAction={() => {}} onClose={() => {}} />'),
+  component('macos-control-center-slider-grid','macOS 控制中心拟真触控滑块矩阵','表单','macOS 顶部控制中心显示器亮度与系统音量物理推子；采用宽胶囊滑动槽、背景自适应高亮填充层、动态图标明暗变化与百分比微数值。',
+    ['控制中心面板外壳 (.ds-control-center-grid)','胶囊滑块轨道 (.ds-control-slider)','高光填充条 (.ds-control-slider__fill)','图标与数值覆盖层 (.ds-control-slider__content)'],
+    '左右方向键按 5% 步进调节；PageUp / PageDown 按 20% 调节；Home/End 分别调节至 0% 与 100%。',
+    ['控件具备 role="slider"，并拥有对应的 aria-valuenow 与 aria-valuetext。','滑块填充高度覆盖整个槽位，带来饱满的物理推子手感。','静音或最低亮度时图标自动切换为斜线或熄灭样式。'],
+    '<div class="ds-control-center-grid" role="region" aria-label="macOS 控制中心硬件调节"><div class="ds-control-slider" role="slider" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" aria-label="显示器亮度：当前 75%"><div class="ds-control-slider__fill" style="width: 75%"></div><div class="ds-control-slider__content"><span>☀️ Display</span><span>75%</span></div></div><div class="ds-control-slider" role="slider" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" aria-label="系统音量：当前 60%"><div class="ds-control-slider__fill" style="width: 60%"></div><div class="ds-control-slider__content"><span>🔊 Sound</span><span>60%</span></div></div></div>',
+    ['物理推子手感饱满符合 macOS 规范','方向键步进调节无障碍指标精准','图标与数值在滑块背景变化时保持可读'],
+    '<MacOSControlCenterSliderGrid brightness={75} sound={60} onBrightnessChange={() => {}} onSoundChange={() => {}} />'),
+  component('ios-action-button-radial-hub','iOS 18 操作按钮多维度径向辐射轮盘','操作','iPhone 16 与 Apple Watch Ultra 操作按钮（Action Button）展开的径向辐射轮盘；支持中心活动模式指示、环形辐射排列功能按键（静音、相机、手电筒、语音备忘录、翻译、快捷指令）与焦点触觉反馈。',
+    ['径向轮盘底盘 (.ds-action-radial-hub)','中心活动模式核心球 (.ds-action-radial-hub__center)','环形功能按键 (.ds-action-radial-hub__item)'],
+    '方向键在环形功能按键间按顺时针/逆时针切换；Enter 激活选定功能并闭合轮盘。',
+    ['按键通过极坐标（三角函数角度与半径）精确分布在中心周围。','按键悬停时应用 Apple 弹簧缩放（scale(1.25)）。','每个功能项具备明确的文字标签，屏幕阅读器按顺序播报。'],
+    '<div class="ds-action-radial-hub" role="region" aria-label="操作按钮径向功能轮盘：当前激活 相机模式"><div class="ds-action-radial-hub__center" title="当前模式：相机">📷</div><button type="button" class="ds-action-radial-hub__item" style="top: 8px; left: 62px;" aria-label="手电筒">🔦</button><button type="button" class="ds-action-radial-hub__item" style="top: 36px; left: 114px;" aria-label="语音备忘录">🎙️</button><button type="button" class="ds-action-radial-hub__item" style="top: 88px; left: 114px;" aria-label="快捷指令">⚡</button><button type="button" class="ds-action-radial-hub__item" style="top: 116px; left: 62px;" aria-label="翻译">🌐</button><button type="button" class="ds-action-radial-hub__item" style="top: 88px; left: 10px;" aria-label="静音模式">🔔</button><button type="button" class="ds-action-radial-hub__item" style="top: 36px; left: 10px;" aria-label="对焦">🎯</button></div>',
+    ['六方位环形按键布局均匀对称','中心按键具备明确当前模式呈现','环形项支持触控与键盘独立激活'],
+    '<IOSActionButtonRadialHub activeMode="camera" onSelect={() => {}} />'),
+  component('meta-ephemeral-message-timer-pill','Meta / WhatsApp 阅后即焚倒计时时钟徽标','反馈','WhatsApp 与 Signal 经典的限时存续/阅后即焚消息状态指示微徽标；展示微型沙漏时钟图标、剩余存续时间倒计时（如 23h left）与自毁状态视觉警示。',
+    ['微型倒计时胶囊 (.ds-ephemeral-timer-pill)','动态脉冲时钟图标 (.ds-ephemeral-timer-pill__clock)','存续倒计时文字'],
+    '纯状态提示组件；屏幕阅读器通过 aria-label 完整朗读阅后即焚剩余时间与自毁说明。',
+    ['时间文字采用等宽字体（font-family: var(--ds-type-mono)），避免数字跳动引起页面晃动。','当剩余时间少于 1 小时时，胶囊自动切换为橙红预警色。','适合嵌入聊天气泡时间戳旁或会话顶栏。'],
+    '<div class="ds-ephemeral-timer-pill" role="status" aria-label="限时阅后即焚消息：剩余 23 小时后自动自毁删除"><span class="ds-ephemeral-timer-pill__clock" aria-hidden="true">⏳</span><span>23h left</span></div>',
+    ['沙漏时钟微动画在减弱动态效果下平稳静态呈现','等宽时间数字无晃动','预警颜色对比度达标'],
+    '<MetaEphemeralMessageTimerPill remainingHours={23} isUrgent={false} />'),
+  {
+    id: 'macos-dock-magnification-shelf',
+    name: 'macOS 智能鱼眼放大 Dock 任务栏',
+    category: 'macOS / 桌面',
+    status: 'v3 新增',
+    purpose: '复刻 macOS 经典桌面 Dock，提供超高斯模糊玻璃底座、图标悬停鱼眼微放大、弹簧阻尼微动效以及应用运行态指示微圆点。',
+    anatomy: ['玻璃底托容器 (ds-dock-shelf)', '应用图元外壳 (ds-dock-shelf__item)', '应用图标主体 (ds-dock-shelf__icon)', '运行态微圆点 (ds-dock-shelf__dot)', '区域垂直分割线 (ds-dock-shelf__divider)'],
+    keyboard: 'Tab 在各项图标之间轮转导航；Enter 或 Space 触发启动并执行弹簧跳跃反馈。',
+    guidance: [
+      '底座采用毛玻璃半透明容器，内部图标悬停放大仅驱动 transform: scale，禁止修改宽高几何尺寸。',
+      '提供圆点状态指示器标记后台常驻应用，支持键盘导航高亮。',
+      '在开启减少动效模式时禁用放大拉伸，保持图标平稳常态。'
+    ],
+    checks: [
+      '指针移入应用图标时平滑放大并略微上移，离开时柔和恢复',
+      '应用常驻圆点具有高对比度可见性，深色与浅色自适应切换',
+      '强制颜色模式下拥有清晰外边框轮廓'
+    ],
+    preview: '<div class="ds-dock-shelf" role="toolbar" aria-label="macOS 桌面应用启动栏"><div class="ds-dock-shelf__item" role="button" tabindex="0" aria-label="访达 (Finder)"><div class="ds-dock-shelf__icon">📁</div><div class="ds-dock-shelf__dot" aria-hidden="true"></div></div><div class="ds-dock-shelf__item" role="button" tabindex="0" aria-label="启动台 (Launchpad)"><div class="ds-dock-shelf__icon">🚀</div><div class="ds-dock-shelf__dot" aria-hidden="true"></div></div><div class="ds-dock-shelf__item" role="button" tabindex="0" aria-label="终端 (Terminal)"><div class="ds-dock-shelf__icon">💻</div><div class="ds-dock-shelf__dot" aria-hidden="true"></div></div><div class="ds-dock-shelf__divider" aria-hidden="true"></div><div class="ds-dock-shelf__item" role="button" tabindex="0" aria-label="废纸篓 (Trash)"><div class="ds-dock-shelf__icon">🗑️</div></div></div>',
+    react: '<MacOSDockMagnificationShelf onLaunch={(app) => console.log(app)} />'
+  },
+  {
+    id: 'ios-live-activity-lockscreen-widget',
+    name: 'iOS 实时活动锁屏动态卡片',
+    category: 'iOS / 移动',
+    status: 'v3 新增',
+    purpose: '呈现 iOS 16/17/18 灵动锁屏实时活动（Live Activities），直观追踪打车配送、航班动态或异步任务进度。',
+    anatomy: ['高斯暗色容器 (ds-live-activity)', '标题与状态栏 (ds-live-activity__header)', '预计送达时间 (ds-live-activity__eta)', '流体进度条 (ds-live-activity__track)', '定位信标 (ds-live-activity__pin)', '车牌/凭据底栏 (ds-live-activity__footer)'],
+    keyboard: 'Tab 键聚焦卡片本身，支持展开详细行程与联系司机等操作。',
+    guidance: [
+      '始终提供精确的 ETA 倒计时与清晰进度信标，避免用户焦虑。',
+      '背景采用深色超高斯模糊玻璃质感，字符对比度符合 WCAG AA 规范。',
+      '在屏幕窄屏模式（如小屏手机）下自动撑满宽度并自适应边距。'
+    ],
+    checks: [
+      '进度信标沿水平轴精确映射百分比，位置过渡平滑无抖动',
+      '辅助技术可准确读出预计送达时间和载具车牌信息',
+      '高对比度模式下进度轨道与文字均有清晰边界'
+    ],
+    preview: '<div class="ds-live-activity" role="region" aria-label="实时活动：专车预计 4 分钟后到达"><div class="ds-live-activity__header"><div class="ds-live-activity__title"><span aria-hidden="true">🚕</span><span>Premier Ride</span></div><span class="ds-live-activity__eta">4 min</span></div><div class="ds-live-activity__track"><div class="ds-live-activity__fill" style="width: 72%"></div><span class="ds-live-activity__pin" style="left: 72%" aria-hidden="true">🚗</span></div><div class="ds-live-activity__footer"><span>Toyota Camry · 粤A·88888</span><span>On Time</span></div></div>',
+    react: '<IOSLiveActivityLockscreenWidget title="Premier Ride" eta="4 min" progress={72} subtext="Toyota Camry · 粤A·88888" />'
+  },
+  {
+    id: 'android-m3-expressive-fab-menu',
+    name: 'Android M3 表现力浮动操作折叠扇面',
+    category: 'Android / Material',
+    status: 'v3 新增',
+    purpose: '遵循 Android 15 Material You 规范，提供大尺寸圆角主 FAB 与点击展开的次级速度拨号操作选项。',
+    anatomy: ['扇面总容器 (ds-m3-fab-menu)', '主操作浮动按钮 (ds-m3-fab-menu__trigger)', '次级操作列表 (ds-m3-fab-menu__list)', '次级选项项 (ds-m3-fab-menu__item)', '次级圆形按钮 (ds-m3-fab-menu__item-btn)', '文本提示胶囊 (ds-m3-fab-menu__item-label)'],
+    keyboard: 'Space 或 Enter 展开/折叠扇面；展开后 ArrowUp/ArrowDown 在子操作间导航，Esc 关闭。',
+    guidance: [
+      '主触发器展开时旋转 45 度变换为关闭十字，动效采用弹簧阻尼缓动。',
+      '次级选项附带高对比度文本胶囊标签，防止仅靠图标引起歧义。',
+      '折叠时隐藏次级选项并从无障碍焦点序列中移出或标记 aria-hidden。'
+    ],
+    checks: [
+      '展开与折叠时弹簧微动效流畅，按钮旋转清晰',
+      'Esc 键能正确关闭已展开的扇面菜单并归还焦点',
+      '屏幕阅读器准确播报 aria-expanded 状态'
+    ],
+    preview: '<div class="ds-m3-fab-menu is-expanded" role="region" aria-label="快速操作扇面菜单"><div class="ds-m3-fab-menu__list" role="menu"><div class="ds-m3-fab-menu__item" role="menuitem"><span class="ds-m3-fab-menu__item-label">新建任务</span><button type="button" class="ds-m3-fab-menu__item-btn" aria-label="新建任务">📝</button></div><div class="ds-m3-fab-menu__item" role="menuitem"><span class="ds-m3-fab-menu__item-label">上传凭证</span><button type="button" class="ds-m3-fab-menu__item-btn" aria-label="上传凭证">📎</button></div></div><button type="button" class="ds-m3-fab-menu__trigger" aria-label="收起操作菜单" aria-expanded="true">＋</button></div>',
+    react: '<AndroidM3ExpressiveFabMenu isExpanded={true} onToggle={() => {}} />'
+  },
+  {
+    id: 'ai-diff-code-lens-inspector',
+    name: 'AI 代码审查与 Diff 行内双向镜头卡片',
+    category: 'AI 交互',
+    status: 'v3 新增',
+    purpose: '灵感源自 Cursor 与 GitHub Copilot 行内差异编辑器，提供红绿双色行内代码补丁比对、一键快捷采纳与放弃、以及 AI 修改动机解释。',
+    anatomy: ['审查镜头容器 (ds-diff-lens)', '文件标头与快捷栏 (ds-diff-lens__header)', '采纳/放弃按钮组 (ds-diff-lens__actions)', '差异代码行区 (ds-diff-lens__lines)', '删除行 (ds-diff-lens__line--del)', '添加行 (ds-diff-lens__line--add)', 'AI 修改动机说明 (ds-diff-lens__explain)'],
+    keyboard: '⌘Y 或 Ctrl+Y 快捷采纳建议；⌘N 或 Ctrl+N 放弃建议；Tab 键切换按钮焦点。',
+    guidance: [
+      '代码行使用等宽字体且包含精确行号，红绿背景色采用柔和半透明色调，保证文字对比度达到 4.5:1。',
+      '顶部操作栏必须提供明确的快捷键提示（如 Accept ⌘Y / Reject ⌘N）。',
+      '底部附带 AI 审查动机折叠卡，说明代码变更的具体安全与性能原因。'
+    ],
+    checks: [
+      '删除行与新增行拥有明显的颜色区隔与符号前缀 (- / +)',
+      '键盘支持标准快捷键触发采纳或放弃回调',
+      '在减少动效与强制颜色模式下依然能通过符号和边框区分增删代码'
+    ],
+    preview: '<div class="ds-diff-lens" role="region" aria-label="AI 代码审查差异"><div class="ds-diff-lens__header"><span>src/utils/math.ts</span><div class="ds-diff-lens__actions"><button type="button" class="ds-diff-lens__btn ds-diff-lens__btn--accept" aria-label="采纳代码变更">Accept ⌘Y</button><button type="button" class="ds-diff-lens__btn ds-diff-lens__btn--reject" aria-label="放弃代码变更">Reject ⌘N</button></div></div><div class="ds-diff-lens__lines"><div class="ds-diff-lens__line ds-diff-lens__line--del"><span class="ds-diff-lens__num">12</span><span>- const result = items.map(x => x * 2);</span></div><div class="ds-diff-lens__line ds-diff-lens__line--add"><span class="ds-diff-lens__num">12</span><span>+ const result = items.map(x => x ** 2);</span></div></div><div class="ds-diff-lens__explain">💡 AI 修正了平方运算的幂操作符逻辑，提升数组映射效率。</div></div>',
+    react: '<AIDiffCodeLensInspector filename="src/utils/math.ts" onAccept={() => {}} onReject={() => {}} />'
+  },
+  {
+    id: 'ai-audio-wave-voice-orb',
+    name: 'AI 实时语音双工交互流光球体',
+    category: 'AI 交互',
+    status: 'v3 新增',
+    purpose: '灵感源自 OpenAI Advanced Voice Mode、Apple Intelligence Siri Glow 与 Gemini Live，呈现多向网格彩色流光球体与双工语音状态。',
+    anatomy: ['声控光晕基座 (ds-voice-orb-hub)', '流光多向网格球体 (ds-voice-orb)', '旋转渐变网格层 (ds-voice-orb__mesh)', '高亮核心触控区 (ds-voice-orb__core)', '双工状态胶囊 (ds-voice-orb__status)'],
+    keyboard: 'Space 或 Enter 键切换聆听/静音状态；双击打断语音回复。',
+    guidance: [
+      '球体渐变层采用合成器旋转与呼吸缩放，严禁操作非合成器属性。',
+      '下方状态胶囊明确提示当前是 Listening（聆听）、Thinking（推理）还是 Speaking（朗读）。',
+      '在开启 prefers-reduced-motion 时停止球体旋转动画，保留静态渐变流光。'
+    ],
+    checks: [
+      '旋转动效流畅且 CPU 占用低',
+      '点击球体或空格键可切换语音双工状态',
+      '屏幕阅读器能准确获知实时语音连接状态'
+    ],
+    preview: '<div class="ds-voice-orb-hub" role="region" aria-label="AI 语音交互流光球体"><div class="ds-voice-orb" role="button" tabindex="0" aria-label="点击打断或暂停语音"><div class="ds-voice-orb__mesh" aria-hidden="true"></div><div class="ds-voice-orb__core" aria-hidden="true">🎙️</div></div><div class="ds-voice-orb__status"><span aria-hidden="true">●</span><span>Listening · 双工实时聆听</span></div></div>',
+    react: '<AIAudioWaveVoiceOrb status="Listening" isListening={true} onToggle={() => {}} />'
+  },
+  {
+    id: 'ai-agent-step-pipeline-tracker',
+    name: 'AI 智能体多步执行流水线时间线',
+    category: 'AI 交互',
+    status: 'v3 新增',
+    purpose: '专为多步骤自主 AI 智能体（如 Devin、Manus、Cursor Composer）打造的任务执行流水线，实时跟踪步骤进展、耗时统计与执行日志。',
+    anatomy: ['流水线卡片容器 (ds-agent-pipeline)', '单个步骤卡片 (ds-agent-pipeline__step)', '纵向连接脊柱线 (ds-agent-pipeline__spine)', '状态指示节点圈 (ds-agent-pipeline__node)', '步骤标题与耗时 (ds-agent-pipeline__step-title)', '步骤详细阐述 (ds-agent-pipeline__step-detail)'],
+    keyboard: 'ArrowDown/ArrowUp 在各步骤间移动；Enter 展开步骤详细执行日志。',
+    guidance: [
+      '已完成步骤使用绿色对勾与耗时标记；进行中步骤使用脉冲光环并标明进行中；等待中保持弱化中性色。',
+      '连续步骤之间采用居中纵向线条贯穿相连，末尾步骤不延伸线条。',
+      '支持动态插入步骤与异步耗时更新，界面不发生晃动。'
+    ],
+    checks: [
+      '当前执行步骤拥有明显的脉冲动效与颜色焦点',
+      '步骤耗时以等宽字体对齐展示',
+      '屏幕阅读器准确读取各步骤的状态与描述'
+    ],
+    preview: '<div class="ds-agent-pipeline" role="region" aria-label="AI 智能体任务流水线进度"><div class="ds-agent-pipeline__step"><div class="ds-agent-pipeline__spine"></div><div class="ds-agent-pipeline__node is-done" aria-label="已完成">✓</div><div class="ds-agent-pipeline__body"><div class="ds-agent-pipeline__step-title"><span>分析检索知识库文档</span><span class="ds-agent-pipeline__step-time">1.2s</span></div><div class="ds-agent-pipeline__step-detail">成功检索到 14 篇高相关度设计规范</div></div></div><div class="ds-agent-pipeline__step"><div class="ds-agent-pipeline__spine"></div><div class="ds-agent-pipeline__node is-running" aria-label="执行中">⚡</div><div class="ds-agent-pipeline__body"><div class="ds-agent-pipeline__step-title"><span>合成与重构 TypeScript 代码</span><span class="ds-agent-pipeline__step-time">进行中</span></div><div class="ds-agent-pipeline__step-detail">正在运行类型推导并生成无障碍属性</div></div></div><div class="ds-agent-pipeline__step"><div class="ds-agent-pipeline__node is-pending" aria-label="等待中">○</div><div class="ds-agent-pipeline__body"><div class="ds-agent-pipeline__step-title"><span>端到端无损视觉比对测试</span><span class="ds-agent-pipeline__step-time">等待中</span></div><div class="ds-agent-pipeline__step-detail">等待代码生成完毕后触发离线套件</div></div></div></div>',
+    react: '<AIAgentStepPipelineTracker steps={[{ title: "检索知识库", status: "done", time: "1.2s" }, { title: "生成代码", status: "running" }]} />'
+  },
+  {
+    id: 'telegram-folder-tab-badge-strip',
+    name: 'Telegram 沉浸式多会话分组选项卡栏',
+    category: '即时通讯 / 社交',
+    status: 'v3 新增',
+    purpose: '复刻 Telegram 桌面端与移动端核心的会话文件夹标签栏，支持横向平滑滚动、带角标未读计数、静音分组弱化区分与激活底线平滑滑移。',
+    anatomy: ['横向滚动栏容器 (ds-folder-tabs)', '分类标签项 (ds-folder-tabs__tab)', '未读计数胶囊 (ds-folder-tabs__badge)', '静音标记 (is-muted)', '激活滑块底线 (::after)'],
+    keyboard: 'ArrowLeft/ArrowRight 在分类间横向切换；Home 移至首项，End 移至末项。',
+    guidance: [
+      '未读角标自动区分正常提醒（高亮背景）与免打扰静音群组（灰色弱化背景）。',
+      '标签栏采用隐藏滚动条设计，支持触摸手势平滑横向拖拽。',
+      '选中标签下方显示 2px 品牌色圆角指示线条，切换时带有流畅的水平滑动感。'
+    ],
+    checks: [
+      '切换标签时对应未读角标颜色随之自适应联动',
+      '免打扰静音状态角标对比度符合可读性要求',
+      '无障碍角色设定为 tablist，并带有正确的 aria-selected 标识'
+    ],
+    preview: '<div class="ds-folder-tabs" role="tablist" aria-label="会话分组标签"><button type="button" class="ds-folder-tabs__tab is-active" role="tab" aria-selected="true"><span>全部会话</span><span class="ds-folder-tabs__badge">14</span></button><button type="button" class="ds-folder-tabs__tab" role="tab" aria-selected="false"><span>个人私聊</span><span class="ds-folder-tabs__badge">3</span></button><button type="button" class="ds-folder-tabs__tab" role="tab" aria-selected="false"><span>工作群组</span><span class="ds-folder-tabs__badge is-muted">8</span></button><button type="button" class="ds-folder-tabs__tab" role="tab" aria-selected="false"><span>频道广播</span><span class="ds-folder-tabs__badge is-muted">26</span></button></div>',
+    react: '<TelegramFolderTabBadgeStrip tabs={[{ id: "all", label: "全部会话", count: 14 }]} onTabSelect={() => {}} />'
+  },
+  {
+    id: 'telegram-sticker-lottie-reaction-picker',
+    name: 'Telegram 动态表情贴纸阻尼折叠抽屉面板',
+    category: '即时通讯 / 社交',
+    status: 'v3 新增',
+    purpose: '复刻 Telegram 贴纸与动画表情浮动选择面板，提供即时搜索框、最近使用快捷贴纸栏与悬浮弹簧微缩放网格。',
+    anatomy: ['面板主视窗 (ds-sticker-picker)', '搜索过滤栏 (ds-sticker-picker__header)', '搜索输入框 (ds-sticker-picker__search)', '最近常用快捷栏 (ds-sticker-picker__recents)', '贴纸网格陈列区 (ds-sticker-picker__grid)', '单项贴纸按钮 (ds-sticker-picker__item)'],
+    keyboard: 'Tab 键在搜索框、最近项与网格间移动；方向键遍历贴纸；Enter 选择贴纸并发送。',
+    guidance: [
+      '鼠标悬停或轻触贴纸时触发微弹簧放大 (scale 1.22)，提供极具趣味性的触感反馈。',
+      '顶部设有快速搜索框与最近使用栏，大幅缩短用户寻找目标表情的时间。',
+      '整体采用圆角浮层设计与细腻边缘阴影，可方便地锚定在聊天输入框上方。'
+    ],
+    checks: [
+      '指针移过贴纸网格时动画柔和顺畅，无重排或掉帧',
+      '输入搜索词能过滤表情，点击最近常用项能立即触发回调',
+      '高对比度与减少动效模式下贴纸边界清晰且无缩放'
+    ],
+    preview: '<div class="ds-sticker-picker" role="dialog" aria-label="贴纸与表情选择器"><div class="ds-sticker-picker__header"><input type="search" class="ds-sticker-picker__search" placeholder="搜索贴纸或表情..." aria-label="搜索表情贴纸" id="preview-b3-sticker-search"></div><div class="ds-sticker-picker__recents" aria-label="最近常用"><button type="button" class="ds-sticker-picker__recent-btn" aria-label="最近使用：点赞">👍</button><button type="button" class="ds-sticker-picker__recent-btn" aria-label="最近使用：火箭">🚀</button><button type="button" class="ds-sticker-picker__recent-btn" aria-label="最近使用：爱心">❤️</button><button type="button" class="ds-sticker-picker__recent-btn" aria-label="最近使用：派对">🎉</button></div><div class="ds-sticker-picker__grid" role="listbox"><button type="button" class="ds-sticker-picker__item" role="option">🔥</button><button type="button" class="ds-sticker-picker__item" role="option">✨</button><button type="button" class="ds-sticker-picker__item" role="option">💯</button><button type="button" class="ds-sticker-picker__item" role="option">👏</button><button type="button" class="ds-sticker-picker__item" role="option">⚡</button><button type="button" class="ds-sticker-picker__item" role="option">💡</button><button type="button" class="ds-sticker-picker__item" role="option">🏆</button><button type="button" class="ds-sticker-picker__item" role="option">💎</button></div></div>',
+    react: '<TelegramStickerLottieReactionPicker onSelect={(sticker) => console.log(sticker)} />'
+  },
+  {
+    id: 'meta-threads-nested-reply-branch',
+    name: 'Meta Threads 树状折叠对话分支流',
+    category: '即时通讯 / 社交',
+    status: 'v3 新增',
+    purpose: '复刻 Meta Threads 与 Reddit 经典的消息嵌套串联对话分支，通过贯穿头像下方的细脊柱线清晰呈现话题衍生层级。',
+    anatomy: ['串联流容器 (ds-thread-branch)', '单条讨论项 (ds-thread-branch__item)', '纵向连续脊线 (ds-thread-branch__spine)', '作者圆形头像 (ds-thread-branch__avatar)', '消息内容区 (ds-thread-branch__body)', '作者与时间标头 (ds-thread-branch__author)', '互动操作栏 (ds-thread-branch__actions)'],
+    keyboard: 'Tab 键在各条消息的操作按钮间移动；Space 点赞；Enter 进入回复分支。',
+    guidance: [
+      '脊线沿头像中心正下方垂直延伸至下一回复项，分支末项自动隐藏延伸线。',
+      '用户名后带有轻量相对时间戳（如 · 2h），操作栏提供极简的点赞和回复计数。',
+      '深浅色模式自动适配脊线颜色，确保层次清晰且不喧宾夺主。'
+    ],
+    checks: [
+      '各层级回复对齐精准，脊线无偏移或截断',
+      '点赞与回复按钮具备无障碍标签，说明当前数值',
+      '强制颜色模式下边框与头像均保持完整可视性'
+    ],
+    preview: '<div class="ds-thread-branch" role="feed" aria-label="Threads 串联分支对话"><div class="ds-thread-branch__item"><div class="ds-thread-branch__spine"></div><img src="data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'36\' height=\'36\' viewBox=\'0 0 36 36\'%3E%3Ccircle cx=\'18\' cy=\'18\' r=\'18\' fill=\'%236366f1\'/%3E%3Ctext x=\'18\' y=\'22\' font-size=\'14\' text-anchor=\'middle\' fill=\'white\' font-family=\'sans-serif\'%3EAL%3C/text%3E%3C/svg%3E" alt="Alex Rivera" class="ds-thread-branch__avatar"><div class="ds-thread-branch__body"><div class="ds-thread-branch__author"><span>alex_rivera</span><span class="ds-thread-branch__time">· 2h</span></div><div class="ds-thread-branch__text">The fluid spring physics in the new design system feels so native on macOS and iOS!</div><div class="ds-thread-branch__actions"><button type="button" class="ds-thread-branch__action-btn" aria-label="点赞 42 次">❤️ 42</button><button type="button" class="ds-thread-branch__action-btn" aria-label="回复 3 条">💬 3</button></div></div></div><div class="ds-thread-branch__item"><img src="data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'36\' height=\'36\' viewBox=\'0 0 36 36\'%3E%3Ccircle cx=\'18\' cy=\'18\' r=\'18\' fill=\'%2310b981\'/%3E%3Ctext x=\'18\' y=\'22\' font-size=\'14\' text-anchor=\'middle\' fill=\'white\' font-family=\'sans-serif\'%3ESM%3C/text%3E%3C/svg%3E" alt="Sarah Miller" class="ds-thread-branch__avatar"><div class="ds-thread-branch__body"><div class="ds-thread-branch__author"><span>sarah_m</span><span class="ds-thread-branch__time">· 45m</span></div><div class="ds-thread-branch__text">Totally agree, and having 0 motion lint errors with reduced-motion guarantees accessibility everywhere.</div><div class="ds-thread-branch__actions"><button type="button" class="ds-thread-branch__action-btn" aria-label="点赞 18 次">❤️ 18</button><button type="button" class="ds-thread-branch__action-btn" aria-label="回复 1 条">💬 1</button></div></div></div></div>',
+    react: '<MetaThreadsNestedReplyBranch posts={[{ author: "alex_rivera", time: "2h", content: "Great design!" }]} />'
+  },
+  {
+    id: 'meta-channel-broadcast-voice-note',
+    name: 'Meta 广播频道语音波形专栏',
+    category: '即时通讯 / 社交',
+    status: 'v3 新增',
+    purpose: '复刻 Instagram Broadcast Channels 与 WhatsApp Channels 的官方播客/创作者语音快讯，结合认证徽标、波形条与快捷表情反响。',
+    anatomy: ['广播卡片容器 (ds-channel-broadcast)', '频道信息头 (ds-channel-broadcast__header)', '认证徽章与订阅量 (ds-channel-broadcast__subs)', '语音播放胶囊 (ds-channel-broadcast__card)', '圆形播放按钮 (ds-channel-broadcast__play-btn)', '音频波形条簇 (ds-channel-broadcast__bars)', '表情聚合反应条 (ds-channel-broadcast__reactions)'],
+    keyboard: 'Space 或 Enter 播放/暂停语音；Tab 浏览快捷反响表情。',
+    guidance: [
+      '提供官方蓝/绿 V 认证徽标与订阅者量级，建立公信力。',
+      '波形条根据播放进度区分已播放与未播放状态，附带总时长标注。',
+      '底部表情反响条以轻质胶囊卡聚合粉丝互动热度（如 🔥 1.4K）。'
+    ],
+    checks: [
+      '点击播放按钮能切换播放/暂停图标与状态',
+      '波形条在各种屏幕尺寸下自适应填充宽度',
+      '屏幕阅读器准确读取频道名称、认证状态及语音时长'
+    ],
+    preview: '<div class="ds-channel-broadcast" role="region" aria-label="频道广播语音：设计系统团队"><div class="ds-channel-broadcast__header"><img src="data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'40\' height=\'40\' viewBox=\'0 0 40 40\'%3E%3Ccircle cx=\'20\' cy=\'20\' r=\'20\' fill=\'%233b82f6\'/%3E%3Ctext x=\'20\' y=\'25\' font-size=\'16\' text-anchor=\'middle\' fill=\'white\' font-family=\'sans-serif\'%3EDS%3C/text%3E%3C/svg%3E" alt="Design Team" class="ds-channel-broadcast__avatar"><div class="ds-channel-broadcast__info"><div class="ds-channel-broadcast__name"><span>Design System Team</span><span aria-label="已认证官方频道">☑️</span></div><span class="ds-channel-broadcast__subs">124K Subscribers</span></div></div><div class="ds-channel-broadcast__card"><button type="button" class="ds-channel-broadcast__play-btn" aria-label="播放语音更新">▶</button><div class="ds-channel-broadcast__bars" aria-hidden="true"><div class="ds-channel-broadcast__bar is-played" style="height: 10px"></div><div class="ds-channel-broadcast__bar is-played" style="height: 18px"></div><div class="ds-channel-broadcast__bar is-played" style="height: 24px"></div><div class="ds-channel-broadcast__bar" style="height: 14px"></div><div class="ds-channel-broadcast__bar" style="height: 20px"></div><div class="ds-channel-broadcast__bar" style="height: 8px"></div></div><span>0:42</span></div><div class="ds-channel-broadcast__reactions"><span class="ds-channel-broadcast__chip">🔥 1.4K</span><span class="ds-channel-broadcast__chip">❤️ 920</span><span class="ds-channel-broadcast__chip">🚀 640</span></div></div>',
+    react: '<MetaChannelBroadcastVoiceNote channelName="Design System Team" duration="0:42" onPlayToggle={() => {}} />'
+  },
+  {
+    id: 'macos-spotlight-quick-preview-modal',
+    name: 'macOS 空格键 Quick Look 极速悬浮预览视窗',
+    category: 'macOS / 桌面',
+    status: 'v3 新增',
+    purpose: '复刻 macOS Finder 按空格键触发的 Quick Look 快速预览弹窗，提供三色交通灯玻璃顶栏、媒体速览画布与元数据概要。',
+    anatomy: ['悬浮毛玻璃视窗 (ds-quicklook-modal)', '红黄绿红绿灯顶栏 (ds-quicklook-modal__header)', '文件标题 (ds-quicklook-modal__title)', '预览画布区域 (ds-quicklook-modal__preview)', '格式/尺寸/体积元数据 (ds-quicklook-modal__meta)', '外部打开动作底栏 (ds-quicklook-modal__footer)'],
+    keyboard: 'Space 或 Esc 关闭快速预览视窗；Enter 调用默认应用打开文件。',
+    guidance: [
+      '视窗采用极轻量高斯模糊毛玻璃背景，快速升起，不抢占全局上下文。',
+      '居中展示大尺寸文件预览画布，并附带分辨率与文件大小元信息。',
+      '提供明显的系统应用打开快捷入口，保证无缝衔接至全功能编辑器。'
+    ],
+    checks: [
+      '按 Esc 或空格键能迅速退出预览，动画流畅无闪烁',
+      '三色交通灯控件呈现经典 macOS 原生质感',
+      '深浅色自适应，字符对比度在半透明背景上大于 4.5:1'
+    ],
+    preview: '<div class="ds-quicklook-modal" role="dialog" aria-label="Quick Look 文件速览：hero-banner.png"><div class="ds-quicklook-modal__header"><div class="ds-quicklook-modal__dots" aria-hidden="true"><span class="ds-mac-light ds-mac-light--close"></span><span class="ds-mac-light ds-mac-light--min"></span><span class="ds-mac-light ds-mac-light--max"></span></div><span class="ds-quicklook-modal__title">hero-banner.png</span><span></span></div><div class="ds-quicklook-modal__body"><div class="ds-quicklook-modal__preview" aria-label="图像预览画布">🖼️</div><div class="ds-quicklook-modal__meta"><span>PNG Image</span><span>2400 × 1260</span><span>1.8 MB</span></div></div><div class="ds-quicklook-modal__footer"><button type="button" class="ds-button" aria-label="在默认应用中打开">Open with Preview</button></div></div>',
+    react: '<MacOSSpotlightQuickPreviewModal filename="hero-banner.png" meta="2400 × 1260 · 1.8 MB" onClose={() => {}} />'
+  },
+  {
+    id: 'ios-segmented-liquid-pill-control',
+    name: 'iOS 动态液体分段胶囊滑动选择器',
+    category: 'iOS / 移动',
+    status: 'v3 新增',
+    purpose: '复刻 iOS 18 与 VisionOS 液体弹簧分段选择器，提供高斯模糊浅底与丝滑滑移的高亮实体背景胶囊。',
+    anatomy: ['毛玻璃凹槽滑轨 (ds-liquid-segmented)', '分段选项按钮 (ds-liquid-segmented__item)', '选中项高亮态 (is-active)', '图标与文字组合'],
+    keyboard: 'ArrowLeft/ArrowRight 在分段间切换，选中状态即时随焦点更新并发出选择变更。',
+    guidance: [
+      '分段项外层采用连续圆角胶囊容器，激活项拥有白色/浅灰色实底与柔和下落投影。',
+      '点击或键盘切换时背景胶囊以自然弹簧缓动滑动至目标位置。',
+      '无障碍角色设定为 radiogroup，子项使用 role="radio" 与 aria-checked。'
+    ],
+    checks: [
+      '左右方向键能在各个分段之间自然跳转并更新 aria-checked',
+      '选中态与未选中态文字对比度清晰',
+      '强制颜色模式下激活项具备明显的边框区隔'
+    ],
+    preview: '<div class="ds-liquid-segmented" role="radiogroup" aria-label="视图模式切换"><button type="button" class="ds-liquid-segmented__item is-active" role="radio" aria-checked="true"><span aria-hidden="true">📊</span><span>Analytics</span></button><button type="button" class="ds-liquid-segmented__item" role="radio" aria-checked="false"><span aria-hidden="true">📄</span><span>Reports</span></button><button type="button" class="ds-liquid-segmented__item" role="radio" aria-checked="false"><span aria-hidden="true">⚙️</span><span>Settings</span></button></div>',
+    react: '<IOSSegmentedLiquidPillControl options={[{ id: "1", label: "Analytics", icon: "📊" }]} selectedId="1" onSelect={() => {}} />'
+  },
+  {
+    id: 'macos-menu-bar-weather-glance',
+    name: 'macOS 菜单栏微气象与空气质量悬浮气泡',
+    category: 'macOS / 桌面',
+    status: 'v3 新增',
+    purpose: '复刻 macOS 菜单栏与控制中心微气象浮动气泡，展示当前实时温度、天气状态图标、分时降雨/气温微条形图与 AQI 空气质量指数徽标。',
+    anatomy: ['超高斯磨砂卡片 (ds-weather-glance)', '实时温标与图标 (ds-weather-glance__temp)', '天气条件与空气质量徽章 (ds-weather-glance__aqi)', '分时条形柱状图 (ds-weather-glance__hourly)', '小时柱元 (ds-weather-glance__hour-col)'],
+    keyboard: 'Tab 键聚焦悬浮视窗；Esc 键关闭速览并返回菜单栏图标。',
+    guidance: [
+      '背景采用轻薄高斯模糊玻璃底色，与屏幕壁纸形成细腻通透折射。',
+      '分时柱状条根据温度或降水概率自适应渐变填充，柱条高度以比例绘制。',
+      'AQI 徽标根据空气优劣自动采用绿/黄/红柔和微色阶区分。'
+    ],
+    checks: [
+      '指针移出或按 Esc 时能顺滑隐去',
+      '柱状图采用弹性合成器过渡，无布局突变',
+      '屏幕阅读器准确读取当前天气、气温与空气质量'
+    ],
+    preview: '<div class="ds-weather-glance" role="region" aria-label="微气象速览：当前 24°C，晴间多云，空气质量优"><div class="ds-weather-glance__current"><div class="ds-weather-glance__temp"><span aria-hidden="true">⛅</span><span>24°</span></div><div class="ds-weather-glance__condition"><span>Partly Cloudy</span><div class="ds-weather-glance__aqi">AQI 28 优</div></div></div><div class="ds-weather-glance__hourly"><div class="ds-weather-glance__hour-col"><div class="ds-weather-glance__bar" style="height: 24px"></div><span>Now</span></div><div class="ds-weather-glance__hour-col"><div class="ds-weather-glance__bar" style="height: 28px"></div><span>14:00</span></div><div class="ds-weather-glance__hour-col"><div class="ds-weather-glance__bar" style="height: 32px"></div><span>15:00</span></div><div class="ds-weather-glance__hour-col"><div class="ds-weather-glance__bar" style="height: 22px"></div><span>16:00</span></div></div></div>',
+    react: '<MacOSMenuBarWeatherGlance temp={24} condition="Partly Cloudy" aqi={28} />'
+  },
+  {
+    id: 'ios-standby-smart-stack-clock',
+    name: 'iOS StandBy 待机夜钟与智能小组件翻页卡',
+    category: 'iOS / 移动',
+    status: 'v3 新增',
+    purpose: '复刻 iOS 待机显示模式（StandBy Mode）夜钟与智能小组件翻页卡，纯黑背景搭配低照度荧光暖橙数字与垂直页码指示点。',
+    anatomy: ['OLED 纯黑圆角卡片 (ds-standby-clock-card)', '超大等宽时钟数字 (ds-standby-clock-card__time)', '上下午指示器 (ds-standby-clock-card__ampm)', '日期与小组件页码底栏 (ds-standby-clock-card__footer)', '垂直分页指示点 (ds-standby-clock-card__dots)'],
+    keyboard: 'ArrowUp/ArrowDown 上下翻动智能小组件切片；Enter 唤醒主屏幕。',
+    guidance: [
+      '纯黑 OLED 底色避免暗光刺眼，时间数字提供细腻暖橙微光晕投影。',
+      '时间数字强制采用 tabular-nums 等宽排版，秒/分跳跃时页面纹丝不动。',
+      '右下角垂直分页点提示当前处于多合一智能叠放第几张卡片。'
+    ],
+    checks: [
+      '暖橙字体在暗光背景下具有超过 7:1 的极高无障碍对比度',
+      '上下翻页动效符合 iOS 物理弹性曲线',
+      '辅助技术完整播报当前时间与日期'
+    ],
+    preview: '<div class="ds-standby-clock-card" role="region" aria-label="iOS 待机夜钟：当前时间 09:41 AM"><div class="ds-standby-clock-card__time"><span>09:41</span><span class="ds-standby-clock-card__ampm">AM</span></div><div class="ds-standby-clock-card__footer"><span>Tuesday, Oct 17</span><div class="ds-standby-clock-card__dots" aria-hidden="true"><div class="ds-standby-clock-card__dot is-active"></div><div class="ds-standby-clock-card__dot"></div><div class="ds-standby-clock-card__dot"></div></div></div></div>',
+    react: '<IOSStandbySmartStackClock time="09:41" ampm="AM" date="Tuesday, Oct 17" />'
+  },
+  {
+    id: 'android-m3-navigation-rail-dock',
+    name: 'Android M3 大屏与折叠屏侧边导航导轨',
+    category: 'Android / Material',
+    status: 'v3 新增',
+    purpose: '遵循 Android 15 Material You 大屏与折叠屏设计准则，提供垂直极简导航导轨、浮动胶囊选中指示器与角标提示。',
+    anatomy: ['垂直导轨容器 (ds-m3-nav-rail)', '顶部品牌/头像区 (ds-m3-nav-rail__header)', '导航菜单集合 (ds-m3-nav-rail__menu)', '单项导航槽 (ds-m3-nav-rail__item)', '横向高亮胶囊 (ds-m3-nav-rail__pill)', '未读消息数字角标 (ds-m3-nav-rail__badge)'],
+    keyboard: 'ArrowUp/ArrowDown 切换激活项；Enter 触发页面跳转并切换视觉胶囊。',
+    guidance: [
+      '激活项拥有横向胶囊浅色背景填充，图标与文字颜色同步加深。',
+      '适合用于大屏平板、折叠屏展开态或桌面宽屏应用的左侧一级导航。',
+      '支持右上角绝对定位的小红点或数字角标。'
+    ],
+    checks: [
+      '激活态胶囊切换时背景过渡顺畅',
+      '角标数字清晰且不会溢出胶囊范围',
+      '屏幕阅读器准确识别当前选中的导航层级'
+    ],
+    preview: '<div class="ds-m3-nav-rail" role="navigation" aria-label="侧边快捷导航导轨"><div class="ds-m3-nav-rail__header" aria-hidden="true">🎨</div><div class="ds-m3-nav-rail__menu"><button type="button" class="ds-m3-nav-rail__item is-active" aria-label="设计系统组件"><div class="ds-m3-nav-rail__pill"><span aria-hidden="true">📐</span></div><span class="ds-m3-nav-rail__label">Specs</span></button><button type="button" class="ds-m3-nav-rail__item" aria-label="变量与主题"><div class="ds-m3-nav-rail__pill"><span aria-hidden="true">🎨</span></div><span class="ds-m3-nav-rail__label">Tokens</span><span class="ds-m3-nav-rail__badge">3</span></button><button type="button" class="ds-m3-nav-rail__item" aria-label="系统设置"><div class="ds-m3-nav-rail__pill"><span aria-hidden="true">⚙️</span></div><span class="ds-m3-nav-rail__label">Settings</span></button></div></div>',
+    react: '<AndroidM3NavigationRailDock items={[{ id: "specs", label: "Specs", icon: "📐" }]} activeId="specs" />'
+  },
+  {
+    id: 'ai-canvas-infinite-node-port',
+    name: 'AI 节点式无限画布连接桩与流向卡片',
+    category: 'AI 交互',
+    status: 'v3 新增',
+    purpose: '灵感源自 ComfyUI、Dify、Flowise 与 OpenAI Canvas，呈现 AI 智能体编排工作流的实体节点、输入/输出连接桩与参数信息。',
+    anatomy: ['节点卡片主体 (ds-canvas-node)', '节点类型标头 (ds-canvas-node__header)', '大模型类型标签 (ds-canvas-node__badge)', '参数配置概要 (ds-canvas-node__body)', '左侧输入端口 (ds-canvas-node__port--in)', '右侧输出端口 (ds-canvas-node__port--out)'],
+    keyboard: 'Tab 键在画布各节点与连线端口间导航；Space 触发连线拖拽。',
+    guidance: [
+      '左右两侧圆形端口具备放大与悬浮高亮效果，指示可连线锚点。',
+      '节点悬停时整体边框加深，并带有轻微阴影升起层次感。',
+      '支持在节点内部展示关键超参数（如模型名、温度系数、上下文窗口等）。'
+    ],
+    checks: [
+      '端口中心与卡片边缘严丝合缝对齐，鼠标经过时光标变为十字瞄准线',
+      '深浅色模式下端口背景与卡片边框对比鲜明',
+      '辅助技术可准确读出节点名称及输入输出能力'
+    ],
+    preview: '<div class="ds-canvas-node" role="region" aria-label="AI 智能体工作流节点：Prompt Synthesizer"><div class="ds-canvas-node__header"><span>Prompt Synthesizer</span><span class="ds-canvas-node__badge">LLM</span></div><div class="ds-canvas-node__body"><span>Model: Claude 3.7 Sonnet</span><span>Temperature: 0.2</span><span>Context: 128k</span></div><div class="ds-canvas-node__port ds-canvas-node__port--in" title="输入端口" aria-label="输入端口"></div><div class="ds-canvas-node__port ds-canvas-node__port--out" title="输出端口" aria-label="输出端口"></div></div>',
+    react: '<AICanvasInfiniteNodePort title="Prompt Synthesizer" nodeType="LLM" params={{ Model: "Claude 3.7", Temp: 0.2 }} />'
+  },
+  {
+    id: 'ai-canvas-selection-floating-action-hud',
+    name: 'AI 选中文本/代码即时浮动动作光环 HUD',
+    category: 'AI 交互',
+    status: 'v3 新增',
+    purpose: '灵感源自 Cursor、Notion AI 与 Canvas 浮动工具栏，当用户框选文本或代码段落时在上方微弹簧升起，提供一键重构、测验与提问。',
+    anatomy: ['高斯浮动气泡栏 (ds-selection-hud)', '快捷操作动作按钮 (ds-selection-hud__btn)', '垂直分割短线 (ds-selection-hud__divider)', '快捷键提示标签 (ds-selection-hud__kbd)'],
+    keyboard: '⌘K 快捷激活 HUD 指令；Tab 或左右方向键在重构、测试、提问动作间切换。',
+    guidance: [
+      '悬浮在所选文本的水平正上方，采用毛玻璃超高斯半透明底色，避免挡住前文视线。',
+      '提供常用的三至四个高频核心操作与对应的系统快捷键徽标（如 ⌘K）。',
+      '选区取消时平滑淡出，不造成界面突兀跳闪。'
+    ],
+    checks: [
+      '鼠标悬停操作按钮时微背景柔和高亮',
+      '快捷键按键外观具备清晰等宽边框',
+      '强制颜色模式下拥有醒目的外框边界'
+    ],
+    preview: '<div class="ds-selection-hud" role="toolbar" aria-label="AI 即时行内操作"><button type="button" class="ds-selection-hud__btn" aria-label="AI 重构代码"><span aria-hidden="true">⚡</span><span>Refactor</span></button><button type="button" class="ds-selection-hud__btn" aria-label="生成单元测试"><span aria-hidden="true">🧪</span><span>Test</span></button><button type="button" class="ds-selection-hud__btn" aria-label="智能提问"><span aria-hidden="true">💬</span><span>Ask</span></button><div class="ds-selection-hud__divider" aria-hidden="true"></div><kbd class="ds-selection-hud__kbd">⌘K</kbd></div>',
+    react: '<AICanvasSelectionFloatingActionHud onAction={(action) => console.log(action)} />'
+  },
+  {
+    id: 'ai-image-generation-quad-grid',
+    name: 'AI 图像四分宫格实时渲染与放大矩阵',
+    category: 'AI 交互',
+    status: 'v3 新增',
+    purpose: '复刻 Midjourney、Flux 与 DALL-E 经典的 2x2 四分图实时生成结果矩阵，提供变体数字角标、一键单图放大（U1~U4）与微调变体（V1~V4）。',
+    anatomy: ['卡片总外壳 (ds-image-quad)', '四宫格图像网格 (ds-image-quad__grid)', '单图单元格 (ds-image-quad__cell)', '变体编号角标 (ds-image-quad__badge)', '操作工具栏 (ds-image-quad__toolbar)', '放大与微调按钮簇 (ds-image-quad__btn-group)'],
+    keyboard: 'Tab 键在各放大与变体按钮间遍历；Enter 确认生成放大任务。',
+    guidance: [
+      '四宫格严格保持 1:1 等比例正方形排列，圆角边框裁切利落。',
+      '单图左下角标明 1~4 变体序号，下方对应 U1~U4（Upscale）与 V1~V4（Variation）操作。',
+      '图片正在生成时单元格内可呈现微光波纹骨架加载态。'
+    ],
+    checks: [
+      '四宫格在不同屏幕宽度下自适应缩放无畸变',
+      '操作按钮点击响应灵敏，提供明显的激活色反馈',
+      '无障碍标签清晰说明每颗按钮代表放大或变体的哪张图片'
+    ],
+    preview: '<div class="ds-image-quad" role="region" aria-label="AI 图像生成 2x2 四分预览与放大矩阵"><div class="ds-image-quad__grid"><div class="ds-image-quad__cell"><img src="data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'140\' height=\'140\' viewBox=\'0 0 140 140\'%3E%3Crect width=\'140\' height=\'140\' fill=\'%236366f1\'/%3E%3Ctext x=\'70\' y=\'76\' font-size=\'20\' text-anchor=\'middle\' fill=\'white\' font-family=\'sans-serif\'%3EVariant 1%3C/text%3E%3C/svg%3E" alt="生成图像变体 1" class="ds-image-quad__img"><span class="ds-image-quad__badge">1</span></div><div class="ds-image-quad__cell"><img src="data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'140\' height=\'140\' viewBox=\'0 0 140 140\'%3E%3Crect width=\'140\' height=\'140\' fill=\'%23ec4899\'/%3E%3Ctext x=\'70\' y=\'76\' font-size=\'20\' text-anchor=\'middle\' fill=\'white\' font-family=\'sans-serif\'%3EVariant 2%3C/text%3E%3C/svg%3E" alt="生成图像变体 2" class="ds-image-quad__img"><span class="ds-image-quad__badge">2</span></div><div class="ds-image-quad__cell"><img src="data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'140\' height=\'140\' viewBox=\'0 0 140 140\'%3E%3Crect width=\'140\' height=\'140\' fill=\'%2306b6d4\'/%3E%3Ctext x=\'70\' y=\'76\' font-size=\'20\' text-anchor=\'middle\' fill=\'white\' font-family=\'sans-serif\'%3EVariant 3%3C/text%3E%3C/svg%3E" alt="生成图像变体 3" class="ds-image-quad__img"><span class="ds-image-quad__badge">3</span></div><div class="ds-image-quad__cell"><img src="data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'140\' height=\'140\' viewBox=\'0 0 140 140\'%3E%3Crect width=\'140\' height=\'140\' fill=\'%2310b981\'/%3E%3Ctext x=\'70\' y=\'76\' font-size=\'20\' text-anchor=\'middle\' fill=\'white\' font-family=\'sans-serif\'%3EVariant 4%3C/text%3E%3C/svg%3E" alt="生成图像变体 4" class="ds-image-quad__img"><span class="ds-image-quad__badge">4</span></div></div><div class="ds-image-quad__toolbar"><div class="ds-image-quad__btn-group"><button type="button" class="ds-image-quad__btn" aria-label="高清放大第 1 张">U1</button><button type="button" class="ds-image-quad__btn" aria-label="高清放大第 2 张">U2</button><button type="button" class="ds-image-quad__btn" aria-label="高清放大第 3 张">U3</button><button type="button" class="ds-image-quad__btn" aria-label="高清放大第 4 张">U4</button></div><div class="ds-image-quad__btn-group"><button type="button" class="ds-image-quad__btn" aria-label="针对第 1 张做微调变体">V1</button><button type="button" class="ds-image-quad__btn" aria-label="针对第 2 张做微调变体">V2</button></div></div></div>',
+    react: '<AIImageGenerationQuadGrid onUpscale={(idx) => console.log(idx)} onVariation={(idx) => console.log(idx)} />'
+  },
+  {
+    id: 'telegram-secret-chat-ttl-burner',
+    name: 'Telegram 阅后即焚端到端加密安全会话卡',
+    category: '即时通讯 / 社交',
+    status: 'v3 新增',
+    purpose: '复刻 Telegram Secret Chats 核心安全会话状态栏，呈现 Diffie-Hellman 密钥加密指示、禁止云备份警报、自毁计时器与加密指纹图谱。',
+    anatomy: ['深暗色安全容器 (ds-secret-chat-banner)', '翡翠绿渐变锁形标 (ds-secret-chat-banner__lock)', '加密安全特征清单 (ds-secret-chat-banner__features)', '可视化密钥指纹盒 (ds-secret-chat-banner__fingerprint)'],
+    keyboard: 'Tab 键聚焦指纹盒；Enter 放大比对双方十六进制指纹。',
+    guidance: [
+      '采用深暗色磨砂玻璃底托，配以代表端到端安全的翡翠绿图标，给人安全稳固的心理暗示。',
+      '条目式列出端到端加密的核心保护特性（无云备份、截屏警告、自毁销毁）。',
+      '底部提供可视化十六进制密钥指纹，便于双方线下对比密钥一致性。'
+    ],
+    checks: [
+      '安全锁图标与文字颜色对比达标',
+      '密钥指纹字型采用等宽排版且字符间距统一',
+      '屏幕阅读器准确获知会话的最高保密级别'
+    ],
+    preview: '<div class="ds-secret-chat-banner" role="region" aria-label="Telegram 端到端加密安全通道"><div class="ds-secret-chat-banner__header"><div class="ds-secret-chat-banner__lock" aria-hidden="true">🔒</div><div><div class="ds-secret-chat-banner__title">Secret Chat with Elena</div><span style="font-size:11px;color:#10B981">End-to-End Encrypted</span></div></div><ul class="ds-secret-chat-banner__features"><li>✓ 使用端到端 Diffie-Hellman 密钥加密</li><li>✓ 服务端不保留任何聊天痕迹</li><li>✓ 开启截屏警报与阅后自毁计时器</li></ul><div class="ds-secret-chat-banner__fingerprint">Encryption Key: a8:f4:c9:21:6b:e3:10:77</div></div>',
+    react: '<TelegramSecretChatTtlBurner targetUser="Elena" encryptionKey="a8:f4:c9:21:6b:e3:10:77" />'
+  },
+  {
+    id: 'telegram-poll-quiz-vote-card',
+    name: 'Telegram 匿名投票与测验互动竞猜卡',
+    category: '即时通讯 / 社交',
+    status: 'v3 新增',
+    purpose: '复刻 Telegram 频道与群组的多选投票与竞猜卡片，支持动态百分比柱状填充、匿名/实名状态说明与投票撤回操作。',
+    anatomy: ['卡片总容器 (ds-quiz-poll)', '投票类型与总票数头栏 (ds-quiz-poll__header)', '问题主标 (ds-quiz-poll__question)', '选项列表 (ds-quiz-poll__options)', '单选项按钮 (ds-quiz-poll__opt)', '百分比平滑填充底条 (ds-quiz-poll__opt-fill)', '底栏说明与撤销操作 (ds-quiz-poll__footer)'],
+    keyboard: 'ArrowUp/ArrowDown 在各个投票选项间导航；Space 或 Enter 投出选票。',
+    guidance: [
+      '选项点击后平滑展开彩色百分比填充条，百分比文字采用加粗等宽字体。',
+      '明确标示该投票是 Anonymous Poll（匿名）还是 Public Poll（公开投票）。',
+      '底部提供撤销投票或查看结果的轻量文字动作。'
+    ],
+    checks: [
+      '投票后百分比条平滑填充无突变',
+      '未投票与已投票状态对比度清晰',
+      '无障碍角色设定为单选或多选组，实时播报百分比'
+    ],
+    preview: '<div class="ds-quiz-poll" role="region" aria-label="互动投票：哪项平台动效物理手感最佳？"><div class="ds-quiz-poll__header"><span>Anonymous Poll</span><span>Total: 842 votes</span></div><h4 class="ds-quiz-poll__question">Which native physics curve feels best?</h4><div class="ds-quiz-poll__options"><div class="ds-quiz-poll__opt" role="button" tabindex="0" aria-label="iOS 阻尼弹簧 (64%)"><div class="ds-quiz-poll__opt-fill" style="width: 64%"></div><span class="ds-quiz-poll__opt-label">iOS Spring Physics</span><span class="ds-quiz-poll__opt-pct">64%</span></div><div class="ds-quiz-poll__opt" role="button" tabindex="0" aria-label="Android M3 强调曲线 (26%)"><div class="ds-quiz-poll__opt-fill" style="width: 26%"></div><span class="ds-quiz-poll__opt-label">Android M3 Emphasized</span><span class="ds-quiz-poll__opt-pct">26%</span></div><div class="ds-quiz-poll__opt" role="button" tabindex="0" aria-label="macOS 超柔弹性 (10%)"><div class="ds-quiz-poll__opt-fill" style="width: 10%"></div><span class="ds-quiz-poll__opt-label">macOS Gentle Spring</span><span class="ds-quiz-poll__opt-pct">10%</span></div></div><div class="ds-quiz-poll__footer"><span>Poll created by Design Core</span><span>Retract Vote</span></div></div>',
+    react: '<TelegramPollQuizVoteCard question="Which native physics curve feels best?" options={[{ id: "1", label: "iOS Spring", pct: 64 }]} />'
+  },
+  {
+    id: 'meta-instagram-collab-dual-header',
+    name: 'Meta Instagram 创作者联合发布双头像头栏',
+    category: '即时通讯 / 社交',
+    status: 'v3 新增',
+    purpose: '复刻 Instagram Collab Posts 经典的双创作者联合署名头栏，展示错落层叠的双头像、官方蓝 V 认证与商业赞助合作标签。',
+    anatomy: ['胶囊头栏外壳 (ds-collab-header)', '错落双头像叠放区 (ds-collab-header__avatars)', '主创头像 (ds-collab-header__avatar--primary)', '协创头像 (ds-collab-header__avatar--collab)', '双创作者联合名称 (ds-collab-header__names)', '赞助/地点副标题 (ds-collab-header__subtext)'],
+    keyboard: 'Tab 键在两位创作者个人主页链接之间跳转；Enter 打开用户主页。',
+    guidance: [
+      '主协创作者头像通过 2px 实体描边形成自然的叠落剪裁，避免粘连。',
+      '两名创作者 ID 并列展示，后置官方认证徽章。',
+      '副标题包含商业合作标识（Paid Partnership）与拍摄地理位置。'
+    ],
+    checks: [
+      '双头像错落居中无重叠错位',
+      '认证图标尺寸协调且不换行',
+      '辅助技术可准确读出两位联合创作者的姓名'
+    ],
+    preview: '<div class="ds-collab-header" role="banner" aria-label="联合发布创作者：elena_vance 与 design_system"><div class="ds-collab-header__avatars"><img src="data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'30\' height=\'30\' viewBox=\'0 0 30 30\'%3E%3Ccircle cx=\'15\' cy=\'15\' r=\'15\' fill=\'%236366f1\'/%3E%3Ctext x=\'15\' y=\'19\' font-size=\'12\' text-anchor=\'middle\' fill=\'white\' font-family=\'sans-serif\'%3EEV%3C/text%3E%3C/svg%3E" alt="Elena Vance" class="ds-collab-header__avatar ds-collab-header__avatar--primary"><img src="data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'30\' height=\'30\' viewBox=\'0 0 30 30\'%3E%3Ccircle cx=\'15\' cy=\'15\' r=\'15\' fill=\'%2310b981\'/%3E%3Ctext x=\'15\' y=\'19\' font-size=\'12\' text-anchor=\'middle\' fill=\'white\' font-family=\'sans-serif\'%3EDS%3C/text%3E%3C/svg%3E" alt="Design System" class="ds-collab-header__avatar ds-collab-header__avatar--collab"></div><div class="ds-collab-header__info"><div class="ds-collab-header__names"><span>elena_vance</span><span>·</span><span>design_system</span><span aria-label="官方认证">☑️</span></div><span class="ds-collab-header__subtext">Paid Partnership · Tokyo, Japan</span></div></div>',
+    react: '<MetaInstagramCollabDualHeader author1="elena_vance" author2="design_system" subtitle="Paid Partnership" />'
+  },
+  {
+    id: 'meta-reels-vertical-action-sidebar',
+    name: 'Meta Reels 沉浸式短视频右侧互动浮条',
+    category: '即时通讯 / 社交',
+    status: 'v3 新增',
+    purpose: '复刻 Instagram Reels 与沉浸式全屏流媒体的垂直悬浮互动栏，包含点赞心形、评论气泡、纸飞机转发与旋转黑胶唱片音轨徽章。',
+    anatomy: ['垂直浮动列 (ds-reels-sidebar)', '互动操作槽 (ds-reels-sidebar__item)', '圆形半透明按钮 (ds-reels-sidebar__icon-btn)', '高亮数字计数 (ds-reels-sidebar__count)', '旋转黑胶唱片 (ds-reels-sidebar__disc)'],
+    keyboard: 'Tab 键在点赞、评论、分享按钮间切换；L 键快捷点赞；C 键打开评论。',
+    guidance: [
+      '按钮背景采用深黑半透明高斯模糊材质，在各种明暗视频背景上均保持高度可见。',
+      '点赞或触摸时触发弹簧微放大动效，心形图标提供即时粉红激活高亮。',
+      '底部黑胶唱片采用 GPU 合成器旋转动画，象征当前视频的原声正在播放。'
+    ],
+    checks: [
+      '唱片旋转流畅且 CPU 消耗微乎其微',
+      '数字文字附带文字阴影，保证在明亮视频下清晰可读',
+      '减少动效模式下唱片停止旋转，呈现静态唱片'
+    ],
+    preview: '<div class="ds-reels-sidebar" role="toolbar" aria-label="短视频侧边互动栏"><div class="ds-reels-sidebar__item"><button type="button" class="ds-reels-sidebar__icon-btn" aria-label="点赞视频">❤️</button><span class="ds-reels-sidebar__count">84.2K</span></div><div class="ds-reels-sidebar__item"><button type="button" class="ds-reels-sidebar__icon-btn" aria-label="评论视频">💬</button><span class="ds-reels-sidebar__count">1.4K</span></div><div class="ds-reels-sidebar__item"><button type="button" class="ds-reels-sidebar__icon-btn" aria-label="分享转发">↗️</button><span class="ds-reels-sidebar__count">280</span></div><div class="ds-reels-sidebar__item"><div class="ds-reels-sidebar__disc" aria-label="背景原声音轨正在旋转"><div class="ds-reels-sidebar__disc-inner"></div></div></div></div>',
+    react: '<MetaReelsVerticalActionSidebar likes="84.2K" comments="1.4K" shares="280" onLike={() => {}} />'
+  },
+  {
+    id: 'macos-stage-manager-cluster-stack',
+    name: 'macOS 台前调度多窗口缩略图堆叠组',
+    category: 'macOS / 桌面',
+    status: 'v3 新增',
+    purpose: '复刻 macOS Stage Manager 屏幕左侧的多窗口立体堆叠缩略图，悬停时层叠窗口自然展开分离，附带应用图标浮动徽标。',
+    anatomy: ['集群总容器 (ds-stage-cluster)', '立体透视堆叠架 (ds-stage-cluster__stack)', '前置主窗口缩略图 (ds-stage-cluster__window--front)', '后置次窗口缩略图 (ds-stage-cluster__window--back)', '应用圆形/圆角图标 (ds-stage-cluster__app-icon)'],
+    keyboard: 'Enter 或 Space 将整组堆叠窗口切换至桌面中心主工作区；Tab 在各分组间切换。',
+    guidance: [
+      '后置窗口呈 3D 错落层叠并自带轻微透明度，悬停时双窗口向斜对角自然弹开展开。',
+      '缩略图下方居中固定悬挂应用图标徽章，即使窗口极小也能一眼识别归属。',
+      '点击后触发桌面空间调度切换，提供流畅自然的视差平移体验。'
+    ],
+    checks: [
+      '指针移入时前置和后置窗口平滑展开，无闪烁与重绘',
+      '应用图标拥有独立的柔和投影层次',
+      '屏幕阅读器准确获知该集群内包含的窗口数量'
+    ],
+    preview: '<div class="ds-stage-cluster" role="button" tabindex="0" aria-label="台前调度窗口集群：Figma 与 代码编辑器，包含 2 个应用窗口"><div class="ds-stage-cluster__stack"><div class="ds-stage-cluster__window ds-stage-cluster__window--back"><div style="background:var(--ds-inset);height:12px;border-bottom:1px solid var(--ds-line)"></div></div><div class="ds-stage-cluster__window ds-stage-cluster__window--front"><div style="background:var(--ds-chrome);height:12px;border-bottom:1px solid var(--ds-line)"></div></div></div><img src="data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'22\' height=\'22\' viewBox=\'0 0 22 22\'%3E%3Crect width=\'22\' height=\'22\' rx=\'6\' fill=\'%236366f1\'/%3E%3Ctext x=\'11\' y=\'15\' font-size=\'10\' text-anchor=\'middle\' fill=\'white\' font-family=\'sans-serif\'%3E🪟%3C/text%3E%3C/svg%3E" alt="应用图标" class="ds-stage-cluster__app-icon"></div>',
+    react: '<MacOSStageManagerClusterStack appName="Design Suite" windowCount={2} onActivate={() => {}} />'
+  },
+  {
+    id: 'ios-safari-fluid-bottom-tab-bar',
+    name: 'iOS Safari 浮动胶囊底栏与滑动标签条',
+    category: 'iOS / 移动',
+    status: 'v3 新增',
+    purpose: '复刻 iOS 15/17/18 Safari 浮动底栏地址胶囊，结合 SSL 安全锁图标、当前域名、阅读器模式切换与多标签页计数卡片。',
+    anatomy: ['悬浮胶囊底栏 (ds-safari-bar)', '安全锁与网址域 (ds-safari-bar__url)', 'SSL 锁标 (ds-safari-bar__ssl)', '操作功能按钮组 (ds-safari-bar__actions)', '标签页计数方框 (ds-safari-bar__tab-count)'],
+    keyboard: '⌘L 聚焦地址栏输入；Tab 在阅读模式、分享与多标签视图间轮换。',
+    guidance: [
+      '胶囊悬浮于屏幕底部安全区之上，采用超高斯模糊玻璃底质，随页面内容滑动微缩放。',
+      '居中显示简明域名与加密状态，避免冗长 URL 占用有限手机视野。',
+      '右侧标签页按钮显示当前开启的标签页总数，支持点击展开全屏标签瀑布流。'
+    ],
+    checks: [
+      '胶囊边缘圆润，毛玻璃效果在深浅色下通透无色偏',
+      '标签页数字采用等宽居中排版',
+      '支持单手便捷轻触各功能操作点'
+    ],
+    preview: '<div class="ds-safari-bar" role="navigation" aria-label="Safari 网页导航底栏"><div class="ds-safari-bar__url"><span class="ds-safari-bar__ssl" aria-label="安全 SSL 加密连接">🔒</span><span>modern-ai-ui.design</span></div><div class="ds-safari-bar__actions"><button type="button" class="ds-safari-bar__btn" aria-label="阅读视图模式">📖</button><button type="button" class="ds-safari-bar__btn" aria-label="分享页面">↗️</button><button type="button" class="ds-safari-bar__tab-count" aria-label="2 个打开标签页">2</button></div></div>',
+    react: '<IOSSafariFluidBottomTabBar url="modern-ai-ui.design" tabCount={2} onOpenTabs={() => {}} />'
+  },
+  {
+    id: 'macos-menu-bar-battery-flyout',
+    name: 'macOS 菜单栏电源健康与高能耗应用弹出卡',
+    category: 'macOS / 桌面',
+    status: 'v3 新增',
+    purpose: '复刻 macOS 菜单栏与电池控制台下拉浮窗，展示当前电量百分比、电源供电状态（电池/适配器）与正在大量消耗能耗的应用程序进程列表。',
+    anatomy: ['半透明毛玻璃卡片 (ds-battery-flyout)', '大字号电量标头 (ds-battery-flyout__pct)', '电源供电模式说明 (ds-battery-flyout__status)', '能耗进程分组标题 (ds-battery-flyout__section-title)', '高能耗进程清单 (ds-battery-flyout__list)'],
+    keyboard: 'Tab 键在耗电进程间移动；Enter 可查看进程详细能耗或终止任务。',
+    guidance: [
+      '顶部突出展示大号电量数字与电池图标，供电模式自动标记电源适配器状态。',
+      '清晰列举当前高耗电后台任务（如模拟器、本地模型推理），帮助用户定位发热与掉电根源。',
+      '毛玻璃材质与系统原生桌面环境深度融合。'
+    ],
+    checks: [
+      '电量百分比字型清晰，深浅色主题自适应高亮',
+      '耗电列表项排列紧凑，间距与对齐规范',
+      '辅助技术可准确读出电量及各进程消耗'
+    ],
+    preview: '<div class="ds-battery-flyout" role="region" aria-label="电池电量与能耗监测：当前 88%，电源适配器已连接"><div class="ds-battery-flyout__header"><div class="ds-battery-flyout__pct"><span aria-hidden="true">🔋</span><span>88%</span></div><span class="ds-battery-flyout__status">Power Adapter</span></div><div class="ds-battery-flyout__section-title">Significant Energy</div><ul class="ds-battery-flyout__list"><li class="ds-battery-flyout__item"><div class="ds-battery-flyout__item-left"><span>🌐</span><span>Xcode Simulator</span></div><span style="font-size:11px;color:var(--ds-muted)">14.2%</span></li><li class="ds-battery-flyout__item"><div class="ds-battery-flyout__item-left"><span>⚡</span><span>Local LLM Runner</span></div><span style="font-size:11px;color:var(--ds-muted)">28.4%</span></li></ul></div>',
+    react: '<MacOSMenuBarBatteryFlyout percentage={88} source="Power Adapter" processes={[{ name: "Xcode Simulator", icon: "🌐", usage: "14.2%" }]} />'
+  },
+  {
+    id: 'ios-carplay-dashboard-split-tile',
+    name: 'iOS CarPlay 智能分屏仪表盘聚合卡',
+    category: 'iOS / 移动',
+    status: 'v3 新增',
+    purpose: '复刻 Apple CarPlay 车载大屏多任务仪表盘，结合地图转向导航大卡片、正在播放音频小卡片与日程提醒建议。',
+    anatomy: ['车载深色网格总框 (ds-carplay-dash)', '导航转向卡 (ds-carplay-dash__nav)', '转向箭头与距离 (ds-carplay-dash__turn)', '目标路名与预计到达 (ds-carplay-dash__street)', '右侧并列小卡组 (ds-carplay-dash__side)', '音乐/日程磁贴 (ds-carplay-dash__tile)'],
+    keyboard: '旋钮或方向键在导航、音乐和日程磁贴间切换；Enter 激活全屏应用。',
+    guidance: [
+      '专为车载大触控目标设计，大字号、高对比度，确保驾驶员余光可读性。',
+      '左侧宽区优先分配给行车导航核心指示，右侧上下排布音乐播放与下一日程。',
+      '纯暗色底板避免夜间车内反光刺眼。'
+    ],
+    checks: [
+      '所有交互触控热区均大于 48px，边缘圆润友好',
+      '高对比度文字符合驾驶安全规范',
+      '屏幕阅读器准确读取导航拐弯提示及当前播放歌曲'
+    ],
+    preview: '<div class="ds-carplay-dash" role="region" aria-label="CarPlay 驾驶仪表盘"><div class="ds-carplay-dash__nav"><div class="ds-carplay-dash__turn"><span aria-hidden="true">↱</span><span>In 500m</span></div><div class="ds-carplay-dash__street">Turn Right onto Market St</div><span style="font-size:11px;color:rgba(255,255,255,0.6)">ETA 18:24 · 12 km</span></div><div class="ds-carplay-dash__side"><div class="ds-carplay-dash__tile"><span style="font-size:18px" aria-hidden="true">🎵</span><div><div style="font-weight:600">Starboy</div><span style="font-size:10px;color:rgba(255,255,255,0.6)">The Weeknd</span></div></div><div class="ds-carplay-dash__tile"><span style="font-size:18px" aria-hidden="true">📅</span><div><div style="font-weight:600">Product Review</div><span style="font-size:10px;color:rgba(255,255,255,0.6)">19:00 - 19:30</span></div></div></div></div>',
+    react: '<IOSCarplayDashboardSplitTile navDistance="In 500m" navStreet="Market St" musicTitle="Starboy" />'
+  },
+  {
+    id: 'android-m3-date-time-dial-picker',
+    name: 'Android M3 拟真时钟表盘与时间选择器',
+    category: 'Android / Material',
+    status: 'v3 新增',
+    purpose: '遵循 Android Material 3 TimePicker 规范，提供 12 小时环形表盘、中心旋转指针臂、激活时点高亮圆球与刻度对齐。',
+    anatomy: ['圆环表盘底盘 (ds-m3-time-picker)', '中心旋转轴心 (ds-m3-time-picker__pivot)', '指示指针臂 (ds-m3-time-picker__hand)', '激活时针端点小球 (ds-m3-time-picker__hand-end)', '四周数字刻度 (ds-m3-time-picker__num)'],
+    keyboard: 'ArrowUp/ArrowRight 顺时针步进小时；ArrowDown/ArrowLeft 逆时针步进。',
+    guidance: [
+      '指针端点小球以平滑弹簧缓动旋转，跟随用户点击或键盘快捷指令。',
+      '数字刻度均匀分布在圆周四个象限（12, 3, 6, 9），整体呈现 Material You 柔和圆角风格。',
+      '在开启减少动效模式时禁用指针旋转过渡，采用瞬时对齐。'
+    ],
+    checks: [
+      '指针旋转角度计算精确，端点小球完美框定目标刻度',
+      '键盘支持标准无障碍步进滑动操作',
+      '强制颜色模式下拥有清晰的圆环外轮廓'
+    ],
+    preview: '<div class="ds-m3-time-picker" role="slider" aria-valuenow="3" aria-valuemin="1" aria-valuemax="12" aria-label="时钟选择器：当前 3 点"><div class="ds-m3-time-picker__pivot"></div><div class="ds-m3-time-picker__hand"><div class="ds-m3-time-picker__hand-end">3</div></div><span class="ds-m3-time-picker__num" style="top:12px;left:calc(50% - 12px)">12</span><span class="ds-m3-time-picker__num" style="top:calc(50% - 12px);right:12px">3</span><span class="ds-m3-time-picker__num" style="bottom:12px;left:calc(50% - 12px)">6</span><span class="ds-m3-time-picker__num" style="top:calc(50% - 12px);left:12px">9</span></div>',
+    react: '<AndroidM3DateTimeDialPicker hour={3} onChange={(h) => console.log(h)} />'
+  },
+  {
+    id: 'ai-audio-generation-waveform-track',
+    name: 'AI 音乐与语音生成多轨混音工作条',
+    category: 'AI 交互',
+    status: 'v3 新增',
+    purpose: '灵感源自 Suno、Udio 与 ElevenLabs 音频生成工作台，展示生成歌曲的动态波形振幅、分轨隔离胶囊（人声、贝斯、鼓组）与模型元数据。',
+    anatomy: ['卡片总容器 (ds-audio-gen-track)', '音轨标题与模型元信息 (ds-audio-gen-track__header)', '音频振幅波形条组 (ds-audio-gen-track__wave)', '波形柱元 (ds-audio-gen-track__bar)', '分轨隔离胶囊标签 (ds-audio-gen-track__stem-chips)'],
+    keyboard: 'Space 播放/暂停生成音频；Tab 切换分轨静音/独奏开关。',
+    guidance: [
+      '波形条采用彩色渐变垂直延伸，模拟专业数字音频工作站（DAW）界面质感。',
+      '提供 Vocals、Bass、Drums 等分轨开关胶囊，支持用户自由选择伴奏或清唱输出。',
+      '标明所用生成模型版本（如 Suno v3.5）与生成总音频时长。'
+    ],
+    checks: [
+      '分轨标签支持一键点击切换激活高亮',
+      '波形在各宽度屏幕下自适应伸缩',
+      '屏幕阅读器准确读取曲目名及可用的音轨分层'
+    ],
+    preview: '<div class="ds-audio-gen-track" role="region" aria-label="AI 生成音频音轨：Synthwave Dream"><div class="ds-audio-gen-track__header"><span>Synthwave Dream #04</span><span style="font-size:11px;color:var(--ds-muted)">Suno v3.5 · 180s</span></div><div class="ds-audio-gen-track__wave" aria-hidden="true"><div class="ds-audio-gen-track__bar" style="height:12px"></div><div class="ds-audio-gen-track__bar" style="height:28px"></div><div class="ds-audio-gen-track__bar" style="height:36px"></div><div class="ds-audio-gen-track__bar" style="height:20px"></div><div class="ds-audio-gen-track__bar" style="height:32px"></div><div class="ds-audio-gen-track__bar" style="height:14px"></div></div><div class="ds-audio-gen-track__stem-chips"><span class="ds-audio-gen-track__chip is-active">Vocals</span><span class="ds-audio-gen-track__chip is-active">Bass</span><span class="ds-audio-gen-track__chip">Drums</span><span class="ds-audio-gen-track__chip">Synths</span></div></div>',
+    react: '<AIAudioGenerationWaveformTrack title="Synthwave Dream" model="Suno v3.5" stems={["Vocals", "Bass", "Drums"]} />'
+  },
+  {
+    id: 'ai-agent-sandbox-terminal-hud',
+    name: 'AI 智能体无头沙盒执行终端浮窗',
+    category: 'AI 交互',
+    status: 'v3 新增',
+    purpose: '灵感源自 Devin、Manus 与 Claude Computer Use 沙盒虚拟执行终端，实时展现智能体在安全容器内执行的 Shell 指令、输出日志与资源开销。',
+    anatomy: ['终端视窗容器 (ds-sandbox-terminal)', '顶部标题与操作栏 (ds-sandbox-terminal__header)', '容器名称标签 (ds-sandbox-terminal__title)', '控制台输出流 (ds-sandbox-terminal__body)', '状态与资源底栏 (ds-sandbox-terminal__footer)', '紧急终止按钮 (ds-sandbox-terminal__btn)'],
+    keyboard: 'Tab 聚焦紧急终止按钮；PageDown/PageUp 滚动控制台输出历史。',
+    guidance: [
+      '采用深色暗黑终端配色，代码输出字体强制使用 monospace 等宽字族。',
+      '实时展示 CPU 与内存消耗，以及进程退出状态码（Exit Code）。',
+      '提供鲜明的红色终止按钮，以便在出现死循环或违规操作时一键熔断容器。'
+    ],
+    checks: [
+      '控制台日志自动换行并支持平滑纵向滚动',
+      '终止按钮具备明显的警告色反差',
+      '屏幕阅读器能读取最新执行的命令与输出结果'
+    ],
+    preview: '<div class="ds-sandbox-terminal" role="region" aria-label="AI 智能体沙盒虚拟终端"><div class="ds-sandbox-terminal__header"><div class="ds-sandbox-terminal__title">sandbox-container:alpine-node-20</div><button type="button" class="ds-sandbox-terminal__btn" aria-label="终止当前容器">Stop</button></div><div class="ds-sandbox-terminal__body"><div>$ npm test --silent</div><div style="color:#10B981">✓ 332 specs passed (100%)</div><div>$ git status --porcelain</div></div><div class="ds-sandbox-terminal__footer"><span>CPU 12% · MEM 240MB</span><span>Exit Code: 0</span></div></div>',
+    react: '<AIAgentSandboxTerminalHud containerName="alpine-node-20" logs={["$ npm test", "✓ 332 specs passed"]} onStop={() => {}} />'
+  },
+  {
+    id: 'ai-prompt-cost-estimator-badge',
+    name: 'AI 提示词 Token 消耗与成本微预估徽标',
+    category: 'AI 交互',
+    status: 'v3 新增',
+    purpose: '复刻 Cursor、OpenRouter 与 Langfuse 提示词计费微徽标，精确实时量化当前提问的 Token 用量、预估美元成本与 Prompt 缓存命中率。',
+    anatomy: ['微型统计胶囊 (ds-prompt-cost-badge)', '费用数值 (ds-prompt-cost-badge__cost)', '输入/输出配额明细', 'Prompt 缓存命中徽章 (ds-prompt-cost-badge__cache)'],
+    keyboard: '纯状态展示组件；屏幕阅读器通过 aria-label 完整朗读用量与费用统计。',
+    guidance: [
+      '体积紧凑，适合直接嵌入在 AI 输入框右上角或对话消息底部。',
+      '绿色微徽标突出显示缓存命中率（如 ⚡ 85% Hit），激励用户优化提示词重用率。',
+      '费用采用四位小数（如 $0.0024）加粗等宽呈现，准确严谨。'
+    ],
+    checks: [
+      '数字字体等宽排版，用量变动时页面不晃动',
+      '缓存命中率角标在深浅模式下色彩对比度达标',
+      '辅助技术可准确读出当前对话的费用与 Token 数'
+    ],
+    preview: '<div class="ds-prompt-cost-badge" role="status" aria-label="Token 消耗：输入 1.4k，输出 420，预估费用 $0.0024"><span class="ds-prompt-cost-badge__cost">$0.0024</span><span>1.4k in / 420 out</span><span class="ds-prompt-cost-badge__cache">⚡ 85% Hit</span></div>',
+    react: '<AIPromptCostEstimatorBadge cost="$0.0024" promptTokens="1.4k" outputTokens="420" cacheHit="85%" />'
+  },
+  {
+    id: 'telegram-voice-chat-participant-tile',
+    name: 'Telegram 群组实时语音连麦发言者气泡',
+    category: '即时通讯 / 社交',
+    status: 'v3 新增',
+    purpose: '复刻 Telegram 语音连麦与 Discord Stage 发言者状态气泡，发言时环绕动态绿色脉冲波纹光环，附带麦克风状态角标与发言者名称。',
+    anatomy: ['发言者总卡片 (ds-voice-tile)', '动态声音光环 (ds-voice-tile__halo)', '圆形头像 (ds-voice-tile__avatar)', '麦克风/举手状态微徽章 (ds-voice-tile__badge)', '发言者用户名 (ds-voice-tile__name)'],
+    keyboard: 'Tab 键在各语音参与者之间导航；Enter 打开用户个人资料或发起私聊。',
+    guidance: [
+      '检测到说话音量时头像外层激发绿色波纹扩散动画，直观指示谁在发言。',
+      '头像右下角悬挂微型麦克风或举手角标，清晰区分发言人与普通听众。',
+      '开启减少动效模式时禁用波纹扩散，转为静态绿色实体描边。'
+    ],
+    checks: [
+      '发言光环扩散动画流畅且不影响头像居中对齐',
+      '用户名超长时自动省略不换行',
+      '屏幕阅读器准确读取当前发言人姓名与开麦状态'
+    ],
+    preview: '<div class="ds-voice-tile is-speaking" role="region" aria-label="连麦发言者：Alex Rivera，正在发言"><div class="ds-voice-tile__halo"><img src="data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'54\' height=\'54\' viewBox=\'0 0 54 54\'%3E%3Ccircle cx=\'27\' cy=\'27\' r=\'27\' fill=\'%236366f1\'/%3E%3Ctext x=\'27\' y=\'33\' font-size=\'18\' text-anchor=\'middle\' fill=\'white\' font-family=\'sans-serif\'%3EAR%3C/text%3E%3C/svg%3E" alt="Alex Rivera" class="ds-voice-tile__avatar"><div class="ds-voice-tile__badge" aria-label="麦克风已开启">🎙️</div></div><span class="ds-voice-tile__name">Alex Rivera</span></div>',
+    react: '<TelegramVoiceChatParticipantTile name="Alex Rivera" isSpeaking={true} isMuted={false} />'
+  },
+  {
+    id: 'telegram-gift-crypto-collectible-card',
+    name: 'Telegram 数字藏品与星标赞赏礼物卡',
+    category: '即时通讯 / 社交',
+    status: 'v3 新增',
+    purpose: '复刻 Telegram Stars 赞赏与 Fragment 稀有数字藏品礼物卡，带有耀金金属微光描边、稀有度标签、星标定价与唯一转让哈希编号。',
+    anatomy: ['金属光泽外框卡 (ds-crypto-gift-card)', '3D 拟物礼物图标 (ds-crypto-gift-card__icon)', '礼物名称 (ds-crypto-gift-card__title)', '稀有度渐变徽标 (ds-crypto-gift-card__rarity)', '星标金额 (ds-crypto-gift-card__price)', '数字藏品哈希凭据 (ds-crypto-gift-card__hash)'],
+    keyboard: 'Tab 键聚焦礼物卡；Enter 唤起转赠或链上存证查询。',
+    guidance: [
+      '金黄渐变金属描边搭配半透明深色微光背景，突出数字资产的尊贵稀缺感。',
+      '稀有度徽标采用渐变红色/金色背景胶囊，标明 Legendary、Rare 或 Epic 编号。',
+      '底部提供轻量等宽字体藏品唯一凭证 ID。'
+    ],
+    checks: [
+      '星标图标与价格数值对齐规整',
+      '金色边框在浅色与深色主题下视觉层次鲜明',
+      '辅助技术可读出礼物名称、稀有度与星标价值'
+    ],
+    preview: '<div class="ds-crypto-gift-card" role="region" aria-label="Telegram 数字藏品礼物：Astral Rocket"><div class="ds-crypto-gift-card__icon" aria-hidden="true">🚀</div><div class="ds-crypto-gift-card__title">Astral Rocket</div><span class="ds-crypto-gift-card__rarity">Legendary #42</span><span class="ds-crypto-gift-card__price">⭐ 250 Stars</span><span class="ds-crypto-gift-card__hash">ID: frag-9920-x1</span></div>',
+    react: '<TelegramGiftCryptoCollectibleCard title="Astral Rocket" icon="🚀" rarity="Legendary #42" stars={250} />'
+  },
+  {
+    id: 'meta-whatsapp-status-audio-story-ring',
+    name: 'Meta WhatsApp 语音状态故事播放卡',
+    category: '即时通讯 / 社交',
+    status: 'v3 新增',
+    purpose: '复刻 WhatsApp Status 语音动态与心情分享卡，外环绿色故事状态光环、内嵌音频波形条、播放按钮与发布时间标头。',
+    anatomy: ['卡片总外壳 (ds-audio-status-card)', '作者信息与发布时间 (ds-audio-status-card__header)', '绿色动态状态双环 (ds-audio-status-card__ring)', '音频播放胶囊盒 (ds-audio-status-card__wave-box)', '播放/暂停圆形按钮 (ds-audio-status-card__play)', '波形进度条簇 (ds-audio-status-card__bars)'],
+    keyboard: 'Space 或 Enter 播放/暂停语音动态；Tab 切换至作者个人信息。',
+    guidance: [
+      '外层采用经典 WhatsApp 翡翠绿双环包裹用户头像，表明该好友发布了新语音动态。',
+      '内部直接嵌有音频进度波形与快捷播放键，无需跳转全屏即可即刻试听。',
+      '波形柱条实时反映播放进度，已播放部分渲染为绿色高亮。'
+    ],
+    checks: [
+      '点击播放按键能切换播放/暂停图标',
+      '头像故事光环在各密度下对齐无偏移',
+      '屏幕阅读器准确读取好友姓名、发布时间及动态音频时长'
+    ],
+    preview: '<div class="ds-audio-status-card" role="region" aria-label="WhatsApp 语音状态：0:18 语音更新"><div class="ds-audio-status-card__header"><div class="ds-audio-status-card__ring"><img src="data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'38\' height=\'38\' viewBox=\'0 0 38 38\'%3E%3Ccircle cx=\'19\' cy=\'19\' r=\'19\' fill=\'%2325d366\'/%3E%3Ctext x=\'19\' y=\'24\' font-size=\'14\' text-anchor=\'middle\' fill=\'white\' font-family=\'sans-serif\'%3ESM%3C/text%3E%3C/svg%3E" alt="Sarah Miller" class="ds-audio-status-card__avatar"></div><div><div style="font-weight:600;font-size:13px">Sarah Miller</div><span style="font-size:11px;color:var(--ds-muted)">Today, 14:20</span></div></div><div class="ds-audio-status-card__wave-box"><button type="button" class="ds-audio-status-card__play" aria-label="播放语音状态">▶</button><div class="ds-audio-status-card__bars" aria-hidden="true"><div class="ds-audio-status-card__bar is-played" style="height:10px"></div><div class="ds-audio-status-card__bar is-played" style="height:16px"></div><div class="ds-audio-status-card__bar" style="height:20px"></div><div class="ds-audio-status-card__bar" style="height:8px"></div></div><span style="font-size:11px;font-family:var(--ds-type-mono)">0:18</span></div></div>',
+    react: '<MetaWhatsappStatusAudioStoryRing author="Sarah Miller" duration="0:18" onPlayToggle={() => {}} />'
+  },
+  {
+    id: 'meta-threads-quote-repost-card',
+    name: 'Meta Threads 嵌套引用转发卡片',
+    category: '即时通讯 / 社交',
+    status: 'v3 新增',
+    purpose: '复刻 Meta Threads 与 X (Twitter) 经典的引用转发卡片（Quote Repost），外层为转发展开见解，内嵌带边框的原始作者帖子。',
+    anatomy: ['卡片总容器 (ds-quote-post)', '转发作者信息与时间 (ds-quote-post__author)', '转发评论正文 (ds-quote-post__text)', '内嵌被引用帖子容器 (ds-quote-post__quote-box)', '原始作者标头 (ds-quote-post__quote-header)', '原始正文内容 (ds-quote-post__quote-body)'],
+    keyboard: 'Tab 键在外层转发与内嵌被引用帖之间导航；Enter 打开原始讨论话题。',
+    guidance: [
+      '内嵌帖子通过 1px 浅色微描边和弱化底色与外层评论形成清晰的嵌套层级。',
+      '两层均完整保留作者 ID、相对发布时间戳与认证徽章。',
+      '在深色模式下内嵌卡片底色微调，保证对比度始终满足 WCAG AA。'
+    ],
+    checks: [
+      '两层文字排版层次分明，引用卡片无溢出',
+      '内嵌卡片可独立接收焦点并支持键盘导航',
+      '屏幕阅读器准确区分“转发人说”与“被引用帖子内容”'
+    ],
+    preview: '<div class="ds-quote-post" role="article" aria-label="Threads 引用帖子"><div class="ds-quote-post__author"><span>michael_chen</span><span style="font-weight:400;color:var(--ds-muted);font-size:11px">· 3h</span></div><div class="ds-quote-post__text">The multi-platform design consistency across macOS, iOS, Android, and AI workflows is insane!</div><div class="ds-quote-post__quote-box"><div class="ds-quote-post__quote-header"><span>design_system</span><span aria-label="已认证">☑️</span><span style="font-weight:400;color:var(--ds-muted);font-size:11px">· 5h</span></div><div class="ds-quote-post__quote-body">Modern AI Design System v3 has reached 332 components with zero motion lint errors!</div></div></div>',
+    react: '<MetaThreadsQuoteRepostCard author="michael_chen" text="Amazing work!" quotedAuthor="design_system" quotedText="332 components live!" />'
+  },
+  {
+    id: 'macos-window-tiling-snap-overlay',
+    name: 'macOS Sequoia 窗口多向磁吸分屏手势指示器',
+    category: 'macOS / 桌面',
+    status: 'v3 新增',
+    purpose: '复刻 macOS Sequoia 原生窗口磁吸分屏手势指示浮层，展示左右半屏、上下半屏与四角四分屏的磁吸预览落点。',
+    anatomy: ['分屏面板外壳 (ds-window-snap-overlay)', '说明标题', '2x2 分区网格 (ds-window-snap-overlay__grid)', '目标吸附高亮区 (ds-window-snap-overlay__zone.is-highlighted)', '普通分区 (ds-window-snap-overlay__zone)'],
+    keyboard: '方向键或快捷键 ⌥⌃← / ⌥⌃→ 选择目标磁吸分屏方位；Enter 确认窗口平铺。',
+    guidance: [
+      '当窗口拖拽至屏幕边缘时，高亮分区以柔和蓝色虚线/实体框与微光背景呈现。',
+      '采用轻量毛玻璃半透明底质，不阻挡被吸附窗口的背景内容。',
+      '提供常用的左半屏、右半屏、以及四角四分屏网格选项。'
+    ],
+    checks: [
+      '激活分区以清晰的品牌蓝光晕标示',
+      '松开鼠标或确认时窗口立即平滑变换尺寸',
+      '屏幕阅读器准确读出目标吸附区域名称'
+    ],
+    preview: '<div class="ds-window-snap-overlay" role="region" aria-label="窗口磁吸分屏网格"><div style="font-size:11px;font-weight:600;color:var(--ds-muted)">Window Tiling Zones</div><div class="ds-window-snap-overlay__grid"><div class="ds-window-snap-overlay__zone is-highlighted">Left Half</div><div class="ds-window-snap-overlay__zone">Right Half</div><div class="ds-window-snap-overlay__zone">Top Left</div><div class="ds-window-snap-overlay__zone">Top Right</div></div></div>',
+    react: '<MacOSWindowTilingSnapOverlay activeZone="Left Half" onSelectZone={(zone) => console.log(zone)} />'
+  },
+  {
+    id: 'ios-focus-mode-filter-shelf',
+    name: 'iOS 专注模式场景与过滤器切换底栏',
+    category: 'iOS / 移动',
+    status: 'v3 新增',
+    purpose: '复刻 iOS 专注模式（Focus Mode）与滤镜切换底栏，支持工作、个人、睡眠与游戏模式一键平滑流体切换。',
+    anatomy: ['胶囊底托 (ds-focus-shelf)', '各模式选项按钮 (ds-focus-shelf__item)', '模式图标与文本组合', '激活模式高亮底板 (is-active)'],
+    keyboard: 'ArrowLeft/ArrowRight 在各专注模式间轮换切换；Enter 激活当前模式。',
+    guidance: [
+      '每个模式配备特定的语义图标（工作 💼、个人 🧘、睡眠 🌙、游戏 🎮）。',
+      '选中态拥有白色实体圆角底板与柔和阴影，未选中态保持低调半透明。',
+      '支持无障碍 radiogroup 语义，方向键无缝切换。'
+    ],
+    checks: [
+      '左右方向键可顺畅跳转各模式并切换激活态',
+      '选中项对比度清晰，符合无障碍标准',
+      '高对比度模式下拥有醒目的外框边界'
+    ],
+    preview: '<div class="ds-focus-shelf" role="radiogroup" aria-label="专注模式切换"><button type="button" class="ds-focus-shelf__item is-active" role="radio" aria-checked="true"><span aria-hidden="true">💼</span><span>Work</span></button><button type="button" class="ds-focus-shelf__item" role="radio" aria-checked="false"><span aria-hidden="true">🧘</span><span>Personal</span></button><button type="button" class="ds-focus-shelf__item" role="radio" aria-checked="false"><span aria-hidden="true">🌙</span><span>Sleep</span></button></div>',
+    react: '<IOSFocusModeFilterShelf activeMode="Work" onModeChange={(mode) => console.log(mode)} />'
+  },
+  {
+    id: 'macos-notch-hud-bezel',
+    name: 'macOS 屏幕刘海区即时反馈灵动通知框',
+    category: 'macOS / 桌面',
+    status: 'v3 新增',
+    purpose: '灵感源自 MacBook Pro 物理刘海与 NotchNook 工具，在屏幕正上方刘海槽位平滑下垂伸展，展示隔空投送、下载进度与媒体微预览。',
+    anatomy: ['黑色圆角贴顶视窗 (ds-notch-hud)', '刘海凹槽掩膜 (ds-notch-hud__cutout)', '缩略图图元 (ds-notch-hud__thumb)', '标题与流体进度条 (ds-notch-hud__track)', '百分比标签'],
+    keyboard: 'Tab 键聚焦刘海通知卡；Esc 键收回至物理刘海隐藏态。',
+    guidance: [
+      '顶部中央采用与 MacBook 屏幕物理刘海尺寸贴合的暗黑底板，向下展开时带有阻尼微弹簧。',
+      '进度条采用高对比度明亮蓝，暗光下清晰可见。',
+      '任务完成后提供对勾动效并自动在 3 秒内平滑收拢隐藏。'
+    ],
+    checks: [
+      '下垂展开过渡平滑，无跳跃感',
+      '进度百分比与填充条百分比同步无偏差',
+      '屏幕阅读器准确读取传输文件名及当前完成率'
+    ],
+    preview: '<div class="ds-notch-hud" role="status" aria-label="刘海通知：正在隔空投送 UI-Design-Tokens.zip"><div class="ds-notch-hud__cutout" aria-hidden="true"></div><img src="data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'38\' height=\'38\' viewBox=\'0 0 38 38\'%3E%3Crect width=\'38\' height=\'38\' rx=\'8\' fill=\'%2338bdf8\'/%3E%3Ctext x=\'19\' y=\'24\' font-size=\'16\' text-anchor=\'middle\' fill=\'white\' font-family=\'sans-serif\'%3E📦%3C/text%3E%3C/svg%3E" alt="文件图标" class="ds-notch-hud__thumb"><div class="ds-notch-hud__meta"><div class="ds-notch-hud__title">UI-Design-Tokens.zip</div><div class="ds-notch-hud__track"><div class="ds-notch-hud__fill" style="width: 68%"></div></div></div><span style="font-size:11px;font-family:var(--ds-type-mono)">68%</span></div>',
+    react: '<MacOSNotchHudBezel title="UI-Design-Tokens.zip" progress={68} icon="📦" />'
+  },
+  {
+    id: 'ios-spatial-widget-carousel',
+    name: 'visionOS 空间景深堆叠卡片轮播架',
+    category: 'iOS / 移动',
+    status: 'v3 新增',
+    purpose: '复刻 Apple VisionOS 空间窗口透视堆叠轮播，通过 CSS 3D 透视（perspective）、Z 轴景深偏移与 Y 轴旋转呈现超前空间感。',
+    anatomy: ['空间透视容器 (ds-spatial-carousel)', '前置中心激活卡片 (ds-spatial-carousel__card--active)', '左侧景深倾斜卡 (ds-spatial-carousel__card--prev)', '右侧景深倾斜卡 (ds-spatial-carousel__card--next)'],
+    keyboard: 'ArrowLeft/ArrowRight 轮转切换前台卡片；Enter 打开卡片详情。',
+    guidance: [
+      '利用 GPU 合成器 transform 属性驱动 3D 旋转与位移，严禁触发重排。',
+      '非激活卡片带有透明度与透视倾角衰减，营造远近错落的虚实深度。',
+      '在开启减少动效模式时禁用 3D 旋转倾斜，转为平面的水平滑动。'
+    ],
+    checks: [
+      '3D 空间变换柔和自然，帧率稳定',
+      '激活卡片具有最高视觉焦点与阴影层次',
+      '屏幕阅读器准确读取轮播卡片当前项'
+    ],
+    preview: '<div class="ds-spatial-carousel" role="region" aria-label="3D 空间小组件轮播"><div class="ds-spatial-carousel__card ds-spatial-carousel__card--prev" aria-hidden="true"><div><span style="font-size:18px">🌤️</span><div style="font-weight:600;font-size:12px">Weather</div></div><span style="font-size:10px;color:var(--ds-muted)">Tokyo · 22°</span></div><div class="ds-spatial-carousel__card ds-spatial-carousel__card--active" role="button" tabindex="0" aria-label="当前激活：股市走势"><div><span style="font-size:18px">📈</span><div style="font-weight:600;font-size:12px">Market Trend</div></div><span style="font-size:11px;font-weight:700;color:var(--ds-success)">+3.42% Today</span></div><div class="ds-spatial-carousel__card ds-spatial-carousel__card--next" aria-hidden="true"><div><span style="font-size:18px">🎧</span><div style="font-weight:600;font-size:12px">Podcasts</div></div><span style="font-size:10px;color:var(--ds-muted)">Episode 48</span></div></div>',
+    react: '<IOSSpatialWidgetCarousel items={[{ title: "Market Trend", stat: "+3.42%", icon: "📈" }]} />'
+  },
+  {
+    id: 'android-m3-expressive-slider-thumb',
+    name: 'Android 15 M3 表现力弹性触控滑块',
+    category: 'Android / Material',
+    status: 'v3 新增',
+    purpose: '遵循 Android 15 Material You 表现力滑块准则，加厚连续药丸轨道、触控时手柄动态微膨胀、支持精准微调与高可触达性。',
+    anatomy: ['表现力滑块外壳 (ds-m3-exp-slider)', '加厚药丸滑轨 (ds-m3-exp-slider__track)', '填充进度条 (ds-m3-exp-slider__fill)', '触控膨胀手柄 (ds-m3-exp-slider__thumb)'],
+    keyboard: 'ArrowRight/ArrowUp 步进数值；ArrowLeft/ArrowDown 减少数值；PageUp/PageDown 大步进。',
+    guidance: [
+      '滑轨高度加宽至 18px 胶囊形态，大幅提高触摸与粗略拖动命中率。',
+      '手柄在按压拖动（:active）时通过 transform: scale(1.25) 给出强烈的物理触觉反馈。',
+      '符合标准 slider 无障碍角色，附带 aria-valuenow 与上下界声明。'
+    ],
+    checks: [
+      '拖动手柄时弹性缩放顺畅无滞后',
+      '左右键能平滑按步长调节滑块数值',
+      '高对比度模式下手柄具有清晰的描边轮廓'
+    ],
+    preview: '<div class="ds-m3-exp-slider" role="region" aria-label="音量调节滑块"><div style="display:flex;justify-content:space-between;font-size:12px;font-weight:600"><span>Media Volume</span><span>70%</span></div><div class="ds-m3-exp-slider__track" role="slider" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" aria-label="媒体音量：70%"><div class="ds-m3-exp-slider__fill" style="width: 70%"></div><div class="ds-m3-exp-slider__thumb" style="left: 70%">🔊</div></div></div>',
+    react: '<AndroidM3ExpressiveSliderThumb label="Media Volume" value={70} onChange={(val) => console.log(val)} />'
+  },
+  {
+    id: 'ai-prompt-version-branch-selector',
+    name: 'AI 提示词多版本分支演进树卡片',
+    category: 'AI 交互',
+    status: 'v3 新增',
+    purpose: '灵感源自 Claude Prompt Workbench 与 LangSmith 提示词分支管理，以 Git 树形呈现版本演进节点、评测得分增量与一键切换。',
+    anatomy: ['分支卡片容器 (ds-prompt-branch)', '标题与目标模型头栏 (ds-prompt-branch__header)', '分支列表 (ds-prompt-branch__list)', '单个版本节点 (ds-prompt-branch__node)', '版本分支标签 (ds-prompt-branch__tag)', '评测对比增量 (ds-prompt-branch__score)'],
+    keyboard: 'ArrowDown/ArrowUp 在版本间移动；Enter 切换当前激活的提示词版本。',
+    guidance: [
+      '突出展示最新优化分支（如 CoT 思维链版本）相比旧版的得分解耦增量（如 +4.2%）。',
+      '激活项拥有明显的品牌色边框与浅色填充，避免生产环境分支误用。',
+      '支持标注各分支对应的基底模型。'
+    ],
+    checks: [
+      '点击节点能触发分支切换回调',
+      '版本增量得分色彩清晰达标',
+      '屏幕阅读器准确获知各版本分支的代号与分数'
+    ],
+    preview: '<div class="ds-prompt-branch" role="region" aria-label="提示词分支演进"><div class="ds-prompt-branch__header"><span>Prompt Branches</span><span style="font-size:11px;color:var(--ds-muted)">Model: GPT-4o</span></div><div class="ds-prompt-branch__list"><div class="ds-prompt-branch__node is-active" role="button" tabindex="0" aria-label="当前分支：v2.0-cot，评分 94.2"><div class="ds-prompt-branch__tag"><span>🌿</span><span>v2.0-cot</span></div><span class="ds-prompt-branch__score">Score 94.2 (+4.2%)</span></div><div class="ds-prompt-branch__node" role="button" tabindex="0" aria-label="分支：v1.1-fewshot，评分 90.0"><div class="ds-prompt-branch__tag" style="color:var(--ds-muted)"><span>🍂</span><span>v1.1-fewshot</span></div><span style="font-size:11px;color:var(--ds-muted)">Score 90.0</span></div></div></div>',
+    react: '<AIPromptVersionBranchSelector branches={[{ id: "1", tag: "v2.0-cot", score: "94.2 (+4.2%)", active: true }]} />'
+  },
+  {
+    id: 'ai-vector-embedding-semantic-cluster',
+    name: 'AI 向量语义检索聚类分布视窗',
+    category: 'AI 交互',
+    status: 'v3 新增',
+    purpose: '灵感源自 Pinecone 与 Chroma 语义检索可视化，以二维降维散点图直观呈现检索质心与周围知识库片段的余弦相似度聚类。',
+    anatomy: ['卡片总外壳 (ds-vector-cluster)', '标头与 Top-k 说明 (ds-vector-cluster__header)', '散点聚类画布 (ds-vector-cluster__canvas)', '搜索质心标记 (ds-vector-cluster__centroid)', '检索片段散点 (ds-vector-cluster__node)'],
+    keyboard: 'Tab 键遍历散点；Enter 查看选中文档片段的原文内容与得分。',
+    guidance: [
+      '中心红色圆点代表用户 Prompt 语义质心，周围散落蓝色知识库向量 Chunk。',
+      '鼠标悬停散点时触发放大并切换为绿色，直观指示 Top-k 检索命中点。',
+      '在小尺寸视图中自适应保持内边距。'
+    ],
+    checks: [
+      '散点悬停动效轻盈无延迟',
+      '质心与散点具备明确的无障碍描述',
+      '强制颜色模式下所有点位边界清晰'
+    ],
+    preview: '<div class="ds-vector-cluster" role="region" aria-label="语义检索向量聚类"><div class="ds-vector-cluster__header"><span>Vector Similarity 2D</span><span style="font-size:11px;color:var(--ds-accent)">Top-k: 8 chunks</span></div><div class="ds-vector-cluster__canvas"><div class="ds-vector-cluster__centroid" title="查询质心 (Query)"></div><div class="ds-vector-cluster__node" style="top:42%;left:45%" title="Chunk #12 (0.94)"></div><div class="ds-vector-cluster__node" style="top:58%;left:52%" title="Chunk #8 (0.91)"></div><div class="ds-vector-cluster__node" style="top:35%;left:60%" title="Chunk #24 (0.87)"></div><div class="ds-vector-cluster__node" style="top:65%;left:40%" title="Chunk #3 (0.85)"></div></div></div>',
+    react: '<AIVectorEmbeddingSemanticCluster chunks={[{ id: "12", score: 0.94, top: 42, left: 45 }]} />'
+  },
+  {
+    id: 'ai-function-calling-tool-callout',
+    name: 'AI 智能体函数调用与入参校验卡',
+    category: 'AI 交互',
+    status: 'v3 新增',
+    purpose: '复刻 OpenAI 与 Claude 智能体 Tool Use / Function Calling 交互卡，清晰呈现调用的函数签名、结构化入参 JSON 与执行耗时状态。',
+    anatomy: ['卡片外壳 (ds-tool-callout)', '工具名称与调用 ID (ds-tool-callout__header)', '函数高亮徽标 (ds-tool-callout__fn-name)', '入参 JSON 视图 (ds-tool-callout__body)', '状态与耗时底栏 (ds-tool-callout__footer)'],
+    keyboard: 'Tab 键在参数区与返回区之间切换；Space 展开/折叠长 JSON 报文。',
+    guidance: [
+      '函数名采用加粗等宽字体，并附带扳手工具图标，与普通对话文本显著区分。',
+      '入参以等宽轻量代码块格式展现，格式严格符合 JSON 规范。',
+      '底栏包含绿色成功状态码（200 OK）与毫秒级执行耗时（如 180ms）。'
+    ],
+    checks: [
+      'JSON 入参换行与代码高亮对比度符合规范',
+      '状态底栏在浅色与深色主题下自适应配色',
+      '屏幕阅读器准确读取调用的工具名及执行结果'
+    ],
+    preview: '<div class="ds-tool-callout" role="region" aria-label="工具调用：fetch_weather"><div class="ds-tool-callout__header"><div class="ds-tool-callout__fn-name"><span>🔧</span><span>tool_call: fetch_weather</span></div><span style="font-size:10px;color:var(--ds-muted)">Execution ID: #call_984</span></div><div class="ds-tool-callout__body"><div>{ "location": "Tokyo, JP", "unit": "celsius" }</div></div><div class="ds-tool-callout__footer"><span>Status: Success (200 OK)</span><span>Duration: 180ms</span></div></div>',
+    react: '<AIFunctionCallingToolCallout toolName="fetch_weather" params={{ location: "Tokyo, JP" }} duration="180ms" />'
+  },
+  {
+    id: 'telegram-channel-boost-level-badge',
+    name: 'Telegram 频道等级提权与星标加速徽章',
+    category: '即时通讯 / 社交',
+    status: 'v3 新增',
+    purpose: '复刻 Telegram Channel Boost 提权加速等级卡，紫罗兰绚丽渐变底色搭配等级大标、百分比进度条与解锁特权说明。',
+    anatomy: ['紫罗兰渐变卡片 (ds-channel-boost)', '等级标头与加速进度 (ds-channel-boost__header)', '当前等级徽章 (ds-channel-boost__level)', '流体白色进度条 (ds-channel-boost__bar)', '特权与一键加速按钮 (ds-channel-boost__footer)'],
+    keyboard: 'Tab 键聚焦加速按钮；Enter 发起 Telegram Stars 助力。',
+    guidance: [
+      '双色炫彩渐变背景赋予顶级社区特权氛围，字体颜色采用纯白保障无障碍。',
+      '进度条清晰展示当前距离下一等级还差多少 Boosts。',
+      '支持列举已解锁的专属特权（如解锁发布故事条数、自定义反应表情包）。'
+    ],
+    checks: [
+      '纯白文字在深紫渐变背景上对比度超过 6:1',
+      '进度条百分比准确映射数值',
+      '辅助技术准确识别频道当前等级与下一级所需助力'
+    ],
+    preview: '<div class="ds-channel-boost" role="region" aria-label="频道加速等级：Level 7"><div class="ds-channel-boost__header"><div class="ds-channel-boost__level"><span>⚡</span><span>Level 7</span></div><span style="font-size:12px;font-weight:700">84/100 Boosts</span></div><div class="ds-channel-boost__bar"><div class="ds-channel-boost__fill" style="width: 84%"></div></div><div class="ds-channel-boost__footer"><span>Unlocks 8 Story slots</span><span style="font-weight:600">🚀 Boost Channel</span></div></div>',
+    react: '<TelegramChannelBoostLevelBadge level={7} currentBoosts={84} maxBoosts={100} perk="Unlocks 8 Story slots" />'
+  },
+  {
+    id: 'telegram-audio-scrubber-puck-bar',
+    name: 'Telegram 精密音频拖拽定位进度棒',
+    category: '即时通讯 / 社交',
+    status: 'v3 新增',
+    purpose: '复刻 Telegram 音频播放器高精度拖拽定位条，提供毫秒级对齐微圆圆球、流体填充条与已播/总时长精确等宽排版。',
+    anatomy: ['卡片总外壳 (ds-audio-puck-bar)', '滑动凹槽滑轨 (ds-audio-puck-bar__track)', '已播进度填充条 (ds-audio-puck-bar__fill)', '高精度触控圆球 (ds-audio-puck-bar__puck)', '毫秒时间戳底栏 (ds-audio-puck-bar__times)'],
+    keyboard: 'ArrowLeft/ArrowRight 前进或后退 5 秒；Home 跳至开头，End 跳至末尾。',
+    guidance: [
+      '手柄圆球悬浮在滑轨上方并带有双层白色微描边，触摸拖拽极其精准。',
+      '时间戳采用等宽 monospace 字体，避免倒计时跳字引起宽度晃动。',
+      '在深浅色模式下音轨填充色随系统品牌主色动态变化。'
+    ],
+    checks: [
+      '拖动圆球平滑吸附在手指或光标位置',
+      '键盘步进操作准确更新无障碍当前进度值',
+      '强制颜色模式下圆球与轨道边缘清晰'
+    ],
+    preview: '<div class="ds-audio-puck-bar" role="region" aria-label="高精度音频滑动进度条"><div class="ds-audio-puck-bar__track" role="slider" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" aria-label="当前进度 45%"><div class="ds-audio-puck-bar__fill" style="width: 45%"></div><div class="ds-audio-puck-bar__puck" style="left: 45%"></div></div><div class="ds-audio-puck-bar__times"><span>01:24.45</span><span>03:08.00</span></div></div>',
+    react: '<TelegramAudioScrubberPuckBar currentProgress={45} currentTime="01:24.45" totalTime="03:08.00" />'
+  },
+  {
+    id: 'meta-instagram-story-poll-sticker',
+    name: 'Meta Instagram 互动故事投票贴纸卡',
+    category: '即时通讯 / 社交',
+    status: 'v3 新增',
+    purpose: '复刻 Instagram Story 互动投票贴纸，大尺寸易触控双选项药丸按钮、点击后即时揭晓胜率百分比与柔和边框。',
+    anatomy: ['贴纸卡片总外壳 (ds-story-poll)', '投票问题标头 (ds-story-poll__question)', '选项按钮组 (ds-story-poll__options)', '单项投票药丸按钮 (ds-story-poll__btn)', '选项标签与百分比统计'],
+    keyboard: 'Tab 键在两项投票按钮间切换；Enter 投出选票并揭晓实时百分比。',
+    guidance: [
+      '采用轻巧圆角卡片质感，适合作为浮动贴纸层叠于故事全屏背景之上。',
+      '选项按钮高度达到 44px 舒适触摸标准，文字与 Emoji 趣味结合。',
+      '投票完成后即刻呈现双方百分比，胜出选项带有品牌色加粗高亮。'
+    ],
+    checks: [
+      '点击即刻揭晓双方胜率，数字展示清晰',
+      '选项药丸在浅色与深色模式下均保持舒适对比度',
+      '辅助技术可准确读出问题与各选项当前的投票占比'
+    ],
+    preview: '<div class="ds-story-poll" role="region" aria-label="Instagram 互动故事投票"><p class="ds-story-poll__question">Love the new frosted glass UI?</p><div class="ds-story-poll__options"><button type="button" class="ds-story-poll__btn" aria-label="投票：Yes 😍 (82%)"><span>Yes 😍</span><span style="font-weight:700;color:var(--ds-accent)">82%</span></button><button type="button" class="ds-story-poll__btn" aria-label="投票：No 😢 (18%)"><span>No 😢</span><span style="font-weight:700;color:var(--ds-muted)">18%</span></button></div></div>',
+    react: '<MetaInstagramStoryPollSticker question="Love the new frosted glass UI?" optA="Yes 😍" optB="No 😢" pctA={82} pctB={18} onVote={() => {}} />'
+  },
+  {
+    id: 'meta-whatsapp-contact-qr-share-card',
+    name: 'Meta WhatsApp 个人与商户名片动态二维码卡',
+    category: '即时通讯 / 社交',
+    status: 'v3 新增',
+    purpose: '复刻 WhatsApp Contact QR Code 名片分享卡，居中高对比度二维码矩阵、官方绿色一键会话按钮与商户认证微标。',
+    anatomy: ['卡片总外壳 (ds-contact-qr-card)', '用户名称与认证微标 (ds-contact-qr-card__name)', '二维码矩阵视窗 (ds-contact-qr-card__matrix)', '一键扫码发起聊天主按钮 (ds-contact-qr-card__btn)'],
+    keyboard: 'Tab 键聚焦一键会话按钮；Enter 触发打开扫码器或复制个人主页链接。',
+    guidance: [
+      '二维码矩阵纯白底衬，确保任何复杂光照环境下相机均能秒级识别。',
+      '卡片顶部标注用户昵称与官方绿色认证微标，增强陌生人社交公信力。',
+      '底部配备醒目的 WhatsApp 品牌绿圆角长胶囊按钮。'
+    ],
+    checks: [
+      '二维码区域四周有充足安全静区（Quiet Zone）',
+      '绿色按钮在各种背景下均具备 WCAG AA 级别对比度',
+      '屏幕阅读器准确读取名片所有人姓名及添加好友说明'
+    ],
+    preview: '<div class="ds-contact-qr-card" role="region" aria-label="WhatsApp 名片二维码"><div class="ds-contact-qr-card__name"><span>Elena Vance</span><span aria-label="官方认证商户">☑️</span></div><div class="ds-contact-qr-card__matrix" aria-label="名片二维码矩阵"><span style="font-size:36px">📱</span></div><button type="button" class="ds-contact-qr-card__btn" aria-label="扫码发起会话">Scan to Chat</button></div>',
+    react: '<MetaWhatsappContactQrShareCard name="Elena Vance" onScan={() => {}} />'
+  },
+  {
+    id: 'macos-universal-clipboard-sync-card',
+    name: 'macOS & iOS 接力隔空剪贴板同步卡',
+    category: 'macOS / 桌面',
+    status: 'v3 新增',
+    purpose: '复刻 Apple Continuity 接力（Handoff）通用剪贴板浮窗，当检测到跨设备复制时提示来源设备（iPhone/iPad）与快速粘贴按钮。',
+    anatomy: ['半透明浮动胶囊横条 (ds-clipboard-sync)', '来源设备图标与名称 (ds-clipboard-sync__origin)', '剪贴板内容预览片段 (ds-clipboard-sync__text)', '一键粘贴动作按钮'],
+    keyboard: '⌘V 直接粘贴内容；Tab 聚焦卡片并按 Enter 确认粘贴。',
+    guidance: [
+      '胶囊采用超轻量毛玻璃质感，横向排版紧凑，不遮挡当前工作区。',
+      '清晰标明来源设备名称（如 Copied from iPhone 16 Pro），消除跨设备操作疑惑。',
+      '剪贴板正文文本长时自动截断，保护隐私并维持卡片整洁。'
+    ],
+    checks: [
+      '设备图标与来源文字对齐协调',
+      '粘贴操作按钮具有明显的视觉边界',
+      '屏幕阅读器能完整播报跨设备同步来源与复制文本'
+    ],
+    preview: '<div class="ds-clipboard-sync" role="status" aria-label="接力剪贴板同步"><div style="display:flex;flex-direction:column;gap:4px"><div class="ds-clipboard-sync__origin"><span>📱</span><span>Copied from iPhone 16 Pro</span></div><div class="ds-clipboard-sync__text">https://github.com/modern-ai-ui</div></div><button type="button" class="ds-button" style="padding:4px 12px;font-size:11px" aria-label="直接粘贴当前内容">Paste</button></div>',
+    react: '<MacOSUniversalClipboardSyncCard device="iPhone 16 Pro" snippet="https://github.com/modern-ai-ui" onPaste={() => {}} />'
+  },
+  {
+    id: 'ios-ambient-island-minimal-pill',
+    name: 'iOS 灵动岛微状态挂起胶囊',
+    category: 'iOS / 移动',
+    status: 'v3 新增',
+    purpose: '复刻 Dynamic Island 紧凑极简挂起状态（Minimal Island），高度仅 28px 的高精度纯黑胶囊，展示倒计时、录音或即时比分。',
+    anatomy: ['纯黑紧凑极简胶囊 (ds-ambient-island)', '左侧状态图标', '右侧等宽核心数据'],
+    keyboard: 'Tab 键聚焦微胶囊；Enter 或 Space 展开为灵动岛大尺寸交互卡。',
+    guidance: [
+      '体积极致小巧（高度 28px），两端完全半圆包裹，适合常驻在屏幕顶端或导航栏角落。',
+      '左侧展示暖橙沙漏或麦克风微标，右侧展示等宽时间或比分，极具科技感。',
+      '点击或悬停时带有微放大反馈（scale 1.08）。'
+    ],
+    checks: [
+      '胶囊尺寸与内外间距极其精致协调',
+      '悬停轻微弹性放大动效丝滑',
+      '屏幕阅读器准确读取灵动岛当前代表的后台任务'
+    ],
+    preview: '<div class="ds-ambient-island" role="button" tabindex="0" aria-label="灵动岛微胶囊：倒计时进行中 14:20"><span style="color:#F59E0B">⏳</span><span>14:20</span></div>',
+    react: '<IOSAmbientIslandMinimalPill icon="⏳" content="14:20" onExpand={() => {}} />'
+  }
+
 ];
-
-
-
-
-
-
-
-
-

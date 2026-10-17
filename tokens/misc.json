@@ -43,6 +43,21 @@
       "xl": { "value": "saturate(200%)" }
     }
   },
+  "glass": {
+    "background": {
+      "light": { "value": "rgba(255, 255, 255, 0.72)" },
+      "dark": { "value": "rgba(26, 28, 34, 0.75)" },
+      "subtle": { "value": "rgba(255, 255, 255, 0.55)" },
+      "strong": { "value": "rgba(255, 255, 255, 0.85)" }
+    },
+    "border": {
+      "light": { "value": "rgba(255, 255, 255, 0.45)" },
+      "dark": { "value": "rgba(255, 255, 255, 0.12)" }
+    },
+    "highlight": {
+      "specular": { "value": "inset 0 1px 0 0 rgba(255, 255, 255, 0.55)" }
+    }
+  },
   "safeArea": {
     "top": { "value": "env(safe-area-inset-top, 0px)" },
     "bottom": { "value": "env(safe-area-inset-bottom, 0px)" },

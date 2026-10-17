@@ -8302,6 +8302,3654 @@ export function FigmaCanvasColorStyleVariableMigrationCard({
   );
 }
 
+export function AIReasoningThoughtBlock({
+  isThinking = false,
+  elapsedSeconds = 12.4,
+  tokenCount = 842,
+  steps = [
+    { title: 'Analyzing system requirements and design token hierarchy', isDone: true },
+    { title: 'Verifying WCAG AA 4.5:1 contrast and keyboard focus accessibility', isDone: true },
+    { title: 'Synthesizing cross-platform motion curves for iOS and Android', isActive: true },
+  ],
+  defaultExpanded = true,
+}: {
+  isThinking?: boolean;
+  elapsedSeconds?: number;
+  tokenCount?: number;
+  steps?: Array<{ title: string; isDone?: boolean; isActive?: boolean }>;
+  defaultExpanded?: boolean;
+}) {
+  const [expanded, setExpanded] = React.useState(defaultExpanded);
+  return (
+    <div
+      className="ds-thought-block"
+      role="region"
+      aria-label={`AI 深度推理思维链：${isThinking ? '思考中' : '思考完成'}，已耗时 ${elapsedSeconds}s，已消耗 ${tokenCount} Tokens`}
+    >
+      <button
+        type="button"
+        className="ds-thought-block__header"
+        aria-expanded={expanded}
+        onClick={() => setExpanded(!expanded)}
+      >
+        <span className="ds-thought-block__orb" aria-hidden="true" />
+        <span className="ds-thought-block__title">Thinking Process</span>
+        <span className="ds-thought-block__timer">{elapsedSeconds}s</span>
+        <span className="ds-thought-block__tokens">{tokenCount} tokens</span>
+        <span className="ds-thought-block__chevron" aria-hidden="true">▼</span>
+      </button>
+      {expanded && (
+        <div className="ds-thought-block__content" role="list">
+          {steps.map((st, idx) => (
+            <div key={idx} className={`ds-thought-block__step ${st.isActive ? 'is-active' : ''}`} role="listitem">
+              <span className="ds-thought-block__step-icon">{st.isDone ? '✓' : st.isActive ? '◉' : '○'}</span>
+              <span>{st.title}</span>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
 
+export function AIMultimodalPromptComposer({
+  activeModel = 'Claude 3.7 Sonnet',
+  models = ['Claude 3.7 Sonnet', 'GPT-4o', 'Gemini 2.0 Flash'],
+  attachments = ['tokens.json'],
+  tokenUsage = '1.2k / 128k',
+  onSend,
+  onAttach,
+  onModelChange,
+}: {
+  activeModel?: string;
+  models?: string[];
+  attachments?: string[];
+  tokenUsage?: string;
+  onSend?: (val: string) => void;
+  onAttach?: () => void;
+  onModelChange?: (model: string) => void;
+}) {
+  const [val, setVal] = React.useState('');
+  const [files, setFiles] = React.useState(attachments);
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
+      e.preventDefault();
+      if (val.trim() || files.length > 0) {
+        onSend?.(val);
+        setVal('');
+      }
+    }
+  };
+  return (
+    <div className="ds-prompt-composer" role="form" aria-label="AI 多模态提示词输入中枢">
+      <div className="ds-prompt-composer__top">
+        <button
+          type="button"
+          className="ds-prompt-composer__model-pill"
+          aria-label={`切换模型：当前 ${activeModel}`}
+        >
+          <span className="ds-prompt-composer__model-dot" />
+          <span>{activeModel}</span>
+          <span className="ds-prompt-composer__model-caret">▾</span>
+        </button>
+        {files.map((f, i) => (
+          <div key={i} className="ds-prompt-composer__attachment">
+            <span>📄 {f}</span>
+            <button
+              type="button"
+              className="ds-prompt-composer__attach-close"
+              aria-label={`移除 ${f}`}
+              onClick={() => setFiles(files.filter((_, idx) => idx !== i))}
+            >
+              ×
+            </button>
+          </div>
+        ))}
+      </div>
+      <textarea
+        className="ds-prompt-composer__textarea"
+        placeholder="输入提示词或按 / 调用工具..."
+        rows={2}
+        value={val}
+        onChange={(e) => setVal(e.target.value)}
+        onKeyDown={handleKeyDown}
+      />
+      <div className="ds-prompt-composer__bottom">
+        <div className="ds-prompt-composer__tools">
+          <button type="button" className="ds-prompt-composer__tool-btn" aria-label="上传附件" onClick={onAttach}>
+            📎
+          </button>
+          <button type="button" className="ds-prompt-composer__tool-btn ds-prompt-composer__mic-btn" aria-label="语音输入">
+            🎙️
+          </button>
+          <span className="ds-prompt-composer__token-budget">{tokenUsage}</span>
+        </div>
+        <button
+          type="button"
+          className="ds-prompt-composer__send-btn"
+          aria-label="发送消息 (Cmd+Enter)"
+          onClick={() => {
+            if (val.trim() || files.length > 0) {
+              onSend?.(val);
+              setVal('');
+            }
+          }}
+        >
+          <span>发送</span>
+          <kbd className="ds-prompt-composer__kbd">⌘↵</kbd>
+        </button>
+      </div>
+    </div>
+  );
+}
 
+export function AICitationSourceCard({
+  index = 1,
+  title = 'Human Interface Guidelines - Materials',
+  domain = 'developer.apple.com',
+  matchRate = '98%',
+  snippet = 'Materials create a visual hierarchy by establishing a relationship between background and foreground elements...',
+  url = 'https://developer.apple.com',
+  favicon = '',
+}: {
+  index?: number;
+  title?: string;
+  domain?: string;
+  matchRate?: string;
+  snippet?: string;
+  url?: string;
+  favicon?: string;
+}) {
+  return (
+    <div
+      className="ds-citation-card"
+      role="article"
+      aria-label={`AI 事实引用源：${domain}，置信度 ${matchRate}，相关度极高`}
+    >
+      <div className="ds-citation-card__header">
+        <span className="ds-citation-card__index">{index}</span>
+        <span className="ds-citation-card__favicon">{favicon}</span>
+        <div className="ds-citation-card__meta">
+          <span className="ds-citation-card__title">{title}</span>
+          <span className="ds-citation-card__domain">{domain}</span>
+        </div>
+        <span className="ds-citation-card__match">{matchRate} Match</span>
+      </div>
+      <blockquote className="ds-citation-card__snippet">{snippet}</blockquote>
+      <a
+        href={url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="ds-citation-card__link"
+        aria-label={`查看 ${domain} 原始出处`}
+      >
+        <span>查看原始网页</span>
+        <span aria-hidden="true">↗</span>
+      </a>
+    </div>
+  );
+}
+
+export function AIArtifactSplitViewer({
+  fileName = 'ButtonComponent.tsx',
+  version = 'v3',
+  activeTab = 'Preview',
+  compileDuration = '18ms',
+  onCopy,
+}: {
+  fileName?: string;
+  version?: string;
+  activeTab?: 'Preview' | 'Code' | 'Console';
+  compileDuration?: string;
+  onCopy?: () => void;
+}) {
+  const [tab, setTab] = React.useState(activeTab);
+  const [copied, setCopied] = React.useState(false);
+  const handleCopy = () => {
+    onCopy?.();
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1500);
+  };
+  return (
+    <div className="ds-artifact-viewer" role="region" aria-label={`AI 动态产物视窗：${fileName}，版本 ${version}`}>
+      <div className="ds-artifact-viewer__toolbar">
+        <div className="ds-artifact-viewer__file-badge">
+          <span className="ds-artifact-viewer__file-icon">⚡</span>
+          <span className="ds-artifact-viewer__file-name">{fileName}</span>
+          <span className="ds-artifact-viewer__version-tag">{version}</span>
+        </div>
+        <div className="ds-artifact-viewer__mode-switch" role="tablist">
+          {(['Preview', 'Code', 'Console'] as const).map((t) => (
+            <button
+              key={t}
+              type="button"
+              className={`ds-artifact-viewer__tab ${tab === t ? 'is-active' : ''}`}
+              role="tab"
+              aria-selected={tab === t}
+              onClick={() => setTab(t)}
+            >
+              {t}
+            </button>
+          ))}
+        </div>
+        <div className="ds-artifact-viewer__actions">
+          <button type="button" className="ds-artifact-viewer__action-btn" aria-label="复制代码" onClick={handleCopy}>
+            {copied ? '✓ Copied' : 'Copy'}
+          </button>
+          <button type="button" className="ds-artifact-viewer__action-btn" aria-label="全屏预览">
+            ⛶
+          </button>
+        </div>
+      </div>
+      <div className="ds-artifact-viewer__stage">
+        {tab === 'Preview' && (
+          <div className="ds-toolbar">
+            <button type="button" className="ds-button">Live Rendered Button</button>
+          </div>
+        )}
+        {tab === 'Code' && (
+          <pre className="ds-code" style={{ width: '100%' }}>
+            <code>{`function Button({ children }: { children: React.ReactNode }) {\n  return <button className="ds-button">{children}</button>;\n}`}</code>
+          </pre>
+        )}
+        {tab === 'Console' && (
+          <div style={{ font: '12px/1.6 var(--ds-type-mono)', color: 'var(--ds-muted)', width: '100%' }}>
+            [info] Build completed with 0 errors in {compileDuration}.
+          </div>
+        )}
+      </div>
+      <div className="ds-artifact-viewer__footer">
+        <span>Compiled in {compileDuration}</span>
+        <span>TypeScript 5.4 · React 19</span>
+      </div>
+    </div>
+  );
+}
+
+export function TelegramVoiceWaveformPlayer({
+  duration = '0:38',
+  currentTime = '0:14',
+  playbackSpeed = '1.5x',
+  isPlaying = false,
+  waveformAmplitudes = [35, 70, 100, 55, 85, 60, 40, 90, 45, 25],
+  onTogglePlay,
+  onSpeedToggle,
+}: {
+  duration?: string;
+  currentTime?: string;
+  playbackSpeed?: string;
+  isPlaying?: boolean;
+  waveformAmplitudes?: number[];
+  onTogglePlay?: () => void;
+  onSpeedToggle?: () => void;
+}) {
+  const [playing, setPlaying] = React.useState(isPlaying);
+  const [speed, setSpeed] = React.useState(playbackSpeed);
+  const speeds = ['1.0x', '1.5x', '2.0x'];
+  const handleSpeed = () => {
+    const next = speeds[(speeds.indexOf(speed) + 1) % speeds.length];
+    setSpeed(next);
+    onSpeedToggle?.();
+  };
+  return (
+    <div
+      className="ds-voice-bubble"
+      role="region"
+      aria-label={`语音留言播放器：时长 ${duration}，当前进度 ${currentTime}，播放倍速 ${speed}`}
+    >
+      <button
+        type="button"
+        className="ds-voice-bubble__play-btn"
+        aria-label={playing ? '暂停语音留言' : '播放语音留言'}
+        onClick={() => {
+          setPlaying(!playing);
+          onTogglePlay?.();
+        }}
+      >
+        <span aria-hidden="true">{playing ? '⏸' : '▶'}</span>
+      </button>
+      <div className="ds-voice-bubble__body">
+        <div className="ds-voice-bubble__waveform" aria-hidden="true">
+          {waveformAmplitudes.map((amp, i) => (
+            <span
+              key={i}
+              className={`ds-voice-bubble__bar ${i < waveformAmplitudes.length / 2 ? 'is-played' : ''}`}
+              style={{ height: `${amp}%` }}
+            />
+          ))}
+        </div>
+        <div className="ds-voice-bubble__meta">
+          <span className="ds-voice-bubble__duration">{currentTime} / {duration}</span>
+          <button
+            type="button"
+            className="ds-voice-bubble__speed-btn"
+            aria-label={`切换播放倍速：当前 ${speed}`}
+            onClick={handleSpeed}
+          >
+            {speed}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function TelegramReactionSpringBar({
+  reactions = [
+    { emoji: '👍', count: 12, isSelected: true },
+    { emoji: '❤️', count: 8 },
+    { emoji: '🔥', count: 24 },
+    { emoji: '👏', count: 5 },
+  ],
+  onReact,
+  onAddMore,
+}: {
+  reactions?: Array<{ emoji: string; count: number; isSelected?: boolean }>;
+  onReact?: (emoji: string) => void;
+  onAddMore?: () => void;
+}) {
+  const [list, setList] = React.useState(reactions);
+  const toggle = (emoji: string) => {
+    setList(list.map((r) => {
+      if (r.emoji === emoji) {
+        const sel = !r.isSelected;
+        return { ...r, isSelected: sel, count: r.count + (sel ? 1 : -1) };
+      }
+      return r;
+    }));
+    onReact?.(emoji);
+  };
+  return (
+    <div className="ds-spring-reaction-bar" role="toolbar" aria-label="快捷表情表态工具栏">
+      {list.map((r) => (
+        <button
+          key={r.emoji}
+          type="button"
+          className={`ds-spring-reaction-bar__emoji-btn ${r.isSelected ? 'is-selected' : ''}`}
+          aria-label={`表态：${r.emoji} (${r.count}人)`}
+          aria-pressed={!!r.isSelected}
+          onClick={() => toggle(r.emoji)}
+        >
+          <span className="ds-spring-reaction-bar__char">{r.emoji}</span>
+          <span className="ds-spring-reaction-bar__count">{r.count}</span>
+        </button>
+      ))}
+      <button
+        type="button"
+        className="ds-spring-reaction-bar__add-btn"
+        aria-label="添加更多表情表态"
+        onClick={onAddMore}
+      >
+        +
+      </button>
+    </div>
+  );
+}
+
+export function TelegramChatBubbleReceipt({
+  sender = 'you',
+  quote,
+  message = 'All merged! Added the Liquid Glass toolbar and Telegram reaction bar.',
+  time = '14:32',
+  status = 'read',
+}: {
+  sender?: 'you' | 'other';
+  quote?: { author: string; text: string };
+  message: string;
+  time?: string;
+  status?: 'sent' | 'delivered' | 'read';
+}) {
+  const isOut = sender === 'you';
+  return (
+    <div
+      className={`ds-msg-row ${isOut ? 'ds-msg-row--out' : 'ds-msg-row--in'}`}
+      role="article"
+      aria-label={`${isOut ? '你' : '对方'}发送的消息：已于 ${time} 送达${status === 'read' ? '并已读' : ''}`}
+    >
+      <div className={`ds-msg-bubble ${isOut ? 'ds-msg-bubble--out' : 'ds-msg-bubble--in'}`}>
+        {quote && (
+          <div className="ds-msg-bubble__quote">
+            <span className="ds-msg-bubble__quote-author">{quote.author}</span>
+            <span className="ds-msg-bubble__quote-text">{quote.text}</span>
+          </div>
+        )}
+        <div className="ds-msg-bubble__text">{message}</div>
+        <div className="ds-msg-bubble__footer">
+          <span className="ds-msg-bubble__time">{time}</span>
+          {isOut && (
+            <span
+              className="ds-msg-bubble__checks"
+              aria-label={status === 'read' ? '已读' : '已发送'}
+            >
+              {status === 'read' ? '✓✓' : '✓'}
+            </span>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function TelegramPinnedBroadcastBanner({
+  messageId = 42,
+  title = 'Pinned Message #42',
+  snippet = 'UI Design System v3.1 update is now live across all platforms.',
+  onJump,
+  onClose,
+}: {
+  messageId?: number;
+  title?: string;
+  snippet?: string;
+  onJump?: (id: number) => void;
+  onClose?: () => void;
+}) {
+  return (
+    <div className="ds-pinned-banner" role="banner" aria-label={`置顶公告：${title}，点击可快速跳转到原始消息`}>
+      <div className="ds-pinned-banner__indicator" aria-hidden="true" />
+      <div className="ds-pinned-banner__content">
+        <span className="ds-pinned-banner__title">{title}</span>
+        <span className="ds-pinned-banner__snippet">{snippet}</span>
+      </div>
+      <div className="ds-pinned-banner__actions">
+        <button
+          type="button"
+          className="ds-pinned-banner__jump-btn"
+          aria-label={`跳转至置顶原消息 #${messageId}`}
+          onClick={() => onJump?.(messageId)}
+        >
+          View ➔
+        </button>
+        {onClose && (
+          <button
+            type="button"
+            className="ds-pinned-banner__close-btn"
+            aria-label="关闭置顶公告"
+            onClick={onClose}
+          >
+            ×
+          </button>
+        )}
+      </div>
+    </div>
+  );
+}
+
+export function MacOSLiquidGlassToolbar({
+  title = 'Workspace Project — Design System',
+  activeTab = 'Design',
+  tabs = ['Design', 'Tokens', 'Code'],
+  onTabChange,
+  onSearch,
+}: {
+  title?: string;
+  activeTab?: string;
+  tabs?: string[];
+  onTabChange?: (tab: string) => void;
+  onSearch?: (query: string) => void;
+}) {
+  const [current, setCurrent] = React.useState(activeTab);
+  const handleTab = (t: string) => {
+    setCurrent(t);
+    onTabChange?.(t);
+  };
+  return (
+    <div className="ds-liquid-toolbar" role="region" aria-label={`macOS 晶莹毛玻璃主工具栏：${title}`}>
+      <div className="ds-traffic-lights" aria-label="窗口控制">
+        <span className="ds-traffic-lights__dot ds-traffic-lights__dot--red" title="关闭窗口" />
+        <span className="ds-traffic-lights__dot ds-traffic-lights__dot--yellow" title="最小化窗口" />
+        <span className="ds-traffic-lights__dot ds-traffic-lights__dot--green" title="全屏视窗" />
+      </div>
+      <div className="ds-liquid-toolbar__title">{title}</div>
+      <div className="ds-liquid-toolbar__segments" role="tablist">
+        {tabs.map((t) => (
+          <button
+            key={t}
+            type="button"
+            className={`ds-liquid-toolbar__seg-btn ${current === t ? 'is-active' : ''}`}
+            role="tab"
+            aria-selected={current === t}
+            onClick={() => handleTab(t)}
+          >
+            {t}
+          </button>
+        ))}
+      </div>
+      <div className="ds-liquid-toolbar__search">
+        <span aria-hidden="true">🔍</span>
+        <input
+          type="search"
+          placeholder="Search..."
+          aria-label="搜索项目"
+          onChange={(e) => onSearch?.(e.target.value)}
+        />
+        <kbd className="ds-liquid-toolbar__kbd">⌘K</kbd>
+      </div>
+    </div>
+  );
+}
+
+export function IOSDynamicIslandMorphPill({
+  isExpanded = true,
+  songTitle = 'Bohemian Rhapsody',
+  artistName = 'Queen — A Night at the Opera',
+  currentTime = '2:45',
+  remainingTime = '-3:09',
+  progressPercent = 48,
+  onToggleExpand,
+}: {
+  isExpanded?: boolean;
+  songTitle?: string;
+  artistName?: string;
+  currentTime?: string;
+  remainingTime?: string;
+  progressPercent?: number;
+  onToggleExpand?: () => void;
+}) {
+  const [expanded, setExpanded] = React.useState(isExpanded);
+  const [playing, setPlaying] = React.useState(true);
+  const toggle = () => {
+    setExpanded(!expanded);
+    onToggleExpand?.();
+  };
+  return (
+    <div
+      className={`ds-dynamic-morph-island ${expanded ? 'is-expanded' : ''}`}
+      role="region"
+      aria-label={`iOS 灵动岛实时活动：正在播放 ${songTitle}`}
+      onClick={!expanded ? toggle : undefined}
+    >
+      <div className="ds-dynamic-morph-island__expanded">
+        <div className="ds-dynamic-morph-island__header">
+          <span className="ds-dynamic-morph-island__art">🎵</span>
+          <div className="ds-dynamic-morph-island__track-info">
+            <span className="ds-dynamic-morph-island__song">{songTitle}</span>
+            <span className="ds-dynamic-morph-island__artist">{artistName}</span>
+          </div>
+          <span className="ds-dynamic-morph-island__status-pill">AirPlay</span>
+        </div>
+        <div className="ds-dynamic-morph-island__scrubber">
+          <div
+            className="ds-dynamic-morph-island__scrub-fill"
+            style={{ width: `${progressPercent}%` }}
+          />
+        </div>
+        <div className="ds-dynamic-morph-island__footer">
+          <span>{currentTime}</span>
+          <div className="ds-dynamic-morph-island__btns">
+            <button type="button" aria-label="上一曲">⏮</button>
+            <button
+              type="button"
+              aria-label={playing ? '暂停播放' : '继续播放'}
+              onClick={(e) => {
+                e.stopPropagation();
+                setPlaying(!playing);
+              }}
+            >
+              {playing ? '⏸' : '▶'}
+            </button>
+            <button type="button" aria-label="下一曲">⏭</button>
+          </div>
+          <span>{remainingTime}</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function AndroidM3TonalSurfaceCard({
+  title = '智能动态电池管理',
+  badge = 'Adaptive Power',
+  description = '基于当前使用习惯自动调节后台刷新频率与屏幕刷新率，延长续航约 3.5 小时。',
+  actionLabel = '启用模式',
+  onAction,
+}: {
+  title?: string;
+  badge?: string;
+  description?: string;
+  actionLabel?: string;
+  onAction?: () => void;
+}) {
+  return (
+    <div
+      className="ds-m3-tonal-card"
+      role="region"
+      aria-label={`Material You 动态色调感知卡片：${title}`}
+    >
+      <div className="ds-m3-tonal-card__header">
+        <span className="ds-m3-tonal-card__icon" aria-hidden="true">⚡</span>
+        <span className="ds-m3-tonal-card__badge">{badge}</span>
+      </div>
+      <div className="ds-m3-tonal-card__title">{title}</div>
+      <p className="ds-m3-tonal-card__desc">{description}</p>
+      <div className="ds-m3-tonal-card__footer">
+        <button
+          type="button"
+          className="ds-m3-tonal-card__action"
+          aria-label={`${actionLabel}：${title}`}
+          onClick={onAction}
+        >
+          {actionLabel}
+        </button>
+      </div>
+    </div>
+  );
+}
+
+export function MetaStoryAvatarGradientRing({
+  userName = 'Elena Vance',
+  avatarSrc = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Ccircle cx='24' cy='24' r='24' fill='%236366f1'/%3E%3Ctext x='24' y='28' font-size='16' text-anchor='middle' fill='white' font-family='sans-serif'%3EEV%3C/text%3E%3C/svg%3E",
+  isLive = true,
+  hasUnreadStory = true,
+  onClick,
+}: {
+  userName?: string;
+  avatarSrc?: string;
+  isLive?: boolean;
+  hasUnreadStory?: boolean;
+  onClick?: () => void;
+}) {
+  return (
+    <div
+      className={`ds-story-avatar-ring ${isLive ? 'is-live' : ''} ${hasUnreadStory ? 'has-unread' : ''}`}
+      role="button"
+      tabIndex={0}
+      aria-label={`${userName} 的即时故事${isLive ? '，正在直播中' : ''}，点击观看`}
+      onClick={onClick}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onClick?.();
+        }
+      }}
+    >
+      <div className="ds-story-avatar-ring__gradient" aria-hidden="true" />
+      <div className="ds-story-avatar-ring__gap">
+        <img
+          src={avatarSrc}
+          alt={`${userName} 头像`}
+          className="ds-story-avatar-ring__img"
+        />
+      </div>
+      {isLive && <span className="ds-story-avatar-ring__live-badge">LIVE</span>}
+    </div>
+  );
+}
+
+export interface RaycastCommandItem {
+  id: string;
+  title: string;
+  icon?: string;
+  shortcut?: string;
+}
+
+export function MacOSRaycastCommandPalette({
+  placeholder = 'Type a command or search...',
+  items = [
+    { id: '1', title: 'Open Modern AI Design System', icon: '⚡', shortcut: '↵' },
+    { id: '2', title: 'Toggle Dark / Light Theme', icon: '🎨', shortcut: '⌘T' },
+    { id: '3', title: 'Copy CSS Variables Token', icon: '📋', shortcut: '⌘C' },
+  ],
+  footerText = 'Raycast Core v2.4',
+  onSelect,
+}: {
+  placeholder?: string;
+  items?: RaycastCommandItem[];
+  footerText?: string;
+  onSelect?: (item: RaycastCommandItem) => void;
+}) {
+  const [selectedId, setSelectedId] = React.useState(items[0]?.id || '');
+  const [query, setQuery] = React.useState('');
+
+  const filtered = items.filter((it) =>
+    it.title.toLowerCase().includes(query.toLowerCase())
+  );
+
+  return (
+    <div className="ds-raycast-palette" role="dialog" aria-label="全局指令控制台">
+      <div className="ds-raycast-palette__input-box">
+        <span aria-hidden="true">🔍</span>
+        <input
+          type="search"
+          placeholder={placeholder}
+          aria-label="搜索指令"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+        />
+      </div>
+      <ul className="ds-raycast-palette__list" role="listbox">
+        <li className="ds-raycast-palette__group-title" role="presentation">
+          Suggested
+        </li>
+        {filtered.map((item) => {
+          const isSelected = item.id === selectedId;
+          return (
+            <li
+              key={item.id}
+              className={`ds-raycast-palette__item ${isSelected ? 'is-selected' : ''}`}
+              role="option"
+              aria-selected={isSelected}
+              onClick={() => {
+                setSelectedId(item.id);
+                onSelect?.(item);
+              }}
+            >
+              <div className="ds-raycast-palette__item-left">
+                {item.icon && (
+                  <span className="ds-raycast-palette__item-icon">{item.icon}</span>
+                )}
+                <span>{item.title}</span>
+              </div>
+              {item.shortcut && (
+                <kbd className="ds-raycast-palette__kbd">{item.shortcut}</kbd>
+              )}
+            </li>
+          );
+        })}
+      </ul>
+      <div className="ds-raycast-palette__footer">
+        <span>{footerText}</span>
+        <div className="ds-raycast-palette__footer-actions">
+          <span>
+            Open <kbd className="ds-raycast-palette__kbd">↵</kbd>
+          </span>
+          <span>
+            Actions <kbd className="ds-raycast-palette__kbd">⌘K</kbd>
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function IOSBottomSheetSnapDrawer({
+  title = 'Quick Actions',
+  description = 'Select a quick action or swipe up to reveal more contextual tools.',
+  onClose,
+  children,
+}: {
+  title?: string;
+  description?: string;
+  onClose?: () => void;
+  children?: React.ReactNode;
+}) {
+  return (
+    <div
+      className="ds-bottom-sheet"
+      role="region"
+      aria-label={`底栏抽屉：${title}`}
+    >
+      <div className="ds-bottom-sheet__grabber" aria-hidden="true" />
+      <div className="ds-bottom-sheet__header">
+        <span>{title}</span>
+        <button
+          type="button"
+          className="ds-bottom-sheet__close-btn"
+          aria-label="关闭底栏抽屉"
+          onClick={onClose}
+        >
+          ×
+        </button>
+      </div>
+      <div className="ds-bottom-sheet__body">
+        {description && <p>{description}</p>}
+        {children || (
+          <div className="ds-toolbar">
+            <button className="ds-button" type="button">
+              Primary Tool
+            </button>
+            <button className="ds-button ds-button--secondary" type="button">
+              Secondary Tool
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+export function AndroidPredictiveBackContainer({
+  title = 'Project Settings',
+  isSwiping = true,
+  children,
+}: {
+  title?: string;
+  isSwiping?: boolean;
+  children?: React.ReactNode;
+}) {
+  return (
+    <div
+      className={`ds-predictive-back ${isSwiping ? 'is-swiping' : ''}`}
+      role="region"
+      aria-label={`预测性返回视窗：正在滑动预览上级页面 - ${title}`}
+    >
+      <div className="ds-predictive-back__header">
+        <span aria-hidden="true">←</span>
+        <span>{title}</span>
+      </div>
+      <div className="ds-predictive-back__content">
+        {children || <p>Swipe from screen edge to peek previous workspace canvas...</p>}
+      </div>
+    </div>
+  );
+}
+
+export function AIStreamingShimmerCursor({
+  text = 'Modern AI design systems combine the physics of Apple with the predictability of Android Material 3...',
+  stats = '84 tokens/s · Claude 3.7',
+  isStreaming = true,
+  onStop,
+}: {
+  text?: string;
+  stats?: string;
+  isStreaming?: boolean;
+  onStop?: () => void;
+}) {
+  return (
+    <div
+      className="ds-streaming-response"
+      role="status"
+      aria-live="polite"
+      aria-label={`AI 正在流式生成回答，速率 ${stats}`}
+    >
+      <div className="ds-streaming-response__text">
+        {text}
+        {isStreaming && (
+          <span className="ds-streaming-response__cursor" aria-hidden="true" />
+        )}
+      </div>
+      <div className="ds-streaming-response__footer">
+        <span>{stats}</span>
+        {isStreaming && (
+          <button
+            type="button"
+            className="ds-streaming-response__stop-btn"
+            aria-label="停止生成"
+            onClick={onStop}
+          >
+            ⏹ Stop
+          </button>
+        )}
+      </div>
+    </div>
+  );
+}
+
+export interface PromptPillItem {
+  id: string;
+  label: string;
+  icon?: string;
+}
+
+export function AIPromptTemplateCarousel({
+  prompts = [
+    { id: '1', label: 'Analyze performance', icon: '⚡' },
+    { id: '2', label: 'Review design tokens', icon: '🎨' },
+    { id: '3', label: 'Write unit tests', icon: '🧪' },
+    { id: '4', label: 'Refactor a11y', icon: '♿' },
+  ],
+  onSelect,
+}: {
+  prompts?: PromptPillItem[];
+  onSelect?: (prompt: PromptPillItem) => void;
+}) {
+  return (
+    <div className="ds-prompt-carousel" role="toolbar" aria-label="AI 场景提示词推荐">
+      {prompts.map((item) => (
+        <button
+          key={item.id}
+          type="button"
+          className="ds-prompt-carousel__pill"
+          aria-label={`填入提示词：${item.label}`}
+          onClick={() => onSelect?.(item)}
+        >
+          {item.icon && <span className="ds-prompt-carousel__icon">{item.icon}</span>}
+          <span>{item.label}</span>
+        </button>
+      ))}
+    </div>
+  );
+}
+
+export function AIContextTokenFuelGauge({
+  usedTokens = 42500,
+  maxTokens = 128000,
+  label = 'Context Window',
+}: {
+  usedTokens?: number;
+  maxTokens?: number;
+  label?: string;
+}) {
+  const ratio = Math.min(1, Math.max(0, usedTokens / (maxTokens || 1)));
+  const percentage = Math.round(ratio * 100);
+  const usedK = (usedTokens / 1000).toFixed(1) + 'k';
+  const capacityK = (maxTokens / 1000).toFixed(0) + 'k';
+
+  return (
+    <div
+      className="ds-token-fuel-gauge"
+      role="progressbar"
+      aria-valuenow={usedTokens}
+      aria-valuemin={0}
+      aria-valuemax={maxTokens}
+      aria-label={`AI 上下文窗口容量：已消耗 ${usedK} Tokens，占用 ${percentage}%`}
+    >
+      <div className="ds-token-fuel-gauge__header">
+        <span>{label}</span>
+        <span className="ds-token-fuel-gauge__percent">{percentage}% Used</span>
+      </div>
+      <div className="ds-token-fuel-gauge__track">
+        <div
+          className="ds-token-fuel-gauge__fill"
+          style={{ transform: `scaleX(${ratio})` }}
+        />
+      </div>
+      <div className="ds-token-fuel-gauge__stats">
+        <span>{usedK} used</span>
+        <span>{capacityK} capacity</span>
+      </div>
+    </div>
+  );
+}
+
+export function AIModelArenaCompareCard({
+  modelATitle = 'Model A',
+  modelAStats = 'TTFT: 240ms · 92 tok/s',
+  modelAContent = 'Provides clean, modular code with comprehensive TypeScript annotations.',
+  modelBTitle = 'Model B',
+  modelBStats = 'TTFT: 180ms · 114 tok/s',
+  modelBContent = 'Offers concise code snippets with detailed inline architectural rationale.',
+  onVote,
+}: {
+  modelATitle?: string;
+  modelAStats?: string;
+  modelAContent?: string;
+  modelBTitle?: string;
+  modelBStats?: string;
+  modelBContent?: string;
+  onVote?: (choice: 'a' | 'b' | 'tie') => void;
+}) {
+  return (
+    <div className="ds-model-arena-card" role="region" aria-label="AI 双模型对比盲测竞技场">
+      <div className="ds-model-arena-card__grid">
+        <div className="ds-model-arena-card__col">
+          <div className="ds-model-arena-card__col-header">
+            <span>{modelATitle}</span>
+            <span className="ds-model-arena-card__col-stats">{modelAStats}</span>
+          </div>
+          <div className="ds-model-arena-card__col-body">{modelAContent}</div>
+        </div>
+        <div className="ds-model-arena-card__col">
+          <div className="ds-model-arena-card__col-header">
+            <span>{modelBTitle}</span>
+            <span className="ds-model-arena-card__col-stats">{modelBStats}</span>
+          </div>
+          <div className="ds-model-arena-card__col-body">{modelBContent}</div>
+        </div>
+      </div>
+      <div className="ds-model-arena-card__vote-bar">
+        <button
+          type="button"
+          className="ds-model-arena-card__vote-btn"
+          aria-label={`投票：${modelATitle} 表现更优`}
+          onClick={() => onVote?.('a')}
+        >
+          👈 {modelATitle} is better
+        </button>
+        <button
+          type="button"
+          className="ds-model-arena-card__vote-btn"
+          aria-label="投票：两者表现平局"
+          onClick={() => onVote?.('tie')}
+        >
+          🤝 Tie
+        </button>
+        <button
+          type="button"
+          className="ds-model-arena-card__vote-btn"
+          aria-label={`投票：${modelBTitle} 表现更优`}
+          onClick={() => onVote?.('b')}
+        >
+          {modelBTitle} is better 👉
+        </button>
+      </div>
+    </div>
+  );
+}
+
+export function TelegramVideoNoteCircleBubble({
+  duration = '0:28',
+  previewSrc = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Ccircle cx='70' cy='70' r='70' fill='%23374151'/%3E%3Ctext x='70' y='76' font-size='24' text-anchor='middle' fill='white' font-family='sans-serif'%3EVIDEO%3C/text%3E%3C/svg%3E",
+  isPlaying = false,
+  onTogglePlay,
+}: {
+  duration?: string;
+  previewSrc?: string;
+  isPlaying?: boolean;
+  onTogglePlay?: () => void;
+}) {
+  return (
+    <div
+      className="ds-video-note"
+      role="region"
+      aria-label={`Telegram 圆形视讯留言：时长 ${duration}，点击切换播放与静音`}
+      onClick={onTogglePlay}
+    >
+      <div className="ds-video-note__ring" aria-hidden="true" />
+      <img
+        src={previewSrc}
+        alt="视讯留言画面预览"
+        className="ds-video-note__thumb"
+      />
+      <div className="ds-video-note__badge">
+        {isPlaying ? '▶' : '🔊'} {duration}
+      </div>
+    </div>
+  );
+}
+
+export interface ContextMenuItem {
+  id: string;
+  label: string;
+  icon?: string;
+  shortcut?: string;
+  isDanger?: boolean;
+}
+
+export function TelegramMessageContextPopover({
+  items = [
+    { id: 'reply', label: 'Reply', icon: '↩', shortcut: '⌘R' },
+    { id: 'copy', label: 'Copy Text', icon: '📋', shortcut: '⌘C' },
+    { id: 'pin', label: 'Pin Message', icon: '📌', shortcut: '⌘P' },
+    { id: 'delete', label: 'Delete', icon: '🗑', shortcut: '⌫', isDanger: true },
+  ],
+  onSelect,
+}: {
+  items?: ContextMenuItem[];
+  onSelect?: (item: ContextMenuItem) => void;
+}) {
+  return (
+    <div className="ds-msg-context-menu" role="menu" aria-label="消息快捷操作">
+      {items.map((it) => (
+        <button
+          key={it.id}
+          type="button"
+          className={`ds-msg-context-menu__item ${it.isDanger ? 'is-danger' : ''}`}
+          role="menuitem"
+          onClick={() => onSelect?.(it)}
+        >
+          <div className="ds-msg-context-menu__item-left">
+            {it.icon && <span>{it.icon}</span>}
+            <span>{it.label}</span>
+          </div>
+          {it.shortcut && (
+            <span className="ds-msg-context-menu__shortcut">{it.shortcut}</span>
+          )}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+export interface ControlSliderItem {
+  id: string;
+  label: string;
+  icon?: string;
+  value: number;
+}
+
+export function MacOSControlCenterSliderGrid({
+  sliders = [
+    { id: 'display', label: 'Display', icon: '☀️', value: 75 },
+    { id: 'sound', label: 'Sound', icon: '🔊', value: 60 },
+  ],
+  onChange,
+}: {
+  sliders?: ControlSliderItem[];
+  onChange?: (id: string, value: number) => void;
+}) {
+  return (
+    <div
+      className="ds-control-center-grid"
+      role="region"
+      aria-label="macOS 控制中心硬件调节"
+    >
+      {sliders.map((sl) => (
+        <div
+          key={sl.id}
+          className="ds-control-slider"
+          role="slider"
+          aria-valuenow={sl.value}
+          aria-valuemin={0}
+          aria-valuemax={100}
+          aria-label={`${sl.label}：当前 ${sl.value}%`}
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (e.key === 'ArrowUp' || e.key === 'ArrowRight') {
+              onChange?.(sl.id, Math.min(100, sl.value + 5));
+            } else if (e.key === 'ArrowDown' || e.key === 'ArrowLeft') {
+              onChange?.(sl.id, Math.max(0, sl.value - 5));
+            }
+          }}
+        >
+          <div
+            className="ds-control-slider__fill"
+            style={{ width: `${sl.value}%` }}
+          />
+          <div className="ds-control-slider__content">
+            <span>
+              {sl.icon ? `${sl.icon} ` : ''}
+              {sl.label}
+            </span>
+            <span>{sl.value}%</span>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+export interface RadialActionItem {
+  id: string;
+  label: string;
+  icon: string;
+  top: number;
+  left: number;
+}
+
+export function IOSActionButtonRadialHub({
+  activeIcon = '📷',
+  activeTitle = '当前模式：相机',
+  actions = [
+    { id: 'torch', label: '手电筒', icon: '🔦', top: 8, left: 62 },
+    { id: 'voice', label: '语音备忘录', icon: '🎙️', top: 36, left: 114 },
+    { id: 'shortcut', label: '快捷指令', icon: '⚡', top: 88, left: 114 },
+    { id: 'translate', label: '翻译', icon: '🌐', top: 116, left: 62 },
+    { id: 'silent', label: '静音模式', icon: '🔔', top: 88, left: 10 },
+    { id: 'focus', label: '对焦', icon: '🎯', top: 36, left: 10 },
+  ],
+  onActionSelect,
+}: {
+  activeIcon?: string;
+  activeTitle?: string;
+  actions?: RadialActionItem[];
+  onActionSelect?: (action: RadialActionItem) => void;
+}) {
+  return (
+    <div
+      className="ds-action-radial-hub"
+      role="region"
+      aria-label={`操作按钮径向功能轮盘：${activeTitle}`}
+    >
+      <div className="ds-action-radial-hub__center" title={activeTitle}>
+        {activeIcon}
+      </div>
+      {actions.map((act) => (
+        <button
+          key={act.id}
+          type="button"
+          className="ds-action-radial-hub__item"
+          style={{ top: `${act.top}px`, left: `${act.left}px` }}
+          aria-label={act.label}
+          onClick={() => onActionSelect?.(act)}
+        >
+          {act.icon}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+export function MetaEphemeralMessageTimerPill({
+  remaining = '23h left',
+  icon = '⏳',
+}: {
+  remaining?: string;
+  icon?: string;
+}) {
+  return (
+    <div
+      className="ds-ephemeral-timer-pill"
+      role="status"
+      aria-label={`限时阅后即焚消息：剩余 ${remaining} 后自动自毁删除`}
+    >
+      <span className="ds-ephemeral-timer-pill__clock" aria-hidden="true">
+        {icon}
+      </span>
+      <span>{remaining}</span>
+    </div>
+  );
+}
+
+export interface DockAppItem {
+  id: string;
+  label: string;
+  icon: string;
+  isRunning?: boolean;
+}
+
+export function MacOSDockMagnificationShelf({
+  apps = [
+    { id: 'finder', label: '访达 (Finder)', icon: '📁', isRunning: true },
+    { id: 'launchpad', label: '启动台 (Launchpad)', icon: '🚀', isRunning: true },
+    { id: 'terminal', label: '终端 (Terminal)', icon: '💻', isRunning: true },
+    { id: 'trash', label: '废纸篓 (Trash)', icon: '🗑️', isRunning: false },
+  ],
+  onLaunch,
+}: {
+  apps?: DockAppItem[];
+  onLaunch?: (app: DockAppItem) => void;
+}) {
+  return (
+    <div className="ds-dock-shelf" role="toolbar" aria-label="macOS 桌面应用启动栏">
+      {apps.map((app, idx) => (
+        <React.Fragment key={app.id}>
+          {idx === apps.length - 1 && <div className="ds-dock-shelf__divider" aria-hidden="true" />}
+          <div
+            className="ds-dock-shelf__item"
+            role="button"
+            tabIndex={0}
+            aria-label={app.label}
+            onClick={() => onLaunch?.(app)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                onLaunch?.(app);
+              }
+            }}
+          >
+            <div className="ds-dock-shelf__icon">{app.icon}</div>
+            {app.isRunning && <div className="ds-dock-shelf__dot" aria-hidden="true" />}
+          </div>
+        </React.Fragment>
+      ))}
+    </div>
+  );
+}
+
+export function IOSLiveActivityLockscreenWidget({
+  title = 'Premier Ride',
+  icon = '🚕',
+  pinIcon = '🚗',
+  eta = '4 min',
+  progress = 72,
+  subtext = 'Toyota Camry · 粤A·88888',
+  status = 'On Time',
+}: {
+  title?: string;
+  icon?: string;
+  pinIcon?: string;
+  eta?: string;
+  progress?: number;
+  subtext?: string;
+  status?: string;
+}) {
+  const clampedProgress = Math.min(100, Math.max(0, progress));
+  return (
+    <div
+      className="ds-live-activity"
+      role="region"
+      aria-label={`实时活动：${title}，预计 ${eta} 后到达`}
+    >
+      <div className="ds-live-activity__header">
+        <div className="ds-live-activity__title">
+          <span aria-hidden="true">{icon}</span>
+          <span>{title}</span>
+        </div>
+        <span className="ds-live-activity__eta">{eta}</span>
+      </div>
+      <div className="ds-live-activity__track">
+        <div
+          className="ds-live-activity__fill"
+          style={{ width: `${clampedProgress}%` }}
+        />
+        <span
+          className="ds-live-activity__pin"
+          style={{ left: `${clampedProgress}%` }}
+          aria-hidden="true"
+        >
+          {pinIcon}
+        </span>
+      </div>
+      <div className="ds-live-activity__footer">
+        <span>{subtext}</span>
+        <span>{status}</span>
+      </div>
+    </div>
+  );
+}
+
+export interface FabMenuItem {
+  id: string;
+  label: string;
+  icon: string;
+}
+
+export function AndroidM3ExpressiveFabMenu({
+  items = [
+    { id: 'task', label: '新建任务', icon: '📝' },
+    { id: 'upload', label: '上传凭证', icon: '📎' },
+  ],
+  isExpanded = true,
+  onToggle,
+  onSelect,
+}: {
+  items?: FabMenuItem[];
+  isExpanded?: boolean;
+  onToggle?: () => void;
+  onSelect?: (item: FabMenuItem) => void;
+}) {
+  const [expanded, setExpanded] = React.useState(isExpanded);
+
+  const toggle = () => {
+    setExpanded(!expanded);
+    onToggle?.();
+  };
+
+  return (
+    <div
+      className={`ds-m3-fab-menu ${expanded ? 'is-expanded' : ''}`}
+      role="region"
+      aria-label="快速操作扇面菜单"
+    >
+      {expanded && (
+        <div className="ds-m3-fab-menu__list" role="menu">
+          {items.map((it) => (
+            <div key={it.id} className="ds-m3-fab-menu__item" role="menuitem">
+              <span className="ds-m3-fab-menu__item-label">{it.label}</span>
+              <button
+                type="button"
+                className="ds-m3-fab-menu__item-btn"
+                aria-label={it.label}
+                onClick={() => onSelect?.(it)}
+              >
+                {it.icon}
+              </button>
+            </div>
+          ))}
+        </div>
+      )}
+      <button
+        type="button"
+        className="ds-m3-fab-menu__trigger"
+        aria-label={expanded ? '收起操作菜单' : '展开操作菜单'}
+        aria-expanded={expanded}
+        onClick={toggle}
+      >
+        ＋
+      </button>
+    </div>
+  );
+}
+
+export interface DiffLine {
+  num: number;
+  type: 'del' | 'add' | 'normal';
+  content: string;
+}
+
+export function AIDiffCodeLensInspector({
+  filename = 'src/utils/math.ts',
+  lines = [
+    { num: 12, type: 'del', content: '- const result = items.map(x => x * 2);' },
+    { num: 12, type: 'add', content: '+ const result = items.map(x => x ** 2);' },
+  ],
+  explanation = '💡 AI 修正了平方运算的幂操作符逻辑，提升数组映射效率。',
+  onAccept,
+  onReject,
+}: {
+  filename?: string;
+  lines?: DiffLine[];
+  explanation?: string;
+  onAccept?: () => void;
+  onReject?: () => void;
+}) {
+  return (
+    <div className="ds-diff-lens" role="region" aria-label={`AI 代码审查差异：${filename}`}>
+      <div className="ds-diff-lens__header">
+        <span>{filename}</span>
+        <div className="ds-diff-lens__actions">
+          <button
+            type="button"
+            className="ds-diff-lens__btn ds-diff-lens__btn--accept"
+            aria-label="采纳代码变更"
+            onClick={onAccept}
+          >
+            Accept ⌘Y
+          </button>
+          <button
+            type="button"
+            className="ds-diff-lens__btn ds-diff-lens__btn--reject"
+            aria-label="放弃代码变更"
+            onClick={onReject}
+          >
+            Reject ⌘N
+          </button>
+        </div>
+      </div>
+      <div className="ds-diff-lens__lines">
+        {lines.map((l, i) => (
+          <div
+            key={i}
+            className={`ds-diff-lens__line ${
+              l.type === 'del'
+                ? 'ds-diff-lens__line--del'
+                : l.type === 'add'
+                ? 'ds-diff-lens__line--add'
+                : ''
+            }`}
+          >
+            <span className="ds-diff-lens__num">{l.num}</span>
+            <span>{l.content}</span>
+          </div>
+        ))}
+      </div>
+      {explanation && <div className="ds-diff-lens__explain">{explanation}</div>}
+    </div>
+  );
+}
+
+export function AIAudioWaveVoiceOrb({
+  status = 'Listening · 双工实时聆听',
+  isListening = true,
+  onToggle,
+}: {
+  status?: string;
+  isListening?: boolean;
+  onToggle?: () => void;
+}) {
+  return (
+    <div className="ds-voice-orb-hub" role="region" aria-label="AI 语音交互流光球体">
+      <div
+        className="ds-voice-orb"
+        role="button"
+        tabIndex={0}
+        aria-label="点击打断或暂停语音"
+        onClick={onToggle}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            onToggle?.();
+          }
+        }}
+      >
+        <div className="ds-voice-orb__mesh" aria-hidden="true" />
+        <div className="ds-voice-orb__core" aria-hidden="true">
+          {isListening ? '🎙️' : '⏸️'}
+        </div>
+      </div>
+      <div className="ds-voice-orb__status">
+        <span aria-hidden="true">●</span>
+        <span>{status}</span>
+      </div>
+    </div>
+  );
+}
+
+export interface AgentPipelineStep {
+  id: string;
+  title: string;
+  time?: string;
+  detail?: string;
+  status: 'done' | 'running' | 'pending';
+}
+
+export function AIAgentStepPipelineTracker({
+  steps = [
+    {
+      id: '1',
+      title: '分析检索知识库文档',
+      time: '1.2s',
+      detail: '成功检索到 14 篇高相关度设计规范',
+      status: 'done',
+    },
+    {
+      id: '2',
+      title: '合成与重构 TypeScript 代码',
+      time: '进行中',
+      detail: '正在运行类型推导并生成无障碍属性',
+      status: 'running',
+    },
+    {
+      id: '3',
+      title: '端到端无损视觉比对测试',
+      time: '等待中',
+      detail: '等待代码生成完毕后触发离线套件',
+      status: 'pending',
+    },
+  ],
+}: {
+  steps?: AgentPipelineStep[];
+}) {
+  return (
+    <div
+      className="ds-agent-pipeline"
+      role="region"
+      aria-label="AI 智能体任务流水线进度"
+    >
+      {steps.map((step) => (
+        <div key={step.id} className="ds-agent-pipeline__step">
+          <div className="ds-agent-pipeline__spine" />
+          <div
+            className={`ds-agent-pipeline__node ${
+              step.status === 'done'
+                ? 'is-done'
+                : step.status === 'running'
+                ? 'is-running'
+                : 'is-pending'
+            }`}
+            aria-label={
+              step.status === 'done'
+                ? '已完成'
+                : step.status === 'running'
+                ? '执行中'
+                : '等待中'
+            }
+          >
+            {step.status === 'done' ? '✓' : step.status === 'running' ? '⚡' : '○'}
+          </div>
+          <div className="ds-agent-pipeline__body">
+            <div className="ds-agent-pipeline__step-title">
+              <span>{step.title}</span>
+              {step.time && (
+                <span className="ds-agent-pipeline__step-time">{step.time}</span>
+              )}
+            </div>
+            {step.detail && (
+              <div className="ds-agent-pipeline__step-detail">{step.detail}</div>
+            )}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+export interface FolderTabItem {
+  id: string;
+  label: string;
+  count?: number;
+  isMuted?: boolean;
+}
+
+export function TelegramFolderTabBadgeStrip({
+  tabs = [
+    { id: 'all', label: '全部会话', count: 14 },
+    { id: 'personal', label: '个人私聊', count: 3 },
+    { id: 'work', label: '工作群组', count: 8, isMuted: true },
+    { id: 'channels', label: '频道广播', count: 26, isMuted: true },
+  ],
+  activeId = 'all',
+  onTabSelect,
+}: {
+  tabs?: FolderTabItem[];
+  activeId?: string;
+  onTabSelect?: (tab: FolderTabItem) => void;
+}) {
+  const [selectedId, setSelectedId] = React.useState(activeId);
+
+  return (
+    <div className="ds-folder-tabs" role="tablist" aria-label="会话分组标签">
+      {tabs.map((tab) => {
+        const isActive = tab.id === selectedId;
+        return (
+          <button
+            key={tab.id}
+            type="button"
+            className={`ds-folder-tabs__tab ${isActive ? 'is-active' : ''}`}
+            role="tab"
+            aria-selected={isActive}
+            onClick={() => {
+              setSelectedId(tab.id);
+              onTabSelect?.(tab);
+            }}
+          >
+            <span>{tab.label}</span>
+            {tab.count !== undefined && (
+              <span
+                className={`ds-folder-tabs__badge ${
+                  tab.isMuted ? 'is-muted' : ''
+                }`}
+              >
+                {tab.count}
+              </span>
+            )}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+export function TelegramStickerLottieReactionPicker({
+  recents = ['👍', '🚀', '❤️', '🎉'],
+  stickers = ['🔥', '✨', '💯', '👏', '⚡', '💡', '🏆', '💎'],
+  onSelect,
+}: {
+  recents?: string[];
+  stickers?: string[];
+  onSelect?: (sticker: string) => void;
+}) {
+  const [query, setQuery] = React.useState('');
+
+  return (
+    <div className="ds-sticker-picker" role="dialog" aria-label="贴纸与表情选择器">
+      <div className="ds-sticker-picker__header">
+        <input
+          type="search"
+          className="ds-sticker-picker__search"
+          placeholder="搜索贴纸或表情..."
+          aria-label="搜索表情贴纸"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+        />
+      </div>
+      <div className="ds-sticker-picker__recents" aria-label="最近常用">
+        {recents.map((r, i) => (
+          <button
+            key={i}
+            type="button"
+            className="ds-sticker-picker__recent-btn"
+            aria-label={`最近使用：${r}`}
+            onClick={() => onSelect?.(r)}
+          >
+            {r}
+          </button>
+        ))}
+      </div>
+      <div className="ds-sticker-picker__grid" role="listbox">
+        {stickers.map((s, i) => (
+          <button
+            key={i}
+            type="button"
+            className="ds-sticker-picker__item"
+            role="option"
+            onClick={() => onSelect?.(s)}
+          >
+            {s}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export interface ThreadPostItem {
+  id: string;
+  author: string;
+  time: string;
+  avatar: string;
+  content: string;
+  likes?: number;
+  replies?: number;
+}
+
+export function MetaThreadsNestedReplyBranch({
+  posts = [
+    {
+      id: '1',
+      author: 'alex_rivera',
+      time: '· 2h',
+      avatar:
+        "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36' viewBox='0 0 36 36'%3E%3Ccircle cx='18' cy='18' r='18' fill='%236366f1'/%3E%3Ctext x='18' y='22' font-size='14' text-anchor='middle' fill='white' font-family='sans-serif'%3EAL%3C/text%3E%3C/svg%3E",
+      content:
+        'The fluid spring physics in the new design system feels so native on macOS and iOS!',
+      likes: 42,
+      replies: 3,
+    },
+    {
+      id: '2',
+      author: 'sarah_m',
+      time: '· 45m',
+      avatar:
+        "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36' viewBox='0 0 36 36'%3E%3Ccircle cx='18' cy='18' r='18' fill='%2310b981'/%3E%3Ctext x='18' y='22' font-size='14' text-anchor='middle' fill='white' font-family='sans-serif'%3ESM%3C/text%3E%3C/svg%3E",
+      content:
+        'Totally agree, and having 0 motion lint errors with reduced-motion guarantees accessibility everywhere.',
+      likes: 18,
+      replies: 1,
+    },
+  ],
+  onLike,
+  onReply,
+}: {
+  posts?: ThreadPostItem[];
+  onLike?: (id: string) => void;
+  onReply?: (id: string) => void;
+}) {
+  return (
+    <div className="ds-thread-branch" role="feed" aria-label="Threads 串联分支对话">
+      {posts.map((p) => (
+        <div key={p.id} className="ds-thread-branch__item">
+          <div className="ds-thread-branch__spine" />
+          <img src={p.avatar} alt={p.author} className="ds-thread-branch__avatar" />
+          <div className="ds-thread-branch__body">
+            <div className="ds-thread-branch__author">
+              <span>{p.author}</span>
+              <span className="ds-thread-branch__time">{p.time}</span>
+            </div>
+            <div className="ds-thread-branch__text">{p.content}</div>
+            <div className="ds-thread-branch__actions">
+              <button
+                type="button"
+                className="ds-thread-branch__action-btn"
+                aria-label={`点赞 ${p.likes || 0} 次`}
+                onClick={() => onLike?.(p.id)}
+              >
+                ❤️ {p.likes || 0}
+              </button>
+              <button
+                type="button"
+                className="ds-thread-branch__action-btn"
+                aria-label={`回复 ${p.replies || 0} 条`}
+                onClick={() => onReply?.(p.id)}
+              >
+                💬 {p.replies || 0}
+              </button>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+export function MetaChannelBroadcastVoiceNote({
+  channelName = 'Design System Team',
+  subscribers = '124K Subscribers',
+  duration = '0:42',
+  avatar = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='20' fill='%233b82f6'/%3E%3Ctext x='20' y='25' font-size='16' text-anchor='middle' fill='white' font-family='sans-serif'%3EDS%3C/text%3E%3C/svg%3E",
+  isPlaying = false,
+  onPlayToggle,
+}: {
+  channelName?: string;
+  subscribers?: string;
+  duration?: string;
+  avatar?: string;
+  isPlaying?: boolean;
+  onPlayToggle?: () => void;
+}) {
+  return (
+    <div
+      className="ds-channel-broadcast"
+      role="region"
+      aria-label={`频道广播语音：${channelName}`}
+    >
+      <div className="ds-channel-broadcast__header">
+        <img src={avatar} alt={channelName} className="ds-channel-broadcast__avatar" />
+        <div className="ds-channel-broadcast__info">
+          <div className="ds-channel-broadcast__name">
+            <span>{channelName}</span>
+            <span aria-label="已认证官方频道">☑️</span>
+          </div>
+          <span className="ds-channel-broadcast__subs">{subscribers}</span>
+        </div>
+      </div>
+      <div className="ds-channel-broadcast__card">
+        <button
+          type="button"
+          className="ds-channel-broadcast__play-btn"
+          aria-label={isPlaying ? '暂停语音' : '播放语音更新'}
+          onClick={onPlayToggle}
+        >
+          {isPlaying ? '⏸' : '▶'}
+        </button>
+        <div className="ds-channel-broadcast__bars" aria-hidden="true">
+          <div className="ds-channel-broadcast__bar is-played" style={{ height: 10 }} />
+          <div className="ds-channel-broadcast__bar is-played" style={{ height: 18 }} />
+          <div className="ds-channel-broadcast__bar is-played" style={{ height: 24 }} />
+          <div className="ds-channel-broadcast__bar" style={{ height: 14 }} />
+          <div className="ds-channel-broadcast__bar" style={{ height: 20 }} />
+          <div className="ds-channel-broadcast__bar" style={{ height: 8 }} />
+        </div>
+        <span>{duration}</span>
+      </div>
+      <div className="ds-channel-broadcast__reactions">
+        <span className="ds-channel-broadcast__chip">🔥 1.4K</span>
+        <span className="ds-channel-broadcast__chip">❤️ 920</span>
+        <span className="ds-channel-broadcast__chip">🚀 640</span>
+      </div>
+    </div>
+  );
+}
+
+export function MacOSSpotlightQuickPreviewModal({
+  filename = 'hero-banner.png',
+  meta = 'PNG Image · 2400 × 1260 · 1.8 MB',
+  previewIcon = '🖼️',
+  onClose,
+  onOpenWithApp,
+}: {
+  filename?: string;
+  meta?: string;
+  previewIcon?: string;
+  onClose?: () => void;
+  onOpenWithApp?: () => void;
+}) {
+  return (
+    <div
+      className="ds-quicklook-modal"
+      role="dialog"
+      aria-label={`Quick Look 文件速览：${filename}`}
+    >
+      <div className="ds-quicklook-modal__header">
+        <div className="ds-quicklook-modal__dots" aria-hidden="true">
+          <span className="ds-mac-light ds-mac-light--close" onClick={onClose} />
+          <span className="ds-mac-light ds-mac-light--min" />
+          <span className="ds-mac-light ds-mac-light--max" />
+        </div>
+        <span className="ds-quicklook-modal__title">{filename}</span>
+        <span />
+      </div>
+      <div className="ds-quicklook-modal__body">
+        <div className="ds-quicklook-modal__preview" aria-label="图像预览画布">
+          {previewIcon}
+        </div>
+        <div className="ds-quicklook-modal__meta">
+          <span>{meta}</span>
+        </div>
+      </div>
+      <div className="ds-quicklook-modal__footer">
+        <button
+          type="button"
+          className="ds-button"
+          aria-label="在默认应用中打开"
+          onClick={onOpenWithApp}
+        >
+          Open with Preview
+        </button>
+      </div>
+    </div>
+  );
+}
+
+export interface LiquidSegmentItem {
+  id: string;
+  label: string;
+  icon?: string;
+}
+
+export function IOSSegmentedLiquidPillControl({
+  options = [
+    { id: 'analytics', label: 'Analytics', icon: '📊' },
+    { id: 'reports', label: 'Reports', icon: '📄' },
+    { id: 'settings', label: 'Settings', icon: '⚙️' },
+  ],
+  selectedId = 'analytics',
+  onSelect,
+}: {
+  options?: LiquidSegmentItem[];
+  selectedId?: string;
+  onSelect?: (item: LiquidSegmentItem) => void;
+}) {
+  const [currentId, setCurrentId] = React.useState(selectedId);
+
+  return (
+    <div className="ds-liquid-segmented" role="radiogroup" aria-label="视图模式切换">
+      {options.map((opt) => {
+        const isActive = opt.id === currentId;
+        return (
+          <button
+            key={opt.id}
+            type="button"
+            className={`ds-liquid-segmented__item ${isActive ? 'is-active' : ''}`}
+            role="radio"
+            aria-checked={isActive}
+            onClick={() => {
+              setCurrentId(opt.id);
+              onSelect?.(opt);
+            }}
+          >
+            {opt.icon && <span aria-hidden="true">{opt.icon}</span>}
+            <span>{opt.label}</span>
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+export function MacOSMenuBarWeatherGlance({
+  temp = 24,
+  condition = 'Partly Cloudy',
+  glyph = '⛅',
+  aqi = 28,
+  hourly = [
+    { time: 'Now', tempH: 24 },
+    { time: '14:00', tempH: 28 },
+    { time: '15:00', tempH: 32 },
+    { time: '16:00', tempH: 22 },
+  ],
+}: {
+  temp?: number;
+  condition?: string;
+  glyph?: string;
+  aqi?: number;
+  hourly?: { time: string; tempH: number }[];
+}) {
+  return (
+    <div
+      className="ds-weather-glance"
+      role="region"
+      aria-label={`微气象速览：当前 ${temp}°C，${condition}，空气质量优`}
+    >
+      <div className="ds-weather-glance__current">
+        <div className="ds-weather-glance__temp">
+          <span aria-hidden="true">{glyph}</span>
+          <span>{temp}°</span>
+        </div>
+        <div className="ds-weather-glance__condition">
+          <span>{condition}</span>
+          <div className="ds-weather-glance__aqi">AQI {aqi} 优</div>
+        </div>
+      </div>
+      <div className="ds-weather-glance__hourly">
+        {hourly.map((h, i) => (
+          <div key={i} className="ds-weather-glance__hour-col">
+            <div
+              className="ds-weather-glance__bar"
+              style={{ height: `${h.tempH}px` }}
+            />
+            <span>{h.time}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export function IOSStandbySmartStackClock({
+  time = '09:41',
+  ampm = 'AM',
+  date = 'Tuesday, Oct 17',
+  activePage = 0,
+  totalPages = 3,
+}: {
+  time?: string;
+  ampm?: string;
+  date?: string;
+  activePage?: number;
+  totalPages?: number;
+}) {
+  return (
+    <div
+      className="ds-standby-clock-card"
+      role="region"
+      aria-label={`iOS 待机夜钟：当前时间 ${time} ${ampm}`}
+    >
+      <div className="ds-standby-clock-card__time">
+        <span>{time}</span>
+        <span className="ds-standby-clock-card__ampm">{ampm}</span>
+      </div>
+      <div className="ds-standby-clock-card__footer">
+        <span>{date}</span>
+        <div className="ds-standby-clock-card__dots" aria-hidden="true">
+          {Array.from({ length: totalPages }).map((_, i) => (
+            <div
+              key={i}
+              className={`ds-standby-clock-card__dot ${
+                i === activePage ? 'is-active' : ''
+              }`}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export interface NavRailItem {
+  id: string;
+  label: string;
+  icon: string;
+  badge?: number;
+}
+
+export function AndroidM3NavigationRailDock({
+  headerIcon = '🎨',
+  items = [
+    { id: 'specs', label: 'Specs', icon: '📐' },
+    { id: 'tokens', label: 'Tokens', icon: '🎨', badge: 3 },
+    { id: 'settings', label: 'Settings', icon: '⚙️' },
+  ],
+  activeId = 'specs',
+  onSelect,
+}: {
+  headerIcon?: string;
+  items?: NavRailItem[];
+  activeId?: string;
+  onSelect?: (item: NavRailItem) => void;
+}) {
+  const [currentId, setCurrentId] = React.useState(activeId);
+
+  return (
+    <div className="ds-m3-nav-rail" role="navigation" aria-label="侧边快捷导航导轨">
+      <div className="ds-m3-nav-rail__header" aria-hidden="true">
+        {headerIcon}
+      </div>
+      <div className="ds-m3-nav-rail__menu">
+        {items.map((it) => {
+          const isActive = it.id === currentId;
+          return (
+            <button
+              key={it.id}
+              type="button"
+              className={`ds-m3-nav-rail__item ${isActive ? 'is-active' : ''}`}
+              aria-label={it.label}
+              onClick={() => {
+                setCurrentId(it.id);
+                onSelect?.(it);
+              }}
+            >
+              <div className="ds-m3-nav-rail__pill">
+                <span aria-hidden="true">{it.icon}</span>
+              </div>
+              <span className="ds-m3-nav-rail__label">{it.label}</span>
+              {it.badge !== undefined && (
+                <span className="ds-m3-nav-rail__badge">{it.badge}</span>
+              )}
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+export function AICanvasInfiniteNodePort({
+  title = 'Prompt Synthesizer',
+  badge = 'LLM',
+  model = 'Claude 3.7 Sonnet',
+  temperature = 0.2,
+  context = '128k',
+  onPortClick,
+}: {
+  title?: string;
+  badge?: string;
+  model?: string;
+  temperature?: number;
+  context?: string;
+  onPortClick?: (type: 'in' | 'out') => void;
+}) {
+  return (
+    <div
+      className="ds-canvas-node"
+      role="region"
+      aria-label={`AI 智能体工作流节点：${title}`}
+    >
+      <div className="ds-canvas-node__header">
+        <span>{title}</span>
+        <span className="ds-canvas-node__badge">{badge}</span>
+      </div>
+      <div className="ds-canvas-node__body">
+        <span>Model: {model}</span>
+        <span>Temperature: {temperature}</span>
+        <span>Context: {context}</span>
+      </div>
+      <div
+        className="ds-canvas-node__port ds-canvas-node__port--in"
+        title="输入端口"
+        aria-label="输入端口"
+        onClick={() => onPortClick?.('in')}
+      />
+      <div
+        className="ds-canvas-node__port ds-canvas-node__port--out"
+        title="输出端口"
+        aria-label="输出端口"
+        onClick={() => onPortClick?.('out')}
+      />
+    </div>
+  );
+}
+
+export function AICanvasSelectionFloatingActionHud({
+  actions = [
+    { id: 'refactor', label: 'Refactor', icon: '⚡' },
+    { id: 'test', label: 'Test', icon: '🧪' },
+    { id: 'ask', label: 'Ask', icon: '💬' },
+  ],
+  shortcut = '⌘K',
+  onAction,
+}: {
+  actions?: { id: string; label: string; icon: string }[];
+  shortcut?: string;
+  onAction?: (actionId: string) => void;
+}) {
+  return (
+    <div className="ds-selection-hud" role="toolbar" aria-label="AI 即时行内操作">
+      {actions.map((act) => (
+        <button
+          key={act.id}
+          type="button"
+          className="ds-selection-hud__btn"
+          aria-label={act.label}
+          onClick={() => onAction?.(act.id)}
+        >
+          <span aria-hidden="true">{act.icon}</span>
+          <span>{act.label}</span>
+        </button>
+      ))}
+      <div className="ds-selection-hud__divider" aria-hidden="true" />
+      <kbd className="ds-selection-hud__kbd">{shortcut}</kbd>
+    </div>
+  );
+}
+
+export interface ImageQuadVariant {
+  id: number;
+  src: string;
+  label: string;
+}
+
+export function AIImageGenerationQuadGrid({
+  variants = [
+    {
+      id: 1,
+      src: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Crect width='140' height='140' fill='%236366f1'/%3E%3Ctext x='70' y='76' font-size='20' text-anchor='middle' fill='white' font-family='sans-serif'%3EVariant 1%3C/text%3E%3C/svg%3E",
+      label: 'Variant 1',
+    },
+    {
+      id: 2,
+      src: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Crect width='140' height='140' fill='%23ec4899'/%3E%3Ctext x='70' y='76' font-size='20' text-anchor='middle' fill='white' font-family='sans-serif'%3EVariant 2%3C/text%3E%3C/svg%3E",
+      label: 'Variant 2',
+    },
+    {
+      id: 3,
+      src: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Crect width='140' height='140' fill='%2306b6d4'/%3E%3Ctext x='70' y='76' font-size='20' text-anchor='middle' fill='white' font-family='sans-serif'%3EVariant 3%3C/text%3E%3C/svg%3E",
+      label: 'Variant 3',
+    },
+    {
+      id: 4,
+      src: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Crect width='140' height='140' fill='%2310b981'/%3E%3Ctext x='70' y='76' font-size='20' text-anchor='middle' fill='white' font-family='sans-serif'%3EVariant 4%3C/text%3E%3C/svg%3E",
+      label: 'Variant 4',
+    },
+  ],
+  onUpscale,
+  onVariation,
+}: {
+  variants?: ImageQuadVariant[];
+  onUpscale?: (id: number) => void;
+  onVariation?: (id: number) => void;
+}) {
+  return (
+    <div
+      className="ds-image-quad"
+      role="region"
+      aria-label="AI 图像生成 2x2 四分预览与放大矩阵"
+    >
+      <div className="ds-image-quad__grid">
+        {variants.map((v) => (
+          <div key={v.id} className="ds-image-quad__cell">
+            <img src={v.src} alt={v.label} className="ds-image-quad__img" />
+            <span className="ds-image-quad__badge">{v.id}</span>
+          </div>
+        ))}
+      </div>
+      <div className="ds-image-quad__toolbar">
+        <div className="ds-image-quad__btn-group">
+          {variants.map((v) => (
+            <button
+              key={`u-${v.id}`}
+              type="button"
+              className="ds-image-quad__btn"
+              aria-label={`高清放大第 ${v.id} 张`}
+              onClick={() => onUpscale?.(v.id)}
+            >
+              U{v.id}
+            </button>
+          ))}
+        </div>
+        <div className="ds-image-quad__btn-group">
+          {variants.slice(0, 2).map((v) => (
+            <button
+              key={`v-${v.id}`}
+              type="button"
+              className="ds-image-quad__btn"
+              aria-label={`针对第 ${v.id} 张做微调变体`}
+              onClick={() => onVariation?.(v.id)}
+            >
+              V{v.id}
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function TelegramSecretChatTtlBurner({
+  targetUser = 'Elena',
+  encryptionKey = 'a8:f4:c9:21:6b:e3:10:77',
+  features = [
+    '使用端到端 Diffie-Hellman 密钥加密',
+    '服务端不保留任何聊天痕迹',
+    '开启截屏警报与阅后自毁计时器',
+  ],
+}: {
+  targetUser?: string;
+  encryptionKey?: string;
+  features?: string[];
+}) {
+  return (
+    <div
+      className="ds-secret-chat-banner"
+      role="region"
+      aria-label="Telegram 端到端加密安全通道"
+    >
+      <div className="ds-secret-chat-banner__header">
+        <div className="ds-secret-chat-banner__lock" aria-hidden="true">
+          🔒
+        </div>
+        <div>
+          <div className="ds-secret-chat-banner__title">
+            Secret Chat with {targetUser}
+          </div>
+          <span style={{ fontSize: 11, color: '#10B981' }}>
+            End-to-End Encrypted
+          </span>
+        </div>
+      </div>
+      <ul className="ds-secret-chat-banner__features">
+        {features.map((f, i) => (
+          <li key={i}>✓ {f}</li>
+        ))}
+      </ul>
+      <div className="ds-secret-chat-banner__fingerprint">
+        Encryption Key: {encryptionKey}
+      </div>
+    </div>
+  );
+}
+
+export interface QuizOption {
+  id: string;
+  label: string;
+  pct: number;
+}
+
+export function TelegramPollQuizVoteCard({
+  question = 'Which native physics curve feels best?',
+  totalVotes = 'Total: 842 votes',
+  pollType = 'Anonymous Poll',
+  options = [
+    { id: '1', label: 'iOS Spring Physics', pct: 64 },
+    { id: '2', label: 'Android M3 Emphasized', pct: 26 },
+    { id: '3', label: 'macOS Gentle Spring', pct: 10 },
+  ],
+  onVote,
+}: {
+  question?: string;
+  totalVotes?: string;
+  pollType?: string;
+  options?: QuizOption[];
+  onVote?: (opt: QuizOption) => void;
+}) {
+  return (
+    <div
+      className="ds-quiz-poll"
+      role="region"
+      aria-label={`互动投票：${question}`}
+    >
+      <div className="ds-quiz-poll__header">
+        <span>{pollType}</span>
+        <span>{totalVotes}</span>
+      </div>
+      <h4 className="ds-quiz-poll__question">{question}</h4>
+      <div className="ds-quiz-poll__options">
+        {options.map((opt) => (
+          <div
+            key={opt.id}
+            className="ds-quiz-poll__opt"
+            role="button"
+            tabIndex={0}
+            aria-label={`${opt.label} (${opt.pct}%)`}
+            onClick={() => onVote?.(opt)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                onVote?.(opt);
+              }
+            }}
+          >
+            <div
+              className="ds-quiz-poll__opt-fill"
+              style={{ width: `${opt.pct}%` }}
+            />
+            <span className="ds-quiz-poll__opt-label">{opt.label}</span>
+            <span className="ds-quiz-poll__opt-pct">{opt.pct}%</span>
+          </div>
+        ))}
+      </div>
+      <div className="ds-quiz-poll__footer">
+        <span>Poll created by Design Core</span>
+        <button
+          type="button"
+          style={{ background: 'none', border: 0, color: 'inherit', cursor: 'pointer', font: 'inherit' }}
+        >
+          Retract Vote
+        </button>
+      </div>
+    </div>
+  );
+}
+
+export function MetaInstagramCollabDualHeader({
+  author1 = 'elena_vance',
+  author2 = 'design_system',
+  subtitle = 'Paid Partnership · Tokyo, Japan',
+  avatar1 = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3E%3Ccircle cx='15' cy='15' r='15' fill='%236366f1'/%3E%3Ctext x='15' y='19' font-size='12' text-anchor='middle' fill='white' font-family='sans-serif'%3EEV%3C/text%3E%3C/svg%3E",
+  avatar2 = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3E%3Ccircle cx='15' cy='15' r='15' fill='%2310b981'/%3E%3Ctext x='15' y='19' font-size='12' text-anchor='middle' fill='white' font-family='sans-serif'%3EDS%3C/text%3E%3C/svg%3E",
+}: {
+  author1?: string;
+  author2?: string;
+  subtitle?: string;
+  avatar1?: string;
+  avatar2?: string;
+}) {
+  return (
+    <div
+      className="ds-collab-header"
+      role="banner"
+      aria-label={`联合发布创作者：${author1} 与 ${author2}`}
+    >
+      <div className="ds-collab-header__avatars">
+        <img
+          src={avatar1}
+          alt={author1}
+          className="ds-collab-header__avatar ds-collab-header__avatar--primary"
+        />
+        <img
+          src={avatar2}
+          alt={author2}
+          className="ds-collab-header__avatar ds-collab-header__avatar--collab"
+        />
+      </div>
+      <div className="ds-collab-header__info">
+        <div className="ds-collab-header__names">
+          <span>{author1}</span>
+          <span>·</span>
+          <span>{author2}</span>
+          <span aria-label="官方认证">☑️</span>
+        </div>
+        <span className="ds-collab-header__subtext">{subtitle}</span>
+      </div>
+    </div>
+  );
+}
+
+export function MetaReelsVerticalActionSidebar({
+  likes = '84.2K',
+  comments = '1.4K',
+  shares = '280',
+  isLiked = false,
+  onLike,
+  onComment,
+  onShare,
+}: {
+  likes?: string;
+  comments?: string;
+  shares?: string;
+  isLiked?: boolean;
+  onLike?: () => void;
+  onComment?: () => void;
+  onShare?: () => void;
+}) {
+  return (
+    <div className="ds-reels-sidebar" role="toolbar" aria-label="短视频侧边互动栏">
+      <div className="ds-reels-sidebar__item">
+        <button
+          type="button"
+          className="ds-reels-sidebar__icon-btn"
+          aria-label="点赞视频"
+          onClick={onLike}
+        >
+          {isLiked ? '❤️' : '🤍'}
+        </button>
+        <span className="ds-reels-sidebar__count">{likes}</span>
+      </div>
+      <div className="ds-reels-sidebar__item">
+        <button
+          type="button"
+          className="ds-reels-sidebar__icon-btn"
+          aria-label="评论视频"
+          onClick={onComment}
+        >
+          💬
+        </button>
+        <span className="ds-reels-sidebar__count">{comments}</span>
+      </div>
+      <div className="ds-reels-sidebar__item">
+        <button
+          type="button"
+          className="ds-reels-sidebar__icon-btn"
+          aria-label="分享转发"
+          onClick={onShare}
+        >
+          ↗️
+        </button>
+        <span className="ds-reels-sidebar__count">{shares}</span>
+      </div>
+      <div className="ds-reels-sidebar__item">
+        <div className="ds-reels-sidebar__disc" aria-label="背景原声音轨正在旋转">
+          <div className="ds-reels-sidebar__disc-inner" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function MacOSStageManagerClusterStack({
+  appName = 'Design Suite',
+  windowCount = 2,
+  onActivate,
+}: {
+  appName?: string;
+  windowCount?: number;
+  onActivate?: () => void;
+}) {
+  return (
+    <div
+      className="ds-stage-cluster"
+      role="button"
+      tabIndex={0}
+      aria-label={`台前调度窗口集群：${appName}，包含 ${windowCount} 个应用窗口`}
+      onClick={onActivate}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onActivate?.();
+        }
+      }}
+    >
+      <div className="ds-stage-cluster__stack">
+        <div className="ds-stage-cluster__window ds-stage-cluster__window--back">
+          <div
+            style={{
+              background: 'var(--ds-inset)',
+              height: 12,
+              borderBottom: '1px solid var(--ds-line)',
+            }}
+          />
+        </div>
+        <div className="ds-stage-cluster__window ds-stage-cluster__window--front">
+          <div
+            style={{
+              background: 'var(--ds-chrome)',
+              height: 12,
+              borderBottom: '1px solid var(--ds-line)',
+            }}
+          />
+        </div>
+      </div>
+      <img
+        src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 22 22'%3E%3Crect width='22' height='22' rx='6' fill='%236366f1'/%3E%3Ctext x='11' y='15' font-size='10' text-anchor='middle' fill='white' font-family='sans-serif'%3E🪟%3C/text%3E%3C/svg%3E"
+        alt="应用图标"
+        className="ds-stage-cluster__app-icon"
+      />
+    </div>
+  );
+}
+
+export function IOSSafariFluidBottomTabBar({
+  url = 'modern-ai-ui.design',
+  tabCount = 2,
+  isSecure = true,
+  onOpenTabs,
+  onShare,
+}: {
+  url?: string;
+  tabCount?: number;
+  isSecure?: boolean;
+  onOpenTabs?: () => void;
+  onShare?: () => void;
+}) {
+  return (
+    <div className="ds-safari-bar" role="navigation" aria-label="Safari 网页导航底栏">
+      <div className="ds-safari-bar__url">
+        {isSecure && (
+          <span className="ds-safari-bar__ssl" aria-label="安全 SSL 加密连接">
+            🔒
+          </span>
+        )}
+        <span>{url}</span>
+      </div>
+      <div className="ds-safari-bar__actions">
+        <button type="button" className="ds-safari-bar__btn" aria-label="阅读视图模式">
+          📖
+        </button>
+        <button
+          type="button"
+          className="ds-safari-bar__btn"
+          aria-label="分享页面"
+          onClick={onShare}
+        >
+          ↗️
+        </button>
+        <button
+          type="button"
+          className="ds-safari-bar__tab-count"
+          aria-label={`${tabCount} 个打开标签页`}
+          onClick={onOpenTabs}
+        >
+          {tabCount}
+        </button>
+      </div>
+    </div>
+  );
+}
+
+export interface BatteryProcessItem {
+  name: string;
+  icon?: string;
+  usage: string;
+}
+
+export function MacOSMenuBarBatteryFlyout({
+  percentage = 88,
+  source = 'Power Adapter',
+  icon = '🔋',
+  processes = [
+    { name: 'Xcode Simulator', icon: '🌐', usage: '14.2%' },
+    { name: 'Local LLM Runner', icon: '⚡', usage: '28.4%' },
+  ],
+}: {
+  percentage?: number;
+  source?: string;
+  icon?: string;
+  processes?: BatteryProcessItem[];
+}) {
+  return (
+    <div
+      className="ds-battery-flyout"
+      role="region"
+      aria-label={`电池电量与能耗监测：当前 ${percentage}%，${source}`}
+    >
+      <div className="ds-battery-flyout__header">
+        <div className="ds-battery-flyout__pct">
+          <span aria-hidden="true">{icon}</span>
+          <span>{percentage}%</span>
+        </div>
+        <span className="ds-battery-flyout__status">{source}</span>
+      </div>
+      <div className="ds-battery-flyout__section-title">Significant Energy</div>
+      <ul className="ds-battery-flyout__list">
+        {processes.map((p, i) => (
+          <li key={i} className="ds-battery-flyout__item">
+            <div className="ds-battery-flyout__item-left">
+              {p.icon && <span>{p.icon}</span>}
+              <span>{p.name}</span>
+            </div>
+            <span style={{ fontSize: 11, color: 'var(--ds-muted)' }}>{p.usage}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+export function IOSCarplayDashboardSplitTile({
+  turnDirection = '↱',
+  navDistance = 'In 500m',
+  navStreet = 'Turn Right onto Market St',
+  navEta = 'ETA 18:24 · 12 km',
+  musicTitle = 'Starboy',
+  musicArtist = 'The Weeknd',
+  calendarTitle = 'Product Review',
+  calendarTime = '19:00 - 19:30',
+}: {
+  turnDirection?: string;
+  navDistance?: string;
+  navStreet?: string;
+  navEta?: string;
+  musicTitle?: string;
+  musicArtist?: string;
+  calendarTitle?: string;
+  calendarTime?: string;
+}) {
+  return (
+    <div className="ds-carplay-dash" role="region" aria-label="CarPlay 驾驶仪表盘">
+      <div className="ds-carplay-dash__nav">
+        <div className="ds-carplay-dash__turn">
+          <span aria-hidden="true">{turnDirection}</span>
+          <span>{navDistance}</span>
+        </div>
+        <div className="ds-carplay-dash__street">{navStreet}</div>
+        <span style={{ fontSize: 11, color: 'rgba(255,255,255,0.6)' }}>{navEta}</span>
+      </div>
+      <div className="ds-carplay-dash__side">
+        <div className="ds-carplay-dash__tile">
+          <span style={{ fontSize: 18 }} aria-hidden="true">
+            🎵
+          </span>
+          <div>
+            <div style={{ fontWeight: 600 }}>{musicTitle}</div>
+            <span style={{ fontSize: 10, color: 'rgba(255,255,255,0.6)' }}>
+              {musicArtist}
+            </span>
+          </div>
+        </div>
+        <div className="ds-carplay-dash__tile">
+          <span style={{ fontSize: 18 }} aria-hidden="true">
+            📅
+          </span>
+          <div>
+            <div style={{ fontWeight: 600 }}>{calendarTitle}</div>
+            <span style={{ fontSize: 10, color: 'rgba(255,255,255,0.6)' }}>
+              {calendarTime}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function AndroidM3DateTimeDialPicker({
+  hour = 3,
+  onChange,
+}: {
+  hour?: number;
+  onChange?: (newHour: number) => void;
+}) {
+  const rotation = (hour % 12) * 30;
+
+  return (
+    <div
+      className="ds-m3-time-picker"
+      role="slider"
+      aria-valuenow={hour}
+      aria-valuemin={1}
+      aria-valuemax={12}
+      aria-label={`时钟选择器：当前 ${hour} 点`}
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === 'ArrowUp' || e.key === 'ArrowRight') {
+          onChange?.(hour === 12 ? 1 : hour + 1);
+        } else if (e.key === 'ArrowDown' || e.key === 'ArrowLeft') {
+          onChange?.(hour === 1 ? 12 : hour - 1);
+        }
+      }}
+    >
+      <div className="ds-m3-time-picker__pivot" />
+      <div
+        className="ds-m3-time-picker__hand"
+        style={{ transform: `rotate(${rotation}deg)` }}
+      >
+        <div className="ds-m3-time-picker__hand-end">{hour}</div>
+      </div>
+      <span
+        className="ds-m3-time-picker__num"
+        style={{ top: 12, left: 'calc(50% - 12px)' }}
+      >
+        12
+      </span>
+      <span
+        className="ds-m3-time-picker__num"
+        style={{ top: 'calc(50% - 12px)', right: 12 }}
+      >
+        3
+      </span>
+      <span
+        className="ds-m3-time-picker__num"
+        style={{ bottom: 12, left: 'calc(50% - 12px)' }}
+      >
+        6
+      </span>
+      <span
+        className="ds-m3-time-picker__num"
+        style={{ top: 'calc(50% - 12px)', left: 12 }}
+      >
+        9
+      </span>
+    </div>
+  );
+}
+
+export function AIAudioGenerationWaveformTrack({
+  title = 'Synthwave Dream #04',
+  model = 'Suno v3.5 · 180s',
+  bars = [12, 28, 36, 20, 32, 14],
+  stems = [
+    { label: 'Vocals', active: true },
+    { label: 'Bass', active: true },
+    { label: 'Drums', active: false },
+    { label: 'Synths', active: false },
+  ],
+  onToggleStem,
+}: {
+  title?: string;
+  model?: string;
+  bars?: number[];
+  stems?: { label: string; active: boolean }[];
+  onToggleStem?: (label: string) => void;
+}) {
+  return (
+    <div
+      className="ds-audio-gen-track"
+      role="region"
+      aria-label={`AI 生成音频音轨：${title}`}
+    >
+      <div className="ds-audio-gen-track__header">
+        <span>{title}</span>
+        <span style={{ fontSize: 11, color: 'var(--ds-muted)' }}>{model}</span>
+      </div>
+      <div className="ds-audio-gen-track__wave" aria-hidden="true">
+        {bars.map((h, i) => (
+          <div
+            key={i}
+            className="ds-audio-gen-track__bar"
+            style={{ height: `${h}px` }}
+          />
+        ))}
+      </div>
+      <div className="ds-audio-gen-track__stem-chips">
+        {stems.map((s, i) => (
+          <span
+            key={i}
+            className={`ds-audio-gen-track__chip ${s.active ? 'is-active' : ''}`}
+            onClick={() => onToggleStem?.(s.label)}
+          >
+            {s.label}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export function AIAgentSandboxTerminalHud({
+  containerName = 'sandbox-container:alpine-node-20',
+  logs = [
+    '$ npm test --silent',
+    '✓ 332 specs passed (100%)',
+    '$ git status --porcelain',
+  ],
+  cpu = '12%',
+  mem = '240MB',
+  exitCode = 0,
+  onStop,
+}: {
+  containerName?: string;
+  logs?: string[];
+  cpu?: string;
+  mem?: string;
+  exitCode?: number;
+  onStop?: () => void;
+}) {
+  return (
+    <div
+      className="ds-sandbox-terminal"
+      role="region"
+      aria-label="AI 智能体沙盒虚拟终端"
+    >
+      <div className="ds-sandbox-terminal__header">
+        <div className="ds-sandbox-terminal__title">{containerName}</div>
+        <button
+          type="button"
+          className="ds-sandbox-terminal__btn"
+          aria-label="终止当前容器"
+          onClick={onStop}
+        >
+          Stop
+        </button>
+      </div>
+      <div className="ds-sandbox-terminal__body">
+        {logs.map((l, i) => (
+          <div key={i}>{l}</div>
+        ))}
+      </div>
+      <div className="ds-sandbox-terminal__footer">
+        <span>
+          CPU {cpu} · MEM {mem}
+        </span>
+        <span>Exit Code: {exitCode}</span>
+      </div>
+    </div>
+  );
+}
+
+export function AIPromptCostEstimatorBadge({
+  cost = '$0.0024',
+  promptTokens = '1.4k',
+  outputTokens = '420',
+  cacheHit = '85%',
+}: {
+  cost?: string;
+  promptTokens?: string;
+  outputTokens?: string;
+  cacheHit?: string;
+}) {
+  return (
+    <div
+      className="ds-prompt-cost-badge"
+      role="status"
+      aria-label={`Token 消耗：输入 ${promptTokens}，输出 ${outputTokens}，预估费用 ${cost}`}
+    >
+      <span className="ds-prompt-cost-badge__cost">{cost}</span>
+      <span>
+        {promptTokens} in / {outputTokens} out
+      </span>
+      <span className="ds-prompt-cost-badge__cache">⚡ {cacheHit} Hit</span>
+    </div>
+  );
+}
+
+export function TelegramVoiceChatParticipantTile({
+  name = 'Alex Rivera',
+  avatarSrc = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='54' height='54' viewBox='0 0 54 54'%3E%3Ccircle cx='27' cy='27' r='27' fill='%236366f1'/%3E%3Ctext x='27' y='33' font-size='18' text-anchor='middle' fill='white' font-family='sans-serif'%3EAR%3C/text%3E%3C/svg%3E",
+  isSpeaking = true,
+  isMuted = false,
+}: {
+  name?: string;
+  avatarSrc?: string;
+  isSpeaking?: boolean;
+  isMuted?: boolean;
+}) {
+  return (
+    <div
+      className={`ds-voice-tile ${isSpeaking ? 'is-speaking' : ''}`}
+      role="region"
+      aria-label={`连麦发言者：${name}${isSpeaking ? '，正在发言' : ''}`}
+    >
+      <div className="ds-voice-tile__halo">
+        <img src={avatarSrc} alt={name} className="ds-voice-tile__avatar" />
+        <div
+          className="ds-voice-tile__badge"
+          aria-label={isMuted ? '麦克风已静音' : '麦克风已开启'}
+        >
+          {isMuted ? '🔇' : '🎙️'}
+        </div>
+      </div>
+      <span className="ds-voice-tile__name">{name}</span>
+    </div>
+  );
+}
+
+export function TelegramGiftCryptoCollectibleCard({
+  title = 'Astral Rocket',
+  icon = '🚀',
+  rarity = 'Legendary #42',
+  stars = 250,
+  hashId = 'frag-9920-x1',
+}: {
+  title?: string;
+  icon?: string;
+  rarity?: string;
+  stars?: number;
+  hashId?: string;
+}) {
+  return (
+    <div
+      className="ds-crypto-gift-card"
+      role="region"
+      aria-label={`Telegram 数字藏品礼物：${title}`}
+    >
+      <div className="ds-crypto-gift-card__icon" aria-hidden="true">
+        {icon}
+      </div>
+      <div className="ds-crypto-gift-card__title">{title}</div>
+      <span className="ds-crypto-gift-card__rarity">{rarity}</span>
+      <span className="ds-crypto-gift-card__price">⭐ {stars} Stars</span>
+      <span className="ds-crypto-gift-card__hash">ID: {hashId}</span>
+    </div>
+  );
+}
+
+export function MetaWhatsappStatusAudioStoryRing({
+  author = 'Sarah Miller',
+  time = 'Today, 14:20',
+  duration = '0:18',
+  avatarSrc = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='38' height='38' viewBox='0 0 38 38'%3E%3Ccircle cx='19' cy='19' r='19' fill='%2325d366'/%3E%3Ctext x='19' y='24' font-size='14' text-anchor='middle' fill='white' font-family='sans-serif'%3ESM%3C/text%3E%3C/svg%3E",
+  isPlaying = false,
+  onPlayToggle,
+}: {
+  author?: string;
+  time?: string;
+  duration?: string;
+  avatarSrc?: string;
+  isPlaying?: boolean;
+  onPlayToggle?: () => void;
+}) {
+  return (
+    <div
+      className="ds-audio-status-card"
+      role="region"
+      aria-label={`WhatsApp 语音状态：${duration} 语音更新`}
+    >
+      <div className="ds-audio-status-card__header">
+        <div className="ds-audio-status-card__ring">
+          <img
+            src={avatarSrc}
+            alt={author}
+            className="ds-audio-status-card__avatar"
+          />
+        </div>
+        <div>
+          <div style={{ fontWeight: 600, fontSize: 13 }}>{author}</div>
+          <span style={{ fontSize: 11, color: 'var(--ds-muted)' }}>{time}</span>
+        </div>
+      </div>
+      <div className="ds-audio-status-card__wave-box">
+        <button
+          type="button"
+          className="ds-audio-status-card__play"
+          aria-label={isPlaying ? '暂停语音' : '播放语音状态'}
+          onClick={onPlayToggle}
+        >
+          {isPlaying ? '⏸' : '▶'}
+        </button>
+        <div className="ds-audio-status-card__bars" aria-hidden="true">
+          <div
+            className="ds-audio-status-card__bar is-played"
+            style={{ height: 10 }}
+          />
+          <div
+            className="ds-audio-status-card__bar is-played"
+            style={{ height: 16 }}
+          />
+          <div className="ds-audio-status-card__bar" style={{ height: 20 }} />
+          <div className="ds-audio-status-card__bar" style={{ height: 8 }} />
+        </div>
+        <span style={{ fontSize: 11, fontFamily: 'var(--ds-type-mono)' }}>
+          {duration}
+        </span>
+      </div>
+    </div>
+  );
+}
+
+export function MetaThreadsQuoteRepostCard({
+  author = 'michael_chen',
+  time = '· 3h',
+  text = 'The multi-platform design consistency across macOS, iOS, Android, and AI workflows is insane!',
+  quotedAuthor = 'design_system',
+  quotedTime = '· 5h',
+  quotedText = 'Modern AI Design System v3 has reached 332 components with zero motion lint errors!',
+}: {
+  author?: string;
+  time?: string;
+  text?: string;
+  quotedAuthor?: string;
+  quotedTime?: string;
+  quotedText?: string;
+}) {
+  return (
+    <div className="ds-quote-post" role="article" aria-label="Threads 引用帖子">
+      <div className="ds-quote-post__author">
+        <span>{author}</span>
+        <span style={{ fontWeight: 400, color: 'var(--ds-muted)', fontSize: 11 }}>
+          {time}
+        </span>
+      </div>
+      <div className="ds-quote-post__text">{text}</div>
+      <div className="ds-quote-post__quote-box">
+        <div className="ds-quote-post__quote-header">
+          <span>{quotedAuthor}</span>
+          <span aria-label="已认证">☑️</span>
+          <span style={{ fontWeight: 400, color: 'var(--ds-muted)', fontSize: 11 }}>
+            {quotedTime}
+          </span>
+        </div>
+        <div className="ds-quote-post__quote-body">{quotedText}</div>
+      </div>
+    </div>
+  );
+}
+
+export function MacOSWindowTilingSnapOverlay({
+  activeZone = 'Left Half',
+  zones = ['Left Half', 'Right Half', 'Top Left', 'Top Right'],
+  onSelectZone,
+}: {
+  activeZone?: string;
+  zones?: string[];
+  onSelectZone?: (zone: string) => void;
+}) {
+  return (
+    <div
+      className="ds-window-snap-overlay"
+      role="region"
+      aria-label="窗口磁吸分屏网格"
+    >
+      <div style={{ fontSize: 11, fontWeight: 600, color: 'var(--ds-muted)' }}>
+        Window Tiling Zones
+      </div>
+      <div className="ds-window-snap-overlay__grid">
+        {zones.map((z) => (
+          <div
+            key={z}
+            className={`ds-window-snap-overlay__zone ${
+              z === activeZone ? 'is-highlighted' : ''
+            }`}
+            onClick={() => onSelectZone?.(z)}
+          >
+            {z}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export interface FocusModeItem {
+  id: string;
+  label: string;
+  icon: string;
+}
+
+export function IOSFocusModeFilterShelf({
+  modes = [
+    { id: 'work', label: 'Work', icon: '💼' },
+    { id: 'personal', label: 'Personal', icon: '🧘' },
+    { id: 'sleep', label: 'Sleep', icon: '🌙' },
+  ],
+  activeMode = 'work',
+  onModeChange,
+}: {
+  modes?: FocusModeItem[];
+  activeMode?: string;
+  onModeChange?: (mode: FocusModeItem) => void;
+}) {
+  const [currentId, setCurrentId] = React.useState(activeMode);
+
+  return (
+    <div className="ds-focus-shelf" role="radiogroup" aria-label="专注模式切换">
+      {modes.map((m) => {
+        const isActive = m.id === currentId;
+        return (
+          <button
+            key={m.id}
+            type="button"
+            className={`ds-focus-shelf__item ${isActive ? 'is-active' : ''}`}
+            role="radio"
+            aria-checked={isActive}
+            onClick={() => {
+              setCurrentId(m.id);
+              onModeChange?.(m);
+            }}
+          >
+            <span aria-hidden="true">{m.icon}</span>
+            <span>{m.label}</span>
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+export function MacOSNotchHudBezel({
+  title = 'UI-Design-Tokens.zip',
+  progress = 68,
+  icon = '📦',
+}: {
+  title?: string;
+  progress?: number;
+  icon?: string;
+}) {
+  return (
+    <div
+      className="ds-notch-hud"
+      role="status"
+      aria-label={`刘海通知：正在隔空投送 ${title}`}
+    >
+      <div className="ds-notch-hud__cutout" aria-hidden="true" />
+      <div
+        style={{
+          width: 38,
+          height: 38,
+          borderRadius: 8,
+          background: '#38bdf8',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontSize: 16,
+          flexShrink: 0,
+        }}
+      >
+        {icon}
+      </div>
+      <div className="ds-notch-hud__meta">
+        <div className="ds-notch-hud__title">{title}</div>
+        <div className="ds-notch-hud__track">
+          <div
+            className="ds-notch-hud__fill"
+            style={{ width: `${Math.min(100, Math.max(0, progress))}%` }}
+          />
+        </div>
+      </div>
+      <span style={{ fontSize: 11, fontFamily: 'var(--ds-type-mono)' }}>
+        {progress}%
+      </span>
+    </div>
+  );
+}
+
+export interface SpatialCarouselItem {
+  id: string;
+  title: string;
+  stat: string;
+  icon: string;
+}
+
+export function IOSSpatialWidgetCarousel({
+  items = [
+    { id: '1', title: 'Weather', stat: 'Tokyo · 22°', icon: '🌤️' },
+    { id: '2', title: 'Market Trend', stat: '+3.42% Today', icon: '📈' },
+    { id: '3', title: 'Podcasts', stat: 'Episode 48', icon: '🎧' },
+  ],
+  activeIndex = 1,
+  onSelectIndex,
+}: {
+  items?: SpatialCarouselItem[];
+  activeIndex?: number;
+  onSelectIndex?: (index: number) => void;
+}) {
+  const [active, setActive] = React.useState(activeIndex);
+
+  return (
+    <div className="ds-spatial-carousel" role="region" aria-label="3D 空间小组件轮播">
+      {items.map((it, idx) => {
+        let cardClass = 'ds-spatial-carousel__card';
+        if (idx === active) {
+          cardClass += ' ds-spatial-carousel__card--active';
+        } else if (idx < active) {
+          cardClass += ' ds-spatial-carousel__card--prev';
+        } else {
+          cardClass += ' ds-spatial-carousel__card--next';
+        }
+
+        return (
+          <div
+            key={it.id}
+            className={cardClass}
+            role="button"
+            tabIndex={0}
+            aria-label={`${it.title}: ${it.stat}`}
+            onClick={() => {
+              setActive(idx);
+              onSelectIndex?.(idx);
+            }}
+          >
+            <div>
+              <span style={{ fontSize: 18 }}>{it.icon}</span>
+              <div style={{ fontWeight: 600, fontSize: 12 }}>{it.title}</div>
+            </div>
+            <span
+              style={{
+                fontSize: 11,
+                fontWeight: idx === active ? 700 : 400,
+                color: idx === active ? 'var(--ds-success)' : 'var(--ds-muted)',
+              }}
+            >
+              {it.stat}
+            </span>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+export function AndroidM3ExpressiveSliderThumb({
+  label = 'Media Volume',
+  value = 70,
+  icon = '🔊',
+  onChange,
+}: {
+  label?: string;
+  value?: number;
+  icon?: string;
+  onChange?: (val: number) => void;
+}) {
+  const clamped = Math.min(100, Math.max(0, value));
+
+  return (
+    <div
+      className="ds-m3-exp-slider"
+      role="region"
+      aria-label={`${label}滑块`}
+    >
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          fontSize: 12,
+          fontWeight: 600,
+        }}
+      >
+        <span>{label}</span>
+        <span>{clamped}%</span>
+      </div>
+      <div
+        className="ds-m3-exp-slider__track"
+        role="slider"
+        aria-valuenow={clamped}
+        aria-valuemin={0}
+        aria-valuemax={100}
+        aria-label={`${label}：${clamped}%`}
+        tabIndex={0}
+        onKeyDown={(e) => {
+          if (e.key === 'ArrowRight' || e.key === 'ArrowUp') {
+            onChange?.(Math.min(100, clamped + 5));
+          } else if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') {
+            onChange?.(Math.max(0, clamped - 5));
+          }
+        }}
+      >
+        <div
+          className="ds-m3-exp-slider__fill"
+          style={{ width: `${clamped}%` }}
+        />
+        <div
+          className="ds-m3-exp-slider__thumb"
+          style={{ left: `${clamped}%` }}
+        >
+          {icon}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export interface PromptBranchNode {
+  id: string;
+  tag: string;
+  score: string;
+  isActive?: boolean;
+}
+
+export function AIPromptVersionBranchSelector({
+  model = 'GPT-4o',
+  branches = [
+    { id: '1', tag: 'v2.0-cot', score: 'Score 94.2 (+4.2%)', isActive: true },
+    { id: '2', tag: 'v1.1-fewshot', score: 'Score 90.0', isActive: false },
+  ],
+  onSelect,
+}: {
+  model?: string;
+  branches?: PromptBranchNode[];
+  onSelect?: (branch: PromptBranchNode) => void;
+}) {
+  return (
+    <div
+      className="ds-prompt-branch"
+      role="region"
+      aria-label="提示词分支演进"
+    >
+      <div className="ds-prompt-branch__header">
+        <span>Prompt Branches</span>
+        <span style={{ fontSize: 11, color: 'var(--ds-muted)' }}>
+          Model: {model}
+        </span>
+      </div>
+      <div className="ds-prompt-branch__list">
+        {branches.map((b) => (
+          <div
+            key={b.id}
+            className={`ds-prompt-branch__node ${b.isActive ? 'is-active' : ''}`}
+            role="button"
+            tabIndex={0}
+            aria-label={`分支：${b.tag}，${b.score}`}
+            onClick={() => onSelect?.(b)}
+          >
+            <div className="ds-prompt-branch__tag">
+              <span>{b.isActive ? '🌿' : '🍂'}</span>
+              <span>{b.tag}</span>
+            </div>
+            <span
+              className={
+                b.isActive ? 'ds-prompt-branch__score' : undefined
+              }
+              style={
+                !b.isActive
+                  ? { fontSize: 11, color: 'var(--ds-muted)' }
+                  : undefined
+              }
+            >
+              {b.score}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export interface VectorChunkNode {
+  id: string;
+  score: number;
+  top: number;
+  left: number;
+}
+
+export function AIVectorEmbeddingSemanticCluster({
+  topK = 8,
+  chunks = [
+    { id: '12', score: 0.94, top: 42, left: 45 },
+    { id: '8', score: 0.91, top: 58, left: 52 },
+    { id: '24', score: 0.87, top: 35, left: 60 },
+    { id: '3', score: 0.85, top: 65, left: 40 },
+  ],
+  onChunkClick,
+}: {
+  topK?: number;
+  chunks?: VectorChunkNode[];
+  onChunkClick?: (chunk: VectorChunkNode) => void;
+}) {
+  return (
+    <div
+      className="ds-vector-cluster"
+      role="region"
+      aria-label="语义检索向量聚类"
+    >
+      <div className="ds-vector-cluster__header">
+        <span>Vector Similarity 2D</span>
+        <span style={{ fontSize: 11, color: 'var(--ds-accent)' }}>
+          Top-k: {topK} chunks
+        </span>
+      </div>
+      <div className="ds-vector-cluster__canvas">
+        <div
+          className="ds-vector-cluster__centroid"
+          title="查询质心 (Query)"
+        />
+        {chunks.map((ch) => (
+          <div
+            key={ch.id}
+            className="ds-vector-cluster__node"
+            style={{ top: `${ch.top}%`, left: `${ch.left}%` }}
+            title={`Chunk #${ch.id} (${ch.score})`}
+            onClick={() => onChunkClick?.(ch)}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export function AIFunctionCallingToolCallout({
+  toolName = 'fetch_weather',
+  callId = 'call_984',
+  params = { location: 'Tokyo, JP', unit: 'celsius' },
+  status = 'Success (200 OK)',
+  duration = '180ms',
+}: {
+  toolName?: string;
+  callId?: string;
+  params?: Record<string, any>;
+  status?: string;
+  duration?: string;
+}) {
+  return (
+    <div
+      className="ds-tool-callout"
+      role="region"
+      aria-label={`工具调用：${toolName}`}
+    >
+      <div className="ds-tool-callout__header">
+        <div className="ds-tool-callout__fn-name">
+          <span>🔧</span>
+          <span>tool_call: {toolName}</span>
+        </div>
+        <span style={{ fontSize: 10, color: 'var(--ds-muted)' }}>
+          Execution ID: #{callId}
+        </span>
+      </div>
+      <div className="ds-tool-callout__body">
+        <div>{JSON.stringify(params, null, 2)}</div>
+      </div>
+      <div className="ds-tool-callout__footer">
+        <span>Status: {status}</span>
+        <span>Duration: {duration}</span>
+      </div>
+    </div>
+  );
+}
+
+export function TelegramChannelBoostLevelBadge({
+  level = 7,
+  currentBoosts = 84,
+  maxBoosts = 100,
+  perk = 'Unlocks 8 Story slots',
+  onBoost,
+}: {
+  level?: number;
+  currentBoosts?: number;
+  maxBoosts?: number;
+  perk?: string;
+  onBoost?: () => void;
+}) {
+  const pct = Math.min(100, Math.round((currentBoosts / (maxBoosts || 1)) * 100));
+
+  return (
+    <div
+      className="ds-channel-boost"
+      role="region"
+      aria-label={`频道加速等级：Level ${level}`}
+    >
+      <div className="ds-channel-boost__header">
+        <div className="ds-channel-boost__level">
+          <span>⚡</span>
+          <span>Level {level}</span>
+        </div>
+        <span style={{ fontSize: 12, fontWeight: 700 }}>
+          {currentBoosts}/{maxBoosts} Boosts
+        </span>
+      </div>
+      <div className="ds-channel-boost__bar">
+        <div className="ds-channel-boost__fill" style={{ width: `${pct}%` }} />
+      </div>
+      <div className="ds-channel-boost__footer">
+        <span>{perk}</span>
+        <button
+          type="button"
+          style={{
+            background: 'none',
+            border: 0,
+            color: 'inherit',
+            fontWeight: 600,
+            cursor: 'pointer',
+          }}
+          onClick={onBoost}
+        >
+          🚀 Boost Channel
+        </button>
+      </div>
+    </div>
+  );
+}
+
+export function TelegramAudioScrubberPuckBar({
+  progress = 45,
+  currentTime = '01:24.45',
+  totalTime = '03:08.00',
+  onChange,
+}: {
+  progress?: number;
+  currentTime?: string;
+  totalTime?: string;
+  onChange?: (val: number) => void;
+}) {
+  const clamped = Math.min(100, Math.max(0, progress));
+
+  return (
+    <div
+      className="ds-audio-puck-bar"
+      role="region"
+      aria-label="高精度音频滑动进度条"
+    >
+      <div
+        className="ds-audio-puck-bar__track"
+        role="slider"
+        aria-valuenow={clamped}
+        aria-valuemin={0}
+        aria-valuemax={100}
+        aria-label={`当前进度 ${clamped}%`}
+        tabIndex={0}
+        onKeyDown={(e) => {
+          if (e.key === 'ArrowRight') onChange?.(Math.min(100, clamped + 5));
+          else if (e.key === 'ArrowLeft') onChange?.(Math.max(0, clamped - 5));
+        }}
+      >
+        <div
+          className="ds-audio-puck-bar__fill"
+          style={{ width: `${clamped}%` }}
+        />
+        <div
+          className="ds-audio-puck-bar__puck"
+          style={{ left: `${clamped}%` }}
+        />
+      </div>
+      <div className="ds-audio-puck-bar__times">
+        <span>{currentTime}</span>
+        <span>{totalTime}</span>
+      </div>
+    </div>
+  );
+}
+
+export function MetaInstagramStoryPollSticker({
+  question = 'Love the new frosted glass UI?',
+  optA = 'Yes 😍',
+  optB = 'No 😢',
+  pctA = 82,
+  pctB = 18,
+  onVote,
+}: {
+  question?: string;
+  optA?: string;
+  optB?: string;
+  pctA?: number;
+  pctB?: number;
+  onVote?: (opt: 'a' | 'b') => void;
+}) {
+  return (
+    <div
+      className="ds-story-poll"
+      role="region"
+      aria-label="Instagram 互动故事投票"
+    >
+      <p className="ds-story-poll__question">{question}</p>
+      <div className="ds-story-poll__options">
+        <button
+          type="button"
+          className="ds-story-poll__btn"
+          aria-label={`投票：${optA} (${pctA}%)`}
+          onClick={() => onVote?.('a')}
+        >
+          <span>{optA}</span>
+          <span style={{ fontWeight: 700, color: 'var(--ds-accent)' }}>
+            {pctA}%
+          </span>
+        </button>
+        <button
+          type="button"
+          className="ds-story-poll__btn"
+          aria-label={`投票：${optB} (${pctB}%)`}
+          onClick={() => onVote?.('b')}
+        >
+          <span>{optB}</span>
+          <span style={{ fontWeight: 700, color: 'var(--ds-muted)' }}>
+            {pctB}%
+          </span>
+        </button>
+      </div>
+    </div>
+  );
+}
+
+export function MetaWhatsappContactQrShareCard({
+  name = 'Elena Vance',
+  isVerified = true,
+  onScan,
+}: {
+  name?: string;
+  isVerified?: boolean;
+  onScan?: () => void;
+}) {
+  return (
+    <div
+      className="ds-contact-qr-card"
+      role="region"
+      aria-label="WhatsApp 名片二维码"
+    >
+      <div className="ds-contact-qr-card__name">
+        <span>{name}</span>
+        {isVerified && <span aria-label="官方认证商户">☑️</span>}
+      </div>
+      <div
+        className="ds-contact-qr-card__matrix"
+        aria-label="名片二维码矩阵"
+      >
+        <span style={{ fontSize: 36 }}>📱</span>
+      </div>
+      <button
+        type="button"
+        className="ds-contact-qr-card__btn"
+        aria-label="扫码发起会话"
+        onClick={onScan}
+      >
+        Scan to Chat
+      </button>
+    </div>
+  );
+}
+
+export function MacOSUniversalClipboardSyncCard({
+  device = 'iPhone 16 Pro',
+  snippet = 'https://github.com/modern-ai-ui',
+  onPaste,
+}: {
+  device?: string;
+  snippet?: string;
+  onPaste?: () => void;
+}) {
+  return (
+    <div className="ds-clipboard-sync" role="status" aria-label="接力剪贴板同步">
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+        <div className="ds-clipboard-sync__origin">
+          <span>📱</span>
+          <span>Copied from {device}</span>
+        </div>
+        <div className="ds-clipboard-sync__text">{snippet}</div>
+      </div>
+      <button
+        type="button"
+        className="ds-button"
+        style={{ padding: '4px 12px', fontSize: 11 }}
+        aria-label="直接粘贴当前内容"
+        onClick={onPaste}
+      >
+        Paste
+      </button>
+    </div>
+  );
+}
+
+export function IOSAmbientIslandMinimalPill({
+  icon = '⏳',
+  content = '14:20',
+  onExpand,
+}: {
+  icon?: string;
+  content?: string;
+  onExpand?: () => void;
+}) {
+  return (
+    <div
+      className="ds-ambient-island"
+      role="button"
+      tabIndex={0}
+      aria-label={`灵动岛微胶囊：${content}`}
+      onClick={onExpand}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onExpand?.();
+        }
+      }}
+    >
+      <span style={{ color: '#F59E0B' }}>{icon}</span>
+      <span>{content}</span>
+    </div>
+  );
+}
 

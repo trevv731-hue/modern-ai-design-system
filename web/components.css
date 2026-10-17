@@ -2534,6 +2534,734 @@ button:disabled,input:disabled,select:disabled { opacity:.55; cursor:not-allowed
 .ds-style-migration-card__btn { border:none; background:var(--ds-accent); color:var(--ds-on-action); font-size:11px; font-weight:700; padding:6px; border-radius:6px; cursor:pointer; text-align:center; transition:opacity 120ms ease; }
 .ds-style-migration-card__btn:hover { opacity:0.9; }
 
+/* ============================================================
+   Modern Advanced Components: macOS / iOS / Android / AI / Telegram / Meta
+   ============================================================ */
+
+/* Glassmorphism & Material Utilities */
+.ds-glass { background:rgba(255,255,255,0.72); backdrop-filter:blur(20px) saturate(180%); -webkit-backdrop-filter:blur(20px) saturate(180%); border:1px solid rgba(255,255,255,0.45); }
+[data-theme="dark"] .ds-glass { background:rgba(26,28,34,0.75); border-color:rgba(255,255,255,0.12); }
+.ds-glass-subtle { background:rgba(255,255,255,0.55); backdrop-filter:blur(12px) saturate(160%); -webkit-backdrop-filter:blur(12px) saturate(160%); border:1px solid rgba(255,255,255,0.35); }
+[data-theme="dark"] .ds-glass-subtle { background:rgba(26,28,34,0.6); border-color:rgba(255,255,255,0.08); }
+.ds-glass-strong { background:rgba(255,255,255,0.85); backdrop-filter:blur(28px) saturate(190%); -webkit-backdrop-filter:blur(28px) saturate(190%); border:1px solid rgba(255,255,255,0.55); }
+[data-theme="dark"] .ds-glass-strong { background:rgba(26,28,34,0.88); border-color:rgba(255,255,255,0.15); }
+.ds-glass-specular { box-shadow:inset 0 1px 0 rgba(255,255,255,0.55); }
+[data-theme="dark"] .ds-glass-specular { box-shadow:inset 0 1px 0 rgba(255,255,255,0.12); }
+
+/* 1. AI Reasoning & Thinking Block */
+.ds-thought-block { border:1px solid var(--ds-line); border-radius:var(--ds-radius-panel); background:var(--ds-surface); overflow:hidden; margin:12px 0; transition:border-color 150ms ease; }
+.ds-thought-block__header { display:flex; align-items:center; gap:10px; width:100%; padding:12px 16px; background:transparent; border:0; color:var(--ds-ink); font:500 13px/1.4 var(--ds-type-sans); cursor:pointer; text-align:left; transition:background-color 150ms ease; }
+.ds-thought-block__header:hover { background:var(--ds-inset); }
+.ds-thought-block__orb { width:10px; height:10px; border-radius:9999px; background:#10A37F; box-shadow:0 0 10px rgba(16,163,127,0.6); animation:ds-thought-orb-pulse 2s ease-in-out infinite; flex-shrink:0; }
+@keyframes ds-thought-orb-pulse { 0%,100% { transform:scale(0.9); opacity:0.7; } 50% { transform:scale(1.2); opacity:1; } }
+.ds-thought-block__title { font-weight:600; color:var(--ds-ink); }
+.ds-thought-block__timer { font-family:var(--ds-type-mono); font-size:12px; color:var(--ds-muted); background:var(--ds-inset); padding:2px 6px; border-radius:6px; }
+.ds-thought-block__tokens { margin-left:auto; font-family:var(--ds-type-mono); font-size:11px; color:var(--ds-muted); }
+.ds-thought-block__chevron { font-size:10px; color:var(--ds-muted); transition:transform 200ms ease; }
+.ds-thought-block__header[aria-expanded="false"] .ds-thought-block__chevron { transform:rotate(-90deg); }
+.ds-thought-block__content { padding:8px 16px 14px 16px; border-top:1px dashed var(--ds-line); background:var(--ds-canvas); font-size:13px; color:var(--ds-muted); display:flex; flex-direction:column; gap:8px; }
+.ds-thought-block__step { display:flex; align-items:flex-start; gap:8px; line-height:1.5; }
+.ds-thought-block__step.is-active { color:var(--ds-ink); font-weight:500; }
+.ds-thought-block__step-icon { color:#10A37F; font-size:12px; line-height:1.5; flex-shrink:0; }
+
+/* 2. AI Multimodal Prompt Composer */
+.ds-prompt-composer { border:1px solid var(--ds-line); border-radius:20px; background:var(--ds-surface); box-shadow:0 4px 20px rgba(0,0,0,0.06); padding:12px 16px; display:flex; flex-direction:column; gap:8px; position:relative; transition:border-color 150ms ease; }
+.ds-prompt-composer:focus-within { border-color:var(--ds-action); box-shadow:0 4px 24px rgba(37,99,235,0.12); }
+.ds-prompt-composer__top { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+.ds-prompt-composer__model-pill { display:inline-flex; align-items:center; gap:6px; padding:4px 10px; background:var(--ds-inset); border:1px solid var(--ds-line); border-radius:9999px; font:500 12px var(--ds-type-sans); color:var(--ds-ink); cursor:pointer; transition:background-color 150ms ease; }
+.ds-prompt-composer__model-pill:hover { background:var(--ds-line); }
+.ds-prompt-composer__model-dot { width:6px; height:6px; border-radius:9999px; background:#2563EB; }
+.ds-prompt-composer__model-caret { font-size:10px; color:var(--ds-muted); }
+.ds-prompt-composer__attachment { display:inline-flex; align-items:center; gap:6px; padding:4px 8px; background:var(--ds-inset); border-radius:8px; font-size:12px; color:var(--ds-muted); }
+.ds-prompt-composer__attach-close { background:transparent; border:0; color:var(--ds-muted); cursor:pointer; padding:0 2px; }
+.ds-prompt-composer__textarea { width:100%; border:0; outline:0; background:transparent; font:14px/1.6 var(--ds-type-sans); color:var(--ds-ink); resize:none; min-height:48px; }
+.ds-prompt-composer__bottom { display:flex; align-items:center; justify-content:space-between; border-top:1px solid var(--ds-line); padding-top:8px; }
+.ds-prompt-composer__tools { display:flex; align-items:center; gap:8px; }
+.ds-prompt-composer__tool-btn { background:transparent; border:0; font-size:16px; color:var(--ds-muted); cursor:pointer; padding:6px 8px; border-radius:8px; transition:background-color 150ms ease; }
+.ds-prompt-composer__tool-btn:hover { background:var(--ds-inset); color:var(--ds-ink); }
+.ds-prompt-composer__token-budget { font-family:var(--ds-type-mono); font-size:11px; color:var(--ds-muted); margin-left:6px; }
+.ds-prompt-composer__send-btn { display:inline-flex; align-items:center; gap:6px; background:var(--ds-action); color:var(--ds-on-action); border:0; border-radius:9999px; padding:6px 14px; font:500 13px var(--ds-type-sans); cursor:pointer; transition:transform 100ms ease, opacity 150ms ease; }
+.ds-prompt-composer__send-btn:active { transform:scale(0.96); }
+.ds-prompt-composer__kbd { font:11px var(--ds-type-mono); opacity:0.8; padding:1px 4px; background:rgba(255,255,255,0.2); border-radius:4px; }
+
+/* 3. AI Citation Source Card */
+.ds-citation-card { border:1px solid var(--ds-line); border-radius:14px; background:var(--ds-surface); padding:14px 16px; display:flex; flex-direction:column; gap:8px; margin:8px 0; box-shadow:var(--ds-shadow); transition:transform 200ms ease, border-color 150ms ease; }
+.ds-citation-card:hover { transform:translateY(-2px); border-color:var(--ds-control-line); }
+.ds-citation-card__header { display:flex; align-items:center; gap:8px; }
+.ds-citation-card__index { display:inline-flex; align-items:center; justify-content:center; width:20px; height:20px; border-radius:9999px; background:var(--ds-accent-soft); color:var(--ds-accent); font:600 11px var(--ds-type-mono); }
+.ds-citation-card__favicon { font-size:14px; }
+.ds-citation-card__meta { display:flex; flex-direction:column; flex:1; min-width:0; }
+.ds-citation-card__title { font:600 13px/1.3 var(--ds-type-sans); color:var(--ds-ink); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.ds-citation-card__domain { font:11px var(--ds-type-mono); color:var(--ds-muted); }
+.ds-citation-card__match { padding:3px 8px; border-radius:9999px; background:var(--ds-success-soft); color:var(--ds-success); font:600 11px var(--ds-type-mono); }
+.ds-citation-card__snippet { margin:0; padding:8px 12px; background:var(--ds-inset); border-left:3px solid var(--ds-accent); border-radius:6px; font:italic 12px/1.5 var(--ds-type-sans); color:var(--ds-muted); }
+.ds-citation-card__link { display:inline-flex; align-items:center; gap:4px; font:500 12px var(--ds-type-sans); color:var(--ds-action); text-decoration:none; align-self:flex-start; transition:opacity 150ms ease; }
+.ds-citation-card__link:hover { text-decoration:underline; opacity:0.85; }
+
+/* 4. AI Artifact Split Viewer */
+.ds-artifact-viewer { border:1px solid var(--ds-line); border-radius:16px; background:var(--ds-surface); overflow:hidden; box-shadow:var(--ds-shadow); display:flex; flex-direction:column; }
+.ds-artifact-viewer__toolbar { display:flex; align-items:center; justify-content:space-between; padding:8px 16px; background:var(--ds-inset); border-bottom:1px solid var(--ds-line); }
+.ds-artifact-viewer__file-badge { display:flex; align-items:center; gap:6px; font:500 13px var(--ds-type-mono); color:var(--ds-ink); }
+.ds-artifact-viewer__version-tag { background:var(--ds-line); padding:1px 6px; border-radius:4px; font-size:11px; color:var(--ds-muted); }
+.ds-artifact-viewer__mode-switch { display:inline-flex; background:var(--ds-surface); padding:2px; border-radius:8px; border:1px solid var(--ds-line); }
+.ds-artifact-viewer__tab { background:transparent; border:0; padding:4px 12px; border-radius:6px; font:500 12px var(--ds-type-sans); color:var(--ds-muted); cursor:pointer; transition:background-color 150ms ease, color 150ms ease; }
+.ds-artifact-viewer__tab.is-active { background:var(--ds-action); color:var(--ds-on-action); }
+.ds-artifact-viewer__actions { display:flex; align-items:center; gap:6px; }
+.ds-artifact-viewer__action-btn { background:transparent; border:1px solid var(--ds-line); border-radius:6px; padding:4px 10px; font:500 12px var(--ds-type-sans); color:var(--ds-ink); cursor:pointer; transition:background-color 150ms ease; }
+.ds-artifact-viewer__action-btn:hover { background:var(--ds-surface); }
+.ds-artifact-viewer__stage { padding:24px; min-height:120px; background:var(--ds-canvas); display:flex; align-items:center; justify-content:center; }
+.ds-artifact-viewer__footer { display:flex; align-items:center; justify-content:space-between; padding:8px 16px; border-top:1px solid var(--ds-line); font:11px var(--ds-type-mono); color:var(--ds-muted); background:var(--ds-surface); }
+
+/* 5. Telegram Voice Waveform Player */
+.ds-voice-bubble { display:inline-flex; align-items:center; gap:12px; padding:10px 16px; border-radius:20px; background:var(--ds-surface); border:1px solid var(--ds-line); box-shadow:0 2px 8px rgba(0,0,0,0.04); max-width:380px; }
+.ds-voice-bubble__play-btn { width:40px; height:40px; border-radius:9999px; background:#2563EB; color:#fff; border:0; display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0; transition:transform 100ms ease, background-color 150ms ease; }
+.ds-voice-bubble__play-btn:active { transform:scale(0.92); }
+.ds-voice-bubble__body { display:flex; flex-direction:column; gap:6px; flex:1; }
+.ds-voice-bubble__waveform { display:flex; align-items:center; gap:3px; height:24px; }
+.ds-voice-bubble__bar { flex:1; background:var(--ds-line); border-radius:2px; transition:background-color 150ms ease; }
+.ds-voice-bubble__bar.is-played { background:#2563EB; }
+.ds-voice-bubble__meta { display:flex; align-items:center; justify-content:space-between; font:11px var(--ds-type-mono); color:var(--ds-muted); }
+.ds-voice-bubble__speed-btn { background:var(--ds-inset); border:0; border-radius:4px; padding:1px 5px; font:600 10px var(--ds-type-mono); color:var(--ds-ink); cursor:pointer; }
+
+/* 6. Telegram Reaction Spring Bar */
+.ds-spring-reaction-bar { display:inline-flex; align-items:center; gap:6px; padding:6px 10px; border-radius:9999px; background:rgba(255,255,255,0.85); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); border:1px solid rgba(255,255,255,0.6); box-shadow:0 4px 16px rgba(0,0,0,0.08); }
+[data-theme="dark"] .ds-spring-reaction-bar { background:rgba(28,31,37,0.85); border-color:rgba(255,255,255,0.12); }
+.ds-spring-reaction-bar__emoji-btn { display:inline-flex; align-items:center; gap:4px; padding:4px 8px; border-radius:9999px; background:transparent; border:1px solid transparent; cursor:pointer; transition:transform 200ms cubic-bezier(0.34,1.56,0.64,1), background-color 150ms ease; }
+.ds-spring-reaction-bar__emoji-btn:hover { transform:scale(1.35) translateY(-3px); background:var(--ds-inset); }
+.ds-spring-reaction-bar__emoji-btn.is-selected { background:var(--ds-accent-soft); border-color:var(--ds-accent); }
+.ds-spring-reaction-bar__char { font-size:16px; line-height:1; }
+.ds-spring-reaction-bar__count { font:600 11px var(--ds-type-mono); color:var(--ds-ink); }
+.ds-spring-reaction-bar__add-btn { width:26px; height:26px; border-radius:9999px; background:var(--ds-inset); border:0; display:flex; align-items:center; justify-content:center; color:var(--ds-muted); cursor:pointer; font-size:14px; }
+
+/* 7. Telegram Chat Bubble & Receipt */
+.ds-msg-row { display:flex; width:100%; margin:6px 0; }
+.ds-msg-row--out { justify-content:flex-end; }
+.ds-msg-row--in { justify-content:flex-start; }
+.ds-msg-bubble { max-width:min(75%, 480px); padding:10px 14px; border-radius:16px; font:14px/1.5 var(--ds-type-sans); position:relative; box-shadow:0 1px 3px rgba(0,0,0,0.05); }
+.ds-msg-bubble--out { background:#E1F3FB; color:#0F172A; border-bottom-right-radius:4px; }
+[data-theme="dark"] .ds-msg-bubble--out { background:#1E3A5F; color:#F8FAFC; }
+.ds-msg-bubble--in { background:var(--ds-surface); color:var(--ds-ink); border:1px solid var(--ds-line); border-bottom-left-radius:4px; }
+.ds-msg-bubble__quote { border-left:3px solid #2563EB; padding:4px 8px; margin-bottom:6px; background:rgba(37,99,235,0.08); border-radius:4px; font-size:12px; display:flex; flex-direction:column; }
+.ds-msg-bubble__quote-author { font-weight:600; color:#2563EB; }
+.ds-msg-bubble__quote-text { color:var(--ds-muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.ds-msg-bubble__footer { display:flex; align-items:center; justify-content:flex-end; gap:4px; margin-top:4px; font:11px var(--ds-type-mono); color:var(--ds-muted); }
+.ds-msg-bubble__checks { color:#2563EB; font-weight:700; letter-spacing:-2px; }
+
+/* 8. Telegram Pinned Broadcast Banner */
+.ds-pinned-banner { display:flex; align-items:center; gap:12px; padding:10px 16px; background:rgba(255,255,255,0.85); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border:1px solid var(--ds-line); border-radius:12px; box-shadow:0 4px 16px rgba(0,0,0,0.04); }
+[data-theme="dark"] .ds-pinned-banner { background:rgba(28,31,37,0.85); }
+.ds-pinned-banner__indicator { width:3px; height:28px; border-radius:9999px; background:#2563EB; flex-shrink:0; }
+.ds-pinned-banner__content { display:flex; flex-direction:column; flex:1; min-width:0; }
+.ds-pinned-banner__title { font:600 12px var(--ds-type-sans); color:#2563EB; }
+.ds-pinned-banner__snippet { font:13px/1.3 var(--ds-type-sans); color:var(--ds-ink); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.ds-pinned-banner__actions { display:flex; align-items:center; gap:6px; }
+.ds-pinned-banner__jump-btn { background:var(--ds-accent-soft); color:var(--ds-accent); border:0; border-radius:6px; padding:4px 10px; font:500 12px var(--ds-type-sans); cursor:pointer; transition:opacity 150ms ease; }
+.ds-pinned-banner__jump-btn:hover { opacity:0.85; }
+.ds-pinned-banner__close-btn { background:transparent; border:0; color:var(--ds-muted); cursor:pointer; padding:4px 6px; font-size:16px; }
+
+/* 9. macOS Liquid Glass Toolbar */
+.ds-liquid-toolbar { display:flex; align-items:center; justify-content:space-between; gap:16px; padding:10px 18px; background:rgba(255,255,255,0.72); backdrop-filter:blur(24px) saturate(180%); -webkit-backdrop-filter:blur(24px) saturate(180%); border:1px solid rgba(255,255,255,0.5); box-shadow:inset 0 1px 0 rgba(255,255,255,0.6), 0 4px 16px rgba(0,0,0,0.05); border-radius:14px; }
+[data-theme="dark"] .ds-liquid-toolbar { background:rgba(28,31,37,0.75); border-color:rgba(255,255,255,0.12); box-shadow:inset 0 1px 0 rgba(255,255,255,0.12), 0 4px 16px rgba(0,0,0,0.2); }
+.ds-traffic-lights { display:inline-flex; align-items:center; gap:8px; }
+.ds-traffic-lights__dot { width:12px; height:12px; border-radius:9999px; display:inline-block; cursor:pointer; }
+.ds-traffic-lights__dot--red { background:#FF5F56; border:1px solid #E0443E; }
+.ds-traffic-lights__dot--yellow { background:#FFBD2E; border:1px solid #DEA123; }
+.ds-traffic-lights__dot--green { background:#27C93F; border:1px solid #1AAB29; }
+.ds-liquid-toolbar__title { font:600 13px var(--ds-type-sans); color:var(--ds-ink); white-space:nowrap; }
+.ds-liquid-toolbar__segments { display:inline-flex; background:rgba(0,0,0,0.05); border-radius:8px; padding:2px; }
+[data-theme="dark"] .ds-liquid-toolbar__segments { background:rgba(255,255,255,0.08); }
+.ds-liquid-toolbar__seg-btn { background:transparent; border:0; border-radius:6px; padding:4px 12px; font:500 12px var(--ds-type-sans); color:var(--ds-muted); cursor:pointer; transition:background-color 150ms ease, color 150ms ease; }
+.ds-liquid-toolbar__seg-btn.is-active { background:var(--ds-surface); color:var(--ds-ink); box-shadow:0 1px 3px rgba(0,0,0,0.08); }
+.ds-liquid-toolbar__search { display:flex; align-items:center; gap:6px; background:rgba(0,0,0,0.04); border:1px solid var(--ds-line); border-radius:8px; padding:4px 10px; }
+[data-theme="dark"] .ds-liquid-toolbar__search { background:rgba(255,255,255,0.05); }
+.ds-liquid-toolbar__search input { background:transparent; border:0; outline:0; font:12px var(--ds-type-sans); color:var(--ds-ink); width:100px; }
+.ds-liquid-toolbar__kbd { font:10px var(--ds-type-mono); color:var(--ds-muted); background:var(--ds-inset); padding:1px 4px; border-radius:4px; }
+
+/* 10. iOS Dynamic Island Morph Pill */
+.ds-dynamic-morph-island { display:inline-flex; background:#000000; color:#FFFFFF; border-radius:28px; box-shadow:0 12px 32px rgba(0,0,0,0.35); transition:transform 300ms cubic-bezier(0.34,1.56,0.64,1); overflow:hidden; user-select:none; }
+.ds-dynamic-morph-island__expanded { padding:16px 20px; display:flex; flex-direction:column; gap:12px; width:340px; }
+.ds-dynamic-morph-island__header { display:flex; align-items:center; gap:12px; }
+.ds-dynamic-morph-island__art { width:36px; height:36px; border-radius:8px; background:#E11D48; display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; }
+.ds-dynamic-morph-island__track-info { display:flex; flex-direction:column; flex:1; min-width:0; }
+.ds-dynamic-morph-island__song { font:600 13px/1.3 var(--ds-type-sans); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.ds-dynamic-morph-island__artist { font:11px var(--ds-type-sans); color:#A1A1AA; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.ds-dynamic-morph-island__status-pill { padding:2px 8px; border-radius:9999px; background:rgba(255,255,255,0.15); font:500 10px var(--ds-type-sans); color:#FFFFFF; }
+.ds-dynamic-morph-island__scrubber { width:100%; height:4px; background:rgba(255,255,255,0.2); border-radius:9999px; overflow:hidden; }
+.ds-dynamic-morph-island__scrub-fill { height:100%; background:#FFFFFF; border-radius:9999px; }
+.ds-dynamic-morph-island__footer { display:flex; align-items:center; justify-content:space-between; font:11px var(--ds-type-mono); color:#A1A1AA; }
+.ds-dynamic-morph-island__btns { display:flex; align-items:center; gap:16px; }
+.ds-dynamic-morph-island__btns button { background:transparent; border:0; color:#FFFFFF; font-size:16px; cursor:pointer; transition:transform 100ms ease; }
+.ds-dynamic-morph-island__btns button:active { transform:scale(0.88); }
+
+/* 11. Android Material You Tonal Surface Card */
+.ds-m3-tonal-card { border-radius:16px; background:var(--ds-accent-soft); color:var(--ds-ink); padding:20px; display:flex; flex-direction:column; gap:10px; position:relative; overflow:hidden; box-shadow:0 1px 3px rgba(0,0,0,0.05); transition:transform 200ms cubic-bezier(0.2,0,0,1); }
+.ds-m3-tonal-card:hover { transform:translateY(-2px); }
+.ds-m3-tonal-card__header { display:flex; align-items:center; justify-content:space-between; }
+.ds-m3-tonal-card__icon { width:32px; height:32px; border-radius:8px; background:var(--ds-action); color:var(--ds-on-action); display:flex; align-items:center; justify-content:center; font-size:16px; }
+.ds-m3-tonal-card__badge { font:600 11px var(--ds-type-mono); color:var(--ds-accent); background:rgba(37,99,235,0.12); padding:3px 8px; border-radius:9999px; }
+.ds-m3-tonal-card__title { font:600 16px/1.4 var(--ds-type-sans); color:var(--ds-ink); }
+.ds-m3-tonal-card__desc { margin:0; font:13px/1.6 var(--ds-type-sans); color:var(--ds-muted); }
+.ds-m3-tonal-card__footer { margin-top:6px; display:flex; justify-content:flex-end; }
+.ds-m3-tonal-card__action { background:var(--ds-action); color:var(--ds-on-action); border:0; border-radius:9999px; padding:8px 18px; font:500 13px var(--ds-type-sans); cursor:pointer; transition:transform 100ms ease, opacity 150ms ease; }
+.ds-m3-tonal-card__action:active { transform:scale(0.96); }
+
+/* 12. Meta / Instagram Story Avatar Gradient Ring */
+.ds-story-avatar-ring { display:inline-flex; position:relative; align-items:center; justify-content:center; width:62px; height:62px; border-radius:9999px; cursor:pointer; transition:transform 150ms cubic-bezier(0.34,1.56,0.64,1); }
+.ds-story-avatar-ring:hover { transform:scale(1.06); }
+.ds-story-avatar-ring:active { transform:scale(0.94); }
+.ds-story-avatar-ring__gradient { position:absolute; inset:0; border-radius:9999px; background:conic-gradient(from 0deg, #F59E0B, #EC4899, #8B5CF6, #3B82F6, #F59E0B); animation:ds-story-conic-spin 4s linear infinite; }
+@keyframes ds-story-conic-spin { to { transform:rotate(360deg); } }
+.ds-story-avatar-ring__gap { position:relative; z-index:1; width:54px; height:54px; border-radius:9999px; background:var(--ds-surface); display:flex; align-items:center; justify-content:center; overflow:hidden; }
+.ds-story-avatar-ring__img { width:48px; height:48px; border-radius:9999px; object-fit:cover; display:block; }
+.ds-story-avatar-ring__live-badge { position:absolute; bottom:0; z-index:2; background:#EF4444; color:#FFFFFF; font:700 9px var(--ds-type-mono); padding:1px 6px; border-radius:4px; border:1.5px solid var(--ds-surface); letter-spacing:0.5px; }
+
+/* 13. macOS & Raycast Command Palette */
+.ds-raycast-palette { width:min(580px, calc(100vw - 32px)); border-radius:14px; background:rgba(255,255,255,0.85); backdrop-filter:blur(24px) saturate(180%); -webkit-backdrop-filter:blur(24px) saturate(180%); border:1px solid rgba(255,255,255,0.5); box-shadow:0 16px 40px rgba(0,0,0,0.14); overflow:hidden; display:flex; flex-direction:column; }
+[data-theme="dark"] .ds-raycast-palette { background:rgba(28,31,37,0.88); border-color:rgba(255,255,255,0.12); box-shadow:0 16px 40px rgba(0,0,0,0.35); }
+.ds-raycast-palette__input-box { display:flex; align-items:center; gap:10px; padding:12px 18px; border-bottom:1px solid var(--ds-line); }
+.ds-raycast-palette__input-box input { flex:1; background:transparent; border:0; outline:0; font:15px var(--ds-type-sans); color:var(--ds-ink); }
+.ds-raycast-palette__list { list-style:none; margin:0; padding:8px; max-height:280px; overflow-y:auto; display:flex; flex-direction:column; gap:2px; }
+.ds-raycast-palette__group-title { padding:6px 10px 2px; font:600 11px var(--ds-type-mono); color:var(--ds-muted); text-transform:uppercase; letter-spacing:0.5px; }
+.ds-raycast-palette__item { display:flex; align-items:center; justify-content:space-between; padding:8px 12px; border-radius:8px; cursor:pointer; color:var(--ds-ink); font:13px var(--ds-type-sans); transition:background-color 120ms ease; }
+.ds-raycast-palette__item:hover, .ds-raycast-palette__item.is-selected { background:var(--ds-accent-soft); color:var(--ds-accent); font-weight:500; }
+.ds-raycast-palette__item-left { display:flex; align-items:center; gap:10px; }
+.ds-raycast-palette__item-icon { width:18px; text-align:center; }
+.ds-raycast-palette__kbd { font:11px var(--ds-type-mono); color:var(--ds-muted); background:var(--ds-inset); padding:2px 6px; border-radius:4px; }
+.ds-raycast-palette__footer { display:flex; align-items:center; justify-content:space-between; padding:8px 16px; background:var(--ds-inset); border-top:1px solid var(--ds-line); font:11px var(--ds-type-sans); color:var(--ds-muted); }
+.ds-raycast-palette__footer-actions { display:flex; align-items:center; gap:12px; }
+
+/* 14. iOS Bottom Sheet Snap Drawer */
+.ds-bottom-sheet { width:min(480px, 100vw); border-radius:24px 24px 0 0; background:rgba(255,255,255,0.9); backdrop-filter:blur(24px) saturate(180%); -webkit-backdrop-filter:blur(24px) saturate(180%); border:1px solid rgba(255,255,255,0.6); border-bottom:0; box-shadow:0 -8px 32px rgba(0,0,0,0.12); padding:12px 20px 24px; display:flex; flex-direction:column; gap:14px; box-sizing:border-box; }
+[data-theme="dark"] .ds-bottom-sheet { background:rgba(28,31,37,0.92); border-color:rgba(255,255,255,0.12); }
+.ds-bottom-sheet__grabber { width:36px; height:5px; border-radius:9999px; background:var(--ds-control-line); align-self:center; opacity:0.6; cursor:grab; }
+.ds-bottom-sheet__header { display:flex; align-items:center; justify-content:space-between; font:600 16px var(--ds-type-sans); color:var(--ds-ink); }
+.ds-bottom-sheet__close-btn { background:var(--ds-inset); border:0; width:28px; height:28px; border-radius:9999px; display:flex; align-items:center; justify-content:center; color:var(--ds-muted); cursor:pointer; }
+.ds-bottom-sheet__body { font:14px/1.6 var(--ds-type-sans); color:var(--ds-muted); display:flex; flex-direction:column; gap:10px; }
+
+/* 15. Android M3 Predictive Back Container */
+.ds-predictive-back { border-radius:20px; background:var(--ds-surface); border:1px solid var(--ds-line); box-shadow:var(--ds-shadow); overflow:hidden; transition:transform 250ms cubic-bezier(0.05,0.7,0.1,1), border-radius 250ms ease; will-change:transform; }
+.ds-predictive-back.is-swiping { transform:scale(0.92) translateX(12px); border-radius:28px; box-shadow:0 12px 32px rgba(0,0,0,0.12); }
+.ds-predictive-back__header { display:flex; align-items:center; gap:12px; padding:14px 18px; border-bottom:1px solid var(--ds-line); font:600 15px var(--ds-type-sans); color:var(--ds-ink); }
+.ds-predictive-back__content { padding:18px; font:13px/1.6 var(--ds-type-sans); color:var(--ds-muted); }
+
+/* 16. AI Streaming Text Output & Shimmer Cursor */
+.ds-streaming-response { border:1px solid var(--ds-line); border-radius:14px; background:var(--ds-surface); padding:16px; display:flex; flex-direction:column; gap:10px; font:14px/1.6 var(--ds-type-sans); color:var(--ds-ink); position:relative; }
+.ds-streaming-response__text { white-space:pre-wrap; }
+.ds-streaming-response__cursor { display:inline-block; width:7px; height:15px; vertical-align:-2px; background:#2563EB; margin-left:3px; border-radius:2px; animation:ds-streaming-cursor-glow 1s ease-in-out infinite; }
+@keyframes ds-streaming-cursor-glow { 0%,100% { opacity:1; transform:scaleY(1); } 50% { opacity:0.2; transform:scaleY(0.85); } }
+.ds-streaming-response__footer { display:flex; align-items:center; justify-content:space-between; margin-top:6px; padding-top:8px; border-top:1px dashed var(--ds-line); font:11px var(--ds-type-mono); color:var(--ds-muted); }
+.ds-streaming-response__stop-btn { display:inline-flex; align-items:center; gap:6px; background:var(--ds-inset); border:1px solid var(--ds-line); border-radius:9999px; padding:4px 12px; font:500 12px var(--ds-type-sans); color:var(--ds-danger); cursor:pointer; transition:background-color 150ms ease; }
+.ds-streaming-response__stop-btn:hover { background:var(--ds-danger-soft); }
+
+/* 17. AI Prompt Template Inspiration Carousel */
+.ds-prompt-carousel { display:flex; align-items:center; gap:8px; overflow-x:auto; padding:4px 2px; scrollbar-width:none; user-select:none; }
+.ds-prompt-carousel::-webkit-scrollbar { display:none; }
+.ds-prompt-carousel__pill { display:inline-flex; align-items:center; gap:6px; padding:6px 14px; border-radius:9999px; background:var(--ds-surface); border:1px solid var(--ds-line); font:500 12px var(--ds-type-sans); color:var(--ds-ink); white-space:nowrap; cursor:pointer; box-shadow:0 1px 3px rgba(0,0,0,0.03); transition:transform 150ms ease, border-color 150ms ease; }
+.ds-prompt-carousel__pill:hover { transform:translateY(-2px); border-color:var(--ds-action); color:var(--ds-action); }
+.ds-prompt-carousel__icon { font-size:14px; }
+
+/* 18. AI Context Window Token Fuel Gauge */
+.ds-token-fuel-gauge { border:1px solid var(--ds-line); border-radius:14px; background:var(--ds-surface); padding:14px 18px; display:flex; flex-direction:column; gap:8px; box-shadow:var(--ds-shadow); width:min(320px, 100vw - 32px); }
+.ds-token-fuel-gauge__header { display:flex; align-items:center; justify-content:space-between; font:600 13px var(--ds-type-sans); color:var(--ds-ink); }
+.ds-token-fuel-gauge__percent { font:700 12px var(--ds-type-mono); color:var(--ds-accent); }
+.ds-token-fuel-gauge__track { width:100%; height:8px; border-radius:9999px; background:var(--ds-inset); overflow:hidden; position:relative; }
+.ds-token-fuel-gauge__fill { height:100%; border-radius:9999px; background:linear-gradient(90deg, #10B981, #3B82F6); transition:transform 300ms ease; transform-origin:left; }
+.ds-token-fuel-gauge__fill.is-warning { background:linear-gradient(90deg, #F59E0B, #EF4444); }
+.ds-token-fuel-gauge__stats { display:flex; justify-content:space-between; font:11px var(--ds-type-mono); color:var(--ds-muted); }
+
+/* 19. AI Model Arena Side-by-Side Compare Card */
+.ds-model-arena-card { border:1px solid var(--ds-line); border-radius:16px; background:var(--ds-surface); overflow:hidden; box-shadow:var(--ds-shadow); display:flex; flex-direction:column; }
+.ds-model-arena-card__grid { display:grid; grid-template-columns:1fr 1fr; border-bottom:1px solid var(--ds-line); }
+@media (max-width: 640px) { .ds-model-arena-card__grid { grid-template-columns:1fr; } }
+.ds-model-arena-card__col { padding:16px; display:flex; flex-direction:column; gap:10px; }
+.ds-model-arena-card__col:first-child { border-right:1px solid var(--ds-line); }
+@media (max-width: 640px) { .ds-model-arena-card__col:first-child { border-right:0; border-bottom:1px solid var(--ds-line); } }
+.ds-model-arena-card__col-header { display:flex; align-items:center; justify-content:space-between; font:600 13px var(--ds-type-sans); color:var(--ds-ink); }
+.ds-model-arena-card__col-stats { font:11px var(--ds-type-mono); color:var(--ds-muted); }
+.ds-model-arena-card__col-body { font:13px/1.5 var(--ds-type-sans); color:var(--ds-muted); }
+.ds-model-arena-card__vote-bar { display:flex; align-items:center; justify-content:center; gap:12px; padding:12px; background:var(--ds-inset); }
+.ds-model-arena-card__vote-btn { background:var(--ds-surface); border:1px solid var(--ds-line); border-radius:9999px; padding:6px 16px; font:500 12px var(--ds-type-sans); color:var(--ds-ink); cursor:pointer; transition:transform 100ms ease, background-color 150ms ease; }
+.ds-model-arena-card__vote-btn:hover { background:var(--ds-accent-soft); color:var(--ds-accent); border-color:var(--ds-accent); }
+.ds-model-arena-card__vote-btn:active { transform:scale(0.96); }
+
+/* 20. Telegram Circular Video Note Bubble */
+.ds-video-note { width:150px; height:150px; border-radius:9999px; position:relative; overflow:hidden; box-shadow:0 8px 24px rgba(0,0,0,0.18); cursor:pointer; user-select:none; display:flex; align-items:center; justify-content:center; background:#1C1F25; }
+.ds-video-note__ring { position:absolute; inset:0; border-radius:9999px; border:3px solid transparent; border-top-color:#3B82F6; border-right-color:#3B82F6; animation:ds-video-note-spin 8s linear infinite; }
+@keyframes ds-video-note-spin { to { transform:rotate(360deg); } }
+.ds-video-note__thumb { width:138px; height:138px; border-radius:9999px; object-fit:cover; display:block; }
+.ds-video-note__badge { position:absolute; bottom:12px; background:rgba(0,0,0,0.65); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); color:#FFF; font:600 10px var(--ds-type-mono); padding:2px 8px; border-radius:9999px; }
+
+/* 21. Telegram & Meta Message Context Menu Popover */
+.ds-msg-context-menu { display:inline-flex; flex-direction:column; min-width:180px; padding:6px; border-radius:14px; background:rgba(255,255,255,0.88); backdrop-filter:blur(24px) saturate(180%); -webkit-backdrop-filter:blur(24px) saturate(180%); border:1px solid rgba(255,255,255,0.5); box-shadow:0 12px 32px rgba(0,0,0,0.12); }
+[data-theme="dark"] .ds-msg-context-menu { background:rgba(28,31,37,0.9); border-color:rgba(255,255,255,0.12); box-shadow:0 12px 32px rgba(0,0,0,0.35); }
+.ds-msg-context-menu__item { display:flex; align-items:center; justify-content:space-between; padding:8px 12px; border-radius:8px; border:0; background:transparent; font:13px var(--ds-type-sans); color:var(--ds-ink); cursor:pointer; text-align:left; transition:background-color 120ms ease; }
+.ds-msg-context-menu__item:hover { background:var(--ds-accent-soft); color:var(--ds-accent); }
+.ds-msg-context-menu__item.is-danger { color:var(--ds-danger); }
+.ds-msg-context-menu__item.is-danger:hover { background:var(--ds-danger-soft); }
+.ds-msg-context-menu__item-left { display:flex; align-items:center; gap:8px; }
+.ds-msg-context-menu__shortcut { font:11px var(--ds-type-mono); color:var(--ds-muted); }
+
+/* 22. macOS Control Center Slider Grid */
+.ds-control-center-grid { display:flex; flex-direction:column; gap:10px; width:min(260px, 100vw - 32px); padding:14px; border-radius:16px; background:rgba(255,255,255,0.75); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border:1px solid rgba(255,255,255,0.5); box-shadow:0 4px 16px rgba(0,0,0,0.06); }
+[data-theme="dark"] .ds-control-center-grid { background:rgba(28,31,37,0.8); border-color:rgba(255,255,255,0.12); }
+.ds-control-slider { display:flex; align-items:center; gap:10px; height:44px; padding:0 12px; border-radius:9999px; background:rgba(0,0,0,0.06); position:relative; overflow:hidden; user-select:none; }
+[data-theme="dark"] .ds-control-slider { background:rgba(255,255,255,0.08); }
+.ds-control-slider__fill { position:absolute; left:0; top:0; bottom:0; background:var(--ds-surface); border-radius:9999px; box-shadow:0 1px 4px rgba(0,0,0,0.1); }
+.ds-control-slider__content { position:relative; z-index:1; display:flex; align-items:center; justify-content:space-between; width:100%; font:500 12px var(--ds-type-sans); color:var(--ds-ink); pointer-events:none; }
+
+/* 23. iOS Action Button Radial Menu Hub */
+.ds-action-radial-hub { display:inline-flex; align-items:center; justify-content:center; width:160px; height:160px; position:relative; }
+.ds-action-radial-hub__center { width:52px; height:52px; border-radius:9999px; background:#000; color:#FFF; display:flex; align-items:center; justify-content:center; font-size:20px; box-shadow:0 8px 24px rgba(0,0,0,0.25); z-index:2; border:2px solid rgba(255,255,255,0.2); }
+.ds-action-radial-hub__item { position:absolute; width:36px; height:36px; border-radius:9999px; background:var(--ds-surface); border:1px solid var(--ds-line); box-shadow:0 2px 8px rgba(0,0,0,0.08); display:flex; align-items:center; justify-content:center; font-size:15px; cursor:pointer; transition:transform 200ms cubic-bezier(0.34,1.56,0.64,1); }
+.ds-action-radial-hub__item:hover { transform:scale(1.25); background:var(--ds-accent-soft); border-color:var(--ds-accent); }
+
+/* 24. Meta / WhatsApp Ephemeral Timer Message Badge */
+.ds-ephemeral-timer-pill { display:inline-flex; align-items:center; gap:5px; padding:3px 9px; border-radius:9999px; background:rgba(0,0,0,0.05); font:600 11px var(--ds-type-mono); color:var(--ds-muted); border:1px solid var(--ds-line); }
+[data-theme="dark"] .ds-ephemeral-timer-pill { background:rgba(255,255,255,0.06); }
+.ds-ephemeral-timer-pill__clock { animation:ds-ephemeral-pulse 2s infinite; }
+@keyframes ds-ephemeral-pulse { 0%,100% { opacity:1; } 50% { opacity:0.4; } }
+
+
+/* 25. macOS Dock Magnification & Spring Launch Shelf */
+.ds-dock-shelf { display:inline-flex; align-items:flex-end; gap:8px; padding:8px 14px; border-radius:20px; background:rgba(255,255,255,0.75); backdrop-filter:blur(24px) saturate(180%); -webkit-backdrop-filter:blur(24px) saturate(180%); border:1px solid rgba(255,255,255,0.5); box-shadow:0 12px 36px rgba(0,0,0,0.15); position:relative; }
+[data-theme="dark"] .ds-dock-shelf { background:rgba(28,31,37,0.8); border-color:rgba(255,255,255,0.12); box-shadow:0 12px 36px rgba(0,0,0,0.4); }
+.ds-dock-shelf__item { display:flex; flex-direction:column; align-items:center; gap:4px; cursor:pointer; position:relative; user-select:none; }
+.ds-dock-shelf__icon { width:46px; height:46px; border-radius:12px; background:var(--ds-surface); border:1px solid var(--ds-line); display:flex; align-items:center; justify-content:center; font-size:22px; box-shadow:0 4px 10px rgba(0,0,0,0.08); transition:transform 200ms cubic-bezier(0.34,1.56,0.64,1); }
+.ds-dock-shelf__item:hover .ds-dock-shelf__icon { transform:scale(1.35) translateY(-8px); }
+.ds-dock-shelf__item:active .ds-dock-shelf__icon { transform:scale(1.15) translateY(-4px); }
+.ds-dock-shelf__dot { width:4px; height:4px; border-radius:9999px; background:var(--ds-ink); opacity:0.6; }
+.ds-dock-shelf__divider { width:1px; height:34px; background:var(--ds-line); margin:0 4px 6px; }
+
+/* 26. iOS Live Activity Lockscreen Dynamic Card */
+.ds-live-activity { width:min(380px, calc(100vw - 32px)); border-radius:22px; background:rgba(24,26,32,0.92); backdrop-filter:blur(24px) saturate(180%); -webkit-backdrop-filter:blur(24px) saturate(180%); border:1px solid rgba(255,255,255,0.14); box-shadow:0 16px 40px rgba(0,0,0,0.35); padding:16px; color:#FFF; display:flex; flex-direction:column; gap:12px; }
+.ds-live-activity__header { display:flex; align-items:center; justify-content:space-between; }
+.ds-live-activity__title { font:600 13px var(--ds-type-sans); display:flex; align-items:center; gap:8px; }
+.ds-live-activity__eta { font:700 16px var(--ds-type-sans); color:#38BDF8; }
+.ds-live-activity__track { height:6px; border-radius:9999px; background:rgba(255,255,255,0.16); position:relative; margin:6px 0; }
+.ds-live-activity__fill { height:100%; border-radius:9999px; background:linear-gradient(90deg, #38BDF8, #818CF8); }
+.ds-live-activity__pin { position:absolute; top:-8px; transform:translateX(-50%); font-size:15px; }
+.ds-live-activity__footer { display:flex; justify-content:space-between; align-items:center; font:11px var(--ds-type-mono); color:rgba(255,255,255,0.65); }
+
+/* 27. Android M3 Expressive Floating Action Button Speed Dial Menu */
+.ds-m3-fab-menu { position:relative; display:inline-flex; flex-direction:column-reverse; align-items:flex-end; gap:10px; z-index:30; }
+.ds-m3-fab-menu__trigger { width:56px; height:56px; border-radius:18px; background:var(--ds-accent); color:#FFF; border:0; box-shadow:0 8px 24px rgba(0,0,0,0.2); cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:24px; transition:transform 240ms cubic-bezier(0.34,1.56,0.64,1), background-color 150ms ease; }
+.ds-m3-fab-menu.is-expanded .ds-m3-fab-menu__trigger { transform:rotate(45deg); background:var(--ds-danger); }
+.ds-m3-fab-menu__list { display:flex; flex-direction:column-reverse; gap:10px; align-items:flex-end; }
+.ds-m3-fab-menu__item { display:flex; align-items:center; gap:8px; background:transparent; border:0; cursor:pointer; }
+.ds-m3-fab-menu__item-btn { width:42px; height:42px; border-radius:14px; background:var(--ds-surface); border:1px solid var(--ds-line); color:var(--ds-ink); display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,0.12); transition:transform 140ms ease; font-size:16px; }
+.ds-m3-fab-menu__item-btn:hover { transform:scale(1.1); }
+.ds-m3-fab-menu__item-label { padding:4px 10px; border-radius:8px; background:var(--ds-surface); border:1px solid var(--ds-line); font:600 12px var(--ds-type-sans); color:var(--ds-ink); box-shadow:0 2px 8px rgba(0,0,0,0.08); }
+
+/* 28. AI Diff Code Lens Inspector */
+.ds-diff-lens { border:1px solid var(--ds-line); border-radius:14px; background:var(--ds-surface); overflow:hidden; box-shadow:var(--ds-shadow); width:min(540px, calc(100vw - 32px)); }
+.ds-diff-lens__header { display:flex; align-items:center; justify-content:space-between; padding:10px 14px; background:var(--ds-inset); border-bottom:1px solid var(--ds-line); font:600 12px var(--ds-type-mono); color:var(--ds-ink); }
+.ds-diff-lens__actions { display:flex; gap:6px; }
+.ds-diff-lens__btn { border-radius:6px; padding:3px 10px; font:600 11px var(--ds-type-sans); border:1px solid var(--ds-line); cursor:pointer; transition:transform 100ms ease; }
+.ds-diff-lens__btn--accept { background:var(--ds-success-soft); color:var(--ds-success); border-color:var(--ds-success); }
+.ds-diff-lens__btn--reject { background:var(--ds-danger-soft); color:var(--ds-danger); border-color:var(--ds-danger); }
+.ds-diff-lens__btn:active { transform:scale(0.96); }
+.ds-diff-lens__lines { font:12px/1.6 var(--ds-type-mono); padding:6px 0; }
+.ds-diff-lens__line { display:flex; padding:2px 12px; gap:12px; }
+.ds-diff-lens__line--del { background:rgba(239,68,68,0.1); color:var(--ds-danger); }
+.ds-diff-lens__line--add { background:rgba(16,185,129,0.1); color:var(--ds-success); }
+.ds-diff-lens__num { width:24px; color:var(--ds-muted); user-select:none; text-align:right; }
+.ds-diff-lens__explain { padding:8px 14px; background:var(--ds-inset); border-top:1px solid var(--ds-line); font:12px var(--ds-type-sans); color:var(--ds-muted); }
+
+/* 29. AI Audio Multi-Mesh Glowing Voice Orb */
+.ds-voice-orb-hub { display:inline-flex; flex-direction:column; align-items:center; gap:14px; padding:20px 24px; border-radius:24px; background:radial-gradient(circle at center, rgba(99,102,241,0.08) 0%, transparent 70%); }
+.ds-voice-orb { width:84px; height:84px; border-radius:9999px; position:relative; display:flex; align-items:center; justify-content:center; cursor:pointer; box-shadow:0 0 32px rgba(99,102,241,0.35); }
+.ds-voice-orb__mesh { position:absolute; inset:0; border-radius:9999px; background:radial-gradient(circle at 35% 35%, #EC4899 0%, #6366F1 50%, #06B6D4 100%); animation:ds-orb-spin 6s linear infinite; filter:blur(3px); }
+@keyframes ds-orb-spin { to { transform:rotate(360deg); } }
+.ds-voice-orb__core { position:relative; z-index:1; width:34px; height:34px; border-radius:9999px; background:rgba(255,255,255,0.85); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); display:flex; align-items:center; justify-content:center; font-size:16px; }
+.ds-voice-orb__status { display:flex; align-items:center; gap:6px; font:600 12px var(--ds-type-sans); color:var(--ds-ink); background:var(--ds-surface); border:1px solid var(--ds-line); padding:4px 12px; border-radius:9999px; }
+
+/* 30. AI Agent Execution Pipeline Timeline */
+.ds-agent-pipeline { display:flex; flex-direction:column; gap:0; width:min(440px, calc(100vw - 32px)); padding:16px; border-radius:16px; background:var(--ds-surface); border:1px solid var(--ds-line); box-shadow:var(--ds-shadow); }
+.ds-agent-pipeline__step { display:flex; gap:12px; position:relative; padding-bottom:16px; }
+.ds-agent-pipeline__step:last-child { padding-bottom:0; }
+.ds-agent-pipeline__spine { position:absolute; left:13px; top:28px; bottom:-2px; width:2px; background:var(--ds-line); }
+.ds-agent-pipeline__step:last-child .ds-agent-pipeline__spine { display:none; }
+.ds-agent-pipeline__node { width:28px; height:28px; border-radius:9999px; display:flex; align-items:center; justify-content:center; font:700 12px var(--ds-type-mono); z-index:1; flex-shrink:0; }
+.ds-agent-pipeline__node.is-done { background:var(--ds-success-soft); color:var(--ds-success); border:1.5px solid var(--ds-success); }
+.ds-agent-pipeline__node.is-running { background:var(--ds-accent-soft); color:var(--ds-accent); border:1.5px solid var(--ds-accent); animation:ds-pulse-orb 2s infinite; }
+.ds-agent-pipeline__node.is-pending { background:var(--ds-inset); color:var(--ds-muted); border:1.5px solid var(--ds-line); }
+.ds-agent-pipeline__body { flex:1; display:flex; flex-direction:column; gap:4px; }
+.ds-agent-pipeline__step-title { display:flex; align-items:center; justify-content:space-between; font:600 13px var(--ds-type-sans); color:var(--ds-ink); }
+.ds-agent-pipeline__step-time { font:11px var(--ds-type-mono); color:var(--ds-muted); }
+.ds-agent-pipeline__step-detail { font:12px var(--ds-type-sans); color:var(--ds-muted); }
+
+/* 31. Telegram Folder Category Tab Badge Strip */
+.ds-folder-tabs { display:flex; align-items:center; gap:4px; border-bottom:1px solid var(--ds-line); padding:0 8px; overflow-x:auto; scrollbar-width:none; position:relative; }
+.ds-folder-tabs::-webkit-scrollbar { display:none; }
+.ds-folder-tabs__tab { display:inline-flex; align-items:center; gap:6px; padding:10px 14px; border:0; background:transparent; font:600 13px var(--ds-type-sans); color:var(--ds-muted); cursor:pointer; position:relative; white-space:nowrap; }
+.ds-folder-tabs__tab.is-active { color:var(--ds-action); }
+.ds-folder-tabs__tab.is-active::after { content:''; position:absolute; left:0; right:0; bottom:-1px; height:2px; background:var(--ds-action); border-radius:2px 2px 0 0; }
+.ds-folder-tabs__badge { font:700 10px var(--ds-type-mono); padding:1px 6px; border-radius:9999px; background:var(--ds-line); color:var(--ds-ink); }
+.ds-folder-tabs__tab.is-active .ds-folder-tabs__badge { background:var(--ds-action); color:#FFF; }
+.ds-folder-tabs__badge.is-muted { background:var(--ds-inset); color:var(--ds-muted); }
+
+/* 32. Telegram Sticker Lottie Reaction Picker */
+.ds-sticker-picker { width:min(320px, calc(100vw - 32px)); border-radius:18px; background:var(--ds-surface); border:1px solid var(--ds-line); box-shadow:0 12px 36px rgba(0,0,0,0.16); overflow:hidden; display:flex; flex-direction:column; }
+.ds-sticker-picker__header { padding:10px 12px; border-bottom:1px solid var(--ds-line); display:flex; align-items:center; gap:8px; }
+.ds-sticker-picker__search { flex:1; background:var(--ds-inset); border:0; border-radius:8px; padding:6px 10px; font:12px var(--ds-type-sans); color:var(--ds-ink); outline:none; }
+.ds-sticker-picker__recents { display:flex; gap:6px; padding:8px 12px; background:var(--ds-inset); border-bottom:1px solid var(--ds-line); }
+.ds-sticker-picker__recent-btn { font-size:18px; background:transparent; border:0; cursor:pointer; transition:transform 120ms ease; }
+.ds-sticker-picker__recent-btn:hover { transform:scale(1.2); }
+.ds-sticker-picker__grid { display:grid; grid-template-columns:repeat(4, 1fr); gap:8px; padding:12px; max-height:180px; overflow-y:auto; }
+.ds-sticker-picker__item { display:flex; align-items:center; justify-content:center; font-size:28px; padding:8px; border-radius:12px; background:transparent; border:0; cursor:pointer; transition:transform 160ms cubic-bezier(0.34,1.56,0.64,1); }
+.ds-sticker-picker__item:hover { transform:scale(1.22); background:var(--ds-accent-soft); }
+
+/* 33. Meta Threads Nested Conversation Reply Branch */
+.ds-thread-branch { display:flex; flex-direction:column; gap:12px; width:min(460px, calc(100vw - 32px)); }
+.ds-thread-branch__item { display:flex; gap:12px; position:relative; }
+.ds-thread-branch__spine { position:absolute; left:17px; top:40px; bottom:-12px; width:2px; background:var(--ds-line); }
+.ds-thread-branch__item:last-child .ds-thread-branch__spine { display:none; }
+.ds-thread-branch__avatar { width:36px; height:36px; border-radius:9999px; object-fit:cover; z-index:1; flex-shrink:0; }
+.ds-thread-branch__body { flex:1; display:flex; flex-direction:column; gap:4px; }
+.ds-thread-branch__author { font:600 13px var(--ds-type-sans); color:var(--ds-ink); display:flex; align-items:center; gap:6px; }
+.ds-thread-branch__time { font:400 11px var(--ds-type-sans); color:var(--ds-muted); }
+.ds-thread-branch__text { font:13px/1.5 var(--ds-type-sans); color:var(--ds-ink); }
+.ds-thread-branch__actions { display:flex; gap:14px; margin-top:4px; font:12px var(--ds-type-sans); color:var(--ds-muted); }
+.ds-thread-branch__action-btn { background:transparent; border:0; color:var(--ds-muted); cursor:pointer; display:flex; align-items:center; gap:4px; }
+
+/* 34. Meta Channel Broadcast Audio Snippet */
+.ds-channel-broadcast { width:min(420px, calc(100vw - 32px)); border-radius:18px; background:var(--ds-surface); border:1px solid var(--ds-line); padding:16px; box-shadow:var(--ds-shadow); display:flex; flex-direction:column; gap:12px; }
+.ds-channel-broadcast__header { display:flex; align-items:center; gap:10px; }
+.ds-channel-broadcast__avatar { width:40px; height:40px; border-radius:9999px; flex-shrink:0; }
+.ds-channel-broadcast__info { display:flex; flex-direction:column; }
+.ds-channel-broadcast__name { font:600 13px var(--ds-type-sans); color:var(--ds-ink); display:flex; align-items:center; gap:4px; }
+.ds-channel-broadcast__subs { font:11px var(--ds-type-mono); color:var(--ds-muted); }
+.ds-channel-broadcast__card { display:flex; align-items:center; gap:12px; padding:10px 14px; border-radius:14px; background:var(--ds-inset); border:1px solid var(--ds-line); }
+.ds-channel-broadcast__play-btn { width:36px; height:36px; border-radius:9999px; background:var(--ds-action); color:#FFF; border:0; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:14px; flex-shrink:0; }
+.ds-channel-broadcast__bars { display:flex; align-items:center; gap:2px; height:24px; flex:1; }
+.ds-channel-broadcast__bar { width:3px; border-radius:9999px; background:var(--ds-control-line); }
+.ds-channel-broadcast__bar.is-played { background:var(--ds-action); }
+.ds-channel-broadcast__reactions { display:flex; gap:6px; }
+.ds-channel-broadcast__chip { padding:3px 8px; border-radius:9999px; background:var(--ds-inset); border:1px solid var(--ds-line); font:600 11px var(--ds-type-sans); color:var(--ds-ink); }
+
+/* 35. macOS Spotlight Quick Look Preview Modal */
+.ds-quicklook-modal { width:min(480px, calc(100vw - 32px)); border-radius:16px; background:rgba(255,255,255,0.85); backdrop-filter:blur(24px) saturate(180%); -webkit-backdrop-filter:blur(24px) saturate(180%); border:1px solid rgba(255,255,255,0.45); box-shadow:0 20px 48px rgba(0,0,0,0.18); overflow:hidden; display:flex; flex-direction:column; }
+[data-theme="dark"] .ds-quicklook-modal { background:rgba(28,31,37,0.88); border-color:rgba(255,255,255,0.12); box-shadow:0 20px 48px rgba(0,0,0,0.4); }
+.ds-quicklook-modal__header { display:flex; align-items:center; justify-content:space-between; padding:10px 14px; border-bottom:1px solid var(--ds-line); }
+.ds-quicklook-modal__dots { display:flex; gap:6px; }
+.ds-quicklook-modal__title { font:600 12px var(--ds-type-sans); color:var(--ds-ink); }
+.ds-quicklook-modal__body { padding:16px; display:flex; flex-direction:column; align-items:center; gap:12px; }
+.ds-quicklook-modal__preview { width:100%; height:160px; border-radius:10px; background:var(--ds-inset); display:flex; align-items:center; justify-content:center; border:1px dashed var(--ds-line); font-size:36px; }
+.ds-quicklook-modal__meta { display:flex; gap:16px; font:11px var(--ds-type-mono); color:var(--ds-muted); }
+.ds-quicklook-modal__footer { display:flex; justify-content:flex-end; padding:10px 14px; background:var(--ds-inset); border-top:1px solid var(--ds-line); }
+
+/* 36. iOS Segmented Liquid Pill Selector */
+.ds-liquid-segmented { display:inline-flex; align-items:center; padding:3px; border-radius:9999px; background:rgba(0,0,0,0.06); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); position:relative; user-select:none; }
+[data-theme="dark"] .ds-liquid-segmented { background:rgba(255,255,255,0.08); }
+.ds-liquid-segmented__item { display:inline-flex; align-items:center; gap:6px; padding:6px 16px; border-radius:9999px; border:0; background:transparent; font:600 12px var(--ds-type-sans); color:var(--ds-muted); cursor:pointer; position:relative; z-index:1; transition:color 150ms ease, transform 120ms ease; }
+.ds-liquid-segmented__item.is-active { color:var(--ds-ink); background:var(--ds-surface); box-shadow:0 2px 8px rgba(0,0,0,0.12); }
+
+
+/* 37. macOS Menu Bar Weather & Air Quality Glance */
+.ds-weather-glance { display:inline-flex; flex-direction:column; gap:10px; width:min(280px, calc(100vw - 32px)); padding:14px; border-radius:16px; background:rgba(255,255,255,0.78); backdrop-filter:blur(24px) saturate(180%); -webkit-backdrop-filter:blur(24px) saturate(180%); border:1px solid rgba(255,255,255,0.5); box-shadow:0 8px 24px rgba(0,0,0,0.1); }
+[data-theme="dark"] .ds-weather-glance { background:rgba(28,31,37,0.85); border-color:rgba(255,255,255,0.12); box-shadow:0 8px 24px rgba(0,0,0,0.35); }
+.ds-weather-glance__current { display:flex; align-items:center; justify-content:space-between; }
+.ds-weather-glance__temp { font:700 24px var(--ds-type-sans); color:var(--ds-ink); display:flex; align-items:center; gap:8px; }
+.ds-weather-glance__condition { font:12px var(--ds-type-sans); color:var(--ds-muted); text-align:right; }
+.ds-weather-glance__hourly { display:flex; align-items:flex-end; justify-content:space-between; height:46px; padding:6px 0 0; border-top:1px solid var(--ds-line); }
+.ds-weather-glance__hour-col { display:flex; flex-direction:column; align-items:center; gap:4px; font:10px var(--ds-type-mono); color:var(--ds-muted); }
+.ds-weather-glance__bar { width:6px; border-radius:9999px; background:linear-gradient(180deg, #38BDF8, #818CF8); }
+.ds-weather-glance__aqi { display:inline-flex; align-items:center; gap:4px; padding:2px 6px; border-radius:9999px; background:var(--ds-success-soft); color:var(--ds-success); font:600 10px var(--ds-type-mono); }
+
+/* 38. iOS StandBy Mode Smart Stack Night Clock */
+.ds-standby-clock-card { width:min(340px, calc(100vw - 32px)); border-radius:24px; background:#0A0A0C; border:1px solid rgba(255,255,255,0.1); padding:20px 24px; display:flex; flex-direction:column; justify-content:space-between; box-shadow:0 16px 40px rgba(0,0,0,0.5); color:#F97316; }
+.ds-standby-clock-card__time { font:700 54px/1 var(--ds-type-mono); letter-spacing:-1px; text-shadow:0 0 20px rgba(249,115,22,0.4); display:flex; align-items:baseline; justify-content:space-between; }
+.ds-standby-clock-card__ampm { font:700 16px var(--ds-type-sans); color:#EA580C; }
+.ds-standby-clock-card__footer { display:flex; align-items:center; justify-content:space-between; margin-top:16px; font:600 13px var(--ds-type-sans); color:rgba(255,255,255,0.7); }
+.ds-standby-clock-card__dots { display:flex; flex-direction:column; gap:4px; }
+.ds-standby-clock-card__dot { width:4px; height:4px; border-radius:9999px; background:rgba(255,255,255,0.25); }
+.ds-standby-clock-card__dot.is-active { background:#F97316; }
+
+/* 39. Android M3 Navigation Rail Dock */
+.ds-m3-nav-rail { display:inline-flex; flex-direction:column; align-items:center; gap:16px; padding:16px 8px; width:72px; border-radius:20px; background:var(--ds-surface); border:1px solid var(--ds-line); box-shadow:var(--ds-shadow); user-select:none; }
+.ds-m3-nav-rail__header { display:flex; align-items:center; justify-content:center; width:44px; height:44px; border-radius:12px; background:var(--ds-accent-soft); color:var(--ds-accent); font-size:18px; }
+.ds-m3-nav-rail__menu { display:flex; flex-direction:column; align-items:center; gap:12px; width:100%; }
+.ds-m3-nav-rail__item { display:flex; flex-direction:column; align-items:center; gap:4px; background:transparent; border:0; cursor:pointer; width:100%; position:relative; }
+.ds-m3-nav-rail__pill { width:48px; height:28px; border-radius:9999px; display:flex; align-items:center; justify-content:center; font-size:16px; color:var(--ds-ink); transition:background-color 150ms ease; }
+.ds-m3-nav-rail__item.is-active .ds-m3-nav-rail__pill { background:var(--ds-accent-soft); color:var(--ds-accent); }
+.ds-m3-nav-rail__label { font:600 10px var(--ds-type-sans); color:var(--ds-muted); }
+.ds-m3-nav-rail__item.is-active .ds-m3-nav-rail__label { color:var(--ds-ink); }
+.ds-m3-nav-rail__badge { position:absolute; top:-2px; right:10px; padding:1px 5px; border-radius:9999px; background:var(--ds-danger); color:#FFF; font:700 9px var(--ds-type-mono); }
+
+/* 40. AI Infinite Canvas Node Connection Port */
+.ds-canvas-node { width:min(260px, calc(100vw - 32px)); border-radius:14px; background:var(--ds-surface); border:1.5px solid var(--ds-line); box-shadow:0 8px 24px rgba(0,0,0,0.08); position:relative; display:flex; flex-direction:column; }
+.ds-canvas-node:hover { border-color:var(--ds-accent); }
+.ds-canvas-node__header { display:flex; align-items:center; justify-content:space-between; padding:10px 14px; border-bottom:1px solid var(--ds-line); background:var(--ds-inset); font:600 12px var(--ds-type-sans); color:var(--ds-ink); border-radius:12px 12px 0 0; }
+.ds-canvas-node__badge { font:700 10px var(--ds-type-mono); padding:1px 6px; border-radius:4px; background:var(--ds-accent-soft); color:var(--ds-accent); }
+.ds-canvas-node__body { padding:12px 14px; font:11px/1.5 var(--ds-type-mono); color:var(--ds-muted); display:flex; flex-direction:column; gap:4px; }
+.ds-canvas-node__port { position:absolute; width:12px; height:12px; border-radius:9999px; background:var(--ds-surface); border:2.5px solid var(--ds-line); top:50%; transform:translateY(-50%); cursor:crosshair; transition:transform 140ms ease, border-color 140ms ease; }
+.ds-canvas-node__port:hover { border-color:var(--ds-accent); transform:translateY(-50%) scale(1.3); }
+.ds-canvas-node__port--in { left:-6px; }
+.ds-canvas-node__port--out { right:-6px; }
+
+/* 41. AI Inline Selection Floating Action HUD */
+.ds-selection-hud { display:inline-flex; align-items:center; gap:2px; padding:4px 6px; border-radius:12px; background:rgba(255,255,255,0.85); backdrop-filter:blur(20px) saturate(180%); -webkit-backdrop-filter:blur(20px) saturate(180%); border:1px solid rgba(255,255,255,0.45); box-shadow:0 10px 28px rgba(0,0,0,0.14); }
+[data-theme="dark"] .ds-selection-hud { background:rgba(28,31,37,0.9); border-color:rgba(255,255,255,0.12); box-shadow:0 10px 28px rgba(0,0,0,0.35); }
+.ds-selection-hud__btn { display:inline-flex; align-items:center; gap:4px; padding:4px 8px; border-radius:6px; background:transparent; border:0; font:500 12px var(--ds-type-sans); color:var(--ds-ink); cursor:pointer; transition:background-color 120ms ease; }
+.ds-selection-hud__btn:hover { background:var(--ds-accent-soft); color:var(--ds-accent); }
+.ds-selection-hud__divider { width:1px; height:16px; background:var(--ds-line); margin:0 4px; }
+.ds-selection-hud__kbd { font:10px var(--ds-type-mono); color:var(--ds-muted); background:var(--ds-inset); padding:1px 4px; border-radius:4px; border:1px solid var(--ds-line); }
+
+/* 42. AI Image Generation Quad Matrix */
+.ds-image-quad { width:min(340px, calc(100vw - 32px)); border-radius:18px; background:var(--ds-surface); border:1px solid var(--ds-line); padding:12px; box-shadow:var(--ds-shadow); display:flex; flex-direction:column; gap:10px; }
+.ds-image-quad__grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; border-radius:12px; overflow:hidden; }
+.ds-image-quad__cell { position:relative; aspect-ratio:1; border-radius:8px; overflow:hidden; background:var(--ds-inset); display:flex; align-items:center; justify-content:center; }
+.ds-image-quad__img { width:100%; height:100%; object-fit:cover; display:block; }
+.ds-image-quad__badge { position:absolute; bottom:6px; left:6px; font:700 10px var(--ds-type-mono); background:rgba(0,0,0,0.6); color:#FFF; padding:1px 6px; border-radius:4px; }
+.ds-image-quad__toolbar { display:flex; align-items:center; justify-content:space-between; gap:6px; }
+.ds-image-quad__btn-group { display:flex; gap:4px; }
+.ds-image-quad__btn { padding:4px 8px; border-radius:6px; background:var(--ds-inset); border:1px solid var(--ds-line); font:600 11px var(--ds-type-mono); color:var(--ds-ink); cursor:pointer; transition:background-color 120ms ease; }
+.ds-image-quad__btn:hover { background:var(--ds-accent-soft); color:var(--ds-accent); border-color:var(--ds-accent); }
+
+/* 43. Telegram Secret Chat TTL Burner Banner */
+.ds-secret-chat-banner { width:min(380px, calc(100vw - 32px)); border-radius:16px; background:rgba(24,26,32,0.92); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border:1px solid rgba(255,255,255,0.12); padding:16px; color:#FFF; display:flex; flex-direction:column; gap:12px; box-shadow:0 12px 32px rgba(0,0,0,0.25); }
+.ds-secret-chat-banner__header { display:flex; align-items:center; gap:10px; }
+.ds-secret-chat-banner__lock { width:36px; height:36px; border-radius:10px; background:linear-gradient(135deg, #10B981, #059669); display:flex; align-items:center; justify-content:center; font-size:18px; }
+.ds-secret-chat-banner__title { font:600 13px var(--ds-type-sans); }
+.ds-secret-chat-banner__features { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:6px; font:11px var(--ds-type-sans); color:rgba(255,255,255,0.7); }
+.ds-secret-chat-banner__feature { display:flex; align-items:center; gap:6px; }
+.ds-secret-chat-banner__fingerprint { font:10px var(--ds-type-mono); color:#10B981; padding:6px 10px; border-radius:8px; background:rgba(16,185,129,0.12); border:1px dashed rgba(16,185,129,0.3); text-align:center; }
+
+/* 44. Telegram Interactive Poll & Quiz Card */
+.ds-quiz-poll { width:min(380px, calc(100vw - 32px)); border-radius:18px; background:var(--ds-surface); border:1px solid var(--ds-line); padding:16px; box-shadow:var(--ds-shadow); display:flex; flex-direction:column; gap:12px; }
+.ds-quiz-poll__header { display:flex; align-items:center; justify-content:space-between; font:11px var(--ds-type-sans); color:var(--ds-muted); }
+.ds-quiz-poll__question { font:600 14px var(--ds-type-sans); color:var(--ds-ink); margin:0; }
+.ds-quiz-poll__options { display:flex; flex-direction:column; gap:8px; }
+.ds-quiz-poll__opt { display:flex; align-items:center; justify-content:space-between; padding:10px 12px; border-radius:10px; background:var(--ds-inset); border:1px solid var(--ds-line); cursor:pointer; position:relative; overflow:hidden; }
+.ds-quiz-poll__opt-fill { position:absolute; left:0; top:0; bottom:0; background:var(--ds-accent-soft); border-radius:10px; pointer-events:none; }
+.ds-quiz-poll__opt-label { position:relative; z-index:1; font:500 13px var(--ds-type-sans); color:var(--ds-ink); }
+.ds-quiz-poll__opt-pct { position:relative; z-index:1; font:700 12px var(--ds-type-mono); color:var(--ds-accent); }
+.ds-quiz-poll__footer { display:flex; align-items:center; justify-content:space-between; font:11px var(--ds-type-mono); color:var(--ds-muted); border-top:1px solid var(--ds-line); padding-top:10px; }
+
+/* 45. Meta Instagram Collab Dual Creator Header */
+.ds-collab-header { display:inline-flex; align-items:center; gap:12px; padding:8px 12px; border-radius:9999px; background:var(--ds-surface); border:1px solid var(--ds-line); box-shadow:0 2px 8px rgba(0,0,0,0.06); }
+.ds-collab-header__avatars { position:relative; width:46px; height:32px; }
+.ds-collab-header__avatar { width:30px; height:30px; border-radius:9999px; border:2px solid var(--ds-surface); position:absolute; top:0; object-fit:cover; }
+.ds-collab-header__avatar--primary { left:0; z-index:2; }
+.ds-collab-header__avatar--collab { left:16px; z-index:1; }
+.ds-collab-header__info { display:flex; flex-direction:column; }
+.ds-collab-header__names { font:600 12px var(--ds-type-sans); color:var(--ds-ink); display:flex; align-items:center; gap:4px; }
+.ds-collab-header__subtext { font:400 10px var(--ds-type-sans); color:var(--ds-muted); }
+
+/* 46. Meta Reels Vertical Action Sidebar */
+.ds-reels-sidebar { display:inline-flex; flex-direction:column; align-items:center; gap:14px; user-select:none; }
+.ds-reels-sidebar__item { display:flex; flex-direction:column; align-items:center; gap:4px; }
+.ds-reels-sidebar__icon-btn { width:44px; height:44px; border-radius:9999px; background:rgba(0,0,0,0.45); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); border:0; color:#FFF; font-size:20px; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:transform 140ms ease; }
+.ds-reels-sidebar__icon-btn:hover { transform:scale(1.15); }
+.ds-reels-sidebar__count { font:600 11px var(--ds-type-mono); color:#FFF; text-shadow:0 1px 3px rgba(0,0,0,0.5); }
+.ds-reels-sidebar__disc { width:36px; height:36px; border-radius:9999px; background:#1C1F25; border:3px solid #FFF; display:flex; align-items:center; justify-content:center; animation:ds-spin 5s linear infinite; }
+.ds-reels-sidebar__disc-inner { width:12px; height:12px; border-radius:9999px; background:linear-gradient(135deg, #EC4899, #8B5CF6); }
+
+/* 47. macOS Stage Manager Window Cluster Stack */
+.ds-stage-cluster { display:inline-flex; flex-direction:column; align-items:center; gap:8px; position:relative; cursor:pointer; }
+.ds-stage-cluster__stack { position:relative; width:92px; height:74px; }
+.ds-stage-cluster__window { position:absolute; width:80px; height:54px; border-radius:8px; background:var(--ds-surface); border:1px solid var(--ds-line); box-shadow:0 8px 18px rgba(0,0,0,0.14); transition:transform 200ms cubic-bezier(0.34,1.56,0.64,1); overflow:hidden; }
+.ds-stage-cluster__window--back { top:0; left:12px; opacity:0.8; }
+.ds-stage-cluster__window--front { top:14px; left:0; z-index:2; }
+.ds-stage-cluster:hover .ds-stage-cluster__window--back { transform:translate(6px, -4px); opacity:1; }
+.ds-stage-cluster:hover .ds-stage-cluster__window--front { transform:translate(-4px, 4px); }
+.ds-stage-cluster__app-icon { width:22px; height:22px; border-radius:6px; box-shadow:0 2px 6px rgba(0,0,0,0.2); }
+
+/* 48. iOS Safari Fluid Bottom Capsule Tab Bar */
+.ds-safari-bar { display:inline-flex; align-items:center; justify-content:space-between; width:min(360px, calc(100vw - 32px)); height:48px; padding:0 12px; border-radius:9999px; background:rgba(255,255,255,0.85); backdrop-filter:blur(24px) saturate(180%); -webkit-backdrop-filter:blur(24px) saturate(180%); border:1px solid rgba(255,255,255,0.5); box-shadow:0 8px 30px rgba(0,0,0,0.12); }
+[data-theme="dark"] .ds-safari-bar { background:rgba(28,31,37,0.88); border-color:rgba(255,255,255,0.12); box-shadow:0 8px 30px rgba(0,0,0,0.35); }
+.ds-safari-bar__url { display:flex; align-items:center; gap:6px; font:500 13px var(--ds-type-sans); color:var(--ds-ink); }
+.ds-safari-bar__ssl { font-size:12px; color:var(--ds-muted); }
+.ds-safari-bar__actions { display:flex; align-items:center; gap:10px; }
+.ds-safari-bar__btn { background:transparent; border:0; color:var(--ds-ink); font-size:15px; cursor:pointer; display:flex; align-items:center; justify-content:center; }
+.ds-safari-bar__tab-count { width:20px; height:20px; border-radius:6px; border:1.5px solid var(--ds-ink); font:700 11px var(--ds-type-mono); display:flex; align-items:center; justify-content:center; }
+
+
+/* 49. macOS Menu Bar Battery & Energy Process Flyout */
+.ds-battery-flyout { display:inline-flex; flex-direction:column; gap:12px; width:min(280px, calc(100vw - 32px)); padding:16px; border-radius:16px; background:rgba(255,255,255,0.78); backdrop-filter:blur(24px) saturate(180%); -webkit-backdrop-filter:blur(24px) saturate(180%); border:1px solid rgba(255,255,255,0.5); box-shadow:0 8px 24px rgba(0,0,0,0.1); }
+[data-theme="dark"] .ds-battery-flyout { background:rgba(28,31,37,0.85); border-color:rgba(255,255,255,0.12); box-shadow:0 8px 24px rgba(0,0,0,0.35); }
+.ds-battery-flyout__header { display:flex; align-items:center; justify-content:space-between; }
+.ds-battery-flyout__pct { font:700 22px var(--ds-type-sans); color:var(--ds-ink); display:flex; align-items:center; gap:8px; }
+.ds-battery-flyout__status { font:11px var(--ds-type-mono); color:var(--ds-muted); }
+.ds-battery-flyout__section-title { font:600 11px var(--ds-type-sans); color:var(--ds-muted); text-transform:uppercase; letter-spacing:0.5px; margin-top:4px; }
+.ds-battery-flyout__list { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:6px; }
+.ds-battery-flyout__item { display:flex; align-items:center; justify-content:space-between; font:12px var(--ds-type-sans); color:var(--ds-ink); }
+.ds-battery-flyout__item-left { display:flex; align-items:center; gap:8px; }
+
+/* 50. iOS CarPlay Multi-Tile Split Dashboard */
+.ds-carplay-dash { display:grid; grid-template-columns:1.2fr 1fr; gap:10px; width:min(440px, calc(100vw - 32px)); padding:12px; border-radius:24px; background:#111317; border:1px solid rgba(255,255,255,0.1); box-shadow:0 16px 40px rgba(0,0,0,0.4); }
+@media (max-width: 480px) { .ds-carplay-dash { grid-template-columns:1fr; } }
+.ds-carplay-dash__nav { padding:14px; border-radius:16px; background:#1C1F26; display:flex; flex-direction:column; justify-content:space-between; color:#FFF; min-height:120px; }
+.ds-carplay-dash__turn { font:700 18px var(--ds-type-sans); display:flex; align-items:center; gap:8px; color:#38BDF8; }
+.ds-carplay-dash__street { font:600 13px var(--ds-type-sans); color:rgba(255,255,255,0.85); }
+.ds-carplay-dash__side { display:flex; flex-direction:column; gap:10px; }
+.ds-carplay-dash__tile { padding:12px; border-radius:16px; background:#1C1F26; color:#FFF; display:flex; align-items:center; gap:10px; font:12px var(--ds-type-sans); }
+
+/* 51. Android M3 Clock Face Time Dial Picker */
+.ds-m3-time-picker { width:220px; height:220px; border-radius:9999px; background:var(--ds-inset); border:1px solid var(--ds-line); position:relative; display:flex; align-items:center; justify-content:center; user-select:none; margin:0 auto; }
+.ds-m3-time-picker__pivot { width:8px; height:8px; border-radius:9999px; background:var(--ds-accent); z-index:2; position:relative; }
+.ds-m3-time-picker__hand { position:absolute; left:calc(50% - 1px); bottom:50%; width:2px; height:75px; background:var(--ds-accent); transform-origin:bottom center; transform:rotate(90deg); transition:transform 200ms cubic-bezier(0.34,1.56,0.64,1); }
+.ds-m3-time-picker__hand-end { position:absolute; top:-14px; left:-13px; width:28px; height:28px; border-radius:9999px; background:var(--ds-accent); display:flex; align-items:center; justify-content:center; color:#FFF; font:700 12px var(--ds-type-mono); }
+.ds-m3-time-picker__num { position:absolute; font:600 12px var(--ds-type-mono); color:var(--ds-muted); width:24px; height:24px; display:flex; align-items:center; justify-content:center; }
+
+/* 52. AI Audio & Music Multi-Stem Generation Workstation Track */
+.ds-audio-gen-track { width:min(440px, calc(100vw - 32px)); border-radius:16px; background:var(--ds-surface); border:1px solid var(--ds-line); padding:16px; box-shadow:var(--ds-shadow); display:flex; flex-direction:column; gap:12px; }
+.ds-audio-gen-track__header { display:flex; align-items:center; justify-content:space-between; font:600 13px var(--ds-type-sans); color:var(--ds-ink); }
+.ds-audio-gen-track__wave { display:flex; align-items:center; gap:3px; height:42px; padding:6px 10px; border-radius:10px; background:var(--ds-inset); border:1px solid var(--ds-line); }
+.ds-audio-gen-track__bar { flex:1; border-radius:9999px; background:linear-gradient(180deg, #8B5CF6, #EC4899); }
+.ds-audio-gen-track__stem-chips { display:flex; gap:6px; flex-wrap:wrap; }
+.ds-audio-gen-track__chip { padding:3px 8px; border-radius:6px; background:var(--ds-inset); border:1px solid var(--ds-line); font:600 10px var(--ds-type-mono); color:var(--ds-ink); cursor:pointer; }
+.ds-audio-gen-track__chip.is-active { background:var(--ds-accent-soft); color:var(--ds-accent); border-color:var(--ds-accent); }
+
+/* 53. AI Agent Headless Virtual Sandbox Terminal HUD */
+.ds-sandbox-terminal { width:min(460px, calc(100vw - 32px)); border-radius:14px; background:#0F172A; border:1px solid rgba(255,255,255,0.15); box-shadow:0 12px 36px rgba(0,0,0,0.35); overflow:hidden; display:flex; flex-direction:column; }
+.ds-sandbox-terminal__header { display:flex; align-items:center; justify-content:space-between; padding:8px 12px; background:rgba(255,255,255,0.05); border-bottom:1px solid rgba(255,255,255,0.1); }
+.ds-sandbox-terminal__title { font:600 11px var(--ds-type-mono); color:rgba(255,255,255,0.8); }
+.ds-sandbox-terminal__body { padding:12px; font:11px/1.6 var(--ds-type-mono); color:#38BDF8; max-height:120px; overflow-y:auto; display:flex; flex-direction:column; }
+.ds-sandbox-terminal__footer { display:flex; align-items:center; justify-content:space-between; padding:6px 12px; background:rgba(255,255,255,0.03); border-top:1px solid rgba(255,255,255,0.08); font:10px var(--ds-type-mono); color:rgba(255,255,255,0.5); }
+.ds-sandbox-terminal__btn { background:rgba(239,68,68,0.2); border:1px solid #EF4444; color:#EF4444; padding:2px 8px; border-radius:4px; font:600 10px var(--ds-type-mono); cursor:pointer; }
+
+/* 54. AI Prompt Token & Cost Estimator Micro Badge */
+.ds-prompt-cost-badge { display:inline-flex; align-items:center; gap:8px; padding:4px 10px; border-radius:9999px; background:var(--ds-inset); border:1px solid var(--ds-line); font:500 11px var(--ds-type-mono); color:var(--ds-ink); }
+.ds-prompt-cost-badge__cost { font-weight:700; color:var(--ds-accent); }
+.ds-prompt-cost-badge__cache { padding:1px 6px; border-radius:9999px; background:var(--ds-success-soft); color:var(--ds-success); font-weight:700; font-size:10px; }
+
+/* 55. Telegram Voice Chat Participant Speaker Bubble */
+.ds-voice-tile { display:inline-flex; flex-direction:column; align-items:center; gap:8px; width:90px; text-align:center; position:relative; }
+.ds-voice-tile__halo { width:60px; height:60px; border-radius:9999px; position:relative; display:flex; align-items:center; justify-content:center; }
+.ds-voice-tile.is-speaking .ds-voice-tile__halo::before { content:''; position:absolute; inset:-4px; border-radius:9999px; border:2px solid #10B981; animation:ds-halo-pulse 1.8s infinite; }
+@keyframes ds-halo-pulse { 0% { transform:scale(0.95); opacity:1; } 100% { transform:scale(1.25); opacity:0; } }
+.ds-voice-tile__avatar { width:54px; height:54px; border-radius:9999px; object-fit:cover; display:block; }
+.ds-voice-tile__name { font:600 11px var(--ds-type-sans); color:var(--ds-ink); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; width:100%; }
+.ds-voice-tile__badge { position:absolute; top:36px; right:14px; width:18px; height:18px; border-radius:9999px; background:var(--ds-surface); border:1px solid var(--ds-line); font-size:10px; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 6px rgba(0,0,0,0.1); }
+
+/* 56. Telegram Collectible Gift Stars Card */
+.ds-crypto-gift-card { width:min(240px, calc(100vw - 32px)); border-radius:18px; background:linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.01)); border:1.5px solid #F59E0B; padding:16px; display:flex; flex-direction:column; align-items:center; gap:8px; text-align:center; box-shadow:0 8px 24px rgba(245,158,11,0.15); position:relative; }
+.ds-crypto-gift-card__icon { font-size:38px; line-height:1; }
+.ds-crypto-gift-card__title { font:700 14px var(--ds-type-sans); color:var(--ds-ink); margin-top:2px; }
+.ds-crypto-gift-card__rarity { font:700 10px var(--ds-type-mono); padding:2px 8px; border-radius:9999px; background:linear-gradient(90deg, #F59E0B, #EF4444); color:#FFF; text-transform:uppercase; }
+.ds-crypto-gift-card__price { font:700 12px var(--ds-type-mono); color:#F59E0B; }
+.ds-crypto-gift-card__hash { font:10px var(--ds-type-mono); color:var(--ds-muted); }
+
+/* 57. Meta WhatsApp Audio Status Story Card */
+.ds-audio-status-card { width:min(340px, calc(100vw - 32px)); border-radius:20px; background:var(--ds-surface); border:1px solid var(--ds-line); padding:16px; box-shadow:var(--ds-shadow); display:flex; flex-direction:column; gap:12px; }
+.ds-audio-status-card__header { display:flex; align-items:center; gap:10px; }
+.ds-audio-status-card__ring { width:42px; height:42px; border-radius:9999px; padding:2px; background:linear-gradient(45deg, #25D366, #128C7E); }
+.ds-audio-status-card__avatar { width:100%; height:100%; border-radius:9999px; border:2px solid var(--ds-surface); object-fit:cover; display:block; }
+.ds-audio-status-card__wave-box { display:flex; align-items:center; gap:10px; padding:10px 14px; border-radius:14px; background:var(--ds-inset); border:1px solid var(--ds-line); }
+.ds-audio-status-card__play { width:32px; height:32px; border-radius:9999px; background:#25D366; color:#FFF; border:0; display:flex; align-items:center; justify-content:center; cursor:pointer; }
+.ds-audio-status-card__bars { display:flex; align-items:center; gap:2px; height:20px; flex:1; }
+.ds-audio-status-card__bar { width:3px; border-radius:9999px; background:var(--ds-control-line); }
+.ds-audio-status-card__bar.is-played { background:#25D366; }
+
+/* 58. Meta Threads Nested Quote Repost Card */
+.ds-quote-post { width:min(440px, calc(100vw - 32px)); border-radius:16px; background:var(--ds-surface); border:1px solid var(--ds-line); padding:14px; box-shadow:var(--ds-shadow); display:flex; flex-direction:column; gap:10px; }
+.ds-quote-post__author { font:600 13px var(--ds-type-sans); color:var(--ds-ink); display:flex; align-items:center; gap:6px; }
+.ds-quote-post__text { font:13px/1.5 var(--ds-type-sans); color:var(--ds-ink); }
+.ds-quote-post__quote-box { border-radius:12px; border:1px solid var(--ds-line); padding:10px 12px; background:var(--ds-inset); display:flex; flex-direction:column; gap:6px; }
+.ds-quote-post__quote-header { font:600 12px var(--ds-type-sans); color:var(--ds-ink); display:flex; align-items:center; gap:6px; }
+.ds-quote-post__quote-body { font:12px/1.5 var(--ds-type-sans); color:var(--ds-muted); }
+
+/* 59. macOS Sequoia Window Tiling Magnetic Snap Overlay */
+.ds-window-snap-overlay { width:min(320px, calc(100vw - 32px)); border-radius:14px; background:rgba(255,255,255,0.75); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border:1px solid rgba(255,255,255,0.45); padding:12px; box-shadow:0 12px 32px rgba(0,0,0,0.12); display:flex; flex-direction:column; gap:8px; }
+[data-theme="dark"] .ds-window-snap-overlay { background:rgba(28,31,37,0.85); border-color:rgba(255,255,255,0.12); }
+.ds-window-snap-overlay__grid { display:grid; grid-template-columns:1fr 1fr; gap:6px; height:100px; }
+.ds-window-snap-overlay__zone { border-radius:8px; border:1.5px dashed var(--ds-control-line); background:var(--ds-inset); display:flex; align-items:center; justify-content:center; font:600 10px var(--ds-type-mono); color:var(--ds-muted); cursor:pointer; transition:background-color 150ms ease, border-color 150ms ease; }
+.ds-window-snap-overlay__zone.is-highlighted { border:1.5px solid #3B82F6; background:rgba(59,130,246,0.15); color:#3B82F6; }
+
+/* 60. iOS Focus Mode Scene & Filter Dock Shelf */
+.ds-focus-shelf { display:inline-flex; align-items:center; gap:6px; padding:6px 10px; border-radius:9999px; background:rgba(0,0,0,0.06); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); position:relative; }
+[data-theme="dark"] .ds-focus-shelf { background:rgba(255,255,255,0.08); }
+.ds-focus-shelf__item { display:inline-flex; align-items:center; gap:6px; padding:6px 14px; border-radius:9999px; border:0; background:transparent; font:600 12px var(--ds-type-sans); color:var(--ds-muted); cursor:pointer; transition:color 140ms ease; }
+.ds-focus-shelf__item.is-active { background:var(--ds-surface); color:var(--ds-ink); box-shadow:0 2px 8px rgba(0,0,0,0.12); }
+
+
+/* 61. macOS MacBook Notch Dynamic Notification HUD */
+.ds-notch-hud { position:relative; width:min(340px, calc(100vw - 32px)); border-radius:0 0 18px 18px; background:#000; border:1px solid rgba(255,255,255,0.15); border-top:0; padding:12px 16px; color:#FFF; display:flex; align-items:center; gap:12px; box-shadow:0 12px 32px rgba(0,0,0,0.5); margin:0 auto; }
+.ds-notch-hud__cutout { position:absolute; top:0; left:50%; transform:translateX(-50%); width:120px; height:6px; background:#000; border-radius:0 0 8px 8px; }
+.ds-notch-hud__thumb { width:38px; height:38px; border-radius:8px; object-fit:cover; flex-shrink:0; }
+.ds-notch-hud__meta { flex:1; display:flex; flex-direction:column; gap:4px; }
+.ds-notch-hud__title { font:600 12px var(--ds-type-sans); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.ds-notch-hud__track { width:100%; height:4px; border-radius:9999px; background:rgba(255,255,255,0.2); overflow:hidden; }
+.ds-notch-hud__fill { height:100%; border-radius:9999px; background:#38BDF8; }
+
+/* 62. visionOS & iOS Spatial Depth Widget Carousel */
+.ds-spatial-carousel { width:min(420px, calc(100vw - 32px)); height:140px; position:relative; perspective:800px; display:flex; align-items:center; justify-content:center; }
+.ds-spatial-carousel__card { position:absolute; width:180px; height:110px; border-radius:18px; background:rgba(255,255,255,0.85); backdrop-filter:blur(24px) saturate(180%); -webkit-backdrop-filter:blur(24px) saturate(180%); border:1px solid rgba(255,255,255,0.5); box-shadow:0 12px 32px rgba(0,0,0,0.12); padding:14px; display:flex; flex-direction:column; justify-content:space-between; cursor:pointer; transition:transform 240ms cubic-bezier(0.34,1.56,0.64,1), opacity 200ms ease; user-select:none; }
+[data-theme="dark"] .ds-spatial-carousel__card { background:rgba(28,31,37,0.88); border-color:rgba(255,255,255,0.12); box-shadow:0 12px 32px rgba(0,0,0,0.35); }
+.ds-spatial-carousel__card--prev { transform:translateX(-100px) translateZ(-60px) rotateY(25deg); opacity:0.65; z-index:1; }
+.ds-spatial-carousel__card--active { transform:translateX(0) translateZ(0) rotateY(0deg); opacity:1; z-index:2; box-shadow:0 16px 40px rgba(0,0,0,0.2); }
+.ds-spatial-carousel__card--next { transform:translateX(100px) translateZ(-60px) rotateY(-25deg); opacity:0.65; z-index:1; }
+
+/* 63. Android 15 M3 Expressive Elastic Slider */
+.ds-m3-exp-slider { width:min(320px, calc(100vw - 32px)); display:flex; flex-direction:column; gap:8px; user-select:none; }
+.ds-m3-exp-slider__track { width:100%; height:18px; border-radius:9999px; background:var(--ds-inset); border:1px solid var(--ds-line); position:relative; display:flex; align-items:center; cursor:pointer; overflow:visible; }
+.ds-m3-exp-slider__fill { height:100%; border-radius:9999px; background:var(--ds-accent); }
+.ds-m3-exp-slider__thumb { position:absolute; width:26px; height:26px; border-radius:9999px; background:var(--ds-surface); border:2px solid var(--ds-accent); box-shadow:0 2px 8px rgba(0,0,0,0.2); transform:translateX(-50%); cursor:grab; transition:transform 140ms ease; display:flex; align-items:center; justify-content:center; }
+.ds-m3-exp-slider__thumb:active { transform:translateX(-50%) scale(1.25); }
+
+/* 64. AI Prompt Version Branch Evolution Tree */
+.ds-prompt-branch { width:min(440px, calc(100vw - 32px)); border-radius:16px; background:var(--ds-surface); border:1px solid var(--ds-line); padding:16px; box-shadow:var(--ds-shadow); display:flex; flex-direction:column; gap:12px; }
+.ds-prompt-branch__header { display:flex; align-items:center; justify-content:space-between; font:600 13px var(--ds-type-sans); color:var(--ds-ink); }
+.ds-prompt-branch__list { display:flex; flex-direction:column; gap:8px; }
+.ds-prompt-branch__node { display:flex; align-items:center; justify-content:space-between; padding:8px 12px; border-radius:10px; background:var(--ds-inset); border:1px solid var(--ds-line); cursor:pointer; }
+.ds-prompt-branch__node.is-active { border-color:var(--ds-accent); background:var(--ds-accent-soft); }
+.ds-prompt-branch__tag { font:700 11px var(--ds-type-mono); color:var(--ds-accent); display:flex; align-items:center; gap:6px; }
+.ds-prompt-branch__score { font:600 11px var(--ds-type-mono); color:var(--ds-success); }
+
+/* 65. AI Vector Embedding Semantic Retrieval Cluster */
+.ds-vector-cluster { width:min(360px, calc(100vw - 32px)); border-radius:16px; background:var(--ds-surface); border:1px solid var(--ds-line); padding:14px; box-shadow:var(--ds-shadow); display:flex; flex-direction:column; gap:10px; }
+.ds-vector-cluster__header { display:flex; align-items:center; justify-content:space-between; font:600 12px var(--ds-type-sans); color:var(--ds-ink); }
+.ds-vector-cluster__canvas { width:100%; height:120px; border-radius:10px; background:var(--ds-inset); border:1px solid var(--ds-line); position:relative; overflow:hidden; }
+.ds-vector-cluster__centroid { position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); width:14px; height:14px; border-radius:9999px; background:#EF4444; border:2px solid #FFF; box-shadow:0 0 12px rgba(239,68,68,0.5); z-index:2; }
+.ds-vector-cluster__node { position:absolute; width:8px; height:8px; border-radius:9999px; background:var(--ds-accent); cursor:pointer; transition:transform 140ms ease; }
+.ds-vector-cluster__node:hover { transform:scale(1.8); background:#10B981; }
+
+/* 66. AI Function Calling & Tool Invocation Callout */
+.ds-tool-callout { width:min(440px, calc(100vw - 32px)); border-radius:14px; background:var(--ds-surface); border:1px solid var(--ds-line); overflow:hidden; box-shadow:var(--ds-shadow); }
+.ds-tool-callout__header { display:flex; align-items:center; justify-content:space-between; padding:10px 14px; background:var(--ds-inset); border-bottom:1px solid var(--ds-line); font:600 12px var(--ds-type-mono); color:var(--ds-ink); }
+.ds-tool-callout__fn-name { display:inline-flex; align-items:center; gap:6px; color:var(--ds-accent); }
+.ds-tool-callout__body { padding:12px 14px; font:11px/1.6 var(--ds-type-mono); color:var(--ds-muted); background:var(--ds-surface); }
+.ds-tool-callout__footer { display:flex; align-items:center; justify-content:space-between; padding:8px 14px; background:var(--ds-inset); border-top:1px solid var(--ds-line); font:11px var(--ds-type-mono); color:var(--ds-success); }
+
+/* 67. Telegram Channel Boost Level Badge */
+.ds-channel-boost { width:min(320px, calc(100vw - 32px)); border-radius:16px; background:linear-gradient(135deg, #7C3AED, #4F46E5); padding:14px 18px; color:#FFF; display:flex; flex-direction:column; gap:10px; box-shadow:0 8px 24px rgba(124,58,237,0.3); }
+.ds-channel-boost__header { display:flex; align-items:center; justify-content:space-between; }
+.ds-channel-boost__level { font:700 16px var(--ds-type-sans); display:flex; align-items:center; gap:6px; }
+.ds-channel-boost__bar { width:100%; height:6px; border-radius:9999px; background:rgba(255,255,255,0.25); overflow:hidden; }
+.ds-channel-boost__fill { height:100%; border-radius:9999px; background:#FFF; }
+.ds-channel-boost__footer { display:flex; align-items:center; justify-content:space-between; font:11px var(--ds-type-sans); color:rgba(255,255,255,0.8); }
+
+/* 68. Telegram High-Precision Audio Scrubber Puck Bar */
+.ds-audio-puck-bar { width:min(380px, calc(100vw - 32px)); padding:12px 16px; border-radius:14px; background:var(--ds-surface); border:1px solid var(--ds-line); display:flex; flex-direction:column; gap:8px; box-shadow:var(--ds-shadow); user-select:none; }
+.ds-audio-puck-bar__track { width:100%; height:6px; border-radius:9999px; background:var(--ds-inset); position:relative; display:flex; align-items:center; cursor:pointer; }
+.ds-audio-puck-bar__fill { height:100%; border-radius:9999px; background:var(--ds-action); }
+.ds-audio-puck-bar__puck { position:absolute; width:16px; height:16px; border-radius:9999px; background:var(--ds-action); border:2px solid #FFF; box-shadow:0 2px 6px rgba(0,0,0,0.2); transform:translateX(-50%); cursor:grab; }
+.ds-audio-puck-bar__times { display:flex; justify-content:space-between; font:11px var(--ds-type-mono); color:var(--ds-muted); }
+
+/* 69. Meta Instagram Story Interactive Poll Sticker */
+.ds-story-poll { width:min(260px, calc(100vw - 32px)); border-radius:18px; background:var(--ds-surface); border:1px solid var(--ds-line); padding:16px; display:flex; flex-direction:column; align-items:center; gap:12px; box-shadow:0 8px 24px rgba(0,0,0,0.12); text-align:center; }
+.ds-story-poll__question { font:700 14px var(--ds-type-sans); color:var(--ds-ink); margin:0; }
+.ds-story-poll__options { display:flex; flex-direction:column; gap:8px; width:100%; }
+.ds-story-poll__btn { display:flex; align-items:center; justify-content:space-between; padding:8px 14px; border-radius:12px; background:var(--ds-inset); border:1px solid var(--ds-line); font:600 13px var(--ds-type-sans); color:var(--ds-ink); cursor:pointer; position:relative; overflow:hidden; }
+.ds-story-poll__btn:hover { border-color:var(--ds-accent); }
+
+/* 70. Meta WhatsApp Contact QR Share Card */
+.ds-contact-qr-card { width:min(260px, calc(100vw - 32px)); border-radius:20px; background:var(--ds-surface); border:1px solid var(--ds-line); padding:20px 16px; display:flex; flex-direction:column; align-items:center; gap:12px; text-align:center; box-shadow:var(--ds-shadow); }
+.ds-contact-qr-card__matrix { width:160px; height:160px; border-radius:12px; border:2px solid var(--ds-line); padding:8px; background:#FFF; display:flex; align-items:center; justify-content:center; }
+.ds-contact-qr-card__name { font:700 14px var(--ds-type-sans); color:var(--ds-ink); display:flex; align-items:center; gap:4px; }
+.ds-contact-qr-card__btn { width:100%; padding:8px 0; border-radius:9999px; background:#25D366; color:#FFF; font:600 12px var(--ds-type-sans); border:0; cursor:pointer; }
+
+/* 71. macOS Universal Clipboard Handoff Card */
+.ds-clipboard-sync { width:min(380px, calc(100vw - 32px)); border-radius:16px; background:rgba(255,255,255,0.85); backdrop-filter:blur(24px) saturate(180%); -webkit-backdrop-filter:blur(24px) saturate(180%); border:1px solid rgba(255,255,255,0.5); padding:14px 16px; box-shadow:0 8px 28px rgba(0,0,0,0.12); display:flex; align-items:center; justify-content:space-between; gap:12px; }
+[data-theme="dark"] .ds-clipboard-sync { background:rgba(28,31,37,0.88); border-color:rgba(255,255,255,0.12); box-shadow:0 8px 28px rgba(0,0,0,0.35); }
+.ds-clipboard-sync__origin { font:600 11px var(--ds-type-sans); color:var(--ds-muted); display:flex; align-items:center; gap:6px; }
+.ds-clipboard-sync__text { font:500 12px var(--ds-type-sans); color:var(--ds-ink); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:180px; }
+
+/* 72. iOS Ambient Dynamic Island Minimal Status Pill */
+.ds-ambient-island { display:inline-flex; align-items:center; justify-content:space-between; gap:12px; height:28px; padding:0 12px; border-radius:9999px; background:#000; color:#FFF; font:600 11px var(--ds-type-mono); box-shadow:0 4px 12px rgba(0,0,0,0.25); cursor:pointer; transition:transform 160ms cubic-bezier(0.34,1.56,0.64,1); user-select:none; }
+.ds-ambient-island:hover { transform:scale(1.08); }
+
 .ds-divider { border:0; border-top:1px solid var(--ds-line); margin:20px 0; }
 .ds-dialog { width:min(480px,calc(100vw - 32px)); max-height:calc(100vh - 48px); overflow:auto; border:1px solid var(--ds-line); border-radius:var(--ds-radius-modal); padding:28px; background:var(--ds-surface); color:var(--ds-ink); box-shadow:var(--ds-shadow); }
 .ds-dialog::backdrop { background:var(--ds-overlay); }
@@ -2553,7 +3281,7 @@ button:disabled,input:disabled,select:disabled { opacity:.55; cursor:not-allowed
 @keyframes ds-page { from { opacity:0; } to { opacity:1; } }
 @keyframes ds-modal { from { opacity:0; transform:translateY(6px) scale(.98); } to { opacity:1; transform:translateY(0) scale(1); } }
 @media(prefers-reduced-motion:reduce) { *,*::before,*::after { animation:none!important; transition:none!important; scroll-behavior:auto!important; } }
-@media(forced-colors:active) { .ds-button,.ds-panel,.ds-badge,.ds-switch__track,.ds-chip,.ds-command,.ds-drawer,.ds-menu,.ds-snippet,.ds-bento-item,.ds-island,.ds-diff,.ds-fab,.ds-prompt-box,.ds-reaction,.ds-dock,.ds-swatch-item,.ds-terminal,.ds-dropzone,.ds-banner,.ds-step__pill,.ds-chat-bubble,.ds-qr-card,.ds-heatmap,.ds-heatmap__cell,.ds-audio-player,.ds-breadcrumb,.ds-split-container,.ds-split-divider,.ds-kbd-matrix,.ds-kbd-key,.ds-compare,.ds-pin-box,.ds-thought,.ds-uptime,.ds-uptime__tick,.ds-kanban,.ds-mac-window,.ds-speed-dial__trigger,.ds-speed-dial__btn,.ds-spotlight-card,.ds-gauge,.ds-app-tile,.ds-mention,.ds-waterfall,.ds-spectrum,.ds-git-node,.ds-pip,.ds-speedometer,.ds-privacy-banner,.ds-metric-group__item,.ds-bar-pill,.ds-tour-popover,.ds-action-tile,.ds-color-ring,.ds-file-node,.ds-notice-carousel,.ds-arc-tab,.ds-haptic-slider,.ds-term-bar,.ds-spark-card,.ds-action-sheet,.ds-countdown-pill,.ds-dock-stack,.ds-alpha-slider,.ds-log-stream,.ds-bank-card,.ds-inline-wizard,.ds-float-toolbar,.ds-spotlight-bar,.ds-wave-scrubber,.ds-device-mockup,.ds-ticker-badge,.ds-radial-cluster,.ds-spatial-card,.ds-matrix-rain,.ds-rotary-dial,.ds-pill-tabs,.ds-split-diff,.ds-freq-eq,.ds-toast-stack,.ds-numpad,.ds-cmd-dialog,.ds-spark-grid,.ds-avatar-stack,.ds-vu-meter,.ds-chapter-bar,.ds-dynamic-island,.ds-hotkey-sheet,.ds-bio-scanner,.ds-compass-pill,.ds-warp-popover,.ds-tilt-tile,.ds-setting-row,.ds-mac-titlebar,.ds-voice-orb,.ds-commit-node,.ds-keycap-combo,.ds-canvas-hud,.ds-passkey-sheet,.ds-term-multiplexer,.ds-activity-rings,.ds-priority-menu,.ds-hexdump-stream,.ds-stripe-receipt,.ds-drawer-pill,.ds-diff-badge,.ds-chronograph,.ds-m3-segmented,.ds-dj-crossfader,.ds-finder-columns,.ds-corner-badge,.ds-spatial-tracker,.ds-shortcut-recorder,.ds-review-verdict,.ds-cassette-tape,.ds-color-matrix,.ds-passcode-keypad,.ds-passcode-key,.ds-spatial-slider,.ds-figma-layer,.ds-ai-chip,.ds-arcade-gate,.ds-filter-popover,.ds-key-sequence,.ds-key-sequence__step,.ds-eq-band,.ds-mac-switcher,.ds-mac-switcher__item,.ds-sponsor-card,.ds-gauge-cluster,.ds-notion-callout,.ds-status-bar,.ds-status-bar-item,.ds-slide-unlock,.ds-slide-unlock__thumb,.ds-led-scoreboard,.ds-spatial-checkbox,.ds-spatial-checkbox__puck,.ds-subtask-progress,.ds-multiplayer-cursor,.ds-multiplayer-cursor__flag,.ds-multiplayer-cursor__bubble,.ds-safari-tab,.ds-merge-box,.ds-analog-vu,.ds-ios-segment,.ds-ios-segment__btn,.ds-eyedropper-hud,.ds-eyedropper-hud__loupe,.ds-issue-relation,.ds-hotkey-hint,.ds-hotkey-hint__key,.ds-flight-tracker,.ds-tape-transport,.ds-tape-transport__btn,.ds-canvas-ruler,.ds-spatial-stepper,.ds-spatial-stepper__btn,.ds-action-summary,.ds-cycle-burnup,.ds-quick-look,.ds-tape-odometer,.ds-tape-odometer__btn,.ds-app-switcher-card,.ds-bounding-box,.ds-spatial-glass-bar,.ds-spatial-glass-bar__item,.ds-fuzzy-row,.ds-volume-bezel,.ds-volume-bezel__meter,.ds-tape-spindle,.ds-battery-widget,.ds-color-swatch-chip,.ds-color-swatch-chip__preview,.ds-spatial-input,.ds-autolayout-flow,.ds-autolayout-flow__btn,.ds-menubar-calendar,.ds-menubar-calendar__cell,.ds-rotary-potentiometer,.ds-rotary-potentiometer__body,.ds-focus-chip,.ds-commit-swimlane,.ds-commit-swimlane__node,.ds-spatial-transport,.ds-spatial-transport__btn,.ds-nudge-scrubber,.ds-nudge-scrubber__label,.ds-touchbar-slider,.ds-touchbar-slider__track,.ds-azimuth-meter,.ds-azimuth-meter__screen,.ds-safari-zoom-hud,.ds-safari-zoom-hud__btn,.ds-dependabot-alert,.ds-dependabot-alert__badge,.ds-spatial-resize-corner,.ds-spatial-resize-corner__bracket,.ds-ai-dock-pill,.ds-ai-dock-pill__model,.ds-canvas-snap-guides,.ds-canvas-snap-guides__box,.ds-standby-clock,.ds-vu-peak-limiter,.ds-vu-peak-limiter__ladder,.ds-pr-merge-queue-node,.ds-pr-merge-queue-node__badge,.ds-spatial-halo-ring,.ds-confetti-canvas,.ds-safari-font-switcher,.ds-safari-font-switcher__pill,.ds-demagnetizer-wand,.ds-demagnetizer-wand__gauge,.ds-pixel-grid-toggle,.ds-connectivity-cluster,.ds-connectivity-cluster__item,.ds-spatial-volume-cube,.ds-linear-sync-status,.ds-sound-balance,.ds-tape-loop-deck,.ds-tape-loop-deck__roller,.ds-action-btn-radial,.ds-action-btn-radial__item,.ds-figma-export-matrix,.ds-spatial-shareplay-cluster,.ds-spatial-shareplay-cluster__avatar,.ds-swimlane-toggle,.ds-stage-manager-shelf,.ds-stage-manager-shelf__item,.ds-tape-splicing-block,.ds-spatial-portal-anchor,.ds-color-palette-ramp,.ds-color-palette-ramp__swatch,.ds-conflict-resolver-badge,.ds-hotkey-cheat-pill,.ds-battery-health-sheet,.ds-cleaning-cycle-meter,.ds-spatial-gaze-keyboard,.ds-spatial-gaze-keyboard__key,.ds-regex-search-toggle,.ds-regex-search-toggle__btn,.ds-contrast-checker-badge,.ds-cycle-velocity-spark,.ds-airdrop-radar,.ds-tape-bias-selector,.ds-tape-bias-selector__btn,.ds-spatial-anchor-pin,.ds-matrix-job-grid,.ds-matrix-job-grid__cell,.ds-dimension-label-hud,.ds-cycle-time-distribution,.ds-network-interface-dial,.ds-tape-tension-arm,.ds-spatial-mesh-wireframe,.ds-pr-review-timer,.ds-bezier-handle-hud,.ds-roadmap-milestone,.ds-audio-midi-jack,.ds-tape-pitch-fader,.ds-spatial-hand-gesture,.ds-release-asset-checksum,.ds-export-slice-hud,.ds-lead-time-spark,.ds-color-profile-calibrator,.ds-headphone-amp-pot,.ds-spatial-audio-cone,.ds-check-duration-bar,.ds-palette-generator-chip,.ds-sla-countdown-badge,.ds-menu-bar-battery-popover,.ds-capstan-tachometer,.ds-spatial-surface-detector,.ds-artifact-retention-pill,.ds-variant-matrix-hud,.ds-cycle-velocity-card,.ds-midi-network-pill,.ds-reel-clamp-hud,.ds-occlusion-mask-pill,.ds-concurrency-group-badge,.ds-color-binding-chip,.ds-milestone-burndown-gauge,.ds-stage-cluster-strip,.ds-azimuth-scope-hud,.ds-portal-vignette-frame,.ds-matrix-drilldown-sheet,.ds-vector-anchor-handle,.ds-triage-sla-timer,.ds-airplay-route-sheet,.ds-demagnetizer-pulse-meter,.ds-spatial-transform-gizmo,.ds-step-timer-summary,.ds-style-migration-card { border:1px solid ButtonText; } .ds-switch__input:checked + .ds-switch__track { background:Highlight; } .ds-switch__thumb { background:ButtonText; } }
+@media(forced-colors:active) { .ds-button,.ds-panel,.ds-badge,.ds-switch__track,.ds-chip,.ds-command,.ds-drawer,.ds-menu,.ds-snippet,.ds-bento-item,.ds-island,.ds-diff,.ds-fab,.ds-prompt-box,.ds-reaction,.ds-dock,.ds-swatch-item,.ds-terminal,.ds-dropzone,.ds-banner,.ds-step__pill,.ds-chat-bubble,.ds-qr-card,.ds-heatmap,.ds-heatmap__cell,.ds-audio-player,.ds-breadcrumb,.ds-split-container,.ds-split-divider,.ds-kbd-matrix,.ds-kbd-key,.ds-compare,.ds-pin-box,.ds-thought,.ds-uptime,.ds-uptime__tick,.ds-kanban,.ds-mac-window,.ds-speed-dial__trigger,.ds-speed-dial__btn,.ds-spotlight-card,.ds-gauge,.ds-app-tile,.ds-mention,.ds-waterfall,.ds-spectrum,.ds-git-node,.ds-pip,.ds-speedometer,.ds-privacy-banner,.ds-metric-group__item,.ds-bar-pill,.ds-tour-popover,.ds-action-tile,.ds-color-ring,.ds-file-node,.ds-notice-carousel,.ds-arc-tab,.ds-haptic-slider,.ds-term-bar,.ds-spark-card,.ds-action-sheet,.ds-countdown-pill,.ds-dock-stack,.ds-alpha-slider,.ds-log-stream,.ds-bank-card,.ds-inline-wizard,.ds-float-toolbar,.ds-spotlight-bar,.ds-wave-scrubber,.ds-device-mockup,.ds-ticker-badge,.ds-radial-cluster,.ds-spatial-card,.ds-matrix-rain,.ds-rotary-dial,.ds-pill-tabs,.ds-split-diff,.ds-freq-eq,.ds-toast-stack,.ds-numpad,.ds-cmd-dialog,.ds-spark-grid,.ds-avatar-stack,.ds-vu-meter,.ds-chapter-bar,.ds-dynamic-island,.ds-hotkey-sheet,.ds-bio-scanner,.ds-compass-pill,.ds-warp-popover,.ds-tilt-tile,.ds-setting-row,.ds-mac-titlebar,.ds-voice-orb,.ds-commit-node,.ds-keycap-combo,.ds-canvas-hud,.ds-passkey-sheet,.ds-term-multiplexer,.ds-activity-rings,.ds-priority-menu,.ds-hexdump-stream,.ds-stripe-receipt,.ds-drawer-pill,.ds-diff-badge,.ds-chronograph,.ds-m3-segmented,.ds-dj-crossfader,.ds-finder-columns,.ds-corner-badge,.ds-spatial-tracker,.ds-shortcut-recorder,.ds-review-verdict,.ds-cassette-tape,.ds-color-matrix,.ds-passcode-keypad,.ds-passcode-key,.ds-spatial-slider,.ds-figma-layer,.ds-ai-chip,.ds-arcade-gate,.ds-filter-popover,.ds-key-sequence,.ds-key-sequence__step,.ds-eq-band,.ds-mac-switcher,.ds-mac-switcher__item,.ds-sponsor-card,.ds-gauge-cluster,.ds-notion-callout,.ds-status-bar,.ds-status-bar-item,.ds-slide-unlock,.ds-slide-unlock__thumb,.ds-led-scoreboard,.ds-spatial-checkbox,.ds-spatial-checkbox__puck,.ds-subtask-progress,.ds-multiplayer-cursor,.ds-multiplayer-cursor__flag,.ds-multiplayer-cursor__bubble,.ds-safari-tab,.ds-merge-box,.ds-analog-vu,.ds-ios-segment,.ds-ios-segment__btn,.ds-eyedropper-hud,.ds-eyedropper-hud__loupe,.ds-issue-relation,.ds-hotkey-hint,.ds-hotkey-hint__key,.ds-flight-tracker,.ds-tape-transport,.ds-tape-transport__btn,.ds-canvas-ruler,.ds-spatial-stepper,.ds-spatial-stepper__btn,.ds-action-summary,.ds-cycle-burnup,.ds-quick-look,.ds-tape-odometer,.ds-tape-odometer__btn,.ds-app-switcher-card,.ds-bounding-box,.ds-spatial-glass-bar,.ds-spatial-glass-bar__item,.ds-fuzzy-row,.ds-volume-bezel,.ds-volume-bezel__meter,.ds-tape-spindle,.ds-battery-widget,.ds-color-swatch-chip,.ds-color-swatch-chip__preview,.ds-spatial-input,.ds-autolayout-flow,.ds-autolayout-flow__btn,.ds-menubar-calendar,.ds-menubar-calendar__cell,.ds-rotary-potentiometer,.ds-rotary-potentiometer__body,.ds-focus-chip,.ds-commit-swimlane,.ds-commit-swimlane__node,.ds-spatial-transport,.ds-spatial-transport__btn,.ds-nudge-scrubber,.ds-nudge-scrubber__label,.ds-touchbar-slider,.ds-touchbar-slider__track,.ds-azimuth-meter,.ds-azimuth-meter__screen,.ds-safari-zoom-hud,.ds-safari-zoom-hud__btn,.ds-dependabot-alert,.ds-dependabot-alert__badge,.ds-spatial-resize-corner,.ds-spatial-resize-corner__bracket,.ds-ai-dock-pill,.ds-ai-dock-pill__model,.ds-canvas-snap-guides,.ds-canvas-snap-guides__box,.ds-standby-clock,.ds-vu-peak-limiter,.ds-vu-peak-limiter__ladder,.ds-pr-merge-queue-node,.ds-pr-merge-queue-node__badge,.ds-spatial-halo-ring,.ds-confetti-canvas,.ds-safari-font-switcher,.ds-safari-font-switcher__pill,.ds-demagnetizer-wand,.ds-demagnetizer-wand__gauge,.ds-pixel-grid-toggle,.ds-connectivity-cluster,.ds-connectivity-cluster__item,.ds-spatial-volume-cube,.ds-linear-sync-status,.ds-sound-balance,.ds-tape-loop-deck,.ds-tape-loop-deck__roller,.ds-action-btn-radial,.ds-action-btn-radial__item,.ds-figma-export-matrix,.ds-spatial-shareplay-cluster,.ds-spatial-shareplay-cluster__avatar,.ds-swimlane-toggle,.ds-stage-manager-shelf,.ds-stage-manager-shelf__item,.ds-tape-splicing-block,.ds-spatial-portal-anchor,.ds-color-palette-ramp,.ds-color-palette-ramp__swatch,.ds-conflict-resolver-badge,.ds-hotkey-cheat-pill,.ds-battery-health-sheet,.ds-cleaning-cycle-meter,.ds-spatial-gaze-keyboard,.ds-spatial-gaze-keyboard__key,.ds-regex-search-toggle,.ds-regex-search-toggle__btn,.ds-contrast-checker-badge,.ds-cycle-velocity-spark,.ds-airdrop-radar,.ds-tape-bias-selector,.ds-tape-bias-selector__btn,.ds-spatial-anchor-pin,.ds-matrix-job-grid,.ds-matrix-job-grid__cell,.ds-dimension-label-hud,.ds-cycle-time-distribution,.ds-network-interface-dial,.ds-tape-tension-arm,.ds-spatial-mesh-wireframe,.ds-pr-review-timer,.ds-bezier-handle-hud,.ds-roadmap-milestone,.ds-audio-midi-jack,.ds-tape-pitch-fader,.ds-spatial-hand-gesture,.ds-release-asset-checksum,.ds-export-slice-hud,.ds-lead-time-spark,.ds-color-profile-calibrator,.ds-headphone-amp-pot,.ds-spatial-audio-cone,.ds-check-duration-bar,.ds-palette-generator-chip,.ds-sla-countdown-badge,.ds-menu-bar-battery-popover,.ds-capstan-tachometer,.ds-spatial-surface-detector,.ds-artifact-retention-pill,.ds-variant-matrix-hud,.ds-cycle-velocity-card,.ds-midi-network-pill,.ds-reel-clamp-hud,.ds-occlusion-mask-pill,.ds-concurrency-group-badge,.ds-color-binding-chip,.ds-milestone-burndown-gauge,.ds-stage-cluster-strip,.ds-azimuth-scope-hud,.ds-portal-vignette-frame,.ds-matrix-drilldown-sheet,.ds-vector-anchor-handle,.ds-triage-sla-timer,.ds-airplay-route-sheet,.ds-demagnetizer-pulse-meter,.ds-spatial-transform-gizmo,.ds-step-timer-summary,.ds-style-migration-card,.ds-thought-block,.ds-prompt-composer,.ds-citation-card,.ds-artifact-viewer,.ds-voice-bubble,.ds-spring-reaction-bar,.ds-msg-bubble,.ds-pinned-banner,.ds-liquid-toolbar,.ds-dynamic-morph-island,.ds-m3-tonal-card,.ds-story-avatar-ring,.ds-raycast-palette,.ds-bottom-sheet,.ds-predictive-back,.ds-streaming-response,.ds-prompt-carousel__pill,.ds-token-fuel-gauge,.ds-model-arena-card,.ds-video-note,.ds-msg-context-menu,.ds-control-slider,.ds-action-radial-hub__item,.ds-ephemeral-timer-pill,.ds-dock-shelf,.ds-dock-shelf__icon,.ds-live-activity,.ds-m3-fab-menu__trigger,.ds-m3-fab-menu__item-btn,.ds-diff-lens,.ds-diff-lens__btn,.ds-voice-orb-hub,.ds-voice-orb,.ds-agent-pipeline,.ds-agent-pipeline__node,.ds-folder-tabs__tab,.ds-folder-tabs__badge,.ds-sticker-picker,.ds-sticker-picker__item,.ds-thread-branch__item,.ds-channel-broadcast,.ds-channel-broadcast__card,.ds-quicklook-modal,.ds-liquid-segmented,.ds-liquid-segmented__item,.ds-weather-glance,.ds-standby-clock-card,.ds-m3-nav-rail,.ds-m3-nav-rail__pill,.ds-canvas-node,.ds-selection-hud,.ds-image-quad,.ds-image-quad__cell,.ds-secret-chat-banner,.ds-quiz-poll,.ds-collab-header,.ds-reels-sidebar__icon-btn,.ds-stage-cluster__window,.ds-safari-bar,.ds-battery-flyout,.ds-carplay-dash,.ds-carplay-dash__nav,.ds-carplay-dash__tile,.ds-m3-time-picker,.ds-audio-gen-track,.ds-sandbox-terminal,.ds-prompt-cost-badge,.ds-voice-tile__halo,.ds-crypto-gift-card,.ds-audio-status-card,.ds-quote-post,.ds-window-snap-overlay,.ds-focus-shelf,.ds-notch-hud,.ds-spatial-carousel__card,.ds-m3-exp-slider__track,.ds-m3-exp-slider__thumb,.ds-prompt-branch,.ds-vector-cluster,.ds-tool-callout,.ds-channel-boost,.ds-audio-puck-bar,.ds-story-poll,.ds-contact-qr-card,.ds-clipboard-sync,.ds-ambient-island { border:1px solid ButtonText; } .ds-switch__input:checked + .ds-switch__track { background:Highlight; } .ds-switch__thumb { background:ButtonText; } }
 
 
 
