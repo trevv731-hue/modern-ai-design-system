@@ -12109,5 +12109,410 @@
       "键盘可清除条件"
     ],
     "react": "<GithubCodeSearchRegexRow expression=\"retryCount:\\\\s*\\\\d+\" regex scope=\"AetherLink · main\" />"
+  },
+  {
+    "id": "chart-funnel-stage-bar",
+    "name": "漏斗阶段条形图",
+    "category": "数据",
+    "status": "v3 新增",
+    "purpose": "按顺序展示各阶段的留存数量与转化率，说明流失发生在哪一步。",
+    "anatomy": [
+      "阶段行 (ds-funnel__stage)",
+      "阶段名与数量",
+      "宽度条与转化率",
+      "流失提示"
+    ],
+    "keyboard": "静态图表；每个阶段提供等效文本，可通过列表浏览。",
+    "guidance": [
+      "每个阶段同时给出数量与百分比，不只用宽度表达。",
+      "流失最大的阶段需要文字标注。",
+      "数据缺失时显示空状态，不用 0 填充。"
+    ],
+    "preview": "<div class=\"ds-funnel\" role=\"img\" aria-label=\"漏斗：访问 1200，注册 480，激活 210\"><div class=\"ds-funnel__stage\" style=\"width:100%\"><strong>访问</strong><span>1200</span></div><div class=\"ds-funnel__stage\" style=\"width:40%\"><strong>注册</strong><span>480 · 40%</span></div><div class=\"ds-funnel__stage\" style=\"width:17%\"><strong>激活</strong><span>210 · 44%</span></div></div>",
+    "checks": [
+      "数量与百分比同时可见",
+      "最大流失阶段有标注",
+      "缺数据时不显示假 0",
+      "等效文本可读"
+    ],
+    "react": "<FunnelStageBar stages={[{ label: \"访问\", value: 1200 }, { label: \"注册\", value: 480 }]} />"
+  },
+  {
+    "id": "chart-gantt-task-bar",
+    "name": "甘特任务条",
+    "category": "数据",
+    "status": "v3 新增",
+    "purpose": "在时间刻度上排布任务区间与依赖，显示计划与实际的偏差。",
+    "anatomy": [
+      "时间刻度 (ds-gantt__scale)",
+      "任务条 (ds-gantt__bar)",
+      "里程碑菱形",
+      "今日线"
+    ],
+    "keyboard": "左右方向键在任务间移动；Enter 打开详情；Home/End 跳首尾。",
+    "guidance": [
+      "任务条写明起止日期，不只显示长度。",
+      "延期任务标注原计划区间。",
+      "今日线始终可见。"
+    ],
+    "preview": "<div class=\"ds-gantt\" role=\"group\" aria-label=\"甘特任务\"><div class=\"ds-gantt__scale\"><span>10/13</span><span>10/20</span><span>10/27</span></div><div class=\"ds-gantt__bar\" style=\"margin-left:0;width:48%\">接口联调</div><div class=\"ds-gantt__bar ds-gantt__bar--slipped\" style=\"margin-left:30%;width:40%\">灰度发布</div></div>",
+    "checks": [
+      "任务条写明起止日期",
+      "延期任务标注原计划",
+      "今日线可见",
+      "键盘可遍历任务"
+    ],
+    "react": "<GanttTaskBar tasks={[{ label: \"接口联调\", start: 0, span: 48 }, { label: \"灰度发布\", start: 30, span: 40, slipped: true }]} />"
+  },
+  {
+    "id": "chart-calendar-heatmap",
+    "name": "日历热力图",
+    "category": "数据",
+    "status": "v3 新增",
+    "purpose": "用日期网格表达每天的活动强度，便于发现长期趋势与空档。",
+    "anatomy": [
+      "网格容器 (ds-cal-heat)",
+      "日期单元",
+      "强度图例",
+      "月份标签"
+    ],
+    "keyboard": "每个格子带可读日期与数值；键盘可按列表顺序浏览。",
+    "guidance": [
+      "强度分级至少三级并给出图例。",
+      "无数据日期显式留空，不与 0 混淆。",
+      "悬浮显示具体日期与数值。"
+    ],
+    "preview": "<div class=\"ds-cal-heat\" role=\"img\" aria-label=\"近 30 天活跃热力图\"><span class=\"ds-cal-heat__cell\" data-level=\"1\"></span><span class=\"ds-cal-heat__cell\" data-level=\"3\"></span><span class=\"ds-cal-heat__cell\" data-level=\"0\"></span><span class=\"ds-cal-heat__legend\">少 → 多</span></div>",
+    "checks": [
+      "强度分级有图例",
+      "无数据与 0 可区分",
+      "悬浮显示日期与数值",
+      "键盘可浏览格子"
+    ],
+    "react": "<CalendarHeatmap days={[{ date: \"10-16\", level: 1 }, { date: \"10-17\", level: 3 }]} />"
+  },
+  {
+    "id": "chart-box-plot-band",
+    "name": "箱线图分布带",
+    "category": "数据",
+    "status": "v3 新增",
+    "purpose": "展示一组数据的中位数、四分位与离群值，比平均值更能说明分布。",
+    "anatomy": [
+      "箱体 (ds-boxplot__box)",
+      "中位数线",
+      "须线",
+      "离群点"
+    ],
+    "keyboard": "静态图表；提供等效数值文本。",
+    "guidance": [
+      "同时给出中位数、上下四分位与样本量。",
+      "离群点单独标注，不混入箱体。",
+      "样本量过小时提示结论不可靠。"
+    ],
+    "preview": "<div class=\"ds-boxplot\" role=\"img\" aria-label=\"延迟分布：中位数 82ms，四分位 64–120ms\"><div class=\"ds-boxplot__box\"><span class=\"ds-boxplot__median\" style=\"left:46%\"></span></div><span class=\"ds-boxplot__whisker\"></span><span class=\"ds-boxplot__outlier\" aria-hidden=\"true\"></span></div>",
+    "checks": [
+      "中位数与四分位同时给出",
+      "离群点单独标注",
+      "样本量过小时有提示",
+      "等效文本可读"
+    ],
+    "react": "<BoxPlotBand median={82} lower={64} upper={120} samples={186} />"
+  },
+  {
+    "id": "chart-radar-metric-web",
+    "name": "雷达指标网",
+    "category": "数据",
+    "status": "v3 新增",
+    "purpose": "在同一组维度上比较多个方案，突出强弱差异而不是总分。",
+    "anatomy": [
+      "雷达网格 (ds-radar)",
+      "维度轴标签",
+      "数据多边形",
+      "图例"
+    ],
+    "keyboard": "静态图表；图例与数值以文本提供。",
+    "guidance": [
+      "维度数量控制在 3–8 个。",
+      "每个维度写明单位与方向。",
+      "重叠多边形需要可切换显示。"
+    ],
+    "preview": "<div class=\"ds-radar\" role=\"img\" aria-label=\"模型对比雷达图：准确率、速度、成本、稳定性\"><span class=\"ds-radar__axis\" aria-hidden=\"true\"></span><span class=\"ds-radar__shape\" aria-hidden=\"true\"></span><ul class=\"ds-radar__legend\"><li>准确率</li><li>速度</li><li>成本</li><li>稳定性</li></ul></div>",
+    "checks": [
+      "维度数量在合理区间",
+      "维度写明单位与方向",
+      "重叠图形可切换",
+      "数值以文本可读"
+    ],
+    "react": "<RadarMetricWeb axes={[{ label: \"准确率\", value: 86 }, { label: \"速度\", value: 72 }]} />"
+  },
+  {
+    "id": "chart-treemap-block-grid",
+    "name": "矩形树图块格",
+    "category": "数据",
+    "status": "v3 新增",
+    "purpose": "用面积表达占比，适合展示磁盘、流量或预算的构成。",
+    "anatomy": [
+      "块格容器 (ds-treemap)",
+      "分类区块",
+      "占比标签",
+      "悬浮明细"
+    ],
+    "keyboard": "静态图表；提供等效列表与数值。",
+    "guidance": [
+      "区块面积与真实数值成比例，不等比误导。",
+      "面积过小的分类合并为“其他”。",
+      "悬浮显示具体数值与占比。"
+    ],
+    "preview": "<div class=\"ds-treemap\" role=\"img\" aria-label=\"流量构成矩形树图\"><span class=\"ds-treemap__block\" style=\"flex:3\">API 62%</span><span class=\"ds-treemap__block\" style=\"flex:1\">静态 21%</span><span class=\"ds-treemap__block\" style=\"flex:1\">其他 17%</span></div>",
+    "checks": [
+      "面积与数值成比例",
+      "小分类合并为其他",
+      "悬浮显示数值与占比",
+      "等效列表可读"
+    ],
+    "react": "<TreemapBlockGrid blocks={[{ label: \"API\", ratio: 62 }, { label: \"静态\", ratio: 21 }]} />"
+  },
+  {
+    "id": "chart-cohort-retention-grid",
+    "name": "同期群留存网格",
+    "category": "数据",
+    "status": "v3 新增",
+    "purpose": "按进入时间分组观察后续留存，判断产品改动是否真的改善了留存。",
+    "anatomy": [
+      "网格容器 (ds-cohort)",
+      "行：进入周期",
+      "列：第 N 期",
+      "色阶与图例"
+    ],
+    "keyboard": "静态图表；每格提供文本说明与数值。",
+    "guidance": [
+      "每格写明留存百分比与样本量。",
+      "样本量过小的格子标注不可靠。",
+      "改动时间点在图表中标注。"
+    ],
+    "preview": "<div class=\"ds-cohort\" role=\"img\" aria-label=\"同期群留存网格\"><div class=\"ds-cohort__row\"><span>10/06</span><span class=\"ds-cohort__cell\" data-value=\"100\">100%</span><span class=\"ds-cohort__cell\" data-value=\"62\">62%</span><span class=\"ds-cohort__cell\" data-value=\"48\">48%</span></div></div>",
+    "checks": [
+      "每格有百分比与样本量",
+      "小样本格子标注不可靠",
+      "改动时间点有标注",
+      "文本等效可读"
+    ],
+    "react": "<CohortRetentionGrid cohorts={[{ label: \"10/06\", values: [100, 62, 48] }]} />"
+  },
+  {
+    "id": "chart-bullet-target-bar",
+    "name": "子弹图目标条",
+    "category": "数据",
+    "status": "v3 新增",
+    "purpose": "在一条轴上对比实际值、目标值与区间，比仪表盘更省空间。",
+    "anatomy": [
+      "轨道 (ds-bullet__track)",
+      "区间底色",
+      "实际值条",
+      "目标刻线"
+    ],
+    "keyboard": "静态图表；提供文本说明。",
+    "guidance": [
+      "目标值用刻线表达，不与区间底色混淆。",
+      "同时给出实际值与目标值数值。",
+      "超出量程时明确标注。"
+    ],
+    "preview": "<div class=\"ds-bullet\" role=\"img\" aria-label=\"本月用量 82，目标 100\"><div class=\"ds-bullet__track\"><span class=\"ds-bullet__value\" style=\"width:82%\"></span><span class=\"ds-bullet__target\" style=\"left:100%\"></span></div><span class=\"ds-bullet__note\">82 / 100</span></div>",
+    "checks": [
+      "目标刻线与区间可区分",
+      "实际值与目标值都有数值",
+      "超量程有标注",
+      "文本等效可读"
+    ],
+    "react": "<BulletTargetBar value={82} target={100} max={120} />"
+  },
+  {
+    "id": "chart-kpi-delta-badge",
+    "name": "KPI 变化徽标",
+    "category": "数据",
+    "status": "v3 新增",
+    "purpose": "用数值加方向表达指标环比变化，避免只用颜色传达涨跌。",
+    "anatomy": [
+      "徽标外壳 (ds-kpi-delta)",
+      "变化数值与方向图标",
+      "对比区间",
+      "指标名"
+    ],
+    "keyboard": "静态指标；文本可被屏幕阅读器读取。",
+    "guidance": [
+      "涨跌同时给出箭头与正负号。",
+      "对比区间写明，例如“较上周”。",
+      "数据不足时显示“—”而非 0%。"
+    ],
+    "preview": "<div class=\"ds-kpi-delta\" role=\"status\" aria-label=\"延迟较上周下降 12%\"><span aria-hidden=\"true\">↓</span><strong>-12%</strong><span class=\"ds-kpi-delta__note\">较上周</span></div>",
+    "checks": [
+      "涨跌有箭头与正负号",
+      "对比区间明确",
+      "数据不足显示占位符",
+      "文本可读"
+    ],
+    "react": "<KpiDeltaBadge value={-12} period=\"较上周\" />"
+  },
+  {
+    "id": "chart-area-range-band",
+    "name": "区间面积带图",
+    "category": "数据",
+    "status": "v3 新增",
+    "purpose": "展示数值的波动区间与中位数，适合延迟、温度等带上下界的指标。",
+    "anatomy": [
+      "图表外壳 (ds-area-band)",
+      "区间带",
+      "中位线",
+      "时间轴"
+    ],
+    "keyboard": "静态图表；提供等效数值表。",
+    "guidance": [
+      "区间带上界与下界都要有数值标签。",
+      "中位线与实际值区分开。",
+      "采样间隔在图例中说明。"
+    ],
+    "preview": "<div class=\"ds-area-band\" role=\"img\" aria-label=\"延迟区间：60–140ms，中位 82ms\"><span class=\"ds-area-band__band\" aria-hidden=\"true\"></span><span class=\"ds-area-band__median\" aria-hidden=\"true\"></span><span class=\"ds-area-band__axis\" aria-hidden=\"true\"></span></div>",
+    "checks": [
+      "区间上下界有数值",
+      "中位线与实际值可区分",
+      "采样间隔有说明",
+      "等效数值表可读"
+    ],
+    "react": "<AreaRangeBand points={[{ at: \"10:00\", min: 60, max: 140, median: 82 }]} />"
+  },
+  {
+    "id": "chart-sankey-flow-band",
+    "name": "桑基流量带图",
+    "category": "数据",
+    "status": "v3 新增",
+    "purpose": "表达流量或资源在节点之间的分流，直观显示主要路径与损耗。",
+    "anatomy": [
+      "节点列 (ds-sankey__node)",
+      "流量带 (ds-sankey__band)",
+      "数值标签",
+      "图例"
+    ],
+    "keyboard": "静态图表；提供等效表格。",
+    "guidance": [
+      "带宽与流量成正比，不等比误导。",
+      "节点名称与数值同时显示。",
+      "分支过多时允许只看主要路径。"
+    ],
+    "preview": "<div class=\"ds-sankey\" role=\"img\" aria-label=\"流量分流桑基图：入口 1000，规则 620，直连 380\"><span class=\"ds-sankey__node\">入口 1000</span><span class=\"ds-sankey__band\" style=\"width:62%\"></span><span class=\"ds-sankey__node\">规则 620</span></div>",
+    "checks": [
+      "带宽与流量成正比",
+      "节点名与数值同时显示",
+      "可筛选主要路径",
+      "等效表格可读"
+    ],
+    "react": "<SankeyFlowBand flows={[{ from: \"入口\", to: \"规则\", value: 620 }]} />"
+  },
+  {
+    "id": "chart-scatter-cluster-plot",
+    "name": "散点聚类图",
+    "category": "数据",
+    "status": "v3 新增",
+    "purpose": "在两个维度上观察样本分布与聚类，识别异常点而不是只看汇总值。",
+    "anatomy": [
+      "坐标区 (ds-scatter)",
+      "数据点",
+      "聚类外框",
+      "轴标签与单位"
+    ],
+    "keyboard": "静态图表；提供等效数据表与异常点说明。",
+    "guidance": [
+      "两个轴都写明单位。",
+      "异常点可单独标注说明。",
+      "点数过多时提供筛选。"
+    ],
+    "preview": "<div class=\"ds-scatter\" role=\"img\" aria-label=\"延迟与丢包散点图，3 个聚类，2 个异常点\"><span class=\"ds-scatter__point\" style=\"left:20%;bottom:40%\"></span><span class=\"ds-scatter__point\" style=\"left:70%;bottom:20%\"></span><span class=\"ds-scatter__point ds-scatter__point--outlier\" style=\"left:88%;bottom:76%\"></span></div>",
+    "checks": [
+      "两轴写明单位",
+      "异常点可标注",
+      "点数过多可筛选",
+      "数据表可读"
+    ],
+    "react": "<ScatterClusterPlot points={[{ x: 82, y: 0.4 }, { x: 140, y: 3.2, outlier: true }]} />"
+  },
+  {
+    "id": "chart-waterfall-metric-bar",
+    "name": "瀑布图增减条",
+    "category": "数据",
+    "status": "v3 新增",
+    "purpose": "按顺序拆解一个总量如何被各项增减影响，看清贡献最大项。",
+    "anatomy": [
+      "图表外壳 (ds-waterfall)",
+      "增减色条",
+      "累计连接线",
+      "轴标签与数值"
+    ],
+    "keyboard": "静态图表；提供等效数值列表。",
+    "guidance": [
+      "每项写明增减数值与方向。",
+      "累计线与实际总量一致。",
+      "数据不完整时说明缺失项。"
+    ],
+    "preview": "<div class=\"ds-waterfall\" role=\"img\" aria-label=\"延迟构成瀑布图：基线 60，+22 出口，−8 缓存\"><span class=\"ds-waterfall__bar\" data-delta=\"60\" style=\"height:40%\">基线 60</span><span class=\"ds-waterfall__bar\" data-delta=\"22\" style=\"height:15%\">+22</span><span class=\"ds-waterfall__bar\" data-delta=\"-8\" style=\"height:6%\">−8</span></div>",
+    "checks": [
+      "每项写明数值与方向",
+      "累计线与总量一致",
+      "缺失数据有说明",
+      "数值列表可读"
+    ],
+    "react": "<WaterfallMetricBar items={[{ label: \"基线\", delta: 60 }, { label: \"出口\", delta: 22 }]} />"
+  },
+  {
+    "id": "chart-gauge-threshold-ring",
+    "name": "阈值仪表环",
+    "category": "数据",
+    "status": "v3 新增",
+    "purpose": "显示当前值在阈值区间中的位置，比纯数字更快判断是否越界。",
+    "anatomy": [
+      "环形轨道 (ds-gauge-ring)",
+      "当前值弧段",
+      "阈值刻线",
+      "中心数值与单位"
+    ],
+    "keyboard": "静态指标；中心数值与状态文本可读。",
+    "guidance": [
+      "阈值刻线写明数值与含义。",
+      "越界状态用文字加颜色双重表达。",
+      "无阈值配置时说明“未设置阈值”。"
+    ],
+    "preview": "<div class=\"ds-gauge-ring\" role=\"img\" aria-label=\"CPU 使用率 68%，警告阈值 75%\"><span class=\"ds-gauge-ring__value\">68%</span><span class=\"ds-gauge-ring__note\">阈值 75%</span></div>",
+    "checks": [
+      "阈值刻线写明数值与含义",
+      "越界状态双重表达",
+      "无阈值有说明",
+      "状态文本可读"
+    ],
+    "react": "<GaugeThresholdRing value={68} threshold={75} unit=\"%\" />"
+  },
+  {
+    "id": "chart-heat-strip-band",
+    "name": "热力条带图",
+    "category": "数据",
+    "status": "v3 新增",
+    "purpose": "用一条彩色条带表达连续区间的强度变化，适合按小时或按天查看负载。",
+    "anatomy": [
+      "条带容器 (ds-heat-strip)",
+      "区间单元",
+      "色阶图例",
+      "悬浮读数"
+    ],
+    "keyboard": "静态图表；提供等效数值列表。",
+    "guidance": [
+      "色阶至少四级并给出图例。",
+      "每格悬浮显示区间与数值。",
+      "无数据区间留空不与 0 混淆。"
+    ],
+    "preview": "<div class=\"ds-heat-strip\" role=\"img\" aria-label=\"近 12 小时负载热力条带\"><span class=\"ds-heat-strip__cell\" data-level=\"2\"></span><span class=\"ds-heat-strip__cell\" data-level=\"4\"></span><span class=\"ds-heat-strip__cell\" data-level=\"1\"></span><span class=\"ds-heat-strip__legend\">低 → 高</span></div>",
+    "checks": [
+      "色阶有图例",
+      "悬浮显示区间与数值",
+      "无数据留空可区分",
+      "数值列表可读"
+    ],
+    "react": "<HeatStripBand cells={[{ at: \"08:00\", level: 2 }, { at: \"09:00\", level: 4 }]} />"
   }
 ]

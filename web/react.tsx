@@ -13254,3 +13254,154 @@ export function GithubCodeSearchRegexRow({ expression, regex = false, scope, onC
     <button type="button" className="ds-button ds-button--ghost" onClick={onClear}>清除</button>
   </div>;
 }
+
+export function FunnelStageBar({ stages }:
+  { stages: { id?: string; label: string; value: number; percent?: number }[] }) {
+  const top = stages[0]?.value || 1;
+  return <div className="ds-funnel" role="img"
+    aria-label={stages.map(stage => stage.label + ' ' + stage.value).join('、')}>
+    {stages.map((stage, index) => <div className="ds-funnel__stage" key={stage.id || index}
+      style={{ width: Math.max(24, Math.round((stage.value / top) * 100)) + '%' }}>
+      <strong>{stage.label}</strong>
+      <span>{stage.value}{stage.percent === undefined ? '' : ' · ' + stage.percent + '%'}</span>
+    </div>)}
+  </div>;
+}
+
+export function GanttTaskBar({ tasks }:
+  { tasks: { id?: string; label: string; start: number; span: number; slipped?: boolean }[] }) {
+  return <div className="ds-gantt" role="group" aria-label="甘特任务条">
+    <div className="ds-gantt__scale"><span>开始</span><span>中段</span><span>结束</span></div>
+    {tasks.map((task, index) => <div className={`ds-gantt__bar${task.slipped ? ' ds-gantt__bar--slipped' : ''}`}
+      key={task.id || index} style={{ marginLeft: task.start + '%', width: task.span + '%' }}>{task.label}</div>)}
+  </div>;
+}
+
+export function BoxPlotBand({ median, lower, upper, samples, unit = '' }:
+  { median: number; lower: number; upper: number; samples?: number; unit?: string }) {
+  const width = upper > lower ? ((median - lower) / (upper - lower)) * 100 : 50;
+  return <div className="ds-bullet" role="img"
+    aria-label={`中位数 ${median}${unit}，四分位 ${lower}–${upper}${unit}${samples === undefined ? '' : '，样本 ' + samples}`}>
+    <div className="ds-bullet__track"><span className="ds-bullet__value" style={{ width: width + '%' }} />
+      <span className="ds-bullet__target" style={{ left: '100%' }} /></div>
+    <span className="ds-bullet__note">中位数 {median}{unit} · 区间 {lower}–{upper}{unit}</span>
+  </div>;
+}
+
+export function GaugeThresholdRing({ value, threshold, unit = '' }:
+  { value: number; threshold: number; unit?: string }) {
+  const over = value >= threshold;
+  return <div className="ds-gauge-ring" role="img"
+    aria-label={`当前 ${value}${unit}，阈值 ${threshold}${unit}，${over ? '已越界' : '正常'}`}>
+    <span className="ds-gauge-ring__value">{value}{unit}</span>
+    <span className="ds-gauge-ring__note">阈值 {threshold}{unit} · {over ? '已越界' : '正常'}</span>
+  </div>;
+}
+
+export function CalendarHeatmap({ days }:
+  { days: { id?: string; date: string; level: number }[] }) {
+  return <div className="ds-cal-heat" role="img" aria-label="日期热力图">
+    {days.map((day, index) => <span className="ds-cal-heat__cell" data-level={day.level}
+      key={day.id || index} title={`${day.date} · 强度 ${day.level}`} />)}
+  </div>;
+}
+
+export function HeatStripBand({ cells, unit = '' }:
+  { cells: { id?: string; at: string; level: number }[]; unit?: string }) {
+  return <div className="ds-heat-strip" role="img" aria-label="区间热力条带">
+    {cells.map((cell, index) => <span className="ds-heat-strip__cell" data-level={cell.level}
+      key={cell.id || index} title={`${cell.at}${unit ? ' · ' + cell.level + unit : ''}`} />)}
+  </div>;
+}
+
+export function CohortRetentionGrid({ cohorts }:
+  { cohorts: { id?: string; label: string; values: number[] }[] }) {
+  return <div className="ds-cohort" role="img" aria-label="同期群留存网格">
+    {cohorts.map((cohort, index) => <div className="ds-cohort__row" key={cohort.id || index}>
+      <span>{cohort.label}</span>
+      {cohort.values.map((value, position) => <span className="ds-cohort__cell" key={position}>{value}%</span>)}
+    </div>)}
+  </div>;
+}
+
+export function KpiDeltaBadge({ value, period, unit = '%' }:
+  { value: number; period: string; unit?: string }) {
+  const up = value >= 0;
+  return <div className="ds-kpi-delta" role="status"
+    aria-label={`${period}${up ? '上升' : '下降'} ${Math.abs(value)}${unit}`}>
+    <strong>{up ? '↑' : '↓'} {Math.abs(value)}{unit}</strong>
+    <span className="ds-kpi-delta__note">{period}</span>
+  </div>;
+}
+
+export function AreaRangeBand({ points }:
+  { points: { id?: string; at: string; min: number; max: number; median: number }[] }) {
+  return <div className="ds-area-band" role="img" aria-label="区间面积带图">
+    {points.map((point, index) => <span className="ds-area-band__cell" key={point.id || index}
+      title={`${point.at} · ${point.min}–${point.max} · 中位 ${point.median}`}>
+      <span className="ds-area-band__band" />
+      <span className="ds-area-band__median" />
+    </span>)}
+    <span className="ds-area-band__axis" aria-hidden="true" />
+  </div>;
+}
+
+export function TreemapBlockGrid({ blocks }:
+  { blocks: { id?: string; label: string; ratio: number }[] }) {
+  return <div className="ds-treemap" role="img" aria-label="占比矩形树图">
+    {blocks.map((block, index) => <span className="ds-treemap__block" key={block.id || index}
+      style={{ flex: Math.max(1, block.ratio) }}>{block.label}</span>)}
+  </div>;
+}
+
+export function RadarMetricWeb({ axes }: { axes: { id?: string; label: string; value: number }[] }) {
+  return <div className="ds-radar" role="img" aria-label={axes.map(axis => axis.label + ' ' + axis.value).join('、')}>
+    <span className="ds-radar__axis" aria-hidden="true" />
+    <span className="ds-radar__shape" aria-hidden="true" />
+  </div>;
+}
+
+export function BulletTargetBar({ value, target, max = 100, unit = '' }:
+  { value: number; target: number; max?: number; unit?: string }) {
+  const scale = Math.max(max, target, value, 1);
+  return <div className="ds-bullet" role="img"
+    aria-label={`当前 ${value}${unit}，目标 ${target}${unit}`}>
+    <div className="ds-bullet__track"><span className="ds-bullet__value" style={{ width: (value / scale) * 100 + '%' }} />
+      <span className="ds-bullet__target" style={{ left: (target / scale) * 100 + '%' }} /></div>
+    <span className="ds-bullet__note">{value}{unit} / {target}{unit}</span>
+  </div>;
+}
+
+export function SankeyFlowBand({ flows }:
+  { flows: { id?: string; from: string; to: string; value: number }[] }) {
+  return <div className="ds-sankey" role="img" aria-label="流量分流桑基图">
+    {flows.map((flow, index) => <React.Fragment key={flow.id || index}>
+      <span className="ds-sankey__node">{flow.from}</span>
+      <span className="ds-sankey__band" style={{ width: Math.max(12, Math.min(100, flow.value / 10)) + '%' }} aria-hidden="true" />
+      <span className="ds-sankey__node">{flow.to}</span>
+    </React.Fragment>)}
+  </div>;
+}
+
+export function ScatterClusterPlot({ points }:
+  { points: { id?: string; x: number; y: number; outlier?: boolean }[] }) {
+  const maxX = Math.max(...points.map(point => point.x), 1);
+  const maxY = Math.max(...points.map(point => point.y), 1);
+  return <div className="ds-scatter" role="img" aria-label="散点聚类图">
+    {points.map((point, index) => <span key={point.id || index}
+      className={'ds-scatter__point' + (point.outlier ? ' ds-scatter__point--outlier' : '')}
+      style={{ left: (point.x / maxX) * 100 + '%', bottom: (point.y / maxY) * 100 + '%' }}
+      title={point.x + ' · ' + point.y} />)}
+  </div>;
+}
+
+export function WaterfallMetricBar({ items }:
+  { items: { id?: string; label: string; delta: number }[] }) {
+  const max = Math.max(...items.map(item => Math.abs(item.delta)), 1);
+  return <div className="ds-bullet" role="img"
+    aria-label={items.map(item => item.label + ' ' + item.delta).join('、')}>
+    {items.map((item, index) => <div className="ds-waterfall__bar" key={item.id || index}>
+      {item.label} {item.delta > 0 ? '+' : ''}{item.delta}
+    </div>)}
+  </div>;
+}
