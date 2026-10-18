@@ -17600,3 +17600,115 @@ export function ChargingPileStatusRow({ no, state, power, fee }: { no: string; s
     {fee !== undefined ? <span className="ds-charging-pile__fee">¥{fee.toFixed(2)}</span> : null}
   </div>;
 }
+
+export function DonationProjectCard({ name, org, raised, goal, state }: { name: string; org: string; raised: number; goal: number; state: 'active' | 'ending' | 'done' }) {
+  const pct = goal ? Math.min(100, Math.round(raised / goal * 100)) : 0;
+  const stateText = { active: '进行中', ending: '即将收官', done: '已达目标' };
+  return <article className={'ds-project-card is-' + state} tabIndex={0} role="button" aria-label={'公益项目，' + name + '，承办 ' + org + '，已筹 ' + raised.toLocaleString() + ' 元，目标 ' + goal.toLocaleString() + ' 元，进度 ' + pct + '%，' + stateText[state]}>
+    <div className="ds-project-card__head">
+      <strong className="ds-project-card__name">{name}</strong>
+      <span className={'ds-project-card__state is-' + state}>{stateText[state]}</span>
+    </div>
+    <p className="ds-project-card__org">{org}</p>
+    <div className="ds-project-card__progress" role="progressbar" aria-valuenow={pct} aria-valuemin={0} aria-valuemax={100} aria-label="筹款进度"><i style={{ width: pct + '%' }} /></div>
+    <p className="ds-project-card__amount">已筹 ¥{raised.toLocaleString()} / 目标 ¥{goal.toLocaleString()} · {pct}%</p>
+  </article>;
+}
+
+export function DonationRecordRow({ amount, time, project, state }: { amount: number; time: string; project: string; state: 'done' | 'receipt' }) {
+  const stateText = { done: '已开票', receipt: '待开票' };
+  return <div className={'ds-donation-row is-' + state} tabIndex={0} role="button" aria-label={'捐赠记录，' + amount.toFixed(2) + ' 元，' + time + '，' + project + '，' + stateText[state]}>
+    <span className="ds-donation-row__amount">¥{amount.toFixed(2)}</span>
+    <span className="ds-donation-row__time">{time}</span>
+    <span className="ds-donation-row__project">{project}</span>
+    <span className={'ds-donation-row__state is-' + state}>{stateText[state]}</span>
+  </div>;
+}
+
+export function FundUsageBreakdown({ total, segments }: { total: number; segments: Array<{ label: string; pct: number; kind: 'exec' | 'admin' | 'raise' }> }) {
+  return <section className="ds-fund-usage" aria-label={'资金用途分解，总额 ' + total.toLocaleString() + ' 元，' + segments.map(s => s.label + ' ' + s.pct + '%').join('，')}>
+    <div className="ds-fund-usage__bar" aria-hidden="true">
+      {segments.map(s => <span key={s.label} className={'ds-fund-usage__seg is-' + s.kind} style={{ width: s.pct + '%' }} />)}
+    </div>
+    <div className="ds-fund-usage__legend">
+      {segments.map(s => <span key={s.label} className={'is-' + s.kind} tabIndex={0} aria-label={s.label + ' ' + s.pct + '%'}>{s.label} {s.pct}%</span>)}
+    </div>
+    <p className="ds-fund-usage__total">总额 ¥{total.toLocaleString()}</p>
+  </section>;
+}
+
+export function DonorLeaderboardRow({ rank, name, amount, badge, anonymous }: { rank: number; name: string; amount: number; badge?: string; anonymous?: boolean }) {
+  const medal = rank === 1 ? 'is-gold' : rank === 2 ? 'is-silver' : rank === 3 ? 'is-bronze' : '';
+  return <div className={'ds-donor-row' + (rank <= 3 ? ' is-top' : '')} tabIndex={0} role="button" aria-label={'爱心榜第 ' + rank + ' 名，' + (anonymous ? '匿名爱心人' : name) + '，累计捐赠 ' + amount.toLocaleString() + ' 元'}>
+    <span className={'ds-donor-row__rank ' + medal}>{rank}</span>
+    <strong className="ds-donor-row__name">{anonymous ? '匿名爱心人' : name}</strong>
+    {badge ? <span className="ds-donor-row__badge">{badge}</span> : null}
+    <span className="ds-donor-row__amount">¥{amount.toLocaleString()}</span>
+  </div>;
+}
+
+export function MonthlyGivingCard({ plan, amount, day, state }: { plan: string; amount: number; day: string; state: 'active' | 'due' | 'failed' }) {
+  const stateText = { active: '执行中', due: '待扣款', failed: '扣款失败' };
+  return <article className={'ds-monthly-giving is-' + state} tabIndex={0} role="button" aria-label={'月捐计划，' + plan + '，每月 ' + amount + ' 元，' + stateText[state] + '，下一扣款日 ' + day}>
+    <div className="ds-monthly-giving__head">
+      <strong className="ds-monthly-giving__plan">{plan}</strong>
+      <span className={'ds-monthly-giving__state is-' + state}>{stateText[state]}</span>
+    </div>
+    <strong className="ds-monthly-giving__amount">¥{amount}<span>/月</span></strong>
+    <p className="ds-monthly-giving__day">下一扣款日 {day}</p>
+  </article>;
+}
+
+export function VolunteerHourRow({ date, activity, hours, state }: { date: string; activity: string; hours: number; state: 'done' | 'pending' }) {
+  const stateText = { done: '已认定', pending: '待认定' };
+  return <div className={'ds-vol-hour is-' + state} tabIndex={0} role="button" aria-label={'志愿服务记录，' + date + '，' + activity + '，' + hours + ' 小时，' + stateText[state]}>
+    <span className="ds-vol-hour__date">{date}</span>
+    <strong className="ds-vol-hour__activity">{activity}</strong>
+    <span className="ds-vol-hour__hours">{hours} 小时</span>
+    <span className={'ds-vol-hour__state is-' + state}>{stateText[state]}</span>
+  </div>;
+}
+
+export function CharityTransparencyCard({ batch, amount, note, time }: { batch: string; amount: number; note: string; time: string }) {
+  return <article className="ds-transparency" tabIndex={0} role="button" aria-label={'执行反馈，' + batch + '，' + amount.toLocaleString() + ' 元，' + note + '，' + time}>
+    <div className="ds-transparency__head">
+      <strong className="ds-transparency__batch">{batch}</strong>
+      <span className="ds-transparency__time">{time}</span>
+    </div>
+    <strong className="ds-transparency__amount">¥{amount.toLocaleString()}</strong>
+    <p className="ds-transparency__note">{note}</p>
+  </article>;
+}
+
+export function DonationCertificateCard({ no, donor, amount, date }: { no: string; donor: string; amount: number; date: string }) {
+  return <article className="ds-donation-cert" tabIndex={0} aria-label={'捐赠证书，编号 ' + no + '，捐赠人 ' + donor + '，捐赠金额 ' + amount.toLocaleString() + ' 元，开具日期 ' + date}>
+    <p className="ds-donation-cert__no">{no}</p>
+    <strong className="ds-donation-cert__donor">{donor}</strong>
+    <strong className="ds-donation-cert__amount">¥{amount.toLocaleString()}</strong>
+    <span className="ds-donation-cert__date">{date}</span>
+  </article>;
+}
+
+export function FundraisingThermometer({ raised, goal, milestones }: { raised: number; goal: number; milestones?: number[] }) {
+  const pct = goal ? Math.min(100, Math.round(raised / goal * 100)) : 0;
+  const hit = milestones ? milestones.filter(m => raised / goal * 100 >= m) : [];
+  return <section className="ds-thermometer" aria-label={'筹款温度计，已筹 ' + raised.toLocaleString() + ' 元，目标 ' + goal.toLocaleString() + ' 元，完成 ' + pct + '%' + (hit.length ? '，已达成 ' + hit.map(m => m + '%').join('、') + ' 里程碑' : '')}>
+    <div className="ds-thermometer__track" aria-hidden="true"><span className="ds-thermometer__fill" style={{ height: pct + '%' }} /></div>
+    <div className="ds-thermometer__info">
+      <span className="ds-thermometer__raised">¥{raised.toLocaleString()}</span>
+      <span className="ds-thermometer__goal">目标 ¥{goal.toLocaleString()} · {pct}%</span>
+      {hit.length ? <p className="ds-thermometer__milestone">已达成 {hit.map(m => m + '%').join(' · ')} 里程碑</p> : null}
+    </div>
+  </section>;
+}
+
+export function AidReliefCard({ item, dest, eta, state }: { item: string; dest: string; eta?: string; state: 'packing' | 'transit' | 'delivered' }) {
+  const stateText = { packing: '集货中', transit: '运输中', delivered: '已签收' };
+  return <article className={'ds-aid-card is-' + state} tabIndex={0} role="button" aria-label={'救援物资，' + item + '，发往 ' + dest + '，' + stateText[state] + (eta ? '，预计 ' + eta + ' 抵达' : '')}>
+    <div className="ds-aid-card__head">
+      <strong className="ds-aid-card__item">{item}</strong>
+      <span className={'ds-aid-card__state is-' + state}>{stateText[state]}</span>
+    </div>
+    <p className="ds-aid-card__dest">发往 {dest}{eta ? ' · 预计 ' + eta + ' 抵达' : ''}</p>
+  </article>;
+}

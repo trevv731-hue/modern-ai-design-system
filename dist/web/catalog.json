@@ -21632,5 +21632,275 @@
       "充电订单"
     ],
     "react": "<ChargingPileStatusRow no=\"P-023\" state=\"charging\" power=\"60 kW · 已充 34 度\" fee={28.4} />"
+  },
+  {
+    "id": "cha-project-card",
+    "name": "公益项目卡",
+    "category": "公益 / 捐赠",
+    "status": "v3 新增",
+    "purpose": "展示一个公益项目的筹款进度与核心信息。",
+    "anatomy": [
+      "项目名 (ds-project-card__name)",
+      "机构 (ds-project-card__org)",
+      "进度条 (ds-project-card__progress)",
+      "金额 (ds-project-card__amount)",
+      "状态 (ds-project-card__state)"
+    ],
+    "keyboard": "卡片可聚焦查看项目详情；已达目标以 status 语义播报。",
+    "guidance": [
+      "进度条必须附百分比文字。",
+      "已筹与目标金额成对展示。",
+      "即将收官黄色提示。"
+    ],
+    "preview": "<article class=\"ds-project-card is-ending\" tabindex=\"0\" role=\"button\" aria-label=\"公益项目，乡村小学图书角，承办 中国乡村发展基金会，已筹 86,400 元，目标 100,000 元，进度 86%，即将收官\"><div class=\"ds-project-card__head\"><strong class=\"ds-project-card__name\">乡村小学图书角</strong><span class=\"ds-project-card__state is-ending\">即将收官</span></div><p class=\"ds-project-card__org\">中国乡村发展基金会</p><div class=\"ds-project-card__progress\" role=\"progressbar\" aria-valuenow=\"86\" aria-valuemin=\"0\" aria-valuemax=\"100\" aria-label=\"筹款进度\"><i style=\"width:86%\"></i></div><p class=\"ds-project-card__amount\">已筹 ¥86,400 / 目标 ¥100,000 · 86%</p></article>",
+    "checks": [
+      "百分比文字",
+      "金额成对",
+      "收官黄色",
+      "可聚焦看详情"
+    ],
+    "react": "<DonationProjectCard name=\"乡村小学图书角\" org=\"中国乡村发展基金会\" raised={86400} goal={100000} state=\"ending\" />"
+  },
+  {
+    "id": "cha-donation-row",
+    "name": "捐赠记录行",
+    "category": "公益 / 捐赠",
+    "status": "v3 新增",
+    "purpose": "展示一笔捐赠的金额、时间与去向项目。",
+    "anatomy": [
+      "金额 (ds-donation-row__amount)",
+      "时间 (ds-donation-row__time)",
+      "项目 (ds-donation-row__project)",
+      "状态 (ds-donation-row__state)"
+    ],
+    "keyboard": "行可聚焦查看捐赠票据；待开票状态以 status 语义播报。",
+    "guidance": [
+      "金额等宽右对齐。",
+      "状态用文字不只颜色。",
+      "支持按项目筛选。"
+    ],
+    "preview": "<div class=\"ds-donation-row is-receipt\" tabindex=\"0\" role=\"button\" aria-label=\"捐赠记录，200 元，2026-05-18 14:32，乡村小学图书角，待开票\"><span class=\"ds-donation-row__amount\">¥200.00</span><span class=\"ds-donation-row__time\">2026-05-18 14:32</span><span class=\"ds-donation-row__project\">乡村小学图书角</span><span class=\"ds-donation-row__state is-receipt\">待开票</span></div>",
+    "checks": [
+      "金额等宽右对齐",
+      "状态文字",
+      "项目筛选",
+      "票据入口"
+    ],
+    "react": "<DonationRecordRow amount={200} time=\"2026-05-18 14:32\" project=\"乡村小学图书角\" state=\"receipt\" />"
+  },
+  {
+    "id": "cha-fund-usage",
+    "name": "资金用途分解",
+    "category": "公益 / 捐赠",
+    "status": "v3 新增",
+    "purpose": "以堆叠条与图例展示项目资金的用途构成。",
+    "anatomy": [
+      "堆叠条 (ds-fund-usage__bar)",
+      "分段 (ds-fund-usage__seg)",
+      "图例 (ds-fund-usage__legend)",
+      "总额 (ds-fund-usage__total)"
+    ],
+    "keyboard": "分段可聚焦查看拨付明细；单项占比超 60% 以 status 语义播报。",
+    "guidance": [
+      "执行、管理、筹资三类分色。",
+      "每段附百分比文字。",
+      "图例与堆叠条颜色一一对应。"
+    ],
+    "preview": "<section class=\"ds-fund-usage\" aria-label=\"资金用途分解，总额 86,400 元，项目执行 78%，行政管理 12%，筹资费用 10%\"><div class=\"ds-fund-usage__bar\" aria-hidden=\"true\"><span class=\"ds-fund-usage__seg is-exec\" style=\"width:78%\"></span><span class=\"ds-fund-usage__seg is-admin\" style=\"width:12%\"></span><span class=\"ds-fund-usage__seg is-raise\" style=\"width:10%\"></span></div><div class=\"ds-fund-usage__legend\"><span class=\"is-exec\" tabindex=\"0\" aria-label=\"项目执行 78%\">项目执行 78%</span><span class=\"is-admin\" tabindex=\"0\" aria-label=\"行政管理 12%\">行政管理 12%</span><span class=\"is-raise\" tabindex=\"0\" aria-label=\"筹资费用 10%\">筹资费用 10%</span></div><p class=\"ds-fund-usage__total\">总额 ¥86,400</p></section>",
+    "checks": [
+      "三类分色",
+      "百分比文字",
+      "图例对应",
+      "超 60% 提示"
+    ],
+    "react": "<FundUsageBreakdown total={86400} segments={[{ label: \"项目执行\", pct: 78, kind: \"exec\" }]} />"
+  },
+  {
+    "id": "cha-donor-row",
+    "name": "爱心榜行",
+    "category": "公益 / 捐赠",
+    "status": "v3 新增",
+    "purpose": "展示爱心榜中一位捐赠人的排名与累计贡献。",
+    "anatomy": [
+      "排名 (ds-donor-row__rank)",
+      "昵称 (ds-donor-row__name)",
+      "累计金额 (ds-donor-row__amount)",
+      "徽章 (ds-donor-row__badge)"
+    ],
+    "keyboard": "行可聚焦查看捐赠历史；前三名以文字说明不只颜色。",
+    "guidance": [
+      "前三名分别以金、银、铜徽标突出。",
+      "匿名捐赠人明确标注匿名。",
+      "累计金额等宽展示。"
+    ],
+    "preview": "<div class=\"ds-donor-row is-top\" tabindex=\"0\" role=\"button\" aria-label=\"爱心榜第 1 名，微光，累计捐赠 12,800 元\"><span class=\"ds-donor-row__rank is-gold\">1</span><strong class=\"ds-donor-row__name\">微光</strong><span class=\"ds-donor-row__badge\">年度守护人</span><span class=\"ds-donor-row__amount\">¥12,800</span></div>",
+    "checks": [
+      "前三名徽标",
+      "匿名标注",
+      "金额等宽",
+      "捐赠历史"
+    ],
+    "react": "<DonorLeaderboardRow rank={1} name=\"微光\" amount={12800} badge=\"年度守护人\" />"
+  },
+  {
+    "id": "cha-monthly-giving",
+    "name": "月捐计划卡",
+    "category": "公益 / 捐赠",
+    "status": "v3 新增",
+    "purpose": "展示一份月捐计划的金额、扣款日与执行状态。",
+    "anatomy": [
+      "计划名 (ds-monthly-giving__plan)",
+      "月捐金额 (ds-monthly-giving__amount)",
+      "扣款日 (ds-monthly-giving__day)",
+      "状态 (ds-monthly-giving__state)"
+    ],
+    "keyboard": "卡片可聚焦修改或终止计划；扣款失败以 alert 语义播报。",
+    "guidance": [
+      "正常绿色、待扣款黄色、扣款失败红色。",
+      "月捐金额为主视觉数字。",
+      "下一扣款日明确展示。"
+    ],
+    "preview": "<article class=\"ds-monthly-giving is-failed\" tabindex=\"0\" role=\"button\" aria-label=\"月捐计划，乡村小学图书角月捐，每月 100 元，扣款失败，下一扣款日 2026-07-05\"><div class=\"ds-monthly-giving__head\"><strong class=\"ds-monthly-giving__plan\">乡村小学图书角月捐</strong><span class=\"ds-monthly-giving__state is-failed\">扣款失败</span></div><strong class=\"ds-monthly-giving__amount\">¥100<span>/月</span></strong><p class=\"ds-monthly-giving__day\">下一扣款日 2026-07-05</p></article>",
+    "checks": [
+      "三态配色",
+      "金额主数字",
+      "扣款日明确",
+      "失败播报"
+    ],
+    "react": "<MonthlyGivingCard plan=\"乡村小学图书角月捐\" amount={100} day=\"2026-07-05\" state=\"failed\" />"
+  },
+  {
+    "id": "cha-vol-hour",
+    "name": "志愿服务时长行",
+    "category": "公益 / 捐赠",
+    "status": "v3 新增",
+    "purpose": "展示一次志愿服务记录的时长与服务内容。",
+    "anatomy": [
+      "日期 (ds-vol-hour__date)",
+      "服务内容 (ds-vol-hour__activity)",
+      "时长 (ds-vol-hour__hours)",
+      "认定状态 (ds-vol-hour__state)"
+    ],
+    "keyboard": "行可聚焦查看服务证书；待认定状态以 status 语义播报。",
+    "guidance": [
+      "时长以小时等宽展示。",
+      "认定状态用文字不只颜色。",
+      "支持导出服务记录。"
+    ],
+    "preview": "<div class=\"ds-vol-hour is-pending\" tabindex=\"0\" role=\"button\" aria-label=\"志愿服务记录，2026-06-01，社区敬老探访，3.5 小时，待认定\"><span class=\"ds-vol-hour__date\">2026-06-01</span><strong class=\"ds-vol-hour__activity\">社区敬老探访</strong><span class=\"ds-vol-hour__hours\">3.5 小时</span><span class=\"ds-vol-hour__state is-pending\">待认定</span></div>",
+    "checks": [
+      "时长等宽",
+      "认定文字",
+      "证书入口",
+      "导出记录"
+    ],
+    "react": "<VolunteerHourRow date=\"2026-06-01\" activity=\"社区敬老探访\" hours={3.5} state=\"pending\" />"
+  },
+  {
+    "id": "cha-transparency",
+    "name": "项目执行反馈卡",
+    "category": "公益 / 捐赠",
+    "status": "v3 新增",
+    "purpose": "展示项目执行反馈与资金拨付批次记录。",
+    "anatomy": [
+      "批次 (ds-transparency__batch)",
+      "拨付金额 (ds-transparency__amount)",
+      "执行说明 (ds-transparency__note)",
+      "时间 (ds-transparency__time)"
+    ],
+    "keyboard": "卡片可聚焦查看原始凭证；逾期未反馈以 status 语义播报。",
+    "guidance": [
+      "按时间倒序排列。",
+      "拨付金额等宽展示。",
+      "凭证入口直达扫描件。"
+    ],
+    "preview": "<article class=\"ds-transparency\" tabindex=\"0\" role=\"button\" aria-label=\"执行反馈，第 2 批拨付，43,200 元，图书采购已完成 1,200 册并送达 6 所学校，2026-05-20\"><div class=\"ds-transparency__head\"><strong class=\"ds-transparency__batch\">第 2 批拨付</strong><span class=\"ds-transparency__time\">2026-05-20</span></div><strong class=\"ds-transparency__amount\">¥43,200</strong><p class=\"ds-transparency__note\">图书采购已完成 1,200 册并送达 6 所学校</p></article>",
+    "checks": [
+      "时间倒序",
+      "金额等宽",
+      "凭证直达",
+      "逾期提示"
+    ],
+    "react": "<CharityTransparencyCard batch=\"第 2 批拨付\" amount={43200} note=\"图书采购已完成 1,200 册并送达 6 所学校\" time=\"2026-05-20\" />"
+  },
+  {
+    "id": "cha-donation-cert",
+    "name": "捐赠证书卡",
+    "category": "公益 / 捐赠",
+    "status": "v3 新增",
+    "purpose": "展示一张捐赠证书的编号、金额与开具日期。",
+    "anatomy": [
+      "证书编号 (ds-donation-cert__no)",
+      "捐赠人 (ds-donation-cert__donor)",
+      "金额 (ds-donation-cert__amount)",
+      "日期 (ds-donation-cert__date)"
+    ],
+    "keyboard": "卡片可聚焦下载 PDF；证书编号可一键复制。",
+    "guidance": [
+      "证书以描边强调仪式感。",
+      "金额为红色主数字。",
+      "编号等宽并提供复制。"
+    ],
+    "preview": "<article class=\"ds-donation-cert\" tabindex=\"0\" aria-label=\"捐赠证书，编号 CS-2026-04517，捐赠人 张伟，捐赠金额 1,000 元，开具日期 2026-05-19\"><p class=\"ds-donation-cert__no\">CS-2026-04517</p><strong class=\"ds-donation-cert__donor\">张伟</strong><strong class=\"ds-donation-cert__amount\">¥1,000</strong><span class=\"ds-donation-cert__date\">2026-05-19</span></article>",
+    "checks": [
+      "证书描边",
+      "金额红色主数字",
+      "编号可复制",
+      "PDF 下载"
+    ],
+    "react": "<DonationCertificateCard no=\"CS-2026-04517\" donor=\"张伟\" amount={1000} date=\"2026-05-19\" />"
+  },
+  {
+    "id": "cha-thermometer",
+    "name": "筹款温度计",
+    "category": "公益 / 捐赠",
+    "status": "v3 新增",
+    "purpose": "以温度计图形展示筹款目标完成度与里程碑。",
+    "anatomy": [
+      "目标 (ds-thermometer__goal)",
+      "已筹 (ds-thermometer__raised)",
+      "液柱 (ds-thermometer__fill)",
+      "里程碑 (ds-thermometer__milestone)"
+    ],
+    "keyboard": "可聚焦查看捐赠列表；里程碑达成以 status 语义播报。",
+    "guidance": [
+      "液柱按完成比例填充。",
+      "里程碑以文字标注。",
+      "百分比数字同时呈现。"
+    ],
+    "preview": "<section class=\"ds-thermometer\" aria-label=\"筹款温度计，已筹 86,400 元，目标 100,000 元，完成 86%，已达成 50% 与 75% 里程碑\"><div class=\"ds-thermometer__track\" aria-hidden=\"true\"><span class=\"ds-thermometer__fill\" style=\"height:86%\"></span></div><div class=\"ds-thermometer__info\"><span class=\"ds-thermometer__raised\">¥86,400</span><span class=\"ds-thermometer__goal\">目标 ¥100,000 · 86%</span></div><p class=\"ds-thermometer__milestone\">已达成 50% · 75% 里程碑</p></section>",
+    "checks": [
+      "液柱比例填充",
+      "里程碑文字",
+      "百分比数字",
+      "捐赠列表"
+    ],
+    "react": "<FundraisingThermometer raised={86400} goal={100000} milestones={[50, 75]} />"
+  },
+  {
+    "id": "cha-aid-card",
+    "name": "救援物资卡",
+    "category": "公益 / 捐赠",
+    "status": "v3 新增",
+    "purpose": "展示一批救援物资的品类、数量与发往目的地。",
+    "anatomy": [
+      "物资与数量 (ds-aid-card__item)",
+      "目的地 (ds-aid-card__dest)",
+      "物流状态 (ds-aid-card__state)"
+    ],
+    "keyboard": "卡片可聚焦查看物流轨迹；运输中状态以 status 语义播报。",
+    "guidance": [
+      "物资品类以图标加文字展示。",
+      "数量等宽并附单位。",
+      "物流状态文字不只颜色。"
+    ],
+    "preview": "<article class=\"ds-aid-card is-transit\" tabindex=\"0\" role=\"button\" aria-label=\"救援物资，折叠床 500 张、棉被 1,000 床，发往 甘肃陇南，运输中，预计 06-15 抵达\"><div class=\"ds-aid-card__head\"><strong class=\"ds-aid-card__item\">折叠床 500 张 · 棉被 1,000 床</strong><span class=\"ds-aid-card__state is-transit\">运输中</span></div><p class=\"ds-aid-card__dest\">发往 甘肃陇南 · 预计 06-15 抵达</p></article>",
+    "checks": [
+      "图标加文字",
+      "数量等宽",
+      "状态文字",
+      "物流轨迹"
+    ],
+    "react": "<AidReliefCard item=\"折叠床 500 张 · 棉被 1,000 床\" dest=\"甘肃陇南\" eta=\"06-15\" state=\"transit\" />"
   }
 ]
