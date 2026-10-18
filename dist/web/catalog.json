@@ -23536,5 +23536,280 @@
       "就诊须知"
     ],
     "react": "<VetAppointmentCard hospital=\"爱诺动物医院\" doctor=\"王医生\" time=\"06-22 10:30\" state=\"waiting\" />"
+  },
+  {
+    "id": "cafe-drink",
+    "name": "饮品菜单卡",
+    "category": "咖啡 / 茶饮门店",
+    "status": "v3 新增",
+    "purpose": "展示一款饮品的价格、规格选项与推荐标签。",
+    "anatomy": [
+      "饮品名 (ds-cafe-drink__name)",
+      "价格 (ds-cafe-drink__price)",
+      "规格选项 (ds-cafe-drink__opt)",
+      "标签 (ds-cafe-drink__tag)",
+      "热量 (ds-cafe-drink__kcal)"
+    ],
+    "keyboard": "卡片可聚焦加入购物车；推荐款以文字标签标注。",
+    "guidance": [
+      "价格红色等宽展示。",
+      "温度与糖度选项可切换。",
+      "热量小字标注。"
+    ],
+    "preview": "<article class=\"ds-cafe-drink is-hot\" tabindex=\"0\" role=\"button\" aria-label=\"饮品菜单，燕麦拿铁，大杯 38 元，可去冰 半糖，招牌热销，热量 210 千卡\"><div class=\"ds-cafe-drink__head\"><strong class=\"ds-cafe-drink__name\">燕麦拿铁</strong><span class=\"ds-cafe-drink__tag is-hot\">招牌热销</span></div><div class=\"ds-cafe-drink__opts\"><span class=\"ds-cafe-drink__opt is-on\">大杯</span><span class=\"ds-cafe-drink__opt\">去冰</span><span class=\"ds-cafe-drink__opt\">半糖</span></div><div class=\"ds-cafe-drink__foot\"><span class=\"ds-cafe-drink__price\">¥38</span><span class=\"ds-cafe-drink__kcal\">210 kcal</span></div></article>",
+    "checks": [
+      "价格红色",
+      "规格切换",
+      "标签文字",
+      "加入购物车"
+    ],
+    "react": "<DrinkMenuCard name=\"燕麦拿铁\" price={38} kcal={210} tag=\"hot\" />"
+  },
+  {
+    "id": "cafe-order",
+    "name": "点单行",
+    "category": "咖啡 / 茶饮门店",
+    "status": "v3 新增",
+    "purpose": "展示一笔门店订单的杯数与制作状态。",
+    "anatomy": [
+      "订单号 (ds-cafe-order__no)",
+      "杯数 (ds-cafe-order__cups)",
+      "取餐号 (ds-cafe-order__pick)",
+      "状态 (ds-cafe-order__state)"
+    ],
+    "keyboard": "行可聚焦查看订单详情；待取餐以 alert 语义播报。",
+    "guidance": [
+      "状态四态：已接单、制作中、待取餐、已完成。",
+      "取餐号放大突出。",
+      "杯数等宽。"
+    ],
+    "preview": "<div class=\"ds-cafe-order is-making\" tabindex=\"0\" role=\"button\" aria-label=\"点单，订单号 C260618-035，共 3 杯，取餐号 A27，制作中\"><strong class=\"ds-cafe-order__no\">C260618-035</strong><span class=\"ds-cafe-order__cups\">3 杯</span><span class=\"ds-cafe-order__pick\">A27</span><span class=\"ds-cafe-order__state is-making\">制作中</span></div>",
+    "checks": [
+      "四态状态",
+      "取餐号突出",
+      "杯数等宽",
+      "订单详情"
+    ],
+    "react": "<CafeOrderRow no=\"C260618-035\" cups={3} pickNo=\"A27\" state=\"making\" />"
+  },
+  {
+    "id": "cafe-stamp",
+    "name": "集点卡",
+    "category": "咖啡 / 茶饮门店",
+    "status": "v3 新增",
+    "purpose": "展示会员集点进度与兑换奖励。",
+    "anatomy": [
+      "集点网格 (ds-cafe-stamp__grid)",
+      "已集点 (ds-cafe-stamp__dot is-on)",
+      "奖励说明 (ds-cafe-stamp__reward)",
+      "进度 (ds-cafe-stamp__bar)"
+    ],
+    "keyboard": "进度以 progressbar 语义播报；集满可兑换。",
+    "guidance": [
+      "满 10 点兑换一杯。",
+      "已集点用对勾点。",
+      "进度条同步展示。"
+    ],
+    "preview": "<article class=\"ds-cafe-stamp\" aria-label=\"集点卡，已集 7 点，还需 3 点兑换免费中杯饮品\"><div class=\"ds-cafe-stamp__grid\" aria-hidden=\"true\"><span class=\"ds-cafe-stamp__dot is-on\">✓</span><span class=\"ds-cafe-stamp__dot is-on\">✓</span><span class=\"ds-cafe-stamp__dot is-on\">✓</span><span class=\"ds-cafe-stamp__dot is-on\">✓</span><span class=\"ds-cafe-stamp__dot is-on\">✓</span><span class=\"ds-cafe-stamp__dot is-on\">✓</span><span class=\"ds-cafe-stamp__dot is-on\">✓</span><span class=\"ds-cafe-stamp__dot\"></span><span class=\"ds-cafe-stamp__dot\"></span><span class=\"ds-cafe-stamp__dot\"></span></div><div class=\"ds-cafe-stamp__bar\" role=\"progressbar\" aria-valuenow=\"7\" aria-valuemin=\"0\" aria-valuemax=\"10\" aria-label=\"集点进度\"><span class=\"ds-cafe-stamp__fill\" style=\"width:70%\"></span></div><p class=\"ds-cafe-stamp__reward\">再 3 点兑换免费中杯</p></article>",
+    "checks": [
+      "progressbar 语义",
+      "对勾点",
+      "奖励说明",
+      "满点兑换"
+    ],
+    "react": "<LoyaltyStampCard filled={7} total={10} reward=\"免费中杯饮品\" />"
+  },
+  {
+    "id": "cafe-brew",
+    "name": "冲煮方案卡",
+    "category": "咖啡 / 茶饮门店",
+    "status": "v3 新增",
+    "purpose": "展示一份手冲咖啡的粉水比与参数设置。",
+    "anatomy": [
+      "方案名 (ds-cafe-brew__name)",
+      "参数行 (ds-cafe-brew__row)",
+      "粉量 (ds-cafe-brew__val)",
+      "水温",
+      "时间 (ds-cafe-brew__timer)",
+      "蒸汽动画 (ds-cafe-brew__steam)"
+    ],
+    "keyboard": "卡片可聚焦开始冲煮；计时以 status 语义播报。",
+    "guidance": [
+      "三项参数并列展示。",
+      "计时器等宽倒计时。",
+      "冲煮中蒸汽动画提示。"
+    ],
+    "preview": "<article class=\"ds-cafe-brew is-brewing\" tabindex=\"0\" role=\"button\" aria-label=\"冲煮方案，V60 花香方案，粉量 15 克，粉水比 1 比 16，水温 92 摄氏度，时间 2 分 15 秒，冲煮中\"><div class=\"ds-cafe-brew__head\"><strong class=\"ds-cafe-brew__name\">V60 花香方案</strong><span class=\"ds-cafe-brew__steam\" aria-hidden=\"true\"><i></i><i></i><i></i></span></div><div class=\"ds-cafe-brew__params\"><span class=\"ds-cafe-brew__row\">粉量<strong class=\"ds-cafe-brew__val\">15 g</strong></span><span class=\"ds-cafe-brew__row\">比例<strong class=\"ds-cafe-brew__val\">1:16</strong></span><span class=\"ds-cafe-brew__row\">水温<strong class=\"ds-cafe-brew__val\">92℃</strong></span></div><span class=\"ds-cafe-brew__timer\">02:15</span></article>",
+    "checks": [
+      "三项参数",
+      "计时等宽",
+      "蒸汽动画",
+      "开始冲煮"
+    ],
+    "react": "<BrewingMethodCard name=\"V60 花香方案\" dose=\"15 g\" ratio=\"1:16\" temp=\"92℃\" timer=\"02:15\" brewing />"
+  },
+  {
+    "id": "cafe-bean",
+    "name": "咖啡豆卡",
+    "category": "咖啡 / 茶饮门店",
+    "status": "v3 新增",
+    "purpose": "展示一款咖啡豆的产地、处理法与风味描述。",
+    "anatomy": [
+      "豆名 (ds-cafe-bean__name)",
+      "产地 (ds-cafe-bean__origin)",
+      "处理法 (ds-cafe-bean__process)",
+      "烘焙度 (ds-cafe-bean__roast)",
+      "风味标签 (ds-cafe-bean__note)"
+    ],
+    "keyboard": "卡片可聚焦查看杯测报告；烘焙度以文字加色条展示。",
+    "guidance": [
+      "烘焙度三档：浅烘、中烘、深烘。",
+      "风味标签圆角徽标。",
+      "产地等宽展示。"
+    ],
+    "preview": "<article class=\"ds-cafe-bean is-medium\" tabindex=\"0\" role=\"button\" aria-label=\"咖啡豆，花魁 7.0，产地 埃塞俄比亚 古吉，日晒处理，中烘，风味 柑橘、莓果、花香\"><div class=\"ds-cafe-bean__head\"><strong class=\"ds-cafe-bean__name\">花魁 7.0</strong><span class=\"ds-cafe-bean__roast is-medium\">中烘</span></div><span class=\"ds-cafe-bean__origin\">埃塞俄比亚 · 古吉</span><span class=\"ds-cafe-bean__process\">日晒处理</span><div class=\"ds-cafe-bean__notes\"><span class=\"ds-cafe-bean__note\">柑橘</span><span class=\"ds-cafe-bean__note\">莓果</span><span class=\"ds-cafe-bean__note\">花香</span></div></article>",
+    "checks": [
+      "烘焙三档",
+      "风味标签",
+      "产地等宽",
+      "杯测报告"
+    ],
+    "react": "<BeanOriginCard name=\"花魁 7.0\" origin=\"埃塞俄比亚 · 古吉\" process=\"日晒处理\" roast=\"medium\" notes={[\"柑橘\", \"莓果\", \"花香\"]} />"
+  },
+  {
+    "id": "cafe-seat",
+    "name": "座位选择行",
+    "category": "咖啡 / 茶饮门店",
+    "status": "v3 新增",
+    "purpose": "展示一个门店座位的区域与占用状态。",
+    "anatomy": [
+      "区域 (ds-cafe-seat__zone)",
+      "座位号 (ds-cafe-seat__no)",
+      "插座标识 (ds-cafe-seat__plug)",
+      "状态 (ds-cafe-seat__state)"
+    ],
+    "keyboard": "行可聚焦预订座位；已占座位以文字标注不可选。",
+    "guidance": [
+      "状态三态：空闲、已占、已预订。",
+      "有插座座位图标标识。",
+      "座位号等宽。"
+    ],
+    "preview": "<div class=\"ds-cafe-seat is-free\" tabindex=\"0\" role=\"button\" aria-label=\"座位，窗边区，座位 W3，带插座，空闲\"><span class=\"ds-cafe-seat__zone\">窗边区</span><strong class=\"ds-cafe-seat__no\">W3</strong><span class=\"ds-cafe-seat__plug\" aria-label=\"带插座\">⌁</span><span class=\"ds-cafe-seat__state is-free\">空闲</span></div>",
+    "checks": [
+      "三态状态",
+      "插座标识",
+      "座位号等宽",
+      "预订座位"
+    ],
+    "react": "<CafeSeatPickerRow zone=\"窗边区\" no=\"W3\" plug state=\"free\" />"
+  },
+  {
+    "id": "cafe-resv",
+    "name": "门店预约卡",
+    "category": "咖啡 / 茶饮门店",
+    "status": "v3 新增",
+    "purpose": "展示一次门店到店预约的时间与桌型信息。",
+    "anatomy": [
+      "日期 (ds-cafe-resv__date)",
+      "时间 (ds-cafe-resv__time)",
+      "人数 (ds-cafe-resv__people)",
+      "桌型 (ds-cafe-resv__table)",
+      "状态 (ds-cafe-resv__state)"
+    ],
+    "keyboard": "卡片可聚焦查看预约码；待确认状态以 status 语义播报。",
+    "guidance": [
+      "状态三态：待确认、已确认、已到店。",
+      "日期时间等宽。",
+      "桌型文字展示。"
+    ],
+    "preview": "<article class=\"ds-cafe-resv is-confirmed\" tabindex=\"0\" role=\"button\" aria-label=\"门店预约，2026-06-20，14:30，2 人，靠窗双人桌，已确认\"><div class=\"ds-cafe-resv__head\"><strong class=\"ds-cafe-resv__date\">06-20</strong><span class=\"ds-cafe-resv__time\">14:30</span><span class=\"ds-cafe-resv__state is-confirmed\">已确认</span></div><div class=\"ds-cafe-resv__meta\"><span class=\"ds-cafe-resv__people\">2 人</span><span class=\"ds-cafe-resv__table\">靠窗双人桌</span></div></article>",
+    "checks": [
+      "三态状态",
+      "日期时间",
+      "桌型展示",
+      "预约码"
+    ],
+    "react": "<CafeReservationCard date=\"06-20\" time=\"14:30\" people={2} table=\"靠窗双人桌\" state=\"confirmed\" />"
+  },
+  {
+    "id": "cafe-pair",
+    "name": "甜点搭配卡",
+    "category": "咖啡 / 茶饮门店",
+    "status": "v3 新增",
+    "purpose": "展示咖啡与甜点的推荐搭配组合。",
+    "anatomy": [
+      "咖啡项 (ds-cafe-pair__coffee)",
+      "连接号 (ds-cafe-pair__plus)",
+      "甜点项 (ds-cafe-pair__dessert)",
+      "组合价 (ds-cafe-pair__price)"
+    ],
+    "keyboard": "卡片可聚焦一键加入组合；搭配推荐以文字说明。",
+    "guidance": [
+      "组合价红色突出。",
+      "搭配理由文字说明。",
+      "两项并列展示。"
+    ],
+    "preview": "<article class=\"ds-cafe-pair\" tabindex=\"0\" role=\"button\" aria-label=\"甜点搭配，耶加雪菲手冲 加 巴斯克芝士蛋糕，组合价 58 元，果香与乳香互补\"><div class=\"ds-cafe-pair__items\"><span class=\"ds-cafe-pair__coffee\">耶加雪菲手冲</span><span class=\"ds-cafe-pair__plus\" aria-hidden=\"true\">+</span><span class=\"ds-cafe-pair__dessert\">巴斯克芝士蛋糕</span></div><div class=\"ds-cafe-pair__foot\"><span class=\"ds-cafe-pair__price\">组合 ¥58</span><span class=\"ds-cafe-pair__reason\">果香与乳香互补</span></div></article>",
+    "checks": [
+      "两项并列",
+      "组合价红色",
+      "搭配理由",
+      "一键加购"
+    ],
+    "react": "<DessertPairingCard coffee=\"耶加雪菲手冲\" dessert=\"巴斯克芝士蛋糕\" price={58} reason=\"果香与乳香互补\" />"
+  },
+  {
+    "id": "cafe-sale",
+    "name": "门店营收卡",
+    "category": "咖啡 / 茶饮门店",
+    "status": "v3 新增",
+    "purpose": "展示门店当日的杯数与营业额概览。",
+    "anatomy": [
+      "杯数 (ds-cafe-sale__item)",
+      "营业额 (ds-cafe-sale__item)",
+      "客单价 (ds-cafe-sale__item)",
+      "环比 (ds-cafe-sale__cmp)"
+    ],
+    "keyboard": "卡片可聚焦查看分时曲线；环比以 status 语义播报。",
+    "guidance": [
+      "三项数据并列。",
+      "千分位格式化。",
+      "环比涨红跌绿。"
+    ],
+    "preview": "<article class=\"ds-cafe-sale\" tabindex=\"0\" role=\"img\" aria-label=\"门店营收，今日杯数 386，营业额 9,240 元，客单价 23.9 元，营业额环比上升 12%\"><div class=\"ds-cafe-sale__item\"><span>杯数</span><strong>386</strong></div><div class=\"ds-cafe-sale__item\"><span>营业额</span><strong>¥9,240</strong></div><div class=\"ds-cafe-sale__item\"><span>客单价</span><strong>¥23.9</strong></div><span class=\"ds-cafe-sale__cmp is-up\">↑ 12%</span></article>",
+    "checks": [
+      "三项并列",
+      "千分位",
+      "涨红跌绿",
+      "分时曲线"
+    ],
+    "react": "<DailySalesSummaryCard cups={386} revenue={9240} avg={23.9} change={12} />"
+  },
+  {
+    "id": "cafe-cup",
+    "name": "杯测评分卡",
+    "category": "咖啡 / 茶饮门店",
+    "status": "v3 新增",
+    "purpose": "展示一款咖啡豆的杯测分项与总分。",
+    "anatomy": [
+      "豆名 (ds-cafe-cup__name)",
+      "分项行 (ds-cafe-cup__row)",
+      "分值 (ds-cafe-cup__score)",
+      "总分 (ds-cafe-cup__total)"
+    ],
+    "keyboard": "卡片可聚焦查看分项评语；80 分以上精品级标识。",
+    "guidance": [
+      "五项分项 10 分制。",
+      "总分放大突出。",
+      "精品级绿色标识。"
+    ],
+    "preview": "<article class=\"ds-cafe-cup is-specialty\" tabindex=\"0\" role=\"button\" aria-label=\"杯测评分，花魁 7.0，干湿香 9.0，风味 8.5，余韵 8.0，酸质 8.5，干净度 8.5，总分 85.0，精品级\"><div class=\"ds-cafe-cup__head\"><strong class=\"ds-cafe-cup__name\">花魁 7.0</strong><span class=\"ds-cafe-cup__badge\">精品级</span></div><div class=\"ds-cafe-cup__rows\"><span class=\"ds-cafe-cup__row\">干湿香<strong class=\"ds-cafe-cup__score\">9.0</strong></span><span class=\"ds-cafe-cup__row\">风味<strong class=\"ds-cafe-cup__score\">8.5</strong></span><span class=\"ds-cafe-cup__row\">余韵<strong class=\"ds-cafe-cup__score\">8.0</strong></span><span class=\"ds-cafe-cup__row\">酸质<strong class=\"ds-cafe-cup__score\">8.5</strong></span><span class=\"ds-cafe-cup__row\">干净度<strong class=\"ds-cafe-cup__score\">8.5</strong></span></div><span class=\"ds-cafe-cup__total\">85.0</span></article>",
+    "checks": [
+      "五项分项",
+      "总分突出",
+      "精品标识",
+      "分项评语"
+    ],
+    "react": "<CuppingScoreCard name=\"花魁 7.0\" scores={{ aroma: 9, flavor: 8.5, aftertaste: 8, acidity: 8.5, cleanliness: 8.5 }} />"
   }
 ]

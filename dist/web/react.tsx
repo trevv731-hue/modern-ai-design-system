@@ -18412,3 +18412,144 @@ export function VetAppointmentCard({ hospital, doctor, time, state }: { hospital
     </div>
   </article>;
 }
+
+export function DrinkMenuCard({ name, price, kcal, tag }: { name: string; price: number; kcal: number; tag: 'hot' | 'new' | 'limited' }) {
+  const tagText = { hot: '招牌热销', new: '新品', limited: '限定' };
+  return <article className="ds-cafe-drink" tabIndex={0} role="button" aria-label={'饮品菜单，' + name + '，大杯 ' + price + ' 元，' + tagText[tag] + '，热量 ' + kcal + ' 千卡'}>
+    <div className="ds-cafe-drink__head">
+      <strong className="ds-cafe-drink__name">{name}</strong>
+      <span className={'ds-cafe-drink__tag is-' + tag}>{tagText[tag]}</span>
+    </div>
+    <div className="ds-cafe-drink__opts">
+      <span className="ds-cafe-drink__opt is-on">大杯</span>
+      <span className="ds-cafe-drink__opt">去冰</span>
+      <span className="ds-cafe-drink__opt">半糖</span>
+    </div>
+    <div className="ds-cafe-drink__foot">
+      <span className="ds-cafe-drink__price">¥{price}</span>
+      <span className="ds-cafe-drink__kcal">{kcal} kcal</span>
+    </div>
+  </article>;
+}
+
+export function CafeOrderRow({ no, cups, pickNo, state }: { no: string; cups: number; pickNo: string; state: 'received' | 'making' | 'ready' | 'done' }) {
+  const stateText = { received: '已接单', making: '制作中', ready: '待取餐', done: '已完成' };
+  return <div className={'ds-cafe-order is-' + state} tabIndex={0} role="button" aria-label={'点单，订单号 ' + no + '，共 ' + cups + ' 杯，取餐号 ' + pickNo + '，' + stateText[state]}>
+    <strong className="ds-cafe-order__no">{no}</strong>
+    <span className="ds-cafe-order__cups">共 {cups} 杯</span>
+    <span className="ds-cafe-order__pick">{pickNo}</span>
+    <span className={'ds-cafe-order__state is-' + state}>{stateText[state]}</span>
+  </div>;
+}
+
+export function LoyaltyStampCard({ filled, total, reward }: { filled: number; total: number; reward: string }) {
+  const pct = Math.round((filled / total) * 100);
+  const remain = total - filled;
+  return <article className="ds-cafe-stamp" aria-label={'集点卡，已集 ' + filled + ' 点，' + (remain > 0 ? '还需 ' + remain + ' 点兑换' + reward : '已可兑换' + reward)}>
+    <div className="ds-cafe-stamp__grid" aria-hidden="true">
+      {Array.from({ length: total }, (_, i) => <span key={i} className={'ds-cafe-stamp__dot' + (i < filled ? ' is-on' : '')}>{i < filled ? '✓' : ''}</span>)}
+    </div>
+    <div className="ds-cafe-stamp__bar" role="progressbar" aria-valuenow={filled} aria-valuemin={0} aria-valuemax={total} aria-label="集点进度">
+      <span className="ds-cafe-stamp__fill" style={{ width: pct + '%' }} />
+    </div>
+    <p className="ds-cafe-stamp__reward">{remain > 0 ? '再 ' + remain + ' 点兑换' + reward : '已可兑换' + reward}</p>
+  </article>;
+}
+
+export function BrewingMethodCard({ name, dose, ratio, temp, timer, brewing }: { name: string; dose: string; ratio: string; temp: string; timer: string; brewing: boolean }) {
+  return <article className={'ds-cafe-brew' + (brewing ? ' is-brewing' : '')} tabIndex={0} role="button" aria-label={'冲煮方案，' + name + '，粉量 ' + dose + '，粉水比 ' + ratio + '，水温 ' + temp + '，时间 ' + timer + '，' + (brewing ? '冲煮中' : '待开始')}>
+    <div className="ds-cafe-brew__head">
+      <strong className="ds-cafe-brew__name">{name}</strong>
+      <span className="ds-cafe-brew__steam" aria-hidden="true"><i /><i /><i /></span>
+    </div>
+    <div className="ds-cafe-brew__params">
+      <span className="ds-cafe-brew__row">粉量<strong className="ds-cafe-brew__val">{dose}</strong></span>
+      <span className="ds-cafe-brew__row">比例<strong className="ds-cafe-brew__val">{ratio}</strong></span>
+      <span className="ds-cafe-brew__row">水温<strong className="ds-cafe-brew__val">{temp}</strong></span>
+    </div>
+    <span className="ds-cafe-brew__timer">{timer}</span>
+  </article>;
+}
+
+export function BeanOriginCard({ name, origin, process, roast, notes }: { name: string; origin: string; process: string; roast: 'light' | 'medium' | 'dark'; notes: string[] }) {
+  const roastText = { light: '浅烘', medium: '中烘', dark: '深烘' };
+  return <article className={'ds-cafe-bean is-' + roast} tabIndex={0} role="button" aria-label={'咖啡豆，' + name + '，产地 ' + origin + '，' + process + '，' + roastText[roast] + '，风味 ' + notes.join('、')}>
+    <div className="ds-cafe-bean__head">
+      <strong className="ds-cafe-bean__name">{name}</strong>
+      <span className={'ds-cafe-bean__roast is-' + roast}>{roastText[roast]}</span>
+    </div>
+    <span className="ds-cafe-bean__origin">{origin}</span>
+    <span className="ds-cafe-bean__process">{process}</span>
+    <div className="ds-cafe-bean__notes">{notes.map(n => <span key={n} className="ds-cafe-bean__note">{n}</span>)}</div>
+  </article>;
+}
+
+export function CafeSeatPickerRow({ zone, no, plug, state }: { zone: string; no: string; plug: boolean; state: 'free' | 'occupied' | 'reserved' }) {
+  const stateText = { free: '空闲', occupied: '已占', reserved: '已预订' };
+  return <div className={'ds-cafe-seat is-' + state} tabIndex={0} role="button" aria-label={'座位，' + zone + '，座位 ' + no + '，' + (plug ? '带插座，' : '') + stateText[state]}>
+    <span className="ds-cafe-seat__zone">{zone}</span>
+    <strong className="ds-cafe-seat__no">{no}</strong>
+    {plug ? <span className="ds-cafe-seat__plug" aria-label="带插座">⌁</span> : null}
+    <span className={'ds-cafe-seat__state is-' + state}>{stateText[state]}</span>
+  </div>;
+}
+
+export function CafeReservationCard({ date, time, people, table, state }: { date: string; time: string; people: number; table: string; state: 'pending' | 'confirmed' | 'arrived' }) {
+  const stateText = { pending: '待确认', confirmed: '已确认', arrived: '已到店' };
+  return <article className={'ds-cafe-resv is-' + state} tabIndex={0} role="button" aria-label={'门店预约，' + date + '，' + time + '，' + people + ' 人，' + table + '，' + stateText[state]}>
+    <div className="ds-cafe-resv__head">
+      <strong className="ds-cafe-resv__date">{date}</strong>
+      <span className="ds-cafe-resv__time">{time}</span>
+      <span className={'ds-cafe-resv__state is-' + state}>{stateText[state]}</span>
+    </div>
+    <div className="ds-cafe-resv__meta">
+      <span className="ds-cafe-resv__people">{people} 人</span>
+      <span className="ds-cafe-resv__table">{table}</span>
+    </div>
+  </article>;
+}
+
+export function DessertPairingCard({ coffee, dessert, price, reason }: { coffee: string; dessert: string; price: number; reason: string }) {
+  return <article className="ds-cafe-pair" tabIndex={0} role="button" aria-label={'甜点搭配，' + coffee + ' 加 ' + dessert + '，组合价 ' + price + ' 元，' + reason}>
+    <div className="ds-cafe-pair__items">
+      <span className="ds-cafe-pair__coffee">{coffee}</span>
+      <span className="ds-cafe-pair__plus" aria-hidden="true">+</span>
+      <span className="ds-cafe-pair__dessert">{dessert}</span>
+    </div>
+    <div className="ds-cafe-pair__foot">
+      <span className="ds-cafe-pair__price">组合 ¥{price}</span>
+      <span className="ds-cafe-pair__reason">{reason}</span>
+    </div>
+  </article>;
+}
+
+export function DailySalesSummaryCard({ cups, revenue, avg, change }: { cups: number; revenue: number; avg: number; change: number }) {
+  const up = change >= 0;
+  return <article className="ds-cafe-sale" tabIndex={0} role="img" aria-label={'门店营收，今日杯数 ' + cups + '，营业额 ' + revenue.toLocaleString() + ' 元，客单价 ' + avg.toFixed(1) + ' 元，营业额环比' + (up ? '上升 ' : '下降 ') + Math.abs(change) + '%'}>
+    <div className="ds-cafe-sale__item"><span>杯数</span><strong>{cups}</strong></div>
+    <div className="ds-cafe-sale__item"><span>营业额</span><strong>¥{revenue.toLocaleString()}</strong></div>
+    <div className="ds-cafe-sale__item"><span>客单价</span><strong>¥{avg.toFixed(1)}</strong></div>
+    <span className={'ds-cafe-sale__cmp ' + (up ? 'is-up' : 'is-down')}>{up ? '↑ ' + change + '%' : '↓ ' + Math.abs(change) + '%'}</span>
+  </article>;
+}
+
+export function CuppingScoreCard({ name, scores }: { name: string; scores: { aroma: number; flavor: number; aftertaste: number; acidity: number; cleanliness: number } }) {
+  const rows = [
+    { label: '干湿香', value: scores.aroma },
+    { label: '风味', value: scores.flavor },
+    { label: '余韵', value: scores.aftertaste },
+    { label: '酸质', value: scores.acidity },
+    { label: '干净度', value: scores.cleanliness }
+  ];
+  const total = (scores.aroma + scores.flavor + scores.aftertaste + scores.acidity + scores.cleanliness) * 2;
+  return <article className={'ds-cafe-cup' + (total >= 80 ? ' is-specialty' : '')} tabIndex={0} role="button" aria-label={'杯测评分，' + name + '，' + rows.map(r => r.label + ' ' + r.value.toFixed(1)).join('，') + '，总分 ' + total.toFixed(1) + (total >= 80 ? '，精品级' : '')}>
+    <div className="ds-cafe-cup__head">
+      <strong className="ds-cafe-cup__name">{name}</strong>
+      {total >= 80 ? <span className="ds-cafe-cup__badge">精品级</span> : null}
+    </div>
+    <div className="ds-cafe-cup__rows">
+      {rows.map(r => <span key={r.label} className="ds-cafe-cup__row">{r.label}<strong className="ds-cafe-cup__score">{r.value.toFixed(1)}</strong></span>)}
+    </div>
+    <span className="ds-cafe-cup__total">{total.toFixed(1)}</span>
+  </article>;
+}
