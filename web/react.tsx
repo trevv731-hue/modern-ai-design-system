@@ -16830,3 +16830,127 @@ export function VolunteerShiftCard({ role, time, location, leader, state }: { ro
     {state === 'assigned' || state === 'soon' ? <button type="button">签到上岗</button> : null}
   </article>;
 }
+
+export function SmartThermostatDial({ room, current, target, mode, humidity }: { room: string; current: number; target: number; mode: 'heat' | 'cool' | 'fan' | 'dry'; humidity?: number }) {
+  const modeText = { heat: '制热', cool: '制冷', fan: '送风', dry: '除湿' };
+  const pct = Math.max(0, Math.min(100, Math.round((target - 16) / 16 * 100)));
+  return <section className={'ds-thermostat is-' + mode} aria-label={room + '，当前 ' + current + ' 度，目标 ' + target + ' 度，' + modeText[mode] + '模式'}>
+    <div className="ds-thermostat__ring" style={{ '--p': pct + '%' } as React.CSSProperties} aria-hidden="true">
+      <span className="ds-thermostat__now">{current}°</span>
+      <strong className="ds-thermostat__target">{target}°</strong>
+    </div>
+    <div className="ds-thermostat__modes">
+      {(['heat', 'cool', 'fan', 'dry'] as const).map(m => <button key={m} type="button" className={m === mode ? 'is-active' : undefined}>{modeText[m]}</button>)}
+    </div>
+    {humidity !== undefined ? <p className="ds-thermostat__meta">湿度 {humidity}%</p> : null}
+  </section>;
+}
+
+export function SmartLightCard({ name, on, brightness, temp }: { name: string; on: boolean; brightness: number; temp?: number }) {
+  return <article className={'ds-light-card' + (on ? ' is-on' : ' is-off')} aria-label={name + '，' + (on ? '开启' : '关闭') + '，亮度 ' + brightness + '%' + (temp ? '，色温 ' + temp + 'K' : '')}>
+    <div className="ds-light-card__head">
+      <span className="ds-light-card__icon" aria-hidden="true">💡</span>
+      <strong className="ds-light-card__name">{name}</strong>
+      <button type="button" className="ds-light-card__toggle" role="switch" aria-checked={on} aria-label={name + '开关'}><i /></button>
+    </div>
+    <div className="ds-light-card__dim" role="slider" aria-valuenow={brightness} aria-valuemin={0} aria-valuemax={100} aria-label="亮度" tabIndex={0}><i style={{ width: brightness + '%' }} /></div>
+    {temp ? <div className="ds-light-card__temp" aria-hidden="true"><i style={{ left: Math.max(0, Math.min(100, (temp - 2700) / 6500 * 100)) + '%' }} /></div> : null}
+    <p className="ds-light-card__meta">{on ? brightness + '%' : '已关闭'}{temp ? ' · ' + temp + 'K' : ''}</p>
+  </article>;
+}
+
+export function AirQualityGauge({ pm25, level, items }: { pm25: number; level: 'excellent' | 'good' | 'moderate' | 'bad'; items: Array<{ label: string; value: string }> }) {
+  const levelText = { excellent: '优', good: '良', moderate: '中', bad: '差' };
+  return <section className={'ds-air-quality is-' + level} role="status" aria-label={'空气质量，PM2.5 ' + pm25 + ' 微克每立方米，等级' + levelText[level]}>
+    <div className="ds-air-quality__head">
+      <strong className="ds-air-quality__value">{pm25}</strong>
+      <div><span className="ds-air-quality__level">{levelText[level]}</span><small>PM2.5 μg/m³</small></div>
+    </div>
+    <div className="ds-air-quality__items">
+      {items.slice(0, 4).map(item => <span key={item.label}>{item.label} <b>{item.value}</b></span>)}
+    </div>
+  </section>;
+}
+
+export function SmartSceneCard({ name, icon, devices, active }: { name: string; icon: string; devices: number; active?: boolean }) {
+  const iconText = { home: '🏠', away: '🚪', sleep: '🌙', movie: '🎬', meal: '🍽️' };
+  return <button type="button" className={'ds-scene-card' + (active ? ' is-active' : '')} aria-pressed={active ?? false} aria-label={name + '，' + devices + ' 个设备' + (active ? '，已激活' : '')}>
+    <span className="ds-scene-card__icon" aria-hidden="true">{iconText[icon as keyof typeof iconText] ?? icon}</span>
+    <strong className="ds-scene-card__name">{name}</strong>
+    <span className="ds-scene-card__count">{devices} 个设备</span>
+  </button>;
+}
+
+export function EnergyUsageChart({ total, hours, compare }: { total: number; hours: Array<{ h: string; kwh: number; peak?: boolean }>; compare?: number }) {
+  const max = Math.max(...hours.map(h => h.kwh), 0.1);
+  return <section className="ds-energy-chart" tabIndex={0} aria-label={'用电量 ' + total + ' 度' + (compare !== undefined ? '，环比 ' + (compare >= 0 ? '上升 ' : '下降 ') + Math.abs(compare) + '%' : '')}>
+    <div className="ds-energy-chart__head">
+      <strong className="ds-energy-chart__total">{total}<small> 度</small></strong>
+      {hours.some(h => h.peak) ? <span className="ds-energy-chart__peak">峰值 {hours.find(h => h.peak)?.h} 时 · {hours.find(h => h.peak)?.kwh} 度</span> : null}
+    </div>
+    <div className="ds-energy-chart__bars">
+      {hours.map(h => <i key={h.h} className={h.peak ? 'is-peak' : undefined} style={{ height: Math.round(h.kwh / max * 100) + '%' }} />)}
+    </div>
+    {compare !== undefined ? <p className="ds-energy-chart__cmp">较上期 <em className={compare >= 0 ? 'is-up' : 'is-down'}>{compare >= 0 ? '↑ ' + compare + '%' : '↓ ' + Math.abs(compare) + '%'}</em></p> : null}
+  </section>;
+}
+
+export function DoorbellEventRow({ time, visitor, parcel, duration, isNew }: { time: string; visitor: string; parcel?: boolean; duration?: string; isNew?: boolean }) {
+  return <div className={'ds-doorbell-row' + (isNew ? ' is-new' : '')} tabIndex={0} role="button" aria-label={'门铃事件，' + time + '，' + visitor + (parcel ? '，检测到包裹' : '') + (isNew ? '，未查看' : '')}>
+    <span className="ds-doorbell-row__thumb" aria-hidden="true">{parcel ? '📦' : '🚶'}</span>
+    <div className="ds-doorbell-row__body"><strong>{time}</strong><span>{visitor}{duration ? ' · 逗留 ' + duration : ''}</span></div>
+    {parcel ? <span className="ds-doorbell-row__parcel">检测到包裹</span> : null}
+    <button type="button">看录像</button>
+  </div>;
+}
+
+export function SmartPlugRow({ name, on, power, schedule }: { name: string; on: boolean; power: number; schedule?: string }) {
+  return <div className={'ds-plug-row' + (on ? ' is-on' : ' is-off')} aria-label={name + '，' + (on ? '开启' : '关闭') + '，实时功率 ' + power + ' 瓦' + (schedule ? '，定时 ' + schedule : '')}>
+    <span className="ds-plug-row__icon" aria-hidden="true">🔌</span>
+    <strong className="ds-plug-row__name">{name}</strong>
+    <span className={'ds-plug-row__power' + (power >= 1000 ? ' is-high' : '')}>{on ? power + 'W' : '--'}</span>
+    {schedule ? <span className="ds-plug-row__schedule">定时 {schedule}</span> : null}
+    <button type="button" className="ds-plug-row__toggle" role="switch" aria-checked={on} aria-label={name + '开关'}><i /></button>
+  </div>;
+}
+
+export function SensorStatusGrid({ sensors }: { sensors: Array<{ type: string; loc: string; state: 'safe' | 'alert' | 'offline'; note: string }> }) {
+  return <section className="ds-sensor-grid" aria-label="传感器状态">
+    {sensors.map(sensor => <div key={sensor.loc + sensor.type} className={'ds-sensor-grid__cell is-' + sensor.state} tabIndex={0} role="button" aria-label={sensor.loc + sensor.type + '，' + sensor.note}>
+      <span className="ds-sensor-grid__loc">{sensor.loc}</span>
+      <strong>{sensor.type}</strong>
+      <em className="ds-sensor-grid__state">{sensor.note}</em>
+    </div>)}
+  </section>;
+}
+
+export function CurtainControlCard({ name, position, onPreset }: { name: string; position: number; onPreset?: (pos: number) => void }) {
+  return <article className="ds-curtain-card" aria-label={name + '，开合度 ' + position + '%'}>
+    <div className="ds-curtain-card__head">
+      <strong className="ds-curtain-card__name">{name}</strong>
+      <span className="ds-curtain-card__pos">开合 {position}%</span>
+    </div>
+    <div className="ds-curtain-card__slider" role="slider" aria-valuenow={position} aria-valuemin={0} aria-valuemax={100} aria-label="窗帘开合度" tabIndex={0}>
+      <i style={{ width: position + '%' }} />
+      <b style={{ left: position + '%' }} />
+    </div>
+    <div className="ds-curtain-card__presets">
+      <button type="button" onClick={() => onPreset?.(100)}>全开</button>
+      <button type="button" onClick={() => onPreset?.(50)}>半开</button>
+      <button type="button" onClick={() => onPreset?.(0)}>全关</button>
+    </div>
+  </article>;
+}
+
+export function AutomationRuleRow({ name, trigger, action, enabled, runs }: { name: string; trigger: string; action: string; enabled: boolean; runs: number }) {
+  return <div className="ds-automation-row" tabIndex={0} role="button" aria-label={'自动化规则，' + name + '，当' + trigger + '，' + action + '，' + (enabled ? '已启用' : '已暂停') + '，执行 ' + runs + ' 次'}>
+    <div className="ds-automation-row__body">
+      <strong className="ds-automation-row__name">{name}</strong>
+      <span className="ds-automation-row__trigger">当{trigger}</span>
+      <span className="ds-automation-row__arrow" aria-hidden="true">→</span>
+      <span className="ds-automation-row__action">{action}</span>
+    </div>
+    <span className="ds-automation-row__runs">执行 {runs} 次</span>
+    <button type="button" className="ds-automation-row__toggle" role="switch" aria-checked={enabled} aria-label={name + '规则开关'}><i /></button>
+  </div>;
+}

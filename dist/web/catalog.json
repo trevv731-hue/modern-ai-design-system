@@ -19985,5 +19985,280 @@
       "卡片可聚焦看详情"
     ],
     "react": "<VolunteerShiftCard role=\"签到引导\" time=\"11-08 08:00-12:00\" location=\"北门签到处\" leader=\"赵敏\" state=\"assigned\" />"
+  },
+  {
+    "id": "iot-thermostat",
+    "name": "智能温控旋钮",
+    "category": "智能家居 / IoT",
+    "status": "v3 新增",
+    "purpose": "以旋钮展示当前室温、目标温度与运行模式。",
+    "anatomy": [
+      "当前温度 (ds-thermostat__now)",
+      "目标温度 (ds-thermostat__target)",
+      "模式切换 (ds-thermostat__modes)",
+      "旋钮环 (ds-thermostat__ring)",
+      "湿度"
+    ],
+    "keyboard": "加减按钮可键盘操作；目标温度使用 slider 语义播报。",
+    "guidance": [
+      "制热与制冷模式用颜色区分。",
+      "目标温度步进 0.5 度。",
+      "离线设备置灰显示最后状态。"
+    ],
+    "preview": "<section class=\"ds-thermostat is-heat\" aria-label=\"客厅空调，当前 23.5 度，目标 24 度，制热模式，湿度 46%\"><div class=\"ds-thermostat__ring\" style=\"--p:60%\" aria-hidden=\"true\"><span class=\"ds-thermostat__now\">23.5°</span><strong class=\"ds-thermostat__target\">24°</strong></div><div class=\"ds-thermostat__modes\"><button type=\"button\" class=\"is-active\">制热</button><button type=\"button\">制冷</button><button type=\"button\">送风</button><button type=\"button\">除湿</button></div><p class=\"ds-thermostat__meta\">湿度 46% · 室外 8°</p></section>",
+    "checks": [
+      "模式颜色区分",
+      "目标步进 0.5 度",
+      "离线置灰显最后状态",
+      "slider 语义播报"
+    ],
+    "react": "<SmartThermostatDial room=\"客厅空调\" current={23.5} target={24} mode=\"heat\" humidity={46} />"
+  },
+  {
+    "id": "iot-light-card",
+    "name": "智能灯卡",
+    "category": "智能家居 / IoT",
+    "status": "v3 新增",
+    "purpose": "控制单个智能灯的开关、亮度与色温。",
+    "anatomy": [
+      "灯图标 (ds-light-card__icon)",
+      "名称 (ds-light-card__name)",
+      "开关 (ds-light-card__toggle)",
+      "亮度条 (ds-light-card__dim)",
+      "色温 (ds-light-card__temp)"
+    ],
+    "keyboard": "开关使用 switch 语义；亮度使用 slider 语义；色温档位可键盘选择。",
+    "guidance": [
+      "关闭时卡片整体置灰。",
+      "亮度条拖动实时预览。",
+      "色温用冷暖渐变展示。"
+    ],
+    "preview": "<article class=\"ds-light-card is-on\" aria-label=\"客厅主灯，开启，亮度 80%，色温 4000K\"><div class=\"ds-light-card__head\"><span class=\"ds-light-card__icon\" aria-hidden=\"true\">💡</span><strong class=\"ds-light-card__name\">客厅主灯</strong><button type=\"button\" class=\"ds-light-card__toggle\" role=\"switch\" aria-checked=\"true\" aria-label=\"客厅主灯开关\"><i></i></button></div><div class=\"ds-light-card__dim\" role=\"slider\" aria-valuenow=\"80\" aria-valuemin=\"0\" aria-valuemax=\"100\" aria-label=\"亮度\" tabindex=\"0\"><i style=\"width:80%\"></i></div><div class=\"ds-light-card__temp\" aria-hidden=\"true\"><i style=\"left:50%\"></i></div><p class=\"ds-light-card__meta\">80% · 4000K 自然光</p></article>",
+    "checks": [
+      "关闭整体置灰",
+      "亮度拖动预览",
+      "色温冷暖渐变",
+      "switch slider 语义"
+    ],
+    "react": "<SmartLightCard name=\"客厅主灯\" on brightness={80} temp={4000} />"
+  },
+  {
+    "id": "iot-air-quality",
+    "name": "空气质量仪表",
+    "category": "智能家居 / IoT",
+    "status": "v3 新增",
+    "purpose": "展示室内空气质量数值、等级与分项指标。",
+    "anatomy": [
+      "PM2.5 数值 (ds-air-quality__value)",
+      "等级标签 (ds-air-quality__level)",
+      "指标网格 (ds-air-quality__items)",
+      "趋势 (ds-air-quality__trend)"
+    ],
+    "keyboard": "仪表可聚焦；等级有文字不只颜色；恶化时 status 播报。",
+    "guidance": [
+      "等级按优、良、中、差四色。",
+      "分项指标最多 4 个。",
+      "超标时给净化建议。"
+    ],
+    "preview": "<section class=\"ds-air-quality is-good\" role=\"status\" aria-label=\"空气质量，PM2.5 42 微克每立方米，等级良\"><div class=\"ds-air-quality__head\"><strong class=\"ds-air-quality__value\">42</strong><div><span class=\"ds-air-quality__level\">良</span><small>PM2.5 μg/m³</small></div></div><div class=\"ds-air-quality__items\"><span>CO₂ <b>620ppm</b></span><span>甲醛 <b>0.03</b></span><span>VOC <b>0.4</b></span><span>温度 <b>23.5°</b></span></div><p class=\"ds-air-quality__trend\">较昨日 <em class=\"is-down\">↓ 8%</em></p></section>",
+    "checks": [
+      "等级四色区分",
+      "分项最多 4 个",
+      "超标给净化建议",
+      "恶化 status 播报"
+    ],
+    "react": "<AirQualityGauge pm25={42} level=\"good\" items={[{ label: \"CO₂\", value: \"620ppm\" }]} />"
+  },
+  {
+    "id": "iot-scene-card",
+    "name": "场景卡",
+    "category": "智能家居 / IoT",
+    "status": "v3 新增",
+    "purpose": "一键执行预设场景，展示关联设备数量。",
+    "anatomy": [
+      "场景图标 (ds-scene-card__icon)",
+      "名称 (ds-scene-card__name)",
+      "设备数 (ds-scene-card__count)",
+      "激活态"
+    ],
+    "keyboard": "卡片为 button 语义；执行后播报结果。",
+    "guidance": [
+      "激活场景高亮并显示已执行。",
+      "图标与场景语义匹配。",
+      "执行失败红色提示。"
+    ],
+    "preview": "<div class=\"ds-scene-grid\" role=\"group\" aria-label=\"场景\"><button type=\"button\" class=\"ds-scene-card is-active\" aria-pressed=\"true\" aria-label=\"回家模式，5 个设备，已激活\"><span class=\"ds-scene-card__icon\" aria-hidden=\"true\">🏠</span><strong class=\"ds-scene-card__name\">回家模式</strong><span class=\"ds-scene-card__count\">5 个设备</span></button><button type=\"button\" class=\"ds-scene-card\" aria-pressed=\"false\" aria-label=\"离家模式，8 个设备\"><span class=\"ds-scene-card__icon\" aria-hidden=\"true\">🚪</span><strong class=\"ds-scene-card__name\">离家模式</strong><span class=\"ds-scene-card__count\">8 个设备</span></button><button type=\"button\" class=\"ds-scene-card\" aria-pressed=\"false\" aria-label=\"睡眠模式，3 个设备\"><span class=\"ds-scene-card__icon\" aria-hidden=\"true\">🌙</span><strong class=\"ds-scene-card__name\">睡眠模式</strong><span class=\"ds-scene-card__count\">3 个设备</span></button></div>",
+    "checks": [
+      "激活高亮显已执行",
+      "图标语义匹配",
+      "执行失败红色",
+      "button 语义播报"
+    ],
+    "react": "<SmartSceneCard name=\"回家模式\" icon=\"home\" devices={5} active />"
+  },
+  {
+    "id": "iot-energy-chart",
+    "name": "能耗图表",
+    "category": "智能家居 / IoT",
+    "status": "v3 新增",
+    "purpose": "以分时柱状图展示家庭用电量与峰值时段。",
+    "anatomy": [
+      "今日用电 (ds-energy-chart__total)",
+      "分时柱状 (ds-energy-chart__bars)",
+      "峰值提示 (ds-energy-chart__peak)",
+      "环比对比"
+    ],
+    "keyboard": "图表可聚焦；每根柱子有 aria-label；数据可切换日周月。",
+    "guidance": [
+      "柱高按电量比例。",
+      "峰值时段黄色标记。",
+      "支持日周月切换。"
+    ],
+    "preview": "<section class=\"ds-energy-chart\" tabindex=\"0\" aria-label=\"今日用电 8.6 度，峰值 19 时 1.2 度，较昨日下降 5%\"><div class=\"ds-energy-chart__head\"><strong class=\"ds-energy-chart__total\">8.6<small>度</small></strong><span class=\"ds-energy-chart__peak\">峰值 19 时 · 1.2 度</span></div><div class=\"ds-energy-chart__bars\" aria-hidden=\"true\"><i style=\"height:18%\"></i><i style=\"height:12%\"></i><i style=\"height:30%\"></i><i style=\"height:46%\"></i><i style=\"height:62%\"></i><i class=\"is-peak\" style=\"height:100%\"></i><i style=\"height:72%\"></i></div><p class=\"ds-energy-chart__cmp\">较昨日 <em class=\"is-down\">↓ 5%</em></p></section>",
+    "checks": [
+      "柱高按电量比例",
+      "峰值黄色标记",
+      "日周月切换",
+      "柱子有 aria-label"
+    ],
+    "react": "<EnergyUsageChart total={8.6} hours={[{ h: \"00\", kwh: 0.2 }, { h: \"18\", kwh: 1.2, peak: true }]} compare={-5} />"
+  },
+  {
+    "id": "iot-doorbell-row",
+    "name": "门铃事件行",
+    "category": "智能家居 / IoT",
+    "status": "v3 新增",
+    "purpose": "展示一次门铃事件的截图、访客与处理状态。",
+    "anatomy": [
+      "访客截图 (ds-doorbell-row__thumb)",
+      "时间 (ds-doorbell-row__time)",
+      "访客描述",
+      "包裹标记 (ds-doorbell-row__parcel)",
+      "操作"
+    ],
+    "keyboard": "行可聚焦查看录像；包裹标记有文字标签。",
+    "guidance": [
+      "未查看事件高亮。",
+      "包裹到达绿色标记。",
+      "异常逗留黄色提醒。"
+    ],
+    "preview": "<div class=\"ds-doorbell-row is-new\" tabindex=\"0\" role=\"button\" aria-label=\"门铃事件，今天 14:32，快递员，检测到包裹，未查看\"><span class=\"ds-doorbell-row__thumb\" aria-hidden=\"true\">📦</span><div class=\"ds-doorbell-row__body\"><strong>今天 14:32</strong><span>快递员 · 门口逗留 42 秒</span></div><span class=\"ds-doorbell-row__parcel\">检测到包裹</span><button type=\"button\">看录像</button></div>",
+    "checks": [
+      "未查看事件高亮",
+      "包裹到达绿色标记",
+      "异常逗留黄色",
+      "行可聚焦看录像"
+    ],
+    "react": "<DoorbellEventRow time=\"今天 14:32\" visitor=\"快递员\" parcel duration=\"42 秒\" isNew />"
+  },
+  {
+    "id": "iot-plug-row",
+    "name": "智能插座行",
+    "category": "智能家居 / IoT",
+    "status": "v3 新增",
+    "purpose": "控制智能插座开关并展示实时功率与定时。",
+    "anatomy": [
+      "名称 (ds-plug-row__name)",
+      "开关 (ds-plug-row__toggle)",
+      "实时功率 (ds-plug-row__power)",
+      "定时标签 (ds-plug-row__schedule)"
+    ],
+    "keyboard": "开关使用 switch 语义；定时标签可聚焦编辑。",
+    "guidance": [
+      "关闭时功率显示 --。",
+      "功率过高黄色提醒。",
+      "定时任务可暂停。"
+    ],
+    "preview": "<div class=\"ds-plug-row is-on\" aria-label=\"客厅加湿器，开启，实时功率 23 瓦，定时每天 08:00 至 18:00\"><span class=\"ds-plug-row__icon\" aria-hidden=\"true\">🔌</span><strong class=\"ds-plug-row__name\">客厅加湿器</strong><span class=\"ds-plug-row__power\">23W</span><span class=\"ds-plug-row__schedule\">定时 08:00-18:00</span><button type=\"button\" class=\"ds-plug-row__toggle\" role=\"switch\" aria-checked=\"true\" aria-label=\"客厅加湿器开关\"><i></i></button></div>",
+    "checks": [
+      "关闭功率显示占位",
+      "功率过高黄色",
+      "定时可暂停",
+      "switch 语义"
+    ],
+    "react": "<SmartPlugRow name=\"客厅加湿器\" on power={23} schedule=\"每天 08:00-18:00\" />"
+  },
+  {
+    "id": "iot-sensor-grid",
+    "name": "传感器状态网格",
+    "category": "智能家居 / IoT",
+    "status": "v3 新增",
+    "purpose": "以网格展示门锁、人体、水侵等传感器状态。",
+    "anatomy": [
+      "传感器格 (ds-sensor-grid__cell)",
+      "类型图标",
+      "位置 (ds-sensor-grid__loc)",
+      "状态 (ds-sensor-grid__state)",
+      "最后触发时间"
+    ],
+    "keyboard": "格子可聚焦查看历史；告警状态有文字不只颜色。",
+    "guidance": [
+      "告警红色闪烁需可关闭。",
+      "离线置灰显示最后心跳。",
+      "按房间分组展示。"
+    ],
+    "preview": "<section class=\"ds-sensor-grid\" aria-label=\"传感器状态\"><div class=\"ds-sensor-grid__cell is-safe\" tabindex=\"0\" role=\"button\" aria-label=\"大门门磁，关闭，安全\"><span class=\"ds-sensor-grid__loc\">大门</span><strong>门磁</strong><em class=\"ds-sensor-grid__state\">关闭</em></div><div class=\"ds-sensor-grid__cell is-alert\" tabindex=\"0\" role=\"button\" aria-label=\"阳台水浸，告警，检测到积水\"><span class=\"ds-sensor-grid__loc\">阳台</span><strong>水浸</strong><em class=\"ds-sensor-grid__state\">检测到积水</em></div><div class=\"ds-sensor-grid__cell is-safe\" tabindex=\"0\" role=\"button\" aria-label=\"走廊人体，无人，安全\"><span class=\"ds-sensor-grid__loc\">走廊</span><strong>人体</strong><em class=\"ds-sensor-grid__state\">无人</em></div><div class=\"ds-sensor-grid__cell is-offline\" tabindex=\"0\" role=\"button\" aria-label=\"厨房烟雾，离线，最后心跳 2 小时前\"><span class=\"ds-sensor-grid__loc\">厨房</span><strong>烟雾</strong><em class=\"ds-sensor-grid__state\">离线</em></div></section>",
+    "checks": [
+      "告警红色可关闭闪烁",
+      "离线置灰显心跳",
+      "按房间分组",
+      "状态有文字"
+    ],
+    "react": "<SensorStatusGrid sensors={[{ type: \"door\", loc: \"大门\", state: \"safe\", note: \"关闭\" }]} />"
+  },
+  {
+    "id": "iot-curtain-card",
+    "name": "窗帘控制卡",
+    "category": "智能家居 / IoT",
+    "status": "v3 新增",
+    "purpose": "控制窗帘开合并展示当前开合度。",
+    "anatomy": [
+      "房间名 (ds-curtain-card__name)",
+      "开合度 (ds-curtain-card__pos)",
+      "滑杆 (ds-curtain-card__slider)",
+      "预设按钮 (ds-curtain-card__presets)"
+    ],
+    "keyboard": "滑杆使用 slider 语义；预设按钮可达。",
+    "guidance": [
+      "开合度百分比实时显示。",
+      "预设含全开、半开、全关。",
+      "运行中显示动画状态。"
+    ],
+    "preview": "<article class=\"ds-curtain-card\" aria-label=\"主卧窗帘，开合度 60%\"><div class=\"ds-curtain-card__head\"><strong class=\"ds-curtain-card__name\">主卧窗帘</strong><span class=\"ds-curtain-card__pos\">开合 60%</span></div><div class=\"ds-curtain-card__slider\" role=\"slider\" aria-valuenow=\"60\" aria-valuemin=\"0\" aria-valuemax=\"100\" aria-label=\"窗帘开合度\" tabindex=\"0\"><i style=\"width:60%\"></i><b></b></div><div class=\"ds-curtain-card__presets\"><button type=\"button\">全开</button><button type=\"button\">半开</button><button type=\"button\">全关</button></div></article>",
+    "checks": [
+      "开合度实时显示",
+      "预设全开半开全关",
+      "运行中动画状态",
+      "slider 语义"
+    ],
+    "react": "<CurtainControlCard name=\"主卧窗帘\" position={60} onPreset={preset} />"
+  },
+  {
+    "id": "iot-automation-row",
+    "name": "自动化规则行",
+    "category": "智能家居 / IoT",
+    "status": "v3 新增",
+    "purpose": "展示一条自动化规则的触发条件、动作与启用状态。",
+    "anatomy": [
+      "规则名 (ds-automation-row__name)",
+      "触发条件 (ds-automation-row__trigger)",
+      "动作 (ds-automation-row__action)",
+      "开关 (ds-automation-row__toggle)",
+      "执行次数"
+    ],
+    "keyboard": "开关使用 switch 语义；行可聚焦编辑规则。",
+    "guidance": [
+      "触发与动作用箭头连接。",
+      "执行失败红色提示。",
+      "支持暂停而不删除。"
+    ],
+    "preview": "<div class=\"ds-automation-row\" tabindex=\"0\" role=\"button\" aria-label=\"自动化规则，天黑开灯，当日落时，客厅灯亮度 70%，已启用，执行 128 次\"><div class=\"ds-automation-row__body\"><strong class=\"ds-automation-row__name\">天黑开灯</strong><span class=\"ds-automation-row__trigger\">当日落时</span><span class=\"ds-automation-row__arrow\" aria-hidden=\"true\">→</span><span class=\"ds-automation-row__action\">客厅灯亮度 70%</span></div><span class=\"ds-automation-row__runs\">执行 128 次</span><button type=\"button\" class=\"ds-automation-row__toggle\" role=\"switch\" aria-checked=\"true\" aria-label=\"天黑开灯规则开关\"><i></i></button></div>",
+    "checks": [
+      "触发动作箭头连接",
+      "执行失败红色",
+      "可暂停不删除",
+      "switch 语义"
+    ],
+    "react": "<AutomationRuleRow name=\"天黑开灯\" trigger=\"日落时\" action=\"客厅灯亮度 70%\" enabled runs={128} />"
   }
 ]
