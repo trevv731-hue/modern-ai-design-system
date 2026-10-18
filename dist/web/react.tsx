@@ -16954,3 +16954,146 @@ export function AutomationRuleRow({ name, trigger, action, enabled, runs }: { na
     <button type="button" className="ds-automation-row__toggle" role="switch" aria-checked={enabled} aria-label={name + '规则开关'}><i /></button>
   </div>;
 }
+
+export function MachineStatusCard({ code, state, oee, order, alarm }: { code: string; state: 'running' | 'idle' | 'setup' | 'down' | 'offline'; oee: number; order?: string; alarm?: string }) {
+  const stateText = { running: '运行中', idle: '待机', setup: '调机', down: '故障', offline: '离线' };
+  return <article className={'ds-machine-card is-' + state} tabIndex={0} role="button" aria-label={'设备 ' + code + '，' + stateText[state] + '，稼动率 ' + oee + '%' + (order ? '，工单 ' + order : '') + (alarm ? '，' + alarm : '')}>
+    <div className="ds-machine-card__head">
+      <strong className="ds-machine-card__code">{code}</strong>
+      <span className={'ds-machine-card__state is-' + state}>{stateText[state]}</span>
+    </div>
+    {order ? <p className="ds-machine-card__meta">工单 {order}</p> : null}
+    <div className={'ds-machine-card__oee' + (oee < 75 ? ' is-low' : '')} aria-hidden="true"><i style={{ width: oee + '%' }} /></div>
+    {alarm ? <p className="ds-machine-card__alarm">{alarm}</p> : null}
+  </article>;
+}
+
+export function OeeGaugeCluster({ total, availability, performance, quality, goal }: { total: number; availability: number; performance: number; quality: number; goal: number }) {
+  return <section className="ds-oee-gauge" aria-label={'OEE 综合 ' + total + '%，时间开动率 ' + availability + '%，性能开动率 ' + performance + '%，合格率 ' + quality + '%，目标 ' + goal + '%'}>
+    <div className="ds-oee-gauge__total"><strong>{total}%</strong><small>综合 OEE · 目标 {goal}%</small></div>
+    <div className="ds-oee-gauge__items">
+      <div className="ds-oee-gauge__item" tabIndex={0} aria-label={'时间开动率 ' + availability + '%'}>
+        <span className="ds-oee-gauge__ring" style={{ '--p': availability + '%' } as React.CSSProperties} aria-hidden="true"><b>{availability}%</b></span>
+        <em>时间开动率</em>
+      </div>
+      <div className={'ds-oee-gauge__item' + (performance < goal ? ' is-low' : '')} tabIndex={0} aria-label={'性能开动率 ' + performance + '%'}>
+        <span className="ds-oee-gauge__ring" style={{ '--p': performance + '%' } as React.CSSProperties} aria-hidden="true"><b>{performance}%</b></span>
+        <em>性能开动率</em>
+      </div>
+      <div className="ds-oee-gauge__item" tabIndex={0} aria-label={'合格率 ' + quality + '%'}>
+        <span className="ds-oee-gauge__ring" style={{ '--p': quality + '%' } as React.CSSProperties} aria-hidden="true"><b>{quality}%</b></span>
+        <em>合格率</em>
+      </div>
+    </div>
+  </section>;
+}
+
+export function ProductionLineBoard({ name, stations, output }: { name: string; stations: Array<{ name: string; wip: number; cycle: string; state: 'ok' | 'warn' | 'down' }>; output: number }) {
+  return <section className="ds-line-board" aria-label={name + '看板，今日产量 ' + output}>
+    <div className="ds-line-board__head">
+      <strong className="ds-line-board__name">{name}</strong>
+      <span>今日产量 {output.toLocaleString()} · 节拍 {stations[0]?.cycle ?? '--'}</span>
+    </div>
+    <div className="ds-line-board__stations">
+      {stations.map(station => <div key={station.name} className={'ds-line-board__station is-' + station.state} tabIndex={0} role="button" aria-label={station.name + '工位，在制 ' + station.wip + '，节拍 ' + station.cycle}>
+        <strong>{station.name}</strong>
+        <span className="ds-line-board__wip">{station.wip}</span>
+        <em className="ds-line-board__cycle">{station.state === 'down' ? '停线' : station.cycle}</em>
+      </div>)}
+    </div>
+  </section>;
+}
+
+export function DefectRateTrend({ current, goal, series, compare }: { current: number; goal: number; series: Array<{ d: string; v: number }>; compare?: number }) {
+  const max = Math.max(goal * 1.5, ...series.map(s => s.v), 0.1);
+  const points = series.map((s, i) => (i / Math.max(series.length - 1, 1) * 240).toFixed(0) + ',' + (60 - s.v / max * 55).toFixed(0)).join(' ');
+  const goalY = 60 - goal / max * 55;
+  return <section className="ds-defect-trend" tabIndex={0} aria-label={'不良率趋势，当前 ' + current + '%，目标 ' + goal + '%' + (compare !== undefined ? '，环比 ' + (compare >= 0 ? '上升 ' : '下降 ') + Math.abs(compare) + ' 个百分点' : '')}>
+    <div className="ds-defect-trend__head">
+      <strong className="ds-defect-trend__now">{current}%</strong>
+      <span className="ds-defect-trend__goal">目标 ≤ {goal}%</span>
+      {compare !== undefined ? <span className={'ds-defect-trend__cmp ' + (compare >= 0 ? 'is-up' : 'is-down')}>{compare >= 0 ? '↑ ' + compare + 'pp' : '↓ ' + Math.abs(compare) + 'pp'}</span> : null}
+    </div>
+    <svg className="ds-defect-trend__chart" viewBox="0 0 240 60" aria-hidden="true">
+      <line x1="0" y1={goalY.toFixed(0)} x2="240" y2={goalY.toFixed(0)} stroke="var(--ds-danger)" strokeDasharray="4 3" />
+      <polyline points={points} fill="none" stroke="var(--ds-accent)" strokeWidth="2" />
+    </svg>
+  </section>;
+}
+
+export function DowntimeLogRow({ time, machine, duration, reason, owner }: { time: string; machine: string; duration: string; reason: string; owner: string }) {
+  const minutes = parseInt(duration, 10);
+  return <div className={'ds-downtime-row' + (minutes > 30 ? ' is-long' : '')} tabIndex={0} role="button" aria-label={'停机记录，' + time + '，' + machine + '，' + duration + '，' + reason + '，' + owner}>
+    <span className="ds-downtime-row__time">{time}</span>
+    <strong className="ds-downtime-row__machine">{machine}</strong>
+    <span className="ds-downtime-row__dur">{duration}</span>
+    <span className="ds-downtime-row__reason">{reason}</span>
+    <span className="ds-downtime-row__owner">{owner}</span>
+  </div>;
+}
+
+export function QualityCheckRow({ batch, item, pass, fail, verdict }: { batch: string; item: string; pass: number; fail: number; verdict: 'pass' | 'fail' | 'recheck' }) {
+  const rate = pass + fail ? (pass / (pass + fail) * 100).toFixed(1) : '0.0';
+  const verdictText = { pass: '合格', fail: '不合格', recheck: '复检' };
+  return <div className={'ds-qc-row is-' + verdict} tabIndex={0} role="button" aria-label={'质检记录，批次 ' + batch + '，' + item + '，合格 ' + pass + '，不良 ' + fail + '，合格率 ' + rate + '%，' + verdictText[verdict]}>
+    <span className="ds-qc-row__batch">{batch}</span>
+    <span className="ds-qc-row__item">{item}</span>
+    <span className="ds-qc-row__nums">{pass} / {fail}</span>
+    <span className="ds-qc-row__rate">{rate}%</span>
+    <span className={'ds-qc-row__verdict is-' + verdict}>{verdictText[verdict]}</span>
+  </div>;
+}
+
+export function WorkOrderProgressCard({ no, product, qty, done, steps, due }: { no: string; product: string; qty: number; done: number; steps: Array<{ name: string; state: 'done' | 'current' | 'todo' }>; due: string }) {
+  const pct = qty ? Math.min(100, Math.round(done / qty * 100)) : 0;
+  return <article className="ds-work-order" tabIndex={0} aria-label={'工单 ' + no + '，' + product + '，计划 ' + qty + '，已产 ' + done + '，进度 ' + pct + '%，交期 ' + due}>
+    <div className="ds-work-order__head">
+      <strong className="ds-work-order__no">{no}</strong>
+      <span className="ds-work-order__due">交期 {due}</span>
+    </div>
+    <p className="ds-work-order__product">{product} · 计划 {qty} / 已产 {done}</p>
+    <div className="ds-work-order__progress" role="progressbar" aria-valuenow={pct} aria-valuemin={0} aria-valuemax={100} aria-label="工单进度"><i style={{ width: pct + '%' }} /></div>
+    <ol className="ds-work-order__steps">
+      {steps.map(step => <li key={step.name} className={'is-' + step.state}>{step.name}</li>)}
+    </ol>
+  </article>;
+}
+
+export function InventoryBinCard({ code, material, qty, capacity, safety, unit }: { code: string; material: string; qty: number; capacity: number; safety: number; unit: string }) {
+  const level = qty <= 0 ? 'out' : qty < safety ? 'low' : 'ok';
+  const levelText = { out: '缺料', low: '偏低', ok: '充足' };
+  const pct = capacity ? Math.min(100, Math.round(qty / capacity * 100)) : 0;
+  return <article className={'ds-bin-card is-' + level} tabIndex={0} role="button" aria-label={'料盒 ' + code + '，' + material + '，当前 ' + qty + ' ' + unit + '，安全库存 ' + safety + '，' + levelText[level]}>
+    <div className="ds-bin-card__head">
+      <strong className="ds-bin-card__code">{code}</strong>
+      <span className={'ds-bin-card__state is-' + level}>{levelText[level]}</span>
+    </div>
+    <p className="ds-bin-card__material">{material}</p>
+    <div className="ds-bin-card__level" aria-hidden="true"><i style={{ width: pct + '%' }} /></div>
+    <p className="ds-bin-card__qty">{qty} / {capacity} {unit} · 安全线 {safety}</p>
+    <button type="button">申请补料</button>
+  </article>;
+}
+
+export function ShiftHandoverCard({ shift, output, issues, todos }: { shift: string; output: number; issues: string[]; todos: string[] }) {
+  return <article className="ds-handover" aria-label={'交接班，' + shift + '，产量 ' + output + '，异常 ' + issues.length + ' 项，待办 ' + todos.length + ' 项'}>
+    <div className="ds-handover__head">
+      <strong className="ds-handover__shift">{shift}</strong>
+      <span className="ds-handover__output">产量 {output.toLocaleString()}</span>
+    </div>
+    {issues.length ? <div className="ds-handover__issues"><h5>异常</h5>{issues.map(issue => <p key={issue}>{issue}</p>)}</div> : null}
+    {todos.length ? <div className="ds-handover__todo"><h5>待办</h5>{todos.map(todo => <p key={todo}>{todo}</p>)}</div> : null}
+    <button type="button" disabled={todos.length > 0}>确认交接</button>
+  </article>;
+}
+
+export function SafetyAlertBanner({ level, zone, text, time }: { level: 'info' | 'warning' | 'danger'; zone: string; text: string; time?: string }) {
+  const levelText = { info: '提示', warning: '警告', danger: '危险' };
+  const icon = { info: 'ℹ', warning: '⚠', danger: '⛔' };
+  return <div className={'ds-safety-banner is-' + level} role="alert" aria-label={levelText[level] + '告警，' + zone + '，' + text + (time ? '，' + time : '')}>
+    <span className="ds-safety-banner__level" aria-hidden="true">{icon[level]}</span>
+    <div className="ds-safety-banner__body"><strong className="ds-safety-banner__zone">{zone}</strong><p className="ds-safety-banner__text">{text}</p></div>
+    {time ? <span className="ds-safety-banner__time">{time}</span> : null}
+    <button type="button">确认处置</button>
+  </div>;
+}
