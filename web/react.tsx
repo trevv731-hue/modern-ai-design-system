@@ -19213,3 +19213,137 @@ export function ModelGalleryCard({ name, author, downloads, lic }: { name: strin
     </div>
   </article>;
 }
+
+export function DroneModelCard({ name, endurance, payload, range, tier }: { name: string; endurance: string; payload: string; range: string; tier: 'consumer' | 'pro' }) {
+  const tierText = { consumer: '消费级', pro: '行业级' };
+  return <article className={'ds-drone-model is-' + tier} tabIndex={0} role="button" aria-label={'无人机型号，' + name + '，续航 ' + endurance + '，载重 ' + payload + '，图传 ' + range + '，' + tierText[tier]}>
+    <div className="ds-drone-model__head">
+      <strong className="ds-drone-model__name">{name}</strong>
+      <span className={'ds-drone-model__tier is-' + tier}>{tierText[tier]}</span>
+    </div>
+    <div className="ds-drone-model__params">
+      <span className="ds-drone-model__param">续航<strong className="ds-drone-model__endurance">{endurance}</strong></span>
+      <span className="ds-drone-model__param">载重<strong className="ds-drone-model__payload">{payload}</strong></span>
+      <span className="ds-drone-model__param">图传<strong className="ds-drone-model__range">{range}</strong></span>
+    </div>
+  </article>;
+}
+
+export function FlightMissionRow({ no, zone, dur, state }: { no: string; zone: string; dur: string; state: 'pending' | 'approved' | 'running' | 'done' | 'canceled' }) {
+  const stateText = { pending: '待批复', approved: '已批复', running: '执行中', done: '已完成', canceled: '已取消' };
+  return <div className={'ds-drone-mission is-' + state} tabIndex={0} role="button" aria-label={'飞行任务，任务号 ' + no + '，空域 ' + zone + '，预计 ' + dur + '，' + stateText[state]}>
+    <strong className="ds-drone-mission__no">{no}</strong>
+    <span className="ds-drone-mission__zone">{zone}</span>
+    <span className="ds-drone-mission__dur">{dur}</span>
+    <span className={'ds-drone-mission__state is-' + state}>{stateText[state]}</span>
+  </div>;
+}
+
+export function DroneDeliveryCard({ no, from, to, progress, eta, state }: { no: string; from: string; to: string; progress: number; eta: string; state: 'pickup' | 'transit' | 'arriving' | 'delivered' }) {
+  const stateText = { pickup: '揽收中', transit: '运输中', arriving: '即将到达', delivered: '已送达' };
+  return <article className={'ds-drone-delivery is-' + state} tabIndex={0} role="button" aria-label={'无人机配送，订单号 ' + no + '，' + from + ' 至 ' + to + '，进度 ' + progress + '%，' + eta + '，' + stateText[state]}>
+    <div className="ds-drone-delivery__head">
+      <strong className="ds-drone-delivery__no">{no}</strong>
+      <span className={'ds-drone-delivery__state is-' + state}>{stateText[state]}</span>
+    </div>
+    <span className="ds-drone-delivery__from">{from} → {to}</span>
+    <div className="ds-drone-delivery__bar" role="progressbar" aria-valuenow={progress} aria-valuemin={0} aria-valuemax={100} aria-label="配送进度">
+      <span className="ds-drone-delivery__fill" style={{ width: progress + '%' }}></span>
+    </div>
+    <span className="ds-drone-delivery__eta">{eta}</span>
+  </article>;
+}
+
+export function NoFlyZoneAlertCard({ zone, level, note }: { zone: string; level: 'info' | 'limit' | 'ban'; note: string }) {
+  const levelText = { info: '提示', limit: '限制', ban: '禁飞' };
+  return <article className={'ds-drone-nofly is-' + level} role="alert" tabIndex={0} aria-label={'禁飞区警示，' + zone + '，级别 ' + levelText[level] + '，' + note}>
+    <div className="ds-drone-nofly__radar" aria-hidden="true"><span className="ds-drone-nofly__sweep"></span></div>
+    <div className="ds-drone-nofly__body">
+      <div className="ds-drone-nofly__head">
+        <strong className="ds-drone-nofly__zone">{zone}</strong>
+        <span className={'ds-drone-nofly__level is-' + level}>{levelText[level]}</span>
+      </div>
+      <span className="ds-drone-nofly__note">{note}</span>
+    </div>
+  </article>;
+}
+
+export function AerialMediaCard({ name, res, fps, dur }: { name: string; res: string; fps: string; dur: string }) {
+  return <article className="ds-drone-media" tabIndex={0} role="button" aria-label={'航拍素材，' + name + '，分辨率 ' + res + '，帧率 ' + fps + '，时长 ' + dur + '，格式 MP4'}>
+    <span className="ds-drone-media__icon" aria-hidden="true">4K</span>
+    <div className="ds-drone-media__body">
+      <strong className="ds-drone-media__name">{name}</strong>
+      <div className="ds-drone-media__meta">
+        <span className="ds-drone-media__res">{res}</span>
+        <span className="ds-drone-media__fps">{fps}</span>
+        <span className="ds-drone-media__dur">{dur}</span>
+      </div>
+    </div>
+    <span className="ds-drone-media__fmt">MP4</span>
+  </article>;
+}
+
+export function DroneBatteryCard({ sn, cycles, health, state }: { sn: string; cycles: number; health: number; state: 'good' | 'warn' | 'replace' }) {
+  const stateText = { good: '良好', warn: '衰减', replace: '需更换' };
+  return <article className={'ds-drone-batt is-' + state} tabIndex={0} role="button" aria-label={'电池循环，编号 ' + sn + '，循环 ' + cycles + ' 次，健康度 ' + health + '%，' + stateText[state]}>
+    <div className="ds-drone-batt__head">
+      <strong className="ds-drone-batt__sn">{sn}</strong>
+      <span className={'ds-drone-batt__state is-' + state}>{stateText[state]}</span>
+    </div>
+    <div className="ds-drone-batt__meta">
+      <span className="ds-drone-batt__cycles">循环 {cycles} 次</span>
+      <span className="ds-drone-batt__health">健康度 {health}%</span>
+    </div>
+    <div className="ds-drone-batt__bar" role="progressbar" aria-valuenow={health} aria-valuemin={0} aria-valuemax={100} aria-label="电池健康度">
+      <span className="ds-drone-batt__fill" style={{ width: health + '%' }}></span>
+    </div>
+  </article>;
+}
+
+export function PilotLicenseRow({ name, no, grade, exp, state }: { name: string; no: string; grade: string; exp: string; state: 'valid' | 'expiring' | 'expired' }) {
+  const stateText = { valid: '有效', expiring: '临期', expired: '已过期' };
+  return <div className={'ds-drone-pilot is-' + state} tabIndex={0} role="button" aria-label={'飞手执照，' + name + '，执照号 ' + no + '，等级 ' + grade + '，' + exp + ' 到期，' + stateText[state]}>
+    <strong className="ds-drone-pilot__name">{name}</strong>
+    <span className="ds-drone-pilot__no">{no}</span>
+    <span className="ds-drone-pilot__grade">{grade}</span>
+    <span className="ds-drone-pilot__exp">{exp}</span>
+    <span className={'ds-drone-pilot__state is-' + state}>{stateText[state]}</span>
+  </div>;
+}
+
+export function InspectionRouteCard({ name, points, km, progress, state }: { name: string; points: number; km: string; progress: number; state: 'planned' | 'running' | 'paused' | 'done' }) {
+  const stateText = { planned: '待执行', running: '执行中', paused: '已暂停', done: '已完成' };
+  return <article className={'ds-drone-route is-' + state} tabIndex={0} role="button" aria-label={'巡检航线，' + name + '，航点 ' + points + ' 个，覆盖 ' + km + '，进度 ' + progress + '%，' + stateText[state]}>
+    <div className="ds-drone-route__head">
+      <strong className="ds-drone-route__name">{name}</strong>
+      <span className={'ds-drone-route__state is-' + state}>{stateText[state]}</span>
+    </div>
+    <div className="ds-drone-route__meta">
+      <span className="ds-drone-route__points">航点 {points} 个</span>
+      <span className="ds-drone-route__km">{km}</span>
+    </div>
+    <div className="ds-drone-route__bar" role="progressbar" aria-valuenow={progress} aria-valuemin={0} aria-valuemax={100} aria-label="巡检进度">
+      <span className="ds-drone-route__fill" style={{ width: progress + '%' }}></span>
+    </div>
+  </article>;
+}
+
+export function DroneInsuranceRow({ no, cover, fee, term, state }: { no: string; cover: number; fee: number; term: string; state: 'valid' | 'expiring' | 'expired' }) {
+  const stateText = { valid: '有效', expiring: '临期', expired: '已失效' };
+  return <div className={'ds-drone-ins is-' + state} tabIndex={0} role="button" aria-label={'无人机保险，保单号 ' + no + '，保额 ' + cover.toLocaleString() + ' 元，保费 ' + fee + ' 元，保期 ' + term + '，' + stateText[state]}>
+    <strong className="ds-drone-ins__no">{no}</strong>
+    <span className="ds-drone-ins__cover">保额 ¥{cover.toLocaleString()}</span>
+    <span className="ds-drone-ins__fee">保费 ¥{fee}</span>
+    <span className="ds-drone-ins__term">{term}</span>
+    <span className={'ds-drone-ins__state is-' + state}>{stateText[state]}</span>
+  </div>;
+}
+
+export function FlightLogRow({ date, site, dur, alt }: { date: string; site: string; dur: string; alt: string }) {
+  return <div className="ds-drone-log" tabIndex={0} role="button" aria-label={'飞行日志，' + date + '，起降场 ' + site + '，飞行 ' + dur + '，最大高度 ' + alt}>
+    <strong className="ds-drone-log__date">{date}</strong>
+    <span className="ds-drone-log__site">{site}</span>
+    <span className="ds-drone-log__dur">{dur}</span>
+    <span className="ds-drone-log__alt">{alt}</span>
+  </div>;
+}
