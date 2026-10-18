@@ -18293,3 +18293,122 @@ export function HazardousWasteRow({ kind, no, kg, date, state }: { kind: string;
     <span className={'ds-lab-waste__state is-' + state}>{stateText[state]}</span>
   </div>;
 }
+
+export function PetProfileCard({ name, breed, age, weight, neutered }: { name: string; breed: string; age: string; weight: number; neutered: boolean }) {
+  return <article className="ds-pet-profile" tabIndex={0} role="button" aria-label={'宠物档案，' + name + '，' + breed + '，' + age + '，体重 ' + weight + ' 千克，' + (neutered ? '已绝育' : '未绝育')}>
+    <span className="ds-pet-profile__avatar" aria-hidden="true">{name.slice(0, 1)}</span>
+    <div className="ds-pet-profile__body">
+      <strong className="ds-pet-profile__name">{name}<span className={'ds-pet-profile__tag ' + (neutered ? 'is-yes' : 'is-no')}>{neutered ? '已绝育' : '未绝育'}</span></strong>
+      <span className="ds-pet-profile__breed">{breed}</span>
+      <span className="ds-pet-profile__meta">{age} · {weight} kg</span>
+    </div>
+  </article>;
+}
+
+export function PetVaccineRow({ name, date, due }: { name: string; date: string; due: string }) {
+  const days = Math.ceil((new Date(due).getTime() - Date.now()) / 86400000);
+  const level = days < 0 ? 'overdue' : days <= 30 ? 'due' : 'valid';
+  const levelText = { valid: '有效', due: '临期', overdue: '已逾期' };
+  return <div className={'ds-pet-vaccine is-' + level} tabIndex={0} role="button" aria-label={'疫苗记录，' + name + '，接种于 ' + date + '，下次到期 ' + due + '，' + levelText[level]}>
+    <strong className="ds-pet-vaccine__name">{name}</strong>
+    <span className="ds-pet-vaccine__date">{date}</span>
+    <span className="ds-pet-vaccine__due">至 {due}</span>
+    <span className={'ds-pet-vaccine__state is-' + level}>{levelText[level]}</span>
+  </div>;
+}
+
+export function GroomingBookingCard({ pet, items, time, price, state }: { pet: string; items: string[]; time: string; price: number; state: 'pending' | 'confirmed' | 'doing' | 'done' }) {
+  const stateText = { pending: '待确认', confirmed: '已确认', doing: '进行中', done: '已完成' };
+  return <article className={'ds-pet-groom is-' + state} tabIndex={0} role="button" aria-label={'美容预约，' + items.join('加') + '，宠物 ' + pet + '，' + time + '，价格 ' + price + ' 元，' + stateText[state]}>
+    <div className="ds-pet-groom__head">
+      <strong className="ds-pet-groom__pet">{pet}</strong>
+      <span className={'ds-pet-groom__state is-' + state}>{stateText[state]}</span>
+    </div>
+    <div className="ds-pet-groom__items">{items.map(it => <span key={it} className="ds-pet-groom__item">{it}</span>)}</div>
+    <div className="ds-pet-groom__foot">
+      <span className="ds-pet-groom__time">{time}</span>
+      <span className="ds-pet-groom__price">¥{price}</span>
+    </div>
+  </article>;
+}
+
+export function PetBoardingCard({ pet, checkIn, checkOut, days, room, state }: { pet: string; checkIn: string; checkOut: string; days: number; room: string; state: 'upcoming' | 'staying' | 'left' }) {
+  const stateText = { upcoming: '待入住', staying: '入住中', left: '已离店' };
+  return <article className={'ds-pet-board is-' + state} tabIndex={0} role="button" aria-label={'寄养托管，' + pet + '，' + checkIn + ' 入住，' + checkOut + ' 离店，共 ' + days + ' 天，' + room + '，' + stateText[state]}>
+    <div className="ds-pet-board__head">
+      <strong className="ds-pet-board__pet">{pet}</strong>
+      <span className={'ds-pet-board__state is-' + state}>{stateText[state]}</span>
+    </div>
+    <div className="ds-pet-board__range">
+      <span className="ds-pet-board__in">{checkIn}</span>
+      <span className="ds-pet-board__arrow" aria-hidden="true">→</span>
+      <span className="ds-pet-board__out">{checkOut}</span>
+      <span className="ds-pet-board__days">{days} 天</span>
+    </div>
+    <span className="ds-pet-board__room">{room}</span>
+  </article>;
+}
+
+export function PetWalkTrackRow({ date, minutes, km, kcal, goal }: { date: string; minutes: number; km: number; kcal: number; goal: boolean }) {
+  return <div className="ds-pet-walk" tabIndex={0} role="button" aria-label={'遛狗记录，' + date + '，时长 ' + minutes + ' 分钟，距离 ' + km + ' 公里，消耗 ' + kcal + ' 千卡，' + (goal ? '已达标' : '未达标')}>
+    <span className="ds-pet-walk__date">{date}</span>
+    <span className="ds-pet-walk__time">{minutes} 分钟</span>
+    <span className="ds-pet-walk__km">{km} km</span>
+    <span className="ds-pet-walk__kcal">{kcal} kcal</span>
+    <span className={'ds-pet-walk__state ' + (goal ? 'is-done' : 'is-miss')}>{goal ? '已达标' : '未达标'}</span>
+  </div>;
+}
+
+export function PetDietPlanCard({ slot, gram, time, done }: { slot: string; gram: number; time: string; done: boolean }) {
+  return <div className={'ds-pet-diet' + (done ? ' is-done' : '')} tabIndex={0} role="button" aria-label={'喂食计划，' + slot + '，' + gram + ' 克，' + time + '，' + (done ? '已喂食' : '待喂食')}>
+    <span className="ds-pet-diet__slot">{slot}</span>
+    <span className="ds-pet-diet__gram">{gram} g</span>
+    <span className="ds-pet-diet__time">{time}</span>
+    <span className="ds-pet-diet__ring" role="img" aria-label={done ? '已喂食' : '待喂食'}>{done ? '✓' : ''}</span>
+  </div>;
+}
+
+export function PetHealthAlertRow({ metric, value, range, level }: { metric: string; value: string; range: string; level: 'note' | 'warn' | 'alarm' }) {
+  const levelText = { note: '注意', warn: '预警', alarm: '超限' };
+  return <div className={'ds-pet-health is-' + level} tabIndex={0} role="button" aria-label={'健康预警，' + metric + '，当前 ' + value + '，' + range + '，' + levelText[level]}>
+    <strong className="ds-pet-health__metric">{metric}</strong>
+    <span className="ds-pet-health__value">{value}</span>
+    <span className="ds-pet-health__range">{range}</span>
+    <span className={'ds-pet-health__level is-' + level}>{levelText[level]}</span>
+  </div>;
+}
+
+export function PetAdoptionCard({ name, meta, traits, state }: { name: string; meta: string; traits: string[]; state: 'open' | 'applying' | 'adopted' }) {
+  const stateText = { open: '待领养', applying: '申请中', adopted: '已领养' };
+  return <article className={'ds-pet-adopt is-' + state} tabIndex={0} role="button" aria-label={'领养信息，' + name + '，' + meta + '，性格 ' + traits.join('、') + '，' + stateText[state]}>
+    <div className="ds-pet-adopt__head">
+      <strong className="ds-pet-adopt__name">{name}</strong>
+      <span className={'ds-pet-adopt__state is-' + state}>{stateText[state]}</span>
+    </div>
+    <span className="ds-pet-adopt__meta">{meta}</span>
+    <div className="ds-pet-adopt__tags">{traits.map(t => <span key={t} className="ds-pet-adopt__tag">{t}</span>)}</div>
+  </article>;
+}
+
+export function PetSupplyOrderRow({ item, spec, cycle, next }: { item: string; spec: string; cycle: string; next: string }) {
+  return <div className="ds-pet-supply is-active" tabIndex={0} role="button" aria-label={'用品订单，' + item + '，规格 ' + spec + '，' + cycle + '配送一次，下次 ' + next + '，配送中'}>
+    <strong className="ds-pet-supply__item">{item}</strong>
+    <span className="ds-pet-supply__spec">{spec}</span>
+    <span className="ds-pet-supply__cycle">{cycle}</span>
+    <span className="ds-pet-supply__next">下次 {next}</span>
+  </div>;
+}
+
+export function VetAppointmentCard({ hospital, doctor, time, state }: { hospital: string; doctor: string; time: string; state: 'waiting' | 'triage' | 'inroom' | 'done' }) {
+  const stateText = { waiting: '待就诊', triage: '候诊中', inroom: '就诊中', done: '已完成' };
+  return <article className={'ds-pet-vet is-' + state} tabIndex={0} role="button" aria-label={'就诊预约，' + hospital + '，医生 ' + doctor + '，' + time + '，' + stateText[state]}>
+    <div className="ds-pet-vet__head">
+      <strong className="ds-pet-vet__hospital">{hospital}</strong>
+      <span className={'ds-pet-vet__state is-' + state}>{stateText[state]}</span>
+    </div>
+    <div className="ds-pet-vet__meta">
+      <span className="ds-pet-vet__doctor">{doctor}</span>
+      <span className="ds-pet-vet__time">{time}</span>
+    </div>
+  </article>;
+}
