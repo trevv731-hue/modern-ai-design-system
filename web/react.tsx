@@ -17097,3 +17097,121 @@ export function SafetyAlertBanner({ level, zone, text, time }: { level: 'info' |
     <button type="button">确认处置</button>
   </div>;
 }
+
+export function SignalStrengthMeter({ bars, net, carrier, dbm }: { bars: number; net: '5G' | '4G' | '3G' | '2G'; carrier?: string; dbm?: number }) {
+  const level = bars >= 4 ? 'strong' : bars >= 2 ? 'weak' : 'none';
+  const levelText = { strong: '信号良好', weak: '信号偏弱', none: '信号极弱' };
+  return <div className={'ds-signal-strength is-' + level} tabIndex={0} role="img" aria-label={'信号强度 ' + bars + ' 格，' + net + '，' + levelText[level] + (carrier ? '，' + carrier : '') + (dbm !== undefined ? '，' + dbm + ' dBm' : '')}>
+    <span className="ds-signal-strength__net">{net}</span>
+    <span className="ds-signal-strength__bars" aria-hidden="true">{[1, 2, 3, 4, 5].map(n => <i key={n} className={n <= bars ? 'is-on' : ''} />)}</span>
+    {carrier ? <span className="ds-signal-strength__carrier">{carrier}</span> : null}
+    {dbm !== undefined ? <span className="ds-signal-strength__dbm">{dbm} dBm</span> : null}
+  </div>;
+}
+
+export function DataUsageGauge({ used, total, days }: { used: number; total: number; days: number }) {
+  const pct = total ? Math.min(100, Math.round(used / total * 100)) : 0;
+  const level = pct >= 100 ? 'over' : pct >= 80 ? 'warn' : 'ok';
+  const left = Math.max(total - used, 0);
+  const daily = days > 0 ? Math.round(left / days) : left;
+  return <section className={'ds-data-usage is-' + level} tabIndex={0} role="img" aria-label={'套餐流量已用 ' + used + ' GB，共 ' + total + ' GB，已用 ' + pct + '%，剩余 ' + left + ' GB，日均可用 ' + daily + ' GB'}>
+    <span className="ds-data-usage__ring" style={{ '--p': pct + '%' } as React.CSSProperties} aria-hidden="true"><b>{pct}%</b></span>
+    <div className="ds-data-usage__info">
+      <span className="ds-data-usage__used">{used} / {total} GB</span>
+      <span className="ds-data-usage__left">剩余 {left} GB · 日均 {daily} GB</span>
+      <span className="ds-data-usage__note">账单周期剩余 {days} 天</span>
+    </div>
+  </section>;
+}
+
+export function NetworkTopologyNode({ name, ip, state, conns, alerts }: { name: string; ip: string; state: 'online' | 'alert' | 'maint' | 'offline'; conns?: number; alerts?: number }) {
+  const stateText = { online: '在线', alert: '告警', maint: '维护', offline: '离线' };
+  return <button type="button" className={'ds-topo-node is-' + state} aria-label={'节点 ' + name + '，' + ip + '，' + stateText[state] + (conns !== undefined ? '，连接 ' + conns : '') + (alerts ? '，告警 ' + alerts + ' 条' : '')}>
+    <span className="ds-topo-node__dot" aria-hidden="true" />
+    <span className="ds-topo-node__name">{name}</span>
+    <span className="ds-topo-node__ip">{ip}</span>
+    {alerts ? <span className="ds-topo-node__badge">{alerts}</span> : null}
+  </button>;
+}
+
+export function BandwidthThrottleCard({ line, mbps, max }: { line: string; mbps: number; max?: number }) {
+  const ceiling = max ?? 1000;
+  const pct = Math.min(100, Math.round(mbps / ceiling * 100));
+  return <article className="ds-throttle" aria-label={'线路 ' + line + '，当前限速 ' + (mbps === 0 ? '不限速' : mbps + ' Mbps') + '，上限 ' + ceiling + ' Mbps'}>
+    <strong className="ds-throttle__line">{line}</strong>
+    <div className="ds-throttle__track" role="slider" tabIndex={0} aria-valuenow={mbps} aria-valuemin={0} aria-valuemax={ceiling} aria-label="限速调整">
+      <span className="ds-throttle__fill" style={{ width: pct + '%' }} aria-hidden="true" />
+    </div>
+    <span className="ds-throttle__value">{mbps === 0 ? '不限速' : mbps}<span className="ds-throttle__unit"> Mbps</span></span>
+    <button type="button">应用限速</button>
+  </article>;
+}
+
+export function SimCardStatusRow({ iccid, msisdn, plan, state }: { iccid: string; msisdn?: string; plan: string; state: 'ok' | 'arrears' | 'stopped' | 'new' }) {
+  const stateText = { ok: '正常', arrears: '欠费', stopped: '停机', new: '未激活' };
+  const masked = iccid.slice(0, 4) + '…' + iccid.slice(-4);
+  return <div className={'ds-sim-row is-' + state} tabIndex={0} role="button" aria-label={'SIM 卡 ' + iccid + '，套餐 ' + plan + '，状态 ' + stateText[state] + (msisdn ? '，号码 ' + msisdn : '')}>
+    <span className="ds-sim-row__iccid">{masked}</span>
+    {msisdn ? <span className="ds-sim-row__msisdn">{msisdn}</span> : null}
+    <span className="ds-sim-row__plan">{plan}</span>
+    <span className={'ds-sim-row__state is-' + state}>{stateText[state]}</span>
+  </div>;
+}
+
+export function CellTowerLoadCard({ cell, conns, band, load }: { cell: string; conns: number; band: string[]; load: number }) {
+  const level = load >= 95 ? 'over' : load >= 85 ? 'busy' : 'ok';
+  const levelText = { over: '过载', busy: '高负载', ok: '正常' };
+  return <article className={'ds-tower-load is-' + level} tabIndex={0} role="img" aria-label={'小区 ' + cell + '，负载 ' + load + '%，' + levelText[level] + '，在线连接 ' + conns.toLocaleString() + '，频段 ' + band.join('、')}>
+    <div className="ds-tower-load__head"><strong className="ds-tower-load__cell">{cell}</strong><span className="ds-tower-load__conns">{conns.toLocaleString()} 连接</span></div>
+    <span className="ds-tower-load__ring" style={{ '--p': load + '%' } as React.CSSProperties} aria-hidden="true"><b>{load}%</b></span>
+    <div className="ds-tower-load__bands">{band.map(b => <span key={b} className="ds-tower-load__band">{b}</span>)}</div>
+  </article>;
+}
+
+export function OutageIncidentRow({ time, zone, users, cause, progress, resolved }: { time: string; zone: string; users: number; cause: string; progress: number; resolved?: boolean }) {
+  return <div className={'ds-outage-row ' + (resolved ? 'is-resolved' : 'is-active')} tabIndex={0} role="button" aria-label={(resolved ? '已恢复故障' : '未恢复故障') + '，' + time + '，' + zone + '，影响 ' + users.toLocaleString() + ' 用户，原因 ' + cause + '，处理进度 ' + progress + '%'}>
+    <span className="ds-outage-row__time">{time}</span>
+    <strong className="ds-outage-row__zone">{zone}</strong>
+    <span className="ds-outage-row__users">{users.toLocaleString()} 用户</span>
+    <span className="ds-outage-row__cause">{cause}</span>
+    <div className="ds-outage-row__progress" role="progressbar" aria-valuenow={progress} aria-valuemin={0} aria-valuemax={100} aria-label="处理进度"><i style={{ width: progress + '%' }} /></div>
+  </div>;
+}
+
+export function SpeedTestResultCard({ down, up, ping, jitter, grade }: { down: number; up: number; ping: number; jitter: number; grade: 'excellent' | 'good' | 'fair' | 'poor' }) {
+  const gradeText = { excellent: '极佳', good: '良好', fair: '一般', poor: '较差' };
+  return <article className="ds-speed-test" tabIndex={0} role="img" aria-label={'测速结果，下载 ' + down + ' Mbps，上传 ' + up + ' Mbps，延迟 ' + ping + ' 毫秒，抖动 ' + jitter + ' 毫秒，评级 ' + gradeText[grade]}>
+    <div className="ds-speed-test__dl"><strong>{down}</strong><span>Mbps 下载</span></div>
+    <div className="ds-speed-test__row">
+      <span className="ds-speed-test__item"><em>上传</em><b>{up} Mbps</b></span>
+      <span className="ds-speed-test__item"><em>延迟</em><b>{ping} ms</b></span>
+      <span className="ds-speed-test__item"><em>抖动</em><b>{jitter} ms</b></span>
+    </div>
+    <span className={'ds-speed-test__grade is-' + grade}>评级 {gradeText[grade]}</span>
+    <button type="button">重新测速</button>
+  </article>;
+}
+
+export function RoamingPlanCard({ region, data, valid, price, hot, ordered }: { region: string; data: string; valid: string; price: number; hot?: boolean; ordered?: boolean }) {
+  return <article className={'ds-roaming' + (ordered ? ' is-active' : '')} tabIndex={0} aria-label={'漫游套餐，' + region + '，' + data + '，有效期至 ' + valid + '，' + price + ' 元' + (ordered ? '，已订购' : '') + (hot ? '，热门' : '')}>
+    <div className="ds-roaming__head"><strong className="ds-roaming__region">{region}</strong>{hot ? <span className="ds-roaming__hot">热门</span> : null}</div>
+    <p className="ds-roaming__data">{data}</p>
+    <p className="ds-roaming__valid">有效期至 {valid}</p>
+    <span className="ds-roaming__price">¥{price}</span>
+    <button type="button" disabled={ordered}>{ordered ? '已订购' : '立即订购'}</button>
+  </article>;
+}
+
+export function FiberSplicePanel({ site, time, cores }: { site: string; time: string; cores: Array<{ no: number; loss: number }> }) {
+  const bad = cores.filter(c => c.loss > 0.5).length;
+  return <article className="ds-fiber-splice" aria-label={'光纤接续点 ' + site + '，共 ' + cores.length + ' 芯，超标 ' + bad + ' 芯，测试于 ' + time}>
+    <div className="ds-fiber-splice__head"><strong className="ds-fiber-splice__site">{site}</strong><span className="ds-fiber-splice__time">{time}</span></div>
+    <div className="ds-fiber-splice__cores">
+      {cores.map(c => <div key={c.no} className={'ds-fiber-splice__core' + (c.loss > 0.5 ? ' is-bad' : '')} tabIndex={0} role="button" aria-label={'纤芯 ' + c.no + '，衰减 ' + c.loss + ' dB，' + (c.loss > 0.5 ? '超标' : '合格')}>
+        <span className="ds-fiber-splice__no">{c.no}</span>
+        <span className="ds-fiber-splice__loss">{c.loss} dB</span>
+      </div>)}
+    </div>
+    <span className={'ds-fiber-splice__verdict ' + (bad ? 'is-fail' : 'is-pass')}>{bad ? '存在超标纤芯' : '全部合格'}</span>
+  </article>;
+}
