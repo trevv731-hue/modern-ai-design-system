@@ -14374,3 +14374,129 @@ export function TemplatePicker({ templates, value }: { templates: { id: string; 
     </label>)}
   </div>;
 }
+
+export function InvoiceRow({ id, period, amount, state, onDownload }: { id: string; period: string; amount: string; state: string; onDownload?: () => void }) {
+  return <div className="ds-invoice-row" role="row" tabIndex={0}>
+    <span className="ds-invoice-row__id">{id}</span>
+    <span>{period}</span>
+    <span className="ds-invoice-row__amount">{amount}</span>
+    <span className={'ds-invoice-row__state is-' + state}>{state === 'paid' ? '已支付' : '待支付'}</span>
+    <button type="button" aria-label={'下载发票 ' + id} onClick={onDownload}>⬇</button>
+  </div>;
+}
+
+export function BillingPaymentCard({ brand, last4, expiry, isDefault }: { brand: string; last4: string; expiry: string; isDefault?: boolean }) {
+  return <div className={'ds-bill-card' + (isDefault ? ' is-default' : '')}>
+    <span className="ds-bill-card__brand" aria-hidden="true">💳</span>
+    <div className="ds-bill-card__info"><strong>{brand} **** {last4}</strong><span>有效期 {expiry}</span></div>
+    {isDefault && <span className="ds-bill-card__tag">默认</span>}
+    <button type="button" aria-label="更多操作">⋯</button>
+  </div>;
+}
+
+export function UsageTable({ rows, total }: { rows: { item: string; usage: string; unitPrice: string; subtotal: string; free?: boolean }[]; total: string }) {
+  return <table className="ds-usage-table">
+    <caption className="ds-sr-only">本期用量明细</caption>
+    <thead><tr><th scope="col">计费项</th><th scope="col">用量</th><th scope="col">单价</th><th scope="col">小计</th></tr></thead>
+    <tbody>{rows.map(row => <tr key={row.item} className={row.free ? 'is-free' : undefined}>
+      <th scope="row">{row.item}{row.free ? '（含在套餐内）' : ''}</th>
+      <td>{row.usage}</td><td>{row.unitPrice}</td><td>{row.subtotal}</td>
+    </tr>)}</tbody>
+    <tfoot><tr><th scope="row">合计</th><td colSpan={2}></td><td>{total}</td></tr></tfoot>
+  </table>;
+}
+
+export function PlanCompareTable({ plans, rows, current }: { plans: string[]; rows: { label: string; values: string[] }[]; current?: string }) {
+  return <table className="ds-plan-cmp">
+    <caption className="ds-sr-only">套餐对比</caption>
+    <thead><tr><th scope="col">能力</th>{plans.map(plan => <th key={plan} scope="col" aria-current={plan === current ? 'true' : undefined}>{plan}{plan === current ? ' · 当前' : ''}</th>)}</tr></thead>
+    <tbody>{rows.map(row => <tr key={row.label}>
+      <th scope="row">{row.label}</th>
+      {row.values.map((value, index) => <td key={index} aria-label={value === '✓' ? '包含' : value === '✕' ? '不包含' : undefined}>{value}</td>)}
+    </tr>)}</tbody>
+  </table>;
+}
+
+export function SeatManager({ used, total, members }: { used: number; total: number; members: { name: string; role: string }[] }) {
+  return <div className="ds-seat-mgr">
+    <div className="ds-seat-mgr__summary">
+      <strong>已用席位 {used} / {total}</strong>
+      <span>每增加 1 席 ¥39 / 月</span>
+      <button type="button">增加席位</button>
+    </div>
+    <ul className="ds-seat-mgr__list">
+      {members.map(member => <li key={member.name}>
+        <span className="ds-seat-mgr__avatar" aria-hidden="true">{member.name.slice(0, 1)}</span>
+        {member.name}<small>{member.role} · 上次活跃 2 小时前</small>
+        <button type="button">释放席位</button>
+      </li>)}
+    </ul>
+  </div>;
+}
+
+export function CreditMeter({ label, used, total, percent, onTopUp }: { label: string; used: string; total: string; percent: number; onTopUp?: () => void }) {
+  return <div className="ds-credit-meter" role="group" aria-label="额度用量">
+    <div className="ds-credit-meter__meta"><strong>{label}</strong><span>已用 {used} / {total}</span></div>
+    <div className="ds-credit-meter__track" role="progressbar" aria-valuenow={percent} aria-valuemin={0} aria-valuemax={100} aria-label={'额度已用 ' + percent + '%'}>
+      <i style={{ width: percent + '%' }} />
+    </div>
+    <p className="ds-credit-meter__note">即将用尽，归零后按量计费</p>
+    <button type="button" onClick={onTopUp}>充值</button>
+  </div>;
+}
+
+export function UpgradeBanner({ reason, gains = [], onUpgrade }: { reason: string; gains?: string[]; onUpgrade?: () => void }) {
+  return <div className="ds-upgrade-banner" role="status">
+    <span className="ds-upgrade-banner__icon" aria-hidden="true">🚀</span>
+    <div className="ds-upgrade-banner__body"><strong>{reason}</strong><span>升级后：{gains.join('、')}</span></div>
+    <button type="button" className="is-primary" onClick={onUpgrade}>升级套餐</button>
+    <button type="button" aria-label="关闭提示">✕</button>
+  </div>;
+}
+
+export function TrialBanner({ daysLeft, note, onSubscribe }: { daysLeft: number; note: string; onSubscribe?: () => void }) {
+  return <div className="ds-trial-banner" role="status">
+    <span className="ds-trial-banner__count">试用剩余 {daysLeft} 天</span>
+    <span className="ds-trial-banner__note">{note}</span>
+    <button type="button" className="is-primary" onClick={onSubscribe}>订阅专业版</button>
+  </div>;
+}
+
+export function TaxForm({ taxId, address, type, onSave }: { taxId: string; address: string; type?: string; onSave?: () => void }) {
+  return <form className="ds-tax-form" novalidate onSubmit={event => { event.preventDefault(); onSave?.(); }}>
+    <div className="ds-tax-form__row">
+      <label htmlFor="ds-tax-id">纳税人识别号</label>
+      <input id="ds-tax-id" defaultValue={taxId} aria-describedby="ds-tax-hint" />
+      <small id="ds-tax-hint">18 位，格式如 91310000MA1K35P12X</small>
+    </div>
+    <div className="ds-tax-form__row">
+      <label htmlFor="ds-tax-addr">注册地址</label>
+      <input id="ds-tax-addr" defaultValue={address} />
+    </div>
+    <div className="ds-tax-form__row">
+      <label htmlFor="ds-tax-type">发票类型</label>
+      <select id="ds-tax-type" defaultValue={type}>
+        <option value="special">增值税专用发票</option>
+        <option value="normal">增值税普通发票</option>
+      </select>
+    </div>
+    <button type="submit" className="is-primary">保存税务信息</button>
+  </form>;
+}
+
+export function ReceiptCard({ amount, plan, tradeNo, discount }: { amount: string; plan: string; tradeNo: string; discount?: string }) {
+  return <div className="ds-receipt-card" role="status">
+    <span className="ds-receipt-card__icon" aria-hidden="true">✅</span>
+    <strong>支付成功</strong>
+    <p className="ds-receipt-card__amount">{amount}</p>
+    <dl className="ds-receipt-card__detail">
+      <div><dt>套餐</dt><dd>{plan}</dd></div>
+      <div><dt>交易号</dt><dd>{tradeNo}</dd></div>
+      {discount && <div><dt>优惠</dt><dd>{discount}</dd></div>}
+    </dl>
+    <div className="ds-receipt-card__actions">
+      <button type="button">下载凭证</button>
+      <button type="button">发送到邮箱</button>
+    </div>
+  </div>;
+}
