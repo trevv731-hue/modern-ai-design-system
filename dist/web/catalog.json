@@ -14160,5 +14160,283 @@
       "行内操作可键盘到达"
     ],
     "react": "<TrashRow name=\"旧版方案.pdf\" origin=\"项目资料 / 归档\" daysLeft={14} onRestore={restore} onPurge={purge} />"
+  },
+  {
+    "id": "search-filter-bar",
+    "name": "筛选工具栏",
+    "category": "搜索",
+    "status": "v3 新增",
+    "purpose": "在搜索结果顶部集中放置搜索框与常用筛选入口。",
+    "anatomy": [
+      "搜索框 (ds-filter-bar__input)",
+      "筛选按钮",
+      "排序按钮",
+      "视图切换",
+      "重置"
+    ],
+    "keyboard": "Tab 遍历各控件；/ 快捷键聚焦搜索框。",
+    "guidance": [
+      "已应用筛选在按钮上显示数量角标。",
+      "重置按钮仅在存在筛选时可用。",
+      "筛选状态变化即时刷新结果并播报。"
+    ],
+    "preview": "<div class=\"ds-filter-bar\" role=\"search\"><div class=\"ds-filter-bar__input\"><span aria-hidden=\"true\">🔍</span><input type=\"search\" value=\"设计规范\" aria-label=\"搜索\"><kbd>/</kbd></div><button type=\"button\" class=\"is-active\">筛选<span class=\"ds-filter-bar__count\">3</span></button><button type=\"button\">排序：相关度</button><div class=\"ds-filter-bar__views\" role=\"group\" aria-label=\"视图\"><button type=\"button\" aria-pressed=\"true\" aria-label=\"列表视图\">☰</button><button type=\"button\" aria-pressed=\"false\" aria-label=\"网格视图\">▦</button></div></div>",
+    "checks": [
+      "筛选按钮显示数量角标",
+      "重置仅在有筛选时可用",
+      "状态变化有播报",
+      "/ 快捷键聚焦搜索框"
+    ],
+    "react": "<FilterBar query=\"设计规范\" filters={3} sort=\"相关度\" view=\"list\" onSearch={setQuery} />"
+  },
+  {
+    "id": "search-facet-group",
+    "name": "分面筛选组",
+    "category": "搜索",
+    "status": "v3 新增",
+    "purpose": "按维度（类型、时间、所有者）展示可勾选的筛选项与命中数。",
+    "anatomy": [
+      "分组标题 (ds-facet__title)",
+      "选项行",
+      "命中数",
+      "展开更多",
+      "已选态"
+    ],
+    "keyboard": "复选框原生可聚焦；分组标题可折叠。",
+    "guidance": [
+      "每个选项展示命中数量。",
+      "选项过多时折叠并显示“展开更多”。",
+      "已选项在分组内有清除入口。"
+    ],
+    "preview": "<div class=\"ds-facet\" role=\"group\" aria-label=\"类型筛选\"><p class=\"ds-facet__title\">类型</p><label class=\"ds-facet__item\"><input type=\"checkbox\" checked><span>设计稿</span><em>128</em></label><label class=\"ds-facet__item\"><input type=\"checkbox\"><span>文档</span><em>96</em></label><label class=\"ds-facet__item\"><input type=\"checkbox\"><span>表格</span><em>42</em></label><button type=\"button\" class=\"ds-facet__more\">展开更多</button></div>",
+    "checks": [
+      "选项展示命中数量",
+      "过多选项可折叠",
+      "分组内有清除入口",
+      "复选框原生语义"
+    ],
+    "react": "<FacetGroup title=\"类型\" items={[{ label: \"设计稿\", count: 128, checked: true }, { label: \"文档\", count: 96 }]} />"
+  },
+  {
+    "id": "search-sort-menu",
+    "name": "排序菜单",
+    "category": "搜索",
+    "status": "v3 新增",
+    "purpose": "提供结果排序方式切换，并标明当前生效项。",
+    "anatomy": [
+      "菜单触发器 (ds-sort-menu__trigger)",
+      "选项列表",
+      "当前标记",
+      "升降序切换"
+    ],
+    "keyboard": "回车或下方向键展开；上下方向键移动；Esc 收起。",
+    "guidance": [
+      "当前排序项用文字标记而非仅勾选。",
+      "升降序切换保留当前排序维度。",
+      "选项变化后结果自动刷新。"
+    ],
+    "preview": "<div class=\"ds-sort-menu\"><button type=\"button\" class=\"ds-sort-menu__trigger\" aria-haspopup=\"menu\" aria-expanded=\"false\">排序：相关度 <span aria-hidden=\"true\">▾</span></button><ul role=\"menu\" hidden><li role=\"menuitemradio\" aria-checked=\"true\">相关度</li><li role=\"menuitemradio\" aria-checked=\"false\">最近修改</li><li role=\"menuitemradio\" aria-checked=\"false\">名称 A-Z</li><li role=\"menuitemradio\" aria-checked=\"false\">大小</li></ul></div>",
+    "checks": [
+      "当前项文字标记",
+      "升降序保留维度",
+      "菜单键盘可操作",
+      "选择后自动刷新"
+    ],
+    "react": "<SortMenu value=\"相关度\" options={[\"相关度\", \"最近修改\", \"名称 A-Z\"]} onChange={setSort} />"
+  },
+  {
+    "id": "search-active-chips",
+    "name": "已选筛选条件",
+    "category": "搜索",
+    "status": "v3 新增",
+    "purpose": "以标签形式展示所有生效的筛选条件，支持单独移除与全部清除。",
+    "anatomy": [
+      "条件标签 (ds-active-chips__chip)",
+      "维度名",
+      "移除按钮",
+      "全部清除"
+    ],
+    "keyboard": "每个标签的移除按钮可聚焦；移除后播报剩余数量。",
+    "guidance": [
+      "标签文案包含维度，如“类型：设计稿”。",
+      "移除单个条件即时刷新。",
+      "全部清除需确认或提供撤销。"
+    ],
+    "preview": "<div class=\"ds-active-chips\" role=\"group\" aria-label=\"已选筛选条件\"><span class=\"ds-active-chips__chip\">类型：设计稿<button type=\"button\" aria-label=\"移除 类型：设计稿\">✕</button></span><span class=\"ds-active-chips__chip\">时间：最近 7 天<button type=\"button\" aria-label=\"移除 时间：最近 7 天\">✕</button></span><span class=\"ds-active-chips__chip\">所有者：林晓<button type=\"button\" aria-label=\"移除 所有者：林晓\">✕</button></span><button type=\"button\" class=\"ds-active-chips__clear\">全部清除</button></div>",
+    "checks": [
+      "标签含维度名",
+      "单个移除即时刷新",
+      "全部清除有确认或撤销",
+      "移除后有播报"
+    ],
+    "react": "<ActiveFilterChips chips={[{ key: \"type\", label: \"设计稿\" }, { key: \"time\", label: \"最近 7 天\" }]} onRemove={remove} onClearAll={clear} />"
+  },
+  {
+    "id": "search-suggestion-list",
+    "name": "搜索建议列表",
+    "category": "搜索",
+    "status": "v3 新增",
+    "purpose": "在输入过程中给出联想词与历史匹配，支持键盘快速选择。",
+    "anatomy": [
+      "列表容器 (ds-suggest)",
+      "建议项",
+      "匹配高亮",
+      "分类标记",
+      "无结果提示"
+    ],
+    "keyboard": "下方向键进入列表；上下移动；回车选择；Esc 关闭。",
+    "guidance": [
+      "匹配部分加粗高亮。",
+      "历史与联想用不同图标区分",
+      "无结果时给出替代建议。"
+    ],
+    "preview": "<ul class=\"ds-suggest\" role=\"listbox\" aria-label=\"搜索建议\"><li role=\"option\" aria-selected=\"true\"><span class=\"ds-suggest__icon\" aria-hidden=\"true\">🕘</span>设计<strong>规范</strong>评审<em>历史</em></li><li role=\"option\" aria-selected=\"false\"><span class=\"ds-suggest__icon\" aria-hidden=\"true\">🔍</span><strong>设计规范</strong>模板<em>联想</em></li><li role=\"option\" aria-selected=\"false\"><span class=\"ds-suggest__icon\" aria-hidden=\"true\">📄</span>2026 <strong>设计规范</strong>.pdf<em>文件</em></li></ul>",
+    "checks": [
+      "匹配部分高亮",
+      "历史与联想图标区分",
+      "无结果给替代建议",
+      "listbox 键盘操作"
+    ],
+    "react": "<SuggestionList items={[{ text: \"设计规范评审\", kind: \"history\" }, { text: \"2026 设计规范.pdf\", kind: \"file\" }]} active={0} />"
+  },
+  {
+    "id": "search-recent-list",
+    "name": "最近搜索列表",
+    "category": "搜索",
+    "status": "v3 新增",
+    "purpose": "展示用户最近的搜索记录，支持一键重搜与单条删除。",
+    "anatomy": [
+      "列表容器 (ds-recent-search)",
+      "搜索词",
+      "时间",
+      "删除按钮",
+      "清空全部"
+    ],
+    "keyboard": "Tab 遍历删除按钮；回车重新搜索。",
+    "guidance": [
+      "按时间倒序展示。",
+      "删除单条不刷新整页。",
+      "提供“清空全部”并有确认。"
+    ],
+    "preview": "<div class=\"ds-recent-search\" role=\"group\" aria-label=\"最近搜索\"><p class=\"ds-recent-search__title\">最近搜索</p><ul><li><button type=\"button\">设计规范</button><time>2 小时前</time><button type=\"button\" aria-label=\"删除记录 设计规范\">✕</button></li><li><button type=\"button\">Fluent 动效</button><time>昨天</time><button type=\"button\" aria-label=\"删除记录 Fluent 动效\">✕</button></li></ul><button type=\"button\" class=\"ds-recent-search__clear\">清空全部</button></div>",
+    "checks": [
+      "按时间倒序",
+      "单条删除不刷新页面",
+      "清空全部有确认",
+      "删除按钮有可读名称"
+    ],
+    "react": "<RecentSearchList items={[{ term: \"设计规范\", time: \"2 小时前\" }, { term: \"Fluent 动效\", time: \"昨天\" }]} onClearAll={clearAll} />"
+  },
+  {
+    "id": "search-scope-tabs",
+    "name": "搜索范围标签",
+    "category": "搜索",
+    "status": "v3 新增",
+    "purpose": "在不同内容范围（全部、文档、图片、成员）间切换搜索结果。",
+    "anatomy": [
+      "标签项 (ds-scope-tabs__tab)",
+      "范围名",
+      "结果计数",
+      "当前态"
+    ],
+    "keyboard": "左右方向键切换标签；当前标签 aria-selected。",
+    "guidance": [
+      "每个标签展示该范围的结果数。",
+      "切换时保留搜索关键词。",
+      "零结果范围仍展示但置灰说明。"
+    ],
+    "preview": "<div class=\"ds-scope-tabs\" role=\"tablist\" aria-label=\"搜索范围\"><button type=\"button\" role=\"tab\" aria-selected=\"true\" class=\"is-active\">全部<em>266</em></button><button type=\"button\" role=\"tab\" aria-selected=\"false\">文档<em>96</em></button><button type=\"button\" role=\"tab\" aria-selected=\"false\">图片<em>128</em></button><button type=\"button\" role=\"tab\" aria-selected=\"false\" class=\"is-empty\">成员<em>0</em></button></div>",
+    "checks": [
+      "标签展示结果计数",
+      "切换保留关键词",
+      "零结果置灰说明",
+      "tablist 键盘操作"
+    ],
+    "react": "<SearchScopeTabs scopes={[{ label: \"全部\", count: 266 }, { label: \"文档\", count: 96 }]} active=\"全部\" />"
+  },
+  {
+    "id": "search-result-row",
+    "name": "搜索结果行",
+    "category": "搜索",
+    "status": "v3 新增",
+    "purpose": "展示单条搜索结果的标题、摘要、路径与相关性元信息。",
+    "anatomy": [
+      "类型图标 (ds-result-row__icon)",
+      "标题",
+      "摘要高亮",
+      "路径",
+      "时间",
+      "相关度"
+    ],
+    "keyboard": "整行可聚焦；回车打开；方向键在结果间移动。",
+    "guidance": [
+      "摘要中命中词加粗。",
+      "路径展示来源位置",
+      "相关度只在排序为相关度时展示。"
+    ],
+    "preview": "<div class=\"ds-result-row\" tabindex=\"0\" role=\"button\"><span class=\"ds-result-row__icon\" aria-hidden=\"true\">📄</span><div class=\"ds-result-row__body\"><strong>2026 <mark>设计规范</mark></strong><p>第三章更新了玻璃层级与<mark>设计规范</mark>评审流程…</p><span class=\"ds-result-row__path\">项目资料 / 设计 / 规范</span></div><time>10-16</time></div>",
+    "checks": [
+      "摘要命中词加粗",
+      "路径展示来源位置",
+      "相关度按需展示",
+      "整行可键盘打开"
+    ],
+    "react": "<SearchResultRow title=\"2026 设计规范\" snippet=\"第三章更新了玻璃层级与设计规范评审流程…\" path=\"项目资料 / 设计 / 规范\" time=\"10-16\" />"
+  },
+  {
+    "id": "search-empty-state",
+    "name": "空结果状态",
+    "category": "搜索",
+    "status": "v3 新增",
+    "purpose": "在搜索无结果时说明原因，并给出修正建议与替代操作。",
+    "anatomy": [
+      "插画区 (ds-search-empty__art)",
+      "主文案",
+      "原因说明",
+      "建议操作"
+    ],
+    "keyboard": "建议操作可键盘到达；状态变化播报一次。",
+    "guidance": [
+      "给出具体原因：拼写、范围过窄、无权限。",
+      "提供 2-3 个可执行建议。",
+      "避免只写“无结果”结束对话。"
+    ],
+    "preview": "<div class=\"ds-search-empty\" role=\"status\"><span class=\"ds-search-empty__art\" aria-hidden=\"true\">🔍</span><strong>没有找到“设计規范”的结果</strong><p>可能是拼写有误，或筛选条件过于严格</p><div class=\"ds-search-empty__actions\"><button type=\"button\">搜索“设计规范”</button><button type=\"button\">清除筛选条件</button></div></div>",
+    "checks": [
+      "说明具体原因",
+      "提供 2-3 个建议",
+      "建议可键盘执行",
+      "status 语义且只播报一次"
+    ],
+    "react": "<SearchEmptyState query=\"设计規范\" reason=\"可能是拼写有误，或筛选条件过于严格\" onRetry={retry} onClear={clear} />"
+  },
+  {
+    "id": "search-advanced-panel",
+    "name": "高级搜索面板",
+    "category": "搜索",
+    "status": "v3 新增",
+    "purpose": "展开更多精细条件（时间范围、所有者、标签组合）进行精确检索。",
+    "anatomy": [
+      "面板外壳 (ds-adv-search)",
+      "条件分组",
+      "时间范围",
+      "所有者选择",
+      "标签组合",
+      "应用与重置"
+    ],
+    "keyboard": "面板内 Tab 循环；Esc 收起；回车应用。",
+    "guidance": [
+      "条件支持“包含全部/任一”逻辑切换。",
+      "时间范围提供常用预设。",
+      "已应用的折叠条件在按钮上显示摘要。"
+    ],
+    "preview": "<div class=\"ds-adv-search\" role=\"region\" aria-label=\"高级搜索\"><div class=\"ds-adv-search__row\"><label for=\"adv-owner\">所有者</label><input id=\"adv-owner\" value=\"林晓\"></div><div class=\"ds-adv-search__row\"><label for=\"adv-from\">时间范围</label><input id=\"adv-from\" type=\"date\" value=\"2026-10-01\"><span>至</span><input type=\"date\" value=\"2026-10-18\"></div><div class=\"ds-adv-search__row\"><span id=\"adv-logic\">标签匹配</span><select aria-labelledby=\"adv-logic\"><option>包含全部</option><option>包含任一</option></select></div><div class=\"ds-adv-search__actions\"><button type=\"button\">重置</button><button type=\"button\" class=\"is-primary\">应用筛选</button></div></div>",
+    "checks": [
+      "支持包含全部与任一",
+      "时间有常用预设",
+      "折叠按钮显示摘要",
+      "Esc 收起且回车应用"
+    ],
+    "react": "<AdvancedSearchPanel owner=\"林晓\" from=\"2026-10-01\" to=\"2026-10-18\" logic=\"all\" onApply={apply} />"
   }
 ]

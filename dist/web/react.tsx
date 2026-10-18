@@ -14116,3 +14116,138 @@ export function TrashRow({ name, origin, daysLeft, onRestore, onPurge }:
     <button type="button" onClick={onPurge}>彻底删除</button>
   </div>;
 }
+
+export function FilterBar({ query, filters, sort, view, onSearch }: { query: string; filters?: number; sort?: string; view?: string; onSearch?: (next: string) => void }) {
+  return <div className="ds-filter-bar" role="search">
+    <div className="ds-filter-bar__input">
+      <span aria-hidden="true">🔍</span>
+      <label className="ds-sr-only" htmlFor="ds-filter-q">搜索</label>
+      <input id="ds-filter-q" type="search" defaultValue={query} onInput={event => onSearch?.(event.currentTarget.value)} />
+      <kbd>/</kbd>
+    </div>
+    <button type="button" className={filters ? 'is-active' : undefined}>
+      筛选{filters ? <span className="ds-filter-bar__count">{filters}</span> : null}
+    </button>
+    <button type="button">排序：{sort || '相关度'}</button>
+    <div className="ds-filter-bar__views" role="group" aria-label="视图">
+      <button type="button" aria-pressed={view !== 'grid'} aria-label="列表视图">☰</button>
+      <button type="button" aria-pressed={view === 'grid'} aria-label="网格视图">▦</button>
+    </div>
+  </div>;
+}
+
+export function FacetGroup({ title, items }: { title: string; items: { label: string; count: number; checked?: boolean }[] }) {
+  return <div className="ds-facet" role="group" aria-label={title + '筛选'}>
+    <p className="ds-facet__title">{title}</p>
+    {items.map(item => <label key={item.label} className="ds-facet__item">
+      <input type="checkbox" defaultChecked={!!item.checked} />
+      <span>{item.label}</span><em>{item.count}</em>
+    </label>)}
+    <button type="button" className="ds-facet__more">展开更多</button>
+  </div>;
+}
+
+export function SortMenu({ value, options }: { value: string; options: string[] }) {
+  return <div className="ds-sort-menu">
+    <button type="button" className="ds-sort-menu__trigger" aria-haspopup="menu" aria-expanded="false">
+      排序：{value} <span aria-hidden="true">▾</span>
+    </button>
+    <ul role="menu" hidden>
+      {options.map(option => <li key={option} role="menuitemradio" aria-checked={option === value}>{option}</li>)}
+    </ul>
+  </div>;
+}
+
+export function ActiveFilterChips({ chips, onRemove, onClearAll }: { chips: { key: string; label: string }[]; onRemove?: (key: string) => void; onClearAll?: () => void }) {
+  return <div className="ds-active-chips" role="group" aria-label="已选筛选条件">
+    {chips.map(chip => <span key={chip.key} className="ds-active-chips__chip">
+      {chip.label}
+      <button type="button" aria-label={'移除 ' + chip.label} onClick={() => onRemove?.(chip.key)}>✕</button>
+    </span>)}
+    <button type="button" className="ds-active-chips__clear" onClick={onClearAll}>全部清除</button>
+  </div>;
+}
+
+export function SuggestionList({ items, active = 0 }: { items: { text: string; kind?: string; match?: string }[]; active?: number }) {
+  return <ul className="ds-suggest" role="listbox" aria-label="搜索建议">
+    {items.map((item, index) => <li key={item.text} role="option" aria-selected={index === active}>
+      <span className="ds-suggest__icon" aria-hidden="true">{item.kind === 'history' ? '🕘' : item.kind === 'file' ? '📄' : '🔍'}</span>
+      <span>{item.text}</span>
+      <em>{item.kind === 'history' ? '历史' : item.kind === 'file' ? '文件' : '联想'}</em>
+    </li>)}
+  </ul>;
+}
+
+export function RecentSearchList({ items, onClearAll }: { items: { term: string; time: string }[]; onClearAll?: () => void }) {
+  return <div className="ds-recent-search" role="group" aria-label="最近搜索">
+    <p className="ds-recent-search__title">最近搜索</p>
+    <ul>
+      {items.map(item => <li key={item.term}>
+        <button type="button">{item.term}</button>
+        <time>{item.time}</time>
+        <button type="button" aria-label={'删除记录 ' + item.term}>✕</button>
+      </li>)}
+    </ul>
+    <button type="button" className="ds-recent-search__clear" onClick={onClearAll}>清空全部</button>
+  </div>;
+}
+
+export function SearchScopeTabs({ scopes, active }: { scopes: { label: string; count: number }[]; active: string }) {
+  return <div className="ds-scope-tabs" role="tablist" aria-label="搜索范围">
+    {scopes.map(scope => <button key={scope.label} type="button" role="tab"
+      aria-selected={scope.label === active}
+      className={'ds-scope-tabs__tab' + (scope.label === active ? ' is-active' : scope.count === 0 ? ' is-empty' : '')}>
+      {scope.label}<em>{scope.count}</em>
+    </button>)}
+  </div>;
+}
+
+export function SearchResultRow({ title, snippet, path, time }: { title: string; snippet: string; path: string; time: string }) {
+  return <div className="ds-result-row" role="button" tabIndex={0}>
+    <span className="ds-result-row__icon" aria-hidden="true">📄</span>
+    <div className="ds-result-row__body">
+      <strong>{title}</strong>
+      <p>{snippet}</p>
+      <span className="ds-result-row__path">{path}</span>
+    </div>
+    <time>{time}</time>
+  </div>;
+}
+
+export function SearchEmptyState({ query, reason, onRetry, onClear }: { query: string; reason: string; onRetry?: () => void; onClear?: () => void }) {
+  return <div className="ds-search-empty" role="status">
+    <span className="ds-search-empty__art" aria-hidden="true">🔍</span>
+    <strong>没有找到“{query}”的结果</strong>
+    <p>{reason}</p>
+    <div className="ds-search-empty__actions">
+      <button type="button" onClick={onRetry}>重新搜索</button>
+      <button type="button" onClick={onClear}>清除筛选条件</button>
+    </div>
+  </div>;
+}
+
+export function AdvancedSearchPanel({ owner, from, to, logic = 'all', onApply }: { owner: string; from: string; to: string; logic?: string; onApply?: () => void }) {
+  return <div className="ds-adv-search" role="region" aria-label="高级搜索">
+    <div className="ds-adv-search__row">
+      <label htmlFor="ds-adv-owner">所有者</label>
+      <input id="ds-adv-owner" defaultValue={owner} />
+    </div>
+    <div className="ds-adv-search__row">
+      <label htmlFor="ds-adv-from">时间范围</label>
+      <input id="ds-adv-from" type="date" defaultValue={from} />
+      <span>至</span>
+      <input type="date" defaultValue={to} aria-label="结束日期" />
+    </div>
+    <div className="ds-adv-search__row">
+      <label htmlFor="ds-adv-logic">标签匹配</label>
+      <select id="ds-adv-logic" defaultValue={logic}>
+        <option value="all">包含全部</option>
+        <option value="any">包含任一</option>
+      </select>
+    </div>
+    <div className="ds-adv-search__actions">
+      <button type="button">重置</button>
+      <button type="button" className="is-primary" onClick={onApply}>应用筛选</button>
+    </div>
+  </div>;
+}
