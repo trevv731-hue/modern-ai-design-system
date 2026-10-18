@@ -21902,5 +21902,277 @@
       "物流轨迹"
     ],
     "react": "<AidReliefCard item=\"折叠床 500 张 · 棉被 1,000 床\" dest=\"甘肃陇南\" eta=\"06-15\" state=\"transit\" />"
+  },
+  {
+    "id": "car-fuel-log",
+    "name": "加油记录行",
+    "category": "汽车 / 用车服务",
+    "status": "v3 新增",
+    "purpose": "展示一次加油记录的油量、金额与单价。",
+    "anatomy": [
+      "日期 (ds-fuel-log__date)",
+      "油量 (ds-fuel-log__liters)",
+      "金额 (ds-fuel-log__amount)",
+      "单价 (ds-fuel-log__price)",
+      "油站 (ds-fuel-log__station)"
+    ],
+    "keyboard": "行可聚焦查看电子小票；单价高于近期均价以 status 语义播报。",
+    "guidance": [
+      "金额等宽右对齐。",
+      "油站名称过长省略展示。",
+      "支持按月份汇总油耗。"
+    ],
+    "preview": "<div class=\"ds-fuel-log\" tabindex=\"0\" role=\"button\" aria-label=\"加油记录，2026-06-08，42.5 升，金额 318.75 元，单价 7.5 元每升，中石化城东站\"><span class=\"ds-fuel-log__date\">2026-06-08</span><span class=\"ds-fuel-log__liters\">42.5 L</span><span class=\"ds-fuel-log__amount\">¥318.75</span><span class=\"ds-fuel-log__price\">7.50 元/L</span><span class=\"ds-fuel-log__station\">中石化城东站</span></div>",
+    "checks": [
+      "金额右对齐",
+      "单价展示",
+      "油站省略",
+      "月度汇总"
+    ],
+    "react": "<FuelLogRow date=\"2026-06-08\" liters={42.5} amount={318.75} station=\"中石化城东站\" />"
+  },
+  {
+    "id": "car-maint-remind",
+    "name": "保养提醒卡",
+    "category": "汽车 / 用车服务",
+    "status": "v3 新增",
+    "purpose": "展示车辆保养的剩余里程与到期时间双维度提醒。",
+    "anatomy": [
+      "保养项目 (ds-maint-remind__item)",
+      "里程提示 (ds-maint-remind__mileage)",
+      "时间提示 (ds-maint-remind__due)",
+      "状态 (ds-maint-remind__state)"
+    ],
+    "keyboard": "卡片可聚焦预约保养；临期黄色、超期红色播报。",
+    "guidance": [
+      "里程与时间双维度同时展示。",
+      "超期保养红色并置顶。",
+      "提供一键预约入口。"
+    ],
+    "preview": "<article class=\"ds-maint-remind is-due\" tabindex=\"0\" role=\"button\" aria-label=\"保养提醒，更换机油机滤，剩余里程 420 公里，30 天内到期，临期\"><div class=\"ds-maint-remind__head\"><strong class=\"ds-maint-remind__item\">更换机油机滤</strong><span class=\"ds-maint-remind__state is-due\">临期</span></div><p class=\"ds-maint-remind__mileage\">剩余里程 420 km</p><p class=\"ds-maint-remind__due\">30 天内到期</p></article>",
+    "checks": [
+      "双维度提醒",
+      "临期黄色",
+      "超期红色",
+      "一键预约"
+    ],
+    "react": "<MaintenanceReminderCard item=\"更换机油机滤\" mileageLeft={420} dueDays={30} state=\"due\" />"
+  },
+  {
+    "id": "car-inspection",
+    "name": "年检到期卡",
+    "category": "汽车 / 用车服务",
+    "status": "v3 新增",
+    "purpose": "展示车辆年检到期时间与办理状态。",
+    "anatomy": [
+      "车牌 (ds-inspection__plate)",
+      "到期日 (ds-inspection__due)",
+      "剩余天数 (ds-inspection__left)",
+      "状态 (ds-inspection__state)"
+    ],
+    "keyboard": "卡片可聚焦预约年检；60 天内黄色、30 天内红色播报。",
+    "guidance": [
+      "倒计时以剩余天数文字呈现。",
+      "状态用文字不只颜色。",
+      "已检绿色勾选标记。"
+    ],
+    "preview": "<article class=\"ds-inspection is-soon\" tabindex=\"0\" role=\"button\" aria-label=\"年检提醒，车牌 浙A·12345，到期日 2026-08-31，剩余 74 天，临期\"><strong class=\"ds-inspection__plate\">浙A·12345</strong><p class=\"ds-inspection__due\">到期日 2026-08-31</p><strong class=\"ds-inspection__left\">剩余 74 天</strong><span class=\"ds-inspection__state is-soon\">临期</span></article>",
+    "checks": [
+      "天数倒计时",
+      "60/30 天分级",
+      "状态文字",
+      "预约入口"
+    ],
+    "react": "<AnnualInspectionCard plate=\"浙A·12345\" due=\"2026-08-31\" left={74} />"
+  },
+  {
+    "id": "car-parking-session",
+    "name": "停车记录行",
+    "category": "汽车 / 用车服务",
+    "status": "v3 新增",
+    "purpose": "展示一次停车的时长、费用与停车场信息。",
+    "anatomy": [
+      "车场 (ds-parking-session__lot)",
+      "时长 (ds-parking-session__duration)",
+      "费用 (ds-parking-session__fee)",
+      "状态 (ds-parking-session__state)"
+    ],
+    "keyboard": "行可聚焦查看缴费明细；欠费状态以 alert 语义播报。",
+    "guidance": [
+      "时长与费用等宽展示。",
+      "免费停车时段绿色标注。",
+      "欠费红色并提供补缴入口。"
+    ],
+    "preview": "<div class=\"ds-parking-session is-owed\" tabindex=\"0\" role=\"button\" aria-label=\"停车记录，中心医院地下车库，3 小时 12 分，费用 18 元，欠费\"><span class=\"ds-parking-session__lot\">中心医院地下车库</span><span class=\"ds-parking-session__duration\">3h12m</span><span class=\"ds-parking-session__fee\">¥18.00</span><span class=\"ds-parking-session__state is-owed\">欠费</span></div>",
+    "checks": [
+      "时长费用等宽",
+      "免费标注",
+      "欠费补缴",
+      "缴费明细"
+    ],
+    "react": "<ParkingSessionRow lot=\"中心医院地下车库\" duration=\"3h12m\" fee={18} state=\"owed\" />"
+  },
+  {
+    "id": "car-toll-row",
+    "name": "高速通行行",
+    "category": "汽车 / 用车服务",
+    "status": "v3 新增",
+    "purpose": "展示一条高速通行记录的入口、出口与扣费信息。",
+    "anatomy": [
+      "路线 (ds-toll-row__route)",
+      "时间 (ds-toll-row__time)",
+      "费用 (ds-toll-row__fee)",
+      "扣款状态 (ds-toll-row__state)"
+    ],
+    "keyboard": "行可聚焦查看通行照片；扣款失败以 alert 语义播报。",
+    "guidance": [
+      "入口与出口以箭头连接展示。",
+      "费用等宽并附 ETC 标识。",
+      "扣款失败红色补扣入口。"
+    ],
+    "preview": "<div class=\"ds-toll-row is-failed\" tabindex=\"0\" role=\"button\" aria-label=\"高速通行，杭州南 至 绍兴，2026-06-07 18:42，费用 32.5 元，扣款失败\"><span class=\"ds-toll-row__route\">杭州南 → 绍兴</span><span class=\"ds-toll-row__time\">06-07 18:42</span><span class=\"ds-toll-row__fee\">¥32.50</span><span class=\"ds-toll-row__state is-failed\">扣款失败</span></div>",
+    "checks": [
+      "箭头连接路线",
+      "ETC 标识",
+      "失败补扣",
+      "通行照片"
+    ],
+    "react": "<TollBillRow from=\"杭州南\" to=\"绍兴\" time=\"06-07 18:42\" fee={32.5} state=\"failed\" />"
+  },
+  {
+    "id": "car-carwash",
+    "name": "洗车预约卡",
+    "category": "汽车 / 用车服务",
+    "status": "v3 新增",
+    "purpose": "展示一次洗车预约的门店、时间与服务类型。",
+    "anatomy": [
+      "门店 (ds-carwash__shop)",
+      "时间 (ds-carwash__time)",
+      "服务 (ds-carwash__service)",
+      "状态 (ds-carwash__state)"
+    ],
+    "keyboard": "卡片可聚焦取消或修改预约；已取消状态置灰。",
+    "guidance": [
+      "服务类型以徽标展示。",
+      "状态用文字不只颜色。",
+      "临近预约时间黄色提醒。"
+    ],
+    "preview": "<article class=\"ds-carwash is-confirmed\" tabindex=\"0\" role=\"button\" aria-label=\"洗车预约，车洁士城西店，2026-06-10 14:00，精洗打蜡，已确认\"><div class=\"ds-carwash__head\"><strong class=\"ds-carwash__shop\">车洁士城西店</strong><span class=\"ds-carwash__state is-confirmed\">已确认</span></div><p class=\"ds-carwash__time\">2026-06-10 14:00</p><span class=\"ds-carwash__service\">精洗打蜡</span></article>",
+    "checks": [
+      "服务徽标",
+      "状态文字",
+      "临近提醒",
+      "取消改约"
+    ],
+    "react": "<CarWashBookingCard shop=\"车洁士城西店\" time=\"2026-06-10 14:00\" service=\"精洗打蜡\" state=\"confirmed\" />"
+  },
+  {
+    "id": "car-plate",
+    "name": "车牌徽标",
+    "category": "汽车 / 用车服务",
+    "status": "v3 新增",
+    "purpose": "以标准车牌样式展示车牌号码与能源类型。",
+    "anatomy": [
+      "省份简称",
+      "号码 (ds-plate__no)",
+      "新能源标识 (ds-plate__ev)",
+      "复制按钮"
+    ],
+    "keyboard": "徽标可聚焦复制号码；复制成功以 status 语义播报。",
+    "guidance": [
+      "燃油车蓝牌、新能源绿牌。",
+      "号码等宽大字展示。",
+      "点击徽标可复制号码。"
+    ],
+    "preview": "<button type=\"button\" class=\"ds-plate is-ev\" aria-label=\"新能源车牌 浙A·D12345，点击复制\"><span class=\"ds-plate__no\">浙A·D12345</span><span class=\"ds-plate__ev\">新能源</span></button>",
+    "checks": [
+      "蓝绿牌区分",
+      "号码等宽大字",
+      "点击复制",
+      "复制播报"
+    ],
+    "react": "<LicensePlateBadge no=\"浙A·D12345\" ev />"
+  },
+  {
+    "id": "car-mileage-summary",
+    "name": "里程统计卡",
+    "category": "汽车 / 用车服务",
+    "status": "v3 新增",
+    "purpose": "展示本月行驶里程与平均油耗统计。",
+    "anatomy": [
+      "月里程 (ds-mileage-summary__mileage)",
+      "平均油耗 (ds-mileage-summary__consumption)",
+      "环比 (ds-mileage-summary__cmp)",
+      "对比条 (ds-mileage-summary__bar)"
+    ],
+    "keyboard": "卡片可聚焦查看历史趋势；油耗高于上月以 status 语义播报。",
+    "guidance": [
+      "月里程为主视觉数字。",
+      "油耗以百公里升数展示。",
+      "环比以箭头加数字呈现。"
+    ],
+    "preview": "<article class=\"ds-mileage-summary\" tabindex=\"0\" role=\"img\" aria-label=\"里程统计，本月行驶 1,286 公里，平均油耗 7.4 升每百公里，较上月下降 3%\"><strong class=\"ds-mileage-summary__mileage\">1,286<small>km</small></strong><div class=\"ds-mileage-summary__bar\" aria-hidden=\"true\"><i style=\"width:74%\"></i></div><span class=\"ds-mileage-summary__consumption\">平均油耗 7.4 L/100km</span><span class=\"ds-mileage-summary__cmp is-down\">↓ 3%</span></article>",
+    "checks": [
+      "里程主数字",
+      "百公里油耗",
+      "环比箭头",
+      "历史趋势"
+    ],
+    "react": "<MileageSummaryCard mileage={1286} consumption={7.4} compare={-3} />"
+  },
+  {
+    "id": "car-violation-row",
+    "name": "违章记录行",
+    "category": "汽车 / 用车服务",
+    "status": "v3 新增",
+    "purpose": "展示一条交通违章记录的时间、地点与处罚信息。",
+    "anatomy": [
+      "时间 (ds-violation-row__time)",
+      "地点 (ds-violation-row__place)",
+      "行为 (ds-violation-row__act)",
+      "罚款 (ds-violation-row__fine)",
+      "状态 (ds-violation-row__state)"
+    ],
+    "keyboard": "行可聚焦查看详情与申诉入口；未处理以 alert 语义播报。",
+    "guidance": [
+      "未处理红色、已缴清绿色。",
+      "罚款金额等宽展示。",
+      "提供申诉入口。"
+    ],
+    "preview": "<div class=\"ds-violation-row is-unpaid\" tabindex=\"0\" role=\"button\" aria-label=\"违章记录，2026-05-30 09:15，文一西路拥堵路段，违反禁止标线，罚款 100 元记 1 分，未处理\"><span class=\"ds-violation-row__time\">05-30 09:15</span><span class=\"ds-violation-row__place\">文一西路</span><span class=\"ds-violation-row__act\">违反禁止标线</span><span class=\"ds-violation-row__fine\">罚 100 · 记 1 分</span><span class=\"ds-violation-row__state is-unpaid\">未处理</span></div>",
+    "checks": [
+      "未处理红色",
+      "罚款等宽",
+      "申诉入口",
+      "详情查看"
+    ],
+    "react": "<ViolationRecordRow time=\"05-30 09:15\" place=\"文一西路\" act=\"违反禁止标线\" fine={100} points={1} state=\"unpaid\" />"
+  },
+  {
+    "id": "car-roadside",
+    "name": "道路救援卡",
+    "category": "汽车 / 用车服务",
+    "status": "v3 新增",
+    "purpose": "展示一次道路救援请求的类型、位置与响应状态。",
+    "anatomy": [
+      "救援类型 (ds-roadside__type)",
+      "位置 (ds-roadside__location)",
+      "预计到达 (ds-roadside__eta)",
+      "状态 (ds-roadside__state)"
+    ],
+    "keyboard": "卡片可聚焦联系救援人员；进行中以 status 语义播报。",
+    "guidance": [
+      "状态用文字不只颜色。",
+      "预计到达时间明确展示。",
+      "提供取消与催单入口。"
+    ],
+    "preview": "<article class=\"ds-roadside is-coming\" tabindex=\"0\" role=\"status\" aria-label=\"道路救援，搭电服务，位置 环城北路祥符桥段，预计 18 分钟到达，救援中\"><div class=\"ds-roadside__head\"><strong class=\"ds-roadside__type\">搭电服务</strong><span class=\"ds-roadside__state is-coming\">救援中</span></div><p class=\"ds-roadside__location\">环城北路祥符桥段</p><span class=\"ds-roadside__eta\">预计 18 分钟到达</span></article>",
+    "checks": [
+      "状态文字",
+      "预计到达",
+      "催单取消",
+      "联系救援"
+    ],
+    "react": "<RoadsideAssistanceCard type=\"搭电服务\" location=\"环城北路祥符桥段\" eta={18} state=\"coming\" />"
   }
 ]

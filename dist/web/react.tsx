@@ -17712,3 +17712,109 @@ export function AidReliefCard({ item, dest, eta, state }: { item: string; dest: 
     <p className="ds-aid-card__dest">发往 {dest}{eta ? ' · 预计 ' + eta + ' 抵达' : ''}</p>
   </article>;
 }
+
+export function FuelLogRow({ date, liters, amount, station }: { date: string; liters: number; amount: number; station: string }) {
+  const price = liters ? amount / liters : 0;
+  return <div className="ds-fuel-log" tabIndex={0} role="button" aria-label={'加油记录，' + date + '，' + liters + ' 升，金额 ' + amount.toFixed(2) + ' 元，单价 ' + price.toFixed(2) + ' 元每升，' + station}>
+    <span className="ds-fuel-log__date">{date}</span>
+    <span className="ds-fuel-log__liters">{liters} L</span>
+    <span className="ds-fuel-log__amount">¥{amount.toFixed(2)}</span>
+    <span className="ds-fuel-log__price">{price.toFixed(2)} 元/L</span>
+    <span className="ds-fuel-log__station">{station}</span>
+  </div>;
+}
+
+export function MaintenanceReminderCard({ item, mileageLeft, dueDays, state }: { item: string; mileageLeft: number; dueDays: number; state: 'normal' | 'due' | 'overdue' }) {
+  const stateText = { normal: '正常', due: '临期', overdue: '超期' };
+  return <article className={'ds-maint-remind is-' + state} tabIndex={0} role="button" aria-label={'保养提醒，' + item + '，剩余里程 ' + mileageLeft + ' 公里，' + dueDays + ' 天内到期，' + stateText[state]}>
+    <div className="ds-maint-remind__head">
+      <strong className="ds-maint-remind__item">{item}</strong>
+      <span className={'ds-maint-remind__state is-' + state}>{stateText[state]}</span>
+    </div>
+    <p className="ds-maint-remind__mileage">剩余里程 {mileageLeft} km</p>
+    <p className="ds-maint-remind__due">{dueDays} 天内到期</p>
+  </article>;
+}
+
+export function AnnualInspectionCard({ plate, due, left }: { plate: string; due: string; left: number }) {
+  const level = left <= 30 ? 'urgent' : left <= 60 ? 'soon' : 'normal';
+  const levelText = { urgent: '紧急', soon: '临期', normal: '已通过' };
+  const stateCls = level === 'normal' ? 'is-done' : 'is-' + level;
+  return <article className={'ds-inspection ' + stateCls} tabIndex={0} role="button" aria-label={'年检提醒，车牌 ' + plate + '，到期日 ' + due + '，剩余 ' + left + ' 天，' + levelText[level]}>
+    <strong className="ds-inspection__plate">{plate}</strong>
+    <p className="ds-inspection__due">到期日 {due}</p>
+    <strong className="ds-inspection__left">剩余 {left} 天</strong>
+    <span className={'ds-inspection__state ' + stateCls}>{levelText[level]}</span>
+  </article>;
+}
+
+export function ParkingSessionRow({ lot, duration, fee, state }: { lot: string; duration: string; fee: number; state: 'paid' | 'free' | 'owed' }) {
+  const stateText = { paid: '已缴费', free: '免费时段', owed: '欠费' };
+  return <div className={'ds-parking-session is-' + state} tabIndex={0} role="button" aria-label={'停车记录，' + lot + '，' + duration + '，费用 ' + fee.toFixed(2) + ' 元，' + stateText[state]}>
+    <span className="ds-parking-session__lot">{lot}</span>
+    <span className="ds-parking-session__duration">{duration}</span>
+    <span className="ds-parking-session__fee">¥{fee.toFixed(2)}</span>
+    <span className={'ds-parking-session__state is-' + state}>{stateText[state]}</span>
+  </div>;
+}
+
+export function TollBillRow({ from, to, time, fee, state }: { from: string; to: string; time: string; fee: number; state: 'paid' | 'failed' }) {
+  const stateText = { paid: '已扣款', failed: '扣款失败' };
+  return <div className={'ds-toll-row is-' + state} tabIndex={0} role="button" aria-label={'高速通行，' + from + ' 至 ' + to + '，' + time + '，费用 ' + fee.toFixed(2) + ' 元，' + stateText[state]}>
+    <span className="ds-toll-row__route">{from} → {to}</span>
+    <span className="ds-toll-row__time">{time}</span>
+    <span className="ds-toll-row__fee">¥{fee.toFixed(2)}</span>
+    <span className={'ds-toll-row__state is-' + state}>{stateText[state]}</span>
+  </div>;
+}
+
+export function CarWashBookingCard({ shop, time, service, state }: { shop: string; time: string; service: string; state: 'pending' | 'confirmed' | 'cancelled' }) {
+  const stateText = { pending: '待确认', confirmed: '已确认', cancelled: '已取消' };
+  return <article className={'ds-carwash is-' + state} tabIndex={0} role="button" aria-label={'洗车预约，' + shop + '，' + time + '，' + service + '，' + stateText[state]}>
+    <div className="ds-carwash__head">
+      <strong className="ds-carwash__shop">{shop}</strong>
+      <span className={'ds-carwash__state is-' + state}>{stateText[state]}</span>
+    </div>
+    <p className="ds-carwash__time">{time}</p>
+    <span className="ds-carwash__service">{service}</span>
+  </article>;
+}
+
+export function LicensePlateBadge({ no, ev }: { no: string; ev?: boolean }) {
+  return <button type="button" className={'ds-plate' + (ev ? ' is-ev' : '')} aria-label={(ev ? '新能源车牌 ' : '车牌 ') + no + '，点击复制'}>
+    <span className="ds-plate__no">{no}</span>
+    {ev ? <span className="ds-plate__ev">新能源</span> : null}
+  </button>;
+}
+
+export function MileageSummaryCard({ mileage, consumption, compare }: { mileage: number; consumption: number; compare?: number }) {
+  return <article className="ds-mileage-summary" tabIndex={0} role="img" aria-label={'里程统计，本月行驶 ' + mileage.toLocaleString() + ' 公里，平均油耗 ' + consumption + ' 升每百公里' + (compare !== undefined ? '，较上月 ' + (compare >= 0 ? '上升 ' : '下降 ') + Math.abs(compare) + '%' : '')}>
+    <strong className="ds-mileage-summary__mileage">{mileage.toLocaleString()}<small> km</small></strong>
+    <div className="ds-mileage-summary__bar" aria-hidden="true"><i style={{ width: '74%' }} /></div>
+    <span className="ds-mileage-summary__consumption">平均油耗 {consumption} L/100km</span>
+    {compare !== undefined ? <span className={'ds-mileage-summary__cmp ' + (compare >= 0 ? 'is-up' : 'is-down')}>{compare >= 0 ? '↑ ' + compare + '%' : '↓ ' + Math.abs(compare) + '%'}</span> : null}
+  </article>;
+}
+
+export function ViolationRecordRow({ time, place, act, fine, points, state }: { time: string; place: string; act: string; fine: number; points?: number; state: 'paid' | 'unpaid' }) {
+  const stateText = { paid: '已缴清', unpaid: '未处理' };
+  return <div className={'ds-violation-row is-' + state} tabIndex={0} role="button" aria-label={'违章记录，' + time + '，' + place + '，' + act + '，罚款 ' + fine + ' 元' + (points ? ' 记 ' + points + ' 分' : '') + '，' + stateText[state]}>
+    <span className="ds-violation-row__time">{time}</span>
+    <span className="ds-violation-row__place">{place}</span>
+    <span className="ds-violation-row__act">{act}</span>
+    <span className="ds-violation-row__fine">罚 {fine}{points ? ' · 记 ' + points + ' 分' : ''}</span>
+    <span className={'ds-violation-row__state is-' + state}>{stateText[state]}</span>
+  </div>;
+}
+
+export function RoadsideAssistanceCard({ type, location, eta, state }: { type: string; location: string; eta: number; state: 'waiting' | 'coming' | 'done' }) {
+  const stateText = { waiting: '等待派单', coming: '救援中', done: '已完成' };
+  return <article className={'ds-roadside is-' + state} tabIndex={0} role="status" aria-label={'道路救援，' + type + '，位置 ' + location + '，预计 ' + eta + ' 分钟到达，' + stateText[state]}>
+    <div className="ds-roadside__head">
+      <strong className="ds-roadside__type">{type}</strong>
+      <span className={'ds-roadside__state is-' + state}>{stateText[state]}</span>
+    </div>
+    <p className="ds-roadside__location">{location}</p>
+    <span className="ds-roadside__eta">预计 {eta} 分钟到达</span>
+  </article>;
+}
