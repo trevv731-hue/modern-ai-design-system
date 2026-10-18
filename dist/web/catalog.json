@@ -13879,5 +13879,286 @@
       "可关闭并反馈"
     ],
     "react": "<RiskBanner title=\"检测到异常登录\" detail=\"陌生设备在柏林尝试登录你的账号，已被拦截\" onHandle={fix} />"
+  },
+  {
+    "id": "files-grid-item",
+    "name": "文件网格项",
+    "category": "文件",
+    "status": "v3 新增",
+    "purpose": "在网格视图中展示文件缩略、名称与元信息，支持多选与快捷操作。",
+    "anatomy": [
+      "缩略图 (ds-file-grid__thumb)",
+      "文件类型图标",
+      "名称",
+      "修改时间",
+      "多选框"
+    ],
+    "keyboard": "Tab 聚焦；空格多选；Enter 打开；方向键在网格中移动。",
+    "guidance": [
+      "多选态有明确边框与勾选标记。",
+      "名称超长省略并保留扩展名。",
+      "图片类型展示真实缩略，其他类型用类型图标。"
+    ],
+    "preview": "<div class=\"ds-file-grid__item\" tabindex=\"0\" role=\"button\" aria-pressed=\"false\"><span class=\"ds-file-grid__thumb\" aria-hidden=\"true\">🖼️</span><strong>发布会主视觉.png</strong><span>2.4 MB · 昨天 14:02</span></div>",
+    "checks": [
+      "多选态有边框加勾选",
+      "名称省略保留扩展名",
+      "图片展示真实缩略",
+      "空格多选且 Enter 打开"
+    ],
+    "react": "<FileGridItem name=\"发布会主视觉.png\" meta=\"2.4 MB · 昨天 14:02\" type=\"image\" selected={selected} onToggle={toggle} />"
+  },
+  {
+    "id": "files-list-row",
+    "name": "文件列表行",
+    "category": "文件",
+    "status": "v3 新增",
+    "purpose": "在列表视图中按列展示文件属性，支持排序与批量操作。",
+    "anatomy": [
+      "类型图标 (ds-file-row__icon)",
+      "名称",
+      "大小",
+      "修改时间",
+      "所有者",
+      "更多操作"
+    ],
+    "keyboard": "行可聚焦；表头排序按钮可键盘操作。",
+    "guidance": [
+      "排序列在表头标注当前方向。",
+      "更多操作使用菜单而非裸按钮组。",
+      "批量选择时显示已选数量与批量操作栏。"
+    ],
+    "preview": "<div class=\"ds-file-row\" tabindex=\"0\" role=\"row\"><span class=\"ds-file-row__icon\" aria-hidden=\"true\">📄</span><span class=\"ds-file-row__name\">Q4 规划.docx</span><span class=\"ds-file-row__size\">186 KB</span><time>10-16 09:31</time><span class=\"ds-file-row__owner\">林晓</span><button type=\"button\" aria-label=\"更多操作\">⋯</button></div>",
+    "checks": [
+      "排序列标注方向",
+      "更多操作用菜单",
+      "批量操作栏显示数量",
+      "行可键盘聚焦"
+    ],
+    "react": "<FileListRow name=\"Q4 规划.docx\" size=\"186 KB\" modified=\"10-16 09:31\" owner=\"林晓\" />"
+  },
+  {
+    "id": "files-path-crumb",
+    "name": "路径面包屑",
+    "category": "文件",
+    "status": "v3 新增",
+    "purpose": "展示当前文件所在目录层级，支持逐级跳转。",
+    "anatomy": [
+      "根目录 (ds-path-crumb__item)",
+      "层级分隔",
+      "当前目录",
+      "溢出折叠"
+    ],
+    "keyboard": "Tab 遍历各级链接；溢出折叠可展开。",
+    "guidance": [
+      "层级过深时中间目录折叠为“…”并可展开。",
+      "当前目录为纯文本不提供链接。",
+      "分隔符用 aria-hidden 隐藏避免朗读干扰。"
+    ],
+    "preview": "<nav class=\"ds-path-crumb\" aria-label=\"文件路径\"><a href=\"#\">我的云盘</a><span aria-hidden=\"true\">/</span><a href=\"#\">项目资料</a><span aria-hidden=\"true\">/</span><button type=\"button\" aria-label=\"展开隐藏目录\">…</button><span aria-hidden=\"true\">/</span><span class=\"ds-path-crumb__item is-current\" aria-current=\"page\">2026 发布</span></nav>",
+    "checks": [
+      "深层级折叠可展开",
+      "当前目录为纯文本",
+      "分隔符 aria-hidden",
+      "各级链接可键盘到达"
+    ],
+    "react": "<PathCrumb segments={[\"我的云盘\", \"项目资料\", \"2026 发布\"]} current=\"2026 发布\" />"
+  },
+  {
+    "id": "files-upload-queue",
+    "name": "上传队列",
+    "category": "文件",
+    "status": "v3 新增",
+    "purpose": "展示批量上传的进度、失败原因与重试入口。",
+    "anatomy": [
+      "文件项 (ds-upload-q__item)",
+      "进度条",
+      "百分比",
+      "状态标记",
+      "取消与重试"
+    ],
+    "keyboard": "Tab 遍历取消与重试按钮；进度通过 live region 播报。",
+    "guidance": [
+      "失败项给出具体原因，如“文件超过 2 GB”。",
+      "全部完成后队列自动收起并给出汇总。",
+      "上传中允许取消单文件。"
+    ],
+    "preview": "<div class=\"ds-upload-q\" role=\"group\" aria-label=\"上传队列\"><div class=\"ds-upload-q__item is-done\"><span class=\"ds-upload-q__name\">设计稿-v3.fig</span><span class=\"ds-upload-q__bar\" aria-hidden=\"true\"><i style=\"width:100%\"></i></span><span class=\"ds-upload-q__state\">已完成</span></div><div class=\"ds-upload-q__item\"><span class=\"ds-upload-q__name\">宣传片.mp4</span><span class=\"ds-upload-q__bar\" aria-hidden=\"true\"><i style=\"width:62%\"></i></span><span class=\"ds-upload-q__state\">62%</span><button type=\"button\" aria-label=\"取消上传\">✕</button></div><div class=\"ds-upload-q__item is-error\"><span class=\"ds-upload-q__name\">备份.zip</span><span class=\"ds-upload-q__state\">文件超过 2 GB</span><button type=\"button\">重试</button></div></div>",
+    "checks": [
+      "失败项有具体原因",
+      "完成后给出汇总",
+      "可取消单文件",
+      "进度有 live region 播报"
+    ],
+    "react": "<UploadQueue items={[{ name: \"设计稿-v3.fig\", progress: 100, state: \"done\" }, { name: \"宣传片.mp4\", progress: 62 }]} />"
+  },
+  {
+    "id": "files-drop-zone",
+    "name": "拖放上传区",
+    "category": "文件",
+    "status": "v3 新增",
+    "purpose": "提供显式的拖放目标区域，并在拖拽悬停时给出明确反馈。",
+    "anatomy": [
+      "区域外壳 (ds-file-drop)",
+      "图标",
+      "提示文案",
+      "文件选择按钮",
+      "悬停态"
+    ],
+    "keyboard": "区域内提供“选择文件”按钮作为键盘等价路径。",
+    "guidance": [
+      "悬停时高亮边框并说明可松开鼠标。",
+      "说明支持的格式与大小上限。",
+      "拖入不支持格式时给出明确拒绝提示。"
+    ],
+    "preview": "<div class=\"ds-file-drop\" role=\"region\" aria-label=\"拖放上传区\"><span class=\"ds-file-drop__icon\" aria-hidden=\"true\">📥</span><p>松开鼠标上传文件</p><small>支持 PNG / JPG / PDF，单个文件最大 2 GB</small><button type=\"button\">选择文件</button></div>",
+    "checks": [
+      "悬停高亮加文字说明",
+      "格式与大小上限可见",
+      "提供选择文件按钮",
+      "拒绝格式有明确提示"
+    ],
+    "react": "<FileDropZone accept=\"PNG / JPG / PDF\" maxSize=\"2 GB\" onDrop={handleFiles} />"
+  },
+  {
+    "id": "files-preview-toolbar",
+    "name": "预览工具栏",
+    "category": "文件",
+    "status": "v3 新增",
+    "purpose": "在文件预览顶部提供缩放、旋转、翻页与下载操作。",
+    "anatomy": [
+      "工具组 (ds-preview-bar)",
+      "缩放控制",
+      "旋转",
+      "翻页",
+      "下载",
+      "关闭"
+    ],
+    "keyboard": "Tab 遍历工具按钮；Esc 关闭预览。",
+    "guidance": [
+      "翻页控件显示当前页与总页数。",
+      "缩放提供百分比读数与重置。",
+      "不支持的操作用禁用态并说明原因。"
+    ],
+    "preview": "<div class=\"ds-preview-bar\" role=\"toolbar\" aria-label=\"预览工具栏\"><button type=\"button\" aria-label=\"缩小\">−</button><span class=\"ds-preview-bar__zoom\">100%</span><button type=\"button\" aria-label=\"放大\">＋</button><button type=\"button\" aria-label=\"重置缩放\">⤾</button><span class=\"ds-preview-bar__sep\" aria-hidden=\"true\"></span><button type=\"button\" aria-label=\"上一页\">‹</button><span class=\"ds-preview-bar__page\">3 / 12</span><button type=\"button\" aria-label=\"下一页\">›</button><span class=\"ds-preview-bar__sep\" aria-hidden=\"true\"></span><button type=\"button\" aria-label=\"下载\">⬇</button><button type=\"button\" aria-label=\"关闭预览\">✕</button></div>",
+    "checks": [
+      "翻页显示当前与总页",
+      "缩放有百分比读数",
+      "禁用操作有原因说明",
+      "toolbar 语义与 Esc 关闭"
+    ],
+    "react": "<PreviewToolbar zoom=\"100%\" page={3} total={12} onZoomIn={zoomIn} onZoomOut={zoomOut} />"
+  },
+  {
+    "id": "files-share-dialog",
+    "name": "分享设置弹窗",
+    "category": "文件",
+    "status": "v3 新增",
+    "purpose": "设置文件或文件夹的共享范围、链接权限与有效期。",
+    "anatomy": [
+      "权限选择 (ds-share-dialog__scope)",
+      "链接开关",
+      "有效期",
+      "协作者列表",
+      "复制链接"
+    ],
+    "keyboard": "弹窗内 Tab 循环；Esc 关闭；焦点初始落在主操作。",
+    "guidance": [
+      "公开链接默认关闭，开启前给出风险提示。",
+      "有效期到期后链接自动失效并说明。",
+      "协作者支持移除且移除即时生效。"
+    ],
+    "preview": "<div class=\"ds-share-dialog\" role=\"dialog\" aria-modal=\"true\" aria-label=\"分享设置\"><h3>分享「发布物料」</h3><div class=\"ds-share-dialog__scope\" role=\"radiogroup\" aria-label=\"访问范围\"><label><input type=\"radio\" name=\"scope\" checked><strong>指定人可见</strong><small>仅受邀协作者可访问</small></label><label><input type=\"radio\" name=\"scope\"><strong>任何人可查看</strong><small>获取链接的人均可查看</small></label></div><div class=\"ds-share-dialog__row\"><strong>链接有效期</strong><select><option>7 天</option><option>30 天</option><option>永久有效</option></select></div><div class=\"ds-share-dialog__actions\"><button type=\"button\">复制链接</button><button type=\"button\" class=\"is-primary\">完成</button></div></div>",
+    "checks": [
+      "公开链接默认关闭并提示",
+      "有效期到期自动失效",
+      "协作者可移除",
+      "焦点初始落在主操作"
+    ],
+    "react": "<ShareDialog title=\"发布物料\" scope=\"restricted\" expiry=\"7 天\" onCopyLink={copy} onDone={done} />"
+  },
+  {
+    "id": "files-version-history",
+    "name": "版本历史列表",
+    "category": "文件",
+    "status": "v3 新增",
+    "purpose": "展示文件的历史版本，支持预览、恢复与删除。",
+    "anatomy": [
+      "版本项 (ds-ver-hist__item)",
+      "版本号",
+      "修改者与时间",
+      "变更摘要",
+      "当前标记",
+      "操作"
+    ],
+    "keyboard": "列表语义朗读；恢复操作需确认。",
+    "guidance": [
+      "当前版本明确标注且不可删除。",
+      "恢复历史版本前说明将创建新版本。",
+      "变更摘要展示具体改动行数或文件数。"
+    ],
+    "preview": "<div class=\"ds-ver-hist\" role=\"list\" aria-label=\"版本历史\"><div class=\"ds-ver-hist__item is-current\" role=\"listitem\"><strong>v12 · 当前</strong><span>林晓 · 10-16 14:02 · 更新 3 处</span><div class=\"ds-ver-hist__actions\"><button type=\"button\">预览</button></div></div><div class=\"ds-ver-hist__item\" role=\"listitem\"><strong>v11</strong><span>陈默 · 10-15 18:44 · 更新 1 处</span><div class=\"ds-ver-hist__actions\"><button type=\"button\">预览</button><button type=\"button\">恢复</button></div></div></div>",
+    "checks": [
+      "当前版本标注不可删",
+      "恢复说明将建新版本",
+      "变更摘要具体",
+      "列表语义正确"
+    ],
+    "react": "<VersionHistory versions={[{ id: \"v12\", author: \"林晓\", time: \"10-16 14:02\", summary: \"更新 3 处\", current: true }]} />"
+  },
+  {
+    "id": "files-storage-meter",
+    "name": "存储用量条",
+    "category": "文件",
+    "status": "v3 新增",
+    "purpose": "展示云盘空间的总量、已用与分类构成，引导清理或升级。",
+    "anatomy": [
+      "分段条 (ds-storage-meter__seg)",
+      "分类图例",
+      "已用与总量",
+      "升级入口"
+    ],
+    "keyboard": "分段使用 progressbar 语义并带文字读数。",
+    "guidance": [
+      "接近上限时提前预警。",
+      "分类构成可点击跳转到对应目录。",
+      "升级入口只在超限或接近超限时强提示。"
+    ],
+    "preview": "<div class=\"ds-storage-meter\" role=\"group\" aria-label=\"存储用量\"><div class=\"ds-storage-meter__bar\" role=\"progressbar\" aria-valuenow=\"78\" aria-valuemin=\"0\" aria-valuemax=\"100\" aria-label=\"已用 78%\"><i class=\"is-doc\" style=\"width:32%\"></i><i class=\"is-img\" style=\"width:28%\"></i><i class=\"is-video\" style=\"width:18%\"></i></div><div class=\"ds-storage-meter__legend\"><span><i class=\"is-doc\"></i>文档 156 GB</span><span><i class=\"is-img\"></i>图片 137 GB</span><span><i class=\"is-video\"></i>视频 88 GB</span></div><p class=\"ds-storage-meter__note\">已用 381 GB / 500 GB · 空间充足</p></div>",
+    "checks": [
+      "progressbar 语义正确",
+      "接近上限提前预警",
+      "分类可跳转目录",
+      "文字读数可见"
+    ],
+    "react": "<StorageMeter used=\"381 GB\" total=\"500 GB\" segments={[{ label: \"文档\", size: \"156 GB\", kind: \"doc\", percent: 32 }]} />"
+  },
+  {
+    "id": "files-trash-row",
+    "name": "回收站行",
+    "category": "文件",
+    "status": "v3 新增",
+    "purpose": "展示已删除文件、剩余保留天数与恢复或彻底删除操作。",
+    "anatomy": [
+      "文件图标 (ds-trash-row__icon)",
+      "名称",
+      "原位置",
+      "剩余天数",
+      "恢复与删除"
+    ],
+    "keyboard": "行内操作可 Tab 到达；彻底删除需二次确认。",
+    "guidance": [
+      "剩余天数用倒计时文案，如“14 天后清除”。",
+      "恢复时说明将回到原位置。",
+      "彻底删除前明确提示不可恢复。"
+    ],
+    "preview": "<div class=\"ds-trash-row\" role=\"row\"><span class=\"ds-trash-row__icon\" aria-hidden=\"true\">🗑️</span><div class=\"ds-trash-row__info\"><strong>旧版方案.pdf</strong><span>原位置：项目资料 / 归档</span></div><span class=\"ds-trash-row__left\">14 天后清除</span><button type=\"button\">恢复</button><button type=\"button\">彻底删除</button></div>",
+    "checks": [
+      "剩余天数为倒计时文案",
+      "恢复说明原位置",
+      "彻底删除需确认",
+      "行内操作可键盘到达"
+    ],
+    "react": "<TrashRow name=\"旧版方案.pdf\" origin=\"项目资料 / 归档\" daysLeft={14} onRestore={restore} onPurge={purge} />"
   }
 ]

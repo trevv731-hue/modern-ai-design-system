@@ -13990,3 +13990,129 @@ export function RiskBanner({ title, detail, onHandle }: { title: string; detail:
     <button type="button" aria-label="关闭提示">✕</button>
   </div>;
 }
+
+export function FileGridItem({ name, meta, type = 'file', selected, onToggle, onOpen }:
+  { name: string; meta: string; type?: string; selected?: boolean; onToggle?: () => void; onOpen?: () => void }) {
+  const icon = type === 'image' ? '🖼️' : type === 'video' ? '🎬' : type === 'audio' ? '🎵' : type === 'doc' ? '📄' : '📁';
+  return <div className="ds-file-grid__item" role="button" tabIndex={0} aria-pressed={!!selected}
+    onClick={onOpen} onKeyDown={event => { if (event.key === 'Enter') onOpen?.(); if (event.key === ' ') { event.preventDefault(); onToggle?.(); } }}>
+    <span className="ds-file-grid__thumb" aria-hidden="true">{icon}</span>
+    <strong>{name}</strong>
+    <span>{meta}</span>
+  </div>;
+}
+
+export function FileListRow({ name, size, modified, owner }: { name: string; size: string; modified: string; owner: string }) {
+  return <div className="ds-file-row" role="row" tabIndex={0}>
+    <span className="ds-file-row__icon" aria-hidden="true">📄</span>
+    <span className="ds-file-row__name">{name}</span>
+    <span className="ds-file-row__size">{size}</span>
+    <time>{modified}</time>
+    <span className="ds-file-row__owner">{owner}</span>
+    <button type="button" aria-label="更多操作">⋯</button>
+  </div>;
+}
+
+export function PathCrumb({ segments, current }: { segments: string[]; current: string }) {
+  return <nav className="ds-path-crumb" aria-label="文件路径">
+    {segments.map(segment => <React.Fragment key={segment}>
+      <a href="#">{segment}</a><span aria-hidden="true">/</span>
+    </React.Fragment>)}
+    <span className="ds-path-crumb__item is-current" aria-current="page">{current}</span>
+  </nav>;
+}
+
+export function UploadQueue({ items }: { items: { name: string; progress: number; state?: 'done' | 'error' | 'uploading'; error?: string }[] }) {
+  return <div className="ds-upload-q" role="group" aria-label="上传队列">
+    {items.map(item => <div key={item.name}
+      className={'ds-upload-q__item' + (item.state === 'done' ? ' is-done' : item.state === 'error' ? ' is-error' : '')}>
+      <span className="ds-upload-q__name">{item.name}</span>
+      {item.state !== 'error' && <span className="ds-upload-q__bar" aria-hidden="true"><i style={{ width: item.progress + '%' }} /></span>}
+      <span className="ds-upload-q__state">{item.error || (item.state === 'done' ? '已完成' : item.progress + '%')}</span>
+      {item.state === 'uploading' && <button type="button" aria-label="取消上传">✕</button>}
+      {item.state === 'error' && <button type="button">重试</button>}
+    </div>)}
+  </div>;
+}
+
+export function FileDropZone({ accept, maxSize, onDrop }: { accept: string; maxSize: string; onDrop?: () => void }) {
+  return <div className="ds-file-drop" role="region" aria-label="拖放上传区" onDrop={onDrop}>
+    <span className="ds-file-drop__icon" aria-hidden="true">📥</span>
+    <p>松开鼠标上传文件</p>
+    <small>支持 {accept}，单个文件最大 {maxSize}</small>
+    <button type="button">选择文件</button>
+  </div>;
+}
+
+export function PreviewToolbar({ zoom, page, total, onZoomIn, onZoomOut }: { zoom: string; page: number; total: number; onZoomIn?: () => void; onZoomOut?: () => void }) {
+  return <div className="ds-preview-bar" role="toolbar" aria-label="预览工具栏">
+    <button type="button" aria-label="缩小" onClick={onZoomOut}>−</button>
+    <span className="ds-preview-bar__zoom">{zoom}</span>
+    <button type="button" aria-label="放大" onClick={onZoomIn}>＋</button>
+    <button type="button" aria-label="重置缩放">⤾</button>
+    <span className="ds-preview-bar__sep" aria-hidden="true"></span>
+    <button type="button" aria-label="上一页">‹</button>
+    <span className="ds-preview-bar__page">{page} / {total}</span>
+    <button type="button" aria-label="下一页">›</button>
+    <span className="ds-preview-bar__sep" aria-hidden="true"></span>
+    <button type="button" aria-label="下载">⬇</button>
+    <button type="button" aria-label="关闭预览">✕</button>
+  </div>;
+}
+
+export function ShareDialog({ title, scope = 'restricted', expiry, onCopyLink, onDone }:
+  { title: string; scope?: string; expiry?: string; onCopyLink?: () => void; onDone?: () => void }) {
+  return <div className="ds-share-dialog" role="dialog" aria-modal="true" aria-label="分享设置">
+    <h3>分享「{title}」</h3>
+    <div className="ds-share-dialog__scope" role="radiogroup" aria-label="访问范围">
+      <label><input type="radio" name="scope" defaultChecked={scope === 'restricted'} /><span><strong>指定人可见</strong><small>仅受邀协作者可访问</small></span></label>
+      <label><input type="radio" name="scope" defaultChecked={scope === 'public'} /><span><strong>任何人可查看</strong><small>获取链接的人均可查看</small></span></label>
+    </div>
+    <div className="ds-share-dialog__row"><strong>链接有效期</strong>
+      <select defaultValue={expiry}><option>7 天</option><option>30 天</option><option>永久有效</option></select>
+    </div>
+    <div className="ds-share-dialog__actions">
+      <button type="button" onClick={onCopyLink}>复制链接</button>
+      <button type="button" className="is-primary" onClick={onDone}>完成</button>
+    </div>
+  </div>;
+}
+
+export function VersionHistory({ versions }: { versions: { id: string; author: string; time: string; summary: string; current?: boolean }[] }) {
+  return <div className="ds-ver-hist" role="list" aria-label="版本历史">
+    {versions.map(version => <div key={version.id} role="listitem"
+      className={'ds-ver-hist__item' + (version.current ? ' is-current' : '')}>
+      <div>
+        <strong>{version.id}{version.current ? ' · 当前' : ''}</strong>
+        <span>{version.author} · {version.time} · {version.summary}</span>
+      </div>
+      <div className="ds-ver-hist__actions">
+        <button type="button">预览</button>
+        {!version.current && <button type="button">恢复</button>}
+      </div>
+    </div>)}
+  </div>;
+}
+
+export function StorageMeter({ used, total, segments = [] }: { used: string; total: string; segments?: { label: string; size: string; kind: string; percent: number }[] }) {
+  return <div className="ds-storage-meter" role="group" aria-label="存储用量">
+    <div className="ds-storage-meter__bar" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-label="存储已用比例">
+      {segments.map(segment => <i key={segment.label} className={'is-' + segment.kind} style={{ width: segment.percent + '%' }} />)}
+    </div>
+    <div className="ds-storage-meter__legend">
+      {segments.map(segment => <span key={segment.label}><i className={'is-' + segment.kind}></i>{segment.label} {segment.size}</span>)}
+    </div>
+    <p className="ds-storage-meter__note">已用 {used} / {total} · 空间充足</p>
+  </div>;
+}
+
+export function TrashRow({ name, origin, daysLeft, onRestore, onPurge }:
+  { name: string; origin: string; daysLeft: number; onRestore?: () => void; onPurge?: () => void }) {
+  return <div className="ds-trash-row" role="row">
+    <span className="ds-trash-row__icon" aria-hidden="true">🗑️</span>
+    <div className="ds-trash-row__info"><strong>{name}</strong><span>原位置：{origin}</span></div>
+    <span className="ds-trash-row__left">{daysLeft} 天后清除</span>
+    <button type="button" onClick={onRestore}>恢复</button>
+    <button type="button" onClick={onPurge}>彻底删除</button>
+  </div>;
+}
