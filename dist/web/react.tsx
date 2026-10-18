@@ -17215,3 +17215,130 @@ export function FiberSplicePanel({ site, time, cores }: { site: string; time: st
     <span className={'ds-fiber-splice__verdict ' + (bad ? 'is-fail' : 'is-pass')}>{bad ? '存在超标纤芯' : '全部合格'}</span>
   </article>;
 }
+
+export function PolicySummaryCard({ holder, product, amount, no, state }: { holder: string; product: string; amount: number; no: string; state: 'active' | 'grace' | 'suspended' }) {
+  const stateText = { active: '有效', grace: '宽限期', suspended: '中止' };
+  return <article className={'ds-policy-summary is-' + state} tabIndex={0} role="button" aria-label={'保单 ' + no + '，投保人 ' + holder + '，' + product + '，保额 ' + amount.toLocaleString() + ' 元，状态 ' + stateText[state]}>
+    <div className="ds-policy-summary__head">
+      <strong className="ds-policy-summary__holder">{holder}</strong>
+      <span className={'ds-policy-summary__state is-' + state}>{stateText[state]}</span>
+    </div>
+    <p className="ds-policy-summary__product">{product}</p>
+    <strong className="ds-policy-summary__amount">¥{amount.toLocaleString()}</strong>
+    <span className="ds-policy-summary__no">{no}</span>
+  </article>;
+}
+
+export function PremiumPaymentRow({ term, amount, due, state }: { term: number; amount: number; due: string; state: 'paid' | 'due' | 'overdue' }) {
+  const stateText = { paid: '已缴纳', due: '待缴纳', overdue: '已逾期' };
+  return <div className={'ds-premium-row is-' + state} tabIndex={0} role="button" aria-label={'第 ' + term + ' 期保费，' + amount.toLocaleString() + ' 元，到期日 ' + due + '，' + stateText[state]}>
+    <span className="ds-premium-row__term">第 {term} 期</span>
+    <span className="ds-premium-row__amount">¥{amount.toLocaleString()}</span>
+    <span className="ds-premium-row__due">{due}</span>
+    <span className={'ds-premium-row__state is-' + state}>{stateText[state]}</span>
+  </div>;
+}
+
+export function ClaimProgressTracker({ caseNo, steps, eta }: { caseNo: string; steps: Array<{ name: string; state: 'done' | 'current' | 'rejected' }>; eta: string }) {
+  const done = steps.filter(s => s.state === 'done').length;
+  return <section className="ds-claim-tracker" aria-label={'理赔案件 ' + caseNo + '，' + done + ' 个步骤已完成，预计 ' + eta + '结案'}>
+    <div className="ds-claim-tracker__case">{caseNo}</div>
+    <ol className="ds-claim-tracker__steps">
+      {steps.map(step => <li key={step.name} className={'is-' + step.state} tabIndex={0} aria-current={step.state === 'current' ? 'step' : undefined} aria-label={step.name + '，' + (step.state === 'done' ? '已完成' : step.state === 'current' ? '进行中' : '已驳回')}>
+        <i aria-hidden="true">{step.state === 'done' ? '✓' : step.state === 'current' ? '●' : '✕'}</i>{step.name}
+      </li>)}
+    </ol>
+    <span className="ds-claim-tracker__eta">预计 {eta}结案</span>
+  </section>;
+}
+
+export function CoverageMatrixTable({ product, rows }: { product: string; rows: Array<{ item: string; amount: string; deductible: string; better?: boolean }> }) {
+  return <div className="ds-coverage-matrix" role="region" aria-label={product + '保障责任矩阵，' + rows.length + ' 项责任'} tabIndex={0}>
+    <table>
+      <caption className="ds-coverage-matrix__caption">{product} · 保障责任</caption>
+      <thead><tr><th scope="col">责任</th><th scope="col">保额</th><th scope="col">免赔额</th></tr></thead>
+      <tbody>
+        {rows.map(row => <tr key={row.item}>
+          <th scope="row">{row.item}</th>
+          <td className={row.better ? 'is-better' : ''}>{row.amount}</td>
+          <td>{row.deductible}</td>
+        </tr>)}
+      </tbody>
+    </table>
+  </div>;
+}
+
+export function InsuredPersonRow({ name, relation, used, quota }: { name: string; relation: string; used: number; quota: number }) {
+  const pct = quota ? Math.min(100, Math.round(used / quota * 100)) : 0;
+  return <div className={'ds-insured-row' + (pct >= 80 ? ' is-high' : '')} tabIndex={0} role="button" aria-label={'被保险人 ' + name + '，' + relation + '，共享额度 ' + quota.toLocaleString() + ' 元，已用 ' + used.toLocaleString() + ' 元，占比 ' + pct + '%'}>
+    <strong className="ds-insured-row__name">{name}</strong>
+    <span className="ds-insured-row__relation">{relation}</span>
+    <span className="ds-insured-row__used">{used.toLocaleString()} / {quota.toLocaleString()}</span>
+    <span className="ds-insured-row__bar" aria-hidden="true"><i style={{ width: pct + '%' }} /></span>
+    <span className="ds-insured-row__quota">{pct}%</span>
+  </div>;
+}
+
+export function PolicyRenewalCard({ product, due, left }: { product: string; due: string; left: number }) {
+  const level = left <= 30 ? 'urgent' : left <= 60 ? 'soon' : 'normal';
+  return <article className={'ds-renewal is-' + level} tabIndex={0} aria-label={'续保提醒，' + product + '，到期日 ' + due + '，剩余 ' + left + ' 天，宽限期 60 天'}>
+    <div className="ds-renewal__head">
+      <strong className="ds-renewal__product">{product}</strong>
+      <span className="ds-renewal__countdown">剩余 {left} 天</span>
+    </div>
+    <p className="ds-renewal__due">到期日 {due}</p>
+    <p className="ds-renewal__grace">到期后 60 天内仍可续保，保障不间断</p>
+    <button type="button">立即续保</button>
+  </article>;
+}
+
+export function UnderwritingQuestionRow({ question, answer, state }: { question: string; answer: string; state: 'standard' | 'medical' | 'declined' }) {
+  const stateText = { standard: '标准体', medical: '需体检', declined: '拒保' };
+  return <div className={'ds-uw-question is-' + state} tabIndex={0} role="button" aria-label={'健康告知，' + question + '，回答 ' + answer + '，结论 ' + stateText[state]}>
+    <strong className="ds-uw-question__question">{question}</strong>
+    <span className="ds-uw-question__answer">{answer}</span>
+    <span className={'ds-uw-question__state is-' + state}>{stateText[state]}</span>
+  </div>;
+}
+
+export function ClaimAmountCompare({ applied, approved, reason }: { applied: number; approved: number; reason?: string }) {
+  const level = approved <= 0 ? 'denied' : approved >= applied ? 'full' : 'partial';
+  const diff = applied - approved;
+  const approvedPct = applied ? Math.min(100, Math.round(approved / applied * 100)) : 0;
+  return <section className={'ds-claim-amount is-' + level} tabIndex={0} aria-label={'理赔金额对比，申请 ' + applied.toLocaleString() + ' 元，核定 ' + approved.toLocaleString() + ' 元，核减 ' + diff.toLocaleString() + ' 元' + (reason ? '，原因 ' + reason : '')}>
+    <div className="ds-claim-amount__applied"><span>申请金额</span><strong>¥{applied.toLocaleString()}</strong></div>
+    <div className="ds-claim-amount__bars" aria-hidden="true">
+      <span className="ds-claim-amount__bar is-applied" style={{ width: '100%' }} />
+      <span className="ds-claim-amount__bar is-approved" style={{ width: approvedPct + '%' }} />
+    </div>
+    <div className="ds-claim-amount__approved"><span>核定赔付</span><strong>¥{approved.toLocaleString()}</strong></div>
+    {diff > 0 && reason ? <p className="ds-claim-amount__diff">核减 {diff.toLocaleString()} 元 · {reason}</p> : null}
+  </section>;
+}
+
+export function PolicyBeneficiaryCard({ people }: { people: Array<{ name: string; relation: string; order: number; share: number }> }) {
+  const total = people.reduce((sum, p) => sum + p.share, 0);
+  const orderText = ['', '第一顺位', '第二顺位', '第三顺位'];
+  return <article className={'ds-beneficiary' + (total === 100 ? '' : ' is-invalid')} aria-label={'受益人指定，' + people.map(p => p.name + '，' + p.relation + '，' + orderText[p.order] + '，' + p.share + '%').join('；') + '；合计 ' + total + '%'}>
+    {people.map(p => <React.Fragment key={p.name}>
+      <strong className="ds-beneficiary__name">{p.name}</strong>
+      <span className="ds-beneficiary__relation">{p.relation}</span>
+      <span className="ds-beneficiary__order">{orderText[p.order] ?? '第 ' + p.order + ' 顺位'}</span>
+      <span className="ds-beneficiary__share" aria-hidden="true"><i style={{ width: p.share + '%' }} /></span>
+      <span className="ds-beneficiary__pct">{p.share}%</span>
+    </React.Fragment>)}
+    <span className="ds-beneficiary__total">合计 {total}%{total === 100 ? '' : '（应为 100%）'}</span>
+  </article>;
+}
+
+export function InsuranceQuoteCard({ plan, price, perks, recommended, selected }: { plan: string; price: number; perks: string[]; recommended?: boolean; selected?: boolean }) {
+  return <article className={'ds-quote-card' + (recommended ? ' is-recommended' : '') + (selected ? ' is-selected' : '')} tabIndex={0} aria-label={'投保方案，' + plan + (recommended ? '，推荐' : '') + '，年缴 ' + price.toLocaleString() + ' 元，含 ' + perks.join('、')}>
+    <div className="ds-quote-card__head">
+      <strong className="ds-quote-card__plan">{plan}</strong>
+      {recommended ? <span className="ds-quote-card__tag">推荐</span> : null}
+    </div>
+    <strong className="ds-quote-card__price">¥{price.toLocaleString()}<span>/年</span></strong>
+    <ul className="ds-quote-card__perks">{perks.map(perk => <li key={perk}>{perk}</li>)}</ul>
+    <button type="button" disabled={selected}>{selected ? '已选择' : '选择此方案'}</button>
+  </article>;
+}
