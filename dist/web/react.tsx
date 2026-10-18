@@ -15793,3 +15793,137 @@ export function NutritionFactsPanel({ calories, carbs, protein, fat, sodium, bas
     </ul>
   </div>;
 }
+
+export function PlayerHud({ name, level, hp, mp, buffs }: { name: string; level: number; hp: number; mp: number; buffs: string[] }) {
+  return <div className="ds-player-hud">
+    <div className="ds-player-hud__avatar" aria-hidden="true">{name.slice(0, 1)}</div>
+    <div className="ds-player-hud__bars">
+      <p className="ds-player-hud__name">{name} · Lv.{level}</p>
+      <div className="ds-player-hud__hp" role="progressbar" aria-valuenow={hp} aria-valuemin={0} aria-valuemax={100} aria-label={'生命值 ' + hp + '%'}><i style={{ width: hp + '%' }} /></div>
+      <div className="ds-player-hud__mp" role="progressbar" aria-valuenow={mp} aria-valuemin={0} aria-valuemax={100} aria-label={'法力值 ' + mp + '%'}><i style={{ width: mp + '%' }} /></div>
+    </div>
+    <div className="ds-player-hud__buffs" aria-label={'状态：' + buffs.join('、')}>{buffs.map(buff => <span key={buff} aria-hidden="true">⚡</span>)}</div>
+  </div>;
+}
+
+export function SkillBar({ skills }: { skills: Array<{ icon: string; key: string; state: 'ready' | 'cd' | 'locked'; cdPct?: number }> }) {
+  return <div className="ds-skill-bar" role="toolbar" aria-label="技能栏">
+    {skills.map(skill => <button key={skill.key} type="button" className={'ds-skill-bar__slot ' + (skill.state === 'cd' ? 'is-cd' : skill.state === 'locked' ? 'is-locked' : '')} aria-label={skill.icon + ' 快捷键 ' + skill.key + (skill.state === 'cd' ? '，冷却中' : skill.state === 'locked' ? '，未解锁' : '')} disabled={skill.state === 'locked'}>
+      <span aria-hidden="true">{skill.icon}</span>
+      {skill.state === 'cd' && skill.cdPct ? <i className="ds-skill-bar__cd" style={{ opacity: skill.cdPct / 100 }} /> : null}
+      <kbd className="ds-skill-bar__key">{skill.key}</kbd>
+    </button>)}
+  </div>;
+}
+
+export function MatchScoreboard({ teams, timer, rows }: { teams: Array<{ name: string; score: number }>; timer: string; rows: Array<{ player: string; kills: number; deaths: number; assists: number; damage: number }> }) {
+  return <div className="ds-scoreboard">
+    <div className="ds-scoreboard__head">
+      {teams.map((team, index) => <span key={team.name} className={'ds-scoreboard__team ' + (index === 0 ? 'is-a' : 'is-b')}>{team.name}</span>)}
+      <span className="ds-scoreboard__score">{teams.map(team => team.score).join(' : ')}</span>
+      <span className="ds-scoreboard__timer">{timer}</span>
+    </div>
+    <table>
+      <thead><tr><th scope="col">玩家</th><th scope="col">击杀</th><th scope="col">死亡</th><th scope="col">助攻</th><th scope="col">伤害</th></tr></thead>
+      <tbody>
+        {rows.map(row => <tr key={row.player} tabIndex={0}>
+          <td>{row.player}</td><td>{row.kills}</td><td>{row.deaths}</td><td>{row.assists}</td><td>{row.damage.toLocaleString('zh-CN')}</td>
+        </tr>)}
+      </tbody>
+    </table>
+  </div>;
+}
+
+export function AchievementBadge({ name, rarity, percent, unlockedAt, progress }: { name: string; rarity: string; percent: string; unlockedAt?: string; progress: number }) {
+  const tone = rarity === '传说' ? 'is-legendary' : rarity === '史诗' ? 'is-epic' : '';
+  return <div className="ds-achievement" tabIndex={0} role="button" aria-label={'成就 ' + name + '，' + rarity + '稀有度' + (progress >= 100 ? '，已解锁于 ' + unlockedAt : '，进度 ' + progress + '%')}>
+    <span className={'ds-achievement__badge ' + tone} aria-hidden="true">🏆</span>
+    <div className="ds-achievement__body">
+      <strong>{name}</strong>
+      <span className={'ds-achievement__rarity ' + tone}>{rarity} · {percent} 玩家拥有</span>
+      {progress >= 100 && unlockedAt ? <span className="ds-achievement__date">解锁于 {unlockedAt}</span> : <span className="ds-achievement__date">进度 {progress}%</span>}
+    </div>
+  </div>;
+}
+
+export function LeaderboardRow({ rank, player, tier, score, delta, isSelf }: { rank: number; player: string; tier: string; score: number; delta: number; isSelf?: boolean }) {
+  return <div className={'ds-leader-row' + (isSelf ? ' is-self' : '')} tabIndex={0} role="button" aria-label={'第 ' + rank + ' 名，' + player + '，' + tier + '，' + score + ' 分，' + (delta >= 0 ? '上升 ' + delta + ' 名' : '下降 ' + Math.abs(delta) + ' 名')}>
+    <span className="ds-leader-row__rank">{rank}</span>
+    <span className="ds-leader-row__avatar" aria-hidden="true">{player.slice(0, 1)}</span>
+    <div className="ds-leader-row__info">
+      <strong>{player}</strong>
+      <span className={'ds-leader-row__tier ' + (tier === '最强王者' ? 'is-master' : '')}>{tier}</span>
+    </div>
+    <span className="ds-leader-row__score">{score.toLocaleString('zh-CN')}</span>
+    <span className={'ds-leader-row__delta ' + (delta >= 0 ? 'is-up' : 'is-down')}><span aria-hidden="true">{delta >= 0 ? '▲' : '▼'}</span>{Math.abs(delta)}</span>
+  </div>;
+}
+
+export function LootRewardCard({ name, rarity, note, qty, onClaim }: { name: string; rarity: string; note: string; qty: number; onClaim?: () => void }) {
+  const tone = rarity === '史诗' ? 'is-epic' : rarity === '传说' ? 'is-legendary' : '';
+  return <div className={'ds-loot-card ' + tone} tabIndex={0} role="button" aria-label={'战利品 ' + name + '，' + rarity + '稀有度，数量 ' + qty}>
+    <span className="ds-loot-card__icon" aria-hidden="true">🗡</span>
+    <div className="ds-loot-card__body">
+      <strong>{name}</strong>
+      <span className="ds-loot-card__rarity">{rarity} · {note}</span>
+    </div>
+    <button type="button" className="ds-loot-card__claim" onClick={onClaim}>领取</button>
+  </div>;
+}
+
+export function QuestTracker({ title, objectives, reward }: { title: string; objectives: Array<{ name: string; done: number; total: number }>; reward: string }) {
+  return <div className="ds-quest-track">
+    <div className="ds-quest-track__head">
+      <strong className="ds-quest-track__title">{title}</strong>
+      <button type="button" aria-label="折叠任务">▾</button>
+    </div>
+    <ul>
+      {objectives.map(objective => <li key={objective.name} className={objective.done >= objective.total ? 'is-done' : undefined}>
+        <span className="ds-quest-track__obj">{objective.name}</span>
+        <span className="ds-quest-track__prog">{objective.done}/{objective.total}</span>
+      </li>)}
+    </ul>
+    <p className="ds-quest-track__reward">奖励：{reward}</p>
+  </div>;
+}
+
+export function LoadoutPicker({ primary, secondary, mods, score, onSave }: { primary: string; secondary: string; mods: string[]; score: number; onSave?: () => void }) {
+  return <div className="ds-loadout">
+    <div className="ds-loadout__slots">
+      <button type="button" className="ds-loadout__slot is-filled"><span aria-hidden="true">🔫</span><strong>{primary}</strong><em>主武器</em></button>
+      <button type="button" className="ds-loadout__slot is-filled"><span aria-hidden="true">🔪</span><strong>{secondary}</strong><em>副武器</em></button>
+      <button type="button" className="ds-loadout__slot is-empty"><span aria-hidden="true">＋</span><strong>空槽位</strong><em>点击装备</em></button>
+    </div>
+    <div className="ds-loadout__mods" role="group" aria-label="配件">
+      {mods.map(mod => <label key={mod}><input type="checkbox" defaultChecked /><span>{mod}</span></label>)}
+    </div>
+    <div className="ds-loadout__foot">
+      <span>战力评分 {score.toLocaleString('zh-CN')}</span>
+      <button type="button" className="is-primary" onClick={onSave}>保存方案</button>
+    </div>
+  </div>;
+}
+
+export function TeamVoiceSlots({ members }: { members: Array<{ name: string; state: 'speaking' | 'online' | 'muted' | 'offline' }> }) {
+  return <div className="ds-team-voice" role="group" aria-label={'队伍语音，' + members.length + ' 人'}>
+    {members.map(member => <div key={member.name} className={'ds-team-voice__slot is-' + member.state} tabIndex={0} role="button" aria-label={member.name + '，' + (member.state === 'speaking' ? '正在说话' : member.state === 'muted' ? '已被静音' : member.state === 'offline' ? '掉线重连中' : '在线')}>
+      <span className="ds-team-voice__avatar" aria-hidden="true">{member.name.slice(0, 1)}</span>
+      {member.state === 'speaking' ? <span className="ds-team-voice__wave" aria-hidden="true"><i /><i /><i /></span> : null}
+      {member.state === 'muted' ? <span className="ds-team-voice__tag">已静音</span> : member.state === 'offline' ? <span className="ds-team-voice__tag">重连中</span> : <button type="button" aria-label={'静音' + member.name}>🔊</button>}
+    </div>)}
+  </div>;
+}
+
+export function BattlePassTrack({ season, level, expToNext, nodes, claimable }: { season: string; level: number; expToNext: number; nodes: Array<{ level: number; state: 'done' | 'current' | 'locked'; free: string; premium: string }>; claimable: number }) {
+  return <div className="ds-battle-pass">
+    <p className="ds-battle-pass__head">{season} 赛季 · 当前 Lv.{level} · 再 {expToNext.toLocaleString('zh-CN')} 经验升级</p>
+    <div className="ds-battle-pass__track">
+      {nodes.map(node => <div key={node.level} className={'ds-battle-pass__node is-' + node.state} aria-current={node.state === 'current' ? 'step' : undefined}>
+        <span className="ds-battle-pass__lv">{node.level}</span>
+        <span className="ds-battle-pass__free" aria-hidden="true">{node.free}</span>
+        <span className="ds-battle-pass__premium" aria-hidden="true">{node.premium}</span>
+      </div>)}
+    </div>
+    {claimable > 0 ? <button type="button">领取 {claimable} 个奖励</button> : null}
+  </div>;
+}
