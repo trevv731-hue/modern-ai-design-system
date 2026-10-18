@@ -14438,5 +14438,283 @@
       "Esc 收起且回车应用"
     ],
     "react": "<AdvancedSearchPanel owner=\"林晓\" from=\"2026-10-01\" to=\"2026-10-18\" logic=\"all\" onApply={apply} />"
+  },
+  {
+    "id": "onboarding-checklist",
+    "name": "上手清单",
+    "category": "引导",
+    "status": "v3 新增",
+    "purpose": "以清单形式引导新用户完成关键动作，并展示整体完成度。",
+    "anatomy": [
+      "进度摘要 (ds-onboard-list__progress)",
+      "任务项",
+      "完成标记",
+      "行动按钮"
+    ],
+    "keyboard": "Tab 遍历任务按钮；完成态通过文字与图标双重表达。",
+    "guidance": [
+      "任务按价值排序，首个任务最易完成。",
+      "完成度用“x/y”文字加进度条。",
+      "全部完成后给出庆祝状态与下一步建议。"
+    ],
+    "preview": "<div class=\"ds-onboard-list\"><div class=\"ds-onboard-list__progress\"><strong>上手进度 2/5</strong><span class=\"ds-onboard-list__bar\" aria-hidden=\"true\"><i style=\"width:40%\"></i></span></div><ul><li class=\"is-done\"><span aria-hidden=\"true\">✓</span>完善个人资料<button type=\"button\">查看</button></li><li><span aria-hidden=\"true\">○</span>创建第一个项目<button type=\"button\">开始</button></li><li><span aria-hidden=\"true\">○</span>邀请一位协作者<button type=\"button\">邀请</button></li></ul></div>",
+    "checks": [
+      "完成度 x/y 文字加进度条",
+      "任务按价值排序",
+      "完成态图标加文字",
+      "全部完成有庆祝状态"
+    ],
+    "react": "<OnboardingChecklist done={2} total={5} items={[{ label: \"完善个人资料\", done: true }, { label: \"创建第一个项目\" }]} />"
+  },
+  {
+    "id": "onboarding-progress-header",
+    "name": "引导进度头",
+    "category": "引导",
+    "status": "v3 新增",
+    "purpose": "在多步引导流程顶部展示步骤进度与当前位置。",
+    "anatomy": [
+      "步骤点 (ds-guide-head__step)",
+      "连接线",
+      "步骤名",
+      "当前态",
+      "跳过"
+    ],
+    "keyboard": "当前步骤可通过 aria-current 朗读；跳过按钮可聚焦。",
+    "guidance": [
+      "步骤名在宽屏显示，窄屏仅显示点。",
+      "已完成步骤可点击回看。",
+      "跳过流程前说明可稍后继续。"
+    ],
+    "preview": "<div class=\"ds-guide-head\" aria-label=\"引导进度\"><div class=\"ds-guide-head__step is-done\"><i>1</i><span>选择用途</span></div><div class=\"ds-guide-head__step is-current\" aria-current=\"step\"><i>2</i><span>邀请成员</span></div><div class=\"ds-guide-head__step\"><i>3</i><span>完成设置</span></div><button type=\"button\" class=\"ds-guide-head__skip\">跳过引导</button></div>",
+    "checks": [
+      "当前步骤 aria-current",
+      "已完成步骤可回看",
+      "窄屏仅显示步骤点",
+      "跳过说明可继续"
+    ],
+    "react": "<GuideProgressHeader steps={[\"选择用途\", \"邀请成员\", \"完成设置\"]} current={1} onSkip={skip} />"
+  },
+  {
+    "id": "onboarding-guide-tooltip",
+    "name": "分步提示气泡",
+    "category": "引导",
+    "status": "v3 新增",
+    "purpose": "指向界面具体元素并分步讲解功能用法。",
+    "anatomy": [
+      "气泡外壳 (ds-guide-tip)",
+      "箭头",
+      "标题",
+      "说明",
+      "步骤指示",
+      "上一步与下一步"
+    ],
+    "keyboard": "Esc 关闭；Tab 在气泡按钮间循环；气泡出现时焦点移入。",
+    "guidance": [
+      "每步只讲一个功能点。",
+      "高亮目标元素，其余区域加遮罩",
+      "最后一步给“完成”而非“下一步”。"
+    ],
+    "preview": "<div class=\"ds-guide-tip\" role=\"dialog\" aria-label=\"功能引导\"><span class=\"ds-guide-tip__arrow\" aria-hidden=\"true\"></span><strong>命令面板</strong><p>按 ⌘K 可快速搜索任意项目、文件与操作。</p><div class=\"ds-guide-tip__foot\"><span>第 2 步，共 4 步</span><div><button type=\"button\">上一步</button><button type=\"button\" class=\"is-primary\">下一步</button></div></div></div>",
+    "checks": [
+      "每步只讲一个功能点",
+      "高亮目标元素加遮罩",
+      "Esc 可关闭",
+      "最后一步为完成"
+    ],
+    "react": "<GuideTooltip title=\"命令面板\" body=\"按 ⌘K 可快速搜索任意项目、文件与操作。\" step={2} total={4} onNext={next} onPrev={prev} />"
+  },
+  {
+    "id": "onboarding-welcome-modal",
+    "name": "欢迎弹窗",
+    "category": "引导",
+    "status": "v3 新增",
+    "purpose": "在用户首次进入产品时表示欢迎并说明核心价值。",
+    "anatomy": [
+      "插画区 (ds-welcome-modal__art)",
+      "欢迎语",
+      "价值要点",
+      "主行动"
+    ],
+    "keyboard": "弹窗打开时焦点落在主行动；Esc 提供“稍后再说”出口。",
+    "guidance": [
+      "价值要点不超过三条。",
+      "主行动明确，如“开始 5 分钟上手”。",
+      "提供跳过入口且不惩罚用户。"
+    ],
+    "preview": "<div class=\"ds-welcome-modal\" role=\"dialog\" aria-modal=\"true\" aria-label=\"欢迎\"><span class=\"ds-welcome-modal__art\" aria-hidden=\"true\">🎉</span><h2>欢迎加入设计协作空间</h2><ul><li>规范、组件与反馈集中在一处</li><li>与团队实时协作，无需来回传文件</li></ul><div class=\"ds-welcome-modal__actions\"><button type=\"button\" class=\"is-primary\">开始 5 分钟上手</button><button type=\"button\">稍后再说</button></div></div>",
+    "checks": [
+      "价值要点不超过三条",
+      "主行动明确具体",
+      "提供无惩罚跳过",
+      "焦点初始落在主行动"
+    ],
+    "react": "<WelcomeModal title=\"欢迎加入设计协作空间\" points={[\"规范、组件与反馈集中在一处\", \"与团队实时协作\"]} onStart={start} onSkip={skip} />"
+  },
+  {
+    "id": "onboarding-feature-highlight",
+    "name": "功能高亮遮罩",
+    "category": "引导",
+    "status": "v3 新增",
+    "purpose": "在引导中聚焦单个界面元素，压暗其余区域以集中注意力。",
+    "anatomy": [
+      "遮罩层 (ds-highlight)",
+      "高亮框",
+      "目标元素说明",
+      "关闭"
+    ],
+    "keyboard": "高亮区域可被读屏定位；Esc 退出引导。",
+    "guidance": [
+      "高亮框与目标元素对齐并留出呼吸空间。",
+      "遮罩不拦截目标元素的交互。",
+      "避免连续多层遮罩叠加。"
+    ],
+    "preview": "<div class=\"ds-highlight\" role=\"presentation\"><div class=\"ds-highlight__box\"><span class=\"ds-highlight__label\">新建项目</span></div></div>",
+    "checks": [
+      "高亮框与目标对齐",
+      "遮罩不拦截目标交互",
+      "Esc 退出引导",
+      "读屏可定位目标"
+    ],
+    "react": "<FeatureHighlight label=\"新建项目\" onDismiss={dismiss} />"
+  },
+  {
+    "id": "onboarding-empty-guide",
+    "name": "空态引导卡",
+    "category": "引导",
+    "status": "v3 新增",
+    "purpose": "在列表为空时说明用途并提供创建或导入入口。",
+    "anatomy": [
+      "插画 (ds-empty-guide__art)",
+      "标题",
+      "用途说明",
+      "主行动",
+      "次行动"
+    ],
+    "keyboard": "主次行动均可键盘到达；空态容器使用 status 语义。",
+    "guidance": [
+      "说明“这里将来会有什么”，而非只写“暂无数据”。",
+      "主行动指向创建，次行动提供导入或模板。",
+      "空态不展示筛选控件避免死路。"
+    ],
+    "preview": "<div class=\"ds-empty-guide\" role=\"status\"><span class=\"ds-empty-guide__art\" aria-hidden=\"true\">📁</span><strong>还没有项目</strong><p>项目用于组织设计稿、规范与反馈。创建第一个项目开始协作。</p><div class=\"ds-empty-guide__actions\"><button type=\"button\" class=\"is-primary\">新建项目</button><button type=\"button\">从模板创建</button></div></div>",
+    "checks": [
+      "说明未来内容而非暂无数据",
+      "主创建次导入",
+      "空态不展示筛选控件",
+      "status 语义"
+    ],
+    "react": "<EmptyGuideCard title=\"还没有项目\" body=\"项目用于组织设计稿、规范与反馈。\" primary=\"新建项目\" secondary=\"从模板创建\" />"
+  },
+  {
+    "id": "onboarding-tutorial-card",
+    "name": "教学视频卡",
+    "category": "引导",
+    "status": "v3 新增",
+    "purpose": "以卡片形式推荐短视频教程，展示时长与观看进度。",
+    "anatomy": [
+      "封面与播放键 (ds-tutorial-card__cover)",
+      "标题",
+      "时长",
+      "进度",
+      "分类标记"
+    ],
+    "keyboard": "卡片整体可聚焦；回车播放；播放键独立可达。",
+    "guidance": [
+      "时长在播放前可见。",
+      "已观看过的视频展示进度条",
+      "按用户当前进度推荐内容。"
+    ],
+    "preview": "<div class=\"ds-tutorial-card\" tabindex=\"0\" role=\"button\"><span class=\"ds-tutorial-card__cover\" aria-hidden=\"true\"><i>▶</i><em>3:24</em></span><div class=\"ds-tutorial-card__body\"><strong>五分钟搭建组件库</strong><span class=\"ds-tutorial-card__tag\">入门</span><span class=\"ds-tutorial-card__progress\" aria-hidden=\"true\"><i style=\"width:60%\"></i></span><small>已看 60%</small></div></div>",
+    "checks": [
+      "时长播放前可见",
+      "已观看展示进度",
+      "按进度推荐内容",
+      "播放键独立可达"
+    ],
+    "react": "<TutorialVideoCard title=\"五分钟搭建组件库\" duration=\"3:24\" tag=\"入门\" progress={60} />"
+  },
+  {
+    "id": "onboarding-role-picker",
+    "name": "角色选择",
+    "category": "引导",
+    "status": "v3 新增",
+    "purpose": "在注册或初始化时让用户选择角色，以定制初始界面。",
+    "anatomy": [
+      "角色选项 (ds-role-pick__option)",
+      "角色图标",
+      "角色名",
+      "职责说明",
+      "选中态"
+    ],
+    "keyboard": "单选语义 radio；方向键切换；确认按钮提交。",
+    "guidance": [
+      "角色说明其获得的默认配置。",
+      "选中后可预览将启用的功能",
+      "支持稍后在设置中更改。"
+    ],
+    "preview": "<div class=\"ds-role-pick\" role=\"radiogroup\" aria-label=\"选择你的角色\"><label class=\"ds-role-pick__option\"><input type=\"radio\" name=\"role\" checked><span aria-hidden=\"true\">🎨</span><strong>设计师</strong><small>默认开启设计系统与画板视图</small></label><label class=\"ds-role-pick__option\"><input type=\"radio\" name=\"role\"><span aria-hidden=\"true\">💻</span><strong>工程师</strong><small>默认开启代码检查与标注模式</small></label><label class=\"ds-role-pick__option\"><input type=\"radio\" name=\"role\"><span aria-hidden=\"true\">📋</span><strong>产品经理</strong><small>默认开启路线图与收集表</small></label></div>",
+    "checks": [
+      "说明角色默认配置",
+      "选中可预览功能",
+      "设置中可更改",
+      "单选语义正确"
+    ],
+    "react": "<RolePicker roles={[{ id: \"designer\", name: \"设计师\", detail: \"默认开启设计系统与画板视图\" }]} value=\"designer\" />"
+  },
+  {
+    "id": "onboarding-team-invite",
+    "name": "团队邀请行",
+    "category": "引导",
+    "status": "v3 新增",
+    "purpose": "在初始化流程中邀请协作者，支持邮箱输入与角色指定。",
+    "anatomy": [
+      "邮箱输入 (ds-team-invite__input)",
+      "角色选择",
+      "添加按钮",
+      "已邀列表",
+      "稍后邀请"
+    ],
+    "keyboard": "回车添加；Tab 在输入与角色间移动；已邀行可移除。",
+    "guidance": [
+      "批量粘贴多个邮箱时自动拆分。",
+      "邀请角色默认与创建者一致或最低权限。",
+      "提供“稍后邀请”不阻断流程。"
+    ],
+    "preview": "<div class=\"ds-team-invite\"><div class=\"ds-team-invite__row\"><input type=\"email\" placeholder=\"输入邮箱邀请成员\" aria-label=\"邮箱\"><select aria-label=\"角色\"><option>成员</option><option>管理员</option></select><button type=\"button\">添加</button></div><ul class=\"ds-team-invite__list\"><li>lin@example.com<small>成员</small><button type=\"button\" aria-label=\"移除 lin@example.com\">✕</button></li><li>chen@example.com<small>成员</small><button type=\"button\" aria-label=\"移除 chen@example.com\">✕</button></li></ul><button type=\"button\" class=\"ds-team-invite__later\">稍后邀请</button></div>",
+    "checks": [
+      "批量粘贴自动拆分",
+      "默认角色安全",
+      "稍后邀请不阻断",
+      "已邀行可移除"
+    ],
+    "react": "<TeamInviteRow invited={[\"lin@example.com\", \"chen@example.com\"]} onAdd={addInvite} onLater={later} />"
+  },
+  {
+    "id": "onboarding-template-picker",
+    "name": "模板选择",
+    "category": "引导",
+    "status": "v3 新增",
+    "purpose": "让用户从模板快速开始，展示预览、适用场景与使用热度。",
+    "anatomy": [
+      "模板卡 (ds-tpl-pick__card)",
+      "预览图",
+      "名称",
+      "适用场景",
+      "选用按钮"
+    ],
+    "keyboard": "卡片可聚焦；回车选用；方向键在网格中移动。",
+    "guidance": [
+      "按场景分类并展示适用范围。",
+      "空模板与示例模板并列提供。",
+      "选用后说明可随时更换。"
+    ],
+    "preview": "<div class=\"ds-tpl-pick\" role=\"radiogroup\" aria-label=\"选择模板\"><label class=\"ds-tpl-pick__card\"><input type=\"radio\" name=\"tpl\" checked><span class=\"ds-tpl-pick__preview\" aria-hidden=\"true\">🗂️</span><strong>看板项目</strong><small>适合任务跟踪与迭代管理</small></label><label class=\"ds-tpl-pick__card\"><input type=\"radio\" name=\"tpl\"><span class=\"ds-tpl-pick__preview\" aria-hidden=\"true\">📅</span><strong>路线图规划</strong><small>适合季度目标拆解</small></label><label class=\"ds-tpl-pick__card\"><input type=\"radio\" name=\"tpl\"><span class=\"ds-tpl-pick__preview\" aria-hidden=\"true\">📝</span><strong>空白项目</strong><small>从零开始自由组织</small></label></div>",
+    "checks": [
+      "按场景分类展示",
+      "空模板并列提供",
+      "选用说明可更换",
+      "网格方向键导航"
+    ],
+    "react": "<TemplatePicker templates={[{ id: \"kanban\", name: \"看板项目\", scene: \"任务跟踪\" }]} value=\"kanban\" />"
   }
 ]

@@ -14251,3 +14251,126 @@ export function AdvancedSearchPanel({ owner, from, to, logic = 'all', onApply }:
     </div>
   </div>;
 }
+
+export function OnboardingChecklist({ done, total, items }: { done: number; total: number; items: { label: string; done?: boolean }[] }) {
+  return <div className="ds-onboard-list">
+    <div className="ds-onboard-list__progress">
+      <strong>上手进度 {done}/{total}</strong>
+      <span className="ds-onboard-list__bar" aria-hidden="true"><i style={{ width: Math.round(done / total * 100) + '%' }} /></span>
+    </div>
+    <ul>
+      {items.map(item => <li key={item.label} className={item.done ? 'is-done' : undefined}>
+        <span aria-hidden="true">{item.done ? '✓' : '○'}</span>{item.label}
+        <button type="button">{item.done ? '查看' : '开始'}</button>
+      </li>)}
+    </ul>
+  </div>;
+}
+
+export function GuideProgressHeader({ steps, current, onSkip }: { steps: string[]; current: number; onSkip?: () => void }) {
+  return <div className="ds-guide-head" aria-label="引导进度">
+    {steps.map((step, index) => <div key={step} aria-current={index === current ? 'step' : undefined}
+      className={'ds-guide-head__step' + (index < current ? ' is-done' : index === current ? ' is-current' : '')}>
+      <i>{index + 1}</i><span>{step}</span>
+    </div>)}
+    <button type="button" className="ds-guide-head__skip" onClick={onSkip}>跳过引导</button>
+  </div>;
+}
+
+export function GuideTooltip({ title, body, step, total, onNext, onPrev }:
+  { title: string; body: string; step: number; total: number; onNext?: () => void; onPrev?: () => void }) {
+  const last = step === total;
+  return <div className="ds-guide-tip" role="dialog" aria-label="功能引导">
+    <span className="ds-guide-tip__arrow" aria-hidden="true"></span>
+    <strong>{title}</strong>
+    <p>{body}</p>
+    <div className="ds-guide-tip__foot">
+      <span>第 {step} 步，共 {total} 步</span>
+      <div>
+        {step > 1 && <button type="button" onClick={onPrev}>上一步</button>}
+        <button type="button" className="is-primary" onClick={onNext}>{last ? '完成' : '下一步'}</button>
+      </div>
+    </div>
+  </div>;
+}
+
+export function WelcomeModal({ title, points = [], onStart, onSkip }: { title: string; points?: string[]; onStart?: () => void; onSkip?: () => void }) {
+  return <div className="ds-welcome-modal" role="dialog" aria-modal="true" aria-label="欢迎">
+    <span className="ds-welcome-modal__art" aria-hidden="true">🎉</span>
+    <h2>{title}</h2>
+    <ul>{points.map(point => <li key={point}>{point}</li>)}</ul>
+    <div className="ds-welcome-modal__actions">
+      <button type="button" className="is-primary" onClick={onStart}>开始 5 分钟上手</button>
+      <button type="button" onClick={onSkip}>稍后再说</button>
+    </div>
+  </div>;
+}
+
+export function FeatureHighlight({ label, onDismiss }: { label: string; onDismiss?: () => void }) {
+  return <div className="ds-highlight" role="presentation" onClick={onDismiss}>
+    <div className="ds-highlight__box"><span className="ds-highlight__label">{label}</span></div>
+  </div>;
+}
+
+export function EmptyGuideCard({ title, body, primary, secondary }: { title: string; body: string; primary: string; secondary?: string }) {
+  return <div className="ds-empty-guide" role="status">
+    <span className="ds-empty-guide__art" aria-hidden="true">📁</span>
+    <strong>{title}</strong>
+    <p>{body}</p>
+    <div className="ds-empty-guide__actions">
+      <button type="button" className="is-primary">{primary}</button>
+      {secondary && <button type="button">{secondary}</button>}
+    </div>
+  </div>;
+}
+
+export function TutorialVideoCard({ title, duration, tag, progress }: { title: string; duration: string; tag?: string; progress?: number }) {
+  return <div className="ds-tutorial-card" role="button" tabIndex={0}>
+    <span className="ds-tutorial-card__cover" aria-hidden="true"><i>▶</i><em>{duration}</em></span>
+    <div className="ds-tutorial-card__body">
+      <strong>{title}</strong>
+      {tag && <span className="ds-tutorial-card__tag">{tag}</span>}
+      {progress !== undefined && <span className="ds-tutorial-card__progress" aria-hidden="true"><i style={{ width: progress + '%' }} /></span>}
+      {progress !== undefined && <small>已看 {progress}%</small>}
+    </div>
+  </div>;
+}
+
+export function RolePicker({ roles, value }: { roles: { id: string; name: string; detail: string }[]; value: string }) {
+  return <div className="ds-role-pick" role="radiogroup" aria-label="选择你的角色">
+    {roles.map(role => <label key={role.id} className="ds-role-pick__option">
+      <input type="radio" name="ds-role" defaultChecked={role.id === value} />
+      <span aria-hidden="true">🎨</span>
+      <span><strong>{role.name}</strong><small>{role.detail}</small></span>
+    </label>)}
+  </div>;
+}
+
+export function TeamInviteRow({ invited = [], onAdd, onLater }: { invited?: string[]; onAdd?: () => void; onLater?: () => void }) {
+  return <div className="ds-team-invite">
+    <div className="ds-team-invite__row">
+      <label className="ds-sr-only" htmlFor="ds-invite-mail">邮箱</label>
+      <input id="ds-invite-mail" type="email" placeholder="输入邮箱邀请成员" />
+      <label className="ds-sr-only" htmlFor="ds-invite-role">角色</label>
+      <select id="ds-invite-role"><option>成员</option><option>管理员</option></select>
+      <button type="button" onClick={onAdd}>添加</button>
+    </div>
+    <ul className="ds-team-invite__list">
+      {invited.map(mail => <li key={mail}>
+        {mail}<small>成员</small>
+        <button type="button" aria-label={'移除 ' + mail}>✕</button>
+      </li>)}
+    </ul>
+    <button type="button" className="ds-team-invite__later" onClick={onLater}>稍后邀请</button>
+  </div>;
+}
+
+export function TemplatePicker({ templates, value }: { templates: { id: string; name: string; scene: string }[]; value: string }) {
+  return <div className="ds-tpl-pick" role="radiogroup" aria-label="选择模板">
+    {templates.map((tpl, index) => <label key={tpl.id} className="ds-tpl-pick__card">
+      <input type="radio" name="ds-tpl" defaultChecked={tpl.id === value} />
+      <span className="ds-tpl-pick__preview" aria-hidden="true">{index === 0 ? '🗂️' : index === 1 ? '📅' : '📝'}</span>
+      <strong>{tpl.name}</strong><small>适合{tpl.scene}</small>
+    </label>)}
+  </div>;
+}
