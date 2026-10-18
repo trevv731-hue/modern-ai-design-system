@@ -15499,3 +15499,153 @@ export function HealthMetricTile({ name, value, unit, delta, trend, icon }: { na
     <p className={'ds-metric-tile__delta ' + (trend === 'up' ? 'is-up' : 'is-down')}><span aria-hidden="true">{trend === 'up' ? '↑' : '↓'}</span> {delta}</p>
   </div>;
 }
+
+export function FlightCard({ no, craft, from, to, depart, arrive, duration, status }: { no: string; craft: string; from: string; to: string; depart: string; arrive: string; duration: string; status: 'ontime' | 'delay' }) {
+  return <article className="ds-flight-card" tabIndex={0} role="button" aria-label={'航班 ' + no + '，' + from + ' 到 ' + to + '，' + depart + ' 起飞，' + arrive + ' 到达，' + (status === 'ontime' ? '准点' : '延误')}>
+    <div className="ds-flight-card__no">{no} · {craft}</div>
+    <div className="ds-flight-card__route">
+      <div className="ds-flight-card__leg"><strong>{depart}</strong><span>{from}</span></div>
+      <span className="ds-flight-card__arrow" aria-hidden="true">→</span>
+      <div className="ds-flight-card__leg is-end"><strong>{arrive}</strong><span>{to}</span></div>
+    </div>
+    <div className="ds-flight-card__meta">
+      <span className={'ds-flight-card__status ' + (status === 'ontime' ? 'is-ontime' : 'is-delay')}>{status === 'ontime' ? '准点' : '延误'}</span>
+      <span>{duration}</span>
+    </div>
+  </article>;
+}
+
+export function SeatPickerMap({ rows, onPick }: { rows: string[][]; onPick?: (seat: string) => void }) {
+  const seatLabel = (state: string, index: number) => state === 'aisle' ? '' : state === 'taken' ? '已占用' : state === 'picked' ? '已选' : state === 'exit' ? '安全出口' : '可选';
+  return <div className="ds-seat-picker" role="group" aria-label="选座">
+    <div className="ds-seat-picker__map" role="grid" aria-label="座位图">
+      {rows.map((row, rowIndex) => <div key={rowIndex} className="ds-seat-picker__row" role="row">
+        {row.map((state, colIndex) => state === 'aisle'
+          ? <span key={colIndex} className="ds-seat-picker__aisle" aria-hidden="true" />
+          : <span key={colIndex} className={'ds-seat-picker__seat' + (state === 'exit' ? ' is-exit' : '')} role="gridcell" aria-label={(rowIndex + 1) + '排' + 'ABCDEF'[colIndex] + ' ' + seatLabel(state, colIndex)} onClick={() => state === 'free' && onPick?.((rowIndex + 1) + 'ABCDEF'[colIndex])}>{'ABCDEF'[colIndex]}</span>)}
+      </div>)}
+    </div>
+    <div className="ds-seat-picker__legend" aria-hidden="true">
+      <span className="is-free">可选</span><span className="is-taken">已占用</span><span className="is-picked">已选</span><span className="is-exit">安全出口</span>
+    </div>
+  </div>;
+}
+
+export function BaggageTrackRow({ tag, state, updatedAt, belt }: { tag: string; state: 'checked' | 'transit' | 'arrived' | 'exception'; updatedAt: string; belt?: string }) {
+  const stateText = { checked: '已收运', transit: '运输中', arrived: '已到达', exception: '异常' };
+  return <div className="ds-baggage-row" tabIndex={0} role="button" aria-label={'行李 ' + tag + '，' + stateText[state] + '，最近更新 ' + updatedAt}>
+    <span className="ds-baggage-row__tag">#{tag}</span>
+    <span className={'ds-baggage-row__state ' + (state === 'exception' ? 'is-exception' : state === 'arrived' ? 'is-arrived' : 'is-transit')}>{stateText[state]}</span>
+    <span className="ds-baggage-row__time">{updatedAt}</span>
+    {belt ? <span className="ds-baggage-row__belt">{belt}</span> : null}
+  </div>;
+}
+
+export function BoardingPassCard({ passenger, flight, date, gate, boardAt, seat, cabin, backupCode }: { passenger: string; flight: string; date: string; gate: string; boardAt: string; seat: string; cabin: string; backupCode: string }) {
+  return <div className="ds-boarding-pass">
+    <div className="ds-boarding-pass__head"><strong>{passenger}</strong><span>{flight} · {date}</span></div>
+    <div className="ds-boarding-pass__grid">
+      <div><span>登机口</span><strong>{gate}</strong></div>
+      <div><span>登机时间</span><strong>{boardAt}</strong></div>
+      <div className="ds-boarding-pass__seat"><span>座位</span><strong>{seat}</strong></div>
+      <div><span>舱位</span><strong>{cabin}</strong></div>
+    </div>
+    <div className="ds-boarding-pass__qr" role="img" aria-label={'登机二维码，备用码 ' + backupCode}>
+      {Array.from({ length: 9 }, (_, index) => <i key={index} aria-hidden="true" />)}
+      <span>备用码 {backupCode}</span>
+    </div>
+    <div className="ds-boarding-pass__barcode" aria-hidden="true" />
+  </div>;
+}
+
+export function HotelRoomCard({ name, size, bed, guests, price, tags, onBook }: { name: string; size: string; bed: string; guests: string; price: number; tags: string[]; onBook?: () => void }) {
+  return <article className="ds-hotel-room" tabIndex={0} role="button" aria-label={name + '，' + size + '，' + bed + '，' + guests + '，每晚 ' + price + ' 元'}>
+    <div className="ds-hotel-room__thumb" aria-hidden="true">🛏</div>
+    <div className="ds-hotel-room__body">
+      <strong>{name}</strong>
+      <p className="ds-hotel-room__spec">{size} · {bed} · {guests}</p>
+      <div className="ds-hotel-room__tags">{tags.map(tag => <span key={tag}>{tag}</span>)}</div>
+    </div>
+    <div className="ds-hotel-room__price">
+      <strong>¥{price}</strong>
+      <span>每晚含税</span>
+      <button type="button" onClick={onBook}>预订</button>
+    </div>
+  </article>;
+}
+
+export function RideTripHud({ driver, rating, plate, carColor, etaMinutes, fare, level }: { driver: string; rating: string; plate: string; carColor: string; etaMinutes: number; fare: number; level: string }) {
+  return <div className="ds-ride-hud" role="status" aria-label={level + '行程，司机' + driver + '，车牌' + plate + '，预计 ' + etaMinutes + ' 分钟到达，费用约 ' + fare + ' 元'}>
+    <div className="ds-ride-hud__driver">
+      <span className="ds-ride-hud__avatar" aria-hidden="true">{driver.slice(0, 1)}</span>
+      <div><strong>{driver} ★{rating}</strong><span className="ds-ride-hud__plate">{plate} · {carColor}</span></div>
+      <span className="ds-ride-hud__eta">{etaMinutes} 分钟</span>
+    </div>
+    <div className="ds-ride-hud__foot">
+      <span className="ds-ride-hud__fare">费用约 <strong>¥{fare}</strong></span>
+      <button type="button">联系司机</button>
+      <button type="button">取消行程</button>
+    </div>
+  </div>;
+}
+
+export function TrainTicketCard({ no, from, to, depart, arrive, seat, cabin, backupCode }: { no: string; from: string; to: string; depart: string; arrive: string; seat: string; cabin: string; backupCode: string }) {
+  return <div className="ds-train-ticket" tabIndex={0} role="button" aria-label={'车次 ' + no + '，' + from + '到' + to + '，' + depart + ' 开，' + arrive + ' 到，' + cabin + ' ' + seat}>
+    <div className="ds-train-ticket__head"><strong className="ds-train-ticket__no">{no}</strong><span>{from} → {to}</span></div>
+    <div className="ds-train-ticket__grid">
+      <div><span>出发</span><strong>{depart}</strong></div>
+      <div><span>到达</span><strong>{arrive}</strong></div>
+      <div><span>座位</span><strong>{seat}</strong></div>
+      <div><span>席别</span><strong>{cabin}</strong></div>
+    </div>
+    <div className="ds-train-ticket__qr" role="img" aria-label={'乘车二维码，备用码 ' + backupCode}>
+      {Array.from({ length: 4 }, (_, index) => <i key={index} aria-hidden="true" />)}
+      <span>备用码 {backupCode}</span>
+    </div>
+  </div>;
+}
+
+export function RouteStepsList({ total, steps }: { total: string; steps: Array<{ mode: 'walk' | 'drive' | 'metro' | 'bus'; act: string; dist: string; current?: boolean }> }) {
+  const modeIcon = { walk: '🚶', drive: '🚗', metro: '🚇', bus: '🚌' };
+  return <div className="ds-route-steps">
+    <p className="ds-route-steps__sum">全程 {total}</p>
+    <ol>
+      {steps.map((step, index) => <li key={index} className={(step.current ? 'is-current ' : '') + 'ds-route-steps__item'} aria-current={step.current ? 'step' : undefined}>
+        <span className={'ds-route-steps__icon is-' + step.mode} aria-hidden="true">{modeIcon[step.mode]}</span>
+        <span className="ds-route-steps__act">{step.act}</span>
+        <span className="ds-route-steps__dist">{step.dist}</span>
+      </li>)}
+    </ol>
+  </div>;
+}
+
+export function ChargingStationCard({ name, distance, free, total, power, price, onNavigate }: { name: string; distance: string; free: number; total: number; power: string; price: string; onNavigate?: () => void }) {
+  return <article className="ds-charge-station" tabIndex={0} role="button" aria-label={name + '，距离 ' + distance + '，空闲 ' + free + ' 枪，' + power + '，' + price}>
+    <div className="ds-charge-station__head"><strong>{name}</strong><span className="ds-charge-station__dist">{distance}</span></div>
+    <p className="ds-charge-station__meta">
+      <span className="ds-charge-station__free">空闲 {free}/{total}</span>
+      <span className="ds-charge-station__power">{power}</span>
+      <span className="ds-charge-station__price">{price}</span>
+    </p>
+    <div className="ds-charge-station__foot">
+      <span>地锁 · 雨棚 · 24h</span>
+      <button type="button" onClick={onNavigate}>导航</button>
+    </div>
+  </article>;
+}
+
+export function ItineraryTimeline({ nodes }: { nodes: Array<{ date: string; icon: 'flight' | 'hotel' | 'train' | 'car' | 'spot'; title: string; note: string; state: 'done' | 'current' | 'todo' }> }) {
+  const iconMap = { flight: '✈️', hotel: '🏨', train: '🚄', car: '🚗', spot: '📍' };
+  const stateText = { done: '已完成', current: '进行中', todo: '待出发' };
+  return <ol className="ds-itinerary">
+    {nodes.map(node => <li key={node.date + node.title} className={'is-' + node.state} aria-current={node.state === 'current' ? 'step' : undefined}>
+      <span className="ds-itinerary__time">{node.date}</span>
+      <span className={'ds-itinerary__icon is-' + node.icon} aria-hidden="true">{iconMap[node.icon]}</span>
+      <div className="ds-itinerary__body">
+        <strong>{node.title}</strong>
+        <span>{node.note}</span>
+      </div>
+      <span className={'ds-itinerary__state is-' + node.state}>{stateText[node.state]}</span>
+    </li>)}
+  </ol>;
+}
