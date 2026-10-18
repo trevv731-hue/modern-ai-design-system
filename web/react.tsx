@@ -18683,3 +18683,128 @@ export function AuctionAppealCard({ kind, time, progress, state }: { kind: strin
     <span className="ds-auc-appeal__time">提交于 {time}</span>
   </article>;
 }
+
+export function BouquetProductCard({ name, flower, price, meaning, tags }: { name: string; flower: string; price: number; meaning: string; tags: string[] }) {
+  return <article className="ds-flo-bouquet" tabIndex={0} role="button" aria-label={'花束商品，' + name + '，主花材 ' + flower + '，场景 ' + tags.join('、') + '，价格 ' + price + ' 元，花语 ' + meaning}>
+    <span className="ds-flo-bouquet__thumb" aria-hidden="true">花</span>
+    <div className="ds-flo-bouquet__body">
+      <strong className="ds-flo-bouquet__name">{name}</strong>
+      <span className="ds-flo-bouquet__flower">{flower}</span>
+      <div className="ds-flo-bouquet__tags">{tags.map(t => <span key={t} className="ds-flo-bouquet__tag">{t}</span>)}</div>
+      <span className="ds-flo-bouquet__meaning">花语：{meaning}</span>
+    </div>
+    <span className="ds-flo-bouquet__price">¥{price}</span>
+  </article>;
+}
+
+export function FlowerOrderRow({ no, slot, to, state }: { no: string; slot: string; to: string; state: 'pending' | 'making' | 'shipping' | 'delivered' | 'cancelled' }) {
+  const stateText = { pending: '待制作', making: '制作中', shipping: '配送中', delivered: '已签收', cancelled: '已取消' };
+  return <div className={'ds-flo-order is-' + state} tabIndex={0} role="button" aria-label={'鲜花订单，订单号 ' + no + '，配送时段 ' + slot + '，收花人 ' + to + '，' + stateText[state]}>
+    <strong className="ds-flo-order__no">{no}</strong>
+    <span className="ds-flo-order__slot">{slot}</span>
+    <span className="ds-flo-order__to">{to}</span>
+    <span className={'ds-flo-order__state is-' + state}>{stateText[state]}</span>
+  </div>;
+}
+
+export function FlowerDeliveryCard({ rider, loc, eta, state }: { rider: string; loc: string; eta: number; state: 'picked' | 'arriving' | 'delivered' }) {
+  const stateText = { picked: '已取花', arriving: '即将送达', delivered: '已送达' };
+  return <article className={'ds-flo-delivery is-' + state} tabIndex={0} role="button" aria-label={'鲜花配送，骑手 ' + rider + ' 已取花，当前位置 ' + loc + '，预计 ' + eta + ' 分钟内送达，' + stateText[state]}>
+    <div className="ds-flo-delivery__head">
+      <strong className="ds-flo-delivery__rider">{rider}</strong>
+      <span className={'ds-flo-delivery__state is-' + state}>{stateText[state]}</span>
+    </div>
+    <div className="ds-flo-delivery__meta">
+      <span className="ds-flo-delivery__loc">{loc}</span>
+      <span className="ds-flo-delivery__eta">约 {eta} 分钟</span>
+    </div>
+  </article>;
+}
+
+export function FlowerSubscriptionCard({ plan, cycle, next, size, state }: { plan: string; cycle: string; next: string; size: string; state: 'active' | 'paused' | 'cancelled' }) {
+  const stateText = { active: '订阅中', paused: '已暂停', cancelled: '已退订' };
+  return <article className={'ds-flo-sub is-' + state} tabIndex={0} role="button" aria-label={'鲜花订阅，' + plan + '，' + cycle + '送达，下次 ' + next + '，规格 ' + size + '，' + stateText[state]}>
+    <div className="ds-flo-sub__head">
+      <strong className="ds-flo-sub__plan">{plan}</strong>
+      <span className={'ds-flo-sub__state is-' + state}>{stateText[state]}</span>
+    </div>
+    <div className="ds-flo-sub__meta">
+      <span className="ds-flo-sub__cycle">{cycle}</span>
+      <span className="ds-flo-sub__next">下次 {next}</span>
+      <span className="ds-flo-sub__size">{size}</span>
+    </div>
+  </article>;
+}
+
+export function FlowerCareTipCard({ tips }: { tips: Array<{ act: string; freq: string; done: boolean }> }) {
+  const [items, setItems] = useState(tips);
+  const doneCount = items.filter(t => t.done).length;
+  return <article className="ds-flo-care" aria-label={'养护提示，' + items.map(t => t.act + '，' + t.freq).join('，') + '，已完成 ' + doneCount + ' 项'}>
+    {items.map((t, i) => <div key={t.act} className={'ds-flo-care__item' + (t.done ? ' is-done' : '')} tabIndex={0} role="checkbox" aria-checked={t.done} onClick={() => setItems(items.map((x, j) => j === i ? { ...x, done: !x.done } : x))}>
+      <span className="ds-flo-care__act">{t.act}</span>
+      <span className="ds-flo-care__freq">{t.freq}</span>
+    </div>)}
+  </article>;
+}
+
+export function VaseSizeSelectorRow({ size, height, cap, fit, selected }: { size: string; height: string; cap: string; fit: string; selected: boolean }) {
+  return <div className={'ds-flo-vase' + (selected ? ' is-on' : '')} role="radio" aria-checked={selected} tabIndex={0} aria-label={'花瓶规格，' + size + '，高 ' + height + '，容量 ' + cap + '，适配 ' + fit + '，' + (selected ? '已选中' : '未选中')}>
+    <strong className="ds-flo-vase__size">{size}</strong>
+    <span className="ds-flo-vase__height">高 {height}</span>
+    <span className="ds-flo-vase__cap">{cap}</span>
+    <span className="ds-flo-vase__fit">适配 {fit}</span>
+  </div>;
+}
+
+export function GreetingCardEditor({ message, sign, font }: { message: string; sign: string; font: 'hand' | 'print' }) {
+  const fontText = { hand: '手写体', print: '印刷体' };
+  const over = message.length > 50;
+  return <section className="ds-flo-card" aria-label={'贺卡编辑器，祝福语 ' + message + '，已输入 ' + message.length + ' 字' + (over ? '，超出 50 字上限' : '') + '，署名 ' + sign + '，字体 ' + fontText[font]}>
+    <div className="ds-flo-card__preview">
+      <p className="ds-flo-card__msg">{message}</p>
+      <span className="ds-flo-card__sign">—— {sign}</span>
+    </div>
+    <div className="ds-flo-card__meta">
+      <span className="ds-flo-card__count">{message.length} / 50 字{over ? ' · 超限' : ''}</span>
+      <div className="ds-flo-card__fonts">
+        <span className={'ds-flo-card__font' + (font === 'hand' ? ' is-on' : '')}>手写体</span>
+        <span className={'ds-flo-card__font' + (font === 'print' ? ' is-on' : '')}>印刷体</span>
+      </div>
+    </div>
+  </section>;
+}
+
+export function WeddingFlowerRow({ scene, flower, qty, budget }: { scene: string; flower: string; qty: number; budget: number }) {
+  return <div className="ds-flo-wedding" tabIndex={0} role="button" aria-label={'婚礼用花，' + scene + '，花材 ' + flower + '，数量 ' + qty + ' 枝，预算 ' + budget.toLocaleString() + ' 元'}>
+    <strong className="ds-flo-wedding__scene">{scene}</strong>
+    <span className="ds-flo-wedding__flower">{flower}</span>
+    <span className="ds-flo-wedding__qty">{qty} 枝</span>
+    <span className="ds-flo-wedding__budget">¥{budget.toLocaleString()}</span>
+  </div>;
+}
+
+export function FreshnessGradeCard({ grade, head, days, note }: { grade: 'a' | 'b' | 'c'; head: string; days: number; note: string }) {
+  const gradeText = { a: 'A 级', b: 'B 级', c: 'C 级' };
+  return <article className={'ds-flo-fresh is-' + grade} tabIndex={0} role="button" aria-label={'鲜花等级，' + gradeText[grade] + '，花头直径 ' + head + '，保鲜期 ' + days + ' 天，' + note}>
+    <span className={'ds-flo-fresh__grade is-' + grade}>{gradeText[grade]}</span>
+    <div className="ds-flo-fresh__meta">
+      <span className="ds-flo-fresh__head">花头 {head}</span>
+      <span className="ds-flo-fresh__days">保鲜 {days} 天</span>
+    </div>
+    <p className="ds-flo-fresh__note">{note}</p>
+  </article>;
+}
+
+export function FuneralFlowerCard({ kind, flower, price, slot }: { kind: string; flower: string; price: number; slot: string }) {
+  return <article className="ds-flo-funeral" tabIndex={0} role="button" aria-label={'祭奠用花，' + kind + '，主花材 ' + flower + '，价格 ' + price + ' 元，配送时段 ' + slot + '，可预约'}>
+    <div className="ds-flo-funeral__head">
+      <strong className="ds-flo-funeral__kind">{kind}</strong>
+      <span className="ds-flo-funeral__state is-open">可预约</span>
+    </div>
+    <span className="ds-flo-funeral__flower">{flower}</span>
+    <div className="ds-flo-funeral__foot">
+      <span className="ds-flo-funeral__price">¥{price}</span>
+      <span className="ds-flo-funeral__slot">送达 {slot}</span>
+    </div>
+  </article>;
+}
