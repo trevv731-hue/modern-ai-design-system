@@ -13543,3 +13543,115 @@ export function RichtextToolbarGroup({ groups = [], active = [], onRun }:
     </React.Fragment>)}
   </div>;
 }
+
+export function ProductCard({ title, price, was, rating, onAdd }:
+  { title: string; price: string; was?: string; rating?: number; onAdd?: () => void }) {
+  return <div className="ds-product-card">
+    <span className="ds-product-card__thumb" aria-hidden="true">⌚</span>
+    <div className="ds-product-card__body">
+      <h4>{title}</h4>
+      <p className="ds-product-card__meta">{rating === undefined ? '' : rating.toFixed(1) + ' 分 · 商品评价'}</p>
+      <p className="ds-product-card__price">{price}{was && <span className="ds-product-card__was">{was}</span>}</p>
+    </div>
+    <button type="button" onClick={onAdd}>加入购物车</button>
+  </div>;
+}
+
+export function CartLine({ title, spec, qty = 1, sum, onQty, onRemove }:
+  { title: string; spec?: string; qty?: number; sum: string; onQty?: (next: number) => void; onRemove?: () => void }) {
+  return <div className="ds-cart-line">
+    <span className="ds-cart-line__thumb" aria-hidden="true">🎧</span>
+    <div className="ds-cart-line__info"><strong>{title}</strong>{spec && <span>{spec}</span>}</div>
+    <div className="ds-cart-line__qty" role="group" aria-label="数量">
+      <button type="button" aria-label="减少" onClick={() => onQty?.(Math.max(1, qty - 1))}>−</button>
+      <span>{qty}</span>
+      <button type="button" aria-label="增加" onClick={() => onQty?.(qty + 1)}>+</button>
+    </div>
+    <span className="ds-cart-line__sum">{sum}</span>
+    <button type="button" className="ds-cart-line__remove" aria-label="移除" onClick={onRemove}>✕</button>
+  </div>;
+}
+
+export function CheckoutSteps({ steps, current = 0 }:
+  { steps: string[]; current?: number }) {
+  return <ol className="ds-checkout-steps" aria-label="结算进度">
+    {steps.map((step, index) => <li key={step}
+      className={'ds-checkout-steps__step' + (index < current ? ' is-done' : index === current ? ' is-current' : '')}
+      aria-current={index === current ? 'step' : undefined}>
+      {step}<small>{index < current ? '已填写' : index === current ? '第 ' + (index + 1) + ' 步，共 ' + steps.length + ' 步' : '待完成'}</small>
+    </li>)}
+  </ol>;
+}
+
+export function PromoCodeRow({ value = '', saved, onApply }:
+  { value?: string; saved?: string; onApply?: (code: string) => void }) {
+  const id = useId();
+  return <div className="ds-promo-code">
+    <label htmlFor={id}>优惠码</label>
+    <input id={id} defaultValue={value} />
+    <button type="button" onClick={() => onApply?.(value)}>应用</button>
+    {saved && <span className="ds-promo-code__ok">{saved}</span>}
+  </div>;
+}
+
+export function OrderTimeline({ steps }:
+  { steps: { label: string; time: string; state?: 'done' | 'current' }[] }) {
+  return <ol className="ds-order-timeline">
+    {steps.map(step => <li key={step.label} className={step.state ? 'is-' + step.state : undefined}>
+      <strong>{step.label}</strong><time>{step.time}</time>
+    </li>)}
+  </ol>;
+}
+
+export function PaymentPicker({ options, value, onChange }:
+  { options: string[]; value?: string; onChange?: (next: string) => void }) {
+  const icons = ['💳', '📱', '🏦'];
+  return <div className="ds-pay-picker" role="radiogroup" aria-label="支付方式">
+    {options.map((option, index) => <label key={option} className="ds-pay-picker__item">
+      <input type="radio" name="ds-pay" checked={option === value} onChange={() => onChange?.(option)} />
+      <span aria-hidden="true">{icons[index] || '💰'}</span>
+      <strong>{option}</strong>
+      <small>{index === 0 ? '默认方式' : '可选方式'}</small>
+    </label>)}
+  </div>;
+}
+
+export function AddressItem({ name, phone, detail, isDefault, onEdit, onDelete }:
+  { name: string; phone: string; detail: string; isDefault?: boolean; onEdit?: () => void; onDelete?: () => void }) {
+  return <div className={'ds-addr-item' + (isDefault ? ' is-default' : '')}>
+    <div className="ds-addr-item__head"><strong>{name}</strong>{isDefault && <span className="ds-addr-item__tag">默认</span>}</div>
+    <p>{phone}</p>
+    <p>{detail}</p>
+    <div className="ds-addr-item__actions">
+      <button type="button" onClick={onEdit}>编辑</button>
+      <button type="button" onClick={onDelete}>删除</button>
+    </div>
+  </div>;
+}
+
+export function StockBadge({ left }: { left: number }) {
+  if (left <= 0) return <span className="ds-stock-badge">已售罄</span>;
+  return <span className="ds-stock-badge">仅剩 {left} 件</span>;
+}
+
+export function ProductCompareTable({ rows, headers = ['标准版', '专业版'] }:
+  { rows: { label: string; values: string[]; better?: number }[]; headers?: string[] }) {
+  return <table className="ds-product-compare">
+    <caption className="ds-sr-only">商品对比</caption>
+    <thead><tr><th scope="col">参数</th>{headers.map(head => <th key={head} scope="col">{head}</th>)}</tr></thead>
+    <tbody>{rows.map(row => <tr key={row.label}>
+      <th scope="row">{row.label}</th>
+      {row.values.map((cell, index) => <td key={index} className={index === row.better ? 'is-better' : undefined}>{cell}</td>)}
+    </tr>)}</tbody>
+  </table>;
+}
+
+export function PlanCard({ name, price, unit, features = [], featured, onSelect }:
+  { name: string; price: string; unit?: string; features?: string[]; featured?: boolean; onSelect?: () => void }) {
+  return <div className={'ds-plan-card' + (featured ? ' is-featured' : '')}>
+    <div className="ds-plan-card__head"><h4>{name}</h4>{featured && <span className="ds-plan-card__badge">最受欢迎</span>}</div>
+    <p className="ds-plan-card__price">{price}{unit && <span>{unit}</span>}</p>
+    <ul className="ds-plan-card__list">{features.map(item => <li key={item}>{item}</li>)}</ul>
+    <button type="button" onClick={onSelect}>选择{name}</button>
+  </div>;
+}

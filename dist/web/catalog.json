@@ -12784,5 +12784,279 @@
       "键盘可完成输入"
     ],
     "react": "<CronExpressionInput value=\"0 */6 * * *\" onChange={setCron} />"
+  },
+  {
+    "id": "commerce-product-card",
+    "name": "商品卡",
+    "category": "电商",
+    "status": "v3 新增",
+    "purpose": "在列表与推荐位中展示商品核心信息，并用明确的主行动按钮促成加购。",
+    "anatomy": [
+      "封面区 (ds-product-card__thumb)",
+      "标题",
+      "评价摘要",
+      "现价与原价",
+      "主行动按钮"
+    ],
+    "keyboard": "Tab 聚焦加购按钮；Enter 或 Space 触发。",
+    "guidance": [
+      "现价与原价并排，划线价用删除线且不单独依赖颜色传达折扣。",
+      "评价数附在评分旁，不做无依据的好评标注。",
+      "卡片整体可点击时需保留按钮作为独立可聚焦行动点。"
+    ],
+    "preview": "<div class=\"ds-product-card\"><span class=\"ds-product-card__thumb\" aria-hidden=\"true\">⌚</span><div class=\"ds-product-card__body\"><h4>钛金属运动表带</h4><p class=\"ds-product-card__meta\">2,481 条评价 · 4.8 分</p><p class=\"ds-product-card__price\">¥899<span class=\"ds-product-card__was\">¥1,099</span></p></div><button type=\"button\">加入购物车</button></div>",
+    "checks": [
+      "现价与原价并排且划线价不依赖颜色",
+      "评价摘要与评分同现",
+      "加购按钮独立可聚焦",
+      "触控目标不小于 40px"
+    ],
+    "react": "<ProductCard title=\"钛金属运动表带\" price=\"¥899\" was=\"¥1,099\" rating={4.8} onAdd={addToCart} />"
+  },
+  {
+    "id": "commerce-cart-line",
+    "name": "购物车行",
+    "category": "电商",
+    "status": "v3 新增",
+    "purpose": "在购物车中呈现单行商品，支持数量步进、小计更新与移除。",
+    "anatomy": [
+      "商品缩略图",
+      "名称与规格",
+      "数量步进器",
+      "小计金额",
+      "移除按钮"
+    ],
+    "keyboard": "Tab 在数量增减与移除间移动；按钮均有可读名称。",
+    "guidance": [
+      "数量变化即时刷新小计，并说明库存上限。",
+      "移除操作前给一次确认或提供撤销入口。",
+      "小计与数量在同一行对齐，避免跨行查找。"
+    ],
+    "preview": "<div class=\"ds-cart-line\"><span class=\"ds-cart-line__thumb\" aria-hidden=\"true\">🎧</span><div class=\"ds-cart-line__info\"><strong>降噪耳机 Pro</strong><span>白色 · 含充电盒</span></div><div class=\"ds-cart-line__qty\" role=\"group\" aria-label=\"数量\"><button type=\"button\" aria-label=\"减少\">−</button><span>2</span><button type=\"button\" aria-label=\"增加\">+</button></div><span class=\"ds-cart-line__sum\">¥2,398</span><button type=\"button\" class=\"ds-cart-line__remove\" aria-label=\"移除\">✕</button></div>",
+    "checks": [
+      "数量步进带可读名称",
+      "小计随数量即时刷新",
+      "移除按钮有确认或撤销",
+      "库存上限有提示"
+    ],
+    "react": "<CartLine title=\"降噪耳机 Pro\" spec=\"白色 · 含充电盒\" qty={2} sum=\"¥2,398\" />"
+  },
+  {
+    "id": "commerce-checkout-steps",
+    "name": "结算步骤条",
+    "category": "电商",
+    "status": "v3 新增",
+    "purpose": "展示结账流程的整体进度，让用户清楚所处步骤与剩余步骤。",
+    "anatomy": [
+      "步骤序列 (ds-checkout-steps__step)",
+      "完成态",
+      "当前态",
+      "待办态"
+    ],
+    "keyboard": "已解锁步骤可点击回跳；未解锁步骤不接收焦点。",
+    "guidance": [
+      "每步标注状态文字，不只靠颜色与图标。",
+      "回跳已完成的步骤需保留已填信息。",
+      "步骤总数恒定可见，如“第 2 步，共 3 步”。"
+    ],
+    "preview": "<ol class=\"ds-checkout-steps\" aria-label=\"结算进度\"><li class=\"ds-checkout-steps__step is-done\">配送地址<small>已填写</small></li><li class=\"ds-checkout-steps__step is-current\" aria-current=\"step\">支付方式<small>第 2 步，共 3 步</small></li><li class=\"ds-checkout-steps__step\">确认订单<small>待完成</small></li></ol>",
+    "checks": [
+      "每步有状态文字",
+      "当前步设 aria-current",
+      "步骤总数可见",
+      "已完成步骤可回跳且保留信息"
+    ],
+    "react": "<CheckoutSteps current={1} steps={[\"配送地址\", \"支付方式\", \"确认订单\"]} />"
+  },
+  {
+    "id": "commerce-promo-code",
+    "name": "优惠码输入行",
+    "category": "电商",
+    "status": "v3 新增",
+    "purpose": "在结算页应用促销码，并即时反馈折扣金额或失败原因。",
+    "anatomy": [
+      "优惠码输入",
+      "应用按钮",
+      "生效结果提示",
+      "失败原因"
+    ],
+    "keyboard": "Enter 直接提交；错误时焦点保留在输入框并选中错误文本。",
+    "guidance": [
+      "应用成功展示具体节省金额。",
+      "失败给出原因：过期、不适用、已达上限。",
+      "不可用的码允许清除后重新输入，不做整页刷新。"
+    ],
+    "preview": "<div class=\"ds-promo-code\"><label for=\"promo\">优惠码</label><input id=\"promo\" value=\"SAVE20\"><button type=\"button\">应用</button><span class=\"ds-promo-code__ok\">已省 ¥160</span></div>",
+    "checks": [
+      "成功展示节省金额",
+      "失败给出具体原因",
+      "Enter 可提交",
+      "错误不清空用户输入"
+    ],
+    "react": "<PromoCodeRow value=\"SAVE20\" onApply={applyCode} saved=\"已省 ¥160\" />"
+  },
+  {
+    "id": "commerce-order-timeline",
+    "name": "订单状态时间线",
+    "category": "电商",
+    "status": "v3 新增",
+    "purpose": "按时间顺序呈现订单履约节点，突出当前所处状态。",
+    "anatomy": [
+      "节点序列 (ds-order-timeline)",
+      "已完成节点",
+      "当前节点",
+      "待发生节点",
+      "时间戳"
+    ],
+    "keyboard": "列表语义朗读；当前节点通过文字而非仅图标表达。",
+    "guidance": [
+      "每个节点带时间或预计时间。",
+      "当前节点明确标注“进行中”。",
+      "延误时主动说明原因与新预计时间。"
+    ],
+    "preview": "<ol class=\"ds-order-timeline\"><li class=\"is-done\"><strong>已下单</strong><time>10-12 09:30</time></li><li class=\"is-done\"><strong>已发货</strong><time>10-12 18:05</time></li><li class=\"is-current\"><strong>运输中</strong><time>预计 10-14 送达</time></li><li><strong>已签收</strong><time>待完成</time></li></ol>",
+    "checks": [
+      "节点带时间或预计时间",
+      "当前节点有文字标注",
+      "延误说明原因与新时间",
+      "列表语义可朗读"
+    ],
+    "react": "<OrderTimeline steps={[{ label: \"已下单\", time: \"10-12 09:30\", state: \"done\" }, { label: \"运输中\", time: \"预计 10-14 送达\", state: \"current\" }]} />"
+  },
+  {
+    "id": "commerce-payment-picker",
+    "name": "支付方式选择",
+    "category": "电商",
+    "status": "v3 新增",
+    "purpose": "在多种支付方式中单选，并说明每种方式的到账时效与限制。",
+    "anatomy": [
+      "单选组 (ds-pay-picker)",
+      "方式图标",
+      "方式名称",
+      "账户摘要",
+      "选中态"
+    ],
+    "keyboard": "左右方向键在单选组内移动；单选语义使用 radio 而非 div。",
+    "guidance": [
+      "需跳转第三方的方式提前标注。",
+      "默认选中上次使用的方式，但允许一键更改。",
+      "支付安全提示就近展示，不堆在页脚。"
+    ],
+    "preview": "<div class=\"ds-pay-picker\" role=\"radiogroup\" aria-label=\"支付方式\"><label class=\"ds-pay-picker__item\"><input type=\"radio\" name=\"pay\" checked><span aria-hidden=\"true\">💳</span><strong>信用卡</strong><small>**** 4291</small></label><label class=\"ds-pay-picker__item\"><input type=\"radio\" name=\"pay\"><span aria-hidden=\"true\">📱</span><strong>微信支付</strong><small>零钱或银行卡</small></label><label class=\"ds-pay-picker__item\"><input type=\"radio\" name=\"pay\"><span aria-hidden=\"true\">🏦</span><strong>网银支付</strong><small>需跳转银行页面</small></label></div>",
+    "checks": [
+      "单选语义正确",
+      "跳转支付提前标注",
+      "默认项可更改",
+      "安全提示就近展示"
+    ],
+    "react": "<PaymentPicker value=\"card\" onChange={setPay} options={[\"信用卡\", \"微信支付\", \"网银支付\"]} />"
+  },
+  {
+    "id": "commerce-address-item",
+    "name": "地址簿条目",
+    "category": "电商",
+    "status": "v3 新增",
+    "purpose": "展示单个收货地址，支持设为默认、编辑与删除。",
+    "anatomy": [
+      "联系人姓名",
+      "默认标记",
+      "电话",
+      "详细地址",
+      "操作按钮组"
+    ],
+    "keyboard": "Tab 遍历编辑与删除按钮；删除前需确认。",
+    "guidance": [
+      "默认地址有明确文字标记。",
+      "删除默认地址前引导先设新默认。",
+      "电话中间四位打码，列表内不展示完整号码。"
+    ],
+    "preview": "<div class=\"ds-addr-item is-default\"><div class=\"ds-addr-item__head\"><strong>张伟</strong><span class=\"ds-addr-item__tag\">默认</span></div><p>138****5678</p><p>上海市浦东新区世纪大道 100 号 环球金融中心 32 层</p><div class=\"ds-addr-item__actions\"><button type=\"button\">编辑</button><button type=\"button\">删除</button></div></div>",
+    "checks": [
+      "默认地址有文字标记",
+      "删除需确认",
+      "电话打码展示",
+      "操作按钮可键盘到达"
+    ],
+    "react": "<AddressItem name=\"张伟\" phone=\"138****5678\" detail=\"上海市浦东新区世纪大道 100 号\" isDefault />"
+  },
+  {
+    "id": "commerce-stock-badge",
+    "name": "库存紧张徽标",
+    "category": "电商",
+    "status": "v3 新增",
+    "purpose": "在商品列表与详情中提示低库存，制造合理的紧迫感。",
+    "anatomy": [
+      "徽标外壳 (ds-stock-badge)",
+      "剩余数量文案"
+    ],
+    "keyboard": "纯展示元素，不接收焦点。",
+    "guidance": [
+      "仅在真实低库存时展示，不虚构紧张感。",
+      "文案给出具体剩余数量。",
+      "售罄时改为“已售罄”并禁用加购，而非继续展示紧迫感。"
+    ],
+    "preview": "<span class=\"ds-stock-badge\">仅剩 3 件</span>",
+    "checks": [
+      "仅在真实低库存展示",
+      "文案含具体数量",
+      "售罄状态切换为禁用",
+      "不虚构紧迫感"
+    ],
+    "react": "<StockBadge left={3} />"
+  },
+  {
+    "id": "commerce-product-compare",
+    "name": "商品对比表",
+    "category": "电商",
+    "status": "v3 新增",
+    "purpose": "并排比较多个型号的参数差异，帮助用户在购买前做出选择。",
+    "anatomy": [
+      "参数行 (ds-product-compare)",
+      "列头型号",
+      "更优值单元格",
+      "行表头"
+    ],
+    "keyboard": "表格语义导航；行表头使用 th scope=\"row\"。",
+    "guidance": [
+      "更优值用图标加文字标注，不只用背景色。",
+      "参数分组可折叠，避免超长表格。",
+      "移动端允许横向滚动并固定首列。"
+    ],
+    "preview": "<table class=\"ds-product-compare\"><caption class=\"ds-sr-only\">商品对比</caption><thead><tr><th scope=\"col\">参数</th><th scope=\"col\">标准版</th><th scope=\"col\">专业版</th></tr></thead><tbody><tr><th scope=\"row\">价格</th><td>¥299</td><td class=\"is-better\">¥499</td></tr><tr><th scope=\"row\">云同步</th><td>1 GB</td><td class=\"is-better\">100 GB</td></tr><tr><th scope=\"row\">协作人数</th><td>3 人</td><td class=\"is-better\">不限</td></tr></tbody></table>",
+    "checks": [
+      "更优值有图标加文字",
+      "行表头使用 scope",
+      "移动端可横向滚动",
+      "参数分组可折叠"
+    ],
+    "react": "<ProductCompareTable rows={[{ label: \"价格\", values: [\"¥299\", \"¥499\"], better: 1 }]} />"
+  },
+  {
+    "id": "commerce-plan-card",
+    "name": "订阅计划卡",
+    "category": "电商",
+    "status": "v3 新增",
+    "purpose": "展示订阅档位的价格与权益，突出推荐档位并引导升级。",
+    "anatomy": [
+      "档位名称",
+      "推荐标记",
+      "价格与周期",
+      "权益列表",
+      "选择按钮"
+    ],
+    "keyboard": "Tab 聚焦选择按钮；权益列表使用无序列表朗读。",
+    "guidance": [
+      "推荐档位有明确文字标记，不只靠边框颜色。",
+      "年付切换时同步更新月均价。",
+      "权益差异用清单呈现，不用大段文字。"
+    ],
+    "preview": "<div class=\"ds-plan-card is-featured\"><div class=\"ds-plan-card__head\"><h4>专业版</h4><span class=\"ds-plan-card__badge\">最受欢迎</span></div><p class=\"ds-plan-card__price\">¥49<span>/ 月</span></p><ul class=\"ds-plan-card__list\"><li>无限项目与看板</li><li>高级权限管理</li><li>优先客服支持</li></ul><button type=\"button\">选择专业版</button></div>",
+    "checks": [
+      "推荐档有文字标记",
+      "年付切换更新月均价",
+      "权益用清单呈现",
+      "按钮文案指明档位"
+    ],
+    "react": "<PlanCard name=\"专业版\" price=\"¥49\" unit=\"/ 月\" features={[\"无限项目与看板\", \"高级权限管理\", \"优先客服支持\"]} featured />"
   }
 ]
