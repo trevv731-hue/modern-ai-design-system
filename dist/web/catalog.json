@@ -24627,5 +24627,280 @@
       "查看全文"
     ],
     "react": "<ParentingTipCard age=\"8 月龄\" topic=\"添加手指食物\" body=\"由稀到稠、由细到粗，每次只引入一种新食材并观察 3 天。\" src=\"卫健委育儿指南\" />"
+  },
+  {
+    "id": "beauty-product",
+    "name": "美妆商品卡",
+    "category": "美妆 / 美容",
+    "status": "v3 新增",
+    "purpose": "展示一款美妆商品的色号、价格与适用肤质。",
+    "anatomy": [
+      "商品名 (ds-beauty__name)",
+      "色号 (ds-beauty__shade)",
+      "价格 (ds-beauty__price)",
+      "肤质标签 (ds-beauty__tag)",
+      "试用装 (ds-beauty__sample)"
+    ],
+    "keyboard": "卡片可聚焦加入购物车；无送礼装时文字标注。",
+    "guidance": [
+      "价格红色等宽。",
+      "色号以色块加文字展示。",
+      "肤质标签圆角徽标。"
+    ],
+    "preview": "<article class=\"ds-beauty-product\" tabindex=\"0\" role=\"button\" aria-label=\"美妆商品，绒雾唇釉，色号 M07 干玫瑰，价格 189 元，适用肤质 所有肤质，赠 2 克旅行装\"><div class=\"ds-beauty-product__head\"><strong class=\"ds-beauty-product__name\">绒雾唇釉</strong><span class=\"ds-beauty-product__sample\">赠旅行装</span></div><div class=\"ds-beauty-product__shade\"><span class=\"ds-beauty-product__chip\" style=\"background:#c1666b\" aria-hidden=\"true\"></span><span class=\"ds-beauty-product__code\">M07 · 干玫瑰</span></div><div class=\"ds-beauty-product__foot\"><span class=\"ds-beauty-product__price\">¥189</span><span class=\"ds-beauty-product__tag\">所有肤质</span></div></article>",
+    "checks": [
+      "价格红色",
+      "色块加文字",
+      "肤质标签",
+      "旅行装"
+    ],
+    "react": "<BeautyProductCard name=\"绒雾唇釉\" shade=\"M07 · 干玫瑰\" price={189} tag=\"所有肤质\" sample />"
+  },
+  {
+    "id": "beauty-routine",
+    "name": "护肤步骤行",
+    "category": "美妆 / 美容",
+    "status": "v3 新增",
+    "purpose": "展示一次护肤流程中的单一步骤与完成状态。",
+    "anatomy": [
+      "时段 (ds-beauty-routine__slot)",
+      "步骤名 (ds-beauty-routine__step)",
+      "产品 (ds-beauty-routine__item)",
+      "完成环 (ds-beauty-routine__ring)"
+    ],
+    "keyboard": "行可聚焦标记完成；已完成文字标注。",
+    "guidance": [
+      "时段两态：早间、晚间。",
+      "步骤顺序编号。",
+      "完成态对勾环。"
+    ],
+    "preview": "<div class=\"ds-beauty-routine is-done\" tabindex=\"0\" role=\"button\" aria-label=\"护肤步骤，早间第 3 步，精华，产品 烟酰胺精华 5%，已完成\"><span class=\"ds-beauty-routine__slot\">早间 · 第 3 步</span><strong class=\"ds-beauty-routine__step\">精华</strong><span class=\"ds-beauty-routine__item\">烟酰胺精华 5%</span><span class=\"ds-beauty-routine__ring is-done\" role=\"img\" aria-label=\"已完成\">✓</span></div>",
+    "checks": [
+      "两态时段",
+      "步骤编号",
+      "完成环",
+      "标记完成"
+    ],
+    "react": "<SkincareRoutineRow slot=\"早间 · 第 3 步\" step=\"精华\" item=\"烟酰胺精华 5%\" done />"
+  },
+  {
+    "id": "beauty-tryon",
+    "name": "试色卡",
+    "category": "美妆 / 美容",
+    "status": "v3 新增",
+    "purpose": "展示一款口红的试色效果与色号属性。",
+    "anatomy": [
+      "色号名 (ds-beauty-tryon__name)",
+      "试色区 (ds-beauty-tryon__swatch)",
+      "冷暖调 (ds-beauty-tryon__tone)",
+      "质地 (ds-beauty-tryon__finish)",
+      "持久度 (ds-beauty-tryon__last)"
+    ],
+    "keyboard": "卡片可聚焦查看试色报告；持久度以文字加星展示。",
+    "guidance": [
+      "试色区用真实色块。",
+      "冷暖调文字标注。",
+      "质地三态：哑光、缎光、水润。"
+    ],
+    "preview": "<article class=\"ds-beauty-tryon\" tabindex=\"0\" role=\"button\" aria-label=\"试色卡，色号 M07 干玫瑰，暖调，哑光质地，持久度 4 星，素颜可涂\"><div class=\"ds-beauty-tryon__swatch\" style=\"background:#c1666b\" aria-hidden=\"true\"></div><div class=\"ds-beauty-tryon__body\"><strong class=\"ds-beauty-tryon__name\">M07 · 干玫瑰</strong><div class=\"ds-beauty-tryon__meta\"><span class=\"ds-beauty-tryon__tone\">暖调</span><span class=\"ds-beauty-tryon__finish\">哑光</span><span class=\"ds-beauty-tryon__last\">持久 ★★★★</span></div><span class=\"ds-beauty-tryon__note\">素颜可涂 · 显白</span></div></article>",
+    "checks": [
+      "真实色块",
+      "冷暖文字",
+      "质地三态",
+      "试色报告"
+    ],
+    "react": "<MakeupTryOnCard name=\"M07 · 干玫瑰\" tone=\"warm\" finish=\"matte\" lasting={4} note=\"素颜可涂\" />"
+  },
+  {
+    "id": "beauty-appointment",
+    "name": "美容预约卡",
+    "category": "美妆 / 美容",
+    "status": "v3 新增",
+    "purpose": "展示一次美容服务的预约信息与状态。",
+    "anatomy": [
+      "项目 (ds-beauty-appt__item)",
+      "美容师 (ds-beauty-appt__staff)",
+      "时间 (ds-beauty-appt__time)",
+      "状态 (ds-beauty-appt__state)",
+      "价格 (ds-beauty-appt__price)"
+    ],
+    "keyboard": "卡片可聚焦查看预约详情；待确认状态以 status 语义播报。",
+    "guidance": [
+      "状态四态：待确认、已确认、进行中、已完成。",
+      "时间等宽。",
+      "价格红色等宽。"
+    ],
+    "preview": "<article class=\"ds-beauty-appt is-confirmed\" tabindex=\"0\" role=\"button\" aria-label=\"美容预约，项目 小气泡深层清洁，美容师 安娜，6 月 22 日 15:00，已确认，价格 398 元\"><div class=\"ds-beauty-appt__head\"><strong class=\"ds-beauty-appt__item\">小气泡深层清洁</strong><span class=\"ds-beauty-appt__state is-confirmed\">已确认</span></div><div class=\"ds-beauty-appt__meta\"><span class=\"ds-beauty-appt__staff\">美容师 安娜</span><span class=\"ds-beauty-appt__time\">06-22 15:00</span></div><span class=\"ds-beauty-appt__price\">¥398</span></article>",
+    "checks": [
+      "四态状态",
+      "时间等宽",
+      "价格红色",
+      "预约详情"
+    ],
+    "react": "<BeautyAppointmentCard item=\"小气泡深层清洁\" staff=\"安娜\" time=\"06-22 15:00\" price={398} state=\"confirmed\" />"
+  },
+  {
+    "id": "beauty-tutorial",
+    "name": "美妆教程卡",
+    "category": "美妆 / 美容",
+    "status": "v3 新增",
+    "purpose": "展示一个美妆教程的妆容类型与难度信息。",
+    "anatomy": [
+      "教程名 (ds-beauty-tut__name)",
+      "妆容类型 (ds-beauty-tut__type)",
+      "时长 (ds-beauty-tut__dur)",
+      "难度 (ds-beauty-tut__level)",
+      "步骤数 (ds-beauty-tut__steps)"
+    ],
+    "keyboard": "卡片可聚焦查看教程；新手友好难度文字标注。",
+    "guidance": [
+      "难度三态：新手、进阶、高阶。",
+      "时长分钟展示。",
+      "步骤数徽标。"
+    ],
+    "preview": "<article class=\"ds-beauty-tut is-beginner\" tabindex=\"0\" role=\"button\" aria-label=\"美妆教程，通勤五分钟伪素颜，妆容类型 日常裸妆，时长 5 分钟，难度 新手，共 4 步\"><div class=\"ds-beauty-tut__head\"><strong class=\"ds-beauty-tut__name\">通勤五分钟伪素颜</strong><span class=\"ds-beauty-tut__level is-beginner\">新手</span></div><div class=\"ds-beauty-tut__meta\"><span class=\"ds-beauty-tut__type\">日常裸妆</span><span class=\"ds-beauty-tut__dur\">5 分钟</span><span class=\"ds-beauty-tut__steps\">4 步</span></div></article>",
+    "checks": [
+      "三态难度",
+      "时长展示",
+      "步骤徽标",
+      "查看教程"
+    ],
+    "react": "<BeautyTutorialCard name=\"通勤五分钟伪素颜\" type=\"日常裸妆\" minutes={5} level=\"beginner\" steps={4} />"
+  },
+  {
+    "id": "beauty-ingredient",
+    "name": "成分分析卡",
+    "category": "美妆 / 美容",
+    "status": "v3 新增",
+    "purpose": "展示一款护肤品的成分构成与安全评级。",
+    "anatomy": [
+      "成分列表 (ds-beauty-ing__list)",
+      "成分项 (ds-beauty-ing__item)",
+      "风险标识 (is-risk)",
+      "评级 (ds-beauty-ing__grade)"
+    ],
+    "keyboard": "卡片可聚焦查看成分详情；高风险成分以 alert 语义播报。",
+    "guidance": [
+      "成分按含量排序。",
+      "风险三色：安全、注意、风险。",
+      "总体评级文字展示。"
+    ],
+    "preview": "<article class=\"ds-beauty-ing is-good\" tabindex=\"0\" role=\"button\" aria-label=\"成分分析，共有 5 种主要成分，含风险成分 1 种，总体评级 B 级，孕妇慎用成分视黄醇\"><div class=\"ds-beauty-ing__head\"><strong class=\"ds-beauty-ing__grade\">B 级</strong><span class=\"ds-beauty-ing__warn\">含风险成分 1 种</span></div><div class=\"ds-beauty-ing__list\"><span class=\"ds-beauty-ing__item is-safe\">甘油</span><span class=\"ds-beauty-ing__item is-safe\">透明质酸</span><span class=\"ds-beauty-ing__item is-note\">烟酰胺</span><span class=\"ds-beauty-ing__item is-note\">酒精</span><span class=\"ds-beauty-ing__item is-risk\">视黄醇</span></div><p class=\"ds-beauty-ing__note\">孕妇慎用：视黄醇</p></article>",
+    "checks": [
+      "三色风险",
+      "含量排序",
+      "评级文字",
+      "成分详情"
+    ],
+    "react": "<IngredientAnalysisCard grade=\"B\" items={[{ name: \"甘油\", level: \"safe\" }]} warn=\"孕妇慎用：视黄醇\" />"
+  },
+  {
+    "id": "beauty-salon",
+    "name": "美容门店行",
+    "category": "美妆 / 美容",
+    "status": "v3 新增",
+    "purpose": "展示一家美容门店的距离、评分与营业状态。",
+    "anatomy": [
+      "门店名 (ds-beauty-salon__name)",
+      "距离 (ds-beauty-salon__dist)",
+      "评分 (ds-beauty-salon__rating)",
+      "状态 (ds-beauty-salon__state)"
+    ],
+    "keyboard": "行可聚焦查看门店详情；休息中以文字标注。",
+    "guidance": [
+      "评分保留一位小数。",
+      "营业状态文字加颜色。",
+      "距离千米展示。"
+    ],
+    "preview": "<div class=\"ds-beauty-salon is-open\" tabindex=\"0\" role=\"button\" aria-label=\"美容门店，悦己美学空间，距离 1.2 千米，评分 4.8，营业中\"><strong class=\"ds-beauty-salon__name\">悦己美学空间</strong><span class=\"ds-beauty-salon__dist\">1.2 km</span><span class=\"ds-beauty-salon__rating\">★ 4.8</span><span class=\"ds-beauty-salon__state is-open\">营业中</span></div>",
+    "checks": [
+      "评分小数",
+      "状态文字",
+      "距离展示",
+      "门店详情"
+    ],
+    "react": "<BeautySalonRow name=\"悦己美学空间\" dist=\"1.2 km\" rating={4.8} state=\"open\" />"
+  },
+  {
+    "id": "beauty-points",
+    "name": "美妆积分卡",
+    "category": "美妆 / 美容",
+    "status": "v3 新增",
+    "purpose": "展示会员积分余额、等级与到期提醒。",
+    "anatomy": [
+      "积分数 (ds-beauty-pts__value)",
+      "等级徽标 (ds-beauty-pts__level)",
+      "到期积分 (ds-beauty-pts__exp)",
+      "升级进度 (ds-beauty-pts__bar)"
+    ],
+    "keyboard": "卡片可聚焦查看积分明细；即将过期以 status 语义播报。",
+    "guidance": [
+      "等级四档：银、金、铂金、钻石。",
+      "升级进度条展示。",
+      "到期积分文字提醒。"
+    ],
+    "preview": "<article class=\"ds-beauty-pts\" tabindex=\"0\" role=\"button\" aria-label=\"美妆积分卡，可用积分 2,480，等级 金卡，距离铂金卡还差 520 积分，300 积分将于 6 月 30 日过期\"><div class=\"ds-beauty-pts__head\"><strong class=\"ds-beauty-pts__value\">2,480</strong><span class=\"ds-beauty-pts__level is-gold\">金卡</span></div><div class=\"ds-beauty-pts__bar\" role=\"progressbar\" aria-valuenow=\"83\" aria-valuemin=\"0\" aria-valuemax=\"100\" aria-label=\"升级进度\"><span class=\"ds-beauty-pts__fill\" style=\"width:83%\"></span></div><div class=\"ds-beauty-pts__meta\"><span class=\"ds-beauty-pts__exp\">300 积分 06-30 过期</span><span>距铂金卡 520</span></div></article>",
+    "checks": [
+      "四档等级",
+      "progressbar 语义",
+      "到期提醒",
+      "积分明细"
+    ],
+    "react": "<LoyaltyPointsCard points={2480} level=\"gold\" toNext={520} expiring={300} expDate=\"06-30\" />"
+  },
+  {
+    "id": "beauty-skin",
+    "name": "肤质检测卡",
+    "category": "美妆 / 美容",
+    "status": "v3 新增",
+    "purpose": "展示一次肤质检测的水油平衡与各项评分。",
+    "anatomy": [
+      "检测时间 (ds-beauty-skin__date)",
+      "水分分 (ds-beauty-skin__item)",
+      "油分",
+      "毛孔",
+      "综合肤质 (ds-beauty-skin__type)"
+    ],
+    "keyboard": "卡片可聚焦查看改善建议；单项低分以 status 语义播报。",
+    "guidance": [
+      "三项评分百分制。",
+      "综合肤质文字标注。",
+      "低分项黄色提示。"
+    ],
+    "preview": "<article class=\"ds-beauty-skin\" tabindex=\"0\" role=\"button\" aria-label=\"肤质检测，2026-06-18，水分 72 分，油分 45 分，毛孔 68 分，综合肤质 混合偏干\"><div class=\"ds-beauty-skin__head\"><span class=\"ds-beauty-skin__date\">2026-06-18</span><span class=\"ds-beauty-skin__type\">混合偏干</span></div><div class=\"ds-beauty-skin__items\"><span class=\"ds-beauty-skin__item is-ok\">水分<strong>72</strong></span><span class=\"ds-beauty-skin__item is-ok\">油分<strong>45</strong></span><span class=\"ds-beauty-skin__item is-low\">毛孔<strong>68</strong></span></div></article>",
+    "checks": [
+      "三项评分",
+      "肤质标注",
+      "低分提示",
+      "改善建议"
+    ],
+    "react": "<SkinTestResultCard date=\"2026-06-18\" water={72} oil={45} pore={68} type=\"混合偏干\" />"
+  },
+  {
+    "id": "beauty-review",
+    "name": "妆评卡",
+    "category": "美妆 / 美容",
+    "status": "v3 新增",
+    "purpose": "展示一条美妆商品的使用评价与回购意愿。",
+    "anatomy": [
+      "评分 (ds-beauty-rev__rating)",
+      "肤质标签 (ds-beauty-rev__skin)",
+      "评价内容 (ds-beauty-rev__body)",
+      "回购标识 (ds-beauty-rev__rebuy)"
+    ],
+    "keyboard": "卡片可聚焦查看全部评价；回购意愿文字标注。",
+    "guidance": [
+      "评分五星展示。",
+      "评价两行截断。",
+      "会回购绿色标识。"
+    ],
+    "preview": "<article class=\"ds-beauty-rev is-rebuy\" tabindex=\"0\" role=\"button\" aria-label=\"妆评，评分 5 星，肤质 干性，评价 上嘴不拔干，颜色很显白，回购 会回购\"><div class=\"ds-beauty-rev__head\"><span class=\"ds-beauty-rev__rating\" aria-label=\"5 星\">★★★★★</span><span class=\"ds-beauty-rev__skin\">干性</span><span class=\"ds-beauty-rev__rebuy\">会回购</span></div><p class=\"ds-beauty-rev__body\">上嘴不拔干，颜色很显白，素颜涂也完全没问题，已经安利给闺蜜了。</p></article>",
+    "checks": [
+      "五星评分",
+      "肤质标签",
+      "内容截断",
+      "回购标识"
+    ],
+    "react": "<BeautyReviewCard rating={5} skin=\"干性\" body=\"上嘴不拔干，颜色很显白，素颜涂也完全没问题。\" rebuy />"
   }
 ]

@@ -18934,3 +18934,144 @@ export function ParentingTipCard({ age, topic, body, src }: { age: string; topic
     <span className="ds-baby-tip__src">来源：{src}</span>
   </article>;
 }
+
+export function BeautyProductCard({ name, shade, price, tag, sample }: { name: string; shade: string; price: number; tag: string; sample: boolean }) {
+  return <article className="ds-beauty-product" tabIndex={0} role="button" aria-label={'美妆商品，' + name + '，色号 ' + shade + '，价格 ' + price + ' 元，适用肤质 ' + tag + (sample ? '，赠旅行装' : '')}>
+    <div className="ds-beauty-product__head">
+      <strong className="ds-beauty-product__name">{name}</strong>
+      {sample ? <span className="ds-beauty-product__sample">赠旅行装</span> : null}
+    </div>
+    <div className="ds-beauty-product__shade">
+      <span className="ds-beauty-product__chip" style={{ background: '#c1666b' }} aria-hidden="true" />
+      <span className="ds-beauty-product__code">{shade}</span>
+    </div>
+    <div className="ds-beauty-product__foot">
+      <span className="ds-beauty-product__price">¥{price}</span>
+      <span className="ds-beauty-product__tag">{tag}</span>
+    </div>
+  </article>;
+}
+
+export function SkincareRoutineRow({ slot, step, item, done }: { slot: string; step: string; item: string; done: boolean }) {
+  return <div className={'ds-beauty-routine' + (done ? ' is-done' : '')} tabIndex={0} role="button" aria-label={'护肤步骤，' + slot + '，' + step + '，产品 ' + item + '，' + (done ? '已完成' : '待进行')}>
+    <span className="ds-beauty-routine__slot">{slot}</span>
+    <strong className="ds-beauty-routine__step">{step}</strong>
+    <span className="ds-beauty-routine__item">{item}</span>
+    <span className="ds-beauty-routine__ring" role="img" aria-label={done ? '已完成' : '待进行'}>{done ? '✓' : ''}</span>
+  </div>;
+}
+
+export function MakeupTryOnCard({ name, tone, finish, lasting, note }: { name: string; tone: 'warm' | 'cool' | 'neutral'; finish: 'matte' | 'satin' | 'glossy'; lasting: number; note: string }) {
+  const toneText = { warm: '暖调', cool: '冷调', neutral: '中性调' };
+  const finishText = { matte: '哑光', satin: '缎光', glossy: '水润' };
+  return <article className="ds-beauty-tryon" tabIndex={0} role="button" aria-label={'试色卡，色号 ' + name + '，' + toneText[tone] + '，' + finishText[finish] + '质地，持久度 ' + lasting + ' 星，' + note}>
+    <div className="ds-beauty-tryon__swatch" style={{ background: '#c1666b' }} aria-hidden="true" />
+    <div className="ds-beauty-tryon__body">
+      <strong className="ds-beauty-tryon__name">{name}</strong>
+      <div className="ds-beauty-tryon__meta">
+        <span className="ds-beauty-tryon__tone">{toneText[tone]}</span>
+        <span className="ds-beauty-tryon__finish">{finishText[finish]}</span>
+        <span className="ds-beauty-tryon__last">持久 {'★'.repeat(lasting)}</span>
+      </div>
+      <span className="ds-beauty-tryon__note">{note}</span>
+    </div>
+  </article>;
+}
+
+export function BeautyAppointmentCard({ item, staff, time, price, state }: { item: string; staff: string; time: string; price: number; state: 'pending' | 'confirmed' | 'doing' | 'done' }) {
+  const stateText = { pending: '待确认', confirmed: '已确认', doing: '进行中', done: '已完成' };
+  return <article className={'ds-beauty-appt is-' + state} tabIndex={0} role="button" aria-label={'美容预约，项目 ' + item + '，美容师 ' + staff + '，' + time + '，' + stateText[state] + '，价格 ' + price + ' 元'}>
+    <div className="ds-beauty-appt__head">
+      <strong className="ds-beauty-appt__item">{item}</strong>
+      <span className={'ds-beauty-appt__state is-' + state}>{stateText[state]}</span>
+    </div>
+    <div className="ds-beauty-appt__meta">
+      <span className="ds-beauty-appt__staff">美容师 {staff}</span>
+      <span className="ds-beauty-appt__time">{time}</span>
+    </div>
+    <span className="ds-beauty-appt__price">¥{price}</span>
+  </article>;
+}
+
+export function BeautyTutorialCard({ name, type, minutes, level, steps }: { name: string; type: string; minutes: number; level: 'beginner' | 'medium' | 'advanced'; steps: number }) {
+  const levelText = { beginner: '新手', medium: '进阶', advanced: '高阶' };
+  return <article className={'ds-beauty-tut is-' + level} tabIndex={0} role="button" aria-label={'美妆教程，' + name + '，妆容类型 ' + type + '，时长 ' + minutes + ' 分钟，难度 ' + levelText[level] + '，共 ' + steps + ' 步'}>
+    <div className="ds-beauty-tut__head">
+      <strong className="ds-beauty-tut__name">{name}</strong>
+      <span className={'ds-beauty-tut__level is-' + level}>{levelText[level]}</span>
+    </div>
+    <div className="ds-beauty-tut__meta">
+      <span className="ds-beauty-tut__type">{type}</span>
+      <span className="ds-beauty-tut__dur">{minutes} 分钟</span>
+      <span className="ds-beauty-tut__steps">{steps} 步</span>
+    </div>
+  </article>;
+}
+
+export function IngredientAnalysisCard({ grade, items, warn }: { grade: string; items: Array<{ name: string; level: 'safe' | 'note' | 'risk' }>; warn: string }) {
+  const riskCount = items.filter(i => i.level === 'risk').length;
+  return <article className={'ds-beauty-ing' + (riskCount > 0 ? ' is-risk' : ' is-good')} tabIndex={0} role="button" aria-label={'成分分析，共有 ' + items.length + ' 种主要成分，含风险成分 ' + riskCount + ' 种，总体评级 ' + grade + ' 级，' + warn}>
+    <div className="ds-beauty-ing__head">
+      <strong className="ds-beauty-ing__grade">{grade} 级</strong>
+      {riskCount > 0 ? <span className="ds-beauty-ing__warn">含风险成分 {riskCount} 种</span> : null}
+    </div>
+    <div className="ds-beauty-ing__list">
+      {items.map(i => <span key={i.name} className={'ds-beauty-ing__item is-' + i.level}>{i.name}</span>)}
+    </div>
+    <p className="ds-beauty-ing__note">{warn}</p>
+  </article>;
+}
+
+export function BeautySalonRow({ name, dist, rating, state }: { name: string; dist: string; rating: number; state: 'open' | 'closed' }) {
+  const stateText = { open: '营业中', closed: '休息中' };
+  return <div className={'ds-beauty-salon is-' + state} tabIndex={0} role="button" aria-label={'美容门店，' + name + '，距离 ' + dist + '，评分 ' + rating + '，' + stateText[state]}>
+    <strong className="ds-beauty-salon__name">{name}</strong>
+    <span className="ds-beauty-salon__dist">{dist}</span>
+    <span className="ds-beauty-salon__rating">★ {rating.toFixed(1)}</span>
+    <span className={'ds-beauty-salon__state is-' + state}>{stateText[state]}</span>
+  </div>;
+}
+
+export function LoyaltyPointsCard({ points, level, toNext, expiring, expDate }: { points: number; level: 'silver' | 'gold' | 'platinum' | 'diamond'; toNext: number; expiring: number; expDate: string }) {
+  const levelText = { silver: '银卡', gold: '金卡', platinum: '铂金卡', diamond: '钻石卡' };
+  const pct = toNext <= 0 ? 100 : Math.max(0, Math.min(100, Math.round((points / (points + toNext)) * 100)));
+  return <article className="ds-beauty-pts" tabIndex={0} role="button" aria-label={'美妆积分卡，可用积分 ' + points.toLocaleString() + '，等级 ' + levelText[level] + '，' + (toNext > 0 ? '距离下一等级还差 ' + toNext + ' 积分' : '已至最高等级') + '，' + expiring + ' 积分将于 ' + expDate + ' 过期'}>
+    <div className="ds-beauty-pts__head">
+      <strong className="ds-beauty-pts__value">{points.toLocaleString()}</strong>
+      <span className={'ds-beauty-pts__level is-' + level}>{levelText[level]}</span>
+    </div>
+    <div className="ds-beauty-pts__bar" role="progressbar" aria-valuenow={pct} aria-valuemin={0} aria-valuemax={100} aria-label="升级进度">
+      <span className="ds-beauty-pts__fill" style={{ width: pct + '%' }} />
+    </div>
+    <div className="ds-beauty-pts__meta">
+      <span className="ds-beauty-pts__exp">{expiring} 积分 {expDate} 过期</span>
+      <span>{toNext > 0 ? '距下一等级 ' + toNext : '已最高等级'}</span>
+    </div>
+  </article>;
+}
+
+export function SkinTestResultCard({ date, water, oil, pore, type }: { date: string; water: number; oil: number; pore: number; type: string }) {
+  const low = (v: number) => v < 60;
+  return <article className="ds-beauty-skin" tabIndex={0} role="button" aria-label={'肤质检测，' + date + '，水分 ' + water + ' 分，油分 ' + oil + ' 分，毛孔 ' + pore + ' 分，综合肤质 ' + type}>
+    <div className="ds-beauty-skin__head">
+      <span className="ds-beauty-skin__date">{date}</span>
+      <span className="ds-beauty-skin__type">{type}</span>
+    </div>
+    <div className="ds-beauty-skin__items">
+      <span className={'ds-beauty-skin__item' + (low(water) ? ' is-low' : ' is-ok')}>水分<strong>{water}</strong></span>
+      <span className={'ds-beauty-skin__item' + (low(oil) ? ' is-low' : ' is-ok')}>油分<strong>{oil}</strong></span>
+      <span className={'ds-beauty-skin__item' + (low(pore) ? ' is-low' : ' is-ok')}>毛孔<strong>{pore}</strong></span>
+    </div>
+  </article>;
+}
+
+export function BeautyReviewCard({ rating, skin, body, rebuy }: { rating: number; skin: string; body: string; rebuy: boolean }) {
+  return <article className={'ds-beauty-rev' + (rebuy ? ' is-rebuy' : '')} tabIndex={0} role="button" aria-label={'妆评，评分 ' + rating + ' 星，肤质 ' + skin + '，评价 ' + body + '，' + (rebuy ? '会回购' : '暂不回购')}>
+    <div className="ds-beauty-rev__head">
+      <span className="ds-beauty-rev__rating" aria-label={rating + ' 星'}>{'★'.repeat(rating)}{'☆'.repeat(5 - rating)}</span>
+      <span className="ds-beauty-rev__skin">{skin}</span>
+      {rebuy ? <span className="ds-beauty-rev__rebuy">会回购</span> : null}
+    </div>
+    <p className="ds-beauty-rev__body">{body}</p>
+  </article>;
+}
