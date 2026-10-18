@@ -13756,3 +13756,131 @@ export function EmojiBar({ reactions = [], onAdd }:
     </button>)}
   </div>;
 }
+
+export function MonthGrid({ today, events = {} }: { today?: number; events?: Record<string, number> }) {
+  const cells = [28, 29, 30, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 1];
+  const weeks = [];
+  for (let index = 0; index < cells.length; index += 7) weeks.push(cells.slice(index, index + 7));
+  return <div className="ds-month-grid" role="grid" aria-label="月视图">
+    <div className="ds-month-grid__head" role="row">
+      {['一', '二', '三', '四', '五', '六', '日'].map(day => <span key={day}>{day}</span>)}
+    </div>
+    {weeks.map((week, weekIndex) => <div key={weekIndex} className="ds-month-grid__row" role="row">
+      {week.map((day, dayIndex) => {
+        const isOut = weekIndex === 0 && dayIndex < 3;
+        const count = events[String(day)] || 0;
+        return <span key={dayIndex} role="gridcell" aria-current={day === today ? 'date' : undefined}
+          className={'ds-month-grid__cell' + (isOut ? ' is-out' : day === today ? ' is-today' : '')}>
+          {day}
+          {count > 0 && <i className="ds-month-grid__dots" aria-hidden="true" />}
+        </span>;
+      })}
+    </div>)}
+  </div>;
+}
+
+export function WeekStrip({ days }: { days: { label: string; date: number; count?: number; today?: boolean }[] }) {
+  return <div className="ds-week-strip" role="tablist" aria-label="本周">
+    {days.map(day => <button key={day.date} type="button" role="tab" aria-selected={!!day.today}
+      aria-current={day.today ? 'date' : undefined}
+      className={'ds-week-strip__day' + (day.today ? ' is-today' : '')}>
+      {day.label}<strong>{day.date}</strong>
+      {day.count ? <small>{day.count} 项安排</small> : null}
+    </button>)}
+  </div>;
+}
+
+export function EventChip({ time, title, conflict }:
+  { time: string; title: string; conflict?: string }) {
+  return <button type="button" className={'ds-event-chip' + (conflict ? ' is-conflict' : '')}>
+    <span className="ds-event-chip__time">{time}</span>{title}
+    {conflict && <em>{conflict}</em>}
+  </button>;
+}
+
+export function TimeSlotGrid({ events, now }: { events: { start: string; end: string; title: string }[]; now?: string }) {
+  const toPercent = (time: string) => {
+    const [hour, minute] = time.split(':').map(Number);
+    return ((hour - 9 + minute / 60) / 6) * 100;
+  };
+  return <div className="ds-slot-grid" role="application" aria-label="日视图">
+    <div className="ds-slot-grid__axis">{[9, 10, 11, 12, 13, 14].map(hour => <span key={hour}>{String(hour).padStart(2, '0')}</span>)}</div>
+    <div className="ds-slot-grid__body">
+      {events.map(event => {
+        const top = Math.max(0, Math.min(100, toPercent(event.start)));
+        const height = Math.max(4, toPercent(event.end) - top);
+        return <div key={event.title} className="ds-slot-grid__busy" style={{ top: top + '%', height: height + '%' }}>{event.title}</div>;
+      })}
+      {now && <div className="ds-slot-grid__now" style={{ top: toPercent(now) + '%' }} />}
+    </div>
+  </div>;
+}
+
+export function AvailabilitySlot({ slots }: { slots: { time: string; minutes?: number; chosen?: boolean; taken?: boolean }[] }) {
+  return <div className="ds-avail-slot" role="group" aria-label="可预约时段">
+    {slots.map(slot => <button key={slot.time} type="button" disabled={slot.taken}
+      aria-pressed={!!slot.chosen} className={slot.chosen ? 'is-chosen' : undefined}>
+      {slot.time}<span>{slot.taken ? '已被预约' : (slot.minutes || 30) + ' 分钟'}</span>
+    </button>)}
+  </div>;
+}
+
+export function MeetingReminder({ title, startsIn, range, onJoin }:
+  { title: string; startsIn: number; range: string; onJoin?: () => void }) {
+  return <div className="ds-meet-remind" role="alertdialog" aria-label="会议提醒">
+    <p className="ds-meet-remind__title">{title}</p>
+    <p className="ds-meet-remind__count">{startsIn} 分钟后开始 · {range}</p>
+    <div className="ds-meet-remind__actions">
+      <button type="button" className="is-primary" onClick={onJoin}>加入会议</button>
+      <button type="button">稍后提醒</button>
+      <button type="button">缺席</button>
+    </div>
+  </div>;
+}
+
+export function TimezoneBar({ zones }: { zones: { city: string; offset: string; time: string; local?: boolean; off?: boolean }[] }) {
+  return <div className="ds-tz-bar" role="group" aria-label="时区对比">
+    {zones.map(zone => <div key={zone.city}
+      className={'ds-tz-bar__row' + (zone.local ? ' is-local' : zone.off ? ' is-off' : '')}>
+      <strong>{zone.city} {zone.offset}</strong><time>{zone.time}</time>
+      <span>{zone.local ? '本地时间' : zone.off ? '非工作时间' : '工作时间内'}</span>
+    </div>)}
+  </div>;
+}
+
+export function RecurringBadge({ rule, total }: { rule: string; total?: number }) {
+  return <button type="button" className="ds-recur-badge">
+    <span className="ds-recur-badge__icon" aria-hidden="true">🔁</span>{rule}
+    {total ? <small>系列共 {total} 个事件</small> : null}
+  </button>;
+}
+
+export function ConflictWarning({ conflicts, onResolve, onForceSave }:
+  { conflicts: string[]; onResolve?: () => void; onForceSave?: () => void }) {
+  return <div className="ds-conflict" role="alert">
+    <span className="ds-conflict__icon" aria-hidden="true">⚠️</span>
+    <div className="ds-conflict__body">
+      <strong>与 {conflicts.length} 个日程时间重叠</strong>
+      <p>{conflicts.join(' · ')}</p>
+    </div>
+    <div className="ds-conflict__actions">
+      <button type="button" onClick={onResolve}>调整时间</button>
+      <button type="button" onClick={onForceSave}>仍要保存</button>
+    </div>
+  </div>;
+}
+
+export function CountdownRing({ remaining, title, progress = 0, urgent }:
+  { remaining: string; title: string; progress?: number; urgent?: boolean }) {
+  const circumference = 2 * Math.PI * 30;
+  return <div className={'ds-count-ring' + (urgent ? ' urgent' : '')} role="timer" aria-label="倒计时"
+    aria-valuenow={Math.round(progress * 100)} aria-valuemin={0} aria-valuemax={100}>
+    <svg viewBox="0 0 72 72" width="72" height="72" aria-hidden="true">
+      <circle className="ds-count-ring__track" cx="36" cy="36" r="30" />
+      <circle className="ds-count-ring__fill" cx="36" cy="36" r="30"
+        strokeDasharray={(circumference * progress).toFixed(1) + ' ' + circumference.toFixed(1)}
+        transform="rotate(-90 36 36)" />
+    </svg>
+    <div className="ds-count-ring__label"><strong>{remaining}</strong><small>{title}</small></div>
+  </div>;
+}

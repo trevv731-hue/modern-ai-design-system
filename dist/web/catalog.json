@@ -13329,5 +13329,279 @@
       "添加入口有可读名称"
     ],
     "react": "<EmojiBar reactions={[{ emoji: \"👍\", count: 3, mine: true }, { emoji: \"🎉\", count: 1 }]} onAdd={pickEmoji} />"
+  },
+  {
+    "id": "calendar-month-grid",
+    "name": "月视图网格",
+    "category": "日程",
+    "status": "v3 新增",
+    "purpose": "以月为粒度展示日期与当日事件密度，支持快速定位与跳转。",
+    "anatomy": [
+      "星期表头",
+      "日期单元格 (ds-month-grid__cell)",
+      "今日标记",
+      "事件密度点"
+    ],
+    "keyboard": "方向键在网格内移动；Enter 选中日期；PageUp/PageDown 切换月份。",
+    "guidance": [
+      "今日单元格有文字标记，不只靠背景色。",
+      "非本月日期置灰但保持可读。",
+      "密度点最多 3 个，超出用“+n”表示。"
+    ],
+    "preview": "<div class=\"ds-month-grid\" role=\"grid\" aria-label=\"2026 年 10 月\"><div class=\"ds-month-grid__head\"><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span><span>日</span></div><div class=\"ds-month-grid__row\"><span class=\"ds-month-grid__cell is-out\">28</span><span class=\"ds-month-grid__cell is-out\">29</span><span class=\"ds-month-grid__cell is-out\">30</span><span class=\"ds-month-grid__cell\">1</span><span class=\"ds-month-grid__cell\">2</span><span class=\"ds-month-grid__cell\">3</span><span class=\"ds-month-grid__cell\">4</span></div><div class=\"ds-month-grid__row\"><span class=\"ds-month-grid__cell\">5</span><span class=\"ds-month-grid__cell\">6</span><span class=\"ds-month-grid__cell\">7</span><span class=\"ds-month-grid__cell\">8</span><span class=\"ds-month-grid__cell\">9</span><span class=\"ds-month-grid__cell\">10</span><span class=\"ds-month-grid__cell\">11</span></div><div class=\"ds-month-grid__row\"><span class=\"ds-month-grid__cell\">12</span><span class=\"ds-month-grid__cell\">13</span><span class=\"ds-month-grid__cell\">14</span><span class=\"ds-month-grid__cell\">15</span><span class=\"ds-month-grid__cell\">16</span><span class=\"ds-month-grid__cell\">17</span><span class=\"ds-month-grid__cell is-today\" aria-current=\"date\">18<i class=\"ds-month-grid__dots\" aria-hidden=\"true\"></i><i class=\"ds-month-grid__dots\"></i></span></div></div>",
+    "checks": [
+      "今日有文字标记",
+      "非本月日期置灰可读",
+      "密度点超量显示 +n",
+      "方向键网格导航"
+    ],
+    "react": "<MonthGrid month=\"2026-10\" today={18} events={{ 18: 2, 22: 4 }} />"
+  },
+  {
+    "id": "calendar-week-strip",
+    "name": "周日视图条",
+    "category": "日程",
+    "status": "v3 新增",
+    "purpose": "横向展示一周日期与当日安排数量，供快速切换日期。",
+    "anatomy": [
+      "日期项 (ds-week-strip__day)",
+      "星期缩写",
+      "日期数字",
+      "事件计数",
+      "今日态"
+    ],
+    "keyboard": "左右方向键切换日期；当前日用 aria-current 标注。",
+    "guidance": [
+      "选中日有文字或图标标识。",
+      "事件计数为零时显示为空或不显示。",
+      "支持滑动时日期项保持 44px 触控高度。"
+    ],
+    "preview": "<div class=\"ds-week-strip\" role=\"tablist\" aria-label=\"本周\"><button type=\"button\" class=\"ds-week-strip__day\" role=\"tab\" aria-selected=\"false\">周一<strong>12</strong></button><button type=\"button\" class=\"ds-week-strip__day\" role=\"tab\" aria-selected=\"false\">周二<strong>13</strong></button><button type=\"button\" class=\"ds-week-strip__day is-today\" role=\"tab\" aria-selected=\"true\" aria-current=\"date\">今天<strong>18</strong><small>3 项安排</small></button><button type=\"button\" class=\"ds-week-strip__day\" role=\"tab\" aria-selected=\"false\">周四<strong>19</strong></button></div>",
+    "checks": [
+      "当前日 aria-current",
+      "选中态有文字标识",
+      "触控高度不小于 44px",
+      "方向键可切换"
+    ],
+    "react": "<WeekStrip days={[{ label: \"今天\", date: 18, count: 3, today: true }]} />"
+  },
+  {
+    "id": "calendar-event-chip",
+    "name": "日程事件胶囊",
+    "category": "日程",
+    "status": "v3 新增",
+    "purpose": "在日历网格中呈现单个事件的时间、标题与冲突状态。",
+    "anatomy": [
+      "时间前缀 (ds-event-chip__time)",
+      "标题",
+      "日历色条",
+      "冲突标记"
+    ],
+    "keyboard": "胶囊可聚焦；Enter 打开详情；冲突事件播报说明。",
+    "guidance": [
+      "不同日历用色条加图例区分，不只用颜色。",
+      "跨天事件在两端显示延续箭头。",
+      "冲突事件并列展示而非覆盖隐藏。"
+    ],
+    "preview": "<button type=\"button\" class=\"ds-event-chip is-conflict\"><span class=\"ds-event-chip__time\">14:00</span>设计评审<em>与站会冲突</em></button>",
+    "checks": [
+      "日历色条加图例",
+      "跨天事件有延续标识",
+      "冲突事件并列展示",
+      "胶囊可键盘打开"
+    ],
+    "react": "<EventChip time=\"14:00\" title=\"设计评审\" conflict=\"与站会冲突\" />"
+  },
+  {
+    "id": "calendar-slot-grid",
+    "name": "时间段网格",
+    "category": "日程",
+    "status": "v3 新增",
+    "purpose": "以小时为粒度展示一天的时间占用，支持拖拽创建与调整事件。",
+    "anatomy": [
+      "时间轴 (ds-slot-grid__axis)",
+      "网格线",
+      "已占用块",
+      "当前时间线",
+      "空闲块"
+    ],
+    "keyboard": "Tab 遍历事件块；方向键移动焦点；Delete 删除选中事件。",
+    "guidance": [
+      "当前时间线常驻可视区。",
+      "占用块高度与时长成正比。",
+      "拖拽创建时给出对齐反馈。"
+    ],
+    "preview": "<div class=\"ds-slot-grid\" role=\"application\" aria-label=\"日视图\"><div class=\"ds-slot-grid__axis\"><span>09</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span></div><div class=\"ds-slot-grid__body\"><div class=\"ds-slot-grid__busy\" style=\"top:12%;height:8%\">站会</div><div class=\"ds-slot-grid__busy\" style=\"top:58%;height:16%\">设计评审</div><div class=\"ds-slot-grid__now\" style=\"top:40%\"></div></div></div>",
+    "checks": [
+      "当前时间线常驻",
+      "块高与时长成正比",
+      "拖拽有对齐反馈",
+      "Delete 可删除选中事件"
+    ],
+    "react": "<TimeSlotGrid events={[{ start: \"09:30\", end: \"10:00\", title: \"站会\" }, { start: \"14:00\", end: \"16:00\", title: \"设计评审\" }]} now=\"12:00\" />"
+  },
+  {
+    "id": "calendar-availability-slot",
+    "name": "可预约时段",
+    "category": "日程",
+    "status": "v3 新增",
+    "purpose": "展示可预约的时间段并引导用户选择，常用于会议与面试安排。",
+    "anatomy": [
+      "时段项 (ds-avail-slot)",
+      "开始时间",
+      "时长",
+      "已选态",
+      "不可用态"
+    ],
+    "keyboard": "方向键在时段网格中移动；Enter 选择。",
+    "guidance": [
+      "不可用时段禁用并说明原因。",
+      "已选时段有文字标识。",
+      "时区变化后时段整体平移并提示。"
+    ],
+    "preview": "<div class=\"ds-avail-slot\" role=\"group\" aria-label=\"可预约时段\"><button type=\"button\">09:00<span>30 分钟</span></button><button type=\"button\" class=\"is-chosen\" aria-pressed=\"true\">10:30<span>30 分钟</span></button><button type=\"button\" disabled>13:00<span>已被预约</span></button><button type=\"button\">15:00<span>30 分钟</span></button></div>",
+    "checks": [
+      "不可用时段禁用并说明",
+      "已选时段有文字标识",
+      "时区变化整体平移",
+      "网格方向键导航"
+    ],
+    "react": "<AvailabilitySlot slots={[{ time: \"09:00\", minutes: 30 }, { time: \"10:30\", minutes: 30, chosen: true }]} />"
+  },
+  {
+    "id": "calendar-meeting-reminder",
+    "name": "会议提醒卡",
+    "category": "日程",
+    "status": "v3 新增",
+    "purpose": "在会议临近时弹出提醒，提供加入、稍后提醒与缺席操作。",
+    "anatomy": [
+      "会议标题 (ds-meet-remind__title)",
+      "倒计时",
+      "加入按钮",
+      "稍后提醒",
+      "缺席"
+    ],
+    "keyboard": "Tab 在三个操作间移动；Esc 稍后提醒。",
+    "guidance": [
+      "倒计时精确到分钟。",
+      "加入按钮为主行动且默认聚焦。",
+      "稍后提醒提供 5/10/15 分钟选项。"
+    ],
+    "preview": "<div class=\"ds-meet-remind\" role=\"alertdialog\" aria-label=\"会议提醒\"><p class=\"ds-meet-remind__title\">设计规范评审</p><p class=\"ds-meet-remind__count\">5 分钟后开始 · 14:00 - 15:00</p><div class=\"ds-meet-remind__actions\"><button type=\"button\" class=\"is-primary\">加入会议</button><button type=\"button\">稍后提醒</button><button type=\"button\">缺席</button></div></div>",
+    "checks": [
+      "倒计时精确到分钟",
+      "加入按钮默认聚焦",
+      "稍后提醒给时长选项",
+      "Esc 触发稍后提醒"
+    ],
+    "react": "<MeetingReminder title=\"设计规范评审\" startsIn={5} range=\"14:00 - 15:00\" onJoin={join} />"
+  },
+  {
+    "id": "calendar-timezone-bar",
+    "name": "时区对比条",
+    "category": "日程",
+    "status": "v3 新增",
+    "purpose": "在安排跨时区会议时并列展示多个时区的对应时间。",
+    "anatomy": [
+      "时区行 (ds-tz-bar__row)",
+      "城市与时区",
+      "对应时间",
+      "工作日标记",
+      "主时区"
+    ],
+    "keyboard": "行只读展示；新增时区通过搜索选择。",
+    "guidance": [
+      "非工作时段用文字标注，不只用颜色。",
+      "主时区置顶并标记“本地时间”。",
+      "夏令时变化时给出说明。"
+    ],
+    "preview": "<div class=\"ds-tz-bar\" role=\"group\" aria-label=\"时区对比\"><div class=\"ds-tz-bar__row is-local\"><strong>上海 GMT+8</strong><time>14:00</time><span>本地时间</span></div><div class=\"ds-tz-bar__row\"><strong>柏林 GMT+2</strong><time>08:00</time><span>工作时间内</span></div><div class=\"ds-tz-bar__row is-off\"><strong>纽约 GMT-4</strong><time>02:00</time><span>非工作时间</span></div></div>",
+    "checks": [
+      "非工作时段有文字",
+      "主时区置顶标记",
+      "夏令时变化有说明",
+      "时间一一对应"
+    ],
+    "react": "<TimezoneBar zones={[{ city: \"上海\", offset: \"GMT+8\", time: \"14:00\", local: true }, { city: \"纽约\", offset: \"GMT-4\", time: \"02:00\", off: true }]} />"
+  },
+  {
+    "id": "calendar-recurring-badge",
+    "name": "重复规则徽标",
+    "category": "日程",
+    "status": "v3 新增",
+    "purpose": "在事件上标注重复规则，并说明系列编辑的影响范围。",
+    "anatomy": [
+      "重复图标 (ds-recur-badge__icon)",
+      "规则摘要",
+      "系列标识"
+    ],
+    "keyboard": "徽标可聚焦；展开说明影响范围。",
+    "guidance": [
+      "规则摘要用人类可读语言，如“每周三、周五”。",
+      "系列编辑前说明将影响多少个事件。",
+      "单次修改后的事件标注为“已修改的实例”。"
+    ],
+    "preview": "<button type=\"button\" class=\"ds-recur-badge\"><span class=\"ds-recur-badge__icon\" aria-hidden=\"true\">🔁</span>每周三、周五重复<small>系列共 24 个事件</small></button>",
+    "checks": [
+      "规则摘要人类可读",
+      "系列编辑说明影响数量",
+      "修改实例有标注",
+      "徽标可展开说明"
+    ],
+    "react": "<RecurringBadge rule=\"每周三、周五\" total={24} />"
+  },
+  {
+    "id": "calendar-conflict-warning",
+    "name": "时间冲突提示",
+    "category": "日程",
+    "status": "v3 新增",
+    "purpose": "在保存日程前提示时间重叠，并给出调整建议。",
+    "anatomy": [
+      "冲突图标 (ds-conflict__icon)",
+      "冲突事件名",
+      "重叠时段",
+      "建议操作"
+    ],
+    "keyboard": "提示区域可聚焦；建议操作可键盘执行。",
+    "guidance": [
+      "列出全部冲突事件而非仅第一个。",
+      "提供“仍要保存”的明确出口。",
+      "冲突时段用时间范围文字说明。"
+    ],
+    "preview": "<div class=\"ds-conflict\" role=\"alert\"><span class=\"ds-conflict__icon\" aria-hidden=\"true\">⚠️</span><div class=\"ds-conflict__body\"><strong>与 2 个日程时间重叠</strong><p>设计评审 14:00-15:00 · 站会 14:30-15:00</p></div><div class=\"ds-conflict__actions\"><button type=\"button\">调整时间</button><button type=\"button\">仍要保存</button></div></div>",
+    "checks": [
+      "列出全部冲突事件",
+      "提供仍要保存出口",
+      "重叠时段文字说明",
+      "提示区域可聚焦"
+    ],
+    "react": "<ConflictWarning conflicts={[\"设计评审 14:00-15:00\", \"站会 14:30-15:00\"]} onResolve={adjust} onForceSave={save} />"
+  },
+  {
+    "id": "calendar-countdown-ring",
+    "name": "倒计时环",
+    "category": "日程",
+    "status": "v3 新增",
+    "purpose": "以环形进度展示距离会议或截止时间的剩余量。",
+    "anatomy": [
+      "环轨 (ds-count-ring__track)",
+      "进度弧",
+      "剩余时间",
+      "事件标题"
+    ],
+    "keyboard": "剩余时间以文字可读；弧进度有 aria-valuenow。",
+    "guidance": [
+      "最后 5 分钟改变环色并附文字提醒。",
+      "时间归零后切换为“已开始”。",
+      "弧进度同时提供文字数值。"
+    ],
+    "preview": "<div class=\"ds-count-ring\" role=\"timer\" aria-label=\"倒计时\"><svg viewBox=\"0 0 72 72\" width=\"72\" height=\"72\" aria-hidden=\"true\"><circle class=\"ds-count-ring__track\" cx=\"36\" cy=\"36\" r=\"30\"></circle><circle class=\"ds-count-ring__fill\" cx=\"36\" cy=\"36\" r=\"30\" stroke-dasharray=\"132 188\" transform=\"rotate(-90 36 36)\"></circle></svg><div class=\"ds-count-ring__label\"><strong>04:32</strong><small>设计评审</small></div></div>",
+    "checks": [
+      "最后 5 分钟变色加文字",
+      "归零切换为已开始",
+      "弧进度有文字数值",
+      "role=timer 语义正确"
+    ],
+    "react": "<CountdownRing remaining=\"04:32\" title=\"设计评审\" progress={0.7} urgent />"
   }
 ]
