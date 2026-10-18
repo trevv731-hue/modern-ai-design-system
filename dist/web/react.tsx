@@ -14708,3 +14708,110 @@ export function FabStack({ open, items = [], onToggle }: { open?: boolean; items
     <button type="button" className="ds-fab-stack__main" aria-expanded={!!open} aria-label="快捷操作" onClick={onToggle}>＋</button>
   </div>;
 }
+
+export function InlineEditCell({ label, value, editing, onSubmit, onCancel }:
+  { label: string; value: string; editing?: boolean; onSubmit?: (next: string) => void; onCancel?: () => void }) {
+  const id = useId();
+  return <div className={'ds-edit-cell' + (editing ? ' is-editing' : '')}>
+    <label className="ds-sr-only" htmlFor={id}>{label}</label>
+    <input id={id} defaultValue={value} aria-label={editing ? '编辑' + label : label} />
+    {editing && <div className="ds-edit-cell__actions">
+      <button type="button" className="is-primary" onClick={() => onSubmit?.(value)}>确认</button>
+      <button type="button" onClick={onCancel}>取消</button>
+    </div>}
+  </div>;
+}
+
+export function BulkSelectBar({ count, actions, onClear }: { count: number; actions: string[]; onClear?: () => void }) {
+  return <div className="ds-bulk-bar" role="toolbar" aria-label="批量操作">
+    <span className="ds-bulk-bar__count">已选 {count} 项</span>
+    {actions.map(action => <button key={action} type="button" className={action === '删除' ? 'is-danger' : undefined}>{action}</button>)}
+    <button type="button" aria-label="清除选择" onClick={onClear}>✕</button>
+  </div>;
+}
+
+export function ColumnResizer({ label, width, onChange }: { label: string; width: number; onChange?: (next: number) => void }) {
+  return <div className="ds-col-resize">
+    <div className="ds-col-resize__head">{label}
+      <span className="ds-col-resize__handle" role="separator" tabIndex={0} aria-orientation="vertical" aria-label="调整列宽"
+        onKeyDown={event => { if (event.key === 'ArrowLeft') onChange?.(Math.max(80, width - 16)); if (event.key === 'ArrowRight') onChange?.(width + 16); }} />
+    </div>
+    <span className="ds-col-resize__tip" aria-hidden="true">{width}px</span>
+  </div>;
+}
+
+export function PinnedColumn({ first, cells }: { first: string; cells: string[] }) {
+  return <div className="ds-pin-col">
+    <table>
+      <tbody><tr>
+        <td className="is-pinned">{first}</td>
+        {cells.map(cell => <td key={cell}>{cell}</td>)}
+        <td className="is-actions"><button type="button">编辑</button></td>
+      </tr></tbody>
+    </table>
+  </div>;
+}
+
+export function ExpandableRow({ main, amount, state, expanded, child }: { main: string; amount: string; state: string; expanded?: boolean; child: string }) {
+  return <div className="ds-expand-row">
+    <div className="ds-expand-row__main">
+      <button type="button" className="ds-expand-row__toggle" aria-expanded={!!expanded} aria-label={expanded ? '收起详情' : '展开详情'}>
+        {expanded ? '▾' : '▸'}
+      </button>
+      <span>{main}</span><span>{amount}</span><span>{state}</span>
+    </div>
+    {expanded && <div className="ds-expand-row__child"><p>{child}</p></div>}
+  </div>;
+}
+
+export function StickySummaryRow({ label, value, meta }: { label: string; value: string; meta: string }) {
+  return <div className="ds-sum-row" role="row">
+    <span className="ds-sum-row__label">{label}</span>
+    <span className="ds-sum-row__meta">{meta}</span>
+    <span className="ds-sum-row__value">{value}</span>
+    <button type="button" aria-label="查看计算说明">ⓘ</button>
+  </div>;
+}
+
+export function ExportPanel({ scope, formats, fields }: { scope: string; formats: string[]; fields: { label: string; on?: boolean }[] }) {
+  return <div className="ds-export-panel" role="dialog" aria-modal="true" aria-label="导出数据">
+    <p className="ds-export-panel__scope">导出当前筛选结果：{scope}</p>
+    <div className="ds-export-panel__format" role="radiogroup" aria-label="格式">
+      {formats.map((format, index) => <label key={format}><input type="radio" name="ds-fmt" defaultChecked={index === 0} /><span>{format}</span></label>)}
+    </div>
+    <div className="ds-export-panel__fields">
+      {fields.map(field => <label key={field.label}><input type="checkbox" defaultChecked={!!field.on} /><span>{field.label}</span></label>)}
+    </div>
+    <button type="button">导出 {scope}</button>
+  </div>;
+}
+
+export function ImportMapping({ rows }: { rows: { source: string; target: string; sample: string; error?: string }[] }) {
+  return <div className="ds-import-map" role="group" aria-label="字段映射">
+    {rows.map(row => <div key={row.source} className={'ds-import-map__row' + (row.error ? ' is-error' : '')}>
+      <span className="ds-import-map__src">{row.source}</span>
+      <span aria-hidden="true">→</span>
+      <label className="ds-sr-only" htmlFor={'ds-map-' + row.source}>目标字段</label>
+      <select id={'ds-map-' + row.source} defaultValue={row.target}><option>{row.target}</option></select>
+      <code>{row.sample}</code>
+      {row.error ? <span className="ds-import-map__err">{row.error}</span> : <span className="ds-import-map__ok">✓</span>}
+    </div>)}
+  </div>;
+}
+
+export function CellValidation({ label, value, error, suggestion }: { label: string; value: string; error: string; suggestion?: string }) {
+  return <div className="ds-cell-valid is-error">
+    <label className="ds-sr-only" htmlFor="ds-cell-v">{label}</label>
+    <input id="ds-cell-v" defaultValue={value} aria-label={label} aria-invalid="true" />
+    <span className="ds-cell-valid__msg">{error}</span>
+    {suggestion && <button type="button">{suggestion}</button>}
+  </div>;
+}
+
+export function BulkUndoToast({ summary, remaining, onUndo }: { summary: string; remaining: number; onUndo?: () => void }) {
+  return <div className="ds-undo-toast" role="status">
+    <span>{summary}</span>
+    <button type="button" onClick={onUndo}>撤销</button>
+    <span className="ds-undo-toast__timer" aria-hidden="true"><i style={{ width: Math.min(100, remaining * 20) + '%' }} /></span>
+  </div>;
+}

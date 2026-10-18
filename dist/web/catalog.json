@@ -15547,5 +15547,276 @@
       "遮罩点击收起"
     ],
     "react": "<FabStack open items={[{ label: \"新建文档\", icon: \"📄\" }, { label: \"上传文件\", icon: \"⬆️\" }]} onToggle={toggle} />"
+  },
+  {
+    "id": "table-inline-edit-cell",
+    "name": "行内编辑单元格",
+    "category": "表格",
+    "status": "v3 新增",
+    "purpose": "在表格中直接编辑单元格内容，避免跳转独立编辑页。",
+    "anatomy": [
+      "单元格 (ds-edit-cell)",
+      "编辑态输入",
+      "确认与取消",
+      "校验提示"
+    ],
+    "keyboard": "Enter 或双击进入编辑；Enter 确认；Esc 取消；Tab 移动到下一单元格。",
+    "guidance": [
+      "编辑态有明确视觉区分。",
+      "校验失败时阻止确认并说明原因。",
+      "必填单元格进入编辑时自动全选。"
+    ],
+    "preview": "<div class=\"ds-edit-cell is-editing\"><input value=\"¥899.00\" aria-label=\"编辑价格\"><div class=\"ds-edit-cell__actions\"><button type=\"button\" class=\"is-primary\">确认</button><button type=\"button\">取消</button></div></div>",
+    "checks": [
+      "编辑态视觉明确",
+      "校验失败阻止确认",
+      "必填进入即全选",
+      "Esc 取消且 Tab 移动"
+    ],
+    "react": "<InlineEditCell label=\"价格\" value=\"¥899.00\" editing onSubmit={save} onCancel={cancel} />"
+  },
+  {
+    "id": "table-bulk-select-bar",
+    "name": "批量选择栏",
+    "category": "表格",
+    "status": "v3 新增",
+    "purpose": "在多选后浮出批量操作栏，展示已选数量与可执行操作。",
+    "anatomy": [
+      "已选计数 (ds-bulk-bar__count)",
+      "操作按钮组",
+      "全选当前页",
+      "清除选择"
+    ],
+    "keyboard": "栏内按钮可 Tab 到达；Esc 清除选择。",
+    "guidance": [
+      "破坏性操作需二次确认。",
+      "操作后保留选择状态并播报结果。",
+      "已选数量支持跨页累计展示。"
+    ],
+    "preview": "<div class=\"ds-bulk-bar\" role=\"toolbar\" aria-label=\"批量操作\"><span class=\"ds-bulk-bar__count\">已选 12 项</span><button type=\"button\">标记完成</button><button type=\"button\">移动到…</button><button type=\"button\" class=\"is-danger\">删除</button><button type=\"button\" aria-label=\"清除选择\">✕</button></div>",
+    "checks": [
+      "破坏性操作二次确认",
+      "操作后播报结果",
+      "跨页累计计数",
+      "Esc 清除选择"
+    ],
+    "react": "<BulkSelectBar count={12} actions={[\"标记完成\", \"移动到…\", \"删除\"]} onClear={clear} />"
+  },
+  {
+    "id": "table-column-resizer",
+    "name": "列宽调整手柄",
+    "category": "表格",
+    "status": "v3 新增",
+    "purpose": "拖动表头边界调整列宽，双击自适应内容宽度。",
+    "anatomy": [
+      "列头 (ds-col-resize__head)",
+      "拖拽手柄",
+      "宽度提示",
+      "自适应"
+    ],
+    "keyboard": "手柄可聚焦；左右方向键调整；双击或 Home 自适应。",
+    "guidance": [
+      "拖拽时实时显示列宽像素。",
+      "最小列宽保证内容可读。",
+      "列宽调整结果本地持久化。"
+    ],
+    "preview": "<div class=\"ds-col-resize\"><div class=\"ds-col-resize__head\">商品名称<span class=\"ds-col-resize__handle\" role=\"separator\" tabindex=\"0\" aria-orientation=\"vertical\" aria-label=\"调整列宽\"></span></div><span class=\"ds-col-resize__tip\" aria-hidden=\"true\">240px</span></div>",
+    "checks": [
+      "拖拽实时显示像素",
+      "最小列宽保证可读",
+      "双击自适应内容",
+      "列宽本地持久化"
+    ],
+    "react": "<ColumnResizer label=\"商品名称\" width={240} onChange={setWidth} />"
+  },
+  {
+    "id": "table-pinned-column",
+    "name": "冻结列",
+    "category": "表格",
+    "status": "v3 新增",
+    "purpose": "在横向滚动时固定关键列，如首列名称或末列操作。",
+    "anatomy": [
+      "冻结列 (ds-pin-col)",
+      "阴影分隔",
+      "滚动容器",
+      "冻结切换"
+    ],
+    "keyboard": "滚动容器可聚焦；方向键横向滚动。",
+    "guidance": [
+      "冻结列与滚动列之间有阴影分隔。",
+      "冻结设置可切换并记住偏好。",
+      "窄屏下冻结列数自动减少。"
+    ],
+    "preview": "<div class=\"ds-pin-col\"><table><tr><td class=\"is-pinned\">设计规范 v3</td><td>评审中</td><td>42 个组件</td><td>10-16</td><td class=\"is-actions\"><button type=\"button\">编辑</button></td></tr></table></div>",
+    "checks": [
+      "冻结列有阴影分隔",
+      "冻结设置可切换记忆",
+      "窄屏减少冻结列数",
+      "滚动容器方向键可达"
+    ],
+    "react": "<PinnedColumn first=\"设计规范 v3\" cells={[\"评审中\", \"42 个组件\", \"10-16\"]} />"
+  },
+  {
+    "id": "table-expandable-row",
+    "name": "可展开行",
+    "category": "表格",
+    "status": "v3 新增",
+    "purpose": "在行内展开显示子级数据或详情，减少页面跳转。",
+    "anatomy": [
+      "展开按钮 (ds-expand-row__toggle)",
+      "主行",
+      "子行内容",
+      "加载态"
+    ],
+    "keyboard": "展开按钮可聚焦；展开后焦点移至子行首个可聚焦元素。",
+    "guidance": [
+      "展开状态在排序与筛选后保留。",
+      "子行内容懒加载并展示骨架。",
+      "再次点击或 Esc 收起。"
+    ],
+    "preview": "<div class=\"ds-expand-row\"><div class=\"ds-expand-row__main\"><button type=\"button\" class=\"ds-expand-row__toggle\" aria-expanded=\"true\" aria-label=\"收起详情\">▾</button><span>订单 #10248</span><span>¥2,398.00</span><span>已发货</span></div><div class=\"ds-expand-row__child\"><p>2 件商品 · 收件人 张伟 · 物流顺丰 SF1234567890</p></div></div>",
+    "checks": [
+      "展开状态排序筛选后保留",
+      "子行懒加载展示骨架",
+      "Esc 可收起",
+      "展开后焦点移入子行"
+    ],
+    "react": "<ExpandableRow main=\"订单 #10248\" amount=\"¥2,398.00\" state=\"已发货\" expanded child=\"2 件商品 · 收件人 张伟\" />"
+  },
+  {
+    "id": "table-sticky-summary-row",
+    "name": "汇总行",
+    "category": "表格",
+    "status": "v3 新增",
+    "purpose": "在表格底部固定展示合计与统计值，滚动时始终可见。",
+    "anatomy": [
+      "汇总行 (ds-sum-row)",
+      "合计值",
+      "统计项",
+      "计算说明"
+    ],
+    "keyboard": "汇总行为静态文本；计算说明可聚焦查看。",
+    "guidance": [
+      "合计值随筛选结果实时更新。",
+      "说明合计口径，如“含税”。",
+      "数值列右对齐并使用等宽字体。"
+    ],
+    "preview": "<div class=\"ds-sum-row\" role=\"row\"><span class=\"ds-sum-row__label\">合计（含税）</span><span class=\"ds-sum-row__value\">¥18,742.00</span><span class=\"ds-sum-row__meta\">12 笔 · 均值 ¥1,561.83</span><button type=\"button\" aria-label=\"查看计算说明\">ⓘ</button></div>",
+    "checks": [
+      "合计随筛选实时更新",
+      "说明合计口径",
+      "数值右对齐等宽字体",
+      "计算说明可查看"
+    ],
+    "react": "<StickySummaryRow label=\"合计（含税）\" value=\"¥18,742.00\" meta=\"12 笔 · 均值 ¥1,561.83\" />"
+  },
+  {
+    "id": "table-export-panel",
+    "name": "导出面板",
+    "category": "表格",
+    "status": "v3 新增",
+    "purpose": "在导出前选择格式、字段范围与数据处理方式。",
+    "anatomy": [
+      "格式选择 (ds-export-panel__format)",
+      "字段清单",
+      "行数范围",
+      "导出按钮"
+    ],
+    "keyboard": "面板内 Tab 循环；Esc 关闭；回车执行导出。",
+    "guidance": [
+      "默认仅导出当前筛选结果。",
+      "字段清单支持全选与反选。",
+      "大导出给出预计行数与耗时提示。"
+    ],
+    "preview": "<div class=\"ds-export-panel\" role=\"dialog\" aria-modal=\"true\" aria-label=\"导出数据\"><p class=\"ds-export-panel__scope\">导出当前筛选结果：1,240 行</p><div class=\"ds-export-panel__format\" role=\"radiogroup\" aria-label=\"格式\"><label><input type=\"radio\" name=\"fmt\" checked><span>CSV</span></label><label><input type=\"radio\" name=\"fmt\"><span>Excel</span></label><label><input type=\"radio\" name=\"fmt\"><span>JSON</span></label></div><div class=\"ds-export-panel__fields\"><label><input type=\"checkbox\" checked><span>商品名称</span></label><label><input type=\"checkbox\" checked><span>价格</span></label><label><input type=\"checkbox\"><span>库存</span></label></div><button type=\"button\" class=\"is-primary\">导出 1,240 行</button></div>",
+    "checks": [
+      "默认导出筛选结果",
+      "字段支持全选反选",
+      "大导出给行数耗时提示",
+      "回车执行导出"
+    ],
+    "react": "<ExportPanel scope=\"1,240 行\" formats={[\"CSV\", \"Excel\", \"JSON\"]} fields={[{ label: \"商品名称\", on: true }]} />"
+  },
+  {
+    "id": "table-import-mapping",
+    "name": "导入字段映射",
+    "category": "表格",
+    "status": "v3 新增",
+    "purpose": "在导入外部文件时将源列映射到目标字段，并校验数据。",
+    "anatomy": [
+      "映射行 (ds-import-map__row)",
+      "源列",
+      "目标字段选择",
+      "示例值",
+      "校验状态"
+    ],
+    "keyboard": "Tab 遍历映射选择；校验错误行聚焦说明。",
+    "guidance": [
+      "自动识别常见列名并预映射。",
+      "示例值展示前两行真实数据。",
+      "校验失败的行标红且可定位。"
+    ],
+    "preview": "<div class=\"ds-import-map\" role=\"group\" aria-label=\"字段映射\"><div class=\"ds-import-map__row\"><span class=\"ds-import-map__src\">产品名称</span><span aria-hidden=\"true\">→</span><select aria-label=\"目标字段\"><option>商品名称</option></select><code>钛金属表带</code><span class=\"ds-import-map__ok\">✓</span></div><div class=\"ds-import-map__row is-error\"><span class=\"ds-import-map__src\">售价</span><span aria-hidden=\"true\">→</span><select aria-label=\"目标字段\"><option>价格</option></select><code>八百九十九</code><span class=\"ds-import-map__err\">需为数字</span></div></div>",
+    "checks": [
+      "自动识别预映射",
+      "示例值展示真实数据",
+      "错误行标红可定位",
+      "映射选择键盘可达"
+    ],
+    "react": "<ImportMapping rows={[{ source: \"产品名称\", target: \"商品名称\", sample: \"钛金属表带\" }]} />"
+  },
+  {
+    "id": "table-cell-validation",
+    "name": "单元格校验",
+    "category": "表格",
+    "status": "v3 新增",
+    "purpose": "在表格输入中即时校验格式与范围，错误单元格给出可操作提示。",
+    "anatomy": [
+      "单元格 (ds-cell-valid)",
+      "错误图标",
+      "错误说明",
+      "修正建议"
+    ],
+    "keyboard": "错误单元格聚焦时朗读说明；Tab 可移动到下一个错误。",
+    "guidance": [
+      "错误说明具体到规则，如“需为 1-9999 的整数”。",
+      "一键应用修正建议。",
+      "全部错误汇总在提交按钮旁。"
+    ],
+    "preview": "<div class=\"ds-cell-valid is-error\"><input value=\"0\" aria-label=\"库存\" aria-invalid=\"true\"><span class=\"ds-cell-valid__msg\">需为 1-9999 的整数</span><button type=\"button\">修正为 1</button></div>",
+    "checks": [
+      "错误说明具体到规则",
+      "一键应用修正建议",
+      "错误汇总在提交旁",
+      "Tab 跳到下一错误"
+    ],
+    "react": "<CellValidation label=\"库存\" value=\"0\" error=\"需为 1-9999 的整数\" suggestion=\"修正为 1\" />"
+  },
+  {
+    "id": "table-bulk-undo-toast",
+    "name": "批量操作撤销",
+    "category": "表格",
+    "status": "v3 新增",
+    "purpose": "在执行批量修改后提供限时撤销入口，降低误操作损失。",
+    "anatomy": [
+      "提示条 (ds-undo-toast)",
+      "操作摘要",
+      "撤销按钮",
+      "倒计时进度"
+    ],
+    "keyboard": "撤销按钮可聚焦；倒计时结束自动消失。",
+    "guidance": [
+      "撤销窗口不少于 8 秒。",
+      "摘要说明影响行数。",
+      "倒计时进度可视化。"
+    ],
+    "preview": "<div class=\"ds-undo-toast\" role=\"status\"><span>已将 12 项标记为完成</span><button type=\"button\">撤销</button><span class=\"ds-undo-toast__timer\" aria-hidden=\"true\"><i style=\"width:60%\"></i></span></div>",
+    "checks": [
+      "撤销窗口不少于 8 秒",
+      "摘要说明影响行数",
+      "倒计时进度可视化",
+      "超时自动消失"
+    ],
+    "react": "<BulkUndoToast summary=\"已将 12 项标记为完成\" remaining={5} onUndo={undo} />"
   }
 ]
