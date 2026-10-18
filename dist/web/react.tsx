@@ -14597,3 +14597,114 @@ export function PriorityTag({ level, label, sla }: { level: string; label: strin
     <i aria-hidden="true">🔥</i>{level} {label}{sla && <small>{sla}</small>}
   </span>;
 }
+
+export function SideNav({ groups, current }: { groups: { title: string; items: { label: string; icon: string }[] }[]; current?: string }) {
+  return <nav className="ds-side-nav" aria-label="主导航">
+    {groups.map(group => <div key={group.title} className="ds-side-nav__group">
+      <p className="ds-side-nav__title">{group.title}</p>
+      {group.items.map(item => <a key={item.label} href="#" aria-current={item.label === current ? 'page' : undefined}
+        className={'ds-side-nav__item' + (item.label === current ? ' is-current' : '')}>
+        <span aria-hidden="true">{item.icon}</span>{item.label}
+      </a>)}
+    </div>)}
+  </nav>;
+}
+
+export function MegaMenu({ label, columns }: { label: string; columns: { title: string; items: string[] }[] }) {
+  return <div className="ds-mega-menu">
+    <button type="button" className="ds-mega-menu__trigger" aria-expanded="true" aria-haspopup="true">
+      {label} <span aria-hidden="true">▾</span>
+    </button>
+    <div className="ds-mega-menu__panel" role="menu">
+      {columns.map(col => <div key={col.title} className="ds-mega-menu__col">
+        <p className="ds-mega-menu__title">{col.title}</p>
+        {col.items.map(item => <a key={item} href="#" role="menuitem">{item}</a>)}
+      </div>)}
+    </div>
+  </div>;
+}
+
+export function ContextDrawer({ title, body, onClose }: { title: string; body: string; onClose?: () => void }) {
+  return <div className="ds-ctx-drawer" role="dialog" aria-modal="true" aria-label="详情">
+    <div className="ds-ctx-drawer__head">
+      <strong>{title}</strong>
+      <button type="button" aria-label="关闭详情" onClick={onClose}>✕</button>
+    </div>
+    <div className="ds-ctx-drawer__body"><p>{body}</p></div>
+  </div>;
+}
+
+export function BottomBar({ actions }: { actions: { label: string; kind?: string }[] }) {
+  return <div className="ds-bottom-bar" role="toolbar" aria-label="页面操作">
+    {actions.map(action => <button key={action.label} type="button"
+      className={action.kind === 'primary' ? 'is-primary' : undefined}>{action.label}</button>)}
+  </div>;
+}
+
+export function CommandOverlay({ query, items, active = 0 }: { query: string; items: { label: string; shortcut?: string }[]; active?: number }) {
+  return <div className="ds-cmd-overlay" role="presentation">
+    <div className="ds-cmd-overlay__panel" role="dialog" aria-modal="true" aria-label="命令面板">
+      <label className="ds-sr-only" htmlFor="ds-cmd-q">搜索命令</label>
+      <input id="ds-cmd-q" type="search" defaultValue={query} />
+      <ul role="listbox" aria-label="命令结果">
+        {items.map((item, index) => <li key={item.label} role="option" aria-selected={index === active}>
+          <span aria-hidden="true">📄</span>{item.label}
+          {item.shortcut && <kbd>{item.shortcut}</kbd>}
+        </li>)}
+      </ul>
+    </div>
+  </div>;
+}
+
+export function TabOverflowMenu({ hiddenCount, items }: { hiddenCount: number; items: string[] }) {
+  return <div className="ds-tab-overflow">
+    <button type="button" className="ds-tab-overflow__btn" aria-expanded="false" aria-haspopup="menu">
+      更多 <em>{hiddenCount}</em><span aria-hidden="true">▾</span>
+    </button>
+    <ul role="menu" hidden>{items.map(item => <li key={item} role="menuitem">{item}</li>)}</ul>
+  </div>;
+}
+
+export function PaneResizer({ percent, min, max, onChange }: { percent: number; min: number; max: number; onChange?: (next: number) => void }) {
+  return <div className="ds-pane-resizer" role="separator" tabIndex={0} aria-orientation="vertical"
+    aria-label="调整面板宽度" aria-valuenow={percent} aria-valuemin={min} aria-valuemax={max}
+    onKeyDown={event => {
+      if (event.key === 'ArrowLeft') onChange?.(Math.max(min, percent - 2));
+      if (event.key === 'ArrowRight') onChange?.(Math.min(max, percent + 2));
+    }}>
+    <span className="ds-pane-resizer__grip" aria-hidden="true"></span>
+    <span className="ds-pane-resizer__tip" aria-hidden="true">{percent}%</span>
+  </div>;
+}
+
+export function TreeIndent({ nodes }: { nodes: { label: string; icon?: string; open?: boolean; leaf?: boolean; children?: TreeIndentNode[] }[] }) {
+  type TreeIndentNode = { label: string; icon?: string; open?: boolean; leaf?: boolean; children?: TreeIndentNode[] };
+  const render = (list: TreeIndentNode[], child: boolean) => list.map(node => <React.Fragment key={node.label}>
+    <div className={'ds-tree-indent__row' + (child ? ' is-child' : node.open ? ' is-open' : '')} role="treeitem"
+      aria-expanded={node.children ? !!node.open : undefined}>
+      <span className={'ds-tree-indent__arrow' + (node.leaf ? ' is-leaf' : '')} aria-hidden="true">{node.leaf ? '' : node.open ? '▾' : '▸'}</span>
+      <span aria-hidden="true">{node.icon || (node.leaf ? '📄' : '📁')}</span>{node.label}
+    </div>
+    {node.children && node.open && render(node.children, true)}
+  </React.Fragment>);
+  return <div className="ds-tree-indent" role="tree" aria-label="目录树">{render(nodes, false)}</div>;
+}
+
+export function StickyHeader({ title, meta, scrolled }: { title: string; meta?: string; scrolled?: boolean }) {
+  return <div className={'ds-sticky-head' + (scrolled ? ' is-scrolled' : '')}>
+    <div className="ds-sticky-head__title"><strong>{title}</strong>{meta && <small>{meta}</small>}</div>
+    <div className="ds-sticky-head__actions">
+      <button type="button">筛选</button>
+      <button type="button" className="is-primary">新建组件</button>
+    </div>
+  </div>;
+}
+
+export function FabStack({ open, items = [], onToggle }: { open?: boolean; items: { label: string; icon: string }[]; onToggle?: () => void }) {
+  return <div className="ds-fab-stack">
+    {open && <div className="ds-fab-stack__items">
+      {items.map(item => <button key={item.label} type="button">{item.label}<span aria-hidden="true">{item.icon}</span></button>)}
+    </div>}
+    <button type="button" className="ds-fab-stack__main" aria-expanded={!!open} aria-label="快捷操作" onClick={onToggle}>＋</button>
+  </div>;
+}

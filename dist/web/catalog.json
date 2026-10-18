@@ -15270,5 +15270,282 @@
       "标签文字可读"
     ],
     "react": "<PriorityTag level=\"P0\" label=\"紧急\" sla=\"需 1 小时内响应\" />"
+  },
+  {
+    "id": "layout-side-nav",
+    "name": "侧边导航",
+    "category": "布局",
+    "status": "v3 新增",
+    "purpose": "在桌面端提供全局导航结构，支持分组、折叠与当前项标识。",
+    "anatomy": [
+      "导航外壳 (ds-side-nav)",
+      "分组标题",
+      "导航项",
+      "图标",
+      "当前标记",
+      "折叠按钮"
+    ],
+    "keyboard": "Tab 遍历导航项；当前项 aria-current；折叠按钮有可读名称。",
+    "guidance": [
+      "当前所在位置用文字加背景双通道标识。",
+      "折叠后仅显示图标并保留 tooltip。",
+      "分组标题不可点击。"
+    ],
+    "preview": "<nav class=\"ds-side-nav\" aria-label=\"主导航\"><div class=\"ds-side-nav__group\"><p class=\"ds-side-nav__title\">工作区</p><a href=\"#\" class=\"ds-side-nav__item is-current\" aria-current=\"page\"><span aria-hidden=\"true\">📋</span>项目</a><a href=\"#\" class=\"ds-side-nav__item\"><span aria-hidden=\"true\">📁</span>文件</a><a href=\"#\" class=\"ds-side-nav__item\"><span aria-hidden=\"true\">📊</span>报表</a></div><div class=\"ds-side-nav__group\"><p class=\"ds-side-nav__title\">设置</p><a href=\"#\" class=\"ds-side-nav__item\"><span aria-hidden=\"true\">⚙️</span>偏好</a></div></nav>",
+    "checks": [
+      "当前项文字加背景标识",
+      "折叠保留图标 tooltip",
+      "分组标题不可点击",
+      "aria-current 正确"
+    ],
+    "react": "<SideNav groups={[{ title: \"工作区\", items: [{ label: \"项目\", icon: \"📋\" }] }]} current=\"项目\" />"
+  },
+  {
+    "id": "layout-mega-menu",
+    "name": "超级菜单",
+    "category": "布局",
+    "status": "v3 新增",
+    "purpose": "在导航中展开多列内容，用于展示产品矩阵或大型分类。",
+    "anatomy": [
+      "触发器 (ds-mega-menu__trigger)",
+      "面板",
+      "分类列",
+      "推广位",
+      "关闭"
+    ],
+    "keyboard": "Esc 关闭；Tab 在面板内循环；触发器 aria-expanded。",
+    "guidance": [
+      "面板内容按列分组且每列有标题。",
+      "移动端转为全屏抽屉。",
+      "打开时面板不遮挡触发器。"
+    ],
+    "preview": "<div class=\"ds-mega-menu\"><button type=\"button\" class=\"ds-mega-menu__trigger\" aria-expanded=\"true\" aria-haspopup=\"true\">产品 <span aria-hidden=\"true\">▾</span></button><div class=\"ds-mega-menu__panel\" role=\"menu\"><div class=\"ds-mega-menu__col\"><p class=\"ds-mega-menu__title\">设计</p><a href=\"#\" role=\"menuitem\">设计系统</a><a href=\"#\" role=\"menuitem\">白板</a><a href=\"#\" role=\"menuitem\">原型</a></div><div class=\"ds-mega-menu__col\"><p class=\"ds-mega-menu__title\">协作</p><a href=\"#\" role=\"menuitem\">评论</a><a href=\"#\" role=\"menuitem\">版本历史</a></div><div class=\"ds-mega-menu__promo\"><strong>新功能：AI 配色</strong><span>一键生成无障碍调色板</span></div></div></div>",
+    "checks": [
+      "面板按列分组有标题",
+      "移动端转全屏抽屉",
+      "打开不遮挡触发器",
+      "Esc 关闭且 Tab 循环"
+    ],
+    "react": "<MegaMenu label=\"产品\" columns={[{ title: \"设计\", items: [\"设计系统\", \"白板\"] }]} />"
+  },
+  {
+    "id": "layout-ctx-drawer",
+    "name": "上下文抽屉",
+    "category": "布局",
+    "status": "v3 新增",
+    "purpose": "从侧边滑出展示选中对象的详情，不离开当前列表上下文。",
+    "anatomy": [
+      "抽屉外壳 (ds-ctx-drawer)",
+      "标题栏",
+      "内容区",
+      "关闭按钮",
+      "遮罩"
+    ],
+    "keyboard": "Esc 关闭；打开时焦点移入抽屉；关闭后焦点还原。",
+    "guidance": [
+      "宽度固定且内容可滚动。",
+      "遮罩点击可关闭但需确认未保存更改。",
+      "窄屏转为全屏。"
+    ],
+    "preview": "<div class=\"ds-ctx-drawer\" role=\"dialog\" aria-modal=\"true\" aria-label=\"详情\"><div class=\"ds-ctx-drawer__head\"><strong>设计规范 v3</strong><button type=\"button\" aria-label=\"关闭详情\">✕</button></div><div class=\"ds-ctx-drawer__body\"><p>更新了玻璃层级与动效曲线，影响 42 个组件。</p><dl><div><dt>负责人</dt><dd>林晓</dd></div><div><dt>状态</dt><dd>评审中</dd></div></dl></div></div>",
+    "checks": [
+      "宽度固定内容可滚动",
+      "遮罩关闭确认未保存",
+      "窄屏转全屏",
+      "焦点移入与还原"
+    ],
+    "react": "<ContextDrawer title=\"设计规范 v3\" body=\"更新了玻璃层级与动效曲线，影响 42 个组件。\" onClose={close} />"
+  },
+  {
+    "id": "layout-bottom-bar",
+    "name": "底部操作栏",
+    "category": "布局",
+    "status": "v3 新增",
+    "purpose": "在移动端底部固定展示当前页面的主要操作，避免伸出拇指难够到。",
+    "anatomy": [
+      "操作栏 (ds-bottom-bar)",
+      "主操作",
+      "次操作",
+      "安全区适配"
+    ],
+    "keyboard": "按钮均可聚焦；主操作为实心按钮。",
+    "guidance": [
+      "操作不超过 3 个。",
+      "主操作居右或全宽，符合拇指热区。",
+      "滚动时操作栏保持固定不遮挡内容。"
+    ],
+    "preview": "<div class=\"ds-bottom-bar\" role=\"toolbar\" aria-label=\"页面操作\"><button type=\"button\" class=\"is-secondary\">收藏</button><button type=\"button\" class=\"is-secondary\">分享</button><button type=\"button\" class=\"is-primary\">立即购买</button></div>",
+    "checks": [
+      "操作不超过 3 个",
+      "主操作符合拇指热区",
+      "滚动保持固定",
+      "按钮均可聚焦"
+    ],
+    "react": "<BottomBar actions={[{ label: \"收藏\", kind: \"secondary\" }, { label: \"立即购买\", kind: \"primary\" }]} />"
+  },
+  {
+    "id": "layout-cmd-overlay",
+    "name": "命令面板遮罩",
+    "category": "布局",
+    "status": "v3 新增",
+    "purpose": "以遮罩加居中面板的形式提供全局命令入口，支持模糊搜索与分组。",
+    "anatomy": [
+      "遮罩 (ds-cmd-overlay)",
+      "面板",
+      "搜索输入",
+      "分组结果",
+      "快捷键提示"
+    ],
+    "keyboard": "打开时焦点落在搜索框；上下方向键移动；回车执行；Esc 关闭。",
+    "guidance": [
+      "最近使用置顶展示。",
+      "每项右侧展示对应快捷键。",
+      "无匹配时给出最接近的建议。"
+    ],
+    "preview": "<div class=\"ds-cmd-overlay\" role=\"presentation\"><div class=\"ds-cmd-overlay__panel\" role=\"dialog\" aria-modal=\"true\" aria-label=\"命令面板\"><input type=\"search\" value=\"新建\" aria-label=\"搜索命令\"><ul role=\"listbox\" aria-label=\"命令结果\"><li role=\"option\" aria-selected=\"true\"><span aria-hidden=\"true\">📄</span>新建文档<kbd>⌘N</kbd></li><li role=\"option\" aria-selected=\"false\"><span aria-hidden=\"true\">📁</span>新建项目<kbd>⌘⇧N</kbd></li></ul></div></div>",
+    "checks": [
+      "打开焦点在搜索框",
+      "每项展示快捷键",
+      "最近使用置顶",
+      "无匹配给最接近建议"
+    ],
+    "react": "<CommandOverlay query=\"新建\" items={[{ label: \"新建文档\", shortcut: \"⌘N\" }]} active={0} />"
+  },
+  {
+    "id": "layout-tab-overflow",
+    "name": "标签溢出菜单",
+    "category": "布局",
+    "status": "v3 新增",
+    "purpose": "当标签数量超出容器宽度时，将溢出标签收纳进菜单。",
+    "anatomy": [
+      "溢出按钮 (ds-tab-overflow__btn)",
+      "菜单",
+      "标签项",
+      "计数"
+    ],
+    "keyboard": "溢出按钮 aria-expanded；菜单项可聚焦；方向键导航。",
+    "guidance": [
+      "溢出按钮显示被收纳数量。",
+      "当前激活标签永不被收纳。",
+      "激活溢出标签时自动滚动到可视区。"
+    ],
+    "preview": "<div class=\"ds-tab-overflow\"><button type=\"button\" class=\"ds-tab-overflow__btn\" aria-expanded=\"false\" aria-haspopup=\"menu\">更多 <em>5</em><span aria-hidden=\"true\">▾</span></button><ul role=\"menu\" hidden><li role=\"menuitem\">标签 7</li><li role=\"menuitem\">标签 8</li><li role=\"menuitem\">标签 9</li></ul></div>",
+    "checks": [
+      "溢出按钮显示收纳数量",
+      "当前标签不被收纳",
+      "激活溢出标签自动滚动",
+      "菜单键盘可操作"
+    ],
+    "react": "<TabOverflowMenu hiddenCount={5} items={[\"标签 7\", \"标签 8\", \"标签 9\"]} />"
+  },
+  {
+    "id": "layout-pane-resizer",
+    "name": "分屏拖拽条",
+    "category": "布局",
+    "status": "v3 新增",
+    "purpose": "在分屏布局中拖动调整两侧面板宽度，支持键盘精确操作。",
+    "anatomy": [
+      "拖拽手柄 (ds-pane-resizer)",
+      "聚焦环",
+      "宽度提示",
+      "双击复位"
+    ],
+    "keyboard": "手柄可聚焦；左右方向键每次调整 8px；Home/End 贴边；双击复位。",
+    "guidance": [
+      "拖拽时显示当前宽度提示。",
+      "最小宽度约束避免面板不可用",
+      "触屏支持加大命中区。"
+    ],
+    "preview": "<div class=\"ds-pane-resizer\" role=\"separator\" tabindex=\"0\" aria-orientation=\"vertical\" aria-label=\"调整面板宽度\" aria-valuenow=\"38\" aria-valuemin=\"20\" aria-valuemax=\"80\"><span class=\"ds-pane-resizer__grip\" aria-hidden=\"true\"></span><span class=\"ds-pane-resizer__tip\" aria-hidden=\"true\">38%</span></div>",
+    "checks": [
+      "拖拽显示宽度提示",
+      "最小宽度有约束",
+      "方向键精确调整",
+      "双击复位"
+    ],
+    "react": "<PaneResizer percent={38} min={20} max={80} onChange={setPercent} />"
+  },
+  {
+    "id": "layout-tree-indent",
+    "name": "树形缩进列表",
+    "category": "布局",
+    "status": "v3 新增",
+    "purpose": "以缩进和展开箭头展示层级结构，如文件树或目录。",
+    "anatomy": [
+      "树容器 (ds-tree-indent)",
+      "层级行",
+      "展开箭头",
+      "缩进参考线",
+      "叶子项"
+    ],
+    "keyboard": "方向键展开收起与移动；右方向键进入子级；左方向键返回父级。",
+    "guidance": [
+      "展开状态在刷新后保留。",
+      "缩进参考线帮助识别层级深度。",
+      "叶子项无箭头但保持对齐。"
+    ],
+    "preview": "<div class=\"ds-tree-indent\" role=\"tree\" aria-label=\"目录树\"><div class=\"ds-tree-indent__row is-open\" role=\"treeitem\" aria-expanded=\"true\"><span class=\"ds-tree-indent__arrow\" aria-hidden=\"true\">▾</span><span aria-hidden=\"true\">📁</span>src</div><div class=\"ds-tree-indent__row is-child\" role=\"treeitem\"><span class=\"ds-tree-indent__arrow is-leaf\" aria-hidden=\"true\"></span><span aria-hidden=\"true\">📄</span>index.ts</div><div class=\"ds-tree-indent__row is-child\" role=\"treeitem\"><span class=\"ds-tree-indent__arrow is-leaf\" aria-hidden=\"true\"></span><span aria-hidden=\"true\">📄</span>tokens.ts</div><div class=\"ds-tree-indent__row\" role=\"treeitem\"><span class=\"ds-tree-indent__arrow\" aria-hidden=\"true\">▸</span><span aria-hidden=\"true\">📁</span>docs</div></div>",
+    "checks": [
+      "展开状态刷新保留",
+      "缩进参考线可见",
+      "叶子项无箭头对齐",
+      "方向键层级导航"
+    ],
+    "react": "<TreeIndent nodes={[{ label: \"src\", open: true, children: [{ label: \"index.ts\", leaf: true }] }]} />"
+  },
+  {
+    "id": "layout-sticky-header",
+    "name": "吸顶头部",
+    "category": "布局",
+    "status": "v3 新增",
+    "purpose": "页面滚动时保持可见的头部，承载标题与关键操作。",
+    "anatomy": [
+      "头部外壳 (ds-sticky-head)",
+      "标题",
+      "关键操作",
+      "滚动阴影",
+      "折叠态"
+    ],
+    "keyboard": "操作按钮可聚焦；折叠态仅显示标题与主操作。",
+    "guidance": [
+      "滚动超过一屏后出现阴影强化层次。",
+      "大标题在滚动中折叠为紧凑标题。",
+      "吸顶不遮挡锚点跳转目标。"
+    ],
+    "preview": "<div class=\"ds-sticky-head is-scrolled\"><div class=\"ds-sticky-head__title\"><strong>组件规范总览</strong><small>569 个组件 · 12 个分类</small></div><div class=\"ds-sticky-head__actions\"><button type=\"button\">筛选</button><button type=\"button\" class=\"is-primary\">新建组件</button></div></div>",
+    "checks": [
+      "滚动后出现阴影",
+      "大标题折叠为紧凑",
+      "不遮挡锚点目标",
+      "操作按钮可聚焦"
+    ],
+    "react": "<StickyHeader title=\"组件规范总览\" meta=\"569 个组件 · 12 个分类\" scrolled />"
+  },
+  {
+    "id": "layout-fab-stack",
+    "name": "悬浮按钮栈",
+    "category": "布局",
+    "status": "v3 新增",
+    "purpose": "以悬浮球收纳多个快捷操作，点击展开为纵向按钮栈。",
+    "anatomy": [
+      "主按钮 (ds-fab-stack__main)",
+      "展开按钮",
+      "遮罩",
+      "标签"
+    ],
+    "keyboard": "主按钮可聚焦；展开后方向键导航；Esc 收起。",
+    "guidance": [
+      "展开时子按钮依次入场且可减少动效。",
+      "每个子按钮有文字标签。",
+      "点击遮罩收起。"
+    ],
+    "preview": "<div class=\"ds-fab-stack\"><button type=\"button\" class=\"ds-fab-stack__main\" aria-expanded=\"true\" aria-label=\"快捷操作\">＋</button><div class=\"ds-fab-stack__items\"><button type=\"button\">新建文档<span aria-hidden=\"true\">📄</span></button><button type=\"button\">上传文件<span aria-hidden=\"true\">⬆️</span></button><button type=\"button\">邀请成员<span aria-hidden=\"true\">👤</span></button></div></div>",
+    "checks": [
+      "子按钮有文字标签",
+      "依次入场可减动效",
+      "Esc 收起",
+      "遮罩点击收起"
+    ],
+    "react": "<FabStack open items={[{ label: \"新建文档\", icon: \"📄\" }, { label: \"上传文件\", icon: \"⬆️\" }]} onToggle={toggle} />"
   }
 ]
