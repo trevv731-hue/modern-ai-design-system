@@ -13058,5 +13058,276 @@
       "按钮文案指明档位"
     ],
     "react": "<PlanCard name=\"专业版\" price=\"¥49\" unit=\"/ 月\" features={[\"无限项目与看板\", \"高级权限管理\", \"优先客服支持\"]} featured />"
+  },
+  {
+    "id": "messaging-thread-row",
+    "name": "会话列表行",
+    "category": "通讯",
+    "status": "v3 新增",
+    "purpose": "在会话列表中展示单条会话的头像、摘要、时间与未读状态。",
+    "anatomy": [
+      "头像 (ds-thread-row__avatar)",
+      "名称",
+      "最新消息摘要",
+      "时间戳",
+      "未读徽标"
+    ],
+    "keyboard": "整行可聚焦；Enter 打开会话；未读徽标有文字可读。",
+    "guidance": [
+      "未读数量用徽标加数字，不只用圆点。",
+      "摘要截断为一行，避免挤压名称。",
+      "置顶会话有图标加文字说明。"
+    ],
+    "preview": "<div class=\"ds-thread-row is-unread\" tabindex=\"0\" role=\"button\"><span class=\"ds-thread-row__avatar\" aria-hidden=\"true\">林</span><div class=\"ds-thread-row__body\"><div class=\"ds-thread-row__top\"><strong>林晓</strong><time>09:24</time></div><p>设计规范评审挪到下午三点可以吗？</p></div><span class=\"ds-thread-row__badge\">2</span></div>",
+    "checks": [
+      "未读徽标含数字",
+      "摘要单行截断",
+      "置顶有图标加文字",
+      "整行可键盘打开"
+    ],
+    "react": "<ThreadRow name=\"林晓\" preview=\"设计规范评审挪到下午三点可以吗？\" time=\"09:24\" unread={2} />"
+  },
+  {
+    "id": "messaging-bubble-group",
+    "name": "消息气泡组",
+    "category": "通讯",
+    "status": "v3 新增",
+    "purpose": "将同一发送者的连续消息归组，并标注日期分隔与发送状态。",
+    "anatomy": [
+      "日期分隔 (ds-bubble-group__day)",
+      "己方气泡",
+      "对方气泡",
+      "发送状态"
+    ],
+    "keyboard": "气泡内容可被读屏朗读；状态变化通过 live region 播报。",
+    "guidance": [
+      "己方与对方气泡靠对齐与颜色双重区分。",
+      "日期变化处插入分隔行。",
+      "发送失败给出重试入口，不静默丢弃。"
+    ],
+    "preview": "<div class=\"ds-bubble-group\"><div class=\"ds-bubble-group__day\">今天</div><div class=\"ds-bubble-group__row is-mine\">规范链接我发你邮箱了<span class=\"ds-bubble-group__state\">已读</span></div><div class=\"ds-bubble-group__row\">收到，下午三点会议室见</div></div>",
+    "checks": [
+      "己方对方靠对齐加颜色区分",
+      "日期分隔行存在",
+      "发送失败可重试",
+      "状态变化有播报"
+    ],
+    "react": "<BubbleGroup day=\"今天\" mine=\"规范链接我发你邮箱了\" theirs=\"收到，下午三点会议室见\" state=\"已读\" />"
+  },
+  {
+    "id": "messaging-input-bar",
+    "name": "消息输入栏",
+    "category": "通讯",
+    "status": "v3 新增",
+    "purpose": "提供多行文本输入与附件、表情、发送等辅助操作。",
+    "anatomy": [
+      "附件按钮",
+      "输入区 (ds-input-bar__field)",
+      "表情按钮",
+      "发送按钮",
+      "字数提示"
+    ],
+    "keyboard": "Enter 发送，Shift+Enter 换行；Tab 遍历工具按钮。",
+    "guidance": [
+      "空内容时发送按钮禁用并说明原因。",
+      "超长输入给出字数上限提示。",
+      "粘贴大文件时即时提示大小限制。"
+    ],
+    "preview": "<div class=\"ds-input-bar\"><button type=\"button\" aria-label=\"添加附件\">📎</button><div class=\"ds-input-bar__field\" role=\"textbox\" aria-multiline=\"true\" tabindex=\"0\" aria-label=\"消息内容\">下午三点会议室见</div><button type=\"button\" aria-label=\"选择表情\">😊</button><button type=\"button\" class=\"ds-input-bar__send\">发送</button></div>",
+    "checks": [
+      "Enter 发送且 Shift+Enter 换行",
+      "空内容禁用发送",
+      "超长输入有字数提示",
+      "附件按钮有可读名称"
+    ],
+    "react": "<MessageInputBar onSend={sendMessage} placeholder=\"输入消息\" />"
+  },
+  {
+    "id": "messaging-read-receipt",
+    "name": "已读回执",
+    "category": "通讯",
+    "status": "v3 新增",
+    "purpose": "在消息旁展示已读人数与具体读者，支持群聊场景。",
+    "anatomy": [
+      "回执入口 (ds-read-receipt)",
+      "已读人数",
+      "读者头像堆叠",
+      "未读提示"
+    ],
+    "keyboard": "回执入口可聚焦；展开读者列表用方向键浏览。",
+    "guidance": [
+      "群聊展示“x/y 已读”。",
+      "读者列表按已读时间排序。",
+      "隐私模式下不展示具体读者名单。"
+    ],
+    "preview": "<button type=\"button\" class=\"ds-read-receipt\"><span class=\"ds-read-receipt__stack\" aria-hidden=\"true\"><i>林</i><i>陈</i><i>王</i></span>3/5 已读</button>",
+    "checks": [
+      "群聊展示 x/y 已读",
+      "读者按时间排序",
+      "隐私模式隐藏名单",
+      "入口可键盘展开"
+    ],
+    "react": "<ReadReceipt read={3} total={5} readers={[\"林\", \"陈\", \"王\"]} />"
+  },
+  {
+    "id": "messaging-typing-indicator",
+    "name": "正在输入指示器",
+    "category": "通讯",
+    "status": "v3 新增",
+    "purpose": "在对端正在输入时给出轻量反馈，避免用户重复发送。",
+    "anatomy": [
+      "指示器 (ds-typing)",
+      "动画点",
+      "对方名称"
+    ],
+    "keyboard": "状态变化通过 live region 礼貌播报。",
+    "guidance": [
+      "单点动画不超过 3 个圆点。",
+      "群聊多人输入时合并为一条提示。",
+      "尊重减少动效偏好，退化为静态文字。"
+    ],
+    "preview": "<span class=\"ds-typing\" role=\"status\"><span class=\"ds-typing__dots\" aria-hidden=\"true\"><i></i><i></i><i></i></span>林晓 正在输入…</span>",
+    "checks": [
+      "动画点不超过 3 个",
+      "群聊多人输入合并提示",
+      "减少动效时退化静态文字",
+      "状态播报礼貌不打断"
+    ],
+    "react": "<TypingIndicator name=\"林晓\" />"
+  },
+  {
+    "id": "messaging-voice-message",
+    "name": "语音消息条",
+    "category": "通讯",
+    "status": "v3 新增",
+    "purpose": "播放语音消息并展示时长、波形与播放进度。",
+    "anatomy": [
+      "播放按钮 (ds-voice-msg__play)",
+      "波形",
+      "时长",
+      "进度",
+      "倍速切换"
+    ],
+    "keyboard": "空格播放或暂停；左右方向键快进快退。",
+    "guidance": [
+      "波形高度随进度填充，不只用颜色。",
+      "未播放时展示总时长。",
+      "支持 1x / 1.5x / 2x 倍速且当前倍速可读。"
+    ],
+    "preview": "<div class=\"ds-voice-msg\" role=\"group\" aria-label=\"语音消息\"><button type=\"button\" class=\"ds-voice-msg__play\" aria-label=\"播放\">▶</button><span class=\"ds-voice-msg__wave\" aria-hidden=\"true\"><i style=\"height:40%\"></i><i style=\"height:70%\"></i><i style=\"height:55%\"></i><i style=\"height:90%\"></i><i style=\"height:35%\"></i><i style=\"height:60%\"></i></span><span class=\"ds-voice-msg__time\">0:12</span><button type=\"button\" class=\"ds-voice-msg__rate\">1.5x</button></div>",
+    "checks": [
+      "空格播放暂停",
+      "波形随进度填充",
+      "展示总时长",
+      "倍速可读且可切换"
+    ],
+    "react": "<VoiceMessage duration=\"0:12\" rate=\"1.5x\" onPlay={togglePlay} />"
+  },
+  {
+    "id": "messaging-pinned-row",
+    "name": "置顶会话条",
+    "category": "通讯",
+    "status": "v3 新增",
+    "purpose": "在会话顶部固定重要消息或公告，支持展开与取消置顶。",
+    "anatomy": [
+      "置顶图标 (ds-pin-row__icon)",
+      "内容摘要",
+      "展开按钮",
+      "取消置顶"
+    ],
+    "keyboard": "Tab 聚焦展开与取消按钮；Enter 执行。",
+    "guidance": [
+      "置顶数量给出上限提示。",
+      "取消置顶后不删除原消息。",
+      "系统公告类置顶标注来源。"
+    ],
+    "preview": "<div class=\"ds-pin-row\"><span class=\"ds-pin-row__icon\" aria-hidden=\"true\">📌</span><div class=\"ds-pin-row__body\"><strong>群公告</strong><p>本周五团建地点改为滨江绿地，报名接龙已开启</p></div><button type=\"button\">展开</button><button type=\"button\" aria-label=\"取消置顶\">✕</button></div>",
+    "checks": [
+      "置顶数量有上限提示",
+      "取消置顶不删原消息",
+      "公告标注来源",
+      "操作按钮可键盘到达"
+    ],
+    "react": "<PinnedRow title=\"群公告\" body=\"本周五团建地点改为滨江绿地\" onExpand={expand} onUnpin={unpin} />"
+  },
+  {
+    "id": "messaging-unread-divider",
+    "name": "未读分隔线",
+    "category": "通讯",
+    "status": "v3 新增",
+    "purpose": "在会话流中标出已读与未读的边界，方便用户定位新消息。",
+    "anatomy": [
+      "分隔线 (ds-unread-line)",
+      "未读标签",
+      "消息计数"
+    ],
+    "keyboard": "纯展示元素，不接收焦点；边界由读屏文字说明。",
+    "guidance": [
+      "首次进入时滚动到分隔线而非最新消息。",
+      "标签含未读条数。",
+      "全部读完后分隔线消失并说明。"
+    ],
+    "preview": "<div class=\"ds-unread-line\" role=\"separator\"><span>以下 4 条未读</span></div>",
+    "checks": [
+      "标签含未读条数",
+      "首次进入滚动到分隔线",
+      "读完后分隔消失",
+      "边界可被读屏说明"
+    ],
+    "react": "<UnreadDivider count={4} />"
+  },
+  {
+    "id": "messaging-forward-card",
+    "name": "转发预览卡",
+    "category": "通讯",
+    "status": "v3 新增",
+    "purpose": "在转发消息时展示来源会话、原消息摘要与转发目标。",
+    "anatomy": [
+      "来源会话 (ds-forward-card__from)",
+      "原消息摘要",
+      "转发目标",
+      "附加输入"
+    ],
+    "keyboard": "Tab 在目标选择与发送间移动；Esc 取消转发。",
+    "guidance": [
+      "原消息摘要可折叠为一行。",
+      "转发目标允许多选并展示已选数量。",
+      "附加留言与转发内容视觉区分。"
+    ],
+    "preview": "<div class=\"ds-forward-card\"><p class=\"ds-forward-card__from\">转发自：产品设计组</p><blockquote>新版规范已发布，重点更新了玻璃层级与动效曲线</blockquote><div class=\"ds-forward-card__to\">发送至：林晓、陈默 等 2 人</div><div class=\"ds-forward-card__note\" role=\"textbox\" tabindex=\"0\" aria-label=\"附加留言\">帮忙看一下第三章</div></div>",
+    "checks": [
+      "来源会话明确",
+      "摘要可折叠",
+      "多选目标展示数量",
+      "Esc 可取消转发"
+    ],
+    "react": "<ForwardCard from=\"产品设计组\" quote=\"新版规范已发布\" to={[\"林晓\", \"陈默\"]} />"
+  },
+  {
+    "id": "messaging-emoji-bar",
+    "name": "表情回应栏",
+    "category": "通讯",
+    "status": "v3 新增",
+    "purpose": "对单条消息快速添加表情回应，并展示已有回应的分布。",
+    "anatomy": [
+      "添加入口 (ds-emoji-bar__add)",
+      "回应分布",
+      "回应计数",
+      "我的回应"
+    ],
+    "keyboard": "回应按钮可聚焦；计数变化通过 live region 播报。",
+    "guidance": [
+      "我的回应高亮且可再次点击取消。",
+      "同类回应合并计数，不重复铺开。",
+      "常用表情置顶但不遮挡消息内容。"
+    ],
+    "preview": "<div class=\"ds-emoji-bar\" role=\"group\" aria-label=\"表情回应\"><button type=\"button\" class=\"ds-emoji-bar__add\" aria-label=\"添加回应\">＋</button><button type=\"button\" class=\"is-mine\">👍 3</button><button type=\"button\">🎉 1</button></div>",
+    "checks": [
+      "我的回应可取消",
+      "同类回应合并计数",
+      "计数变化有播报",
+      "添加入口有可读名称"
+    ],
+    "react": "<EmojiBar reactions={[{ emoji: \"👍\", count: 3, mine: true }, { emoji: \"🎉\", count: 1 }]} onAdd={pickEmoji} />"
   }
 ]

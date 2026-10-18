@@ -13655,3 +13655,104 @@ export function PlanCard({ name, price, unit, features = [], featured, onSelect 
     <button type="button" onClick={onSelect}>选择{name}</button>
   </div>;
 }
+
+export function ThreadRow({ name, preview, time, unread, onOpen }:
+  { name: string; preview: string; time: string; unread?: number; onOpen?: () => void }) {
+  return <div className={'ds-thread-row' + (unread ? ' is-unread' : '')} role="button" tabIndex={0}
+    onClick={onOpen} onKeyDown={event => { if (event.key === 'Enter' || event.key === ' ') onOpen?.(); }}>
+    <span className="ds-thread-row__avatar" aria-hidden="true">{name.slice(0, 1)}</span>
+    <div className="ds-thread-row__body">
+      <div className="ds-thread-row__top"><strong>{name}</strong><time>{time}</time></div>
+      <p>{preview}</p>
+    </div>
+    {unread ? <span className="ds-thread-row__badge">{unread}</span> : null}
+  </div>;
+}
+
+export function BubbleGroup({ day, mine, theirs, state }:
+  { day?: string; mine?: string; theirs?: string; state?: string }) {
+  return <div className="ds-bubble-group">
+    {day && <div className="ds-bubble-group__day">{day}</div>}
+    {mine && <div className="ds-bubble-group__row is-mine">{mine}{state && <span className="ds-bubble-group__state">{state}</span>}</div>}
+    {theirs && <div className="ds-bubble-group__row">{theirs}</div>}
+  </div>;
+}
+
+export function MessageInputBar({ onSend, placeholder = '输入消息' }:
+  { onSend?: (text: string) => void; placeholder?: string }) {
+  const [text, setText] = useState('');
+  const id = useId();
+  const send = () => { if (text.trim()) { onSend?.(text); setText(''); } };
+  return <div className="ds-input-bar">
+    <button type="button" aria-label="添加附件">📎</button>
+    <label className="ds-sr-only" htmlFor={id}>消息内容</label>
+    <div className="ds-input-bar__field" id={id} role="textbox" aria-multiline="true" tabIndex={0}
+      aria-label={placeholder} onInput={event => setText(event.currentTarget.textContent || '')}>{text}</div>
+    <button type="button" aria-label="选择表情">😊</button>
+    <button type="button" className="ds-input-bar__send" disabled={!text.trim()} onClick={send}>发送</button>
+  </div>;
+}
+
+export function ReadReceipt({ read, total, readers = [] }:
+  { read: number; total: number; readers?: string[] }) {
+  return <button type="button" className="ds-read-receipt">
+    <span className="ds-read-receipt__stack" aria-hidden="true">
+      {readers.slice(0, 3).map(name => <i key={name}>{name.slice(0, 1)}</i>)}
+    </span>
+    {read}/{total} 已读
+  </button>;
+}
+
+export function TypingIndicator({ name }: { name: string }) {
+  return <span className="ds-typing" role="status">
+    <span className="ds-typing__dots" aria-hidden="true"><i></i><i></i><i></i></span>
+    {name} 正在输入…
+  </span>;
+}
+
+export function VoiceMessage({ duration, rate = '1x', onPlay }:
+  { duration: string; rate?: string; onPlay?: () => void }) {
+  const bars = [40, 70, 55, 90, 35, 60];
+  return <div className="ds-voice-msg" role="group" aria-label="语音消息">
+    <button type="button" className="ds-voice-msg__play" aria-label="播放" onClick={onPlay}>▶</button>
+    <span className="ds-voice-msg__wave" aria-hidden="true">
+      {bars.map((height, index) => <i key={index} style={{ height: height + '%' }} />)}
+    </span>
+    <span className="ds-voice-msg__time">{duration}</span>
+    <button type="button" className="ds-voice-msg__rate">{rate}</button>
+  </div>;
+}
+
+export function PinnedRow({ title, body, onExpand, onUnpin }:
+  { title: string; body: string; onExpand?: () => void; onUnpin?: () => void }) {
+  return <div className="ds-pin-row">
+    <span className="ds-pin-row__icon" aria-hidden="true">📌</span>
+    <div className="ds-pin-row__body"><strong>{title}</strong><p>{body}</p></div>
+    <button type="button" onClick={onExpand}>展开</button>
+    <button type="button" aria-label="取消置顶" onClick={onUnpin}>✕</button>
+  </div>;
+}
+
+export function UnreadDivider({ count }: { count: number }) {
+  return <div className="ds-unread-line" role="separator"><span>以下 {count} 条未读</span></div>;
+}
+
+export function ForwardCard({ from, quote, to = [] }:
+  { from: string; quote: string; to?: string[] }) {
+  return <div className="ds-forward-card">
+    <p className="ds-forward-card__from">转发自：{from}</p>
+    <blockquote>{quote}</blockquote>
+    <div className="ds-forward-card__to">发送至：{to.join('、') + (to.length > 1 ? ' 等 ' + to.length + ' 人' : '')}</div>
+    <div className="ds-forward-card__note" role="textbox" tabIndex={0} aria-label="附加留言">添加留言</div>
+  </div>;
+}
+
+export function EmojiBar({ reactions = [], onAdd }:
+  { reactions: { emoji: string; count: number; mine?: boolean }[]; onAdd?: () => void }) {
+  return <div className="ds-emoji-bar" role="group" aria-label="表情回应">
+    <button type="button" className="ds-emoji-bar__add" aria-label="添加回应" onClick={onAdd}>＋</button>
+    {reactions.map(item => <button key={item.emoji} type="button" className={item.mine ? 'is-mine' : undefined}>
+      {item.emoji} {item.count}
+    </button>)}
+  </div>;
+}
