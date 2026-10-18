@@ -19148,5 +19148,285 @@
       "方向键树内移动"
     ],
     "react": "<OrgChartNode name=\"王莉\" title=\"技术负责人\" count={6} expanded current />"
+  },
+  {
+    "id": "estate-property-card",
+    "name": "房源卡",
+    "category": "房产 / 租赁",
+    "status": "v3 新增",
+    "purpose": "展示房源图片、价格、户型与核心卖点。",
+    "anatomy": [
+      "图片占位 (ds-property-card__media)",
+      "价格 (ds-property-card__price)",
+      "标题与位置 (ds-property-card__body)",
+      "标签 (ds-property-card__tags)",
+      "收藏按钮"
+    ],
+    "keyboard": "卡片可聚焦查看详情；收藏按钮可达并播报状态。",
+    "guidance": [
+      "价格使用等宽字体强调。",
+      "卖点标签最多 3 个。",
+      "已售与已租状态置灰。"
+    ],
+    "preview": "<article class=\"ds-property-card\" tabindex=\"0\" role=\"button\" aria-label=\"房源，阳光家园精装两居，月租 5200 元，89 平方米，2 室 1 厅，朝阳区望京\"><div class=\"ds-property-card__media\" aria-hidden=\"true\"><span>图</span></div><div class=\"ds-property-card__body\"><strong>阳光家园 · 精装两居</strong><span>89㎡ · 2室1厅 · 朝阳区望京</span></div><p class=\"ds-property-card__price\">¥5,200<small>/月</small></p><div class=\"ds-property-card__tags\"><span>近地铁</span><span>南北通透</span></div><button type=\"button\" aria-label=\"收藏房源\">☆</button></article>",
+    "checks": [
+      "价格等宽强调",
+      "标签最多 3 个",
+      "已租置灰",
+      "收藏播报状态"
+    ],
+    "react": "<PropertyListingCard title=\"阳光家园 · 精装两居\" price={5200} area=\"89㎡ · 2室1厅\" district=\"朝阳区望京\" tags={[\"近地铁\", \"南北通透\"]} collected={false} />"
+  },
+  {
+    "id": "estate-mortgage",
+    "name": "房贷计算器",
+    "category": "房产 / 租赁",
+    "status": "v3 新增",
+    "purpose": "输入贷款金额、利率与年限，计算月供与总利息。",
+    "anatomy": [
+      "贷款额输入 (ds-mortgage__field)",
+      "利率 (ds-mortgage__rate)",
+      "年限 (ds-mortgage__term)",
+      "月供结果 (ds-mortgage__result)",
+      "总利息"
+    ],
+    "keyboard": "输入框可键盘操作；结果实时更新并播报。",
+    "guidance": [
+      "月供等宽字体突出显示。",
+      "利率与年限提供快捷档位。",
+      "等额本息与等额本金可切换。"
+    ],
+    "preview": "<section class=\"ds-mortgage\" aria-label=\"房贷计算器\"><div class=\"ds-mortgage__field\"><label>贷款金额</label><output>¥2,800,000</output></div><div class=\"ds-mortgage__field\"><label>年利率</label><output>3.85%</output></div><div class=\"ds-mortgage__field\"><label>贷款年限</label><output>30 年</output></div><div class=\"ds-mortgage__result\"><small>等额本息月供</small><strong>¥13,086</strong><span>总利息 ¥1,911,043 · 还款 360 期</span></div></section>",
+    "checks": [
+      "月供等宽突出",
+      "利率年限有快捷档",
+      "两种还款可切换",
+      "结果实时播报"
+    ],
+    "react": "<MortgageCalculator principal={2800000} rate={3.85} years={30} />"
+  },
+  {
+    "id": "estate-rent-row",
+    "name": "租金缴纳行",
+    "category": "房产 / 租赁",
+    "status": "v3 新增",
+    "purpose": "展示每月租金缴纳记录与状态。",
+    "anatomy": [
+      "月份 (ds-rent-row__month)",
+      "金额",
+      "租期 (ds-rent-row__period)",
+      "缴纳状态 (ds-rent-row__state)",
+      "凭证入口"
+    ],
+    "keyboard": "行可聚焦查看凭证；逾期状态有文字不只颜色。",
+    "guidance": [
+      "已缴绿色、待缴黄色、逾期红色。",
+      "金额右对齐等宽。",
+      "支持按年份筛选。"
+    ],
+    "preview": "<div class=\"ds-rent-row is-paid\" tabindex=\"0\" role=\"button\" aria-label=\"2026 年 10 月租金，5200 元，租期 10-01 至 10-31，已缴纳，09-28 支付\"><span class=\"ds-rent-row__month\">2026-10</span><span class=\"ds-rent-row__period\">10-01 ~ 10-31</span><strong class=\"ds-rent-row__amount\">¥5,200</strong><span class=\"ds-rent-row__state is-paid\">已缴纳 · 09-28</span><button type=\"button\">凭证</button></div>",
+    "checks": [
+      "三态颜色加文字",
+      "金额右对齐等宽",
+      "按年份筛选",
+      "行可聚焦看凭证"
+    ],
+    "react": "<RentPaymentRow month=\"2026-10\" amount={5200} period=\"10-01 ~ 10-31\" state=\"paid\" paidAt=\"09-28\" />"
+  },
+  {
+    "id": "estate-maintenance",
+    "name": "报修工单卡",
+    "category": "房产 / 租赁",
+    "status": "v3 新增",
+    "purpose": "展示一条房屋报修工单的类型、描述与处理进度。",
+    "anatomy": [
+      "类型标签 (ds-maintenance__type)",
+      "问题描述 (ds-maintenance__desc)",
+      "位置 (ds-maintenance__loc)",
+      "处理状态 (ds-maintenance__state)",
+      "处理人与时限"
+    ],
+    "keyboard": "卡片可聚焦查看详情；催单按钮可达。",
+    "guidance": [
+      "紧急报修红色标记。",
+      "超时未处理黄色提醒。",
+      "完成后可评价。"
+    ],
+    "preview": "<article class=\"ds-maintenance is-processing\" tabindex=\"0\" aria-label=\"报修工单，水电维修，厨房水龙头漏水，3 号楼 1202，处理中，处理人物业张师傅，承诺 24 小时\"><span class=\"ds-maintenance__type is-plumbing\">水电维修</span><p class=\"ds-maintenance__desc\">厨房水龙头漏水，底座松动</p><p class=\"ds-maintenance__loc\">3 号楼 1202 · 昨天 18:40 提交</p><div class=\"ds-maintenance__foot\"><span class=\"ds-maintenance__state is-processing\">处理中 · 张师傅</span><span class=\"ds-maintenance__sla\">承诺 24h 内</span></div></article>",
+    "checks": [
+      "紧急报修红色标记",
+      "超时未处理黄色",
+      "完成可评价",
+      "卡片可聚焦看详情"
+    ],
+    "react": "<MaintenanceRequestCard type=\"plumbing\" desc=\"厨房水龙头漏水\" location=\"3 号楼 1202\" state=\"processing\" handler=\"物业张师傅\" />"
+  },
+  {
+    "id": "estate-lease-sign",
+    "name": "租约签署进度",
+    "category": "房产 / 租赁",
+    "status": "v3 新增",
+    "purpose": "展示租房合同从确认到签署完成的流程节点。",
+    "anatomy": [
+      "步骤 (ds-lease-sign__step)",
+      "连接线",
+      "状态点 (ds-lease-sign__dot)",
+      "步骤说明",
+      "时间戳"
+    ],
+    "keyboard": "当前步骤 aria-current=\"step\"；历史可聚焦。",
+    "guidance": [
+      "当前步骤高亮并给操作入口。",
+      "驳回步骤红色说明原因。",
+      "全部完成后给出合同编号。"
+    ],
+    "preview": "<ol class=\"ds-lease-sign\" aria-label=\"租约签署进度\"><li class=\"ds-lease-sign__step is-done\"><span class=\"ds-lease-sign__dot\" aria-hidden=\"true\">✓</span><div><strong>房源确认</strong><small>10-12 完成</small></div></li><li class=\"ds-lease-sign__step is-current\" aria-current=\"step\"><span class=\"ds-lease-sign__dot\" aria-hidden=\"true\">2</span><div><strong>电子签章</strong><small>待双方签署</small></div></li><li class=\"ds-lease-sign__step\"><span class=\"ds-lease-sign__dot\" aria-hidden=\"true\">3</span><div><strong>交房验收</strong><small>11-01</small></div></li></ol>",
+    "checks": [
+      "当前步骤高亮操作",
+      "驳回红色说明",
+      "完成给合同编号",
+      "当前 aria-current"
+    ],
+    "react": "<LeaseSignProgress steps={[{ text: \"房源确认\", state: \"done\" }, { text: \"电子签章\", state: \"current\" }]} />"
+  },
+  {
+    "id": "estate-viewing",
+    "name": "看房预约卡",
+    "category": "房产 / 租赁",
+    "status": "v3 新增",
+    "purpose": "展示一次看房预约的时间、方式与经纪人。",
+    "anatomy": [
+      "时间 (ds-viewing__time)",
+      "房源 (ds-viewing__body)",
+      "方式 (ds-viewing__mode)",
+      "状态 (ds-viewing__state)",
+      "改期操作"
+    ],
+    "keyboard": "卡片可聚焦；线上看房给入会入口。",
+    "guidance": [
+      "线上与线下方式用图标区分。",
+      "临近预约黄色提醒。",
+      "支持一键改期。"
+    ],
+    "preview": "<article class=\"ds-viewing is-confirmed\" tabindex=\"0\" aria-label=\"看房预约，10-22 19:00，阳光家园 3-1202，线下看房，经纪人刘敏，已确认\"><span class=\"ds-viewing__time\">10-22<br>19:00</span><div class=\"ds-viewing__body\"><strong>阳光家园 3-1202</strong><span class=\"ds-viewing__mode\">线下看房 · 刘敏</span></div><span class=\"ds-viewing__state is-confirmed\">已确认</span><button type=\"button\">改期</button></article>",
+    "checks": [
+      "线上线下图标区分",
+      "临近预约黄色",
+      "一键改期",
+      "线上给入会入口"
+    ],
+    "react": "<ViewingAppointmentCard property=\"阳光家园 3-1202\" time=\"10-22 19:00\" mode=\"offline\" agent=\"刘敏\" state=\"confirmed\" />"
+  },
+  {
+    "id": "estate-utility-meter",
+    "name": "水电燃气表读数",
+    "category": "房产 / 租赁",
+    "status": "v3 新增",
+    "purpose": "展示本月表计读数、用量与费用区间。",
+    "anatomy": [
+      "表类型标签 (ds-utility-meter__type)",
+      "本月读数 (ds-utility-meter__read)",
+      "用量 (ds-utility-meter__delta)",
+      "用量条 (ds-utility-meter__bar)",
+      "抄表日期"
+    ],
+    "keyboard": "卡片可聚焦查看历史曲线；异常用量黄色提醒。",
+    "guidance": [
+      "用量环比增长过高时提醒。",
+      "阶梯电价分段展示。",
+      "支持上传表计照片。"
+    ],
+    "preview": "<section class=\"ds-utility-meter\" tabindex=\"0\" aria-label=\"电表，本月读数 1286 度，用量 184 度，较上月增加 12%\"><div class=\"ds-utility-meter__head\"><span class=\"ds-utility-meter__type is-electric\">电表</span><span>10-01 抄表</span></div><p class=\"ds-utility-meter__read\">1286<small>度</small></p><p class=\"ds-utility-meter__delta\">本月用量 184 度 · <em class=\"is-up\">↑12%</em></p><div class=\"ds-utility-meter__bar\" aria-hidden=\"true\"><i style=\"width:62%\"></i></div></section>",
+    "checks": [
+      "环比过高提醒",
+      "阶梯电价分段",
+      "可上传表计照片",
+      "可聚焦看历史"
+    ],
+    "react": "<UtilityMeterReading type=\"electric\" current={1286} previous={1102} unit=\"度\" />"
+  },
+  {
+    "id": "estate-neighborhood",
+    "name": "小区评分卡",
+    "category": "房产 / 租赁",
+    "status": "v3 新增",
+    "purpose": "展示小区综合评分与物业、绿化、交通等分项。",
+    "anatomy": [
+      "名称与地址 (ds-neighborhood__body)",
+      "总分 (ds-neighborhood__score)",
+      "分项 (ds-neighborhood__items)",
+      "标签",
+      "查看入口"
+    ],
+    "keyboard": "分项可聚焦查看评分依据；分数有文字不只颜色。",
+    "guidance": [
+      "总分使用醒目数字。",
+      "分项满分 5 分。",
+      "低分项黄色提示。"
+    ],
+    "preview": "<article class=\"ds-neighborhood\" tabindex=\"0\" role=\"button\" aria-label=\"阳光家园，朝阳区望京北路，综合评分 4.6 分，物业 4.2 分，绿化 4.8 分，交通 4.5 分\"><div class=\"ds-neighborhood__body\"><strong>阳光家园</strong><span>朝阳区 · 望京北路</span></div><div class=\"ds-neighborhood__score\"><strong>4.6</strong><small>/ 5.0</small></div><ul class=\"ds-neighborhood__items\"><li>物业 <b>4.2</b></li><li>绿化 <b>4.8</b></li><li>交通 <b>4.5</b></li></ul></article>",
+    "checks": [
+      "总分醒目数字",
+      "分项满分 5 分",
+      "低分项黄色提示",
+      "分数有文字"
+    ],
+    "react": "<NeighborhoodScoreCard name=\"阳光家园\" address=\"朝阳区望京北路\" score={4.6} items={[{ label: \"物业\", value: 4.2 }]} />"
+  },
+  {
+    "id": "estate-roommate",
+    "name": "室友匹配卡",
+    "category": "房产 / 租赁",
+    "status": "v3 新增",
+    "purpose": "展示合租候选室友的资料、生活习惯与匹配度。",
+    "anatomy": [
+      "头像 (ds-roommate__avatar)",
+      "昵称与职业 (ds-roommate__body)",
+      "匹配度 (ds-roommate__match)",
+      "生活习惯标签 (ds-roommate__tags)",
+      "预算"
+    ],
+    "keyboard": "卡片可聚焦查看资料；匹配度使用 progressbar 语义。",
+    "guidance": [
+      "匹配度以百分比环或条展示。",
+      "生活习惯标签最多 4 个。",
+      "预算不一致黄色提示。"
+    ],
+    "preview": "<article class=\"ds-roommate\" tabindex=\"0\" role=\"button\" aria-label=\"室友匹配，林晓，产品经理，匹配度 92，预算 2600 元\"><span class=\"ds-roommate__avatar\" aria-hidden=\"true\">林</span><div class=\"ds-roommate__body\"><strong>林晓 · 产品经理</strong><span>预算 ¥2,600/月</span></div><div class=\"ds-roommate__match\" role=\"progressbar\" aria-valuenow=\"92\" aria-valuemin=\"0\" aria-valuemax=\"100\" aria-label=\"匹配度\"><i style=\"width:92%\"></i></div><span class=\"ds-roommate__score\">92%</span><div class=\"ds-roommate__tags\"><span>早睡早起</span><span>不吸烟</span><span>爱干净</span></div></article>",
+    "checks": [
+      "匹配度百分比展示",
+      "标签最多 4 个",
+      "预算不符黄色提示",
+      "progressbar 语义"
+    ],
+    "react": "<RoommateMatchCard name=\"林晓\" job=\"产品经理\" match={92} tags={[\"早睡早起\", \"不吸烟\"]} budget={2600} />"
+  },
+  {
+    "id": "estate-agent-card",
+    "name": "经纪人联系卡",
+    "category": "房产 / 租赁",
+    "status": "v3 新增",
+    "purpose": "展示经纪人信息、评分与带看记录，提供联系入口。",
+    "anatomy": [
+      "头像 (ds-agent-card__avatar)",
+      "姓名与门店 (ds-agent-card__body)",
+      "评分 (ds-agent-card__rating)",
+      "带看次数 (ds-agent-card__tours)",
+      "联系按钮"
+    ],
+    "keyboard": "联系按钮可达；电话与消息入口区分。",
+    "guidance": [
+      "评分用星级加数字。",
+      "带看次数体现经验。",
+      "联系方式默认脱敏。"
+    ],
+    "preview": "<article class=\"ds-agent-card\" tabindex=\"0\" aria-label=\"经纪人刘敏，链家望京店，评分 4.8，带看 126 次\"><span class=\"ds-agent-card__avatar\" aria-hidden=\"true\">刘</span><div class=\"ds-agent-card__body\"><strong>刘敏</strong><span>链家 · 望京店</span></div><div class=\"ds-agent-card__rating\"><b>4.8</b><em aria-hidden=\"true\">★★★★★</em></div><span class=\"ds-agent-card__tours\">带看 126 次</span><div class=\"ds-agent-card__actions\"><button type=\"button\">电话</button><button type=\"button\">消息</button></div></article>",
+    "checks": [
+      "星级加数字评分",
+      "带看次数体现经验",
+      "联系方式脱敏",
+      "电话消息入口区分"
+    ],
+    "react": "<AgentContactCard name=\"刘敏\" company=\"链家 · 望京店\" rating={4.8} tours={126} phone=\"138****2210\" />"
   }
 ]

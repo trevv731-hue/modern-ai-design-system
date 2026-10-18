@@ -16460,3 +16460,124 @@ export function OrgChartNode({ name, title, count, expanded, current }: { name: 
     <button type="button" aria-label={expanded ? '折叠下属' : '展开下属'}>{expanded ? '▾' : '▸'}</button>
   </div>;
 }
+
+export function PropertyListingCard({ title, price, area, district, tags, collected }: { title: string; price: number; area: string; district: string; tags: string[]; collected?: boolean }) {
+  return <article className="ds-property-card" tabIndex={0} role="button" aria-label={'房源，' + title + '，月租 ' + price + ' 元，' + area + '，' + district}>
+    <div className="ds-property-card__media" aria-hidden="true"><span>图</span></div>
+    <div className="ds-property-card__body"><strong>{title}</strong><span>{area} · {district}</span></div>
+    <p className="ds-property-card__price">¥{price.toLocaleString()}<small>/月</small></p>
+    <div className="ds-property-card__tags">
+      {tags.slice(0, 3).map(tag => <span key={tag}>{tag}</span>)}
+    </div>
+    <button type="button" aria-label={collected ? '取消收藏' : '收藏房源'} aria-pressed={collected ?? false}>{collected ? '★' : '☆'}</button>
+  </article>;
+}
+
+export function MortgageCalculator({ principal, rate, years }: { principal: number; rate: number; years: number }) {
+  const r = rate / 100 / 12;
+  const n = years * 12;
+  const monthly = Math.round(principal * r / (1 - Math.pow(1 + r, -n)));
+  const totalInterest = Math.round(monthly * n - principal);
+  return <section className="ds-mortgage" aria-label={'房贷计算器，月供约 ' + monthly + ' 元'}>
+    <div className="ds-mortgage__field"><label>贷款金额</label><output>¥{principal.toLocaleString()}</output></div>
+    <div className="ds-mortgage__field"><label>年利率</label><output>{rate}%</output></div>
+    <div className="ds-mortgage__field"><label>贷款年限</label><output>{years} 年</output></div>
+    <div className="ds-mortgage__result"><small>等额本息月供</small><strong>¥{monthly.toLocaleString()}</strong><span>总利息 ¥{totalInterest.toLocaleString()} · 还款 {n} 期</span></div>
+  </section>;
+}
+
+export function RentPaymentRow({ month, amount, period, state, paidAt }: { month: string; amount: number; period: string; state: 'paid' | 'due' | 'overdue'; paidAt?: string }) {
+  const stateText = { paid: '已缴纳', due: '待缴纳', overdue: '已逾期' };
+  return <div className={'ds-rent-row is-' + state} tabIndex={0} role="button" aria-label={month + ' 租金，' + amount + ' 元，租期 ' + period + '，' + stateText[state] + (state === 'paid' && paidAt ? '，' + paidAt + ' 支付' : '')}>
+    <span className="ds-rent-row__month">{month}</span>
+    <span className="ds-rent-row__period">{period}</span>
+    <strong className="ds-rent-row__amount">¥{amount.toLocaleString()}</strong>
+    <span className={'ds-rent-row__state is-' + state}>{stateText[state]}{state === 'paid' && paidAt ? ' · ' + paidAt : ''}</span>
+    <button type="button">凭证</button>
+  </div>;
+}
+
+export function MaintenanceRequestCard({ type, desc, location, state, handler }: { type: 'plumbing' | 'electric' | 'hvac' | 'appliance' | 'other'; desc: string; location: string; state: 'processing' | 'done' | 'urgent'; handler?: string }) {
+  const typeText = { plumbing: '水电维修', electric: '电路维修', hvac: '暖通空调', appliance: '家电维修', other: '其他' };
+  const stateText = { processing: '处理中', done: '已完成', urgent: '紧急' };
+  return <article className={'ds-maintenance is-' + state} tabIndex={0} aria-label={'报修工单，' + typeText[type] + '，' + desc + '，' + location + '，' + stateText[state] + (handler ? '，处理人 ' + handler : '')}>
+    <span className={'ds-maintenance__type is-' + type}>{typeText[type]}</span>
+    <p className="ds-maintenance__desc">{desc}</p>
+    <p className="ds-maintenance__loc">{location}</p>
+    <div className="ds-maintenance__foot">
+      <span className={'ds-maintenance__state is-' + state}>{stateText[state]}{handler ? ' · ' + handler : ''}</span>
+      <span className="ds-maintenance__sla">承诺 24h 内</span>
+    </div>
+  </article>;
+}
+
+export function LeaseSignProgress({ steps }: { steps: Array<{ text: string; note?: string; state: 'done' | 'current' | 'todo' | 'rejected' }> }) {
+  return <ol className="ds-lease-sign" aria-label="租约签署进度">
+    {steps.map((step, index) => <li key={step.text} className={'ds-lease-sign__step is-' + step.state} aria-current={step.state === 'current' ? 'step' : undefined}>
+      <span className="ds-lease-sign__dot" aria-hidden="true">{step.state === 'done' ? '✓' : index + 1}</span>
+      <div><strong>{step.text}</strong><small>{step.note ?? ''}</small></div>
+    </li>)}
+  </ol>;
+}
+
+export function ViewingAppointmentCard({ property, time, mode, agent, state }: { property: string; time: string; mode: 'online' | 'offline'; agent: string; state: 'confirmed' | 'pending' | 'done' | 'cancelled' }) {
+  const modeText = { online: '线上看房', offline: '线下看房' };
+  const stateText = { confirmed: '已确认', pending: '待确认', done: '已看房', cancelled: '已取消' };
+  return <article className={'ds-viewing is-' + state} tabIndex={0} aria-label={'看房预约，' + time + '，' + property + '，' + modeText[mode] + '，经纪人 ' + agent + '，' + stateText[state]}>
+    <span className="ds-viewing__time">{time}</span>
+    <div className="ds-viewing__body"><strong>{property}</strong><span className="ds-viewing__mode">{modeText[mode]} · {agent}</span></div>
+    <span className={'ds-viewing__state is-' + state}>{stateText[state]}</span>
+    <button type="button">改期</button>
+  </article>;
+}
+
+export function UtilityMeterReading({ type, current, previous, unit }: { type: 'electric' | 'water' | 'gas'; current: number; previous: number; unit: string }) {
+  const usage = current - previous;
+  const pct = previous ? Math.min(100, Math.max(0, Math.round(usage / (previous * 0.3) * 100))) : 0;
+  const up = usage > 0;
+  const typeText = { electric: '电表', water: '水表', gas: '燃气表' };
+  return <section className="ds-utility-meter" tabIndex={0} aria-label={typeText[type] + '，本月读数 ' + current + ' ' + unit + '，用量 ' + usage + ' ' + unit}>
+    <div className="ds-utility-meter__head">
+      <span className={'ds-utility-meter__type is-' + type}>{typeText[type]}</span>
+      <span>本月读数</span>
+    </div>
+    <p className="ds-utility-meter__read">{current}<small> {unit}</small></p>
+    <p className="ds-utility-meter__delta">本月用量 {usage} {unit} · <em className={up ? 'is-up' : 'is-down'}>{up ? '↑' : '↓'}{Math.abs(usage)}</em></p>
+    <div className="ds-utility-meter__bar" aria-hidden="true"><i style={{ width: pct + '%' }} /></div>
+  </section>;
+}
+
+export function NeighborhoodScoreCard({ name, address, score, items }: { name: string; address: string; score: number; items: Array<{ label: string; value: number }> }) {
+  return <article className="ds-neighborhood" tabIndex={0} role="button" aria-label={name + '，' + address + '，综合评分 ' + score + ' 分'}>
+    <div className="ds-neighborhood__body"><strong>{name}</strong><span>{address}</span></div>
+    <div className="ds-neighborhood__score"><strong>{score.toFixed(1)}</strong><small>/ 5.0</small></div>
+    <ul className="ds-neighborhood__items">
+      {items.map(item => <li key={item.label}>{item.label} <b>{item.value.toFixed(1)}</b></li>)}
+    </ul>
+  </article>;
+}
+
+export function RoommateMatchCard({ name, job, match, tags, budget }: { name: string; job: string; match: number; tags: string[]; budget: number }) {
+  return <article className="ds-roommate" tabIndex={0} role="button" aria-label={'室友匹配，' + name + '，' + job + '，匹配度 ' + match + '，预算 ' + budget + ' 元'}>
+    <span className="ds-roommate__avatar" aria-hidden="true">{name.slice(0, 1)}</span>
+    <div className="ds-roommate__body"><strong>{name} · {job}</strong><span>预算 ¥{budget.toLocaleString()}/月</span></div>
+    <div className="ds-roommate__match" role="progressbar" aria-valuenow={match} aria-valuemin={0} aria-valuemax={100} aria-label="匹配度"><i style={{ width: match + '%' }} /></div>
+    <span className="ds-roommate__score">{match}%</span>
+    <div className="ds-roommate__tags">
+      {tags.slice(0, 4).map(tag => <span key={tag}>{tag}</span>)}
+    </div>
+  </article>;
+}
+
+export function AgentContactCard({ name, company, rating, tours, phone }: { name: string; company: string; rating: number; tours: number; phone: string }) {
+  return <article className="ds-agent-card" tabIndex={0} aria-label={'经纪人 ' + name + '，' + company + '，评分 ' + rating + '，带看 ' + tours + ' 次'}>
+    <span className="ds-agent-card__avatar" aria-hidden="true">{name.slice(0, 1)}</span>
+    <div className="ds-agent-card__body"><strong>{name}</strong><span>{company}</span></div>
+    <div className="ds-agent-card__rating"><b>{rating.toFixed(1)}</b><em aria-hidden="true">★★★★★</em></div>
+    <span className="ds-agent-card__tours">带看 {tours} 次 · {phone}</span>
+    <div className="ds-agent-card__actions">
+      <button type="button">电话</button>
+      <button type="button">消息</button>
+    </div>
+  </article>;
+}
