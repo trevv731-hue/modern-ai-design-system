@@ -17818,3 +17818,114 @@ export function RoadsideAssistanceCard({ type, location, eta, state }: { type: s
     <span className="ds-roadside__eta">预计 {eta} 分钟到达</span>
   </article>;
 }
+
+export function AffairProgressTracker({ title, no, steps, eta }: { title: string; no: string; steps: Array<{ name: string; state: 'done' | 'current' | 'rejected' }>; eta: string }) {
+  const done = steps.filter(s => s.state === 'done').length;
+  return <section className="ds-affair-tracker" aria-label={'办件进度，' + title + '，' + done + ' 个步骤已完成，预计 ' + eta + '办结'}>
+    <strong className="ds-affair-tracker__title">{title}</strong>
+    <ol className="ds-affair-tracker__steps">
+      {steps.map(step => <li key={step.name} className={'is-' + step.state} tabIndex={0} aria-current={step.state === 'current' ? 'step' : undefined} aria-label={step.name + '，' + (step.state === 'done' ? '已完成' : step.state === 'current' ? '进行中' : '已驳回')}>
+        <i aria-hidden="true">{step.state === 'done' ? '✓' : step.state === 'current' ? '●' : '✕'}</i>{step.name}
+      </li>)}
+    </ol>
+    <div className="ds-affair-tracker__foot"><span className="ds-affair-tracker__no">办件号 {no}</span><span>预计 {eta}办结</span></div>
+  </section>;
+}
+
+export function QueueTicketCard({ type, no, waiting, eta, state }: { type: string; no: string; waiting: number; eta: number; state: 'normal' | 'near' | 'passed' }) {
+  const stateText = { normal: '排队中', near: '临近叫号', passed: '已过号' };
+  const cls = state === 'normal' ? '' : ' is-' + state;
+  return <article className={'ds-queue-ticket' + cls} tabIndex={0} role="status" aria-label={'取号卡，' + type + '，号码 ' + no + '，前方等待 ' + waiting + ' 人，预计 ' + eta + ' 分钟后叫号，' + stateText[state]}>
+    <div className="ds-queue-ticket__head"><strong className="ds-queue-ticket__type">{type}</strong><span className="ds-queue-ticket__no">{no}</span></div>
+    <p className="ds-queue-ticket__waiting">前方等待 {waiting} 人</p>
+    <span className="ds-queue-ticket__eta">预计 {eta} 分钟后叫号</span>
+  </article>;
+}
+
+export function CertificateApplyRow({ name, no, valid, state }: { name: string; no: string; valid: string; state: 'valid' | 'expiring' | 'expired' }) {
+  const stateText = { valid: '有效', expiring: '即将过期', expired: '已过期' };
+  return <div className={'ds-cert-apply is-' + state} tabIndex={0} role="button" aria-label={'证照申请，' + name + '，编号 ' + no + '，有效期至 ' + valid + '，' + stateText[state]}>
+    <strong className="ds-cert-apply__name">{name}</strong>
+    <span className="ds-cert-apply__no">{no}</span>
+    <span className="ds-cert-apply__valid">有效期至 {valid}</span>
+    <span className={'ds-cert-apply__state is-' + state}>{stateText[state]}</span>
+  </div>;
+}
+
+export function GovServiceItemCard({ name, dept, instant, promise }: { name: string; dept: string; instant?: boolean; promise?: boolean }) {
+  return <article className="ds-service-item" tabIndex={0} role="button" aria-label={'服务事项，' + name + '，办理部门 ' + dept + (instant ? '，即办件' : '') + (promise ? '，承诺件' : '') + '，支持网上办理'}>
+    <div className="ds-service-item__head">
+      <strong className="ds-service-item__name">{name}</strong>
+      {instant ? <span className="ds-service-item__tag is-instant">即办件</span> : null}
+      {promise ? <span className="ds-service-item__tag is-promise">承诺件</span> : null}
+    </div>
+    <p className="ds-service-item__dept">{dept} · 支持网上办理</p>
+    <button type="button">立即办理</button>
+  </article>;
+}
+
+export function AppointmentSlotGrid({ day, slots }: { day: string; slots: Array<{ time: string; state: 'free' | 'selected' | 'full' }> }) {
+  return <section className="ds-gov-slots" role="radiogroup" aria-label={'预约时段选择，' + day}>
+    <div className="ds-gov-slots__day">{day}</div>
+    <div className="ds-gov-slots__row">
+      {slots.map(slot => <button key={slot.time} type="button" className={'ds-gov-slots__slot' + (slot.state === 'selected' ? ' is-selected' : slot.state === 'full' ? ' is-full' : '')} role="radio" aria-checked={slot.state === 'selected'} aria-disabled={slot.state === 'full'} disabled={slot.state === 'full'}>{slot.time}</button>)}
+    </div>
+  </section>;
+}
+
+export function MaterialChecklistCard({ items }: { items: Array<{ name: string; req: boolean; state: 'done' | 'pending' | 'missing' }> }) {
+  const done = items.filter(i => i.state === 'done').length;
+  const missing = items.filter(i => i.state === 'missing' && i.req).length;
+  const stateText = { done: '已上传', pending: '待上传', missing: '缺失' };
+  return <article className="ds-material-check" aria-label={'申报材料清单，共 ' + items.length + ' 项，已上传 ' + done + ' 项' + (missing ? '，缺失 ' + missing + ' 项必需材料' : '')}>
+    <div className="ds-material-check__head"><strong>申报材料</strong><span className="ds-material-check__count">{done}/{items.length} 已上传</span></div>
+    <ul className="ds-material-check__list">
+      {items.map(item => <li key={item.name} className={'is-' + item.state} tabIndex={0} aria-label={item.name + '，' + (item.req ? '必需' : '可选') + '，' + stateText[item.state]}>
+        <span className="ds-material-check__item">{item.name}</span>
+        <span className={'ds-material-check__req' + (item.req ? '' : ' is-optional')}>{item.req ? '必需' : '可选'}</span>
+        <span className={'ds-material-check__state is-' + item.state}>{stateText[item.state]}</span>
+      </li>)}
+    </ul>
+  </article>;
+}
+
+export function AffairResultRow({ title, verdict, time }: { title: string; verdict: 'approved' | 'rejected' | 'revise'; time: string }) {
+  const verdictText = { approved: '准予许可', rejected: '不予许可', revise: '需补正' };
+  return <div className={'ds-affair-result is-' + verdict} tabIndex={0} role="button" aria-label={'办件结果，' + title + '，' + verdictText[verdict] + '，' + time + ' 办结，可下载批文与证照'}>
+    <strong className="ds-affair-result__title">{title}</strong>
+    <span className={'ds-affair-result__verdict is-' + verdict}>{verdictText[verdict]}</span>
+    <span className="ds-affair-result__time">{time} 办结</span>
+    <span className="ds-affair-result__file">下载批文</span>
+  </div>;
+}
+
+export function OneNetSearchBar({ placeholder, hot }: { placeholder: string; hot?: string[] }) {
+  return <section className="ds-onenet-search" aria-label="一网通办搜索，输入事项名称或办件号">
+    <div className="ds-onenet-search__box">
+      <input className="ds-onenet-search__input" type="search" placeholder={placeholder} aria-label="搜索事项或办件号" />
+      <button type="button" aria-label="搜索">搜索</button>
+    </div>
+    {hot && hot.length ? <div className="ds-onenet-search__hot"><span className="ds-onenet-search__label">热门：</span>{hot.map(tag => <button key={tag} type="button" className="ds-onenet-search__tag">{tag}</button>)}</div> : null}
+  </section>;
+}
+
+export function GovNoticeCard({ title, excerpt, org, time, pinned }: { title: string; excerpt: string; org: string; time: string; pinned?: boolean }) {
+  return <article className={'ds-gov-notice' + (pinned ? ' is-pinned' : '')} tabIndex={0} role="button" aria-label={'政务公告，' + title + '，' + time + ' 发布，' + org + (pinned ? '，置顶' : '')}>
+    <div className="ds-gov-notice__head">
+      <strong className="ds-gov-notice__title">{title}</strong>
+      {pinned ? <span className="ds-gov-notice__pin">置顶</span> : null}
+    </div>
+    <p className="ds-gov-notice__excerpt">{excerpt}</p>
+    <div className="ds-gov-notice__foot"><span className="ds-gov-notice__org">{org}</span><span className="ds-gov-notice__time">{time}</span></div>
+  </article>;
+}
+
+export function ComplaintProgressCard({ text, no, reply, state }: { text: string; no: string; reply: string; state: 'accepted' | 'handling' | 'closed' }) {
+  const stateText = { accepted: '已受理', handling: '办理中', closed: '已办结' };
+  return <article className={'ds-complaint is-' + state} tabIndex={0} role="button" aria-label={'投诉建议，' + text + '，受理编号 ' + no + '，' + reply + '，' + stateText[state]}>
+    <strong className="ds-complaint__text">{text}</strong>
+    <span className="ds-complaint__no">{no}</span>
+    <p className="ds-complaint__reply">{reply}</p>
+    <span className={'ds-complaint__state is-' + state}>{stateText[state]}</span>
+  </article>;
+}

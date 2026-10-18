@@ -22174,5 +22174,276 @@
       "联系救援"
     ],
     "react": "<RoadsideAssistanceCard type=\"搭电服务\" location=\"环城北路祥符桥段\" eta={18} state=\"coming\" />"
+  },
+  {
+    "id": "gov-affair-tracker",
+    "name": "办件进度跟踪",
+    "category": "政务服务 / 一网通办",
+    "status": "v3 新增",
+    "purpose": "以步骤条跟踪一个办件从申报到发证的处理进度。",
+    "anatomy": [
+      "事项名 (ds-affair-tracker__title)",
+      "步骤列表 (ds-affair-tracker__steps)",
+      "当前步骤 (aria-current=\"step\")",
+      "办件号 (ds-affair-tracker__no)"
+    ],
+    "keyboard": "步骤可聚焦查看节点详情；补正步骤以 alert 语义播报。",
+    "guidance": [
+      "已完成绿色勾、进行中蓝色、补正驳回红色。",
+      "当前步骤以 aria-current=\"step\" 标记。",
+      "底部给出办件号与预计完成日。"
+    ],
+    "preview": "<section class=\"ds-affair-tracker\" aria-label=\"办件进度，个体工商户开业登记，3 个步骤已完成，1 个进行中，预计 3 个工作日内办结\"><strong class=\"ds-affair-tracker__title\">个体工商户开业登记</strong><ol class=\"ds-affair-tracker__steps\"><li class=\"is-done\" tabindex=\"0\" aria-label=\"申报，已完成\"><i aria-hidden=\"true\">✓</i>申报</li><li class=\"is-done\" tabindex=\"0\" aria-label=\"受理，已完成\"><i aria-hidden=\"true\">✓</i>受理</li><li class=\"is-done\" tabindex=\"0\" aria-label=\"审查，已完成\"><i aria-hidden=\"true\">✓</i>审查</li><li class=\"is-current\" tabindex=\"0\" aria-current=\"step\" aria-label=\"决定，进行中\"><i aria-hidden=\"true\">●</i>决定</li></ol><div class=\"ds-affair-tracker__foot\"><span class=\"ds-affair-tracker__no\">办件号 BJ-2026-88231</span><span>预计 3 个工作日内办结</span></div></section>",
+    "checks": [
+      "三态步骤",
+      "aria-current 标记",
+      "补正红色",
+      "预计办结日"
+    ],
+    "react": "<AffairProgressTracker title=\"个体工商户开业登记\" no=\"BJ-2026-88231\" steps={[{ name: \"申报\", state: \"done\" }, { name: \"决定\", state: \"current\" }]} eta=\"3 个工作日\" />"
+  },
+  {
+    "id": "gov-queue-ticket",
+    "name": "大厅取号卡",
+    "category": "政务服务 / 一网通办",
+    "status": "v3 新增",
+    "purpose": "展示政务大厅现场取号的排队信息与预计等待时间。",
+    "anatomy": [
+      "窗口类型 (ds-queue-ticket__type)",
+      "号码 (ds-queue-ticket__no)",
+      "前方等待 (ds-queue-ticket__waiting)",
+      "预计时间 (ds-queue-ticket__eta)"
+    ],
+    "keyboard": "卡片可聚焦取消取号；临近叫号以 status 语义播报。",
+    "guidance": [
+      "号码为主视觉大字。",
+      "前方等待人数与预计时间文字展示。",
+      "过号红色并提示重新取号。"
+    ],
+    "preview": "<article class=\"ds-queue-ticket is-near\" tabindex=\"0\" role=\"status\" aria-label=\"取号卡，综合受理窗口，号码 A038，前方等待 2 人，预计 8 分钟后叫号，临近\"><div class=\"ds-queue-ticket__head\"><strong class=\"ds-queue-ticket__type\">综合受理窗口</strong><span class=\"ds-queue-ticket__no\">A038</span></div><p class=\"ds-queue-ticket__waiting\">前方等待 2 人</p><span class=\"ds-queue-ticket__eta\">预计 8 分钟后叫号</span></article>",
+    "checks": [
+      "号码主视觉",
+      "等待人数",
+      "预计时间",
+      "过号提示"
+    ],
+    "react": "<QueueTicketCard type=\"综合受理窗口\" no=\"A038\" waiting={2} eta={8} state=\"near\" />"
+  },
+  {
+    "id": "gov-cert-apply",
+    "name": "证照申请行",
+    "category": "政务服务 / 一网通办",
+    "status": "v3 新增",
+    "purpose": "展示一张证照的申请状态与有效期信息。",
+    "anatomy": [
+      "证照名 (ds-cert-apply__name)",
+      "证照号 (ds-cert-apply__no)",
+      "有效期 (ds-cert-apply__valid)",
+      "状态 (ds-cert-apply__state)"
+    ],
+    "keyboard": "行可聚焦查看电子证照；即将过期以 status 语义播报。",
+    "guidance": [
+      "有效绿色、即将过期黄色、已过期红色。",
+      "证照号等宽展示。",
+      "电子证照提供下载入口。"
+    ],
+    "preview": "<div class=\"ds-cert-apply is-expiring\" tabindex=\"0\" role=\"button\" aria-label=\"证照申请，食品经营许可证，编号 JY33010620260123，有效期至 2026-07-31，即将过期\"><strong class=\"ds-cert-apply__name\">食品经营许可证</strong><span class=\"ds-cert-apply__no\">JY33010620260123</span><span class=\"ds-cert-apply__valid\">有效期至 2026-07-31</span><span class=\"ds-cert-apply__state is-expiring\">即将过期</span></div>",
+    "checks": [
+      "三态配色",
+      "证照号等宽",
+      "有效期展示",
+      "电子证照下载"
+    ],
+    "react": "<CertificateApplyRow name=\"食品经营许可证\" no=\"JY33010620260123\" valid=\"2026-07-31\" state=\"expiring\" />"
+  },
+  {
+    "id": "gov-service-item",
+    "name": "办事服务事项卡",
+    "category": "政务服务 / 一网通办",
+    "status": "v3 新增",
+    "purpose": "展示一个政务服务事项的办理要点与入口。",
+    "anatomy": [
+      "事项名 (ds-service-item__name)",
+      "办理部门 (ds-service-item__dept)",
+      "要点标签 (ds-service-item__tag)",
+      "办理按钮"
+    ],
+    "keyboard": "卡片可聚焦进入办理；支持全键盘操作。",
+    "guidance": [
+      "即办件事项绿色标签。",
+      "办理部门与地点文字展示。",
+      "提供预约与直办双入口。"
+    ],
+    "preview": "<article class=\"ds-service-item\" tabindex=\"0\" role=\"button\" aria-label=\"服务事项，社会保障卡申领，办理部门 区人力社保局，即办件，支持网上办理\"><div class=\"ds-service-item__head\"><strong class=\"ds-service-item__name\">社会保障卡申领</strong><span class=\"ds-service-item__tag is-instant\">即办件</span></div><p class=\"ds-service-item__dept\">区人力社保局 · 支持网上办理</p><button type=\"button\">立即办理</button></article>",
+    "checks": [
+      "即办件标签",
+      "部门文字",
+      "双入口",
+      "键盘可达"
+    ],
+    "react": "<GovServiceItemCard name=\"社会保障卡申领\" dept=\"区人力社保局\" instant />"
+  },
+  {
+    "id": "gov-slots",
+    "name": "预约时段选择",
+    "category": "政务服务 / 一网通办",
+    "status": "v3 新增",
+    "purpose": "以时段网格选择办事预约的具体日期与时间。",
+    "anatomy": [
+      "日期分组 (ds-gov-slots__day)",
+      "时段格 (ds-gov-slots__slot)",
+      "已约满态",
+      "选中态"
+    ],
+    "keyboard": "时段为单选语义，方向键在网格内移动；约满时段禁用并文字说明。",
+    "guidance": [
+      "约满时段置灰禁用。",
+      "选中时段蓝色描边。",
+      "上午下午分组展示。"
+    ],
+    "preview": "<section class=\"ds-gov-slots\" role=\"radiogroup\" aria-label=\"预约时段选择，6 月 18 日上午 09:00 已选中，09:30 与 10:00 可约，10:30 已约满\"><div class=\"ds-gov-slots__day\">6 月 18 日 上午</div><div class=\"ds-gov-slots__row\"><button type=\"button\" class=\"ds-gov-slots__slot is-selected\" aria-checked=\"true\" role=\"radio\">09:00</button><button type=\"button\" class=\"ds-gov-slots__slot\" role=\"radio\" aria-checked=\"false\">09:30</button><button type=\"button\" class=\"ds-gov-slots__slot\" role=\"radio\" aria-checked=\"false\">10:00</button><button type=\"button\" class=\"ds-gov-slots__slot is-full\" role=\"radio\" aria-checked=\"false\" aria-disabled=\"true\" disabled>10:30</button></div></section>",
+    "checks": [
+      "单选语义",
+      "约满禁用",
+      "选中描边",
+      "上下午分组"
+    ],
+    "react": "<AppointmentSlotGrid day=\"6 月 18 日 上午\" slots={[{ time: \"09:00\", state: \"selected\" }, { time: \"10:30\", state: \"full\" }]} />"
+  },
+  {
+    "id": "gov-material-check",
+    "name": "申报材料清单",
+    "category": "政务服务 / 一网通办",
+    "status": "v3 新增",
+    "purpose": "展示一个事项的申报材料清单与必选标记。",
+    "anatomy": [
+      "材料名 (ds-material-check__item)",
+      "必需标记 (ds-material-check__req)",
+      "状态 (ds-material-check__state)",
+      "上传入口"
+    ],
+    "keyboard": "材料行可聚焦上传；缺失必需材料以 alert 语义播报。",
+    "guidance": [
+      "必需材料红星标记。",
+      "已上传绿色、待上传黄色、缺失红色。",
+      "支持批量上传。"
+    ],
+    "preview": "<article class=\"ds-material-check\" aria-label=\"申报材料清单，共 4 项，已上传 2 项，缺失 1 项必需材料\"><div class=\"ds-material-check__head\"><strong>申报材料</strong><span class=\"ds-material-check__count\">2/4 已上传</span></div><ul class=\"ds-material-check__list\"><li class=\"is-done\" tabindex=\"0\" aria-label=\"身份证明，必需，已上传\"><span class=\"ds-material-check__item\">身份证明</span><span class=\"ds-material-check__req\">必需</span><span class=\"ds-material-check__state is-done\">已上传</span></li><li class=\"is-pending\" tabindex=\"0\" aria-label=\"经营场所证明，必需，待上传\"><span class=\"ds-material-check__item\">经营场所证明</span><span class=\"ds-material-check__req\">必需</span><span class=\"ds-material-check__state is-pending\">待上传</span></li><li class=\"is-missing\" tabindex=\"0\" aria-label=\"申请书，必需，缺失\"><span class=\"ds-material-check__item\">申请书</span><span class=\"ds-material-check__req\">必需</span><span class=\"ds-material-check__state is-missing\">缺失</span></li><li class=\"is-done\" tabindex=\"0\" aria-label=\"照片，可选，已上传\"><span class=\"ds-material-check__item\">照片</span><span class=\"ds-material-check__req is-optional\">可选</span><span class=\"ds-material-check__state is-done\">已上传</span></li></ul></article>",
+    "checks": [
+      "必需红星",
+      "三态状态",
+      "缺失播报",
+      "批量上传"
+    ],
+    "react": "<MaterialChecklistCard items={[{ name: \"身份证明\", req: true, state: \"done\" }]} />"
+  },
+  {
+    "id": "gov-affair-result",
+    "name": "办件结果行",
+    "category": "政务服务 / 一网通办",
+    "status": "v3 新增",
+    "purpose": "展示一个办件的审批结论与结果文件。",
+    "anatomy": [
+      "事项 (ds-affair-result__title)",
+      "结论 (ds-affair-result__verdict)",
+      "办结时间 (ds-affair-result__time)",
+      "文件入口"
+    ],
+    "keyboard": "行可聚焦下载批文或证照；不予许可以 alert 语义播报。",
+    "guidance": [
+      "许可绿色、不予许可红色、补正黄色。",
+      "批文与证照分别提供入口。",
+      "办结时间等宽展示。"
+    ],
+    "preview": "<div class=\"ds-affair-result is-approved\" tabindex=\"0\" role=\"button\" aria-label=\"办件结果，个体工商户开业登记，准予许可，2026-06-12 办结，可下载营业执照\"><strong class=\"ds-affair-result__title\">个体工商户开业登记</strong><span class=\"ds-affair-result__verdict is-approved\">准予许可</span><span class=\"ds-affair-result__time\">2026-06-12 办结</span><span class=\"ds-affair-result__file\">下载营业执照</span></div>",
+    "checks": [
+      "三态结论",
+      "批文证照入口",
+      "办结时间",
+      "不予许可播报"
+    ],
+    "react": "<AffairResultRow title=\"个体工商户开业登记\" verdict=\"approved\" time=\"2026-06-12\" />"
+  },
+  {
+    "id": "gov-onenet-search",
+    "name": "一网通办搜索栏",
+    "category": "政务服务 / 一网通办",
+    "status": "v3 新增",
+    "purpose": "提供全省通办事项搜索入口与热门事项推荐。",
+    "anatomy": [
+      "搜索框 (ds-onenet-search__input)",
+      "搜索按钮",
+      "热门事项 (ds-onenet-search__hot)",
+      "历史记录"
+    ],
+    "keyboard": "输入框聚焦后可键入；回车执行搜索；热门标签可聚焦直达。",
+    "guidance": [
+      "热门事项以标签横排展示。",
+      "搜索范围覆盖事项与办件进度。",
+      "语音搜索入口可选。"
+    ],
+    "preview": "<section class=\"ds-onenet-search\" aria-label=\"一网通办搜索，输入事项名称或办件号\"><div class=\"ds-onenet-search__box\"><input class=\"ds-onenet-search__input\" type=\"search\" placeholder=\"搜索事项、办件号\" aria-label=\"搜索事项或办件号\" /><button type=\"button\" aria-label=\"搜索\">搜索</button></div><div class=\"ds-onenet-search__hot\"><span class=\"ds-onenet-search__label\">热门：</span><button type=\"button\" class=\"ds-onenet-search__tag\">社保转移</button><button type=\"button\" class=\"ds-onenet-search__tag\">公积金提取</button><button type=\"button\" class=\"ds-onenet-search__tag\">营业执照</button></div></section>",
+    "checks": [
+      "回车搜索",
+      "热门标签直达",
+      "范围说明",
+      "语音入口可选"
+    ],
+    "react": "<OneNetSearchBar placeholder=\"搜索事项、办件号\" hot={[\"社保转移\", \"公积金提取\"]} />"
+  },
+  {
+    "id": "gov-notice",
+    "name": "政务公告卡",
+    "category": "政务服务 / 一网通办",
+    "status": "v3 新增",
+    "purpose": "展示一条政务公告的标题、摘要与发布信息。",
+    "anatomy": [
+      "标题 (ds-gov-notice__title)",
+      "摘要 (ds-gov-notice__excerpt)",
+      "发布单位 (ds-gov-notice__org)",
+      "时间 (ds-gov-notice__time)",
+      "置顶标记"
+    ],
+    "keyboard": "卡片可聚焦查看公告全文；置顶公告以文字标注不只颜色。",
+    "guidance": [
+      "置顶公告红色标记。",
+      "摘要两行截断。",
+      "发布单位与时间等宽展示。"
+    ],
+    "preview": "<article class=\"ds-gov-notice is-pinned\" tabindex=\"0\" role=\"button\" aria-label=\"政务公告，关于 2026 年度社保缴费基数调整的通知，2026-06-01 发布，置顶\"><div class=\"ds-gov-notice__head\"><strong class=\"ds-gov-notice__title\">关于 2026 年度社保缴费基数调整的通知</strong><span class=\"ds-gov-notice__pin\">置顶</span></div><p class=\"ds-gov-notice__excerpt\">自 2026 年 7 月起，职工社会保险缴费基数上下限将按全省全口径城镇单位就业人员平均工资的 60% 至 300% 核定。</p><div class=\"ds-gov-notice__foot\"><span class=\"ds-gov-notice__org\">市医疗保障局</span><span class=\"ds-gov-notice__time\">2026-06-01</span></div></article>",
+    "checks": [
+      "置顶标记",
+      "摘要截断",
+      "单位时间",
+      "全文查看"
+    ],
+    "react": "<GovNoticeCard title=\"关于 2026 年度社保缴费基数调整的通知\" excerpt=\"自 2026 年 7 月起调整缴费基数上下限。\" org=\"市医疗保障局\" time=\"2026-06-01\" pinned />"
+  },
+  {
+    "id": "gov-complaint",
+    "name": "投诉建议办理卡",
+    "category": "政务服务 / 一网通办",
+    "status": "v3 新增",
+    "purpose": "展示一条投诉建议的受理与办理反馈状态。",
+    "anatomy": [
+      "投诉内容 (ds-complaint__text)",
+      "受理编号 (ds-complaint__no)",
+      "反馈 (ds-complaint__reply)",
+      "状态 (ds-complaint__state)"
+    ],
+    "keyboard": "卡片可聚焦查看办理详情；已办结绿色播报。",
+    "guidance": [
+      "受理中黄色、办理中蓝色、已办结绿色。",
+      "反馈内容文字展示。",
+      "提供满意度评价入口。"
+    ],
+    "preview": "<article class=\"ds-complaint is-handling\" tabindex=\"0\" role=\"button\" aria-label=\"投诉建议，小区停车位划线不清导致通行拥堵，受理编号 TS-2026-3381，已联系物业现场核实，办理中\"><strong class=\"ds-complaint__text\">小区停车位划线不清导致通行拥堵</strong><span class=\"ds-complaint__no\">TS-2026-3381</span><p class=\"ds-complaint__reply\">已联系物业现场核实，将于本周内完成补划</p><span class=\"ds-complaint__state is-handling\">办理中</span></article>",
+    "checks": [
+      "三态状态",
+      "反馈文字",
+      "编号等宽",
+      "满意度评价"
+    ],
+    "react": "<ComplaintProgressCard text=\"小区停车位划线不清导致通行拥堵\" no=\"TS-2026-3381\" reply=\"已联系物业现场核实\" state=\"handling\" />"
   }
 ]
