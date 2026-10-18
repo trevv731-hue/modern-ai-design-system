@@ -16581,3 +16581,134 @@ export function AgentContactCard({ name, company, rating, tours, phone }: { name
     </div>
   </article>;
 }
+
+export function ServiceRequestRow({ no, customer, channel, subject, state, slaLeft }: { no: string; customer: string; channel: 'app' | 'phone' | 'web' | 'wechat'; subject: string; state: 'pending' | 'processing' | 'resolved' | 'closed'; slaLeft?: string }) {
+  const channelText = { app: 'App', phone: '电话', web: '网页', wechat: '微信' };
+  const stateText = { pending: '待处理', processing: '处理中', resolved: '已解决', closed: '已关闭' };
+  return <div className={'ds-service-request is-' + state} tabIndex={0} role="button" aria-label={'工单 ' + no + '，' + customer + '，' + channelText[channel] + ' 渠道，' + subject + '，' + stateText[state] + (slaLeft ? '，SLA 剩余 ' + slaLeft : '')}>
+    <span className="ds-service-request__no">{no}</span>
+    <div className="ds-service-request__body"><strong>{customer} · {channelText[channel]}</strong><span>{subject}</span></div>
+    <span className={'ds-service-request__state is-' + state}>{stateText[state]}</span>
+    {slaLeft ? <span className="ds-service-request__sla">剩 {slaLeft}</span> : null}
+  </div>;
+}
+
+export function AgentStatusBoard({ agents }: { agents: Array<{ name: string; state: 'online' | 'busy' | 'away' | 'offline'; load: number }> }) {
+  const stateText = { online: '在线', busy: '忙碌', away: '离开', offline: '离线' };
+  const counts = { online: 0, busy: 0, away: 0, offline: 0 };
+  for (const agent of agents) counts[agent.state] += 1;
+  return <section className="ds-agent-board" aria-label="坐席状态看板">
+    <div className="ds-agent-board__stat">
+      <span className="is-online">在线 {counts.online}</span>
+      <span className="is-busy">忙碌 {counts.busy}</span>
+      <span className="is-offline">离线 {counts.offline}</span>
+    </div>
+    <ul>
+      {agents.map(agent => <li key={agent.name} className={'ds-agent-board__agent' + (agent.state === 'offline' ? ' is-offline' : '')} tabIndex={0} aria-label={agent.name + '，' + stateText[agent.state] + '，' + agent.load + ' 会话'}>
+        <span className={'ds-agent-board__dot is-' + agent.state} aria-hidden="true" />
+        <strong>{agent.name}</strong>
+        <span className={'ds-agent-board__load' + (agent.load >= 6 ? ' is-high' : '')}>{agent.state === 'offline' ? '离线' : agent.load + ' 会话'}</span>
+      </li>)}
+    </ul>
+  </section>;
+}
+
+export function SlaResponseTimer({ priority, left, total, goal }: { priority: 'urgent' | 'high' | 'normal' | 'low'; left: string; total: string; goal: string }) {
+  const parse = (t: string) => { const p = t.split(':').map(Number); return p[0] * 3600 + p[1] * 60 + (p[2] ?? 0); };
+  const leftSec = parse(left);
+  const totalSec = parse(total);
+  const remainPct = totalSec ? Math.max(0, Math.min(100, Math.round(leftSec / totalSec * 100))) : 0;
+  const level = leftSec <= 0 ? 'is-over' : remainPct <= 25 ? 'is-warn' : 'is-ok';
+  const priorityText = { urgent: '紧急', high: '高优先级', normal: '普通', low: '低' };
+  return <div className={'ds-sla-timer ' + level} role="timer" aria-label={'SLA 剩余 ' + left + '，目标 ' + goal}>
+    <span className={'ds-sla-timer__pri is-' + priority}>{priorityText[priority]}</span>
+    <strong className="ds-sla-timer__left">{left}</strong>
+    <div className="ds-sla-timer__bar" aria-hidden="true"><i style={{ width: remainPct + '%' }} /></div>
+    <span className="ds-sla-timer__goal">目标 {goal}</span>
+  </div>;
+}
+
+export function CannedReplyPicker({ categories, items, onPick }: { categories: string[]; items: Array<{ cat: string; text: string }>; onPick?: (text: string) => void }) {
+  return <section className="ds-canned-reply" aria-label="快捷回复选择器">
+    <input className="ds-canned-reply__search" type="search" placeholder="搜索话术…" aria-label="搜索话术" />
+    <div className="ds-canned-reply__cats">
+      {categories.map((cat, index) => <button key={cat} type="button" className={index === 0 ? 'is-active' : undefined}>{cat}</button>)}
+    </div>
+    <ul>
+      {items.map(item => <li key={item.text} className="ds-canned-reply__item" tabIndex={0}>
+        <span>{item.text}</span>
+        <button type="button" onClick={() => onPick?.(item.text)}>插入</button>
+      </li>)}
+    </ul>
+  </section>;
+}
+
+export function ConversationTranscriptRow({ customer, preview, channel, time, unread }: { customer: string; preview: string; channel: 'app' | 'phone' | 'web'; time: string; unread?: number }) {
+  const channelText = { app: 'App', phone: '电话', web: '网页' };
+  return <div className="ds-transcript-row" tabIndex={0} role="button" aria-label={'会话，' + customer + '，' + channelText[channel] + ' 渠道，' + preview + '，' + time + (unread ? '，' + unread + ' 条未读' : '')}>
+    <span className="ds-transcript-row__avatar" aria-hidden="true">{customer.slice(0, 1)}</span>
+    <div className="ds-transcript-row__body"><strong>{customer} · {channelText[channel]}</strong><span>{preview}</span></div>
+    <span className="ds-transcript-row__time">{time}</span>
+    {unread ? <span className="ds-transcript-row__badge">{unread}</span> : null}
+  </div>;
+}
+
+export function CsatScoreCard({ average, total, distribution, trend }: { average: number; total: number; distribution: Array<{ stars: number; count: number }>; trend?: number }) {
+  const rows = distribution.map(row => ({ ...row, pct: total ? Math.round(row.count / total * 100) : 0 }));
+  return <section className="ds-csat-card" tabIndex={0} aria-label={'满意度评分，平均 ' + average.toFixed(1) + ' 分，共 ' + total + ' 份评价'}>
+    <div className="ds-csat-card__avg"><strong>{average.toFixed(1)}</strong><small>/ 5.0</small></div>
+    <div className="ds-csat-card__bars">
+      {rows.map(row => <div key={row.stars} className="ds-csat-card__row">
+        <span>{row.stars} 星</span>
+        <i style={{ width: row.pct + '%' }} />
+        <em>{row.pct}%</em>
+      </div>)}
+    </div>
+    <p className="ds-csat-card__total">共 {total.toLocaleString()} 份{trend !== undefined ? <span className={trend >= 0 ? 'is-up' : 'is-down'}>{trend >= 0 ? ' ↑ ' + trend.toFixed(1) : ' ↓ ' + Math.abs(trend).toFixed(1)}</span> : null}</p>
+  </section>;
+}
+
+export function RefundRequestCard({ order, amount, reason, state, flow }: { order: string; amount: number; reason: string; state: 'approving' | 'approved' | 'rejected' | 'paid'; flow: Array<{ step: string; state: 'done' | 'current' | 'todo' | 'rejected' }> }) {
+  const stateText = { approving: '审批中', approved: '已通过', rejected: '已驳回', paid: '已打款' };
+  return <article className={'ds-refund-card is-' + state} tabIndex={0} aria-label={'退款申请，订单 ' + order + '，金额 ' + amount + ' 元，原因 ' + reason + '，' + stateText[state]}>
+    <div className="ds-refund-card__head">
+      <span className="ds-refund-card__order">{order}</span>
+      <strong className="ds-refund-card__amount">¥{amount.toLocaleString()}</strong>
+    </div>
+    <p className="ds-refund-card__reason">{reason}</p>
+    <ol className="ds-refund-card__flow">
+      {flow.map(step => <li key={step.step} className={'is-' + step.state}>{step.step}</li>)}
+    </ol>
+  </article>;
+}
+
+export function QueueWaitCard({ position, eta, total, onCancel }: { position: number; eta: string; total: number; onCancel?: () => void }) {
+  return <section className="ds-queue-wait" role="status" aria-label={'排队中，前面还有 ' + position + ' 位，预计等待 ' + eta + '，今日共 ' + total + ' 位'}>
+    <strong className="ds-queue-wait__pos">第 {position} 位</strong>
+    <p className="ds-queue-wait__eta">预计等待 {eta}</p>
+    <div className="ds-queue-wait__bar" aria-hidden="true"><i style={{ width: Math.max(8, Math.min(100, Math.round(position / Math.max(total, 1) * 100))) + '%' }} /></div>
+    <p className="ds-queue-wait__total">今日已服务 {total} 位</p>
+    <button type="button" onClick={onCancel}>取消排队</button>
+  </section>;
+}
+
+export function KnowledgeArticleCard({ title, category, summary, views, helpful }: { title: string; category: string; summary: string; views: number; helpful: number }) {
+  const low = helpful < 0.6;
+  return <article className="ds-kb-article" tabIndex={0} role="button" aria-label={'知识库文章，' + title + '，' + category + '分类，有用率 ' + Math.round(helpful * 100) + '%'}>
+    <h4 className="ds-kb-article__title">{title}</h4>
+    <span className="ds-kb-article__cat">{category}</span>
+    <p className="ds-kb-article__sum">{summary}</p>
+    <div className="ds-kb-article__meta">
+      <span className="ds-kb-article__views">浏览 {views.toLocaleString()}</span>
+      <span className={'ds-kb-article__helpful' + (low ? ' is-low' : '')}>{Math.round(helpful * 100)}% 有用</span>
+    </div>
+  </article>;
+}
+
+export function CallRecordCard({ customer, number, duration, time, hasRecording }: { customer: string; number: string; duration: string; time: string; hasRecording?: boolean }) {
+  return <article className="ds-call-record" tabIndex={0} aria-label={'通话记录，' + customer + '，' + number + '，' + time + '，时长 ' + duration + (hasRecording ? '，有录音' : '')}>
+    <div className="ds-call-record__body"><strong>{customer}</strong><span>{number} · {time}</span></div>
+    <span className="ds-call-record__dur">{duration}</span>
+    {hasRecording ? <button type="button" className="ds-call-record__rec" aria-label="播放录音">▶</button> : null}
+  </article>;
+}

@@ -19428,5 +19428,282 @@
       "电话消息入口区分"
     ],
     "react": "<AgentContactCard name=\"刘敏\" company=\"链家 · 望京店\" rating={4.8} tours={126} phone=\"138****2210\" />"
+  },
+  {
+    "id": "svc-service-request",
+    "name": "客服工单行",
+    "category": "客服 / 工单",
+    "status": "v3 新增",
+    "purpose": "展示客服工单的编号、客户、渠道、状态与 SLA 剩余时间。",
+    "anatomy": [
+      "工单编号 (ds-service-request__no)",
+      "客户与主题 (ds-service-request__body)",
+      "渠道标签",
+      "状态 (ds-service-request__state)",
+      "SLA 剩余 (ds-service-request__sla)"
+    ],
+    "keyboard": "行可聚焦查看工单详情；筛选与排序可键盘操作。",
+    "guidance": [
+      "SLA 即将超时黄色、已超时红色。",
+      "渠道用图标加文字。",
+      "支持按状态批量处理。"
+    ],
+    "preview": "<div class=\"ds-service-request is-processing\" tabindex=\"0\" role=\"button\" aria-label=\"工单 SR-20481，张女士，App 渠道，退款进度咨询，处理中，SLA 剩余 1 小时 24 分\"><span class=\"ds-service-request__no\">SR-20481</span><div class=\"ds-service-request__body\"><strong>张女士 · App</strong><span>退款进度咨询</span></div><span class=\"ds-service-request__state is-processing\">处理中</span><span class=\"ds-service-request__sla is-warn\">剩 01:24:30</span></div>",
+    "checks": [
+      "SLA 超时双色提醒",
+      "渠道图标加文字",
+      "按状态批量处理",
+      "行可聚焦看详情"
+    ],
+    "react": "<ServiceRequestRow no=\"SR-20481\" customer=\"张女士\" channel=\"app\" subject=\"退款进度咨询\" state=\"processing\" slaLeft=\"01:24:30\" />"
+  },
+  {
+    "id": "svc-agent-board",
+    "name": "坐席状态看板",
+    "category": "客服 / 工单",
+    "status": "v3 新增",
+    "purpose": "展示客服坐席的在线状态与会话负载。",
+    "anatomy": [
+      "在线统计 (ds-agent-board__stat)",
+      "坐席项 (ds-agent-board__agent)",
+      "状态点 (ds-agent-board__dot)",
+      "负载 (ds-agent-board__load)",
+      "整理操作"
+    ],
+    "keyboard": "坐席可聚焦查看会话；状态点有文字标签不只颜色。",
+    "guidance": [
+      "在线绿色、忙碌黄色、离开灰色、离线置灰。",
+      "负载过高红色提示。",
+      "支持按状态筛选坐席。"
+    ],
+    "preview": "<section class=\"ds-agent-board\" aria-label=\"坐席状态看板\"><div class=\"ds-agent-board__stat\"><span class=\"is-online\">在线 6</span><span class=\"is-busy\">忙碌 3</span><span class=\"is-offline\">离线 2</span></div><ul><li class=\"ds-agent-board__agent\" tabindex=\"0\"><span class=\"ds-agent-board__dot is-online\" aria-hidden=\"true\"></span><strong>客服 01 · 李婷</strong><span class=\"ds-agent-board__load\">3 会话</span></li><li class=\"ds-agent-board__agent\" tabindex=\"0\"><span class=\"ds-agent-board__dot is-busy\" aria-hidden=\"true\"></span><strong>客服 02 · 王强</strong><span class=\"ds-agent-board__load is-high\">8 会话</span></li><li class=\"ds-agent-board__agent is-offline\" tabindex=\"0\"><span class=\"ds-agent-board__dot is-offline\" aria-hidden=\"true\"></span><strong>客服 03 · 赵敏</strong><span class=\"ds-agent-board__load\">离线</span></li></ul></section>",
+    "checks": [
+      "状态点文字标签",
+      "负载过高红色",
+      "按状态筛选坐席",
+      "坐席可聚焦看会话"
+    ],
+    "react": "<AgentStatusBoard agents={[{ name: \"客服 01 · 李婷\", state: \"online\", load: 3 }, { name: \"客服 02 · 王强\", state: \"busy\", load: 8 }]} />"
+  },
+  {
+    "id": "svc-sla-timer",
+    "name": "SLA 响应计时器",
+    "category": "客服 / 工单",
+    "status": "v3 新增",
+    "purpose": "显示工单 SLA 剩余响应时间与目标时限。",
+    "anatomy": [
+      "优先级标签 (ds-sla-timer__pri)",
+      "剩余时间 (ds-sla-timer__left)",
+      "进度条 (ds-sla-timer__bar)",
+      "目标说明 (ds-sla-timer__goal)"
+    ],
+    "keyboard": "时间变化使用 aria-live 播报；不自动抢焦点。",
+    "guidance": [
+      "剩余不足 25% 黄色、已超时红色。",
+      "倒计时秒级更新。",
+      "超时后给升级处理入口。"
+    ],
+    "preview": "<div class=\"ds-sla-timer is-high\" role=\"timer\" aria-label=\"SLA 剩余 1 小时 24 分 30 秒，目标 2 小时响应\"><span class=\"ds-sla-timer__pri is-high\">高优先级</span><strong class=\"ds-sla-timer__left\">01:24:30</strong><div class=\"ds-sla-timer__bar\" aria-hidden=\"true\"><i style=\"width:28%\"></i></div><span class=\"ds-sla-timer__goal\">目标 2 小时响应</span></div>",
+    "checks": [
+      "不足 25% 黄色",
+      "超时红色升级入口",
+      "秒级更新播报",
+      "不自动抢焦点"
+    ],
+    "react": "<SlaResponseTimer priority=\"high\" left=\"01:24:30\" total=\"02:00:00\" goal=\"2 小时响应\" />"
+  },
+  {
+    "id": "svc-canned-reply",
+    "name": "快捷回复选择器",
+    "category": "客服 / 工单",
+    "status": "v3 新增",
+    "purpose": "按分类浏览并插入预设客服回复话术。",
+    "anatomy": [
+      "搜索框 (ds-canned-reply__search)",
+      "分类标签 (ds-canned-reply__cat)",
+      "回复项 (ds-canned-reply__item)",
+      "插入按钮",
+      "使用计数"
+    ],
+    "keyboard": "搜索框自动聚焦；列表项可键盘选择；Enter 插入。",
+    "guidance": [
+      "支持关键词与拼音搜索。",
+      "常用回复置顶。",
+      "插入后可继续编辑。"
+    ],
+    "preview": "<section class=\"ds-canned-reply\" aria-label=\"快捷回复选择器\"><input class=\"ds-canned-reply__search\" type=\"search\" placeholder=\"搜索话术…\" aria-label=\"搜索话术\"><div class=\"ds-canned-reply__cats\"><button type=\"button\" class=\"is-active\">售后</button><button type=\"button\">物流</button><button type=\"button\">账户</button></div><ul><li class=\"ds-canned-reply__item\" tabindex=\"0\"><span>您好，已为您加急处理，请稍候。</span><button type=\"button\">插入</button></li><li class=\"ds-canned-reply__item\" tabindex=\"0\"><span>退款将在 1-3 个工作日原路退回。</span><button type=\"button\">插入</button></li></ul></section>",
+    "checks": [
+      "关键词拼音搜索",
+      "常用回复置顶",
+      "键盘选择 Enter 插入",
+      "插入后可编辑"
+    ],
+    "react": "<CannedReplyPicker categories={[\"售后\", \"物流\"]} items={[{ cat: \"售后\", text: \"您好，已为您加急处理，请稍候。\" }]} onPick={pick} />"
+  },
+  {
+    "id": "svc-transcript-row",
+    "name": "会话记录行",
+    "category": "客服 / 工单",
+    "status": "v3 新增",
+    "purpose": "展示一条客服会话的摘要、渠道与未读消息数。",
+    "anatomy": [
+      "客户头像 (ds-transcript-row__avatar)",
+      "摘要 (ds-transcript-row__body)",
+      "渠道标签",
+      "时间 (ds-transcript-row__time)",
+      "未读角标 (ds-transcript-row__badge)"
+    ],
+    "keyboard": "行可聚焦打开会话；未读数使用 aria-label 播报。",
+    "guidance": [
+      "未读消息数红色角标。",
+      "置顶会话有标记。",
+      "渠道图标区分 App、电话、网页。"
+    ],
+    "preview": "<div class=\"ds-transcript-row\" tabindex=\"0\" role=\"button\" aria-label=\"会话，张女士，App 渠道，我的退款到账了吗？，14:32，2 条未读\"><span class=\"ds-transcript-row__avatar\" aria-hidden=\"true\">张</span><div class=\"ds-transcript-row__body\"><strong>张女士 · App</strong><span>我的退款到账了吗？</span></div><span class=\"ds-transcript-row__time\">14:32</span><span class=\"ds-transcript-row__badge\">2</span></div>",
+    "checks": [
+      "未读红色角标",
+      "置顶会话有标记",
+      "渠道图标区分",
+      "行可聚焦打开会话"
+    ],
+    "react": "<ConversationTranscriptRow customer=\"张女士\" preview=\"我的退款到账了吗？\" channel=\"app\" time=\"14:32\" unread={2} />"
+  },
+  {
+    "id": "svc-csat-card",
+    "name": "满意度评分卡",
+    "category": "客服 / 工单",
+    "status": "v3 新增",
+    "purpose": "展示客服满意度平均分与各星级分布。",
+    "anatomy": [
+      "平均分 (ds-csat-card__avg)",
+      "分布条 (ds-csat-card__bars)",
+      "样本量 (ds-csat-card__total)",
+      "环比趋势"
+    ],
+    "keyboard": "卡片可聚焦查看评价原文；分数有文字不只颜色。",
+    "guidance": [
+      "分布条按星级降序展示。",
+      "低分评价可下钻查看。",
+      "环比变化用箭头加数字。"
+    ],
+    "preview": "<section class=\"ds-csat-card\" tabindex=\"0\" aria-label=\"满意度评分，平均 4.6 分，共 1284 份评价，环比上升 0.2\"><div class=\"ds-csat-card__avg\"><strong>4.6</strong><small>/ 5.0</small></div><div class=\"ds-csat-card__bars\"><div class=\"ds-csat-card__row\"><span>5 星</span><i style=\"width:76%\"></i><em>76%</em></div><div class=\"ds-csat-card__row\"><span>4 星</span><i style=\"width:15%\"></i><em>15%</em></div><div class=\"ds-csat-card__row\"><span>3 星</span><i style=\"width:6%\"></i><em>6%</em></div><div class=\"ds-csat-card__row\"><span>2 星及以下</span><i style=\"width:3%\"></i><em>3%</em></div></div><p class=\"ds-csat-card__total\">共 1,284 份 · <span class=\"is-up\">↑ 0.2</span></p></section>",
+    "checks": [
+      "分布按星级降序",
+      "低分可下钻",
+      "环比箭头加数字",
+      "分数有文字"
+    ],
+    "react": "<CsatScoreCard average={4.6} total={1284} distribution={[{ stars: 5, count: 980 }]} trend={0.2} />"
+  },
+  {
+    "id": "svc-refund-card",
+    "name": "退款申请卡",
+    "category": "客服 / 工单",
+    "status": "v3 新增",
+    "purpose": "展示退款申请的金额、原因与审批流程进度。",
+    "anatomy": [
+      "订单号 (ds-refund-card__order)",
+      "金额 (ds-refund-card__amount)",
+      "原因 (ds-refund-card__reason)",
+      "审批流 (ds-refund-card__flow)",
+      "状态"
+    ],
+    "keyboard": "卡片可聚焦查看凭证；审批操作可达。",
+    "guidance": [
+      "金额使用等宽字体。",
+      "审批流按步骤展示当前节点。",
+      "驳回必须填写理由。"
+    ],
+    "preview": "<article class=\"ds-refund-card is-approving\" tabindex=\"0\" aria-label=\"退款申请，订单 SO-88231，金额 299 元，原因商品与描述不符，主管审批中\"><div class=\"ds-refund-card__head\"><span class=\"ds-refund-card__order\">SO-88231</span><strong class=\"ds-refund-card__amount\">¥299</strong></div><p class=\"ds-refund-card__reason\">商品与描述不符 · 已开封使用 2 天</p><ol class=\"ds-refund-card__flow\"><li class=\"is-done\">客服审核</li><li class=\"is-current\">主管审批</li><li>财务打款</li></ol></article>",
+    "checks": [
+      "金额等宽字体",
+      "审批流展示当前节点",
+      "驳回需填理由",
+      "卡片可聚焦看凭证"
+    ],
+    "react": "<RefundRequestCard order=\"SO-88231\" amount={299} reason=\"商品与描述不符\" state=\"approving\" flow={[{ step: \"主管审批\", state: \"current\" }]} />"
+  },
+  {
+    "id": "svc-queue-wait",
+    "name": "排队等待卡",
+    "category": "客服 / 工单",
+    "status": "v3 新增",
+    "purpose": "展示排队位置、预计等待时间与取消入口。",
+    "anatomy": [
+      "排队位置 (ds-queue-wait__pos)",
+      "预计等待 (ds-queue-wait__eta)",
+      "进度条 (ds-queue-wait__bar)",
+      "取消按钮"
+    ],
+    "keyboard": "预计时间使用 aria-live 更新；取消按钮可达。",
+    "guidance": [
+      "位置与预计时间实时刷新。",
+      "等待过久给留言入口。",
+      "取消排队需二次确认。"
+    ],
+    "preview": "<section class=\"ds-queue-wait\" role=\"status\" aria-label=\"排队中，前面还有 3 位，预计等待 4 分钟，今日共 12 位\"><strong class=\"ds-queue-wait__pos\">第 3 位</strong><p class=\"ds-queue-wait__eta\">预计等待 约 4 分钟</p><div class=\"ds-queue-wait__bar\" aria-hidden=\"true\"><i style=\"width:25%\"></i></div><p class=\"ds-queue-wait__total\">今日已服务 12 位</p><button type=\"button\">取消排队</button></section>",
+    "checks": [
+      "位置时间实时刷新",
+      "过久给留言入口",
+      "取消需二次确认",
+      "aria-live 更新"
+    ],
+    "react": "<QueueWaitCard position={3} eta=\"约 4 分钟\" total={12} onCancel={cancel} />"
+  },
+  {
+    "id": "svc-kb-article",
+    "name": "知识库文章卡",
+    "category": "客服 / 工单",
+    "status": "v3 新增",
+    "purpose": "展示帮助中心文章的标题、摘要与有用度。",
+    "anatomy": [
+      "标题 (ds-kb-article__title)",
+      "分类标签",
+      "摘要 (ds-kb-article__sum)",
+      "浏览量 (ds-kb-article__views)",
+      "有用率"
+    ],
+    "keyboard": "卡片可聚焦打开文章；有用与无用按钮可达。",
+    "guidance": [
+      "有用率低于 60% 黄色提示优化。",
+      "摘要最多两行。",
+      "支持按分类筛选。"
+    ],
+    "preview": "<article class=\"ds-kb-article\" tabindex=\"0\" role=\"button\" aria-label=\"知识库文章，如何申请退款，售后分类，有用率 92%，浏览 12840 次\"><h4 class=\"ds-kb-article__title\">如何申请退款</h4><span class=\"ds-kb-article__cat\">售后</span><p class=\"ds-kb-article__sum\">介绍退款条件、申请流程与到账时间，覆盖 7 天无理由场景。</p><div class=\"ds-kb-article__meta\"><span class=\"ds-kb-article__views\">浏览 12,840</span><span class=\"ds-kb-article__helpful\">92% 有用</span></div></article>",
+    "checks": [
+      "有用率低黄色提示",
+      "摘要最多两行",
+      "按分类筛选",
+      "有用无用按钮可达"
+    ],
+    "react": "<KnowledgeArticleCard title=\"如何申请退款\" category=\"售后\" summary=\"介绍退款条件、流程与到账时间。\" views={12840} helpful={0.92} />"
+  },
+  {
+    "id": "svc-call-record",
+    "name": "通话记录卡",
+    "category": "客服 / 工单",
+    "status": "v3 新增",
+    "purpose": "展示一通客服通话的时长、录音与转写摘要。",
+    "anatomy": [
+      "客户与号码 (ds-call-record__body)",
+      "时长 (ds-call-record__dur)",
+      "时间",
+      "录音入口 (ds-call-record__rec)",
+      "转写摘要"
+    ],
+    "keyboard": "播放按钮可达；转写摘要可展开；号码默认脱敏。",
+    "guidance": [
+      "通话时长等宽展示。",
+      "无录音时不显示入口。",
+      "转写支持关键词高亮。"
+    ],
+    "preview": "<article class=\"ds-call-record\" tabindex=\"0\" aria-label=\"通话记录，张女士，138****2210，今天 14:20，时长 4 分 32 秒，有录音\"><div class=\"ds-call-record__body\"><strong>张女士</strong><span>138****2210 · 今天 14:20</span></div><span class=\"ds-call-record__dur\">04:32</span><button type=\"button\" class=\"ds-call-record__rec\" aria-label=\"播放录音\">▶</button></article>",
+    "checks": [
+      "时长等宽展示",
+      "无录音不显示入口",
+      "号码默认脱敏",
+      "播放按钮可达"
+    ],
+    "react": "<CallRecordCard customer=\"张女士\" number=\"138****2210\" duration=\"04:32\" time=\"今天 14:20\" hasRecording />"
   }
 ]
