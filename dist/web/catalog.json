@@ -18313,5 +18313,284 @@
       "图号标题标题语义"
     ],
     "react": "<FigureCaptionPanel no=\"图 3\" title=\"三端样式体积对比\" note=\"编译后 Android 产物体积最大。\" src=\"内部构建日志 2026-10 · CC BY 4.0\" onZoom={zoom} />"
+  },
+  {
+    "id": "logi-waybill",
+    "name": "运单行",
+    "category": "物流 / 供应链",
+    "status": "v3 新增",
+    "purpose": "展示运单号、收发双方、状态与运费概览。",
+    "anatomy": [
+      "运单号 (ds-waybill__no)",
+      "收发方 (ds-waybill__party)",
+      "状态 (ds-waybill__state)",
+      "重量与运费",
+      "操作"
+    ],
+    "keyboard": "行可聚焦查看详情；状态筛选可键盘操作。",
+    "guidance": [
+      "异常单用颜色与图标双提示。",
+      "运费与重量单位齐全。",
+      "支持批量勾选操作。"
+    ],
+    "preview": "<div class=\"ds-waybill\" tabindex=\"0\" role=\"button\" aria-label=\"运单 SF1029384756，杭州余杭仓 到 北京朝阳张先生，运输中，2.4 公斤，运费 18 元\"><span class=\"ds-waybill__no\">SF1029384756</span><div class=\"ds-waybill__party\"><strong>杭州余杭仓 → 北京朝阳 · 张先生</strong><span>10-16 18:20 揽收</span></div><span class=\"ds-waybill__state is-transit\">运输中</span><span class=\"ds-waybill__meta\">2.4 kg · ¥18</span></div>",
+    "checks": [
+      "异常单颜色图标双提示",
+      "重量运费单位齐全",
+      "支持批量勾选",
+      "行可聚焦看详情"
+    ],
+    "react": "<WaybillRow no=\"SF1029384756\" from=\"杭州余杭仓\" to=\"北京朝阳 · 张先生\" state=\"transit\" weight=\"2.4 kg\" fee={18} />"
+  },
+  {
+    "id": "logi-track-timeline",
+    "name": "物流轨迹时间线",
+    "category": "物流 / 供应链",
+    "status": "v3 新增",
+    "purpose": "按时间线展示包裹流转节点与当前位置。",
+    "anatomy": [
+      "节点 (ds-track-timeline__node)",
+      "时间 (ds-track-timeline__time)",
+      "状态描述",
+      "当前节点",
+      "预计送达"
+    ],
+    "keyboard": "节点可聚焦朗读；当前节点 aria-current。",
+    "guidance": [
+      "最新节点置顶并高亮。",
+      "异常节点红色并给客服入口。",
+      "预计时间随路况更新。"
+    ],
+    "preview": "<div class=\"ds-track-timeline\"><p class=\"ds-track-timeline__eta\">预计今天 20:00 前送达</p><ol><li class=\"is-current\" aria-current=\"step\"><span class=\"ds-track-timeline__time\">今天 14:32</span><div class=\"ds-track-timeline__body\"><strong>到达北京朝阳集散中心</strong><span>正在分拣，即将发往网点</span></div></li><li><span class=\"ds-track-timeline__time\">今天 09:15</span><div class=\"ds-track-timeline__body\"><strong>离开杭州余杭仓</strong><span>已发往北京方向</span></div></li><li><span class=\"ds-track-timeline__time\">昨天 18:20</span><div class=\"ds-track-timeline__body\"><strong>已揽收</strong><span>快递员 王师傅 · 187****2210</span></div></li></ol></div>",
+    "checks": [
+      "最新节点置顶高亮",
+      "异常节点给客服入口",
+      "预计时间随路况更新",
+      "当前节点 aria-current"
+    ],
+    "react": "<TrackingTimeline eta=\"预计今天 20:00 前送达\" nodes={[{ time: \"今天 14:32\", title: \"到达北京朝阳集散中心\", note: \"正在分拣\", current: true }]} />"
+  },
+  {
+    "id": "logi-wh-slot",
+    "name": "库位格",
+    "category": "物流 / 供应链",
+    "status": "v3 新增",
+    "purpose": "以网格展示仓库库位的占用与锁定状态。",
+    "anatomy": [
+      "库位码 (ds-wh-slot__code)",
+      "占用条 (ds-wh-slot__fill)",
+      "状态 (ds-wh-slot__state)",
+      "SKU 摘要"
+    ],
+    "keyboard": "库位可聚焦查看库存明细；锁定库位禁用选择。",
+    "guidance": [
+      "占用率用容量条与百分比双表示。",
+      "锁定与盘点中状态区分。",
+      "支持按通道与排筛选。"
+    ],
+    "preview": "<div class=\"ds-wh-slot is-occupied\" tabindex=\"0\" role=\"button\" aria-label=\"库位 A-12-03，占用 72%，存放饮料类 4 个 SKU\"><div class=\"ds-wh-slot__head\"><span class=\"ds-wh-slot__code\">A-12-03</span><span class=\"ds-wh-slot__state is-busy\">占用</span></div><div class=\"ds-wh-slot__fill\" aria-hidden=\"true\"><i style=\"width:72%\"></i></div><p class=\"ds-wh-slot__meta\">72% · 饮料类 × 4 SKU</p></div>",
+    "checks": [
+      "占用率条与百分比双表示",
+      "锁定与盘点状态区分",
+      "按通道排筛选",
+      "库位可聚焦看明细"
+    ],
+    "react": "<WarehouseSlot code=\"A-12-03\" occupancy={72} state=\"busy\" skuCount={4} category=\"饮料类\" />"
+  },
+  {
+    "id": "logi-sort-scan",
+    "name": "分拣扫描面板",
+    "category": "物流 / 供应链",
+    "status": "v3 新增",
+    "purpose": "扫描面单并确认包裹目的格口，提高分拣效率。",
+    "anatomy": [
+      "扫描区 (ds-sort-scan__scanner)",
+      "包裹信息",
+      "目的格口 (ds-sort-scan__chute)",
+      "确认按钮",
+      "计数"
+    ],
+    "keyboard": "扫描输入自动聚焦；确认按钮可达；错误有播报。",
+    "guidance": [
+      "扫描成功有声音与视觉反馈。",
+      "格口不匹配时高亮正确格口。",
+      "连续扫描模式减少点击。"
+    ],
+    "preview": "<div class=\"ds-sort-scan\"><div class=\"ds-sort-scan__scanner\" aria-hidden=\"true\"><i></i><span>等待扫描…</span></div><div class=\"ds-sort-scan__info\"><strong>SF1029384756</strong><span>北京朝阳 · 重 2.4 kg</span></div><p class=\"ds-sort-scan__chute\">请放入 <strong>B-07</strong> 格口</p><div class=\"ds-sort-scan__foot\"><span>已分拣 <strong>128</strong> 件</span><button type=\"button\" class=\"is-primary\">确认 (Enter)</button></div></div>",
+    "checks": [
+      "扫描成功声音视觉反馈",
+      "格口不符高亮正确格口",
+      "连续扫描少点击",
+      "错误播报"
+    ],
+    "react": "<SortScanPanel waybill=\"SF1029384756\" dest=\"北京朝阳 · 重 2.4 kg\" chute=\"B-07\" scanned={128} onConfirm={confirm} />"
+  },
+  {
+    "id": "logi-fleet-vehicle",
+    "name": "车队车辆卡",
+    "category": "物流 / 供应链",
+    "status": "v3 新增",
+    "purpose": "展示车辆位置、状态、司机与里程信息。",
+    "anatomy": [
+      "车牌 (ds-fleet-vehicle__plate)",
+      "状态 (ds-fleet-vehicle__state)",
+      "司机",
+      "位置与速度",
+      "今日里程"
+    ],
+    "keyboard": "卡片可聚焦查看轨迹；联系司机按钮可达。",
+    "guidance": [
+      "离线车辆置灰并显示最后心跳。",
+      "超速与疲劳驾驶有标记。",
+      "支持按状态筛选车辆。"
+    ],
+    "preview": "<article class=\"ds-fleet-vehicle is-running\" tabindex=\"0\" role=\"button\" aria-label=\"车辆 京A12345，行驶中，司机李强，G4 京港澳高速，时速 82，今日里程 318 公里\"><div class=\"ds-fleet-vehicle__head\"><strong class=\"ds-fleet-vehicle__plate\">京A·12345</strong><span class=\"ds-fleet-vehicle__state is-running\">行驶中</span></div><p class=\"ds-fleet-vehicle__driver\">司机 李强 ★4.8 · 厢式 9.6m</p><p class=\"ds-fleet-vehicle__loc\">G4 京港澳高速 · 82 km/h</p><p class=\"ds-fleet-vehicle__odo\">今日里程 318 km · 油耗 28.4 L</p></article>",
+    "checks": [
+      "离线置灰显最后心跳",
+      "超速疲劳有标记",
+      "按状态筛选",
+      "卡片可聚焦看轨迹"
+    ],
+    "react": "<FleetVehicleCard plate=\"京A·12345\" state=\"running\" driver=\"李强 · ★4.8\" loc=\"G4 京港澳高速 · 82 km/h\" odo=\"318 km\" />"
+  },
+  {
+    "id": "logi-delivery-win",
+    "name": "配送时段选择",
+    "category": "物流 / 供应链",
+    "status": "v3 新增",
+    "purpose": "选择上门配送日期与时段，展示可约状态。",
+    "anatomy": [
+      "日期组 (ds-delivery-win__day)",
+      "时段格 (ds-delivery-win__slot)",
+      "已满态",
+      "备注",
+      "确认按钮"
+    ],
+    "keyboard": "时段为单选语义；已满禁用并说明；方向键在网格移动。",
+    "guidance": [
+      "已满时段置灰给次日推荐。",
+      "极速达时段有溢价提示。",
+      "选择后展示预计上门时间。"
+    ],
+    "preview": "<div class=\"ds-delivery-win\"><div class=\"ds-delivery-win__day\"><p>10-18 周六</p><div class=\"ds-delivery-win__slots\"><button type=\"button\" role=\"radio\" aria-checked=\"false\">09:00-11:00</button><button type=\"button\" role=\"radio\" aria-checked=\"true\">14:00-16:00</button><button type=\"button\" role=\"radio\" aria-checked=\"false\" disabled>18:00-20:00 已约满</button></div></div><div class=\"ds-delivery-win__day\"><p>10-19 周日</p><div class=\"ds-delivery-win__slots\"><button type=\"button\" role=\"radio\" aria-checked=\"false\">09:00-11:00</button><button type=\"button\" role=\"radio\" aria-checked=\"false\">14:00-16:00</button></div></div><p class=\"ds-delivery-win__note\">已选 10-18 14:00-16:00 · 极速达 +¥20</p></div>",
+    "checks": [
+      "已满置灰给次日推荐",
+      "极速达溢价提示",
+      "单选语义与方向键",
+      "选择后展预计时间"
+    ],
+    "react": "<DeliveryWindowPicker days={[{ date: \"10-18 周六\", slots: [{ range: \"09:00-11:00\", free: true }, { range: \"14:00-16:00\", free: true, picked: true }] }]} onPick={pick} />"
+  },
+  {
+    "id": "logi-inv-alert",
+    "name": "库存预警行",
+    "category": "物流 / 供应链",
+    "status": "v3 新增",
+    "purpose": "提示低于安全库存的 SKU 并给出补货建议。",
+    "anatomy": [
+      "SKU 与名称 (ds-inv-alert__sku)",
+      "当前库存",
+      "安全线",
+      "缺口 (ds-inv-alert__gap)",
+      "建议动作"
+    ],
+    "keyboard": "行可聚焦创建补货单；等级有文字不只颜色。",
+    "guidance": [
+      "缺货与低库存分级提示。",
+      "建议补货量按日均销量估算。",
+      "支持一键创建采购单。"
+    ],
+    "preview": "<div class=\"ds-inv-alert is-low\" tabindex=\"0\" role=\"button\" aria-label=\"库存预警：SKU-8842 蓝牙音箱，当前 12，安全线 40，缺口 28，建议补货 84\"><span class=\"ds-inv-alert__sku\">SKU-8842</span><div class=\"ds-inv-alert__body\"><strong>蓝牙音箱 白色</strong><span>日均销 12 · 供应商 声学科技</span></div><span class=\"ds-inv-alert__nums\">12 / 40</span><span class=\"ds-inv-alert__gap\">缺 28</span><button type=\"button\">补货</button></div>",
+    "checks": [
+      "缺货低库存分级",
+      "建议量按日均估算",
+      "一键创建采购单",
+      "等级有文字标签"
+    ],
+    "react": "<InventoryAlertRow sku=\"SKU-8842\" name=\"蓝牙音箱 白色\" stock={12} safety={40} dailySales={12} supplier=\"声学科技\" />"
+  },
+  {
+    "id": "logi-cold-chain",
+    "name": "冷链温控卡",
+    "category": "物流 / 供应链",
+    "status": "v3 新增",
+    "purpose": "监控冷藏车厢温度曲线与探头状态。",
+    "anatomy": [
+      "当前温度 (ds-cold-chain__now)",
+      "温度曲线 (ds-cold-chain__chart)",
+      "阈值带 (ds-cold-chain__band)",
+      "探头列表",
+      "报警"
+    ],
+    "keyboard": "卡片可聚焦查看历史；报警用 status 语义播报。",
+    "guidance": [
+      "超温时段红色高亮。",
+      "多探头分别展示位置。",
+      "历史数据可导出。"
+    ],
+    "preview": "<div class=\"ds-cold-chain is-warn\" role=\"status\" aria-label=\"冷链温度监控，当前 6.8 摄氏度，高于上限 6.0，探头 3 个正常 1 个超限\"><div class=\"ds-cold-chain__head\"><strong class=\"ds-cold-chain__now\">6.8°C</strong><span class=\"ds-cold-chain__band\">设定 2.0 ~ 6.0</span></div><svg class=\"ds-cold-chain__chart\" viewBox=\"0 0 240 60\" aria-hidden=\"true\"><rect x=\"0\" y=\"0\" width=\"240\" height=\"60\" fill=\"var(--ds-surface-2)\"/><rect x=\"0\" y=\"20\" width=\"240\" height=\"20\" fill=\"var(--ds-accent-soft)\"/><polyline points=\"0,40 30,38 60,30 90,22 120,14 150,8 180,4 210,2 240,2\"/></svg><div class=\"ds-cold-chain__probes\"><span class=\"is-ok\">前 3.2°</span><span class=\"is-ok\">中 4.1°</span><span class=\"is-ok\">后 3.8°</span><span class=\"is-alarm\">门 6.8°</span></div></div>",
+    "checks": [
+      "超温时段红色高亮",
+      "多探头分位置展示",
+      "报警 status 播报",
+      "历史数据可导出"
+    ],
+    "react": "<ColdChainMonitorCard current={6.8} min={2} max={6} probes={[{ pos: \"前\", temp: 3.2, ok: true }, { pos: \"门\", temp: 6.8, ok: false }]} />"
+  },
+  {
+    "id": "logi-dock-board",
+    "name": "月台调度看板",
+    "category": "物流 / 供应链",
+    "status": "v3 新增",
+    "purpose": "以网格展示月台与时间的占用调度。",
+    "anatomy": [
+      "时间轴 (ds-dock-board__axis)",
+      "月台列 (ds-dock-board__dock)",
+      "占用格 (ds-dock-board__cell)",
+      "车辆信息",
+      "空闲态"
+    ],
+    "keyboard": "占用格可聚焦查看单据；空闲格可点击分配。",
+    "guidance": [
+      "占用格显示车次与剩余时间。",
+      "冲突分配高亮提示。",
+      "支持拖拽调整月台。"
+    ],
+    "preview": "<div class=\"ds-dock-board\"><div class=\"ds-dock-board__axis\" aria-hidden=\"true\"><span>08:00</span><span>10:00</span><span>12:00</span><span>14:00</span></div><div class=\"ds-dock-board__rows\"><div class=\"ds-dock-board__dock\"><span class=\"ds-dock-board__name\">1 号月台</span><div class=\"ds-dock-board__cells\"><span class=\"ds-dock-board__cell is-busy\" tabindex=\"0\" role=\"button\" aria-label=\"1 号月台 8 点到 10 点，京A12345 卸货，剩余 40 分钟\">京A12345 · 卸货</span><span class=\"ds-dock-board__cell is-free\" role=\"button\" aria-label=\"1 号月台 10 点到 12 点空闲\" tabindex=\"0\">空闲</span><span class=\"ds-dock-board__cell is-free\" tabindex=\"0\" role=\"button\" aria-label=\"1 号月台 12 点到 14 点空闲\">空闲</span></div></div><div class=\"ds-dock-board__dock\"><span class=\"ds-dock-board__name\">2 号月台</span><div class=\"ds-dock-board__cells\"><span class=\"ds-dock-board__cell is-free\" tabindex=\"0\" role=\"button\" aria-label=\"2 号月台 8 点到 10 点空闲\">空闲</span><span class=\"ds-dock-board__cell is-busy\" tabindex=\"0\" role=\"button\" aria-label=\"2 号月台 10 点到 12 点，沪B67890 装货，剩余 1 小时\">沪B67890 · 装货</span><span class=\"ds-dock-board__cell is-free\" tabindex=\"0\" role=\"button\" aria-label=\"2 号月台 12 点到 14 点空闲\">空闲</span></div></div></div></div>",
+    "checks": [
+      "占用格显车次剩余时间",
+      "冲突分配高亮",
+      "支持拖拽调整",
+      "空闲格可分配"
+    ],
+    "react": "<DockScheduleBoard docks={[{ name: \"1 号月台\", cells: [{ from: \"08:00\", to: \"10:00\", vehicle: \"京A12345\", state: \"busy\" }] }]} />"
+  },
+  {
+    "id": "logi-barcode-scan",
+    "name": "条码识别结果",
+    "category": "物流 / 供应链",
+    "status": "v3 新增",
+    "purpose": "展示摄像头或扫码枪识别的条码内容与类型。",
+    "anatomy": [
+      "取景框 (ds-barcode-scan__frame)",
+      "识别码 (ds-barcode-scan__code)",
+      "码制类型",
+      "历史记录 (ds-barcode-scan__history)",
+      "重扫按钮"
+    ],
+    "keyboard": "识别结果有 status 语义；历史条目可聚焦复制。",
+    "guidance": [
+      "识别成功有提示音与震动。",
+      "无法识别时给手动输入入口。",
+      "历史最多 5 条可滚动。"
+    ],
+    "preview": "<div class=\"ds-barcode-scan\" role=\"status\" aria-label=\"识别成功，条码 6901234567892，类型 EAN-13\"><div class=\"ds-barcode-scan__frame\" aria-hidden=\"true\"><i></i></div><p class=\"ds-barcode-scan__code\">6901234567892</p><span class=\"ds-barcode-scan__type\">EAN-13</span><ol class=\"ds-barcode-scan__history\"><li>6901234567892</li><li>SF1029384756</li></ol><button type=\"button\">重新扫描</button></div>",
+    "checks": [
+      "识别成功提示音震动",
+      "无法识别给手动入口",
+      "历史最多 5 条可滚动",
+      "结果 status 语义"
+    ],
+    "react": "<BarcodeScanResult code=\"6901234567892\" type=\"EAN-13\" history={[\"SF1029384756\"]} onRescan={rescan} />"
   }
 ]

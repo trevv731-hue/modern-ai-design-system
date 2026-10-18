@@ -16063,3 +16063,128 @@ export function FigureCaptionPanel({ no, title, note, src, onZoom }: { no: strin
     <p className="ds-figure-cap__src">数据来源：{src}</p>
   </figure>;
 }
+
+export function WaybillRow({ no, from, to, state, weight, fee }: { no: string; from: string; to: string; state: 'transit' | 'delivered' | 'exception'; weight: string; fee: number }) {
+  const stateText = { transit: '运输中', delivered: '已签收', exception: '异常' };
+  return <div className="ds-waybill" tabIndex={0} role="button" aria-label={'运单 ' + no + '，' + from + ' 到 ' + to + '，' + stateText[state] + '，' + weight + '，运费 ' + fee + ' 元'}>
+    <span className="ds-waybill__no">{no}</span>
+    <div className="ds-waybill__party"><strong>{from} → {to}</strong><span>10-16 18:20 揽收</span></div>
+    <span className={'ds-waybill__state is-' + state}>{stateText[state]}</span>
+    <span className="ds-waybill__meta">{weight} · ¥{fee}</span>
+  </div>;
+}
+
+export function TrackingTimeline({ eta, nodes }: { eta: string; nodes: Array<{ time: string; title: string; note: string; current?: boolean }> }) {
+  return <div className="ds-track-timeline">
+    <p className="ds-track-timeline__eta">{eta}</p>
+    <ol>
+      {nodes.map(node => <li key={node.time + node.title} className={node.current ? 'is-current' : undefined} aria-current={node.current ? 'step' : undefined}>
+        <span className="ds-track-timeline__time">{node.time}</span>
+        <div className="ds-track-timeline__body"><strong>{node.title}</strong><span>{node.note}</span></div>
+      </li>)}
+    </ol>
+  </div>;
+}
+
+export function WarehouseSlot({ code, occupancy, state, skuCount, category }: { code: string; occupancy: number; state: 'free' | 'busy' | 'locked'; skuCount: number; category: string }) {
+  const stateText = { free: '空闲', busy: '占用', locked: '锁定' };
+  return <div className={'ds-wh-slot is-' + (state === 'free' ? 'free' : state === 'busy' ? 'occupied' : 'locked')} tabIndex={0} role="button" aria-label={'库位 ' + code + '，占用 ' + occupancy + '%，存放' + category + ' ' + skuCount + ' 个 SKU'}>
+    <div className="ds-wh-slot__head">
+      <span className="ds-wh-slot__code">{code}</span>
+      <span className={'ds-wh-slot__state is-' + (state === 'busy' ? 'busy' : state === 'locked' ? 'locked' : 'free')}>{stateText[state]}</span>
+    </div>
+    <div className="ds-wh-slot__fill" aria-hidden="true"><i style={{ width: occupancy + '%' }} /></div>
+    <p className="ds-wh-slot__meta">{occupancy}% · {category} × {skuCount} SKU</p>
+  </div>;
+}
+
+export function SortScanPanel({ waybill, dest, chute, scanned, onConfirm }: { waybill: string; dest: string; chute: string; scanned: number; onConfirm?: () => void }) {
+  return <div className="ds-sort-scan">
+    <div className="ds-sort-scan__scanner" aria-hidden="true"><i /><span>等待扫描…</span></div>
+    <div className="ds-sort-scan__info"><strong>{waybill}</strong><span>{dest}</span></div>
+    <p className="ds-sort-scan__chute">请放入 <strong>{chute}</strong> 格口</p>
+    <div className="ds-sort-scan__foot">
+      <span>已分拣 <strong>{scanned}</strong> 件</span>
+      <button type="button" onClick={onConfirm}>确认 (Enter)</button>
+    </div>
+  </div>;
+}
+
+export function FleetVehicleCard({ plate, state, driver, loc, odo }: { plate: string; state: 'running' | 'idle' | 'offline'; driver: string; loc: string; odo: string }) {
+  const stateText = { running: '行驶中', idle: '空闲', offline: '离线' };
+  return <article className={'ds-fleet-vehicle is-' + state} tabIndex={0} role="button" aria-label={'车辆 ' + plate + '，' + stateText[state] + '，司机' + driver + '，' + loc + '，今日里程 ' + odo}>
+    <div className="ds-fleet-vehicle__head">
+      <strong className="ds-fleet-vehicle__plate">{plate}</strong>
+      <span className={'ds-fleet-vehicle__state is-' + state}>{stateText[state]}</span>
+    </div>
+    <p className="ds-fleet-vehicle__driver">司机 {driver} · 厢式 9.6m</p>
+    <p className="ds-fleet-vehicle__loc">{loc}</p>
+    <p className="ds-fleet-vehicle__odo">今日里程 {odo} · 油耗 28.4 L</p>
+  </article>;
+}
+
+export function DeliveryWindowPicker({ days, onPick }: { days: Array<{ date: string; slots: Array<{ range: string; free: boolean; picked?: boolean }> }>; onPick?: (day: string, range: string) => void }) {
+  return <div className="ds-delivery-win">
+    {days.map(day => <div key={day.date} className="ds-delivery-win__day">
+      <p>{day.date}</p>
+      <div className="ds-delivery-win__slots">
+        {day.slots.map(slot => <button key={slot.range} type="button" role="radio" aria-checked={slot.picked ?? false} disabled={!slot.free} onClick={() => slot.free && onPick?.(day.date, slot.range)}>{slot.range}{slot.free ? '' : ' 已约满'}</button>)}
+      </div>
+    </div>)}
+  </div>;
+}
+
+export function InventoryAlertRow({ sku, name, stock, safety, dailySales, supplier }: { sku: string; name: string; stock: number; safety: number; dailySales: number; supplier: string }) {
+  const level = stock <= 0 ? 'out' : stock < safety ? 'low' : 'ok';
+  const gap = Math.max(0, safety - stock);
+  const suggest = Math.max(dailySales * 7, gap);
+  return <div className={'ds-inv-alert is-' + (level === 'out' ? 'out' : 'low')} tabIndex={0} role="button" aria-label={'库存预警：' + sku + ' ' + name + '，当前 ' + stock + '，安全线 ' + safety + '，缺口 ' + gap + '，建议补货 ' + suggest}>
+    <span className="ds-inv-alert__sku">{sku}</span>
+    <div className="ds-inv-alert__body"><strong>{name}</strong><span>日均销 {dailySales} · 供应商 {supplier}</span></div>
+    <span className="ds-inv-alert__nums">{stock} / {safety}</span>
+    <span className="ds-inv-alert__gap">缺 {gap}</span>
+    <button type="button">补货</button>
+  </div>;
+}
+
+export function ColdChainMonitorCard({ current, min, max, probes }: { current: number; min: number; max: number; probes: Array<{ pos: string; temp: number; ok: boolean }> }) {
+  const over = current > max;
+  return <div className={'ds-cold-chain' + (over ? ' is-warn' : '')} role="status" aria-label={'冷链温度监控，当前 ' + current + ' 摄氏度，' + (over ? '高于上限 ' + max : '正常范围')}>
+    <div className="ds-cold-chain__head">
+      <strong className="ds-cold-chain__now">{current}°C</strong>
+      <span className="ds-cold-chain__band">设定 {min.toFixed(1)} ~ {max.toFixed(1)}</span>
+    </div>
+    <svg className="ds-cold-chain__chart" viewBox="0 0 240 60" aria-hidden="true">
+      <rect x="0" y="0" width="240" height="60" fill="var(--ds-surface-2)" />
+      <rect x="0" y="20" width="240" height="20" fill="var(--ds-accent-soft)" />
+      <polyline points="0,40 30,38 60,30 90,22 120,14 150,8 180,4 210,2 240,2" fill="none" stroke="var(--ds-danger)" strokeWidth="2" />
+    </svg>
+    <div className="ds-cold-chain__probes">
+      {probes.map(probe => <span key={probe.pos} className={probe.ok ? 'is-ok' : 'is-alarm'}>{probe.pos} {probe.temp}°</span>)}
+    </div>
+  </div>;
+}
+
+export function DockScheduleBoard({ docks }: { docks: Array<{ name: string; cells: Array<{ from: string; to: string; vehicle?: string; state: 'busy' | 'free' }> }> }) {
+  return <div className="ds-dock-board">
+    <div className="ds-dock-board__axis" aria-hidden="true"><span>08:00</span><span>10:00</span><span>12:00</span><span>14:00</span></div>
+    <div className="ds-dock-board__rows">
+      {docks.map(dock => <div key={dock.name} className="ds-dock-board__dock">
+        <span className="ds-dock-board__name">{dock.name}</span>
+        <div className="ds-dock-board__cells">
+          {dock.cells.map(cell => <span key={cell.from} className={'ds-dock-board__cell is-' + (cell.state === 'busy' ? 'busy' : 'free')} tabIndex={0} role="button" aria-label={dock.name + ' ' + cell.from + ' 到 ' + cell.to + (cell.state === 'busy' && cell.vehicle ? '，' + cell.vehicle : '空闲')}>{cell.state === 'busy' && cell.vehicle ? cell.vehicle : '空闲'}</span>)}
+        </div>
+      </div>)}
+    </div>
+  </div>;
+}
+
+export function BarcodeScanResult({ code, type, history, onRescan }: { code: string; type: string; history: string[]; onRescan?: () => void }) {
+  return <div className="ds-barcode-scan" role="status" aria-label={'识别成功，条码 ' + code + '，类型 ' + type}>
+    <div className="ds-barcode-scan__frame" aria-hidden="true" />
+    <p className="ds-barcode-scan__code">{code}</p>
+    <span className="ds-barcode-scan__type">{type}</span>
+    {history.length ? <ol className="ds-barcode-scan__history">{history.map(item => <li key={item}>{item}</li>)}</ol> : null}
+    <button type="button" onClick={onRescan}>重新扫描</button>
+  </div>;
+}
