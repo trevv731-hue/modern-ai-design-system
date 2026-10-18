@@ -13603,5 +13603,281 @@
       "role=timer 语义正确"
     ],
     "react": "<CountdownRing remaining=\"04:32\" title=\"设计评审\" progress={0.7} urgent />"
+  },
+  {
+    "id": "security-permission-row",
+    "name": "权限开关行",
+    "category": "安全",
+    "status": "v3 新增",
+    "purpose": "在权限设置中逐项展示权限说明与开关状态，变更前说明影响。",
+    "anatomy": [
+      "权限名称 (ds-perm-row__name)",
+      "影响说明",
+      "风险标记",
+      "开关"
+    ],
+    "keyboard": "开关使用原生 checkbox；Tab 聚焦，空格切换。",
+    "guidance": [
+      "高风险权限旁附说明与撤销路径。",
+      "批量关闭时逐项确认。",
+      "管理员锁定的权限置灰并注明“由管理员管理”。"
+    ],
+    "preview": "<div class=\"ds-perm-row is-risky\"><div class=\"ds-perm-row__info\"><strong>允许第三方应用读取日程</strong><span>撤销后已授权应用将失去访问权限</span></div><span class=\"ds-perm-row__risk\">高风险</span><label class=\"ds-switch\"><input type=\"checkbox\" class=\"ds-switch__input\" checked><span class=\"ds-switch__track\"></span></label></div>",
+    "checks": [
+      "高风险权限附撤销路径",
+      "批量关闭逐项确认",
+      "管理员锁定置灰注明",
+      "开关为原生 checkbox"
+    ],
+    "react": "<PermissionRow name=\"允许第三方应用读取日程\" impact=\"撤销后已授权应用将失去访问权限\" risk=\"高风险\" checked onChange={setGranted} />"
+  },
+  {
+    "id": "security-role-badge",
+    "name": "角色徽标",
+    "category": "安全",
+    "status": "v3 新增",
+    "purpose": "在成员列表中标注角色类型与权限范围。",
+    "anatomy": [
+      "角色名 (ds-role-badge)",
+      "权限范围摘要",
+      "可继承标记"
+    ],
+    "keyboard": "徽标可聚焦；展开权限范围用按钮触发。",
+    "guidance": [
+      "自定义角色展示具体权限数量。",
+      "所有者与管理员用不同图标加文字区分。",
+      "悬停或聚焦时展示权限摘要。"
+    ],
+    "preview": "<button type=\"button\" class=\"ds-role-badge is-admin\"><span aria-hidden=\"true\">🛡️</span>管理员<small>12 项权限</small></button>",
+    "checks": [
+      "自定义角色展示权限数量",
+      "所有者管理员图标加文字区分",
+      "聚焦展示权限摘要",
+      "徽标可键盘展开"
+    ],
+    "react": "<RoleBadge name=\"管理员\" scope=\"12 项权限\" tone=\"admin\" />"
+  },
+  {
+    "id": "security-session-row",
+    "name": "登录会话行",
+    "category": "安全",
+    "status": "v3 新增",
+    "purpose": "展示账号的活跃登录会话，支持单独或批量下线。",
+    "anatomy": [
+      "设备图标 (ds-session-row__icon)",
+      "设备与位置",
+      "登录时间",
+      "当前会话标记",
+      "下线按钮"
+    ],
+    "keyboard": "Tab 遍历下线按钮；当前会话不可下线并说明原因。",
+    "guidance": [
+      "当前设备明确标注。",
+      "地理位置变化大时高亮提醒。",
+      "批量下线前给出影响数量确认。"
+    ],
+    "preview": "<div class=\"ds-session-row is-current\"><span class=\"ds-session-row__icon\" aria-hidden=\"true\">💻</span><div class=\"ds-session-row__info\"><strong>MacBook Pro · 上海</strong><span>最近活跃：刚刚 · Chrome</span></div><span class=\"ds-session-row__tag\">当前设备</span><button type=\"button\" disabled>下线</button></div>",
+    "checks": [
+      "当前设备明确标注",
+      "位置异常高亮",
+      "批量下线有数量确认",
+      "当前会话禁用并说明"
+    ],
+    "react": "<SessionRow device=\"MacBook Pro · 上海\" lastActive=\"刚刚 · Chrome\" current />"
+  },
+  {
+    "id": "security-2fa-setup",
+    "name": "双因素设置卡",
+    "category": "安全",
+    "status": "v3 新增",
+    "purpose": "引导用户启用双因素认证，展示验证码输入与恢复码保存。",
+    "anatomy": [
+      "步骤指示 (ds-2fa__step)",
+      "密钥二维码",
+      "验证码输入",
+      "恢复码网格",
+      "完成按钮"
+    ],
+    "keyboard": "Tab 在输入与按钮间移动；验证码输入自动跳格。",
+    "guidance": [
+      "恢复码提供复制与下载两种保存方式。",
+      "验证码错误时不清空输入，仅提示重试。",
+      "完成启用后明确告知已生效。"
+    ],
+    "preview": "<div class=\"ds-2fa\"><p class=\"ds-2fa__step\">第 2 步：输入 6 位验证码</p><div class=\"ds-2fa__code\" role=\"group\" aria-label=\"验证码\"><i>1</i><i>4</i><i>2</i><i>8</i><i>6</i><i>0</i></div><div class=\"ds-2fa__codes\" role=\"group\" aria-label=\"恢复码\"><span>K4M2-9XPQ</span><span>R7T3-2WVL</span><span>N5D8-6JHC</span><span>B1F6-3YQK</span></div><button type=\"button\">复制恢复码</button><button type=\"button\" class=\"is-primary\">完成启用</button></div>",
+    "checks": [
+      "恢复码可复制可下载",
+      "错误不清空输入",
+      "完成后告知已生效",
+      "验证码自动跳格"
+    ],
+    "react": "<TwoFactorSetup step={2} code=\"142860\" codes={[\"K4M2-9XPQ\", \"R7T3-2WVL\"]} onFinish={enable} />"
+  },
+  {
+    "id": "security-api-key-row",
+    "name": "API 密钥行",
+    "category": "安全",
+    "status": "v3 新增",
+    "purpose": "管理 API 密钥的显示、复制、轮换与吊销。",
+    "anatomy": [
+      "密钥名称 (ds-api-key__name)",
+      "掩码值",
+      "创建时间",
+      "权限范围",
+      "操作组"
+    ],
+    "keyboard": "Tab 遍历操作按钮；删除前需输入确认。",
+    "guidance": [
+      "默认掩码显示，点击后显式切换。",
+      "轮换后旧密钥保留 24 小时宽限期并说明。",
+      "吊销需二次确认。"
+    ],
+    "preview": "<div class=\"ds-api-key\"><div class=\"ds-api-key__head\"><strong>生产环境密钥</strong><span class=\"ds-api-key__scope\">只读</span></div><code class=\"ds-api-key__value\">sk_live_••••••••••••4f2a</code><div class=\"ds-api-key__meta\">创建于 2026-08-01 · 最近使用 2 小时前</div><div class=\"ds-api-key__actions\"><button type=\"button\">复制</button><button type=\"button\">轮换</button><button type=\"button\">吊销</button></div></div>",
+    "checks": [
+      "默认掩码可切换",
+      "轮换说明宽限期",
+      "吊销需二次确认",
+      "创建与使用时间可见"
+    ],
+    "react": "<ApiKeyRow name=\"生产环境密钥\" scope=\"只读\" masked=\"sk_live_••••4f2a\" created=\"2026-08-01\" />"
+  },
+  {
+    "id": "security-audit-row",
+    "name": "审计日志行",
+    "category": "安全",
+    "status": "v3 新增",
+    "purpose": "按时间展示账号关键操作，供安全审计与回溯。",
+    "anatomy": [
+      "操作类型图标 (ds-audit-row__icon)",
+      "操作描述",
+      "操作者",
+      "IP 与设备",
+      "时间"
+    ],
+    "keyboard": "列表语义朗读；筛选操作可键盘完成。",
+    "guidance": [
+      "敏感操作（改密、授权）高亮展示。",
+      "IP 与设备信息帮助识别异常。",
+      "支持按操作类型与时间范围筛选。"
+    ],
+    "preview": "<div class=\"ds-audit-row is-sensitive\"><span class=\"ds-audit-row__icon\" aria-hidden=\"true\">🔑</span><div class=\"ds-audit-row__body\"><strong>修改了登录密码</strong><span>张伟 · 203.0.113.42 · Chrome on macOS</span></div><time>10-17 21:08</time></div>",
+    "checks": [
+      "敏感操作高亮",
+      "IP 与设备可见",
+      "支持类型与时间筛选",
+      "列表语义可朗读"
+    ],
+    "react": "<AuditLogRow action=\"修改了登录密码\" actor=\"张伟\" ip=\"203.0.113.42\" device=\"Chrome on macOS\" time=\"10-17 21:08\" sensitive />"
+  },
+  {
+    "id": "security-device-card",
+    "name": "已登录设备卡",
+    "category": "安全",
+    "status": "v3 新增",
+    "purpose": "以卡片形式汇总各端登录状态，支持一键下线与信任管理。",
+    "anatomy": [
+      "设备图标 (ds-device-card__icon)",
+      "设备名",
+      "系统版本",
+      "登录地点",
+      "信任标记",
+      "操作"
+    ],
+    "keyboard": "卡片内操作可 Tab 到达；信任变更即时播报。",
+    "guidance": [
+      "不活跃设备提示“超过 30 天未使用”。",
+      "信任设备移除后需重新验证。",
+      "移动端卡片纵向堆叠，操作不重叠。"
+    ],
+    "preview": "<div class=\"ds-device-card is-trusted\"><span class=\"ds-device-card__icon\" aria-hidden=\"true\">📱</span><div class=\"ds-device-card__info\"><strong>iPhone 17 Pro</strong><span>iOS 26 · 上海 · 已信任</span></div><button type=\"button\">下线</button></div>",
+    "checks": [
+      "不活跃设备有提示",
+      "移除信任需重新验证",
+      "移动端操作不重叠",
+      "信任变更有播报"
+    ],
+    "react": "<DeviceCard name=\"iPhone 17 Pro\" system=\"iOS 26 · 上海\" trusted />"
+  },
+  {
+    "id": "security-privacy-group",
+    "name": "隐私开关组",
+    "category": "安全",
+    "status": "v3 新增",
+    "purpose": "集中管理个人资料、活动状态与数据收集偏好。",
+    "anatomy": [
+      "开关行组 (ds-privacy-group)",
+      "分类标题",
+      "生效范围说明",
+      "开关"
+    ],
+    "keyboard": "每个开关独立可聚焦；组使用 fieldset 语义。",
+    "guidance": [
+      "每项说明数据用途与保存期限。",
+      "必要的收集项不可关闭并注明原因。",
+      "变更即时生效并提示保存状态。"
+    ],
+    "preview": "<fieldset class=\"ds-privacy-group\"><legend>隐私偏好</legend><div class=\"ds-privacy-group__row\"><div><strong>展示在线状态</strong><span>好友可见 · 可随时关闭</span></div><label class=\"ds-switch\"><input type=\"checkbox\" class=\"ds-switch__input\" checked><span class=\"ds-switch__track\"></span></label></div><div class=\"ds-privacy-group__row\"><div><strong>个性化推荐</strong><span>基于浏览记录 · 数据保留 90 天</span></div><label class=\"ds-switch\"><input type=\"checkbox\" class=\"ds-switch__input\"><span class=\"ds-switch__track\"></span></label></div></fieldset>",
+    "checks": [
+      "每项说明用途与期限",
+      "必要项不可关闭并注明",
+      "fieldset 语义正确",
+      "变更即时生效提示"
+    ],
+    "react": "<PrivacyToggleGroup items={[{ label: \"展示在线状态\", scope: \"好友可见\", on: true }]} />"
+  },
+  {
+    "id": "security-recovery-codes",
+    "name": "恢复码网格",
+    "category": "安全",
+    "status": "v3 新增",
+    "purpose": "展示一次性恢复码，引导用户安全保存并标记已使用状态。",
+    "anatomy": [
+      "码网格 (ds-recovery__grid)",
+      "单条恢复码",
+      "已用标记",
+      "重新生成"
+    ],
+    "keyboard": "网格为列表语义；复制按钮逐个可达。",
+    "guidance": [
+      "默认模糊，点击后显式展示。",
+      "已使用的码置灰并标注。",
+      "重新生成前警告旧码全部失效。"
+    ],
+    "preview": "<div class=\"ds-recovery\"><div class=\"ds-recovery__grid\" role=\"list\" aria-label=\"恢复码\"><span role=\"listitem\">K4M2-9XPQ</span><span role=\"listitem\" class=\"is-used\">R7T3-2WVL</span><span role=\"listitem\">N5D8-6JHC</span><span role=\"listitem\">B1F6-3YQK</span></div><button type=\"button\">下载备份</button><button type=\"button\">重新生成</button></div>",
+    "checks": [
+      "默认模糊可显式展示",
+      "已用码置灰标注",
+      "重新生成警告旧码失效",
+      "列表语义正确"
+    ],
+    "react": "<RecoveryCodes codes={[\"K4M2-9XPQ\", \"R7T3-2WVL\"]} used={[\"R7T3-2WVL\"]} onRegenerate={regenerate} />"
+  },
+  {
+    "id": "security-risk-banner",
+    "name": "风险提示横幅",
+    "category": "安全",
+    "status": "v3 新增",
+    "purpose": "在检测到账号安全风险时展示醒目横幅并提供处理入口。",
+    "anatomy": [
+      "风险图标 (ds-risk-banner__icon)",
+      "风险描述",
+      "影响范围",
+      "处理按钮",
+      "关闭"
+    ],
+    "keyboard": "横幅为 alert 语义；处理按钮可 Tab 到达。",
+    "guidance": [
+      "描述具体风险而非笼统警告。",
+      "提供一键处理入口，如“立即改密”。",
+      "误报可关闭并反馈。"
+    ],
+    "preview": "<div class=\"ds-risk-banner\" role=\"alert\"><span class=\"ds-risk-banner__icon\" aria-hidden=\"true\">🚨</span><div class=\"ds-risk-banner__body\"><strong>检测到异常登录</strong><span>陌生设备在柏林尝试登录你的账号，已被拦截</span></div><button type=\"button\">立即处理</button><button type=\"button\" aria-label=\"关闭提示\">✕</button></div>",
+    "checks": [
+      "描述具体风险",
+      "提供一键处理入口",
+      "alert 语义正确",
+      "可关闭并反馈"
+    ],
+    "react": "<RiskBanner title=\"检测到异常登录\" detail=\"陌生设备在柏林尝试登录你的账号，已被拦截\" onHandle={fix} />"
   }
 ]

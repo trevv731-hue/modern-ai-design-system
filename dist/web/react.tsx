@@ -13884,3 +13884,109 @@ export function CountdownRing({ remaining, title, progress = 0, urgent }:
     <div className="ds-count-ring__label"><strong>{remaining}</strong><small>{title}</small></div>
   </div>;
 }
+
+export function PermissionRow({ name, impact, risk, checked, onChange }:
+  { name: string; impact: string; risk?: string; checked?: boolean; onChange?: (next: boolean) => void }) {
+  return <div className={'ds-perm-row' + (risk ? ' is-risky' : '')}>
+    <div className="ds-perm-row__info"><strong>{name}</strong><span>{impact}</span></div>
+    {risk && <span className="ds-perm-row__risk">{risk}</span>}
+    <label className="ds-switch">
+      <input type="checkbox" className="ds-switch__input" checked={!!checked} onChange={event => onChange?.(event.target.checked)} />
+      <span className="ds-switch__track"></span>
+    </label>
+  </div>;
+}
+
+export function RoleBadge({ name, scope, tone }: { name: string; scope?: string; tone?: string }) {
+  return <button type="button" className={'ds-role-badge' + (tone ? ' is-' + tone : '')}>
+    <span aria-hidden="true">🛡️</span>{name}{scope && <small>{scope}</small>}
+  </button>;
+}
+
+export function SessionRow({ device, lastActive, current, onSignOut }:
+  { device: string; lastActive: string; current?: boolean; onSignOut?: () => void }) {
+  return <div className={'ds-session-row' + (current ? ' is-current' : '')}>
+    <span className="ds-session-row__icon" aria-hidden="true">💻</span>
+    <div className="ds-session-row__info"><strong>{device}</strong><span>最近活跃：{lastActive}</span></div>
+    {current && <span className="ds-session-row__tag">当前设备</span>}
+    <button type="button" disabled={current} onClick={onSignOut}>下线</button>
+  </div>;
+}
+
+export function TwoFactorSetup({ step, code, codes, onFinish }:
+  { step: number; code: string; codes: string[]; onFinish?: () => void }) {
+  return <div className="ds-2fa">
+    <p className="ds-2fa__step">第 {step} 步：输入 6 位验证码</p>
+    <div className="ds-2fa__code" role="group" aria-label="验证码">
+      {code.split('').map((digit, index) => <i key={index}>{digit}</i>)}
+    </div>
+    <div className="ds-2fa__codes" role="group" aria-label="恢复码">
+      {codes.map(item => <span key={item}>{item}</span>)}
+    </div>
+    <button type="button">复制恢复码</button>
+    <button type="button" className="is-primary" onClick={onFinish}>完成启用</button>
+  </div>;
+}
+
+export function ApiKeyRow({ name, scope, masked, created }: { name: string; scope: string; masked: string; created: string }) {
+  return <div className="ds-api-key">
+    <div className="ds-api-key__head"><strong>{name}</strong><span className="ds-api-key__scope">{scope}</span></div>
+    <code className="ds-api-key__value">{masked}</code>
+    <div className="ds-api-key__meta">创建于 {created} · 最近使用 2 小时前</div>
+    <div className="ds-api-key__actions">
+      <button type="button">复制</button>
+      <button type="button">轮换</button>
+      <button type="button">吊销</button>
+    </div>
+  </div>;
+}
+
+export function AuditLogRow({ action, actor, ip, device, time, sensitive }:
+  { action: string; actor: string; ip: string; device: string; time: string; sensitive?: boolean }) {
+  return <div className={'ds-audit-row' + (sensitive ? ' is-sensitive' : '')}>
+    <span className="ds-audit-row__icon" aria-hidden="true">🔑</span>
+    <div className="ds-audit-row__body"><strong>{action}</strong><span>{actor} · {ip} · {device}</span></div>
+    <time>{time}</time>
+  </div>;
+}
+
+export function DeviceCard({ name, system, trusted, onSignOut }:
+  { name: string; system: string; trusted?: boolean; onSignOut?: () => void }) {
+  return <div className={'ds-device-card' + (trusted ? ' is-trusted' : '')}>
+    <span className="ds-device-card__icon" aria-hidden="true">📱</span>
+    <div className="ds-device-card__info"><strong>{name}</strong><span>{system}{trusted ? ' · 已信任' : ''}</span></div>
+    <button type="button" onClick={onSignOut}>下线</button>
+  </div>;
+}
+
+export function PrivacyToggleGroup({ items }: { items: { label: string; scope: string; on?: boolean }[] }) {
+  return <fieldset className="ds-privacy-group">
+    <legend>隐私偏好</legend>
+    {items.map(item => <div key={item.label} className="ds-privacy-group__row">
+      <div><strong>{item.label}</strong><span>{item.scope}</span></div>
+      <label className="ds-switch">
+        <input type="checkbox" className="ds-switch__input" defaultChecked={!!item.on} />
+        <span className="ds-switch__track"></span>
+      </label>
+    </div>)}
+  </fieldset>;
+}
+
+export function RecoveryCodes({ codes, used = [], onRegenerate }: { codes: string[]; used?: string[]; onRegenerate?: () => void }) {
+  return <div className="ds-recovery">
+    <div className="ds-recovery__grid" role="list" aria-label="恢复码">
+      {codes.map(code => <span key={code} role="listitem" className={used.includes(code) ? 'is-used' : undefined}>{code}</span>)}
+    </div>
+    <button type="button">下载备份</button>
+    <button type="button" onClick={onRegenerate}>重新生成</button>
+  </div>;
+}
+
+export function RiskBanner({ title, detail, onHandle }: { title: string; detail: string; onHandle?: () => void }) {
+  return <div className="ds-risk-banner" role="alert">
+    <span className="ds-risk-banner__icon" aria-hidden="true">🚨</span>
+    <div className="ds-risk-banner__body"><strong>{title}</strong><span>{detail}</span></div>
+    <button type="button" onClick={onHandle}>立即处理</button>
+    <button type="button" aria-label="关闭提示">✕</button>
+  </div>;
+}
