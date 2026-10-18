@@ -19347,3 +19347,131 @@ export function FlightLogRow({ date, site, dur, alt }: { date: string; site: str
     <span className="ds-drone-log__alt">{alt}</span>
   </div>;
 }
+
+export function JewelryProductCard({ name, material, stone, price }: { name: string; material: string; stone: string; price: number }) {
+  return <article className="ds-jwl-product" tabIndex={0} role="button" aria-label={'珠宝商品，' + name + '，材质 ' + material + '，主石 ' + stone + '，售价 ' + price + ' 元'}>
+    <div className="ds-jwl-product__head">
+      <strong className="ds-jwl-product__name">{name}</strong>
+      <span className="ds-jwl-product__tag">18K</span>
+    </div>
+    <div className="ds-jwl-product__meta">
+      <span className="ds-jwl-product__material">{material}</span>
+      <span className="ds-jwl-product__stone">{stone}</span>
+    </div>
+    <strong className="ds-jwl-product__price">¥{price.toLocaleString()}</strong>
+  </article>;
+}
+
+export function RingSizeRow({ size, dia, circ, state }: { size: string; dia: string; circ: string; state: 'stock' | 'few' | 'out' }) {
+  const stateText = { stock: '有货', few: '少量', out: '缺货' };
+  return <div className={'ds-jwl-ring is-' + state} tabIndex={0} role="button" aria-label={'圈口，港号 ' + size + '，内径 ' + dia + '，周长 ' + circ + '，' + stateText[state]}>
+    <strong className="ds-jwl-ring__size">{size}</strong>
+    <span className="ds-jwl-ring__dia">内径 {dia}</span>
+    <span className="ds-jwl-ring__circ">周长 {circ}</span>
+    <span className={'ds-jwl-ring__state is-' + state}>{stateText[state]}</span>
+  </div>;
+}
+
+export function EngravingCard({ font, limit, text, fee }: { font: string; limit: number; text: string; fee: number }) {
+  return <article className="ds-jwl-engraving" tabIndex={0} role="button" aria-label={'定制刻字，字体 ' + font + '，上限 ' + limit + ' 字，刻字内容 ' + text + '，刻字费 ' + fee + ' 元'}>
+    <div className="ds-jwl-engraving__head">
+      <strong className="ds-jwl-engraving__font">{font}</strong>
+      <span className="ds-jwl-engraving__limit">上限 {limit} 字</span>
+    </div>
+    <span className="ds-jwl-engraving__text">{text}</span>
+    <strong className="ds-jwl-engraving__fee">¥{fee}</strong>
+  </article>;
+}
+
+export function GemCertificateCard({ no, color, clarity, cut, carat, conclusion }: { no: string; color: string; clarity: string; cut: string; carat: string; conclusion: string }) {
+  return <article className="ds-jwl-cert" tabIndex={0} role="button" aria-label={'鉴定证书，证书号 ' + no + '，颜色 ' + color + '，净度 ' + clarity + '，切工 ' + cut + '，克拉 ' + carat + '，结论 ' + conclusion}>
+    <span className="ds-jwl-cert__sparkle" aria-hidden="true">✦</span>
+    <div className="ds-jwl-cert__head">
+      <strong className="ds-jwl-cert__no">{no}</strong>
+    </div>
+    <div className="ds-jwl-cert__grid">
+      <span className="ds-jwl-cert__c">颜色<strong>{color}</strong></span>
+      <span className="ds-jwl-cert__c">净度<strong>{clarity}</strong></span>
+      <span className="ds-jwl-cert__c">切工<strong>{cut}</strong></span>
+      <span className="ds-jwl-cert__c">克拉<strong>{carat}</strong></span>
+    </div>
+    <span className="ds-jwl-cert__conclusion">{conclusion}</span>
+  </article>;
+}
+
+export function GoldPriceCard({ brand, price, chg, dir }: { brand: string; price: number; chg: number; dir: 'up' | 'down' }) {
+  const dirText = dir === 'up' ? '上涨 ' : '下跌 ';
+  const arrow = dir === 'up' ? '↑ ' : '↓ ';
+  return <article className="ds-jwl-gold" role="status" aria-label={'金价行情，' + brand + '，今日价 ' + price + ' 元每克，' + dirText + Math.abs(chg) + ' 元'}>
+    <div className="ds-jwl-gold__head">
+      <strong className="ds-jwl-gold__brand">{brand}</strong>
+    </div>
+    <div className="ds-jwl-gold__row">
+      <strong className="ds-jwl-gold__price">¥{price}</strong>
+      <span className={'ds-jwl-gold__chg is-' + dir}>{arrow}{Math.abs(chg)}</span>
+      <span className="ds-jwl-gold__unit">元/克</span>
+    </div>
+  </article>;
+}
+
+export function JewelryOrderRow({ no, item, amount, state }: { no: string; item: string; amount: number; state: 'unpaid' | 'making' | 'qc' | 'shipping' | 'done' }) {
+  const stateText = { unpaid: '待付款', making: '定制中', qc: '质检中', shipping: '配送中', done: '已完成' };
+  return <div className={'ds-jwl-order is-' + state} tabIndex={0} role="button" aria-label={'珠宝订单，订单号 ' + no + '，商品 ' + item + '，金额 ' + amount + ' 元，' + stateText[state]}>
+    <strong className="ds-jwl-order__no">{no}</strong>
+    <span className="ds-jwl-order__item">{item}</span>
+    <strong className="ds-jwl-order__amount">¥{amount.toLocaleString()}</strong>
+    <span className={'ds-jwl-order__state is-' + state}>{stateText[state]}</span>
+  </div>;
+}
+
+export function WatchDetailCard({ name, movement, caseSize, water, price }: { name: string; movement: string; caseSize: string; water: string; price: number }) {
+  return <article className="ds-jwl-watch" tabIndex={0} role="button" aria-label={'腕表，' + name + '，机芯 ' + movement + '，防水 ' + water + '，售价 ' + price + ' 元'}>
+    <div className="ds-jwl-watch__head">
+      <strong className="ds-jwl-watch__name">{name}</strong>
+    </div>
+    <div className="ds-jwl-watch__specs">
+      <span className="ds-jwl-watch__spec">机芯<strong className="ds-jwl-watch__movement">{movement}</strong></span>
+      <span className="ds-jwl-watch__spec">表径<strong className="ds-jwl-watch__case">{caseSize}</strong></span>
+      <span className="ds-jwl-watch__spec">防水<strong className="ds-jwl-watch__water">{water}</strong></span>
+    </div>
+    <strong className="ds-jwl-watch__price">¥{price.toLocaleString()}</strong>
+  </article>;
+}
+
+export function JewelryCareCard({ title, tips }: { title: string; tips: string[] }) {
+  return <article className="ds-jwl-care" tabIndex={0} role="button" aria-label={'保养指南，' + title + '，共 ' + tips.length + ' 项建议，包含 ' + tips.join('、')}>
+    <div className="ds-jwl-care__head">
+      <strong className="ds-jwl-care__title">{title}</strong>
+      <span className="ds-jwl-care__count">{tips.length} 项建议</span>
+    </div>
+    <ul className="ds-jwl-care__list">
+      {tips.map((tip, i) => <li key={i} className="ds-jwl-care__item">{tip}</li>)}
+    </ul>
+  </article>;
+}
+
+export function TradeInCard({ old, depr, credit, note }: { old: string; depr: number; credit: number; note: string }) {
+  return <article className="ds-jwl-tradein" tabIndex={0} role="button" aria-label={'以旧换新，旧品 ' + old + '，折旧估价 ' + depr + ' 元，可抵用 ' + credit + ' 元，' + note}>
+    <div className="ds-jwl-tradein__head">
+      <strong className="ds-jwl-tradein__old">{old}</strong>
+    </div>
+    <div className="ds-jwl-tradein__rows">
+      <span className="ds-jwl-tradein__depr">折旧估价 ¥{depr.toLocaleString()}</span>
+      <span className="ds-jwl-tradein__credit">可抵用 ¥{credit.toLocaleString()}</span>
+    </div>
+    <span className="ds-jwl-tradein__note">{note}</span>
+  </article>;
+}
+
+export function BridalSetCard({ name, items, price, tag }: { name: string; items: string[]; price: number; tag: string }) {
+  return <article className="ds-jwl-bridal" tabIndex={0} role="button" aria-label={'婚嫁套装，' + name + '，包含 ' + items.join('、') + '，套装价 ' + price + ' 元，享' + tag}>
+    <div className="ds-jwl-bridal__head">
+      <strong className="ds-jwl-bridal__name">{name}</strong>
+      <span className="ds-jwl-bridal__tag">{tag}</span>
+    </div>
+    <div className="ds-jwl-bridal__set">
+      {items.map((item, i) => <span key={i} className="ds-jwl-bridal__item">{item}</span>)}
+    </div>
+    <strong className="ds-jwl-bridal__price">¥{price.toLocaleString()}</strong>
+  </article>;
+}

@@ -25456,5 +25456,280 @@
       "航迹回放"
     ],
     "react": "<FlightLogRow date=\"2026-10-18\" site=\"城东起降点\" dur=\"28 min\" alt=\"120 m\" />"
+  },
+  {
+    "id": "jwl-product",
+    "name": "珠宝商品卡",
+    "category": "珠宝首饰",
+    "status": "v3 新增",
+    "purpose": "展示一件珠宝商品的材质、主石参数与售价。",
+    "anatomy": [
+      "商品名 (ds-jwl-product__name)",
+      "材质徽标 (ds-jwl-product__tag)",
+      "材质 (ds-jwl-product__material)",
+      "主石 (ds-jwl-product__stone)",
+      "售价 (ds-jwl-product__price)"
+    ],
+    "keyboard": "卡片可聚焦查看商品详情；售价红色突出。",
+    "guidance": [
+      "材质如 18K 金、铂金。",
+      "主石标注分数与颜色净度。",
+      "售价等宽红色展示。"
+    ],
+    "preview": "<article class=\"ds-jwl-product\" tabindex=\"0\" role=\"button\" aria-label=\"珠宝商品，18K 金四爪钻戒，材质 18K 白金，主石 30 分 G 色 VVS1，售价 12800 元\"><div class=\"ds-jwl-product__head\"><strong class=\"ds-jwl-product__name\">18K 金四爪钻戒</strong><span class=\"ds-jwl-product__tag\">18K</span></div><div class=\"ds-jwl-product__meta\"><span class=\"ds-jwl-product__material\">18K 白金</span><span class=\"ds-jwl-product__stone\">30 分 G 色 VVS1</span></div><strong class=\"ds-jwl-product__price\">¥12,800</strong></article>",
+    "checks": [
+      "材质展示",
+      "主石参数",
+      "售价红色",
+      "商品详情"
+    ],
+    "react": "<JewelryProductCard name=\"18K 金四爪钻戒\" material=\"18K 白金\" stone=\"30 分 G 色 VVS1\" price={12800} />"
+  },
+  {
+    "id": "jwl-ring-size",
+    "name": "戒指圈口行",
+    "category": "珠宝首饰",
+    "status": "v3 新增",
+    "purpose": "展示一个戒指圈口的内径与库存适配状态。",
+    "anatomy": [
+      "港号 (ds-jwl-ring__size)",
+      "内径 (ds-jwl-ring__dia)",
+      "周长 (ds-jwl-ring__circ)",
+      "状态 (ds-jwl-ring__state)"
+    ],
+    "keyboard": "行可聚焦选择圈口；缺货以文字标注。",
+    "guidance": [
+      "港号 6 至 25 号。",
+      "内径与周长毫米。",
+      "状态三态：有货、少量、缺货。"
+    ],
+    "preview": "<div class=\"ds-jwl-ring is-stock\" tabindex=\"0\" role=\"button\" aria-label=\"圈口，港号 13 号，内径 16.9 毫米，周长 53.1 毫米，有货\"><strong class=\"ds-jwl-ring__size\">13 号</strong><span class=\"ds-jwl-ring__dia\">内径 16.9 mm</span><span class=\"ds-jwl-ring__circ\">周长 53.1 mm</span><span class=\"ds-jwl-ring__state is-stock\">有货</span></div>",
+    "checks": [
+      "港号展示",
+      "内径周长",
+      "三态库存",
+      "圈口选择"
+    ],
+    "react": "<RingSizeRow size=\"13 号\" dia=\"16.9 mm\" circ=\"53.1 mm\" state=\"stock\" />"
+  },
+  {
+    "id": "jwl-engraving",
+    "name": "定制刻字卡",
+    "category": "珠宝首饰",
+    "status": "v3 新增",
+    "purpose": "展示一件珠宝内壁刻字的字体、字数与预览效果。",
+    "anatomy": [
+      "字体 (ds-jwl-engraving__font)",
+      "字数上限 (ds-jwl-engraving__limit)",
+      "刻字内容 (ds-jwl-engraving__text)",
+      "刻字费 (ds-jwl-engraving__fee)"
+    ],
+    "keyboard": "卡片可聚焦编辑刻字内容；超字数以 alert 语义提示。",
+    "guidance": [
+      "字体三态：楷体、手写体、印刷体。",
+      "上限通常 12 字。",
+      "刻字费红色展示。"
+    ],
+    "preview": "<article class=\"ds-jwl-engraving\" tabindex=\"0\" role=\"button\" aria-label=\"定制刻字，字体 手写体，上限 12 字，刻字内容 余生请多指教，刻字费 99 元\"><div class=\"ds-jwl-engraving__head\"><strong class=\"ds-jwl-engraving__font\">手写体</strong><span class=\"ds-jwl-engraving__limit\">上限 12 字</span></div><span class=\"ds-jwl-engraving__text\">余生请多指教</span><strong class=\"ds-jwl-engraving__fee\">¥99</strong></article>",
+    "checks": [
+      "三态字体",
+      "字数上限",
+      "内容预览",
+      "刻字费用"
+    ],
+    "react": "<EngravingCard font=\"手写体\" limit={12} text=\"余生请多指教\" fee={99} />"
+  },
+  {
+    "id": "jwl-cert",
+    "name": "宝石鉴定证书",
+    "category": "珠宝首饰",
+    "status": "v3 新增",
+    "purpose": "展示一张宝石鉴定证书的 4C 参数与鉴定结论。",
+    "anatomy": [
+      "证书号 (ds-jwl-cert__no)",
+      "闪光点 (ds-jwl-cert__sparkle)",
+      "参数网格 (ds-jwl-cert__grid)",
+      "单项参数 (ds-jwl-cert__c)",
+      "结论 (ds-jwl-cert__conclusion)"
+    ],
+    "keyboard": "卡片可聚焦查看证书大图；闪光动画在减少动态偏好下停止。",
+    "guidance": [
+      "4C：颜色、净度、切工、克拉。",
+      "证书号等宽展示。",
+      "结论如天然钻石。"
+    ],
+    "preview": "<article class=\"ds-jwl-cert\" tabindex=\"0\" role=\"button\" aria-label=\"鉴定证书，证书号 NGTC-2026-08812，颜色 D，净度 VVS1，切工 3EX，克拉 1.02，结论 天然钻石\"><span class=\"ds-jwl-cert__sparkle\" aria-hidden=\"true\">✦</span><div class=\"ds-jwl-cert__head\"><strong class=\"ds-jwl-cert__no\">NGTC-2026-08812</strong></div><div class=\"ds-jwl-cert__grid\"><span class=\"ds-jwl-cert__c\">颜色<strong>D</strong></span><span class=\"ds-jwl-cert__c\">净度<strong>VVS1</strong></span><span class=\"ds-jwl-cert__c\">切工<strong>3EX</strong></span><span class=\"ds-jwl-cert__c\">克拉<strong>1.02</strong></span></div><span class=\"ds-jwl-cert__conclusion\">天然钻石</span></article>",
+    "checks": [
+      "4C 参数",
+      "证书号展示",
+      "闪光动画",
+      "减少动态降级"
+    ],
+    "react": "<GemCertificateCard no=\"NGTC-2026-08812\" color=\"D\" clarity=\"VVS1\" cut=\"3EX\" carat=\"1.02\" conclusion=\"天然钻石\" />"
+  },
+  {
+    "id": "jwl-gold",
+    "name": "金价行情卡",
+    "category": "珠宝首饰",
+    "status": "v3 新增",
+    "purpose": "展示一个品牌足金的今日售价与涨跌情况。",
+    "anatomy": [
+      "品牌 (ds-jwl-gold__brand)",
+      "今日价 (ds-jwl-gold__price)",
+      "涨跌 (ds-jwl-gold__chg)",
+      "单位 (ds-jwl-gold__unit)"
+    ],
+    "keyboard": "行情以 status 语义播报；涨红跌绿并附文字。",
+    "guidance": [
+      "价格按克计价。",
+      "涨跌红色为涨、绿色为跌。",
+      "单位元每克。"
+    ],
+    "preview": "<article class=\"ds-jwl-gold\" role=\"status\" aria-label=\"金价行情，周大福 足金 999，今日价 618 元每克，上涨 4 元\"><div class=\"ds-jwl-gold__head\"><strong class=\"ds-jwl-gold__brand\">周大福 足金 999</strong></div><div class=\"ds-jwl-gold__row\"><strong class=\"ds-jwl-gold__price\">¥618</strong><span class=\"ds-jwl-gold__chg is-up\">↑ 4</span><span class=\"ds-jwl-gold__unit\">元/克</span></div></article>",
+    "checks": [
+      "涨红跌绿",
+      "status 语义",
+      "克价展示",
+      "涨跌文字"
+    ],
+    "react": "<GoldPriceCard brand=\"周大福 足金 999\" price={618} chg={4} dir=\"up\" />"
+  },
+  {
+    "id": "jwl-order",
+    "name": "珠宝订单行",
+    "category": "珠宝首饰",
+    "status": "v3 新增",
+    "purpose": "展示一笔珠宝订单的商品金额与履约状态。",
+    "anatomy": [
+      "订单号 (ds-jwl-order__no)",
+      "商品 (ds-jwl-order__item)",
+      "金额 (ds-jwl-order__amount)",
+      "状态 (ds-jwl-order__state)"
+    ],
+    "keyboard": "行可聚焦查看订单详情；金额红色展示。",
+    "guidance": [
+      "状态五态：待付款、定制中、质检中、配送中、已完成。",
+      "金额等宽红色。",
+      "订单号等宽。"
+    ],
+    "preview": "<div class=\"ds-jwl-order is-making\" tabindex=\"0\" role=\"button\" aria-label=\"珠宝订单，订单号 JO-2026-1120，商品 18K 金四爪钻戒，金额 12800 元，定制中\"><strong class=\"ds-jwl-order__no\">JO-2026-1120</strong><span class=\"ds-jwl-order__item\">18K 金四爪钻戒</span><strong class=\"ds-jwl-order__amount\">¥12,800</strong><span class=\"ds-jwl-order__state is-making\">定制中</span></div>",
+    "checks": [
+      "五态状态",
+      "金额红色",
+      "订单号等宽",
+      "订单详情"
+    ],
+    "react": "<JewelryOrderRow no=\"JO-2026-1120\" item=\"18K 金四爪钻戒\" amount={12800} state=\"making\" />"
+  },
+  {
+    "id": "jwl-watch",
+    "name": "腕表详情卡",
+    "category": "珠宝首饰",
+    "status": "v3 新增",
+    "purpose": "展示一只腕表的机芯、表径与防水参数。",
+    "anatomy": [
+      "表款名 (ds-jwl-watch__name)",
+      "参数网格 (ds-jwl-watch__specs)",
+      "机芯 (ds-jwl-watch__movement)",
+      "表径 (ds-jwl-watch__case)",
+      "防水 (ds-jwl-watch__water)",
+      "售价 (ds-jwl-watch__price)"
+    ],
+    "keyboard": "卡片可聚焦查看表款详情；售价红色突出。",
+    "guidance": [
+      "机芯如自动机械、石英。",
+      "表径毫米。",
+      "防水米数。"
+    ],
+    "preview": "<article class=\"ds-jwl-watch\" tabindex=\"0\" role=\"button\" aria-label=\"腕表，领航者系列 42 毫米，机芯 自动机械，防水 100 米，售价 45800 元\"><div class=\"ds-jwl-watch__head\"><strong class=\"ds-jwl-watch__name\">领航者系列 42 毫米</strong></div><div class=\"ds-jwl-watch__specs\"><span class=\"ds-jwl-watch__spec\">机芯<strong class=\"ds-jwl-watch__movement\">自动机械</strong></span><span class=\"ds-jwl-watch__spec\">表径<strong class=\"ds-jwl-watch__case\">42 mm</strong></span><span class=\"ds-jwl-watch__spec\">防水<strong class=\"ds-jwl-watch__water\">100 m</strong></span></div><strong class=\"ds-jwl-watch__price\">¥45,800</strong></article>",
+    "checks": [
+      "机芯展示",
+      "表径防水",
+      "售价红色",
+      "表款详情"
+    ],
+    "react": "<WatchDetailCard name=\"领航者系列 42 毫米\" movement=\"自动机械\" caseSize=\"42 mm\" water=\"100 m\" price={45800} />"
+  },
+  {
+    "id": "jwl-care",
+    "name": "保养指南卡",
+    "category": "珠宝首饰",
+    "status": "v3 新增",
+    "purpose": "展示一类珠宝的日常保养建议清单。",
+    "anatomy": [
+      "标题 (ds-jwl-care__title)",
+      "建议数 (ds-jwl-care__count)",
+      "清单 (ds-jwl-care__list)",
+      "单项 (ds-jwl-care__item)"
+    ],
+    "keyboard": "清单以列表语义呈现；卡片可聚焦查看完整指南。",
+    "guidance": [
+      "建议通常 4 项。",
+      "每项一句话。",
+      "清单无序列表语义。"
+    ],
+    "preview": "<article class=\"ds-jwl-care\" tabindex=\"0\" role=\"button\" aria-label=\"保养指南，钻饰保养，共 4 项建议，包含 避免碰撞、单独存放、定期清洗、专业检查\"><div class=\"ds-jwl-care__head\"><strong class=\"ds-jwl-care__title\">钻饰保养</strong><span class=\"ds-jwl-care__count\">4 项建议</span></div><ul class=\"ds-jwl-care__list\"><li class=\"ds-jwl-care__item\">避免碰撞</li><li class=\"ds-jwl-care__item\">单独存放</li><li class=\"ds-jwl-care__item\">定期清洗</li><li class=\"ds-jwl-care__item\">专业检查</li></ul></article>",
+    "checks": [
+      "列表语义",
+      "建议计数",
+      "单项展示",
+      "完整指南"
+    ],
+    "react": "<JewelryCareCard title=\"钻饰保养\" tips={[\"避免碰撞\", \"单独存放\", \"定期清洗\", \"专业检查\"]} />"
+  },
+  {
+    "id": "jwl-tradein",
+    "name": "以旧换新估价卡",
+    "category": "珠宝首饰",
+    "status": "v3 新增",
+    "purpose": "展示一件旧珠宝的折旧估价与换新抵用金额。",
+    "anatomy": [
+      "旧品 (ds-jwl-tradein__old)",
+      "折旧估价 (ds-jwl-tradein__depr)",
+      "可抵用 (ds-jwl-tradein__credit)",
+      "备注 (ds-jwl-tradein__note)"
+    ],
+    "keyboard": "卡片可聚焦提交换新申请；估价与抵用红色展示。",
+    "guidance": [
+      "估价按当日金价与成色计算。",
+      "抵用可叠加新品优惠。",
+      "备注注明凭证要求。"
+    ],
+    "preview": "<article class=\"ds-jwl-tradein\" tabindex=\"0\" role=\"button\" aria-label=\"以旧换新，旧品 18K 金项链，折旧估价 3200 元，可抵用 3200 元，需附原始发票\"><div class=\"ds-jwl-tradein__head\"><strong class=\"ds-jwl-tradein__old\">18K 金项链</strong></div><div class=\"ds-jwl-tradein__rows\"><span class=\"ds-jwl-tradein__depr\">折旧估价 ¥3,200</span><span class=\"ds-jwl-tradein__credit\">可抵用 ¥3,200</span></div><span class=\"ds-jwl-tradein__note\">需附原始发票</span></article>",
+    "checks": [
+      "折旧估价",
+      "抵用金额",
+      "凭证备注",
+      "换新申请"
+    ],
+    "react": "<TradeInCard old=\"18K 金项链\" depr={3200} credit={3200} note=\"需附原始发票\" />"
+  },
+  {
+    "id": "jwl-bridal",
+    "name": "婚嫁套装卡",
+    "category": "珠宝首饰",
+    "status": "v3 新增",
+    "purpose": "展示一套婚嫁三金套装的组成内容与套装价。",
+    "anatomy": [
+      "套装名 (ds-jwl-bridal__name)",
+      "活动徽标 (ds-jwl-bridal__tag)",
+      "组成 (ds-jwl-bridal__set)",
+      "单项 (ds-jwl-bridal__item)",
+      "套装价 (ds-jwl-bridal__price)"
+    ],
+    "keyboard": "卡片可聚焦查看套装详情；套装价红色突出。",
+    "guidance": [
+      "三金：项链、手镯、戒指。",
+      "套装价低于单买合计。",
+      "可标注加急服务。"
+    ],
+    "preview": "<article class=\"ds-jwl-bridal\" tabindex=\"0\" role=\"button\" aria-label=\"婚嫁套装，龙凤呈祥三金套装，包含 项链、手镯、戒指，套装价 28800 元，享婚礼加急\"><div class=\"ds-jwl-bridal__head\"><strong class=\"ds-jwl-bridal__name\">龙凤呈祥三金套装</strong><span class=\"ds-jwl-bridal__tag\">婚礼加急</span></div><div class=\"ds-jwl-bridal__set\"><span class=\"ds-jwl-bridal__item\">项链</span><span class=\"ds-jwl-bridal__item\">手镯</span><span class=\"ds-jwl-bridal__item\">戒指</span></div><strong class=\"ds-jwl-bridal__price\">¥28,800</strong></article>",
+    "checks": [
+      "三金组成",
+      "套装价红色",
+      "活动徽标",
+      "套装详情"
+    ],
+    "react": "<BridalSetCard name=\"龙凤呈祥三金套装\" items={[\"项链\", \"手镯\", \"戒指\"]} price={28800} tag=\"婚礼加急\" />"
   }
 ]
