@@ -22989,5 +22989,279 @@
       "报告原文"
     ],
     "react": "<HealthCheckupReportCard date=\"2026-04-18\" org=\"市中心医院\" abnormal={3} verdict=\"血脂偏高，建议复查\" />"
+  },
+  {
+    "id": "lab-sample-row",
+    "name": "样本追踪行",
+    "category": "实验室管理",
+    "status": "v3 新增",
+    "purpose": "展示一份生物样本的编号、类型与流转状态。",
+    "anatomy": [
+      "样本编号 (ds-lab-sample__no)",
+      "类型 (ds-lab-sample__type)",
+      "存储位置 (ds-lab-sample__loc)",
+      "状态 (ds-lab-sample__state)"
+    ],
+    "keyboard": "行可聚焦查看流转记录；出库状态以 status 语义播报。",
+    "guidance": [
+      "状态四态：已登记、检测中、已出库、已销毁。",
+      "存储位置等宽展示。",
+      "编号以 mono 字体突出。"
+    ],
+    "preview": "<div class=\"ds-lab-sample is-testing\" tabindex=\"0\" role=\"button\" aria-label=\"样本追踪，编号 S-2026-0431，全血样本，存储于 2 号冰箱 B 架，检测中\"><strong class=\"ds-lab-sample__no\">S-2026-0431</strong><span class=\"ds-lab-sample__type\">全血</span><span class=\"ds-lab-sample__loc\">2 号冰箱 · B 架</span><span class=\"ds-lab-sample__state is-testing\">检测中</span></div>",
+    "checks": [
+      "四态状态",
+      "位置等宽",
+      "编号突出",
+      "流转记录"
+    ],
+    "react": "<SampleTrackerRow no=\"S-2026-0431\" type=\"全血\" loc=\"2 号冰箱 · B 架\" state=\"testing\" />"
+  },
+  {
+    "id": "lab-reagent-row",
+    "name": "试剂库存行",
+    "category": "实验室管理",
+    "status": "v3 新增",
+    "purpose": "展示一种试剂的批号、效期与剩余库存。",
+    "anatomy": [
+      "试剂名 (ds-lab-reagent__name)",
+      "批号 (ds-lab-reagent__lot)",
+      "效期 (ds-lab-reagent__exp)",
+      "库存 (ds-lab-reagent__qty)",
+      "状态 (ds-lab-reagent__state)"
+    ],
+    "keyboard": "行可聚焦查看领用记录；临期试剂以 alert 语义播报。",
+    "guidance": [
+      "效期 30 天内黄色临期标识。",
+      "已过期红色标识并停用。",
+      "库存量等宽数字。"
+    ],
+    "preview": "<div class=\"ds-lab-reagent is-expiring\" tabindex=\"0\" role=\"button\" aria-label=\"试剂库存，Taq 酶，批号 LOT26A118，效期 2026-07-02，库存 12 支，临期\"><strong class=\"ds-lab-reagent__name\">Taq 酶</strong><span class=\"ds-lab-reagent__lot\">LOT26A118</span><span class=\"ds-lab-reagent__exp\">效期 2026-07-02</span><span class=\"ds-lab-reagent__qty\">12 支</span><span class=\"ds-lab-reagent__state is-expiring\">临期</span></div>",
+    "checks": [
+      "临期标识",
+      "过期停用",
+      "批号等宽",
+      "领用记录"
+    ],
+    "react": "<ReagentInventoryRow name=\"Taq 酶\" lot=\"LOT26A118\" expiry=\"2026-07-02\" qty={12} />"
+  },
+  {
+    "id": "lab-incubator",
+    "name": "培养箱状态卡",
+    "category": "实验室管理",
+    "status": "v3 新增",
+    "purpose": "展示一台培养箱的温度、气体浓度与门体状态。",
+    "anatomy": [
+      "设备名 (ds-lab-incubator__name)",
+      "温度 (ds-lab-incubator__metric)",
+      "CO2 浓度",
+      "湿度",
+      "门状态 (ds-lab-incubator__door)"
+    ],
+    "keyboard": "卡片可聚焦查看历史曲线；开门异常以 alert 语义播报。",
+    "guidance": [
+      "三项环境指标并列。",
+      "数值偏离设定值黄色预警。",
+      "开门状态文字标识。"
+    ],
+    "preview": "<article class=\"ds-lab-incubator is-warn\" tabindex=\"0\" role=\"button\" aria-label=\"培养箱状态，CO2 培养箱 A1，温度 37.1 摄氏度，二氧化碳 4.8%，湿度 95%，箱门关闭，温度偏高\"><div class=\"ds-lab-incubator__head\"><strong class=\"ds-lab-incubator__name\">CO₂ 培养箱 A1</strong><span class=\"ds-lab-incubator__door is-closed\">箱门关闭</span></div><div class=\"ds-lab-incubator__metrics\"><span class=\"ds-lab-incubator__metric\"><em>温度</em><strong>37.1℃</strong></span><span class=\"ds-lab-incubator__metric\"><em>CO₂</em><strong>4.8%</strong></span><span class=\"ds-lab-incubator__metric\"><em>湿度</em><strong>95%</strong></span></div></article>",
+    "checks": [
+      "三项指标",
+      "偏离预警",
+      "门状态文字",
+      "历史曲线"
+    ],
+    "react": "<IncubatorStatusCard name=\"CO₂ 培养箱 A1\" temp={37.1} co2={4.8} humidity={95} doorOpen={false} />"
+  },
+  {
+    "id": "lab-protocol",
+    "name": "实验方案卡",
+    "category": "实验室管理",
+    "status": "v3 新增",
+    "purpose": "展示一份实验方案的步骤结构、负责人与版本。",
+    "anatomy": [
+      "方案名 (ds-lab-protocol__name)",
+      "步骤数 (ds-lab-protocol__steps)",
+      "负责人 (ds-lab-protocol__owner)",
+      "版本 (ds-lab-protocol__ver)",
+      "状态 (ds-lab-protocol__state)"
+    ],
+    "keyboard": "卡片可聚焦展开步骤列表；定稿状态以 status 语义播报。",
+    "guidance": [
+      "状态三态：草稿、评审中、已定稿。",
+      "步骤数以徽标展示。",
+      "版本号等宽。"
+    ],
+    "preview": "<article class=\"ds-lab-protocol is-final\" tabindex=\"0\" role=\"button\" aria-label=\"实验方案，细胞传代标准操作规程，共 8 步，负责人 林芳，版本 v2.3，已定稿\"><div class=\"ds-lab-protocol__head\"><strong class=\"ds-lab-protocol__name\">细胞传代标准操作规程</strong><span class=\"ds-lab-protocol__state is-final\">已定稿</span></div><div class=\"ds-lab-protocol__meta\"><span class=\"ds-lab-protocol__steps\">8 步</span><span class=\"ds-lab-protocol__owner\">负责人 林芳</span><span class=\"ds-lab-protocol__ver\">v2.3</span></div></article>",
+    "checks": [
+      "三态状态",
+      "步骤计数",
+      "版本等宽",
+      "展开步骤"
+    ],
+    "react": "<LabProtocolCard name=\"细胞传代标准操作规程\" steps={8} owner=\"林芳\" version=\"v2.3\" state=\"final\" />"
+  },
+  {
+    "id": "lab-seq-run",
+    "name": "测序运行卡",
+    "category": "实验室管理",
+    "status": "v3 新增",
+    "purpose": "展示一次测序运行的读长配置与实时进度。",
+    "anatomy": [
+      "运行名 (ds-lab-seq__name)",
+      "读长 (ds-lab-seq__mode)",
+      "进度条 (ds-lab-seq__bar)",
+      "质量指标 (ds-lab-seq__q30)"
+    ],
+    "keyboard": "进度以 progressbar 语义播报；运行完成以 status 语义提示。",
+    "guidance": [
+      "进度按百分比填充。",
+      "Q30 质量分达标绿色。",
+      "读长配置文字标注。"
+    ],
+    "preview": "<article class=\"ds-lab-seq\" aria-label=\"测序运行，RUN20260618-02，双端 150 读长，进度 68%，Q30 92.4%\"><div class=\"ds-lab-seq__head\"><strong class=\"ds-lab-seq__name\">RUN20260618-02</strong><span class=\"ds-lab-seq__mode\">PE150</span></div><div class=\"ds-lab-seq__bar\" role=\"progressbar\" aria-valuenow=\"68\" aria-valuemin=\"0\" aria-valuemax=\"100\" aria-label=\"测序进度\"><span class=\"ds-lab-seq__fill\" style=\"width:68%\"></span></div><span class=\"ds-lab-seq__q30 is-ok\">Q30 92.4%</span></article>",
+    "checks": [
+      "progressbar 语义",
+      "进度填充",
+      "Q30 达标",
+      "读长标注"
+    ],
+    "react": "<SequencingRunCard name=\"RUN20260618-02\" mode=\"PE150\" progress={68} q30={92.4} />"
+  },
+  {
+    "id": "lab-booking",
+    "name": "仪器预约行",
+    "category": "实验室管理",
+    "status": "v3 新增",
+    "purpose": "展示一台仪器的预约时段与使用人信息。",
+    "anatomy": [
+      "仪器名 (ds-lab-booking__device)",
+      "使用人 (ds-lab-booking__user)",
+      "时段 (ds-lab-booking__slot)",
+      "状态 (ds-lab-booking__state)"
+    ],
+    "keyboard": "行可聚焦查看预约详情；冲突时段以 alert 语义播报。",
+    "guidance": [
+      "状态四态：待审核、已通过、使用中、已结束。",
+      "时段等宽展示。",
+      "使用中绿色高亮。"
+    ],
+    "preview": "<div class=\"ds-lab-booking is-active\" tabindex=\"0\" role=\"button\" aria-label=\"仪器预约，高效液相色谱仪，使用人 赵强，时段 14:00 至 16:00，使用中\"><strong class=\"ds-lab-booking__device\">高效液相色谱仪</strong><span class=\"ds-lab-booking__user\">赵强</span><span class=\"ds-lab-booking__slot\">14:00 – 16:00</span><span class=\"ds-lab-booking__state is-active\">使用中</span></div>",
+    "checks": [
+      "四态状态",
+      "时段等宽",
+      "冲突播报",
+      "预约详情"
+    ],
+    "react": "<LabBookingRow device=\"高效液相色谱仪\" user=\"赵强\" slot=\"14:00 – 16:00\" state=\"active\" />"
+  },
+  {
+    "id": "lab-safety",
+    "name": "安全数据卡",
+    "category": "实验室管理",
+    "status": "v3 新增",
+    "purpose": "展示一种化学试剂的安全数据与防护要求。",
+    "anatomy": [
+      "试剂名 (ds-lab-safety__name)",
+      "危险等级 (ds-lab-safety__level)",
+      "防护措施 (ds-lab-safety__ppe)",
+      "象形图 (ds-lab-safety__pict)"
+    ],
+    "keyboard": "卡片可聚焦查看完整 MSDS；高危以 alert 语义播报。",
+    "guidance": [
+      "危险等级颜色加文字。",
+      "防护装备以图标加文字。",
+      "GHS 象形图文字标注。"
+    ],
+    "preview": "<article class=\"ds-lab-safety is-high\" tabindex=\"0\" role=\"button\" aria-label=\"安全数据，甲醇，危险等级 3 类易燃液体，需佩戴 护目镜、防化手套、实验服，象形图 火焰\"><div class=\"ds-lab-safety__head\"><strong class=\"ds-lab-safety__name\">甲醇</strong><span class=\"ds-lab-safety__level is-high\">3 类 · 易燃液体</span></div><div class=\"ds-lab-safety__ppe\"><span class=\"ds-lab-safety__pict\">火焰</span><span class=\"ds-lab-safety__pict\">腐蚀</span></div><p class=\"ds-lab-safety__note\">需佩戴：护目镜 · 防化手套 · 实验服</p></article>",
+    "checks": [
+      "等级文字",
+      "防护图标",
+      "象形图标注",
+      "MSDS 查看"
+    ],
+    "react": "<SafetyDataSheetCard name=\"甲醇\" level=\"high\" ppe={[\"护目镜\", \"防化手套\", \"实验服\"]} pictograms={[\"火焰\", \"腐蚀\"]} />"
+  },
+  {
+    "id": "lab-calibration",
+    "name": "校准记录行",
+    "category": "实验室管理",
+    "status": "v3 新增",
+    "purpose": "展示一台设备的校准日期、有效期与结果。",
+    "anatomy": [
+      "设备名 (ds-lab-calib__device)",
+      "校准日期 (ds-lab-calib__date)",
+      "有效期至 (ds-lab-calib__until)",
+      "结果 (ds-lab-calib__result)"
+    ],
+    "keyboard": "行可聚焦查看校准证书；超期未校准以 alert 语义播报。",
+    "guidance": [
+      "结果三态：合格、限期整改、不合格。",
+      "超期设备红色标识。",
+      "日期等宽展示。"
+    ],
+    "preview": "<div class=\"ds-lab-calib is-due\" tabindex=\"0\" role=\"button\" aria-label=\"校准记录，电子天平 XP205，校准于 2025-12-10，有效期至 2026-06-10，即将超期\"><strong class=\"ds-lab-calib__device\">电子天平 XP205</strong><span class=\"ds-lab-calib__date\">2025-12-10</span><span class=\"ds-lab-calib__until\">至 2026-06-10</span><span class=\"ds-lab-calib__result is-due\">即将超期</span></div>",
+    "checks": [
+      "三态结果",
+      "超期标识",
+      "日期等宽",
+      "校准证书"
+    ],
+    "react": "<CalibrationRecordRow device=\"电子天平 XP205\" date=\"2025-12-10\" until=\"2026-06-10\" />"
+  },
+  {
+    "id": "lab-centrifuge",
+    "name": "离心机运行卡",
+    "category": "实验室管理",
+    "status": "v3 新增",
+    "purpose": "展示一台离心机的转速、剩余时间与转子状态。",
+    "anatomy": [
+      "设备名 (ds-lab-centri__name)",
+      "转速 (ds-lab-centri__rpm)",
+      "剩余时间 (ds-lab-centri__left)",
+      "状态 (ds-lab-centri__state)"
+    ],
+    "keyboard": "卡片可聚焦查看运行日志；不平衡报警以 alert 语义播报。",
+    "guidance": [
+      "转速放大等宽展示。",
+      "运行中旋转图标动画。",
+      "状态文字加颜色。"
+    ],
+    "preview": "<article class=\"ds-lab-centri is-running\" aria-label=\"离心机运行，高速冷冻离心机 3 号，转速 12000 转每分，剩余 8 分 20 秒，运行中\"><div class=\"ds-lab-centri__head\"><strong class=\"ds-lab-centri__name\">高速冷冻离心机 3 号</strong><span class=\"ds-lab-centri__state is-running\">运行中</span></div><div class=\"ds-lab-centri__dial\"><span class=\"ds-lab-centri__rpm\">12000</span><span class=\"ds-lab-centri__unit\">rpm</span></div><span class=\"ds-lab-centri__left\">剩余 08:20</span></article>",
+    "checks": [
+      "转速突出",
+      "剩余时间",
+      "不平衡报警",
+      "运行日志"
+    ],
+    "react": "<CentrifugeRunCard name=\"高速冷冻离心机 3 号\" rpm={12000} left=\"08:20\" running />"
+  },
+  {
+    "id": "lab-waste",
+    "name": "危废处置行",
+    "category": "实验室管理",
+    "status": "v3 新增",
+    "purpose": "展示一桶危险废液的类别、重量与处置状态。",
+    "anatomy": [
+      "废液类别 (ds-lab-waste__kind)",
+      "桶号 (ds-lab-waste__no)",
+      "重量 (ds-lab-waste__kg)",
+      "入库日期 (ds-lab-waste__date)",
+      "状态 (ds-lab-waste__state)"
+    ],
+    "keyboard": "行可聚焦查看处置联单；满桶待运以 alert 语义播报。",
+    "guidance": [
+      "类别红色危险标识。",
+      "重量等宽千克。",
+      "状态三态：积存中、待转运、已处置。"
+    ],
+    "preview": "<div class=\"ds-lab-waste is-full\" tabindex=\"0\" role=\"button\" aria-label=\"危废处置，有机废液，桶号 HW-07，重量 22.5 千克，入库 2026-06-15，待转运\"><strong class=\"ds-lab-waste__kind\">有机废液</strong><span class=\"ds-lab-waste__no\">HW-07</span><span class=\"ds-lab-waste__kg\">22.5 kg</span><span class=\"ds-lab-waste__date\">06-15</span><span class=\"ds-lab-waste__state is-full\">待转运</span></div>",
+    "checks": [
+      "危险标识",
+      "重量等宽",
+      "三态状态",
+      "处置联单"
+    ],
+    "react": "<HazardousWasteRow kind=\"有机废液\" no=\"HW-07\" kg={22.5} date=\"06-15\" state=\"full\" />"
   }
 ]

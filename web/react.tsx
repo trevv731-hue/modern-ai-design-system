@@ -18167,3 +18167,129 @@ export function HealthCheckupReportCard({ date, org, abnormal, verdict }: { date
     <p className="ds-pharm-checkup__verdict">{verdict}</p>
   </article>;
 }
+
+export function SampleTrackerRow({ no, type, loc, state }: { no: string; type: string; loc: string; state: 'registered' | 'testing' | 'out' | 'destroyed' }) {
+  const stateText = { registered: '已登记', testing: '检测中', out: '已出库', destroyed: '已销毁' };
+  return <div className={'ds-lab-sample is-' + state} tabIndex={0} role="button" aria-label={'样本追踪，编号 ' + no + '，' + type + '样本，存储于 ' + loc + '，' + stateText[state]}>
+    <strong className="ds-lab-sample__no">{no}</strong>
+    <span className="ds-lab-sample__type">{type}</span>
+    <span className="ds-lab-sample__loc">{loc}</span>
+    <span className={'ds-lab-sample__state is-' + state}>{stateText[state]}</span>
+  </div>;
+}
+
+export function ReagentInventoryRow({ name, lot, expiry, qty }: { name: string; lot: string; expiry: string; qty: number }) {
+  const days = Math.ceil((new Date(expiry).getTime() - Date.now()) / 86400000);
+  const level = days < 0 ? 'expired' : days <= 30 ? 'expiring' : 'fresh';
+  const levelText = { fresh: '有效', expiring: '临期', expired: '已过期' };
+  return <div className={'ds-lab-reagent is-' + level} tabIndex={0} role="button" aria-label={'试剂库存，' + name + '，批号 ' + lot + '，效期 ' + expiry + '，库存 ' + qty + ' 支，' + levelText[level]}>
+    <strong className="ds-lab-reagent__name">{name}</strong>
+    <span className="ds-lab-reagent__lot">{lot}</span>
+    <span className="ds-lab-reagent__exp">效期 {expiry}</span>
+    <span className="ds-lab-reagent__qty">{qty} 支</span>
+    <span className={'ds-lab-reagent__state is-' + level}>{levelText[level]}</span>
+  </div>;
+}
+
+export function IncubatorStatusCard({ name, temp, co2, humidity, doorOpen }: { name: string; temp: number; co2: number; humidity: number; doorOpen: boolean }) {
+  const tempOff = Math.abs(temp - 37) > 0.5;
+  return <article className={'ds-lab-incubator' + (doorOpen ? ' is-alarm' : tempOff ? ' is-warn' : '')} tabIndex={0} role="button" aria-label={'培养箱状态，' + name + '，温度 ' + temp + ' 摄氏度，二氧化碳 ' + co2 + '%，湿度 ' + humidity + '%，' + (doorOpen ? '箱门开启' : '箱门关闭') + (tempOff ? '，温度偏离设定值' : '')}>
+    <div className="ds-lab-incubator__head">
+      <strong className="ds-lab-incubator__name">{name}</strong>
+      <span className={'ds-lab-incubator__door' + (doorOpen ? ' is-open' : ' is-closed')}>{doorOpen ? '箱门开启' : '箱门关闭'}</span>
+    </div>
+    <div className="ds-lab-incubator__metrics">
+      <span className={'ds-lab-incubator__metric' + (tempOff ? ' is-off' : '')}><em>温度</em><strong>{temp}℃</strong></span>
+      <span className="ds-lab-incubator__metric"><em>CO₂</em><strong>{co2}%</strong></span>
+      <span className="ds-lab-incubator__metric"><em>湿度</em><strong>{humidity}%</strong></span>
+    </div>
+  </article>;
+}
+
+export function LabProtocolCard({ name, steps, owner, version, state }: { name: string; steps: number; owner: string; version: string; state: 'draft' | 'review' | 'final' }) {
+  const stateText = { draft: '草稿', review: '评审中', final: '已定稿' };
+  return <article className={'ds-lab-protocol is-' + state} tabIndex={0} role="button" aria-label={'实验方案，' + name + '，共 ' + steps + ' 步，负责人 ' + owner + '，版本 ' + version + '，' + stateText[state]}>
+    <div className="ds-lab-protocol__head">
+      <strong className="ds-lab-protocol__name">{name}</strong>
+      <span className={'ds-lab-protocol__state is-' + state}>{stateText[state]}</span>
+    </div>
+    <div className="ds-lab-protocol__meta">
+      <span className="ds-lab-protocol__steps">{steps} 步</span>
+      <span className="ds-lab-protocol__owner">负责人 {owner}</span>
+      <span className="ds-lab-protocol__ver">{version}</span>
+    </div>
+  </article>;
+}
+
+export function SequencingRunCard({ name, mode, progress, q30 }: { name: string; mode: string; progress: number; q30: number }) {
+  const q30Ok = q30 >= 85;
+  return <article className="ds-lab-seq" aria-label={'测序运行，' + name + '，' + mode + ' 读长，进度 ' + progress + '%，Q30 ' + q30 + '%'}>
+    <div className="ds-lab-seq__head">
+      <strong className="ds-lab-seq__name">{name}</strong>
+      <span className="ds-lab-seq__mode">{mode}</span>
+    </div>
+    <div className="ds-lab-seq__bar" role="progressbar" aria-valuenow={progress} aria-valuemin={0} aria-valuemax={100} aria-label="测序进度">
+      <span className="ds-lab-seq__fill" style={{ width: progress + '%' }} />
+    </div>
+    <span className={'ds-lab-seq__q30 ' + (q30Ok ? 'is-ok' : 'is-bad')}>Q30 {q30}%</span>
+  </article>;
+}
+
+export function LabBookingRow({ device, user, slot, state }: { device: string; user: string; slot: string; state: 'pending' | 'approved' | 'active' | 'done' }) {
+  const stateText = { pending: '待审核', approved: '已通过', active: '使用中', done: '已结束' };
+  return <div className={'ds-lab-booking is-' + state} tabIndex={0} role="button" aria-label={'仪器预约，' + device + '，使用人 ' + user + '，时段 ' + slot + '，' + stateText[state]}>
+    <strong className="ds-lab-booking__device">{device}</strong>
+    <span className="ds-lab-booking__user">{user}</span>
+    <span className="ds-lab-booking__slot">{slot}</span>
+    <span className={'ds-lab-booking__state is-' + state}>{stateText[state]}</span>
+  </div>;
+}
+
+export function SafetyDataSheetCard({ name, level, ppe, pictograms }: { name: string; level: 'low' | 'mid' | 'high'; ppe: string[]; pictograms: string[] }) {
+  const levelText = { low: '低危', mid: '中危', high: '高危' };
+  return <article className={'ds-lab-safety is-' + level} tabIndex={0} role="button" aria-label={'安全数据，' + name + '，危险等级 ' + levelText[level] + '，需佩戴 ' + ppe.join('、') + '，象形图 ' + pictograms.join('、')}>
+    <div className="ds-lab-safety__head">
+      <strong className="ds-lab-safety__name">{name}</strong>
+      <span className={'ds-lab-safety__level is-' + level}>{levelText[level]}</span>
+    </div>
+    <div className="ds-lab-safety__ppe">{pictograms.map(p => <span key={p} className="ds-lab-safety__pict">{p}</span>)}</div>
+    <p className="ds-lab-safety__note">需佩戴：{ppe.join(' · ')}</p>
+  </article>;
+}
+
+export function CalibrationRecordRow({ device, date, until }: { device: string; date: string; until: string }) {
+  const days = Math.ceil((new Date(until).getTime() - Date.now()) / 86400000);
+  const level = days < 0 ? 'overdue' : days <= 30 ? 'due' : 'pass';
+  const levelText = { pass: '在有效期内', due: '即将超期', overdue: '已超期' };
+  return <div className={'ds-lab-calib is-' + level} tabIndex={0} role="button" aria-label={'校准记录，' + device + '，校准于 ' + date + '，有效期至 ' + until + '，' + levelText[level]}>
+    <strong className="ds-lab-calib__device">{device}</strong>
+    <span className="ds-lab-calib__date">{date}</span>
+    <span className="ds-lab-calib__until">至 {until}</span>
+    <span className={'ds-lab-calib__result is-' + level}>{levelText[level]}</span>
+  </div>;
+}
+
+export function CentrifugeRunCard({ name, rpm, left, running }: { name: string; rpm: number; left: string; running: boolean }) {
+  return <article className={'ds-lab-centri' + (running ? ' is-running' : '')} aria-label={'离心机运行，' + name + '，转速 ' + rpm + ' 转每分，剩余 ' + left + '，' + (running ? '运行中' : '待机')}>
+    <div className="ds-lab-centri__head">
+      <strong className="ds-lab-centri__name">{name}</strong>
+      <span className={'ds-lab-centri__state ' + (running ? 'is-running' : 'is-idle')}>{running ? '运行中' : '待机'}</span>
+    </div>
+    <div className="ds-lab-centri__dial">
+      <span className="ds-lab-centri__rpm">{rpm}</span>
+      <span className="ds-lab-centri__unit">rpm</span>
+    </div>
+    <span className="ds-lab-centri__left">剩余 {left}</span>
+  </article>;
+}
+
+export function HazardousWasteRow({ kind, no, kg, date, state }: { kind: string; no: string; kg: number; date: string; state: 'holding' | 'full' | 'disposed' }) {
+  const stateText = { holding: '积存中', full: '待转运', disposed: '已处置' };
+  return <div className={'ds-lab-waste is-' + state} tabIndex={0} role="button" aria-label={'危废处置，' + kind + '，桶号 ' + no + '，重量 ' + kg + ' 千克，入库 ' + date + '，' + stateText[state]}>
+    <strong className="ds-lab-waste__kind">{kind}</strong>
+    <span className="ds-lab-waste__no">{no}</span>
+    <span className="ds-lab-waste__kg">{kg} kg</span>
+    <span className="ds-lab-waste__date">{date}</span>
+    <span className={'ds-lab-waste__state is-' + state}>{stateText[state]}</span>
+  </div>;
+}
