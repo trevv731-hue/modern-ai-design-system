@@ -15649,3 +15649,147 @@ export function ItineraryTimeline({ nodes }: { nodes: Array<{ date: string; icon
     </li>)}
   </ol>;
 }
+
+export function MenuItemRow({ name, desc, price, tags, qty = 0, onAdd }: { name: string; desc: string; price: number; tags: string[]; qty?: number; onAdd?: () => void }) {
+  return <div className="ds-menu-item" tabIndex={0} role="button" aria-label={name + '，' + tags.join('，') + '，' + price + ' 元' + (qty > 0 ? '，已选 ' + qty + ' 份' : '')}>
+    <div className="ds-menu-item__info">
+      <strong className="ds-menu-item__name">{name}</strong>
+      <p className="ds-menu-item__desc">{desc}</p>
+      <div className="ds-menu-item__tags">{tags.map((tag, index) => <span key={tag} className={index === 0 ? 'is-signature' : undefined}>{tag}</span>)}</div>
+    </div>
+    <div className="ds-menu-item__buy">
+      <span className="ds-menu-item__price">¥{price}</span>
+      <button type="button" className="ds-menu-item__add" aria-label={qty > 0 ? '再加一份，已选 ' + qty + ' 份' : '加入购物车'} onClick={onAdd}>+</button>
+    </div>
+  </div>;
+}
+
+export function MenuCategoryTabs({ categories, active = 0 }: { categories: Array<{ name: string; count: number }>; active?: number }) {
+  return <div className="ds-menu-tabs" role="tablist" aria-label="菜品分类">
+    {categories.map((category, index) => <button key={category.name} type="button" role="tab" aria-selected={index === active}>{category.name} <em>{category.count}</em></button>)}
+  </div>;
+}
+
+export function CartSummaryPanel({ lines, subtotal, discount, minOrder }: { lines: Array<{ name: string; qty: number; price: number }>; subtotal: number; discount?: number; minOrder: number }) {
+  const gap = Math.max(0, minOrder - subtotal + (discount ?? 0));
+  return <div className="ds-cart-sum">
+    {lines.map(line => <div key={line.name} className="ds-cart-sum__line">
+      <strong>{line.name}</strong>
+      <span className="ds-cart-sum__qty">×{line.qty}</span>
+      <span className="ds-cart-sum__price">¥{line.price}</span>
+    </div>)}
+    <div className="ds-cart-sum__foot">
+      <span className="ds-cart-sum__subtotal">小计 ¥{subtotal}</span>
+      {discount ? <span className="ds-cart-sum__discount">优惠 -¥{discount}</span> : null}
+    </div>
+    {gap > 0 ? <p className="ds-cart-sum__hint">再点 ¥{gap} 起送</p> : null}
+  </div>;
+}
+
+export function OrderStatusTracker({ steps, current, eta }: { steps: string[]; current: number; eta: string }) {
+  return <div className="ds-order-status">
+    <div className="ds-order-status__track" aria-hidden="true">
+      {steps.map((step, index) => <span key={step} className={'ds-order-status__step ' + (index < current ? 'is-done' : index === current ? 'is-current' : '')} />)}
+    </div>
+    <ol className="ds-order-status__labels">
+      {steps.map((step, index) => <li key={step} className={index < current ? 'is-done' : index === current ? 'is-current' : ''} aria-current={index === current ? 'step' : undefined}>{step}</li>)}
+    </ol>
+    <p className="ds-order-status__eta">{eta}</p>
+    <button type="button">联系骑手</button>
+  </div>;
+}
+
+export function TableQrCard({ table, shop, branch, hint }: { table: string; shop: string; branch: string; hint: string }) {
+  return <div className="ds-table-qr">
+    <div className="ds-table-qr__qr" role="img" aria-label={'桌台二维码，桌号 ' + table}>
+      {Array.from({ length: 4 }, (_, index) => <i key={index} aria-hidden="true" />)}
+    </div>
+    <div className="ds-table-qr__info">
+      <strong className="ds-table-qr__no">{table} 桌</strong>
+      <span>{shop} · {branch}</span>
+      <p>{hint}</p>
+    </div>
+  </div>;
+}
+
+export function DishCard({ name, why, price, rating, onAdd }: { name: string; why: string; price: number; rating: string; onAdd?: () => void }) {
+  return <article className="ds-dish-card" tabIndex={0} role="button" aria-label={name + '，' + price + ' 元，评分 ' + rating + '，' + why}>
+    <div className="ds-dish-card__thumb" aria-hidden="true">🍲</div>
+    <div className="ds-dish-card__body">
+      <strong>{name}</strong>
+      <p className="ds-dish-card__why">{why}</p>
+      <p className="ds-dish-card__foot"><span className="ds-dish-card__rating">★ {rating}</span><span className="ds-dish-card__price">¥{price}</span></p>
+    </div>
+    <button type="button" className="ds-dish-card__add" onClick={onAdd}>加购</button>
+  </article>;
+}
+
+export function DishReviewCard({ user, rating, date, text, helpful, reply }: { user: string; rating: number; date: string; text: string; helpful: number; reply?: string }) {
+  return <article className="ds-dish-review">
+    <div className="ds-dish-review__head">
+      <span className="ds-dish-review__avatar" aria-hidden="true">{user.slice(0, 1)}</span>
+      <div><strong className="ds-dish-review__user">{user}</strong><span className="ds-dish-review__rating">{'★'.repeat(rating)}</span></div>
+      <time>{date}</time>
+    </div>
+    <p className="ds-dish-review__text">{text}</p>
+    <div className="ds-dish-review__imgs" aria-hidden="true"><i /><i /><i /></div>
+    <div className="ds-dish-review__foot">
+      <button type="button" aria-pressed="false">有用 {helpful}</button>
+      <button type="button">回复</button>
+    </div>
+    {reply ? <p className="ds-dish-review__reply"><strong>商家回复：</strong>{reply}</p> : null}
+  </article>;
+}
+
+export function TableReservationForm({ people, date, time, contact, phone, onSubmit }: { people: number; date: string; time: string; contact: string; phone: string; onSubmit?: () => void }) {
+  const options = [2, 4, 6];
+  return <form className="ds-reservation" onSubmit={event => { event.preventDefault(); onSubmit?.(); }}>
+    <div className="ds-reservation__people" role="group" aria-label="用餐人数">
+      <span>人数</span>
+      {options.map(option => <button key={option} type="button" aria-pressed={option === people}>{option} 人</button>)}
+    </div>
+    <div className="ds-reservation__when">
+      <label>日期<input type="date" defaultValue={date} /></label>
+      <label>时间<input type="time" defaultValue={time} /></label>
+    </div>
+    <div className="ds-reservation__opts">
+      <label><input type="checkbox" defaultChecked /><span>靠窗</span></label>
+      <label><input type="checkbox" /><span>包厢</span></label>
+      <label><input type="checkbox" /><span>儿童座椅</span></label>
+    </div>
+    <div className="ds-reservation__contact">
+      <label>联系人<input defaultValue={contact} /></label>
+      <label>手机号<input defaultValue={phone} /></label>
+    </div>
+    <button type="submit" className="is-primary">提交订座</button>
+  </form>;
+}
+
+export function DeliveryProgressBar({ percent, note }: { percent: number; note: string }) {
+  return <div className="ds-delivery-prog" role="progressbar" aria-valuenow={percent} aria-valuemin={0} aria-valuemax={100} aria-label={'配送进度 ' + percent + '%'}>
+    <div className="ds-delivery-prog__track">
+      <i className="ds-delivery-prog__fill" style={{ width: percent + '%' }} />
+      <span className="ds-delivery-prog__rider" style={{ left: percent + '%' }} aria-hidden="true">🛵</span>
+    </div>
+    <p className="ds-delivery-prog__eta">{note}</p>
+  </div>;
+}
+
+export function NutritionFactsPanel({ calories, carbs, protein, fat, sodium, basis = '份' }: { calories: number; carbs: number; protein: number; fat: number; sodium: string; basis?: string }) {
+  const sum = carbs * 4 + protein * 4 + fat * 9;
+  const pct = (value: number) => Math.round(value / sum * 100) + '%';
+  return <div className="ds-nutrition" tabIndex={0} role="group" aria-label={'营养成分：热量 ' + calories + ' 千卡，碳水 ' + pct(carbs * 4) + '，蛋白 ' + pct(protein * 4) + '，脂肪 ' + pct(fat * 9)}>
+    <p className="ds-nutrition__cal"><strong>{calories}</strong> 千卡 / {basis}</p>
+    <div className="ds-nutrition__bar" aria-hidden="true">
+      <span className="ds-nutrition__seg is-carb" style={{ width: pct(carbs * 4) }} />
+      <span className="ds-nutrition__seg is-protein" style={{ width: pct(protein * 4) }} />
+      <span className="ds-nutrition__seg is-fat" style={{ width: pct(fat * 9) }} />
+    </div>
+    <ul className="ds-nutrition__list">
+      <li><span>碳水</span><em>{carbs} g</em></li>
+      <li><span>蛋白</span><em>{protein} g</em></li>
+      <li><span>脂肪</span><em>{fat} g</em></li>
+      <li><span>钠</span><em>{sodium}</em></li>
+    </ul>
+  </div>;
+}
