@@ -16712,3 +16712,121 @@ export function CallRecordCard({ customer, number, duration, time, hasRecording 
     {hasRecording ? <button type="button" className="ds-call-record__rec" aria-label="播放录音">▶</button> : null}
   </article>;
 }
+
+export function EventCountdownCard({ title, date, location, days, hours, minutes }: { title: string; date: string; location: string; days: number; hours: number; minutes: number }) {
+  return <article className="ds-event-count" tabIndex={0} aria-label={title + '，' + date + '，' + location + '，距开始 ' + days + ' 天 ' + hours + ' 小时 ' + minutes + ' 分'}>
+    <div className="ds-event-count__media" aria-hidden="true"><span>封面</span></div>
+    <div className="ds-event-count__body"><strong>{title}</strong><span>{date} · {location}</span></div>
+    <div className="ds-event-count__timer" role="timer" aria-label="倒计时">
+      <span><b>{String(days).padStart(2, '0')}</b><i>天</i></span>
+      <span><b>{String(hours).padStart(2, '0')}</b><i>时</i></span>
+      <span><b>{String(minutes).padStart(2, '0')}</b><i>分</i></span>
+      <span><b>00</b><i>秒</i></span>
+    </div>
+    <button type="button">立即报名</button>
+  </article>;
+}
+
+export function EventTicketPass({ title, type, seat, no, date }: { title: string; type: string; seat: string; no: string; date: string }) {
+  return <article className="ds-ticket-pass" tabIndex={0} aria-label={'电子票券，' + title + '，' + type + '，' + seat + '，票号 ' + no}>
+    <h4 className="ds-ticket-pass__title">{title}</h4>
+    <p className="ds-ticket-pass__meta">{type} · {seat} · {date}</p>
+    <div className="ds-ticket-pass__qr" aria-hidden="true" />
+    <p className="ds-ticket-pass__no">票号 {no}</p>
+    <div className="ds-ticket-pass__foot">
+      <button type="button">出示入场</button>
+      <button type="button">加入卡包</button>
+    </div>
+  </article>;
+}
+
+export function SeatZoneMap({ zones }: { zones: Array<{ name: string; price: number; left: number; state: 'ok' | 'few' | 'out' }> }) {
+  const stateText = { ok: '有票', few: '紧张', out: '售罄' };
+  return <section className="ds-seat-zone" aria-label="座位区域图">
+    <div className="ds-seat-zone__stage" aria-hidden="true">舞台</div>
+    <div className="ds-seat-zone__zones">
+      {zones.map(zone => <button key={zone.name} type="button" className={'ds-seat-zone__zone is-' + zone.state} disabled={zone.state === 'out'} aria-label={zone.name + '，票价 ' + zone.price + ' 元，' + stateText[zone.state] + (zone.state === 'out' ? '' : '，余票 ' + zone.left + ' 张')}>
+        <strong>{zone.name}</strong>
+        <span>¥{zone.price.toLocaleString()}</span>
+        <em className="ds-seat-zone__left">{zone.state === 'out' ? '售罄' : '余 ' + zone.left}</em>
+      </button>)}
+    </div>
+  </section>;
+}
+
+export function AgendaSessionRow({ time, title, speaker, room, track }: { time: string; title: string; speaker: string; room: string; track: string }) {
+  const [from, to] = time.split('-');
+  return <div className="ds-agenda-row" tabIndex={0} role="button" aria-label={'议程，' + time + '，' + title + '，讲者 ' + speaker + '，' + room + '，' + track}>
+    <span className="ds-agenda-row__time">{from}<br />{to}</span>
+    <div className="ds-agenda-row__body"><strong>{title}</strong><span>{speaker}</span></div>
+    <span className="ds-agenda-row__room">{room}</span>
+    <div className="ds-agenda-row__tags"><span>{track}</span></div>
+    <button type="button" aria-label="收藏议程">☆</button>
+  </div>;
+}
+
+export function SpeakerCard({ name, title, company, topic, keynote }: { name: string; title: string; company: string; topic: string; keynote?: boolean }) {
+  return <article className={'ds-speaker-card' + (keynote ? ' is-keynote' : '')} tabIndex={0} aria-label={'演讲者，' + name + '，' + title + '，' + company + '，主讲 ' + topic + (keynote ? '，Keynote' : '')}>
+    <span className="ds-speaker-card__avatar" aria-hidden="true">{name.slice(0, 1)}</span>
+    <div className="ds-speaker-card__body"><strong>{name}{keynote ? <em>Keynote</em> : null}</strong><span>{title} · {company}</span></div>
+    <p className="ds-speaker-card__topic">{topic}</p>
+    <button type="button">关注</button>
+  </article>;
+}
+
+export function SponsorBoothCard({ no, name, tier, loc }: { no: string; name: string; tier: 'gold' | 'silver' | 'bronze'; loc: string }) {
+  const tierText = { gold: '金牌赞助', silver: '银牌赞助', bronze: '铜牌赞助' };
+  return <article className="ds-booth-card" tabIndex={0} role="button" aria-label={'展位 ' + no + '，' + name + '，' + tierText[tier] + '，' + loc}>
+    <span className="ds-booth-card__no">{no}</span>
+    <div className="ds-booth-card__body"><strong className="ds-booth-card__name">{name}</strong><span className={'ds-booth-card__tier is-' + tier}>{tierText[tier]}</span></div>
+    <span className="ds-booth-card__loc">{loc}</span>
+    <button type="button">导航</button>
+  </article>;
+}
+
+export function CheckInKioskCard({ code, scanned, total, result, name }: { code: string; scanned: number; total: number; result: 'success' | 'fail' | 'repeat'; name?: string }) {
+  const resultText = { success: '签到成功', fail: '签到失败', repeat: '重复签到' };
+  return <section className={'ds-checkin-kiosk is-' + result} role="status" aria-label={resultText[result] + (name ? '，' + name : '') + '，已签到 ' + scanned + ' 人，共 ' + total + ' 人'}>
+    <div className="ds-checkin-kiosk__scanner" aria-hidden="true"><i /></div>
+    <div className="ds-checkin-kiosk__result"><strong>{resultText[result]}</strong>{name ? <span>{name} · 签到码 {code}</span> : <span>请重新扫描或输入签到码 {code}</span>}</div>
+    <p className="ds-checkin-kiosk__stat">已签到 <b>{scanned.toLocaleString()}</b> / {total.toLocaleString()}</p>
+    <button type="button">继续扫描</button>
+  </section>;
+}
+
+export function AttendeeBadge({ event, name, org, role, no }: { event: string; name: string; org: string; role: 'attendee' | 'speaker' | 'sponsor' | 'vip'; no: string }) {
+  const roleText = { attendee: '参会者', speaker: '讲者', sponsor: '赞助商', vip: 'VIP' };
+  return <article className={'ds-attendee-badge is-' + role} tabIndex={0} aria-label={'参会胸卡，' + event + '，' + name + '，' + org + '，' + roleText[role] + '，编号 ' + no}>
+    <p className="ds-attendee-badge__event">{event}</p>
+    <strong className="ds-attendee-badge__name">{name}</strong>
+    <p className="ds-attendee-badge__org">{org}</p>
+    <span className="ds-attendee-badge__role">{roleText[role]}</span>
+    <div className="ds-attendee-badge__foot"><span>{no}</span><i aria-hidden="true" /></div>
+  </article>;
+}
+
+export function SessionFeedbackCard({ title, speaker, rating, tags, onSubmit }: { title: string; speaker: string; rating: number; tags: string[]; onSubmit?: (rating: number, tags: string[]) => void }) {
+  return <section className="ds-session-feedback" aria-label={'议程反馈，' + title + '，讲者 ' + speaker}>
+    <h4 className="ds-session-feedback__title">{title}</h4>
+    <div className="ds-session-feedback__stars" role="radiogroup" aria-label="评分">
+      {[1, 2, 3, 4, 5].map(star => <button key={star} type="button" role="radio" aria-checked={star <= rating} aria-label={star + ' 星'}>{'★'}</button>)}
+    </div>
+    <div className="ds-session-feedback__tags">
+      {tags.map((tag, index) => <button key={tag} type="button" className={index === 0 ? 'is-active' : undefined}>{tag}</button>)}
+    </div>
+    <button type="button" className="is-primary" onClick={() => onSubmit?.(rating, tags)}>提交反馈</button>
+  </section>;
+}
+
+export function VolunteerShiftCard({ role, time, location, leader, state }: { role: string; time: string; location: string; leader: string; state: 'assigned' | 'soon' | 'active' | 'done' }) {
+  const stateText = { assigned: '已分配', soon: '即将开始', active: '进行中', done: '已完成' };
+  return <article className={'ds-volunteer-shift is-' + state} tabIndex={0} aria-label={'志愿者排班，' + role + '，' + time + '，' + location + '，负责人 ' + leader + '，' + stateText[state]}>
+    <div className="ds-volunteer-shift__head">
+      <strong className="ds-volunteer-shift__role">{role}</strong>
+      <span className={'ds-volunteer-shift__state is-' + state}>{stateText[state]}</span>
+    </div>
+    <p className="ds-volunteer-shift__time">{time}</p>
+    <p className="ds-volunteer-shift__loc">{location} · 负责人 {leader}</p>
+    {state === 'assigned' || state === 'soon' ? <button type="button">签到上岗</button> : null}
+  </article>;
+}

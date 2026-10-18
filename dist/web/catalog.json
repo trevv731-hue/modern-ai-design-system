@@ -19705,5 +19705,285 @@
       "播放按钮可达"
     ],
     "react": "<CallRecordCard customer=\"张女士\" number=\"138****2210\" duration=\"04:32\" time=\"今天 14:20\" hasRecording />"
+  },
+  {
+    "id": "evt-event-count",
+    "name": "活动倒计时卡",
+    "category": "活动 / 票务",
+    "status": "v3 新增",
+    "purpose": "突出展示活动信息与开赛倒计时，引导报名。",
+    "anatomy": [
+      "封面占位 (ds-event-count__media)",
+      "活动名称 (ds-event-count__body)",
+      "倒计时数字 (ds-event-count__timer)",
+      "时间与地点",
+      "报名按钮"
+    ],
+    "keyboard": "卡片可聚焦；报名按钮可达；倒计时使用 aria-live 播报。",
+    "guidance": [
+      "倒计时按天时分秒分组展示。",
+      "已报名状态显示取消入口。",
+      "时间地点图标加文字。"
+    ],
+    "preview": "<article class=\"ds-event-count\" tabindex=\"0\" aria-label=\"2026 前端开发者大会，11-08 09:00，国家会议中心，距开始 12 天 5 小时 30 分\"><div class=\"ds-event-count__media\" aria-hidden=\"true\"><span>封面</span></div><div class=\"ds-event-count__body\"><strong>2026 前端开发者大会</strong><span>11-08 09:00 · 国家会议中心</span></div><div class=\"ds-event-count__timer\" role=\"timer\" aria-label=\"倒计时\"><span><b>12</b><i>天</i></span><span><b>05</b><i>时</i></span><span><b>30</b><i>分</i></span><span><b>08</b><i>秒</i></span></div><button type=\"button\">立即报名</button></article>",
+    "checks": [
+      "倒计时天时分秒分组",
+      "已报名显取消入口",
+      "时间地点图标文字",
+      "倒计时 aria-live"
+    ],
+    "react": "<EventCountdownCard title=\"2026 前端开发者大会\" date=\"11-08 09:00\" location=\"国家会议中心\" days={12} hours={5} minutes={30} />"
+  },
+  {
+    "id": "evt-ticket-pass",
+    "name": "电子票券",
+    "category": "活动 / 票务",
+    "status": "v3 新增",
+    "purpose": "展示活动门票的票种、座位与入场二维码。",
+    "anatomy": [
+      "活动名 (ds-ticket-pass__title)",
+      "票种与座位 (ds-ticket-pass__meta)",
+      "二维码 (ds-ticket-pass__qr)",
+      "票号 (ds-ticket-pass__no)",
+      "入场按钮"
+    ],
+    "keyboard": "卡片可聚焦；二维码有文字说明；入场按钮可达。",
+    "guidance": [
+      "二维码为装饰占位并附票号文字。",
+      "已使用票券置灰并显示状态。",
+      "支持加入卡包。"
+    ],
+    "preview": "<article class=\"ds-ticket-pass\" tabindex=\"0\" aria-label=\"电子票券，2026 前端开发者大会，VIP 通票，A 区 3 排 12 号，票号 TKT-88231\"><h4 class=\"ds-ticket-pass__title\">2026 前端开发者大会</h4><p class=\"ds-ticket-pass__meta\">VIP 通票 · A 区 3 排 12 号 · 11-08 09:00</p><div class=\"ds-ticket-pass__qr\" aria-hidden=\"true\"></div><p class=\"ds-ticket-pass__no\">票号 TKT-88231</p><div class=\"ds-ticket-pass__foot\"><button type=\"button\">出示入场</button><button type=\"button\">加入卡包</button></div></article>",
+    "checks": [
+      "二维码附票号文字",
+      "已用票券置灰",
+      "支持加入卡包",
+      "卡片可聚焦"
+    ],
+    "react": "<EventTicketPass title=\"2026 前端开发者大会\" type=\"VIP 通票\" seat=\"A 区 3 排 12 号\" no=\"TKT-88231\" date=\"11-08 09:00\" />"
+  },
+  {
+    "id": "evt-seat-zone",
+    "name": "座位区域图",
+    "category": "活动 / 票务",
+    "status": "v3 新增",
+    "purpose": "以示意图展示场馆座位分区、票价与余票。",
+    "anatomy": [
+      "舞台占位 (ds-seat-zone__stage)",
+      "区域块 (ds-seat-zone__zone)",
+      "价格标签",
+      "余票 (ds-seat-zone__left)",
+      "图例"
+    ],
+    "keyboard": "区域可聚焦选择；余票状态有文字不只颜色。",
+    "guidance": [
+      "余票紧张黄色、售罄置灰。",
+      "区域按距离舞台远近排列。",
+      "选择区域后展示票价明细。"
+    ],
+    "preview": "<section class=\"ds-seat-zone\" aria-label=\"座位区域图\"><div class=\"ds-seat-zone__stage\" aria-hidden=\"true\">舞台</div><div class=\"ds-seat-zone__zones\"><button type=\"button\" class=\"ds-seat-zone__zone is-few\" aria-label=\"A 区，票价 1280 元，余票 12 张，紧张\"><strong>A 区</strong><span>¥1,280</span><em class=\"ds-seat-zone__left\">余 12</em></button><button type=\"button\" class=\"ds-seat-zone__zone is-ok\" aria-label=\"B 区，票价 880 元，余票 86 张\"><strong>B 区</strong><span>¥880</span><em class=\"ds-seat-zone__left\">余 86</em></button><button type=\"button\" class=\"ds-seat-zone__zone is-out\" aria-label=\"C 区，票价 480 元，已售罄\" disabled><strong>C 区</strong><span>¥480</span><em class=\"ds-seat-zone__left\">售罄</em></button></div></section>",
+    "checks": [
+      "余票状态文字提示",
+      "按距舞台排列",
+      "选择后显票价明细",
+      "区域可聚焦选择"
+    ],
+    "react": "<SeatZoneMap zones={[{ name: \"A 区\", price: 1280, left: 12, state: \"few\" }, { name: \"B 区\", price: 880, left: 86, state: \"ok\" }]} />"
+  },
+  {
+    "id": "evt-agenda-row",
+    "name": "议程行",
+    "category": "活动 / 票务",
+    "status": "v3 新增",
+    "purpose": "展示一场议程的时间、议题、讲者与所在会场。",
+    "anatomy": [
+      "时间段 (ds-agenda-row__time)",
+      "议题与讲者 (ds-agenda-row__body)",
+      "会场 (ds-agenda-row__room)",
+      "标签 (ds-agenda-row__tags)",
+      "收藏按钮"
+    ],
+    "keyboard": "行可聚焦查看详情；收藏按钮可达并播报。",
+    "guidance": [
+      "已开始的议程置灰。",
+      "收藏的议程有标记。",
+      "标签按议题类型着色。"
+    ],
+    "preview": "<div class=\"ds-agenda-row\" tabindex=\"0\" role=\"button\" aria-label=\"议程，10:30 至 11:10，设计系统的工程化实践，讲者王莉，主会场，前端工程\"><span class=\"ds-agenda-row__time\">10:30<br>11:10</span><div class=\"ds-agenda-row__body\"><strong>设计系统的工程化实践</strong><span>王莉 · 某科技</span></div><span class=\"ds-agenda-row__room\">主会场</span><div class=\"ds-agenda-row__tags\"><span>前端工程</span></div><button type=\"button\" aria-label=\"收藏议程\">☆</button></div>",
+    "checks": [
+      "已开始议程置灰",
+      "收藏有标记",
+      "标签按类型着色",
+      "行可聚焦看详情"
+    ],
+    "react": "<AgendaSessionRow time=\"10:30-11:10\" title=\"设计系统的工程化实践\" speaker=\"王莉\" room=\"主会场\" track=\"前端工程\" />"
+  },
+  {
+    "id": "evt-speaker-card",
+    "name": "演讲者卡",
+    "category": "活动 / 票务",
+    "status": "v3 新增",
+    "purpose": "展示演讲嘉宾的头像、头衔与主讲议题。",
+    "anatomy": [
+      "头像 (ds-speaker-card__avatar)",
+      "姓名与头衔 (ds-speaker-card__body)",
+      "公司",
+      "议题 (ds-speaker-card__topic)",
+      "关注按钮"
+    ],
+    "keyboard": "卡片可聚焦查看介绍；关注按钮可达。",
+    "guidance": [
+      "头像支持图片或首字母占位。",
+      "议题标题最多两行。",
+      "Keynote 讲者有特殊标记。"
+    ],
+    "preview": "<article class=\"ds-speaker-card is-keynote\" tabindex=\"0\" aria-label=\"演讲者，王莉，前端负责人，某科技，主讲设计系统的工程化实践，Keynote\"><span class=\"ds-speaker-card__avatar\" aria-hidden=\"true\">王</span><div class=\"ds-speaker-card__body\"><strong>王莉 <em>Keynote</em></strong><span>前端负责人 · 某科技</span></div><p class=\"ds-speaker-card__topic\">设计系统的工程化实践</p><button type=\"button\">关注</button></article>",
+    "checks": [
+      "头像支持图片占位",
+      "议题最多两行",
+      "Keynote 特殊标记",
+      "卡片可聚焦看介绍"
+    ],
+    "react": "<SpeakerCard name=\"王莉\" title=\"前端负责人\" company=\"某科技\" topic=\"设计系统的工程化实践\" keynote />"
+  },
+  {
+    "id": "evt-booth-card",
+    "name": "展位卡",
+    "category": "活动 / 票务",
+    "status": "v3 新增",
+    "purpose": "展示赞助商展位编号、级别与位置导航入口。",
+    "anatomy": [
+      "展位号 (ds-booth-card__no)",
+      "赞助商名称 (ds-booth-card__name)",
+      "级别标签 (ds-booth-card__tier)",
+      "位置 (ds-booth-card__loc)",
+      "导航按钮"
+    ],
+    "keyboard": "卡片可聚焦；导航按钮可达。",
+    "guidance": [
+      "赞助级别用标签区分。",
+      "已打卡展位有标记。",
+      "位置支持一键导航。"
+    ],
+    "preview": "<article class=\"ds-booth-card\" tabindex=\"0\" role=\"button\" aria-label=\"展位 B-12，云栖科技，金牌赞助，展馆 B1 主通道\"><span class=\"ds-booth-card__no\">B-12</span><div class=\"ds-booth-card__body\"><strong class=\"ds-booth-card__name\">云栖科技</strong><span class=\"ds-booth-card__tier is-gold\">金牌赞助</span></div><span class=\"ds-booth-card__loc\">展馆 B1 · 主通道</span><button type=\"button\">导航</button></article>",
+    "checks": [
+      "级别标签区分",
+      "已打卡有标记",
+      "位置一键导航",
+      "卡片可聚焦"
+    ],
+    "react": "<SponsorBoothCard no=\"B-12\" name=\"云栖科技\" tier=\"gold\" loc=\"展馆 B1 · 主通道\" />"
+  },
+  {
+    "id": "evt-checkin-kiosk",
+    "name": "签到卡",
+    "category": "活动 / 票务",
+    "status": "v3 新增",
+    "purpose": "展示扫码或输入签到码后的签到结果与统计。",
+    "anatomy": [
+      "签到码输入 (ds-checkin-kiosk__code)",
+      "扫描区 (ds-checkin-kiosk__scanner)",
+      "结果 (ds-checkin-kiosk__result)",
+      "已签统计 (ds-checkin-kiosk__stat)",
+      "重试按钮"
+    ],
+    "keyboard": "输入框自动聚焦；结果使用 status 语义播报；重复签到底部提示。",
+    "guidance": [
+      "签到成功绿色、失败红色、重复黄色。",
+      "统计实时更新。",
+      "支持手动输入签到码。"
+    ],
+    "preview": "<section class=\"ds-checkin-kiosk is-success\" role=\"status\" aria-label=\"签到成功，陈思远，A-0231，已签到 1204 人，共 1500 人\"><div class=\"ds-checkin-kiosk__scanner\" aria-hidden=\"true\"><i></i></div><div class=\"ds-checkin-kiosk__result\"><strong>签到成功</strong><span>陈思远 · A-0231</span></div><p class=\"ds-checkin-kiosk__stat\">已签到 <b>1,204</b> / 1,500</p><button type=\"button\">继续扫描</button></section>",
+    "checks": [
+      "三态结果颜色文字",
+      "统计实时更新",
+      "支持手动输码",
+      "重复签到底部提示"
+    ],
+    "react": "<CheckInKioskCard code=\"8823\" scanned={1204} total={1500} result=\"success\" name=\"陈思远\" />"
+  },
+  {
+    "id": "evt-attendee-badge",
+    "name": "参会者胸卡",
+    "category": "活动 / 票务",
+    "status": "v3 新增",
+    "purpose": "展示参会者的姓名、公司与身份胸卡信息。",
+    "anatomy": [
+      "活动名 (ds-attendee-badge__event)",
+      "姓名 (ds-attendee-badge__name)",
+      "公司 (ds-attendee-badge__org)",
+      "身份标签 (ds-attendee-badge__role)",
+      "编号与二维码占位"
+    ],
+    "keyboard": "胸卡可聚焦；身份标签有文字不只颜色。",
+    "guidance": [
+      "讲者与赞助商身份特殊配色。",
+      "二维码为装饰占位。",
+      "支持现场打印。"
+    ],
+    "preview": "<article class=\"ds-attendee-badge is-speaker\" tabindex=\"0\" aria-label=\"参会胸卡，2026 前端开发者大会，陈思远，某科技，讲者，编号 A-0231\"><p class=\"ds-attendee-badge__event\">2026 前端开发者大会</p><strong class=\"ds-attendee-badge__name\">陈思远</strong><p class=\"ds-attendee-badge__org\">某科技</p><span class=\"ds-attendee-badge__role\">讲者</span><div class=\"ds-attendee-badge__foot\"><span>A-0231</span><i aria-hidden=\"true\"></i></div></article>",
+    "checks": [
+      "特殊身份配色",
+      "二维码装饰占位",
+      "身份标签有文字",
+      "支持现场打印"
+    ],
+    "react": "<AttendeeBadge event=\"2026 前端开发者大会\" name=\"陈思远\" org=\"某科技\" role=\"speaker\" no=\"A-0231\" />"
+  },
+  {
+    "id": "evt-session-feedback",
+    "name": "议程反馈卡",
+    "category": "活动 / 票务",
+    "status": "v3 新增",
+    "purpose": "收集参会者对单场议程的评分与文字反馈。",
+    "anatomy": [
+      "议题名 (ds-session-feedback__title)",
+      "星级评分 (ds-session-feedback__stars)",
+      "标签选择 (ds-session-feedback__tags)",
+      "评论输入",
+      "提交按钮"
+    ],
+    "keyboard": "星级使用 radio 语义；标签可多选；提交后显示感谢状态。",
+    "guidance": [
+      "默认五星满分可改。",
+      "标签一键选择常用评价。",
+      "提交后不可重复提交。"
+    ],
+    "preview": "<section class=\"ds-session-feedback\" aria-label=\"议程反馈，设计系统的工程化实践\"><h4 class=\"ds-session-feedback__title\">设计系统的工程化实践</h4><div class=\"ds-session-feedback__stars\" role=\"radiogroup\" aria-label=\"评分\"><button type=\"button\" role=\"radio\" aria-checked=\"true\">★</button><button type=\"button\" role=\"radio\" aria-checked=\"true\">★</button><button type=\"button\" role=\"radio\" aria-checked=\"true\">★</button><button type=\"button\" role=\"radio\" aria-checked=\"true\">★</button><button type=\"button\" role=\"radio\" aria-checked=\"false\">★</button></div><div class=\"ds-session-feedback__tags\"><button type=\"button\" class=\"is-active\">内容实用</button><button type=\"button\">节奏偏快</button><button type=\"button\">案例丰富</button></div><button type=\"button\" class=\"is-primary\">提交反馈</button></section>",
+    "checks": [
+      "星级 radio 语义",
+      "标签多选",
+      "提交后禁重复",
+      "提交显感谢状态"
+    ],
+    "react": "<SessionFeedbackCard title=\"设计系统的工程化实践\" speaker=\"王莉\" rating={4} tags={[\"内容实用\"]} onSubmit={submit} />"
+  },
+  {
+    "id": "evt-volunteer-shift",
+    "name": "志愿者排班卡",
+    "category": "活动 / 票务",
+    "status": "v3 新增",
+    "purpose": "展示志愿者的岗位、时段与签到状态。",
+    "anatomy": [
+      "岗位 (ds-volunteer-shift__role)",
+      "时段 (ds-volunteer-shift__time)",
+      "地点 (ds-volunteer-shift__loc)",
+      "负责人",
+      "状态 (ds-volunteer-shift__state)"
+    ],
+    "keyboard": "卡片可聚焦查看详情；签到按钮可达。",
+    "guidance": [
+      "进行中与待开始状态区分。",
+      "临近开始黄色提醒。",
+      "完成后可领取志愿证明。"
+    ],
+    "preview": "<article class=\"ds-volunteer-shift is-assigned\" tabindex=\"0\" aria-label=\"志愿者排班，签到引导，11-08 08:00 至 12:00，北门签到处，负责人赵敏，已分配\"><div class=\"ds-volunteer-shift__head\"><strong class=\"ds-volunteer-shift__role\">签到引导</strong><span class=\"ds-volunteer-shift__state is-assigned\">已分配</span></div><p class=\"ds-volunteer-shift__time\">11-08 08:00 ~ 12:00</p><p class=\"ds-volunteer-shift__loc\">北门签到处 · 负责人 赵敏</p><button type=\"button\">签到上岗</button></article>",
+    "checks": [
+      "进行中待开始区分",
+      "临近开始黄色",
+      "完成领志愿证明",
+      "卡片可聚焦看详情"
+    ],
+    "react": "<VolunteerShiftCard role=\"签到引导\" time=\"11-08 08:00-12:00\" location=\"北门签到处\" leader=\"赵敏\" state=\"assigned\" />"
   }
 ]
