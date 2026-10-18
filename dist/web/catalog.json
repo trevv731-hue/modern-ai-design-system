@@ -14995,5 +14995,280 @@
       "status 语义"
     ],
     "react": "<ReceiptCard amount=\"¥1,470.00\" plan=\"专业版 · 年付\" tradeNo=\"20261018-8f3a92\" discount=\"年付 8 折 −¥294.00\" />"
+  },
+  {
+    "id": "notice-inbox-row",
+    "name": "通知收件箱行",
+    "category": "通知",
+    "status": "v3 新增",
+    "purpose": "在通知中心按行展示消息来源、内容摘要与操作入口。",
+    "anatomy": [
+      "来源图标 (ds-inbox-row__icon)",
+      "标题",
+      "摘要",
+      "时间",
+      "未读点",
+      "快捷操作"
+    ],
+    "keyboard": "行可聚焦；未读状态用文字可读；快捷操作独立可达。",
+    "guidance": [
+      "未读行有文字标记而非仅圆点。",
+      "同类通知可折叠为分组。",
+      "快捷操作不超过两个。"
+    ],
+    "preview": "<div class=\"ds-inbox-row is-unread\" tabindex=\"0\" role=\"button\"><span class=\"ds-inbox-row__icon\" aria-hidden=\"true\">💬</span><div class=\"ds-inbox-row__body\"><strong>林晓 在「设计规范」中提到了你</strong><p>第三章的玻璃层级能补充暗色适配说明吗？</p></div><time>10 分钟前</time><span class=\"ds-inbox-row__unread\">未读</span><button type=\"button\" aria-label=\"标记已读\">✓</button></div>",
+    "checks": [
+      "未读有文字标记",
+      "同类可折叠分组",
+      "快捷操作不超过两个",
+      "行可键盘聚焦"
+    ],
+    "react": "<NoticeInboxRow title=\"林晓 在「设计规范」中提到了你\" preview=\"第三章的玻璃层级能补充暗色适配说明吗？\" time=\"10 分钟前\" unread />"
+  },
+  {
+    "id": "notice-group-header",
+    "name": "通知分组头",
+    "category": "通知",
+    "status": "v3 新增",
+    "purpose": "在通知列表中按时间或类型分组，并提供整组操作。",
+    "anatomy": [
+      "组标题 (ds-inbox-group__title)",
+      "计数",
+      "整组已读",
+      "折叠按钮"
+    ],
+    "keyboard": "折叠按钮可聚焦；组标题为静态文本。",
+    "guidance": [
+      "按“今天 / 本周 / 更早”分组。",
+      "整组操作仅作用于本组。",
+      "折叠状态在刷新后保留。"
+    ],
+    "preview": "<div class=\"ds-inbox-group\"><p class=\"ds-inbox-group__title\">今天<em>12 条</em></p><div class=\"ds-inbox-group__actions\"><button type=\"button\">全部已读</button><button type=\"button\" aria-label=\"折叠今天分组\">▾</button></div></div>",
+    "checks": [
+      "按今天本周更早分组",
+      "整组操作仅作用本组",
+      "折叠状态刷新保留",
+      "折叠按钮有可读名称"
+    ],
+    "react": "<NoticeGroupHeader title=\"今天\" count={12} onReadAll={readAll} />"
+  },
+  {
+    "id": "notice-result-toast",
+    "name": "操作结果提示",
+    "category": "通知",
+    "status": "v3 新增",
+    "purpose": "对用户操作给出即时反馈，支持成功、失败与撤销入口。",
+    "anatomy": [
+      "状态图标 (ds-result-toast__icon)",
+      "结果文案",
+      "操作按钮",
+      "关闭",
+      "进度倒计时"
+    ],
+    "keyboard": "toast 出现时焦点不强制转移；关闭按钮可聚焦。",
+    "guidance": [
+      "失败时给出重试入口。",
+      "可撤销操作保留撤销按钮数秒。",
+      "多个 toast 堆叠且最新在上。"
+    ],
+    "preview": "<div class=\"ds-result-toast is-success\" role=\"status\"><span class=\"ds-result-toast__icon\" aria-hidden=\"true\">✓</span><span>已保存修改</span><button type=\"button\">撤销</button><button type=\"button\" aria-label=\"关闭提示\">✕</button></div>",
+    "checks": [
+      "失败有重试入口",
+      "可撤销操作保留撤销",
+      "堆叠最新在上",
+      "不强制抢焦点"
+    ],
+    "react": "<ResultToast tone=\"success\" message=\"已保存修改\" action=\"撤销\" onAction={undo} />"
+  },
+  {
+    "id": "notice-announcement-bar",
+    "name": "公告条",
+    "category": "通知",
+    "status": "v3 新增",
+    "purpose": "在页面顶部展示全站公告，支持查看详情与关闭。",
+    "anatomy": [
+      "公告标签 (ds-announce-bar__tag)",
+      "内容",
+      "详情链接",
+      "关闭"
+    ],
+    "keyboard": "链接可聚焦；关闭按钮有可读名称。",
+    "guidance": [
+      "公告有类型标记：更新、维护、活动。",
+      "同一公告每天最多展示一次。",
+      "维护公告说明影响时间段。"
+    ],
+    "preview": "<div class=\"ds-announce-bar\" role=\"status\"><span class=\"ds-announce-bar__tag\">系统维护</span><span>10 月 20 日 02:00-04:00 将进行升级，期间服务暂停</span><a href=\"#\">了解详情</a><button type=\"button\" aria-label=\"关闭公告\">✕</button></div>",
+    "checks": [
+      "公告有类型标记",
+      "同公告每天最多一次",
+      "维护说明时间段",
+      "链接与关闭可聚焦"
+    ],
+    "react": "<AnnouncementBar tag=\"系统维护\" body=\"10 月 20 日 02:00-04:00 将进行升级，期间服务暂停\" onDismiss={dismiss} />"
+  },
+  {
+    "id": "notice-broadcast-modal",
+    "name": "广播弹窗",
+    "category": "通知",
+    "status": "v3 新增",
+    "purpose": "向团队成员广播重要通知，展示发送范围与已读进度。",
+    "anatomy": [
+      "标题 (ds-broadcast__title)",
+      "正文",
+      "范围说明",
+      "确认回执",
+      "关闭"
+    ],
+    "keyboard": "弹窗打开焦点落在确认按钮；Esc 仅关闭不标记已读。",
+    "guidance": [
+      "强制阅读的通知禁用 Esc 关闭。",
+      "展示已读人数与总人数。",
+      "关闭后仍可在通知中心找回。"
+    ],
+    "preview": "<div class=\"ds-broadcast\" role=\"alertdialog\" aria-modal=\"true\" aria-label=\"团队广播\"><p class=\"ds-broadcast__scope\">发送给：设计中心全体 42 人</p><h3>关于新版组件库发布的通知</h3><p>新版组件库将于 10 月 22 日正式发布，请各组在 10 月 21 日前完成迁移自检。</p><div class=\"ds-broadcast__foot\"><span>已读 18 / 42</span><button type=\"button\" class=\"is-primary\">我已阅读</button></div></div>",
+    "checks": [
+      "强制阅读禁用 Esc",
+      "展示已读人数",
+      "关闭后可找回",
+      "焦点落在确认按钮"
+    ],
+    "react": "<BroadcastModal scope=\"设计中心全体 42 人\" title=\"关于新版组件库发布的通知\" read={18} total={42} onConfirm={confirm} />"
+  },
+  {
+    "id": "notice-subscribe-prompt",
+    "name": "订阅提示卡",
+    "category": "通知",
+    "status": "v3 新增",
+    "purpose": "引导用户订阅更新频道，说明订阅内容与频率。",
+    "anatomy": [
+      "图标 (ds-sub-prompt__icon)",
+      "标题",
+      "频率说明",
+      "订阅按钮",
+      "不再提示"
+    ],
+    "keyboard": "订阅按钮为主行动；不再提示提供关闭路径。",
+    "guidance": [
+      "明确说明推送频率，如“每周一封”。",
+      "订阅后给出确认与退订入口。",
+      "已订阅用户展示退订而非订阅。"
+    ],
+    "preview": "<div class=\"ds-sub-prompt\"><span class=\"ds-sub-prompt__icon\" aria-hidden=\"true\">📬</span><div class=\"ds-sub-prompt__body\"><strong>订阅设计系统更新</strong><span>每周一封邮件，包含新组件与破坏性变更提醒</span></div><button type=\"button\" class=\"is-primary\">订阅</button><button type=\"button\" aria-label=\"不再提示\">✕</button></div>",
+    "checks": [
+      "说明推送频率",
+      "订阅后给退订入口",
+      "已订阅展示退订",
+      "提供不再提示"
+    ],
+    "react": "<SubscribePrompt title=\"订阅设计系统更新\" frequency=\"每周一封邮件\" onSubscribe={subscribe} />"
+  },
+  {
+    "id": "notice-quiet-hours",
+    "name": "免打扰设置",
+    "category": "通知",
+    "status": "v3 新增",
+    "purpose": "设置免打扰时间段与例外规则，避免休息时间被打扰。",
+    "anatomy": [
+      "开关 (ds-quiet-hours)",
+      "时间段选择",
+      "例外规则",
+      "生效预览"
+    ],
+    "keyboard": "时间输入原生可达；例外规则复选框可聚焦。",
+    "guidance": [
+      "例外规则说明何种通知仍会提醒。",
+      "时区变化后免打扰时间随之平移。",
+      "生效前给出预览区间。"
+    ],
+    "preview": "<div class=\"ds-quiet-hours\"><label class=\"ds-switch\"><input type=\"checkbox\" class=\"ds-switch__input\" checked><span class=\"ds-switch__track\"></span></label><strong>免打扰</strong><span class=\"ds-quiet-hours__range\">22:00 - 08:00</span><div class=\"ds-quiet-hours__rules\"><label><input type=\"checkbox\" checked><span>紧急告警仍提醒</span></label><label><input type=\"checkbox\"><span>@ 我的仍提醒</span></label></div></div>",
+    "checks": [
+      "例外规则说明仍提醒类型",
+      "时区变化时间平移",
+      "生效前给预览区间",
+      "时间输入原生可达"
+    ],
+    "react": "<QuietHours from=\"22:00\" to=\"08:00\" exceptions={[\"紧急告警仍提醒\"]} />"
+  },
+  {
+    "id": "notice-badge-pulse",
+    "name": "新消息脉冲徽标",
+    "category": "通知",
+    "status": "v3 新增",
+    "purpose": "在图标角落以脉冲动画提示新消息数量，吸引注意但不干扰阅读。",
+    "anatomy": [
+      "徽标外壳 (ds-badge-pulse)",
+      "数量",
+      "脉冲环",
+      "上限标记"
+    ],
+    "keyboard": "宿主图标可聚焦；数量以文字可读。",
+    "guidance": [
+      "数量超过 99 显示“99+”。",
+      "脉冲动画尊重减少动效偏好。",
+      "点击后徽标即时清除并播报。"
+    ],
+    "preview": "<button type=\"button\" class=\"ds-badge-pulse-host\"><span aria-hidden=\"true\">🔔</span><span class=\"ds-badge-pulse\">12<i class=\"ds-badge-pulse__ring\" aria-hidden=\"true\"></i></span></button>",
+    "checks": [
+      "超 99 显示 99+",
+      "减少动效时停止脉冲",
+      "点击后即时清除",
+      "数量文字可读"
+    ],
+    "react": "<BadgePulse count={12} />"
+  },
+  {
+    "id": "notice-digest-card",
+    "name": "摘要卡片",
+    "category": "通知",
+    "status": "v3 新增",
+    "purpose": "将一段时间内的通知汇总为一张摘要卡，支持逐条展开。",
+    "anatomy": [
+      "时间范围 (ds-digest__range)",
+      "分类计数",
+      "重点条目",
+      "展开全部"
+    ],
+    "keyboard": "卡片可聚焦；展开按钮切换列表显隐。",
+    "guidance": [
+      "重点条目最多展示 3 条。",
+      "分类计数可点击筛选。",
+      "摘要按天生成，避免过长。"
+    ],
+    "preview": "<div class=\"ds-digest\"><p class=\"ds-digest__range\">今日通知摘要 · 10-18</p><div class=\"ds-digest__stats\"><span>💬 评论 5</span><span>👤 提及 3</span><span>🔔 系统 2</span></div><ul class=\"ds-digest__list\"><li>林晓 评论了「玻璃层级规范」</li><li>构建 #1284 失败</li><li>陈默 分享了「Q4 路线图」</li></ul><button type=\"button\">展开全部 10 条</button></div>",
+    "checks": [
+      "重点条目最多 3 条",
+      "分类计数可筛选",
+      "按天生成避免过长",
+      "展开按钮切换显隐"
+    ],
+    "react": "<DigestCard range=\"10-18\" stats={[{ kind: \"评论\", count: 5 }, { kind: \"提及\", count: 3 }]} highlights={[\"林晓 评论了「玻璃层级规范」\"]} />"
+  },
+  {
+    "id": "notice-priority-tag",
+    "name": "优先级标签",
+    "category": "通知",
+    "status": "v3 新增",
+    "purpose": "在通知上标注优先级，帮助用户快速判断处理顺序。",
+    "anatomy": [
+      "标签外壳 (ds-prio-tag)",
+      "优先级名",
+      "图标",
+      "响应时限"
+    ],
+    "keyboard": "纯展示元素，不接收焦点；优先级文字可读。",
+    "guidance": [
+      "优先级用文字加颜色双通道。",
+      "P0 通知附带期望响应时限。",
+      "避免滥用高优先级造成麻木。"
+    ],
+    "preview": "<span class=\"ds-prio-tag is-p0\"><i aria-hidden=\"true\">🔥</i>P0 紧急<small>需 1 小时内响应</small></span>",
+    "checks": [
+      "文字加颜色双通道",
+      "P0 附响应时限",
+      "不滥用高优先级",
+      "标签文字可读"
+    ],
+    "react": "<PriorityTag level=\"P0\" label=\"紧急\" sla=\"需 1 小时内响应\" />"
   }
 ]

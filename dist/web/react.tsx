@@ -14500,3 +14500,100 @@ export function ReceiptCard({ amount, plan, tradeNo, discount }: { amount: strin
     </div>
   </div>;
 }
+
+export function NoticeInboxRow({ title, preview, time, unread, onRead }: { title: string; preview: string; time: string; unread?: boolean; onRead?: () => void }) {
+  return <div className={'ds-inbox-row' + (unread ? ' is-unread' : '')} role="button" tabIndex={0}>
+    <span className="ds-inbox-row__icon" aria-hidden="true">💬</span>
+    <div className="ds-inbox-row__body"><strong>{title}</strong><p>{preview}</p></div>
+    <time>{time}</time>
+    {unread && <span className="ds-inbox-row__unread">未读</span>}
+    <button type="button" aria-label="标记已读" onClick={onRead}>✓</button>
+  </div>;
+}
+
+export function NoticeGroupHeader({ title, count, onReadAll }: { title: string; count: number; onReadAll?: () => void }) {
+  return <div className="ds-inbox-group">
+    <p className="ds-inbox-group__title">{title}<em>{count} 条</em></p>
+    <div className="ds-inbox-group__actions">
+      <button type="button" onClick={onReadAll}>全部已读</button>
+      <button type="button" aria-label={'折叠' + title + '分组'}>▾</button>
+    </div>
+  </div>;
+}
+
+export function ResultToast({ tone = 'success', message, action, onAction }: { tone?: string; message: string; action?: string; onAction?: () => void }) {
+  return <div className={'ds-result-toast is-' + tone} role="status">
+    <span className="ds-result-toast__icon" aria-hidden="true">{tone === 'success' ? '✓' : '!'}</span>
+    <span>{message}</span>
+    {action && <button type="button" onClick={onAction}>{action}</button>}
+    <button type="button" aria-label="关闭提示">✕</button>
+  </div>;
+}
+
+export function AnnouncementBar({ tag, body, onDismiss }: { tag: string; body: string; onDismiss?: () => void }) {
+  return <div className="ds-announce-bar" role="status">
+    <span className="ds-announce-bar__tag">{tag}</span>
+    <span>{body}</span>
+    <a href="#">了解详情</a>
+    <button type="button" aria-label="关闭公告" onClick={onDismiss}>✕</button>
+  </div>;
+}
+
+export function BroadcastModal({ scope, title, body, read, total, onConfirm }: { scope: string; title: string; body: string; read: number; total: number; onConfirm?: () => void }) {
+  return <div className="ds-broadcast" role="alertdialog" aria-modal="true" aria-label="团队广播">
+    <p className="ds-broadcast__scope">发送给：{scope}</p>
+    <h3>{title}</h3>
+    <p>{body}</p>
+    <div className="ds-broadcast__foot">
+      <span>已读 {read} / {total}</span>
+      <button type="button" className="is-primary" onClick={onConfirm}>我已阅读</button>
+    </div>
+  </div>;
+}
+
+export function SubscribePrompt({ title, frequency, onSubscribe }: { title: string; frequency: string; onSubscribe?: () => void }) {
+  return <div className="ds-sub-prompt">
+    <span className="ds-sub-prompt__icon" aria-hidden="true">📬</span>
+    <div className="ds-sub-prompt__body"><strong>{title}</strong><span>{frequency}</span></div>
+    <button type="button" className="is-primary" onClick={onSubscribe}>订阅</button>
+    <button type="button" aria-label="不再提示">✕</button>
+  </div>;
+}
+
+export function QuietHours({ from, to, exceptions = [] }: { from: string; to: string; exceptions?: string[] }) {
+  return <div className="ds-quiet-hours">
+    <label className="ds-switch">
+      <input type="checkbox" className="ds-switch__input" defaultChecked />
+      <span className="ds-switch__track"></span>
+    </label>
+    <strong>免打扰</strong>
+    <span className="ds-quiet-hours__range">{from} - {to}</span>
+    <div className="ds-quiet-hours__rules">
+      {exceptions.map(rule => <label key={rule}><input type="checkbox" defaultChecked /><span>{rule}</span></label>)}
+    </div>
+  </div>;
+}
+
+export function BadgePulse({ count }: { count: number }) {
+  return <button type="button" className="ds-badge-pulse-host" aria-label={'新消息 ' + count + ' 条'}>
+    <span aria-hidden="true">🔔</span>
+    <span className="ds-badge-pulse">{count > 99 ? '99+' : count}<i className="ds-badge-pulse__ring" aria-hidden="true"></i></span>
+  </button>;
+}
+
+export function DigestCard({ range, stats = [], highlights = [] }: { range: string; stats: { kind: string; count: number }[]; highlights: string[] }) {
+  return <div className="ds-digest">
+    <p className="ds-digest__range">今日通知摘要 · {range}</p>
+    <div className="ds-digest__stats">
+      {stats.map(item => <span key={item.kind}>{item.kind} {item.count}</span>)}
+    </div>
+    <ul className="ds-digest__list">{highlights.map(item => <li key={item}>{item}</li>)}</ul>
+    <button type="button">展开全部</button>
+  </div>;
+}
+
+export function PriorityTag({ level, label, sla }: { level: string; label: string; sla?: string }) {
+  return <span className={'ds-prio-tag is-' + level.toLowerCase()}>
+    <i aria-hidden="true">🔥</i>{level} {label}{sla && <small>{sla}</small>}
+  </span>;
+}
