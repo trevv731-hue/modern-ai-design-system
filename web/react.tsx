@@ -15201,3 +15201,159 @@ export function AssetAllocationDonut({ total, slices }: { total: number; slices:
     </ul>
   </div>;
 }
+
+export function CourseCard({ title, teacher, lessons, hours, progress, onContinue }: { title: string; teacher: string; lessons: number; hours: number; progress: number; onContinue?: () => void }) {
+  const done = Math.round(lessons * progress / 100);
+  return <article className="ds-course-card" tabIndex={0} role="button" aria-label={'课程 ' + title + ' 进度 ' + progress + '%'}>
+    <div className="ds-course-card__cover" aria-hidden="true">{title.slice(0, 1)}</div>
+    <div className="ds-course-card__body">
+      <strong>{title}</strong>
+      <p className="ds-course-card__meta">{teacher} · {lessons} 课时 · {hours} 小时</p>
+      <div className="ds-course-card__bar" role="progressbar" aria-valuenow={progress} aria-valuemin={0} aria-valuemax={100} aria-label="学习进度"><i style={{ width: progress + '%' }} /></div>
+      <p className="ds-course-card__pct">已学 {progress}% · 剩 {lessons - done} 课时</p>
+    </div>
+    <button type="button" className="ds-course-card__go" onClick={onContinue}>继续学习</button>
+  </article>;
+}
+
+export function LessonProgressTracker({ groups }: { groups: Array<{ title: string; items: Array<{ name: string; time: string; state: 'done' | 'current' | 'todo' }> }> }) {
+  const stateIcon = { done: '✓', current: '▶', todo: '○' };
+  return <div className="ds-lesson-progress">
+    {groups.map(group => <div key={group.title}>
+      <p className="ds-lesson-progress__group">{group.title}</p>
+      <ul>
+        {group.items.map(item => <li key={item.name} className={item.state === 'todo' ? '' : 'is-' + item.state} aria-current={item.state === 'current' ? 'true' : undefined}>
+          <span className="ds-lesson-progress__state" aria-hidden="true">{stateIcon[item.state]}</span>
+          <span className="ds-lesson-progress__name">{item.name}</span>
+          <span className="ds-lesson-progress__time">{item.time}</span>
+        </li>)}
+      </ul>
+    </div>)}
+  </div>;
+}
+
+export function QuizQuestionCard({ stem, options, answer, onNext }: { stem: string; options: string[]; answer: number; onNext?: () => void }) {
+  const [picked, setPicked] = useState(-1);
+  const [submitted, setSubmitted] = useState(false);
+  const ok = picked === answer;
+  return <div className="ds-quiz-q">
+    <p className="ds-quiz-q__stem">{stem}</p>
+    <fieldset>
+      <legend className="ds-quiz-q__sr">选项</legend>
+      {options.map((option, index) => <label key={option} className={submitted && index === answer ? 'is-correct' : undefined}>
+        <input type="radio" name="quiz-option" checked={picked === index} onChange={() => setPicked(index)} /><span>{option}</span>
+      </label>)}
+    </fieldset>
+    {submitted ? <p className={'ds-quiz-q__result ' + (ok ? 'is-ok' : 'is-err')} role="status">{ok ? '回答正确' : '回答错误，再试一次'} · 正确答案是 {options[answer]}</p> : null}
+    <button type="button" onClick={() => (submitted ? onNext?.() : setSubmitted(true))}>{submitted ? '下一题' : '提交答案'}</button>
+  </div>;
+}
+
+export function FlashcardDeck({ index, total, front, back, note, onGrade }: { index: number; total: number; front: string; back: string; note?: string; onGrade?: (level: 'again' | 'hard' | 'good') => void }) {
+  const [flipped, setFlipped] = useState(false);
+  return <div>
+    <div className={'ds-flashcard' + (flipped ? ' is-flipped' : '')} tabIndex={0} role="button" aria-label={flipped ? '记忆卡片，当前为反面：答案' : '记忆卡片，当前为正面：问题'} onClick={() => setFlipped(!flipped)}>
+      <div className="ds-flashcard__inner">
+        <div className="ds-flashcard__face ds-flashcard__front">
+          <span className="ds-flashcard__index">{index} / {total}</span>
+          <strong>{front}</strong>
+          <span className="ds-flashcard__hint">点击或按空格翻转</span>
+        </div>
+        <div className="ds-flashcard__face ds-flashcard__back">
+          <strong>{back}</strong>
+          {note ? <p>{note}</p> : null}
+        </div>
+      </div>
+    </div>
+    <div className="ds-flashcard__grade" role="group" aria-label="熟练度">
+      <button type="button" onClick={() => onGrade?.('again')}>不认识</button>
+      <button type="button" onClick={() => onGrade?.('hard')}>模糊</button>
+      <button type="button" className="is-ok" onClick={() => onGrade?.('good')}>认识</button>
+    </div>
+  </div>;
+}
+
+export function ErrorNotebookRow({ stem, misses, source, mastered }: { stem: string; misses: number; source: string; mastered: boolean }) {
+  return <div className="ds-error-book" role="list">
+    <div className="ds-error-book__row" tabIndex={0} role="listitem" aria-label={'错题：' + stem + '，错误 ' + misses + ' 次，' + (mastered ? '已攻克' : '未掌握')}>
+      <span className="ds-error-book__stem">{stem}</span>
+      <span className="ds-error-book__count" aria-label={'错误 ' + misses + ' 次'}>×{misses}</span>
+      <span className="ds-error-book__src">{source}</span>
+      <span className={'ds-error-book__state ' + (mastered ? 'is-done' : 'is-open')}>{mastered ? '已攻克' : '未掌握'}</span>
+    </div>
+  </div>;
+}
+
+export function StudyPlanCalendar({ week, streak }: { week: Array<{ date: number; tasks: number; done: boolean; today?: boolean }>; streak: number }) {
+  const weekLabels = ['一', '二', '三', '四', '五', '六', '日'];
+  return <div className="ds-study-plan">
+    <div className="ds-study-plan__head" aria-hidden="true">{weekLabels.map(label => <span key={label}>{label}</span>)}</div>
+    <div className="ds-study-plan__grid">
+      {week.map(day => <div key={day.date} className={'ds-study-plan__day' + (day.done ? ' is-done' : '') + (day.today ? ' is-today' : '')} aria-current={day.today ? 'date' : undefined}>
+        <strong>{day.date}</strong>
+        <span className="ds-study-plan__dots" aria-label={day.done ? day.tasks + ' 个任务已完成' : day.today ? day.tasks + ' 个任务待完成' : '计划 ' + day.tasks + ' 个任务'}>{day.done ? '•'.repeat(day.tasks) : day.tasks === 0 ? '–' : '·'.repeat(day.tasks)}</span>
+      </div>)}
+    </div>
+    <p className="ds-study-plan__streak">已连续打卡 {streak} 天</p>
+  </div>;
+}
+
+export function CertificateBadge({ course, owner, date, id, onVerify }: { course: string; owner: string; date: string; id: string; onVerify?: () => void }) {
+  return <div className="ds-certificate">
+    <span className="ds-certificate__badge" aria-hidden="true">🎓</span>
+    <div className="ds-certificate__body">
+      <strong>{course} · 结业证书</strong>
+      <p>授予 {owner} · {date}</p>
+      <p className="ds-certificate__id">编号 {id}</p>
+    </div>
+    <div className="ds-certificate__actions">
+      <button type="button">复制编号</button>
+      <button type="button" className="is-primary" onClick={onVerify}>在线验证</button>
+    </div>
+  </div>;
+}
+
+export function LearningPathMap({ nodes }: { nodes: Array<{ title: string; state: 'done' | 'current' | 'locked'; note: string }> }) {
+  const nodeIcon = { done: '✓', current: '▶', locked: '🔒' };
+  return <ol className="ds-learn-path">
+    {nodes.map(node => <li key={node.title} className={'is-' + node.state} aria-current={node.state === 'current' ? 'step' : undefined}>
+      <span className="ds-learn-path__node" aria-hidden="true">{nodeIcon[node.state]}</span>
+      <div className="ds-learn-path__body">
+        <strong>{node.title}</strong>
+        <span>{node.note}</span>
+      </div>
+    </li>)}
+  </ol>;
+}
+
+export function KnowledgeCheckChip({ topic, level, tip, onReview }: { topic: string; level: number; tip: string; onReview?: () => void }) {
+  const labels = ['未学', '初学', '熟悉', '掌握', '精通'];
+  const tones = ['is-new', 'is-new', 'is-familiar', 'is-good', 'is-master'];
+  const label = labels[Math.min(level, 4)];
+  return <div className="ds-knowledge-check">
+    <div className="ds-knowledge-check__head">
+      <strong>{topic}</strong>
+      <span className={'ds-knowledge-check__level ' + tones[Math.min(level, 4)]}>{label}</span>
+    </div>
+    <div className="ds-knowledge-check__scale" role="meter" aria-valuenow={level} aria-valuemin={0} aria-valuemax={4} aria-label={'掌握度 ' + level + ' 级，共 5 级'}>
+      {labels.map((entry, index) => <i key={entry} className={index <= level ? 'is-on' : undefined} />)}
+    </div>
+    <p className="ds-knowledge-check__tip">{tip}</p>
+    <button type="button" onClick={onReview}>安排复习</button>
+  </div>;
+}
+
+export function StudyStreakMeter({ streak, week, milestone, onCheckIn }: { streak: number; week: boolean[]; milestone: number; onCheckIn?: () => void }) {
+  const labels = ['一', '二', '三', '四', '五', '六', '日'];
+  return <div className="ds-study-streak">
+    <div className="ds-study-streak__count">
+      <strong>{streak}</strong>
+      <span>连续学习天数</span>
+    </div>
+    <div className="ds-study-streak__week" role="group" aria-label="本周打卡">
+      {labels.map((label, index) => <span key={label} className={(week[index] ? 'is-done ' : '') + (index === 3 ? 'is-today' : '')} aria-label={week[index] ? label + '已打卡' : label}>{label}</span>)}
+    </div>
+    <button type="button" className="ds-study-streak__check" onClick={onCheckIn}>今日打卡</button>
+    <p className="ds-study-streak__hint">再坚持 {Math.max(0, milestone - streak)} 天解锁 {milestone} 天徽章</p>
+  </div>;
+}
