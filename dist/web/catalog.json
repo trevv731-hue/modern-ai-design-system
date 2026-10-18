@@ -12514,5 +12514,275 @@
       "数值列表可读"
     ],
     "react": "<HeatStripBand cells={[{ at: \"08:00\", level: 2 }, { at: \"09:00\", level: 4 }]} />"
+  },
+  {
+    "id": "input-otp-segment",
+    "name": "一次性验证码分格输入",
+    "category": "表单",
+    "status": "v3 新增",
+    "purpose": "把验证码拆成固定格数逐位输入，支持粘贴整串并自动跳格，减少输错。",
+    "anatomy": [
+      "分格容器 (ds-otp)",
+      "单格输入",
+      "聚焦高亮",
+      "错误与重发说明"
+    ],
+    "keyboard": "左右方向键与 Backspace 在格子间移动；直接输入自动前进；粘贴整串自动填充。",
+    "guidance": [
+      "支持粘贴完整验证码并自动分配到各格。",
+      "输入错误时说明剩余可尝试次数。",
+      "不要自动提交未填满的验证码。"
+    ],
+    "preview": "<div class=\"ds-otp\" role=\"group\" aria-label=\"验证码输入，共 6 位\"><input id=\"otp-1\" maxlength=\"1\" inputmode=\"numeric\" aria-label=\"第 1 位\"><input id=\"otp-2\" maxlength=\"1\" inputmode=\"numeric\" aria-label=\"第 2 位\"><input id=\"otp-3\" maxlength=\"1\" inputmode=\"numeric\" aria-label=\"第 3 位\"><input id=\"otp-4\" maxlength=\"1\" inputmode=\"numeric\" aria-label=\"第 4 位\"><input id=\"otp-5\" maxlength=\"1\" inputmode=\"numeric\" aria-label=\"第 5 位\"><input id=\"otp-6\" maxlength=\"1\" inputmode=\"numeric\" aria-label=\"第 6 位\"></div>",
+    "checks": [
+      "粘贴整串可自动分配",
+      "错误提示说明剩余次数",
+      "未填满不自动提交",
+      "键盘可在格子间移动"
+    ],
+    "react": "<OtpSegment length={6} value={code} onChange={setCode} />"
+  },
+  {
+    "id": "input-tag-chip-field",
+    "name": "标签输入字段",
+    "category": "表单",
+    "status": "v3 新增",
+    "purpose": "把多个短标签收集到一个输入框中，支持回车成签、退格删除和重复校验。",
+    "anatomy": [
+      "字段外壳 (ds-tag-field)",
+      "已输入标签",
+      "文本输入",
+      "重复提示"
+    ],
+    "keyboard": "Enter 或逗号成签；Backspace 删除上一个标签；Tab 退出字段。",
+    "guidance": [
+      "重复标签明确提示而不是静默忽略。",
+      "标签数量上限写明，不无限制增长。",
+      "标签可单独删除且键盘可达。"
+    ],
+    "preview": "<div class=\"ds-tag-field\" role=\"group\" aria-label=\"标签输入\"><span class=\"ds-chip\">延迟<button type=\"button\" aria-label=\"移除 延迟\">×</button></span><span class=\"ds-chip\">订阅<button type=\"button\" aria-label=\"移除 订阅\">×</button></span><input id=\"tag-input\" placeholder=\"添加标签后回车\" aria-label=\"添加标签\"></div>",
+    "checks": [
+      "重复标签有提示",
+      "标签上限明确",
+      "标签可单独删除",
+      "键盘可成签与删除"
+    ],
+    "react": "<TagChipField tags={tags} onChange={setTags} max={8} />"
+  },
+  {
+    "id": "input-date-range-picker",
+    "name": "日期区间选择器",
+    "category": "表单",
+    "status": "v3 新增",
+    "purpose": "选择起止日期并展示时长，避免两个独立日期框产生非法区间。",
+    "anatomy": [
+      "区间外壳 (ds-range-pick)",
+      "起始日期",
+      "结束日期",
+      "时长与快捷选项"
+    ],
+    "keyboard": "Tab 在两个日期间移动；方向键调整数值；Escape 取消编辑。",
+    "guidance": [
+      "结束日期早于起始日期时给出明确错误。",
+      "快捷选项写明具体区间，不写模糊词。",
+      "跨时区场景标注所用时区。"
+    ],
+    "preview": "<div class=\"ds-range-pick\" role=\"group\" aria-label=\"日期区间\"><label>开始<input id=\"range-start\" type=\"date\" value=\"2026-10-13\" aria-label=\"起始日期\"></label><span class=\"ds-range-pick__sep\" aria-hidden=\"true\">→</span><label>结束<input id=\"range-end\" type=\"date\" value=\"2026-10-24\" aria-label=\"结束日期\"></label><span class=\"ds-range-pick__note\">共 12 天 · GMT+8</span></div>",
+    "checks": [
+      "非法区间有明确错误",
+      "快捷选项写明区间",
+      "跨时区标明时区",
+      "键盘可完成选择"
+    ],
+    "react": "<DateRangePicker start=\"2026-10-13\" end=\"2026-10-24\" onChange={setRange} />"
+  },
+  {
+    "id": "input-timezone-select",
+    "name": "时区选择器",
+    "category": "表单",
+    "status": "v3 新增",
+    "purpose": "按城市或偏移选择时区，并实时显示所选时区的当前时间以确认。",
+    "anatomy": [
+      "选择器外壳 (ds-tz-select)",
+      "搜索输入",
+      "候选项与偏移",
+      "当前时间预览"
+    ],
+    "keyboard": "输入过滤；上下方向键选择；Enter 确认；Escape 关闭。",
+    "guidance": [
+      "候选项同时显示城市与 UTC 偏移。",
+      "预览时间标注所用时区。",
+      "夏令时变化需要说明。"
+    ],
+    "preview": "<div class=\"ds-tz-select\" role=\"group\" aria-label=\"时区选择\"><label for=\"tz-input\">时区<input id=\"tz-input\" placeholder=\"搜索城市…\"></label><span class=\"ds-tz-select__preview\">当前 21:47 · GMT+8</span></div>",
+    "checks": [
+      "候选项显示城市与偏移",
+      "预览标注时区",
+      "夏令时变化有说明",
+      "键盘可完成选择"
+    ],
+    "react": "<TimezoneSelect value=\"Asia/Shanghai\" onChange={setZone} />"
+  },
+  {
+    "id": "input-richtext-toolbar-group",
+    "name": "富文本工具条组",
+    "category": "表单",
+    "status": "v3 新增",
+    "purpose": "把格式命令分组放在编辑区上方，按钮状态反映当前选区而不是装饰。",
+    "anatomy": [
+      "工具条外壳 (ds-rt-toolbar)",
+      "分组按钮",
+      "状态指示",
+      "分隔线"
+    ],
+    "keyboard": "Ctrl+B / I / U 等标准快捷键；工具条按钮可用 Enter 激活。",
+    "guidance": [
+      "按钮状态跟随选区，不显示为永久高亮。",
+      "不支持的命令禁用并给出原因。",
+      "分组之间保留清晰分隔。"
+    ],
+    "preview": "<div class=\"ds-rt-toolbar\" role=\"toolbar\" aria-label=\"格式工具\"><button type=\"button\" aria-pressed=\"true\">B</button><button type=\"button\" aria-pressed=\"false\">I</button><span class=\"ds-rt-toolbar__sep\" aria-hidden=\"true\"></span><button type=\"button\">链接</button></div>",
+    "checks": [
+      "按钮状态跟随选区",
+      "不支持的命令禁用",
+      "分组有清晰分隔",
+      "键盘可激活命令"
+    ],
+    "react": "<RichtextToolbarGroup active={[\"bold\"]} onRun={run} />"
+  },
+  {
+    "id": "input-currency-amount",
+    "name": "金额输入",
+    "category": "表单",
+    "status": "v3 新增",
+    "purpose": "输入带币种的金额，校验精度与范围，避免隐式四舍五入造成对账差异。",
+    "anatomy": [
+      "输入外壳 (ds-money-input)",
+      "币种选择",
+      "金额输入",
+      "精度与范围提示"
+    ],
+    "keyboard": "Tab 在币种与金额间移动；输入仅接受数字与小数点。",
+    "guidance": [
+      "币种与金额分开且都可确认。",
+      "超范围或精度不符时给出具体说明。",
+      "不自动补零隐藏用户输入差异。"
+    ],
+    "preview": "<div class=\"ds-money-input\" role=\"group\" aria-label=\"金额输入\"><select aria-label=\"币种\"><option>¥ CNY</option><option>$ USD</option></select><input id=\"money-value\" type=\"text\" inputmode=\"decimal\" value=\"82.40\" aria-label=\"金额\"><span class=\"ds-money-input__hint\">最多两位小数</span></div>",
+    "checks": [
+      "币种与金额可分别确认",
+      "超范围有具体说明",
+      "不自动补零",
+      "键盘可完成输入"
+    ],
+    "react": "<CurrencyAmountInput value=\"82.40\" currency=\"CNY\" onChange={setAmount} />"
+  },
+  {
+    "id": "input-phone-number",
+    "name": "电话号码输入",
+    "category": "表单",
+    "status": "v3 新增",
+    "purpose": "按国家区号输入电话号码，实时提示格式是否合法，避免漏填区号。",
+    "anatomy": [
+      "输入外壳 (ds-phone-input)",
+      "国家与区号选择",
+      "号码输入",
+      "格式提示"
+    ],
+    "keyboard": "Tab 在区号与号码间移动；输入时只保留数字与分隔符。",
+    "guidance": [
+      "区号与号码分开显示，避免拼接歧义。",
+      "格式错误时给出示例格式。",
+      "不自动补全用户未确认的号码。"
+    ],
+    "preview": "<div class=\"ds-phone-input\" role=\"group\" aria-label=\"电话号码\"><select aria-label=\"国家或地区\"><option>🇨🇳 +86</option><option>🇺🇸 +1</option></select><input id=\"phone-value\" type=\"tel\" placeholder=\"138 0000 0000\" aria-label=\"电话号码\"><span class=\"ds-phone-input__hint\">示例：138 0000 0000</span></div>",
+    "checks": [
+      "区号与号码分开显示",
+      "错误时给出示例格式",
+      "不自动补全号码",
+      "键盘可完成输入"
+    ],
+    "react": "<PhoneInput region=\"+86\" value={phone} onChange={setPhone} />"
+  },
+  {
+    "id": "input-unit-value",
+    "name": "带单位数值输入",
+    "category": "表单",
+    "status": "v3 新增",
+    "purpose": "输入带单位的数值，明确单位与步进，避免误解量纲。",
+    "anatomy": [
+      "输入外壳 (ds-unit-input)",
+      "数值输入",
+      "单位选择",
+      "步进按钮"
+    ],
+    "keyboard": "上下方向键按步进调整；Tab 在数值与单位间移动。",
+    "guidance": [
+      "单位始终可见，不缩写为易混符号。",
+      "步进值写明，不与输入精度冲突。",
+      "超出范围时给出上下限说明。"
+    ],
+    "preview": "<div class=\"ds-unit-input\" role=\"group\" aria-label=\"带单位数值\"><input id=\"unit-value\" type=\"number\" value=\"16\" step=\"1\" aria-label=\"数值\"><select aria-label=\"单位\"><option>px</option><option>rem</option></select></div>",
+    "checks": [
+      "单位始终可见",
+      "步进值明确",
+      "超范围说明上下限",
+      "键盘可调整数值"
+    ],
+    "react": "<UnitValueInput value={16} unit=\"px\" step={1} min={0} max={64} onChange={setValue} />"
+  },
+  {
+    "id": "input-mention-textarea",
+    "name": "提及输入多行框",
+    "category": "表单",
+    "status": "v3 新增",
+    "purpose": "在长文本中输入 @提及，候选列表跟随光标且键盘可选择，避免拼写错误。",
+    "anatomy": [
+      "输入外壳 (ds-mention-box)",
+      "文本区域",
+      "候选列表",
+      "已提及标签"
+    ],
+    "keyboard": "@ 触发候选；上下方向键选择；Enter 插入；Escape 关闭候选。",
+    "guidance": [
+      "候选项按匹配度排序并说明依据。",
+      "插入的提及整体删除为一个胶囊。",
+      "没有候选时给出明确提示。"
+    ],
+    "preview": "<div class=\"ds-mention-box\" role=\"group\" aria-label=\"提及输入\"><textarea id=\"mention-text\" rows=\"3\" placeholder=\"输入内容，@ 提及成员\">@周舟 请确认延迟数据</textarea><ul class=\"ds-mention-box__list\"><li><button type=\"button\">周舟</button></li><li><button type=\"button\">Iris</button></li></ul></div>",
+    "checks": [
+      "候选排序有依据",
+      "提及整体删除",
+      "无候选有提示",
+      "键盘可插入提及"
+    ],
+    "react": "<MentionTextarea mentions={[\"周舟\", \"Iris\"]} value={text} onChange={setText} />"
+  },
+  {
+    "id": "input-cron-expression",
+    "name": "Cron 表达式输入",
+    "category": "表单",
+    "status": "v3 新增",
+    "purpose": "输入定时表达式并实时翻译成人类可读排期，避免写错执行频率。",
+    "anatomy": [
+      "输入外壳 (ds-cron-input)",
+      "表达式输入",
+      "可读排期预览",
+      "下次执行时间"
+    ],
+    "keyboard": "Tab 在输入与预览间移动；输入即时校验。",
+    "guidance": [
+      "错误表达式给出具体位置与修正建议。",
+      "同时展示下一次执行时间。",
+      "不隐藏所用时区。"
+    ],
+    "preview": "<div class=\"ds-cron-input\" role=\"group\" aria-label=\"Cron 表达式\"><label for=\"cron-value\">表达式<input id=\"cron-value\" value=\"0 */6 * * *\"></label><span class=\"ds-cron-input__preview\">每 6 小时执行一次 · 下次 04:00 (GMT+8)</span></div>",
+    "checks": [
+      "错误表达式给出位置与建议",
+      "展示下次执行时间",
+      "标明所用时区",
+      "键盘可完成输入"
+    ],
+    "react": "<CronExpressionInput value=\"0 */6 * * *\" onChange={setCron} />"
   }
 ]

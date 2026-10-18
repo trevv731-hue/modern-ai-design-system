@@ -13405,3 +13405,141 @@ export function WaterfallMetricBar({ items }:
     </div>)}
   </div>;
 }
+
+export function OtpSegment({ length = 6, value = '', onChange, label = '验证码' }:
+  { length?: number; value?: string; onChange?: (value: string) => void; label?: string }) {
+  const chars = value.padEnd(length, ' ').slice(0, length).split('');
+  const set = (index: number, char: string) => {
+    const next = chars.map((existing, position) => (position === index ? char || ' ' : existing)).join('').trimEnd();
+    onChange?.(next);
+  };
+  return <div className="ds-otp" role="group" aria-label={`${label}输入，共 ${length} 位`}>
+    {chars.map((char, index) => <input key={index} maxLength={1} inputMode="numeric"
+      aria-label={`第 ${index + 1} 位`} value={char.trim()}
+      onChange={event => set(index, event.target.value)} />)}
+  </div>;
+}
+
+export function TagChipField({ tags = [], onChange, placeholder = '添加标签后回车' }:
+  { tags?: string[]; onChange?: (tags: string[]) => void; placeholder?: string }) {
+  const [draft, setDraft] = useState('');
+  const id = useId();
+  const commit = () => {
+    const value = draft.trim();
+    if (!value) return;
+    if (!tags.includes(value)) onChange?.([...tags, value]);
+    setDraft('');
+  };
+  return <div className="ds-tag-field" role="group" aria-label="标签输入">
+    {tags.map(tag => <span className="ds-chip" key={tag}>{tag}
+      <button type="button" aria-label={`移除 ${tag}`}
+        onClick={() => onChange?.(tags.filter(item => item !== tag))}>×</button>
+    </span>)}
+    <label className="ds-sr-only" htmlFor={id}>添加标签</label>
+    <input id={id} value={draft} placeholder={placeholder}
+      onChange={event => setDraft(event.target.value)}
+      onKeyDown={event => { if (event.key === 'Enter' || event.key === ',') { event.preventDefault(); commit(); } }} />
+  </div>;
+}
+
+export function DateRangePicker({ start, end, onChange }:
+  { start?: string; end?: string; onChange?: (range: { start: string; end: string }) => void }) {
+  const [from, setFrom] = useState(start || '');
+  const [to, setTo] = useState(end || '');
+  const days = from && to ? Math.max(0, Math.round((Date.parse(to) - Date.parse(from)) / 86400000)) : 0;
+  return <div className="ds-range-pick" role="group" aria-label="日期区间">
+    <label>开始<input type="date" value={from} aria-label="起始日期"
+      onChange={event => { setFrom(event.target.value); onChange?.({ start: event.target.value, end: to }); }} /></label>
+    <span className="ds-range-pick__sep" aria-hidden="true">→</span>
+    <label>结束<input type="date" value={to} aria-label="结束日期"
+      onChange={event => { setTo(event.target.value); onChange?.({ start: from, end: event.target.value }); }} /></label>
+    <span className="ds-range-pick__note">{from && to ? '共 ' + days + ' 天 · GMT+8' : '请选择完整区间'}</span>
+  </div>;
+}
+
+export function CurrencyAmountInput({ value = '', currency = 'CNY', onChange }:
+  { value?: string; currency?: string; onChange?: (value: string) => void }) {
+  const id = useId();
+  return <div className="ds-money-input" role="group" aria-label="金额输入">
+    <select aria-label="币种" defaultValue={currency}><option value="CNY">¥ CNY</option><option value="USD">$ USD</option></select>
+    <label className="ds-sr-only" htmlFor={id}>金额</label>
+    <input id={id} type="text" inputMode="decimal" value={value} aria-label="金额"
+      onChange={event => onChange?.(event.target.value)} />
+    <span className="ds-money-input__hint">最多两位小数</span>
+  </div>;
+}
+
+export function PhoneInput({ region = '+86', value = '', onChange }:
+  { region?: string; value?: string; onChange?: (value: string) => void }) {
+  const id = useId();
+  return <div className="ds-phone-input" role="group" aria-label="电话号码">
+    <select aria-label="国家或地区" defaultValue={region}><option value="+86">🇨🇳 +86</option><option value="+1">🇺🇸 +1</option></select>
+    <label className="ds-sr-only" htmlFor={id}>电话号码</label>
+    <input id={id} type="tel" value={value} placeholder="138 0000 0000" aria-label="电话号码"
+      onChange={event => onChange?.(event.target.value)} />
+    <span className="ds-phone-input__hint">示例：138 0000 0000</span>
+  </div>;
+}
+
+export function UnitValueInput({ value = 0, unit = 'px', step = 1, min = 0, max = 100, onChange }:
+  { value?: number; unit?: string; step?: number; min?: number; max?: number; onChange?: (value: number) => void }) {
+  const id = useId();
+  return <div className="ds-unit-input" role="group" aria-label="带单位数值">
+    <label className="ds-sr-only" htmlFor={id}>数值</label>
+    <input id={id} type="number" value={value} step={step} min={min} max={max} aria-label="数值"
+      onChange={event => onChange?.(Number(event.target.value))} />
+    <select aria-label="单位" defaultValue={unit}><option>px</option><option>rem</option></select>
+  </div>;
+}
+
+export function CronExpressionInput({ value = '', preview, onChange }:
+  { value?: string; preview?: string; onChange?: (value: string) => void }) {
+  const id = useId();
+  return <div className="ds-cron-input" role="group" aria-label="Cron 表达式">
+    <label htmlFor={id}>表达式</label>
+    <input id={id} value={value} onChange={event => onChange?.(event.target.value)} />
+    {preview && <span className="ds-cron-input__preview">{preview}</span>}
+  </div>;
+}
+
+export function MentionTextarea({ mentions = [], value = '', onChange, placeholder = '输入内容，@ 提及成员' }:
+  { mentions?: string[]; value?: string; onChange?: (value: string) => void; placeholder?: string }) {
+  const id = useId();
+  const [open, setOpen] = useState(false);
+  return <div className="ds-mention-box" role="group" aria-label="提及输入">
+    <label className="ds-sr-only" htmlFor={id}>内容</label>
+    <textarea id={id} rows={3} value={value} placeholder={placeholder}
+      onChange={event => { onChange?.(event.target.value); setOpen(event.target.value.endsWith('@')); }} />
+    {open && <ul className="ds-mention-box__list">
+      {mentions.map(person => <li key={person}>
+        <button type="button" onClick={() => { onChange?.(value + person + ' '); setOpen(false); }}>{person}</button>
+      </li>)}
+    </ul>}
+  </div>;
+}
+
+
+export function TimezoneSelect({ value = 'Asia/Shanghai', zones = [], preview, onChange }:
+  { value?: string; zones?: { id: string; label: string; offset: string }[]; preview?: string; onChange?: (value: string) => void }) {
+  const id = useId();
+  return <div className="ds-tz-select" role="group" aria-label="时区选择">
+    <label htmlFor={id}>时区</label>
+    <input id="tz-input" list="tz-zones" placeholder="搜索城市…" defaultValue={value}
+      onChange={event => onChange?.(event.target.value)} />
+    <datalist id="tz-zones">
+      {zones.map(zone => <option key={zone.id} value={zone.id}>{zone.label} {zone.offset}</option>)}
+    </datalist>
+    {preview && <span className="ds-tz-select__preview">{preview}</span>}
+  </div>;
+}
+
+export function RichtextToolbarGroup({ groups = [], active = [], onRun }:
+  { groups?: { id?: string; label: string; commands: string[] }[]; active?: string[]; onRun?: (command: string) => void }) {
+  return <div className="ds-rt-toolbar" role="toolbar" aria-label="格式工具">
+    {groups.map((group, index) => <React.Fragment key={group.id || index}>
+      {index > 0 && <span className="ds-rt-toolbar__sep" aria-hidden="true" />}
+      {group.commands.map(command => <button type="button" key={command}
+        aria-pressed={active.includes(command)} onClick={() => onRun?.(command)}>{command}</button>)}
+    </React.Fragment>)}
+  </div>;
+}
