@@ -18046,3 +18046,124 @@ export function BookSpinePreview({ title, author, publisher }: { title: string; 
     </div>
   </article>;
 }
+
+export function PrescriptionOrderRow({ no, dept, state, amount }: { no: string; dept: string; state: 'unpaid' | 'paid' | 'dispensed' | 'expired'; amount: number }) {
+  const stateText = { unpaid: '待支付', paid: '已支付 · 待取药', dispensed: '已发药', expired: '已过期' };
+  return <div className={'ds-pharm-rx is-' + state} tabIndex={0} role="button" aria-label={'处方订单，编号 ' + no + '，' + dept + '，处方药，' + stateText[state] + '，金额 ' + amount.toFixed(2) + ' 元'}>
+    <strong className="ds-pharm-rx__no">{no}</strong>
+    <span className="ds-pharm-rx__dept">{dept}</span>
+    <span className="ds-pharm-rx__tag">处方药</span>
+    <span className={'ds-pharm-rx__state is-' + state}>{stateText[state]}</span>
+    <span className="ds-pharm-rx__amount">¥{amount.toFixed(2)}</span>
+  </div>;
+}
+
+export function MedicationReminderCard({ drug, dose, nextAt, enabled }: { drug: string; dose: string; nextAt: string; enabled: boolean }) {
+  const [on, setOn] = useState(enabled);
+  return <article className={'ds-pharm-remind' + (on ? ' is-soon' : '')} aria-label={'用药提醒，' + drug + '，' + dose + '，下次 ' + nextAt + '，提醒' + (on ? '已开启' : '已关闭')}>
+    <div className="ds-pharm-remind__head">
+      <strong className="ds-pharm-remind__drug">{drug}</strong>
+      <span className="ds-pharm-remind__time">下次 {nextAt}</span>
+    </div>
+    <p className="ds-pharm-remind__dose">{dose}</p>
+    <button type="button" className="ds-pharm-remind__switch" role="switch" aria-checked={on} onClick={() => setOn(!on)}>
+      <span className="ds-pharm-remind__knob" />
+      <span className="ds-pharm-remind__state">{on ? '已开启' : '已关闭'}</span>
+    </button>
+  </article>;
+}
+
+export function DrugInfoCard({ name, spec, indication, rx, price }: { name: string; spec: string; indication: string; rx: boolean; price: number }) {
+  return <article className={'ds-pharm-drug' + (rx ? ' is-rx' : '')} tabIndex={0} role="button" aria-label={'药品信息，' + name + '，规格 ' + spec + '，' + indication + '，' + (rx ? '处方药，需凭处方购买' : '非处方药') + '，价格 ' + price.toFixed(2) + ' 元'}>
+    <div className="ds-pharm-drug__head">
+      <strong className="ds-pharm-drug__name">{name}</strong>
+      <span className={'ds-pharm-drug__tag ' + (rx ? 'is-rx' : 'is-otc')}>{rx ? '处方药' : 'OTC'}</span>
+    </div>
+    <span className="ds-pharm-drug__spec">{spec}</span>
+    <p className="ds-pharm-drug__indication">{indication}</p>
+    <span className="ds-pharm-drug__price">¥{price.toFixed(2)}</span>
+  </article>;
+}
+
+export function PharmacyInventoryRow({ drug, qty, floor }: { drug: string; qty: number; floor: number }) {
+  const level = qty <= 0 ? 'out' : qty < floor ? 'low' : 'ok';
+  const levelText = { ok: '充足', low: '偏低', out: '缺货' };
+  return <div className={'ds-pharm-inv is-' + level} tabIndex={0} role="button" aria-label={'药店库存，' + drug + '，库存 ' + qty + ' 盒，补货线 ' + floor + ' 盒，' + levelText[level]}>
+    <strong className="ds-pharm-inv__drug">{drug}</strong>
+    <span className="ds-pharm-inv__qty">{qty} 盒</span>
+    <span className="ds-pharm-inv__floor">补货线 {floor}</span>
+    <span className={'ds-pharm-inv__state is-' + level}>{levelText[level]}</span>
+  </div>;
+}
+
+export function ConsultationQueueCard({ no, ahead, eta, progress }: { no: string; ahead: number; eta: number; progress: number }) {
+  return <article className="ds-pharm-queue" aria-label={'问诊排队，您的号码 ' + no + '，前方 ' + ahead + ' 人，预计等待 ' + eta + ' 分钟，已完成 ' + progress + '%'}>
+    <div className="ds-pharm-queue__head">
+      <span className="ds-pharm-queue__no">{no}</span>
+      <div className="ds-pharm-queue__meta">
+        <span className="ds-pharm-queue__ahead">前方 {ahead} 人</span>
+        <span className="ds-pharm-queue__eta">约 {eta} 分钟</span>
+      </div>
+    </div>
+    <div className="ds-pharm-queue__bar" role="progressbar" aria-valuenow={progress} aria-valuemin={0} aria-valuemax={100} aria-label="问诊进度">
+      <span className="ds-pharm-queue__fill" style={{ width: progress + '%' }} />
+    </div>
+  </article>;
+}
+
+export function SymptomCheckerCard({ selected, dept, level }: { selected: string[]; dept: string; level: 'mild' | 'normal' | 'urgent' }) {
+  const options = ['咳嗽', '咽痛', '发热', '鼻塞', '头痛', '腹泻'];
+  const levelText = { mild: '轻微', normal: '一般', urgent: '紧急' };
+  const [picked, setPicked] = useState(selected);
+  const toggle = (s: string) => setPicked(picked.includes(s) ? picked.filter(x => x !== s) : [...picked, s]);
+  return <section className="ds-pharm-symptom" aria-label={'症状自检，已选 ' + picked.length + ' 个症状，建议就诊 ' + dept + '，紧急程度 ' + levelText[level]}>
+    <div className="ds-pharm-symptom__list" role="group" aria-label="选择症状">
+      {options.map(s => <span key={s} className={'ds-pharm-symptom__chip' + (picked.includes(s) ? ' is-on' : '')} role="checkbox" aria-checked={picked.includes(s)} tabIndex={0} onClick={() => toggle(s)}>{s}</span>)}
+    </div>
+    <div className="ds-pharm-symptom__result">
+      <span className="ds-pharm-symptom__dept">建议就诊：{dept}</span>
+      <span className={'ds-pharm-symptom__level is-' + level}>{levelText[level]}</span>
+    </div>
+  </section>;
+}
+
+export function RefillRequestRow({ from, drug, time, state }: { from: string; drug: string; time: string; state: 'pending' | 'approved' | 'rejected' | 'dispensed' }) {
+  const stateText = { pending: '待审核', approved: '已通过', rejected: '已驳回', dispensed: '已发药' };
+  return <div className={'ds-pharm-refill is-' + state} tabIndex={0} role="button" aria-label={'续方申请，原处方 ' + from + '，' + drug + '，申请于 2026-' + time + '，' + stateText[state]}>
+    <span className="ds-pharm-refill__from">{from}</span>
+    <strong className="ds-pharm-refill__drug">{drug}</strong>
+    <span className="ds-pharm-refill__time">{time}</span>
+    <span className={'ds-pharm-refill__state is-' + state}>{stateText[state]}</span>
+  </div>;
+}
+
+export function DosageScheduleRow({ slot, drug, qty, done }: { slot: string; drug: string; qty: string; done: boolean }) {
+  return <div className={'ds-pharm-dose' + (done ? ' is-done' : '')} tabIndex={0} role="button" aria-label={'服药计划，' + slot + '，' + drug + '，' + qty + '，' + (done ? '已完成' : '待服用')}>
+    <span className="ds-pharm-dose__slot">{slot}</span>
+    <strong className="ds-pharm-dose__drug">{drug}</strong>
+    <span className="ds-pharm-dose__qty">{qty}</span>
+    <span className="ds-pharm-dose__ring" role="img" aria-label={done ? '已完成' : '待服用'}>{done ? '✓' : ''}</span>
+  </div>;
+}
+
+export function OnlinePharmacyCartRow({ drug, qty, price, selected, locked }: { drug: string; qty: number; price: number; selected: boolean; locked?: boolean }) {
+  const [on, setOn] = useState(selected);
+  const sum = qty * price;
+  return <div className={'ds-pharm-cart' + (on ? ' is-selected' : ' is-off') + (locked ? ' is-locked' : '')} role="group" aria-label={'购物车商品，' + drug + '，' + qty + ' 盒，小计 ' + sum.toFixed(2) + ' 元'}>
+    <span className="ds-pharm-cart__check" role="checkbox" aria-checked={on && !locked} tabIndex={0} aria-label={'选择 ' + drug} onClick={() => { if (!locked) setOn(!on); }}>✓</span>
+    <strong className="ds-pharm-cart__drug">{drug}</strong>
+    <span className="ds-pharm-cart__stepper" role="group" aria-label={'数量 ' + qty + ' 盒'}>− {qty} +</span>
+    <span className="ds-pharm-cart__sum">¥{sum.toFixed(2)}</span>
+  </div>;
+}
+
+export function HealthCheckupReportCard({ date, org, abnormal, verdict }: { date: string; org: string; abnormal: number; verdict: string }) {
+  return <article className={'ds-pharm-checkup' + (abnormal > 0 ? ' is-abnormal' : '')} tabIndex={0} role="button" aria-label={'体检报告，' + date + '，' + org + '，' + (abnormal > 0 ? '异常项 ' + abnormal + ' 项，' : '全部指标正常，') + '结论 ' + verdict}>
+    <div className="ds-pharm-checkup__head">
+      <strong className="ds-pharm-checkup__date">{date}</strong>
+      {abnormal > 0 ? <span className="ds-pharm-checkup__abnormal">异常 {abnormal} 项</span> : null}
+    </div>
+    <span className="ds-pharm-checkup__org">{org}</span>
+    <p className="ds-pharm-checkup__verdict">{verdict}</p>
+  </article>;
+}

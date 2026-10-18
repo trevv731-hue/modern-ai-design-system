@@ -22717,5 +22717,277 @@
       "正背脊切换"
     ],
     "react": "<BookSpinePreview title=\"古籍数字化方法研究\" author=\"陈明\" publisher=\"中华书局\" />"
+  },
+  {
+    "id": "pharm-rx-row",
+    "name": "处方订单行",
+    "category": "医药 / 药店",
+    "status": "v3 新增",
+    "purpose": "展示一张处方药的订单状态、科室与取药方式。",
+    "anatomy": [
+      "处方编号 (ds-pharm-rx__no)",
+      "开方科室 (ds-pharm-rx__dept)",
+      "处方药标识 (ds-pharm-rx__tag)",
+      "订单状态 (ds-pharm-rx__state)",
+      "金额 (ds-pharm-rx__amount)"
+    ],
+    "keyboard": "行可聚焦查看处方详情；待支付状态以 status 语义播报。",
+    "guidance": [
+      "处方药以红色文字标识，不只颜色。",
+      "状态四态：待支付、已支付、已发药、已过期。",
+      "金额红色等宽强调。"
+    ],
+    "preview": "<div class=\"ds-pharm-rx is-paid\" tabindex=\"0\" role=\"button\" aria-label=\"处方订单，编号 RX20260612-0087，呼吸内科，处方药，已支付，待取药，金额 86.50 元\"><strong class=\"ds-pharm-rx__no\">RX20260612-0087</strong><span class=\"ds-pharm-rx__dept\">呼吸内科</span><span class=\"ds-pharm-rx__tag\">处方药</span><span class=\"ds-pharm-rx__state is-paid\">已支付 · 待取药</span><span class=\"ds-pharm-rx__amount\">¥86.50</span></div>",
+    "checks": [
+      "处方药标识",
+      "四态状态",
+      "金额红色",
+      "处方详情"
+    ],
+    "react": "<PrescriptionOrderRow no=\"RX20260612-0087\" dept=\"呼吸内科\" state=\"paid\" amount={86.5} />"
+  },
+  {
+    "id": "pharm-remind",
+    "name": "用药提醒卡",
+    "category": "医药 / 药店",
+    "status": "v3 新增",
+    "purpose": "展示一种药品的用法用量与下次服药提醒时间。",
+    "anatomy": [
+      "药品名 (ds-pharm-remind__drug)",
+      "用法 (ds-pharm-remind__dose)",
+      "下次时间 (ds-pharm-remind__time)",
+      "提醒开关 (ds-pharm-remind__switch)"
+    ],
+    "keyboard": "开关以 switch 语义操作；到点提醒以 alert 语义播报。",
+    "guidance": [
+      "开关用文字标注开/关状态。",
+      "临近服药时间时脉冲提示。",
+      "用法用量完整展示。"
+    ],
+    "preview": "<article class=\"ds-pharm-remind is-soon\" aria-label=\"用药提醒，阿莫西林胶囊，每次 0.5g，每日三次，下次 14:00，提醒已开启\"><div class=\"ds-pharm-remind__head\"><strong class=\"ds-pharm-remind__drug\">阿莫西林胶囊</strong><span class=\"ds-pharm-remind__time\">下次 14:00</span></div><p class=\"ds-pharm-remind__dose\">每次 0.5g · 每日三次 · 饭后服用</p><button type=\"button\" class=\"ds-pharm-remind__switch\" role=\"switch\" aria-checked=\"true\"><span class=\"ds-pharm-remind__knob\"></span><span class=\"ds-pharm-remind__state\">已开启</span></button></article>",
+    "checks": [
+      "switch 语义",
+      "开关文字",
+      "临近脉冲",
+      "用法完整"
+    ],
+    "react": "<MedicationReminderCard drug=\"阿莫西林胶囊\" dose=\"每次 0.5g · 每日三次\" nextAt=\"14:00\" enabled />"
+  },
+  {
+    "id": "pharm-drug",
+    "name": "药品信息卡",
+    "category": "医药 / 药店",
+    "status": "v3 新增",
+    "purpose": "展示一种药品的规格、适应症与购买限制。",
+    "anatomy": [
+      "药品名 (ds-pharm-drug__name)",
+      "规格 (ds-pharm-drug__spec)",
+      "适应症 (ds-pharm-drug__indication)",
+      "处方标识 (ds-pharm-drug__tag)",
+      "价格 (ds-pharm-drug__price)"
+    ],
+    "keyboard": "卡片可聚焦查看说明书；处方药限制以文字说明。",
+    "guidance": [
+      "处方药红色标识，OTC 绿色标识。",
+      "适应症两行截断。",
+      "价格与规格并列展示。"
+    ],
+    "preview": "<article class=\"ds-pharm-drug is-rx\" tabindex=\"0\" role=\"button\" aria-label=\"药品信息，布洛芬缓释胶囊，规格 0.3g 每粒 20 粒，用于缓解轻至中度疼痛，处方药，需凭处方购买，价格 32.80 元\"><div class=\"ds-pharm-drug__head\"><strong class=\"ds-pharm-drug__name\">布洛芬缓释胶囊</strong><span class=\"ds-pharm-drug__tag is-rx\">处方药</span></div><span class=\"ds-pharm-drug__spec\">0.3g × 20 粒</span><p class=\"ds-pharm-drug__indication\">用于缓解轻至中度疼痛及感冒引起的发热</p><span class=\"ds-pharm-drug__price\">¥32.80</span></article>",
+    "checks": [
+      "处方标识",
+      "规格展示",
+      "适应症截断",
+      "购买限制"
+    ],
+    "react": "<DrugInfoCard name=\"布洛芬缓释胶囊\" spec=\"0.3g × 20 粒\" indication=\"用于缓解轻至中度疼痛及感冒引起的发热\" rx price={32.8} />"
+  },
+  {
+    "id": "pharm-inv",
+    "name": "药店库存行",
+    "category": "医药 / 药店",
+    "status": "v3 新增",
+    "purpose": "展示一种药品在药店的库存余量与补货状态。",
+    "anatomy": [
+      "药品名 (ds-pharm-inv__drug)",
+      "库存量 (ds-pharm-inv__qty)",
+      "补货线 (ds-pharm-inv__floor)",
+      "状态 (ds-pharm-inv__state)"
+    ],
+    "keyboard": "行可聚焦查看补货记录；低库存以 status 语义播报。",
+    "guidance": [
+      "库存三态：充足、偏低、缺货。",
+      "低于补货线黄色预警。",
+      "库存量等宽数字。"
+    ],
+    "preview": "<div class=\"ds-pharm-inv is-low\" tabindex=\"0\" role=\"button\" aria-label=\"药店库存，感冒灵颗粒，库存 24 盒，补货线 30 盒，偏低\"><strong class=\"ds-pharm-inv__drug\">感冒灵颗粒</strong><span class=\"ds-pharm-inv__qty\">24 盒</span><span class=\"ds-pharm-inv__floor\">补货线 30</span><span class=\"ds-pharm-inv__state is-low\">偏低</span></div>",
+    "checks": [
+      "三态库存",
+      "低库存预警",
+      "补货线标注",
+      "补货记录"
+    ],
+    "react": "<PharmacyInventoryRow drug=\"感冒灵颗粒\" qty={24} floor={30} />"
+  },
+  {
+    "id": "pharm-queue",
+    "name": "问诊排队卡",
+    "category": "医药 / 药店",
+    "status": "v3 新增",
+    "purpose": "展示在线问诊的排队进度与预计等待时间。",
+    "anatomy": [
+      "队列号码 (ds-pharm-queue__no)",
+      "前方人数 (ds-pharm-queue__ahead)",
+      "预计等待 (ds-pharm-queue__eta)",
+      "进度条 (ds-pharm-queue__bar)"
+    ],
+    "keyboard": "进度以 progressbar 语义播报；叫号以 alert 语义提示。",
+    "guidance": [
+      "进度条按已完成比例填充。",
+      "等待时间以分钟估算。",
+      "号码放大突出。"
+    ],
+    "preview": "<article class=\"ds-pharm-queue\" aria-label=\"问诊排队，您的号码 A12，前方 3 人，预计等待 12 分钟，已完成 60%\"><div class=\"ds-pharm-queue__head\"><span class=\"ds-pharm-queue__no\">A12</span><div class=\"ds-pharm-queue__meta\"><span class=\"ds-pharm-queue__ahead\">前方 3 人</span><span class=\"ds-pharm-queue__eta\">约 12 分钟</span></div></div><div class=\"ds-pharm-queue__bar\" role=\"progressbar\" aria-valuenow=\"60\" aria-valuemin=\"0\" aria-valuemax=\"100\" aria-label=\"问诊进度\"><span class=\"ds-pharm-queue__fill\" style=\"width:60%\"></span></div></article>",
+    "checks": [
+      "progressbar 语义",
+      "前方人数",
+      "等待估算",
+      "进度填充"
+    ],
+    "react": "<ConsultationQueueCard no=\"A12\" ahead={3} eta={12} progress={60} />"
+  },
+  {
+    "id": "pharm-symptom",
+    "name": "症状自检卡",
+    "category": "医药 / 药店",
+    "status": "v3 新增",
+    "purpose": "展示自选症状后推荐的就诊科室与紧急程度。",
+    "anatomy": [
+      "症状列表 (ds-pharm-symptom__list)",
+      "症状标签 (ds-pharm-symptom__chip)",
+      "推荐科室 (ds-pharm-symptom__dept)",
+      "紧急度 (ds-pharm-symptom__level)"
+    ],
+    "keyboard": "症状以 checkbox 语义选择；推荐结果以 status 语义播报。",
+    "guidance": [
+      "已选症状高亮计数。",
+      "推荐科室明确给出。",
+      "紧急程度颜色加文字。"
+    ],
+    "preview": "<section class=\"ds-pharm-symptom\" aria-label=\"症状自检，已选 3 个症状，推荐 呼吸内科，紧急程度 一般\"><div class=\"ds-pharm-symptom__list\" role=\"group\" aria-label=\"选择症状\"><span class=\"ds-pharm-symptom__chip is-on\" role=\"checkbox\" aria-checked=\"true\" tabindex=\"0\">咳嗽</span><span class=\"ds-pharm-symptom__chip is-on\" role=\"checkbox\" aria-checked=\"true\" tabindex=\"0\">咽痛</span><span class=\"ds-pharm-symptom__chip\" role=\"checkbox\" aria-checked=\"false\" tabindex=\"0\">发热</span><span class=\"ds-pharm-symptom__chip\" role=\"checkbox\" aria-checked=\"false\" tabindex=\"0\">鼻塞</span></div><div class=\"ds-pharm-symptom__result\"><span class=\"ds-pharm-symptom__dept\">建议就诊：呼吸内科</span><span class=\"ds-pharm-symptom__level is-normal\">一般</span></div></section>",
+    "checks": [
+      "checkbox 语义",
+      "已选高亮",
+      "科室推荐",
+      "紧急度文字"
+    ],
+    "react": "<SymptomCheckerCard selected={[\"咳嗽\", \"咽痛\"]} dept=\"呼吸内科\" level=\"normal\" />"
+  },
+  {
+    "id": "pharm-refill",
+    "name": "续方申请行",
+    "category": "医药 / 药店",
+    "status": "v3 新增",
+    "purpose": "展示一次续方申请的原始处方与审核进度。",
+    "anatomy": [
+      "原处方号 (ds-pharm-refill__from)",
+      "药品 (ds-pharm-refill__drug)",
+      "申请时间 (ds-pharm-refill__time)",
+      "审核状态 (ds-pharm-refill__state)"
+    ],
+    "keyboard": "行可聚焦查看审核详情；审核通过以 status 语义播报。",
+    "guidance": [
+      "状态四态：待审核、已通过、已驳回、已发药。",
+      "原处方号等宽展示。",
+      "驳回需附原因入口。"
+    ],
+    "preview": "<div class=\"ds-pharm-refill is-approved\" tabindex=\"0\" role=\"button\" aria-label=\"续方申请，原处方 RX20260501-0032，二甲双胍缓释片，申请于 2026-06-10，已通过\"><span class=\"ds-pharm-refill__from\">RX20260501-0032</span><strong class=\"ds-pharm-refill__drug\">二甲双胍缓释片</strong><span class=\"ds-pharm-refill__time\">06-10</span><span class=\"ds-pharm-refill__state is-approved\">已通过</span></div>",
+    "checks": [
+      "四态审核",
+      "原处方号",
+      "驳回原因",
+      "通过播报"
+    ],
+    "react": "<RefillRequestRow from=\"RX20260501-0032\" drug=\"二甲双胍缓释片\" time=\"06-10\" state=\"approved\" />"
+  },
+  {
+    "id": "pharm-dose",
+    "name": "服药计划行",
+    "category": "医药 / 药店",
+    "status": "v3 新增",
+    "purpose": "展示一天内早中晚三个时段的服药安排。",
+    "anatomy": [
+      "时段标签 (ds-pharm-dose__slot)",
+      "药品 (ds-pharm-dose__drug)",
+      "剂量 (ds-pharm-dose__qty)",
+      "完成环 (ds-pharm-dose__ring)"
+    ],
+    "keyboard": "行可聚焦标记完成；已完成环以文字标注。",
+    "guidance": [
+      "三时段：早、中、晚。",
+      "完成态用对勾环加文字。",
+      "餐前餐后明确标注。"
+    ],
+    "preview": "<div class=\"ds-pharm-dose is-done\" tabindex=\"0\" role=\"button\" aria-label=\"服药计划，早 08:00，阿莫西林胶囊 2 粒，餐后，已完成\"><span class=\"ds-pharm-dose__slot\">早 · 08:00</span><strong class=\"ds-pharm-dose__drug\">阿莫西林胶囊</strong><span class=\"ds-pharm-dose__qty\">2 粒 · 餐后</span><span class=\"ds-pharm-dose__ring is-done\" role=\"img\" aria-label=\"已完成\">✓</span></div>",
+    "checks": [
+      "三时段",
+      "剂量展示",
+      "完成环",
+      "餐前餐后"
+    ],
+    "react": "<DosageScheduleRow slot=\"早 · 08:00\" drug=\"阿莫西林胶囊\" qty=\"2 粒 · 餐后\" done />"
+  },
+  {
+    "id": "pharm-cart",
+    "name": "购药车行",
+    "category": "医药 / 药店",
+    "status": "v3 新增",
+    "purpose": "展示购物车中一种药品的数量与小计金额。",
+    "anatomy": [
+      "选择框 (ds-pharm-cart__check)",
+      "药品名 (ds-pharm-cart__drug)",
+      "数量步进 (ds-pharm-cart__stepper)",
+      "小计 (ds-pharm-cart__sum)"
+    ],
+    "keyboard": "选择框以 checkbox 语义操作；数量以 stepper 增减。",
+    "guidance": [
+      "未选中行置灰但保留信息。",
+      "处方药行不可自行取消。",
+      "小计金额红色等宽。"
+    ],
+    "preview": "<div class=\"ds-pharm-cart is-selected\" role=\"group\" aria-label=\"购物车商品，布洛芬缓释胶囊，2 盒，小计 65.60 元\"><span class=\"ds-pharm-cart__check\" role=\"checkbox\" aria-checked=\"true\" tabindex=\"0\" aria-label=\"选择 布洛芬缓释胶囊\">✓</span><strong class=\"ds-pharm-cart__drug\">布洛芬缓释胶囊</strong><span class=\"ds-pharm-cart__stepper\" role=\"group\" aria-label=\"数量 2 盒\">− 2 +</span><span class=\"ds-pharm-cart__sum\">¥65.60</span></div>",
+    "checks": [
+      "checkbox 语义",
+      "数量步进",
+      "处方锁定",
+      "小计红色"
+    ],
+    "react": "<OnlinePharmacyCartRow drug=\"布洛芬缓释胶囊\" qty={2} price={32.8} selected />"
+  },
+  {
+    "id": "pharm-checkup",
+    "name": "体检报告卡",
+    "category": "医药 / 药店",
+    "status": "v3 新增",
+    "purpose": "展示一份体检报告的日期、机构与异常项概况。",
+    "anatomy": [
+      "报告日期 (ds-pharm-checkup__date)",
+      "体检机构 (ds-pharm-checkup__org)",
+      "异常项 (ds-pharm-checkup__abnormal)",
+      "结论 (ds-pharm-checkup__verdict)"
+    ],
+    "keyboard": "卡片可聚焦查看报告原文；异常项以 alert 语义播报。",
+    "guidance": [
+      "异常项数量红色突出。",
+      "结论文字完整展示。",
+      "报告日期等宽。"
+    ],
+    "preview": "<article class=\"ds-pharm-checkup is-abnormal\" tabindex=\"0\" role=\"button\" aria-label=\"体检报告，2026-04-18，市中心医院，异常项 3 项，结论 血脂偏高，建议复查\"><div class=\"ds-pharm-checkup__head\"><strong class=\"ds-pharm-checkup__date\">2026-04-18</strong><span class=\"ds-pharm-checkup__abnormal\">异常 3 项</span></div><span class=\"ds-pharm-checkup__org\">市中心医院 · 入职体检</span><p class=\"ds-pharm-checkup__verdict\">血脂偏高，建议 3 个月后复查</p></article>",
+    "checks": [
+      "异常计数",
+      "结论完整",
+      "日期等宽",
+      "报告原文"
+    ],
+    "react": "<HealthCheckupReportCard date=\"2026-04-18\" org=\"市中心医院\" abnormal={3} verdict=\"血脂偏高，建议复查\" />"
   }
 ]
