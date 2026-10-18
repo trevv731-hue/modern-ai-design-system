@@ -17342,3 +17342,131 @@ export function InsuranceQuoteCard({ plan, price, perks, recommended, selected }
     <button type="button" disabled={selected}>{selected ? '已选择' : '选择此方案'}</button>
   </article>;
 }
+
+export function FieldConditionCard({ name, area, crop, stats, state }: { name: string; area: number; crop: string; stats: Array<{ label: string; value: string }>; state: 'ok' | 'warn' | 'alert' }) {
+  const stateText = { ok: '适宜', warn: '预警', alert: '越界' };
+  return <article className="ds-field-card" tabIndex={0} role="button" aria-label={'地块 ' + name + '，' + area + ' 亩，' + crop + '，' + stats.map(s => s.label + ' ' + s.value).join('，') + '，墒情 ' + stateText[state]}>
+    <div className="ds-field-card__head">
+      <strong className="ds-field-card__name">{name}</strong>
+      <span className={'ds-field-card__state is-' + state}>{stateText[state]}</span>
+    </div>
+    <p className="ds-field-card__crop">{crop} · <span className="ds-field-card__area">{area} 亩</span></p>
+    <div className="ds-field-card__stats">
+      {stats.map(s => <span key={s.label} className="ds-field-card__stat">{s.label}<strong>{s.value}</strong></span>)}
+    </div>
+  </article>;
+}
+
+export function CropGrowthStageBar({ crop, stages, note }: { crop: string; stages: Array<{ name: string; state: 'done' | 'current' | 'todo' }>; note?: string }) {
+  const done = stages.filter(s => s.state === 'done').length;
+  return <section className="ds-growth-stage" aria-label={crop + '生育期，已完成 ' + done + ' 个阶段' + (note ? '，' + note : '')}>
+    <strong className="ds-growth-stage__crop">{crop}</strong>
+    <ol className="ds-growth-stage__stages">
+      {stages.map(stage => <li key={stage.name} className={'is-' + stage.state} tabIndex={0} aria-current={stage.state === 'current' ? 'step' : undefined} aria-label={stage.name + '，' + (stage.state === 'done' ? '已完成' : stage.state === 'current' ? '当前阶段' : '未开始')}>{stage.name}</li>)}
+    </ol>
+    {note ? <span className="ds-growth-stage__note">{note}</span> : null}
+  </section>;
+}
+
+export function IrrigationScheduleRow({ group, time, water, state }: { group: string; time: string; water: number; state: 'done' | 'planned' | 'running' | 'failed' }) {
+  const stateText = { done: '已完成', planned: '计划中', running: '执行中', failed: '失败' };
+  return <div className={'ds-irrigation-row is-' + state} tabIndex={0} role="button" aria-label={'轮灌组 ' + group + '，计划 ' + time + '，水量 ' + water + ' 立方米，' + stateText[state]}>
+    <strong className="ds-irrigation-row__group">{group}</strong>
+    <span className="ds-irrigation-row__time">{time}</span>
+    <span className="ds-irrigation-row__water">{water} m³</span>
+    <span className={'ds-irrigation-row__state is-' + state}>{stateText[state]}</span>
+  </div>;
+}
+
+export function SoilMoistureGauge({ layers }: { layers: Array<{ depth: number; value: number }> }) {
+  const gradeOf = (v: number) => v < 15 ? 'dry' : v > 28 ? 'wet' : 'ok';
+  const gradeText = { dry: '干旱', wet: '过湿', ok: '适宜' };
+  return <section className="ds-soil-gauge" aria-label={'土壤墒情，' + layers.map(l => l.depth + ' 厘米 ' + l.value + '% ' + gradeText[gradeOf(l.value)]).join('，')}>
+    {layers.map(layer => {
+      const grade = gradeOf(layer.value);
+      return <div key={layer.depth} className="ds-soil-gauge__layer" tabIndex={0} aria-label={layer.depth + ' 厘米，含水率 ' + layer.value + '%，' + gradeText[grade]}>
+        <span className="ds-soil-gauge__depth">{layer.depth}cm</span>
+        <span className="ds-soil-gauge__value">{layer.value}%</span>
+        <span className={'ds-soil-gauge__bar is-' + grade} aria-hidden="true"><i style={{ width: layer.value + '%' }} /></span>
+        <span className={'ds-soil-gauge__grade is-' + grade}>{gradeText[grade]}</span>
+      </div>;
+    })}
+  </section>;
+}
+
+export function WeatherAdvisoryCard({ cond, temp, advice, level }: { cond: string; temp: string; advice: string; level: 'good' | 'caution' | 'no' }) {
+  const levelText = { good: '适宜', caution: '谨慎', no: '不宜' };
+  return <article className={'ds-agri-weather is-' + level} tabIndex={0} role="button" aria-label={'农事天气，' + cond + '，' + temp + '，' + levelText[level] + '，' + advice}>
+    <div className="ds-agri-weather__head">
+      <span className="ds-agri-weather__cond">{cond}</span>
+      <strong className="ds-agri-weather__temp">{temp}</strong>
+    </div>
+    <p className="ds-agri-weather__advice">{advice}</p>
+    <span className={'ds-agri-weather__level is-' + level}>{levelText[level]}</span>
+  </article>;
+}
+
+export function GreenhouseZoneCard({ zone, crop, params, vigor }: { zone: string; crop: string; params: Array<{ label: string; value: string }>; vigor: 'good' | 'fair' | 'poor' }) {
+  const vigorText = { good: '良好', fair: '一般', poor: '偏差' };
+  return <article className="ds-greenhouse-zone" tabIndex={0} role="button" aria-label={'温室 ' + zone + '，' + crop + '，' + params.map(p => p.label + ' ' + p.value).join('，') + '，长势 ' + vigorText[vigor]}>
+    <div className="ds-greenhouse-zone__head">
+      <strong className="ds-greenhouse-zone__zone">{zone}</strong>
+      <span className={'ds-greenhouse-zone__vigor is-' + vigor}>{vigorText[vigor]}</span>
+    </div>
+    <p className="ds-greenhouse-zone__crop">{crop}</p>
+    <div className="ds-greenhouse-zone__params">
+      {params.map(p => <span key={p.label} className="ds-greenhouse-zone__param">{p.label}<strong>{p.value}</strong></span>)}
+    </div>
+  </article>;
+}
+
+export function PestAlertRow({ time, type, level, action }: { time: string; type: string; level: 'light' | 'moderate' | 'severe'; action: string }) {
+  const levelText = { light: '轻度', moderate: '中度', severe: '重度' };
+  return <div className={'ds-pest-row is-' + level} tabIndex={0} role="button" aria-label={'病虫害预警，' + time + '，' + type + '，' + levelText[level] + '，建议 ' + action}>
+    <span className="ds-pest-row__time">{time}</span>
+    <strong className="ds-pest-row__type">{type}</strong>
+    <span className={'ds-pest-row__level is-' + level}>{levelText[level]}</span>
+    <span className="ds-pest-row__action">{action}</span>
+  </div>;
+}
+
+export function HarvestYieldCard({ crop, estimate, actual, unit }: { crop: string; estimate: number; actual: number; unit: string }) {
+  const diff = estimate ? (actual - estimate) / estimate * 100 : 0;
+  const level = diff >= 0 ? 'above' : 'below';
+  const max = Math.max(estimate, actual, 1);
+  const estimatePct = Math.round(estimate / max * 100);
+  const actualPct = Math.round(actual / max * 100);
+  return <section className={'ds-yield-card is-' + level} tabIndex={0} aria-label={'产量对比，' + crop + '，预估 ' + estimate + ' ' + unit + '，实测 ' + actual + ' ' + unit + '，' + (diff >= 0 ? '高于' : '低于') + '预估 ' + Math.abs(diff).toFixed(1) + '%'}>
+    <strong className="ds-yield-card__crop">{crop}</strong>
+    <div className="ds-yield-card__bars" aria-hidden="true">
+      <span className="ds-yield-card__bar is-estimate" style={{ width: estimatePct + '%' }} />
+      <span className="ds-yield-card__bar is-actual" style={{ width: actualPct + '%' }} />
+    </div>
+    <div className="ds-yield-card__nums">
+      <span className="ds-yield-card__estimate">预估 {estimate} {unit}</span>
+      <span className="ds-yield-card__actual">实测 {actual} {unit}</span>
+    </div>
+    <span className="ds-yield-card__diff">{diff >= 0 ? '↑ ' + diff.toFixed(1) + '%' : '↓ ' + Math.abs(diff).toFixed(1) + '%'}</span>
+  </section>;
+}
+
+export function LivestockPenRow({ pen, count, env, state }: { pen: string; count: number; env: string; state: 'ok' | 'warn' | 'alert' }) {
+  const stateText = { ok: '正常', warn: '关注', alert: '异常' };
+  return <div className={'ds-pen-row is-' + state} tabIndex={0} role="button" aria-label={'畜舍 ' + pen + '，存栏 ' + count + ' 头，环境 ' + env + '，' + stateText[state]}>
+    <strong className="ds-pen-row__pen">{pen}</strong>
+    <span className="ds-pen-row__count">{count.toLocaleString()} 头</span>
+    <span className="ds-pen-row__env">{env}</span>
+    <span className={'ds-pen-row__state is-' + state}>{stateText[state]}</span>
+  </div>;
+}
+
+export function AgriTaskRow({ type, field, area, progress, state }: { type: string; field: string; area: number; progress: number; state: 'todo' | 'doing' | 'done' | 'late' }) {
+  const stateText = { todo: '待执行', doing: '进行中', done: '已完成', late: '逾期' };
+  return <div className={'ds-agri-task is-' + state} tabIndex={0} role="button" aria-label={'农事任务，' + type + '，' + field + '，' + area + ' 亩，进度 ' + progress + '%，' + stateText[state]}>
+    <strong className="ds-agri-task__type">{type}</strong>
+    <span className="ds-agri-task__field">{field}</span>
+    <span className="ds-agri-task__area">{area} 亩</span>
+    <div className="ds-agri-task__progress" role="progressbar" aria-valuenow={progress} aria-valuemin={0} aria-valuemax={100} aria-label="作业进度"><i style={{ width: progress + '%' }} /></div>
+    <span className={'ds-agri-task__state is-' + state}>{stateText[state]}</span>
+  </div>;
+}

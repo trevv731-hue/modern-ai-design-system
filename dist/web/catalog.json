@@ -21087,5 +21087,278 @@
       "已选禁用"
     ],
     "react": "<InsuranceQuoteCard plan=\"尊享版\" price={6888} perks={[\"重疾 50 万\", \"医疗 600 万\"]} recommended />"
+  },
+  {
+    "id": "agr-field-card",
+    "name": "地块环境卡",
+    "category": "智慧农业",
+    "status": "v3 新增",
+    "purpose": "展示一块地块的位置、种植作物与关键环境指标。",
+    "anatomy": [
+      "地块名 (ds-field-card__name)",
+      "面积 (ds-field-card__area)",
+      "作物 (ds-field-card__crop)",
+      "指标组 (ds-field-card__stat)",
+      "状态 (ds-field-card__state)"
+    ],
+    "keyboard": "卡片可聚焦查看历史曲线；指标越界以 status 语义播报。",
+    "guidance": [
+      "指标正常绿色、预警黄色、越界红色。",
+      "面积以亩为单位等宽展示。",
+      "状态徽标同时给出文字。"
+    ],
+    "preview": "<article class=\"ds-field-card\" tabindex=\"0\" role=\"button\" aria-label=\"地块 东区 3 号田，120 亩，冬小麦，地温 12 ℃，含水率 22%，墒情 适宜\"><div class=\"ds-field-card__head\"><strong class=\"ds-field-card__name\">东区 3 号田</strong><span class=\"ds-field-card__state is-ok\">适宜</span></div><p class=\"ds-field-card__crop\">冬小麦 · <span class=\"ds-field-card__area\">120 亩</span></p><div class=\"ds-field-card__stats\"><span class=\"ds-field-card__stat\">地温<strong>12 ℃</strong></span><span class=\"ds-field-card__stat\">含水率<strong>22%</strong></span><span class=\"ds-field-card__stat\">pH<strong>6.8</strong></span></div></article>",
+    "checks": [
+      "指标三态配色",
+      "面积亩等宽",
+      "状态文字",
+      "可聚焦看曲线"
+    ],
+    "react": "<FieldConditionCard name=\"东区 3 号田\" area={120} crop=\"冬小麦\" stats={[{ label: \"地温\", value: \"12 ℃\" }]} state=\"ok\" />"
+  },
+  {
+    "id": "agr-growth-stage",
+    "name": "生育期阶段条",
+    "category": "智慧农业",
+    "status": "v3 新增",
+    "purpose": "以阶段条展示作物当前所处的生育期与后续节点。",
+    "anatomy": [
+      "作物名 (ds-growth-stage__crop)",
+      "阶段节点 (ds-growth-stage__stage)",
+      "当前节点 (aria-current=\"step\")",
+      "说明 (ds-growth-stage__note)"
+    ],
+    "keyboard": "阶段可聚焦查看农事建议；当前阶段以文字说明。",
+    "guidance": [
+      "已完成阶段绿色、当前蓝色、未来灰色。",
+      "当前节点以 aria-current=\"step\" 标记。",
+      "底部给出距下一阶段天数。"
+    ],
+    "preview": "<section class=\"ds-growth-stage\" aria-label=\"冬小麦生育期，当前 拔节期，已完成 3 个阶段，距抽穗约 12 天\"><strong class=\"ds-growth-stage__crop\">冬小麦</strong><ol class=\"ds-growth-stage__stages\"><li class=\"is-done\">播种</li><li class=\"is-done\">出苗</li><li class=\"is-done\">分蘖</li><li class=\"is-current\" tabindex=\"0\" aria-current=\"step\" aria-label=\"拔节期，当前阶段\">拔节</li><li>抽穗</li><li>成熟</li></ol><span class=\"ds-growth-stage__note\">距抽穗约 12 天</span></section>",
+    "checks": [
+      "三态节点",
+      "aria-current 标记",
+      "距下阶段天数",
+      "农事建议"
+    ],
+    "react": "<CropGrowthStageBar crop=\"冬小麦\" stages={[{ name: \"播种\", state: \"done\" }, { name: \"拔节\", state: \"current\" }]} note=\"距抽穗约 12 天\" />"
+  },
+  {
+    "id": "agr-irrigation-row",
+    "name": "灌溉计划行",
+    "category": "智慧农业",
+    "status": "v3 新增",
+    "purpose": "展示一个轮灌组的计划时间、灌溉水量与执行状态。",
+    "anatomy": [
+      "轮灌组 (ds-irrigation-row__group)",
+      "计划时间 (ds-irrigation-row__time)",
+      "水量 (ds-irrigation-row__water)",
+      "状态 (ds-irrigation-row__state)"
+    ],
+    "keyboard": "行可聚焦手动启停；执行失败以 alert 语义播报。",
+    "guidance": [
+      "已完成绿色、计划中黄色、执行中蓝色、失败红色。",
+      "水量以立方米等宽展示。",
+      "执行中状态有流动动画并支持降级。"
+    ],
+    "preview": "<div class=\"ds-irrigation-row is-running\" tabindex=\"0\" role=\"button\" aria-label=\"轮灌组 B-2，计划 14:00-15:30，水量 180 立方米，执行中\"><strong class=\"ds-irrigation-row__group\">B-2</strong><span class=\"ds-irrigation-row__time\">14:00-15:30</span><span class=\"ds-irrigation-row__water\">180 m³</span><span class=\"ds-irrigation-row__state is-running\">执行中</span></div>",
+    "checks": [
+      "四态配色",
+      "水量等宽",
+      "执行流动动画",
+      "reduced-motion 降级"
+    ],
+    "react": "<IrrigationScheduleRow group=\"B-2\" time=\"14:00-15:30\" water={180} state=\"running\" />"
+  },
+  {
+    "id": "agr-soil-gauge",
+    "name": "土壤墒情仪表",
+    "category": "智慧农业",
+    "status": "v3 新增",
+    "purpose": "以多层条形展示不同深度土层的含水率与墒情等级。",
+    "anatomy": [
+      "深度行 (ds-soil-gauge__layer)",
+      "含水率 (ds-soil-gauge__value)",
+      "墒情条 (ds-soil-gauge__bar)",
+      "等级 (ds-soil-gauge__grade)"
+    ],
+    "keyboard": "每层可聚焦查看采样时间；干旱与过湿以 status 语义播报。",
+    "guidance": [
+      "按 10/20/40cm 分层展示。",
+      "适宜绿色、干旱红色、过湿黄色。",
+      "含水率以文字与条形双呈现。"
+    ],
+    "preview": "<section class=\"ds-soil-gauge\" aria-label=\"土壤墒情，10 厘米 24% 适宜，20 厘米 21% 适宜，40 厘米 18% 干旱\"><div class=\"ds-soil-gauge__layer\" tabindex=\"0\" aria-label=\"10 厘米，含水率 24%，适宜\"><span class=\"ds-soil-gauge__depth\">10cm</span><span class=\"ds-soil-gauge__value\">24%</span><span class=\"ds-soil-gauge__bar is-ok\" aria-hidden=\"true\"><i style=\"width:24%\"></i></span><span class=\"ds-soil-gauge__grade is-ok\">适宜</span></div><div class=\"ds-soil-gauge__layer\" tabindex=\"0\" aria-label=\"20 厘米，含水率 21%，适宜\"><span class=\"ds-soil-gauge__depth\">20cm</span><span class=\"ds-soil-gauge__value\">21%</span><span class=\"ds-soil-gauge__bar is-ok\" aria-hidden=\"true\"><i style=\"width:21%\"></i></span><span class=\"ds-soil-gauge__grade is-ok\">适宜</span></div><div class=\"ds-soil-gauge__layer\" tabindex=\"0\" aria-label=\"40 厘米，含水率 18%，干旱\"><span class=\"ds-soil-gauge__depth\">40cm</span><span class=\"ds-soil-gauge__value\">18%</span><span class=\"ds-soil-gauge__bar is-dry\" aria-hidden=\"true\"><i style=\"width:18%\"></i></span><span class=\"ds-soil-gauge__grade is-dry\">干旱</span></div></section>",
+    "checks": [
+      "三层深度",
+      "三态等级",
+      "文字加条形",
+      "采样时间"
+    ],
+    "react": "<SoilMoistureGauge layers={[{ depth: 10, value: 24 }, { depth: 40, value: 18 }]} />"
+  },
+  {
+    "id": "agr-weather",
+    "name": "农事天气卡",
+    "category": "智慧农业",
+    "status": "v3 新增",
+    "purpose": "结合天气预报给出当日农事操作适宜性建议。",
+    "anatomy": [
+      "天气 (ds-agri-weather__cond)",
+      "温度 (ds-agri-weather__temp)",
+      "建议 (ds-agri-weather__advice)",
+      "等级 (ds-agri-weather__level)"
+    ],
+    "keyboard": "卡片可聚焦查看逐小时预报；不宜农事以 alert 语义播报。",
+    "guidance": [
+      "适宜绿色、谨慎黄色、不宜红色。",
+      "建议文字明确到可执行操作。",
+      "降雨概率一并展示。"
+    ],
+    "preview": "<article class=\"ds-agri-weather is-caution\" tabindex=\"0\" role=\"button\" aria-label=\"农事天气，多云转小雨，18 至 26 摄氏度，降雨概率 70%，谨慎，建议 抓住雨前窗口完成施肥\"><div class=\"ds-agri-weather__head\"><span class=\"ds-agri-weather__cond\">多云转小雨</span><strong class=\"ds-agri-weather__temp\">18~26℃</strong></div><p class=\"ds-agri-weather__advice\">抓住雨前窗口完成施肥，雨后 24 小时内不宜喷药</p><span class=\"ds-agri-weather__level is-caution\">谨慎</span></article>",
+    "checks": [
+      "三态等级",
+      "降雨概率",
+      "建议可执行",
+      "逐时预报"
+    ],
+    "react": "<WeatherAdvisoryCard cond=\"多云转小雨\" temp=\"18~26℃\" advice=\"抓住雨前窗口完成施肥\" level=\"caution\" />"
+  },
+  {
+    "id": "agr-greenhouse-zone",
+    "name": "温室分区卡",
+    "category": "智慧农业",
+    "status": "v3 新增",
+    "purpose": "展示温室一个分区的环境参数与作物长势评级。",
+    "anatomy": [
+      "分区名 (ds-greenhouse-zone__zone)",
+      "作物 (ds-greenhouse-zone__crop)",
+      "参数组 (ds-greenhouse-zone__param)",
+      "长势 (ds-greenhouse-zone__vigor)"
+    ],
+    "keyboard": "卡片可聚焦查看环境曲线；参数越界以 status 语义播报。",
+    "guidance": [
+      "温度、湿度、CO₂ 浓度三项并列。",
+      "参数越界黄色警示。",
+      "长势以文字加颜色分级。"
+    ],
+    "preview": "<article class=\"ds-greenhouse-zone\" tabindex=\"0\" role=\"button\" aria-label=\"温室 A 区 2 号棚，番茄，温度 26 摄氏度，湿度 68%，二氧化碳 850 ppm，长势 良好\"><div class=\"ds-greenhouse-zone__head\"><strong class=\"ds-greenhouse-zone__zone\">A 区 · 2 号棚</strong><span class=\"ds-greenhouse-zone__vigor is-good\">良好</span></div><p class=\"ds-greenhouse-zone__crop\">番茄</p><div class=\"ds-greenhouse-zone__params\"><span class=\"ds-greenhouse-zone__param\">温度<strong>26℃</strong></span><span class=\"ds-greenhouse-zone__param\">湿度<strong>68%</strong></span><span class=\"ds-greenhouse-zone__param\">CO₂<strong>850ppm</strong></span></div></article>",
+    "checks": [
+      "三项参数并列",
+      "越界黄色",
+      "长势分级文字",
+      "环境曲线"
+    ],
+    "react": "<GreenhouseZoneCard zone=\"A 区 · 2 号棚\" crop=\"番茄\" params={[{ label: \"温度\", value: \"26℃\" }]} vigor=\"good\" />"
+  },
+  {
+    "id": "agr-pest-row",
+    "name": "病虫害预警行",
+    "category": "智慧农业",
+    "status": "v3 新增",
+    "purpose": "展示一条病虫害监测预警与建议防治措施。",
+    "anatomy": [
+      "时间 (ds-pest-row__time)",
+      "类型 (ds-pest-row__type)",
+      "程度 (ds-pest-row__level)",
+      "措施 (ds-pest-row__action)"
+    ],
+    "keyboard": "行可聚焦查看防治方案；重度预警以 alert 语义播报。",
+    "guidance": [
+      "轻度黄色、中度深黄、重度红色。",
+      "程度以文字加颜色双提示。",
+      "措施给出药剂与剂量。"
+    ],
+    "preview": "<div class=\"ds-pest-row is-severe\" tabindex=\"0\" role=\"button\" aria-label=\"病虫害预警，06-12 08:30，小麦条锈病，重度，建议 立即喷施三唑酮，15 公斤每亩\"><span class=\"ds-pest-row__time\">06-12 08:30</span><strong class=\"ds-pest-row__type\">小麦条锈病</strong><span class=\"ds-pest-row__level is-severe\">重度</span><span class=\"ds-pest-row__action\">立即喷施三唑酮 15g/亩</span></div>",
+    "checks": [
+      "三级程度配色",
+      "文字加颜色",
+      "药剂剂量",
+      "防治方案"
+    ],
+    "react": "<PestAlertRow time=\"06-12 08:30\" type=\"小麦条锈病\" level=\"severe\" action=\"立即喷施三唑酮 15g/亩\" />"
+  },
+  {
+    "id": "agr-yield-card",
+    "name": "产量对比卡",
+    "category": "智慧农业",
+    "status": "v3 新增",
+    "purpose": "展示一块地的预计产量与实测产量对比及差异分析。",
+    "anatomy": [
+      "作物 (ds-yield-card__crop)",
+      "预估值 (ds-yield-card__estimate)",
+      "实测值 (ds-yield-card__actual)",
+      "差异 (ds-yield-card__diff)",
+      "对比条 (ds-yield-card__bar)"
+    ],
+    "keyboard": "卡片可聚焦查看历年产量；低于预估 10% 以 status 语义播报。",
+    "guidance": [
+      "预估与实测双条按最大值归一化。",
+      "差异百分比以文字加箭头展示。",
+      "超产绿色、减产黄色。"
+    ],
+    "preview": "<section class=\"ds-yield-card is-below\" tabindex=\"0\" aria-label=\"产量对比，冬小麦，预估 650 公斤每亩，实测 592 公斤每亩，低于预估 8.9%\"><strong class=\"ds-yield-card__crop\">冬小麦 · 东区 3 号田</strong><div class=\"ds-yield-card__bars\" aria-hidden=\"true\"><span class=\"ds-yield-card__bar is-estimate\" style=\"width:100%\"></span><span class=\"ds-yield-card__bar is-actual\" style=\"width:91%\"></span></div><div class=\"ds-yield-card__nums\"><span class=\"ds-yield-card__estimate\">预估 650 公斤/亩</span><span class=\"ds-yield-card__actual\">实测 592 公斤/亩</span></div><span class=\"ds-yield-card__diff\">↓ 8.9%</span></section>",
+    "checks": [
+      "双条归一化",
+      "差异箭头文字",
+      "超产绿色",
+      "历年产量"
+    ],
+    "react": "<HarvestYieldCard crop=\"冬小麦\" estimate={650} actual={592} unit=\"公斤/亩\" />"
+  },
+  {
+    "id": "agr-pen-row",
+    "name": "畜舍状态行",
+    "category": "智慧农业",
+    "status": "v3 新增",
+    "purpose": "展示一个畜舍的存栏量、环境读数与异常状态。",
+    "anatomy": [
+      "舍号 (ds-pen-row__pen)",
+      "存栏 (ds-pen-row__count)",
+      "环境 (ds-pen-row__env)",
+      "状态 (ds-pen-row__state)"
+    ],
+    "keyboard": "行可聚焦查看个体档案；环境异常以 status 语义播报。",
+    "guidance": [
+      "正常绿色、关注黄色、异常红色。",
+      "存栏数以等宽字体展示。",
+      "环境读数含温度与氨气浓度。"
+    ],
+    "preview": "<div class=\"ds-pen-row is-alert\" tabindex=\"0\" role=\"button\" aria-label=\"畜舍 2 号猪舍，存栏 320 头，温度 29 摄氏度，氨气 28 ppm，异常\"><strong class=\"ds-pen-row__pen\">2 号猪舍</strong><span class=\"ds-pen-row__count\">320 头</span><span class=\"ds-pen-row__env\">29℃ · NH₃ 28ppm</span><span class=\"ds-pen-row__state is-alert\">异常</span></div>",
+    "checks": [
+      "三态配色",
+      "存栏等宽",
+      "氨气读数",
+      "个体档案"
+    ],
+    "react": "<LivestockPenRow pen=\"2 号猪舍\" count={320} env=\"29℃ · NH₃ 28ppm\" state=\"alert\" />"
+  },
+  {
+    "id": "agr-task-row",
+    "name": "农事任务行",
+    "category": "智慧农业",
+    "status": "v3 新增",
+    "purpose": "展示一条农事作业任务的类型、地块面积与完成进度。",
+    "anatomy": [
+      "任务类型 (ds-agri-task__type)",
+      "地块 (ds-agri-task__field)",
+      "面积 (ds-agri-task__area)",
+      "进度 (ds-agri-task__progress)",
+      "状态 (ds-agri-task__state)"
+    ],
+    "keyboard": "行可聚焦开始或继续作业；逾期任务以 alert 语义播报。",
+    "guidance": [
+      "待执行黄色、进行中蓝色、已完成绿色、逾期红色。",
+      "面积以亩为单位。",
+      "进度条附百分比文字。"
+    ],
+    "preview": "<div class=\"ds-agri-task is-doing\" tabindex=\"0\" role=\"button\" aria-label=\"农事任务，追施返青肥，东区 3 号田，120 亩，进度 65%，进行中\"><strong class=\"ds-agri-task__type\">追施返青肥</strong><span class=\"ds-agri-task__field\">东区 3 号田</span><span class=\"ds-agri-task__area\">120 亩</span><div class=\"ds-agri-task__progress\" role=\"progressbar\" aria-valuenow=\"65\" aria-valuemin=\"0\" aria-valuemax=\"100\" aria-label=\"作业进度\"><i style=\"width:65%\"></i></div><span class=\"ds-agri-task__state is-doing\">进行中</span></div>",
+    "checks": [
+      "四态配色",
+      "面积亩",
+      "进度百分比",
+      "逾期播报"
+    ],
+    "react": "<AgriTaskRow type=\"追施返青肥\" field=\"东区 3 号田\" area={120} progress={65} state=\"doing\" />"
   }
 ]
