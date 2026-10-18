@@ -15039,3 +15039,165 @@ export function FollowupPrompt({ question, options = [], onSubmit, onSkip }: { q
     </div>
   </div>;
 }
+
+export function StockQuoteTickerRow({ name, code, market, price, change, changePct, spark }: { name: string; code: string; market?: string; price: number; change: number; changePct: number; spark?: number[] }) {
+  const up = change >= 0;
+  const points = (spark && spark.length ? spark : [14, 12, 13, 9, 10, 6, 7, 3, 4]).map((y, index) => (index * 8) + ',' + y).join(' ');
+  return <div className="ds-quote-row" tabIndex={0} role="button" aria-label={name + ' ' + code + ' 现价 ' + price + ' ' + (up ? '涨 ' : '跌 ') + changePct + '%'}>
+    <div className="ds-quote-row__id"><strong>{name}</strong><span className="ds-quote-row__code">{code}{market ? ' · ' + market : ''}</span></div>
+    <svg className="ds-quote-row__spark" viewBox="0 0 64 20" aria-hidden="true"><polyline points={points} /></svg>
+    <div className={'ds-quote-row__price ' + (up ? 'is-up' : 'is-down')}><strong>{price.toFixed(2)}</strong><span>{(up ? '+' : '') + change.toFixed(2) + ' (' + (up ? '+' : '') + changePct.toFixed(2) + '%)'}</span></div>
+  </div>;
+}
+
+export function OrderTicketPanel({ name, code, lastPrice, available, feeRate = 0.0003, onSubmit }: { name: string; code: string; lastPrice: number; available?: number; feeRate?: number; onSubmit?: (side: 'buy' | 'sell', price: number, qty: number) => void }) {
+  const [side, setSide] = useState<'buy' | 'sell'>('buy');
+  const [price, setPrice] = useState(lastPrice);
+  const [qty, setQty] = useState(100);
+  const amount = price * qty;
+  const fee = amount * feeRate;
+  return <form className="ds-order-ticket" onSubmit={event => { event.preventDefault(); onSubmit?.(side, price, qty); }}>
+    <div className="ds-order-ticket__head"><strong>{side === 'buy' ? '买入' : '卖出'} · {name} ({code})</strong><span className="ds-order-ticket__quote">现价 {lastPrice.toFixed(2)} · 可用资金 ¥{available ?? '—'}</span></div>
+    <div className="ds-order-ticket__side" role="radiogroup" aria-label="买卖方向">
+      <button type="button" role="radio" aria-checked={side === 'buy'} className="is-buy" onClick={() => setSide('buy')}>买入</button>
+      <button type="button" role="radio" aria-checked={side === 'sell'} className="is-sell" onClick={() => setSide('sell')}>卖出</button>
+    </div>
+    <div className="ds-order-ticket__grid">
+      <label>委托价格<input value={price} inputMode="decimal" onChange={event => setPrice(Number(event.target.value) || 0)} /></label>
+      <label>委托数量<input value={qty} inputMode="numeric" onChange={event => setQty(Number(event.target.value) || 0)} /></label>
+    </div>
+    <p className="ds-order-ticket__sum">预估金额 ¥{amount.toFixed(2)} · 手续费约 ¥{fee.toFixed(2)}</p>
+    <button type="submit" className={side === 'buy' ? 'is-buy' : 'is-sell'}>{side === 'buy' ? '下单买入' : '下单卖出'}</button>
+  </form>;
+}
+
+export function PositionHoldingsRow({ name, code, qty, price, cost, ratio }: { name: string; code: string; qty: number; price: number; cost: number; ratio?: number }) {
+  const pnl = (price - cost) * qty;
+  const pct = cost > 0 ? (price - cost) / cost * 100 : 0;
+  const up = pnl >= 0;
+  const bar = Math.min(100, Math.abs(pct) * 5);
+  return <div className="ds-position-row" tabIndex={0} role="button" aria-label={name + ' 浮动盈亏 ' + (up ? '+' : '') + pnl.toFixed(2) + ' 元'}>
+    <div className="ds-position-row__id"><strong>{name}</strong><span>{code} · {qty} 股</span></div>
+    <div className="ds-position-row__num"><strong>¥{price.toFixed(2)}</strong><span>成本 ¥{cost.toFixed(2)}</span></div>
+    <div className={'ds-position-row__pnl ' + (up ? 'is-up' : 'is-down')}><strong>{(up ? '+' : '') + '¥' + pnl.toFixed(2)}</strong><span>{(up ? '+' : '') + pct.toFixed(2) + '%'}</span></div>
+    <div className="ds-position-row__bar" aria-hidden="true"><i className={up ? 'is-up' : 'is-down'} style={{ width: (ratio ?? bar) + '%' }} /></div>
+  </div>;
+}
+
+export function CandlestickChart({ candles, period = '日K' }: { candles: Array<{ open: number; high: number; low: number; close: number }>; period?: string }) {
+  const values = candles.flatMap(candle => [candle.high, candle.low]);
+  const max = Math.max(...values);
+  const min = Math.min(...values);
+  const span = Math.max(1e-6, max - min);
+  return <div className="ds-candles" tabIndex={0} role="img" aria-label={period + '线图，共 ' + candles.length + ' 根K线，区间 ' + min.toFixed(2) + ' 至 ' + max.toFixed(2)}>
+    <div className="ds-candles__grid" aria-hidden="true">
+      {candles.map((candle, index) => {
+        const up = candle.close >= candle.open;
+        const wickTop = (max - candle.high) / span * 100;
+        const wickBottom = (candle.low - min) / span * 100;
+        const bodyTop = (max - Math.max(candle.open, candle.close)) / span * 100;
+        const bodyBottom = (Math.min(candle.open, candle.close) - min) / span * 100;
+        return <span key={index} className={'ds-candles__candle ' + (up ? 'is-up' : 'is-down')} style={{ top: wickTop + '%', height: Math.max(2, wickBottom - wickTop) + '%' }}><i style={{ top: bodyTop + '%', bottom: bodyBottom + '%' }} /></span>;
+      })}
+    </div>
+    <div className="ds-candles__legend"><span className="is-up">涨</span><span className="is-down">跌</span><span>{period} · MA5 / MA10 / 成交量</span></div>
+  </div>;
+}
+
+export function WatchlistGroup({ groups, active = 0 }: { groups: Array<{ name: string; items: Array<{ name: string; code: string; pct: number }> }>; active?: number }) {
+  const [current, setCurrent] = useState(active);
+  const group = groups[Math.min(current, groups.length - 1)];
+  return <div className="ds-watchlist">
+    <div className="ds-watchlist__tabs" role="tablist" aria-label="自选分组">
+      {groups.map((entry, index) => <button key={entry.name} type="button" role="tab" aria-selected={index === current} onClick={() => setCurrent(index)}>{entry.name} <em>{entry.items.length}</em></button>)}
+      <button type="button" className="ds-watchlist__add" aria-label="新建分组">+</button>
+    </div>
+    <ul className="ds-watchlist__list">
+      {group.items.map(item => <li key={item.code}>
+        <span className="ds-watchlist__handle" aria-hidden="true">⋮⋮</span>
+        <span className="ds-watchlist__name">{item.name}</span>
+        <span className="ds-watchlist__code">{item.code}</span>
+        <span className={item.pct >= 0 ? 'is-up' : 'is-down'}>{(item.pct >= 0 ? '+' : '') + item.pct.toFixed(2) + '%'}</span>
+      </li>)}
+    </ul>
+  </div>;
+}
+
+export function FundFlowWaterfall({ days }: { days: Array<{ date: string; net: number }> }) {
+  const peak = Math.max(...days.map(day => Math.abs(day.net)), 1);
+  return <div className="ds-fund-flow" role="img" aria-label={'近 ' + days.length + ' 日主力资金净流入'}>
+    <div className="ds-fund-flow__legend"><span className="is-in">主力流入</span><span className="is-out">主力流出</span></div>
+    <div className="ds-fund-flow__chart" aria-hidden="true">
+      {days.map(day => <span key={day.date} className={'ds-fund-flow__bar ' + (day.net >= 0 ? 'is-in' : 'is-out')} style={{ height: Math.max(6, Math.abs(day.net) / peak * 100) + '%' }} />)}
+    </div>
+    <div className="ds-fund-flow__axis" aria-hidden="true">{days.map(day => <span key={day.date}>{day.date}</span>)}</div>
+  </div>;
+}
+
+export function TradeBlotterTable({ rows }: { rows: Array<{ time: string; side: 'buy' | 'sell'; code: string; price: number; qty: number; state: 'done' | 'cancel' | 'pending' }> }) {
+  return <table className="ds-blotter">
+    <caption className="ds-blotter__cap">今日成交回报 <span aria-live="polite">{rows.length} 笔</span></caption>
+    <thead><tr><th scope="col">时间</th><th scope="col">方向</th><th scope="col">代码</th><th scope="col">价格</th><th scope="col">数量</th><th scope="col">状态</th></tr></thead>
+    <tbody>
+      {rows.map(row => <tr key={row.time + row.code}>
+        <td>{row.time}</td>
+        <td><span className={'ds-blotter__side ' + (row.side === 'buy' ? 'is-buy' : 'is-sell')}>{row.side === 'buy' ? '买入' : '卖出'}</span></td>
+        <td>{row.code}</td>
+        <td className={row.side === 'buy' ? 'is-up' : 'is-down'}>{row.price.toFixed(2)}</td>
+        <td>{row.qty}</td>
+        <td><span className={'ds-blotter__state is-' + row.state}>{row.state === 'done' ? '已成交' : row.state === 'cancel' ? '已撤单' : '待成交'}</span></td>
+      </tr>)}
+    </tbody>
+  </table>;
+}
+
+export function RiskMarginMeter({ value, warn = 140, danger = 150 }: { value: number; warn?: number; danger?: number }) {
+  const text = value >= danger ? '警戒' : value >= warn ? '注意' : '安全';
+  const level = value >= danger ? 'is-danger' : value >= warn ? 'is-warn' : 'is-safe';
+  const angle = Math.min(180, Math.max(0, (value - 100) / 100 * 180));
+  return <div className="ds-risk-meter" role="status" aria-label={'风险度 ' + value + '%，处于' + text + '区间'}>
+    <div className="ds-risk-meter__dial" aria-hidden="true"><i className={level} style={{ transform: 'rotate(' + (angle - 90) + 'deg)' }} /></div>
+    <div className="ds-risk-meter__read"><strong>{value}%</strong><span>风险度 · {text}</span></div>
+    <p className="ds-risk-meter__tip">{value >= warn ? '接近警戒线 ' + danger + '%，可追加保证金或减仓。' : '当前风险度处于安全区间。'}</p>
+  </div>;
+}
+
+export function MarketDepthLadder({ last, lastPct, asks, bids }: { last: number; lastPct: number; asks: Array<{ price: number; vol: number }>; bids: Array<{ price: number; vol: number }> }) {
+  const peak = Math.max(...asks.map(row => row.vol), ...bids.map(row => row.vol), 1);
+  const up = lastPct >= 0;
+  const askLabels = ['卖五', '卖四', '卖三', '卖二', '卖一'];
+  const bidLabels = ['买一', '买二', '买三', '买四', '买五'];
+  return <div className="ds-depth-ladder">
+    <div className="ds-depth-ladder__head"><span>盘口五档</span><span className={'ds-depth-ladder__last ' + (up ? 'is-up' : 'is-down')}>{last.toFixed(2)} <em>{(up ? '+' : '') + lastPct.toFixed(2) + '%'</em></span></div>
+    <ul className="ds-depth-ladder__asks">
+      {asks.map((row, index) => <li key={row.price}>
+        <span className="ds-depth-ladder__label">{askLabels[index] ?? ''}</span>
+        <span className="ds-depth-ladder__price is-down">{row.price.toFixed(2)}</span>
+        <span className="ds-depth-ladder__vol is-out" style={{ width: Math.max(12, row.vol / peak * 100) + '%' }}>{row.vol}</span>
+      </li>)}
+    </ul>
+    <ul className="ds-depth-ladder__bids">
+      {bids.map((row, index) => <li key={row.price}>
+        <span className="ds-depth-ladder__label">{bidLabels[index] ?? ''}</span>
+        <span className="ds-depth-ladder__price is-up">{row.price.toFixed(2)}</span>
+        <span className="ds-depth-ladder__vol is-in" style={{ width: Math.max(12, row.vol / peak * 100) + '%' }}>{row.vol}</span>
+      </li>)}
+    </ul>
+  </div>;
+}
+
+export function AssetAllocationDonut({ total, slices }: { total: number; slices: Array<{ label: string; pct: number }> }) {
+  const tones = ['is-a', 'is-b', 'is-c', 'is-d', 'is-e'];
+  let acc = 0;
+  const stops = slices.map((slice, index) => {
+    const from = acc;
+    acc += slice.pct;
+    return tones[index % tones.length] + ' ' + from + '% ' + acc + '%';
+  }).join(',');
+  return <div className="ds-alloc-donut">
+    <div className="ds-alloc-donut__ring" role="img" aria-label={'资产配置：' + slices.map(slice => slice.label + ' ' + slice.pct + '%').join('，')} style={{ background: 'conic-gradient(' + stops + ')' }}><strong>¥{total.toLocaleString('zh-CN', { maximumFractionDigits: 0 })}</strong></div>
+    <ul className="ds-alloc-donut__legend">
+      {slices.map((slice, index) => <li key={slice.label} className={tones[index % tones.length]}><span>{slice.label}</span><em>{slice.pct}%</em></li>)}
+    </ul>
+  </div>;
+}
