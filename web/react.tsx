@@ -16323,3 +16323,140 @@ export function NotaryDocCard({ title, no, org, valid, expiring }: { title: stri
     <p className="ds-notary-doc__valid">有效期 {valid}{expiring ? ' · 即将到期' : ''}</p>
   </article>;
 }
+
+export function CandidatePipelineCard({ name, position, stage, match, source }: { name: string; position: string; stage: 'screen' | 'technical' | 'hr' | 'offer' | 'hired' | 'rejected'; match: number; source?: string }) {
+  const stageText = { screen: '简历筛选', technical: '技术面试', hr: 'HR 面试', offer: 'Offer 中', hired: '已入职', rejected: '已淘汰' };
+  return <article className="ds-candidate-pipe" tabIndex={0} role="button" aria-label={'候选人' + name + '，' + position + '，' + stageText[stage] + '阶段，匹配度 ' + match}>
+    <span className="ds-candidate-pipe__avatar" aria-hidden="true">{name.slice(0, 1)}</span>
+    <div className="ds-candidate-pipe__body"><strong>{name}</strong><span>{position}{source ? ' · ' + source : ''}</span></div>
+    <span className={'ds-candidate-pipe__stage is-' + stage}>{stageText[stage]}</span>
+    <div className="ds-candidate-pipe__match" aria-hidden="true"><i style={{ width: match + '%' }} /></div>
+    <span className="ds-candidate-pipe__score">{match}</span>
+  </article>;
+}
+
+export function ResumeParsePanel({ file, fields }: { file: string; fields: Array<{ label: string; value: string; confidence: number }> }) {
+  return <section className="ds-resume-parse" aria-label={'简历解析结果，' + file}>
+    <div className="ds-resume-parse__status"><span className="is-done">解析完成</span><span>{file}</span></div>
+    <dl className="ds-resume-parse__fields">
+      {fields.map(field => <div key={field.label}>
+        <dt>{field.label}</dt>
+        <dd>{field.value}<em className={'ds-resume-parse__conf ' + (field.confidence >= 80 ? 'is-high' : 'is-low')} style={{ width: field.confidence + '%' }} aria-label={'置信度 ' + field.confidence + '%'} /></dd>
+      </div>)}
+    </dl>
+  </section>;
+}
+
+export function InterviewScheduleRow({ candidate, position, time, interviewer, mode, state }: { candidate: string; position: string; time: string; interviewer: string; mode: 'video' | 'onsite' | 'phone'; state: 'confirmed' | 'pending' | 'done' | 'cancelled' }) {
+  const modeText = { video: '视频面试', onsite: '现场面试', phone: '电话面试' };
+  const stateText = { confirmed: '已确认', pending: '待确认', done: '已完成', cancelled: '已取消' };
+  return <div className={'ds-interview-row is-' + state} tabIndex={0} role="button" aria-label={'面试安排，' + time + '，' + candidate + '，' + position + '，面试官 ' + interviewer + '，' + modeText[mode] + '，' + stateText[state]}>
+    <span className="ds-interview-row__time">{time}</span>
+    <div className="ds-interview-row__body"><strong>{candidate} · {position}</strong><span className="ds-interview-row__meta">{interviewer} · {modeText[mode]}</span></div>
+    <span className={'ds-interview-row__state is-' + state}>{stateText[state]}</span>
+    <button type="button">改期</button>
+  </div>;
+}
+
+export function OfferLetterCard({ position, base, months, perks, expiresIn }: { position: string; base: number; months: number; perks: string[]; expiresIn: string }) {
+  return <article className="ds-offer-letter" aria-label={'录用通知，' + position + '，月薪 ' + base + ' 元，' + months + ' 薪'}>
+    <h4 className="ds-offer-letter__title">{position} · 录用通知</h4>
+    <div className="ds-offer-letter__pay">
+      <div><small>月基本工资</small><strong>¥{base.toLocaleString()}</strong></div>
+      <div><small>年终奖</small><strong>{months} 薪</strong></div>
+    </div>
+    <div className="ds-offer-letter__perks">
+      {perks.map(perk => <span key={perk}>{perk}</span>)}
+    </div>
+    <p className="ds-offer-letter__expire">接受期限剩余 {expiresIn}</p>
+    <div className="ds-offer-letter__actions">
+      <button type="button" className="is-primary">接受 Offer</button>
+      <button type="button">拒绝</button>
+    </div>
+  </article>;
+}
+
+export function OnboardingTaskChecklist({ employee, joinDate, tasks }: { employee: string; joinDate: string; tasks: Array<{ text: string; owner: string; due: string; done: boolean; late?: boolean }> }) {
+  const doneCount = tasks.filter(task => task.done).length;
+  const pct = tasks.length ? Math.round(doneCount / tasks.length * 100) : 0;
+  return <section className="ds-onboard-task" aria-label={'入职任务清单，' + employee + '，' + joinDate + ' 入职'}>
+    <div className="ds-onboard-task__head"><strong>{employee} · {joinDate} 入职</strong><span>{doneCount}/{tasks.length} 已完成</span></div>
+    <div className="ds-onboard-task__progress" role="progressbar" aria-valuenow={pct} aria-valuemin={0} aria-valuemax={100} aria-label="入职准备进度"><i style={{ width: pct + '%' }} /></div>
+    <ul>
+      {tasks.map(task => <li key={task.text} className={'ds-onboard-task__item ' + (task.late ? 'is-late' : task.done ? 'is-done' : 'is-todo')} role="checkbox" aria-checked={task.done} tabIndex={0}>
+        {task.text}<span>{task.owner} · {task.due}{task.late ? ' 已逾期' : ''}</span>
+      </li>)}
+    </ul>
+  </section>;
+}
+
+export function AttendanceTimesheet({ month, days, totalHours, lateDays }: { month: string; days: Array<{ date: number; hours?: number; state: 'ok' | 'late' | 'leave' | 'absent' | 'rest'; note?: string }>; totalHours: number; lateDays: number }) {
+  return <section className="ds-attendance" aria-label={month + ' 考勤'}>
+    <div className="ds-attendance__sum"><span>总工时 <strong>{totalHours}h</strong></span><span>迟到 <strong>{lateDays} 天</strong></span></div>
+    <div className="ds-attendance__grid">
+      {days.map(day => <span key={day.date} className={'ds-attendance__day is-' + day.state} tabIndex={day.state === 'rest' ? undefined : 0} aria-label={month + ' ' + day.date + ' 日 ' + (day.state === 'rest' ? '休息' : day.state === 'ok' ? '工作 ' + day.hours + ' 小时' : day.note ?? day.state)}>
+        <b>{day.date}</b>
+        {day.state === 'ok' && day.hours ? <em className="ds-attendance__hours">{day.hours}</em> : null}
+        {day.state === 'late' ? <em className="ds-attendance__flag">迟</em> : null}
+        {day.state === 'leave' ? <em className="ds-attendance__flag">假</em> : null}
+        {day.state === 'absent' ? <em className="ds-attendance__flag">缺</em> : null}
+      </span>)}
+    </div>
+    <p className="ds-attendance__legend">■ 正常 ■ 迟到 ■ 请假 ■ 休息</p>
+  </section>;
+}
+
+export function LeaveRequestRow({ applicant, type, from, to, days, quota, state }: { applicant: string; type: 'annual' | 'sick' | 'personal' | 'marriage' | 'maternity'; from: string; to: string; days: number; quota?: number; state: 'pending' | 'approved' | 'rejected' }) {
+  const typeText = { annual: '年假', sick: '病假', personal: '事假', marriage: '婚假', maternity: '产假' };
+  const stateText = { pending: '审批中', approved: '已通过', rejected: '已驳回' };
+  return <div className={'ds-leave-row is-' + state} tabIndex={0} role="button" aria-label={'请假申请，' + applicant + '，' + typeText[type] + '，' + from + ' 至 ' + to + '，共 ' + days + ' 天，' + stateText[state]}>
+    <span className={'ds-leave-row__type is-' + type}>{typeText[type]}</span>
+    <div className="ds-leave-row__body"><strong>{applicant}</strong><span className="ds-leave-row__range">{from} ~ {to} · 共 {days} 天</span></div>
+    {quota !== undefined ? <span className="ds-leave-row__quota">余额 {quota} 天</span> : null}
+    <span className={'ds-leave-row__state is-' + state}>{stateText[state]}</span>
+  </div>;
+}
+
+export function PayrollSummaryCard({ month, earnings, deductions, net }: { month: string; earnings: Array<{ name: string; amount: number }>; deductions: Array<{ name: string; amount: number }>; net: number }) {
+  return <section className="ds-payroll" aria-label={month + ' 工资条，实发 ' + net + ' 元'}>
+    <p className="ds-payroll__month">{month}</p>
+    <div className="ds-payroll__group">
+      <h5>应发</h5>
+      <div className="ds-payroll__rows">
+        {earnings.map(item => <div key={item.name} className="ds-payroll__row"><span>{item.name}</span><em>¥{item.amount.toLocaleString()}</em></div>)}
+      </div>
+    </div>
+    <div className="ds-payroll__group">
+      <h5>扣款</h5>
+      <div className="ds-payroll__rows">
+        {deductions.map(item => <div key={item.name} className="ds-payroll__row"><span>{item.name}</span><em>-¥{item.amount.toLocaleString()}</em></div>)}
+      </div>
+    </div>
+    <div className="ds-payroll__net"><span>实发工资</span><strong>¥{net.toLocaleString()}</strong></div>
+    <p className="ds-payroll__note">薪资信息保密，请勿外传</p>
+  </section>;
+}
+
+export function PerformanceReviewCard({ cycle, goals, grade }: { cycle: string; goals: Array<{ text: string; self: number; manager: number }>; grade: 'A' | 'B' | 'C' | 'D' }) {
+  return <section className="ds-perf-review" aria-label={cycle + ' 绩效评估'}>
+    <div className="ds-perf-review__head">
+      <span className="ds-perf-review__cycle">{cycle}</span>
+      <span className={'ds-perf-review__grade is-' + grade.toLowerCase()} aria-label={'绩效等级 ' + grade}>{grade}</span>
+    </div>
+    <ul className="ds-perf-review__goals">
+      {goals.map(goal => <li key={goal.text} className="ds-perf-review__goal" tabIndex={0}>
+        <span>{goal.text}</span>
+        <span className="ds-perf-review__score"><em>自评 {goal.self}</em><em>上级 {goal.manager}</em></span>
+      </li>)}
+    </ul>
+  </section>;
+}
+
+export function OrgChartNode({ name, title, count, expanded, current }: { name: string; title: string; count: number; expanded?: boolean; current?: boolean }) {
+  return <div className={'ds-org-node' + (current ? ' is-current' : '')} tabIndex={0} role="treeitem" aria-expanded={expanded ?? false} aria-label={name + '，' + title + '，' + count + ' 名下属'}>
+    <span className="ds-org-node__avatar" aria-hidden="true">{name.slice(0, 1)}</span>
+    <div className="ds-org-node__body"><strong>{name}</strong><span>{title}</span></div>
+    <span className="ds-org-node__count">{count} 人</span>
+    <button type="button" aria-label={expanded ? '折叠下属' : '展开下属'}>{expanded ? '▾' : '▸'}</button>
+  </div>;
+}

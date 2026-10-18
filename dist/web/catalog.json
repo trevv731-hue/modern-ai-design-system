@@ -18871,5 +18871,282 @@
       "可下载电子版"
     ],
     "react": "<NotaryDocCard title=\"出生公证\" no=\"（2026）京国立内字第 8823 号\" org=\"北京市国立公证处\" valid=\"2026-10-12 至 2027-10-11\" expiring />"
+  },
+  {
+    "id": "hr-candidate-pipe",
+    "name": "候选人管道卡",
+    "category": "人力资源 / 招聘",
+    "status": "v3 新增",
+    "purpose": "展示候选人概览、当前招聘阶段与岗位匹配度。",
+    "anatomy": [
+      "头像占位 (ds-candidate-pipe__avatar)",
+      "姓名与岗位 (ds-candidate-pipe__body)",
+      "当前阶段 (ds-candidate-pipe__stage)",
+      "匹配度 (ds-candidate-pipe__match)",
+      "操作"
+    ],
+    "keyboard": "卡片可聚焦查看档案；阶段推进按钮可达。",
+    "guidance": [
+      "当前阶段用颜色与文字双提示。",
+      "匹配度以进度条加百分比展示。",
+      "支持拖拽卡片跨阶段流转。"
+    ],
+    "preview": "<article class=\"ds-candidate-pipe\" tabindex=\"0\" role=\"button\" aria-label=\"候选人陈思远，高级前端工程师，技术面试阶段，匹配度 86\"><span class=\"ds-candidate-pipe__avatar\" aria-hidden=\"true\">陈</span><div class=\"ds-candidate-pipe__body\"><strong>陈思远</strong><span>高级前端工程师 · 内推</span></div><span class=\"ds-candidate-pipe__stage is-technical\">技术面试</span><div class=\"ds-candidate-pipe__match\" aria-hidden=\"true\"><i style=\"width:86%\"></i></div><span class=\"ds-candidate-pipe__score\">86</span></article>",
+    "checks": [
+      "阶段颜色文字双提示",
+      "匹配度条加百分比",
+      "可拖拽跨阶段",
+      "卡片可聚焦看档案"
+    ],
+    "react": "<CandidatePipelineCard name=\"陈思远\" position=\"高级前端工程师\" stage=\"technical\" match={86} source=\"内推\" />"
+  },
+  {
+    "id": "hr-resume-parse",
+    "name": "简历解析面板",
+    "category": "人力资源 / 招聘",
+    "status": "v3 新增",
+    "purpose": "展示简历结构化解析结果与各字段置信度。",
+    "anatomy": [
+      "解析状态 (ds-resume-parse__status)",
+      "字段列表 (ds-resume-parse__fields)",
+      "置信度条 (ds-resume-parse__conf)",
+      "原文对照入口"
+    ],
+    "keyboard": "字段行可聚焦校正；低置信度字段高亮提示。",
+    "guidance": [
+      "低置信度字段黄色标记并可人工校正。",
+      "解析进度实时反馈。",
+      "支持跳转原文位置对照。"
+    ],
+    "preview": "<section class=\"ds-resume-parse\" aria-label=\"简历解析结果\"><div class=\"ds-resume-parse__status\"><span class=\"is-done\">解析完成</span><span>陈思远.pdf</span></div><dl class=\"ds-resume-parse__fields\"><div><dt>工作年限</dt><dd>6 年<em class=\"ds-resume-parse__conf is-high\" style=\"width:96%\"></em></dd></div><div><dt>期望薪资</dt><dd>35K<em class=\"ds-resume-parse__conf is-low\" style=\"width:58%\"></em></dd></div><div><dt>最高学历</dt><dd>本科 · 同济大学<em class=\"ds-resume-parse__conf is-high\" style=\"width:92%\"></em></dd></div></dl></section>",
+    "checks": [
+      "低置信度黄色标记",
+      "可人工校正字段",
+      "进度实时反馈",
+      "可跳转原文对照"
+    ],
+    "react": "<ResumeParsePanel file=\"陈思远.pdf\" fields={[{ label: \"工作年限\", value: \"6 年\", confidence: 96 }, { label: \"期望薪资\", value: \"35K\", confidence: 58 }]} />"
+  },
+  {
+    "id": "hr-interview-row",
+    "name": "面试安排行",
+    "category": "人力资源 / 招聘",
+    "status": "v3 新增",
+    "purpose": "展示一场面试的时间、面试官、进行方式与确认状态。",
+    "anatomy": [
+      "时间 (ds-interview-row__time)",
+      "候选人与岗位",
+      "面试官与方式 (ds-interview-row__meta)",
+      "状态 (ds-interview-row__state)",
+      "操作"
+    ],
+    "keyboard": "行可聚焦查看详情；改期与取消按钮可达。",
+    "guidance": [
+      "待确认面试黄色提醒。",
+      "视频面试给入会入口。",
+      "时间冲突红色提示。"
+    ],
+    "preview": "<div class=\"ds-interview-row is-confirmed\" tabindex=\"0\" role=\"button\" aria-label=\"面试安排，10-22 14:00，陈思远，高级前端工程师，面试官王莉，视频面试，已确认\"><span class=\"ds-interview-row__time\">10-22<br>14:00</span><div class=\"ds-interview-row__body\"><strong>陈思远 · 高级前端工程师</strong><span class=\"ds-interview-row__meta\">王莉 · 视频面试 60 分钟</span></div><span class=\"ds-interview-row__state is-confirmed\">已确认</span><button type=\"button\">改期</button></div>",
+    "checks": [
+      "待确认黄色提醒",
+      "视频面试给入会入口",
+      "时间冲突红色提示",
+      "行可聚焦看详情"
+    ],
+    "react": "<InterviewScheduleRow candidate=\"陈思远\" position=\"高级前端工程师\" time=\"10-22 14:00\" interviewer=\"王莉\" mode=\"video\" state=\"confirmed\" />"
+  },
+  {
+    "id": "hr-offer-letter",
+    "name": "Offer 卡片",
+    "category": "人力资源 / 招聘",
+    "status": "v3 新增",
+    "purpose": "展示录用通知的薪资结构、福利与接受期限。",
+    "anatomy": [
+      "岗位标题 (ds-offer-letter__title)",
+      "薪资结构 (ds-offer-letter__pay)",
+      "福利标签 (ds-offer-letter__perks)",
+      "有效期 (ds-offer-letter__expire)",
+      "接受/拒绝"
+    ],
+    "keyboard": "接受与拒绝按钮可达；拒绝需二次确认。",
+    "guidance": [
+      "薪资结构分基本工资与奖金。",
+      "有效期倒计时强调。",
+      "期权与福利用标签展示。"
+    ],
+    "preview": "<article class=\"ds-offer-letter\" aria-label=\"录用通知，高级前端工程师，月薪 28000 元，14 薪\"><h4 class=\"ds-offer-letter__title\">高级前端工程师 · 录用通知</h4><div class=\"ds-offer-letter__pay\"><div><small>月基本工资</small><strong>¥28,000</strong></div><div><small>年终奖</small><strong>14 薪</strong></div></div><div class=\"ds-offer-letter__perks\"><span>六险一金</span><span>弹性办公</span><span>期权 4 年归属</span></div><p class=\"ds-offer-letter__expire\">接受期限剩余 3 天</p><div class=\"ds-offer-letter__actions\"><button type=\"button\" class=\"is-primary\">接受 Offer</button><button type=\"button\">拒绝</button></div></article>",
+    "checks": [
+      "薪资分基本与奖金",
+      "有效期倒计时强调",
+      "福利标签展示",
+      "拒绝需二次确认"
+    ],
+    "react": "<OfferLetterCard position=\"高级前端工程师\" base={28000} months={14} perks={[\"六险一金\", \"弹性办公\"]} expiresIn=\"3 天\" />"
+  },
+  {
+    "id": "hr-onboard-task",
+    "name": "入职任务清单",
+    "category": "人力资源 / 招聘",
+    "status": "v3 新增",
+    "purpose": "跟踪新员工入职前的准备事项与完成进度。",
+    "anatomy": [
+      "员工与入职日 (ds-onboard-task__head)",
+      "进度条 (ds-onboard-task__progress)",
+      "任务项 (ds-onboard-task__item)",
+      "负责人",
+      "截止日"
+    ],
+    "keyboard": "任务勾选使用 checkbox 语义；完成状态即时播报。",
+    "guidance": [
+      "逾期任务红色标记。",
+      "按负责人分组展示。",
+      "全部完成后给出欢迎语。"
+    ],
+    "preview": "<section class=\"ds-onboard-task\" aria-label=\"入职任务清单\"><div class=\"ds-onboard-task__head\"><strong>陈思远 · 11-01 入职</strong><span>2/4 已完成</span></div><div class=\"ds-onboard-task__progress\" aria-hidden=\"true\"><i style=\"width:50%\"></i></div><ul><li class=\"is-done\" role=\"checkbox\" aria-checked=\"true\" tabindex=\"0\">签署劳动合同<span>HR · 10-28</span></li><li class=\"is-done\" role=\"checkbox\" aria-checked=\"true\" tabindex=\"0\">提交入职材料<span>陈思远 · 10-26</span></li><li class=\"is-todo\" role=\"checkbox\" aria-checked=\"false\" tabindex=\"0\">开通账号与权限<span>IT · 10-30</span></li><li class=\"is-late\" role=\"checkbox\" aria-checked=\"false\" tabindex=\"0\">安排工位与设备<span>行政 · 10-25 已逾期</span></li></ul></section>",
+    "checks": [
+      "逾期任务红色标记",
+      "按负责人分组",
+      "完成即时播报",
+      "checkbox 语义"
+    ],
+    "react": "<OnboardingTaskChecklist employee=\"陈思远\" joinDate=\"11-01\" tasks={[{ text: \"签署劳动合同\", owner: \"HR\", due: \"10-28\", done: true }]} />"
+  },
+  {
+    "id": "hr-attendance",
+    "name": "考勤月历",
+    "category": "人力资源 / 招聘",
+    "status": "v3 新增",
+    "purpose": "以月历网格展示每日工时与异常考勤状态。",
+    "anatomy": [
+      "日期格 (ds-attendance__day)",
+      "工时 (ds-attendance__hours)",
+      "异常标记 (ds-attendance__flag)",
+      "汇总 (ds-attendance__sum)",
+      "图例"
+    ],
+    "keyboard": "日期格可聚焦查看打卡明细；图例说明颜色含义。",
+    "guidance": [
+      "异常日用颜色与图标双提示。",
+      "休息日与工作日区分。",
+      "汇总给出加班与迟到天数。"
+    ],
+    "preview": "<section class=\"ds-attendance\" aria-label=\"2026 年 10 月考勤\"><div class=\"ds-attendance__sum\"><span>总工时 <strong>168h</strong></span><span>迟到 <strong>1 天</strong></span><span>加班 <strong>6h</strong></span></div><div class=\"ds-attendance__grid\"><span class=\"ds-attendance__day is-rest\" aria-label=\"10 月 1 日 休息\"><b>1</b></span><span class=\"ds-attendance__day is-ok\" tabindex=\"0\" aria-label=\"10 月 2 日 工作 9.2 小时\"><b>2</b><em class=\"ds-attendance__hours\">9.2</em></span><span class=\"ds-attendance__day is-late\" tabindex=\"0\" aria-label=\"10 月 3 日 迟到 22 分钟\"><b>3</b><em class=\"ds-attendance__flag\">迟</em></span><span class=\"ds-attendance__day is-leave\" tabindex=\"0\" aria-label=\"10 月 4 日 请假\"><b>4</b><em class=\"ds-attendance__flag\">假</em></span></div><p class=\"ds-attendance__legend\">■ 正常 ■ 迟到 ■ 请假 ■ 休息</p></section>",
+    "checks": [
+      "异常颜色图标双提示",
+      "休息与工作区分",
+      "汇总加班迟到",
+      "日期格可聚焦"
+    ],
+    "react": "<AttendanceTimesheet month=\"2026-10\" days={[{ date: 2, hours: 9.2, state: \"ok\" }, { date: 3, state: \"late\", note: \"迟到 22 分钟\" }]} totalHours={168} lateDays={1} />"
+  },
+  {
+    "id": "hr-leave-row",
+    "name": "请假申请行",
+    "category": "人力资源 / 招聘",
+    "status": "v3 新增",
+    "purpose": "展示一条请假申请的类别、时段、时长与审批状态。",
+    "anatomy": [
+      "类型标签 (ds-leave-row__type)",
+      "申请人",
+      "时段 (ds-leave-row__range)",
+      "时长",
+      "审批状态 (ds-leave-row__state)"
+    ],
+    "keyboard": "行可聚焦查看详情；审批操作可达。",
+    "guidance": [
+      "审批中黄色，通过绿色，驳回红色。",
+      "时段冲突红色提示。",
+      "年假剩余额度一并展示。"
+    ],
+    "preview": "<div class=\"ds-leave-row is-pending\" tabindex=\"0\" role=\"button\" aria-label=\"请假申请，陈思远，年假，10-22 至 10-24，共 3 天，审批中\"><span class=\"ds-leave-row__type is-annual\">年假</span><div class=\"ds-leave-row__body\"><strong>陈思远</strong><span class=\"ds-leave-row__range\">10-22 ~ 10-24 · 共 3 天</span></div><span class=\"ds-leave-row__quota\">余额 5 天</span><span class=\"ds-leave-row__state is-pending\">审批中</span></div>",
+    "checks": [
+      "审批三态颜色区分",
+      "时段冲突红色提示",
+      "展示年假余额",
+      "行可聚焦看详情"
+    ],
+    "react": "<LeaveRequestRow applicant=\"陈思远\" type=\"annual\" from=\"10-22\" to=\"10-24\" days={3} quota={5} state=\"pending\" />"
+  },
+  {
+    "id": "hr-payroll",
+    "name": "工资条",
+    "category": "人力资源 / 招聘",
+    "status": "v3 新增",
+    "purpose": "展示月度薪资的应发项、扣款项与实发工资。",
+    "anatomy": [
+      "月份 (ds-payroll__month)",
+      "应发明细 (ds-payroll__rows)",
+      "扣款项",
+      "实发 (ds-payroll__net)",
+      "保密提示"
+    ],
+    "keyboard": "行可聚焦查看计费依据；金额右对齐等宽字体。",
+    "guidance": [
+      "应发与扣款分组展示。",
+      "实发金额突出显示。",
+      "工资条默认脱敏，需验证后查看。"
+    ],
+    "preview": "<section class=\"ds-payroll\" aria-label=\"2026 年 10 月工资条\"><p class=\"ds-payroll__month\">2026 年 10 月 · 陈思远</p><div class=\"ds-payroll__group\"><h5>应发</h5><div class=\"ds-payroll__rows\"><div class=\"ds-payroll__row\"><span>基本工资</span><em>¥28,000</em></div><div class=\"ds-payroll__row\"><span>岗位津贴</span><em>¥1,200</em></div><div class=\"ds-payroll__row\"><span>绩效奖金</span><em>¥3,500</em></div></div></div><div class=\"ds-payroll__group\"><h5>扣款</h5><div class=\"ds-payroll__rows\"><div class=\"ds-payroll__row\"><span>社保公积金</span><em>-¥4,200</em></div><div class=\"ds-payroll__row\"><span>个人所得税</span><em>-¥1,850</em></div></div></div><div class=\"ds-payroll__net\"><span>实发工资</span><strong>¥26,650</strong></div><p class=\"ds-payroll__note\">薪资信息保密，请勿外传</p></section>",
+    "checks": [
+      "应发扣款分组",
+      "实发金额突出",
+      "默认脱敏验证",
+      "金额右对齐等宽"
+    ],
+    "react": "<PayrollSummaryCard month=\"2026-10\" earnings={[{ name: \"基本工资\", amount: 28000 }]} deductions={[{ name: \"社保公积金\", amount: 4200 }]} net={26650} />"
+  },
+  {
+    "id": "hr-perf-review",
+    "name": "绩效评估卡",
+    "category": "人力资源 / 招聘",
+    "status": "v3 新增",
+    "purpose": "展示绩效周期内的目标完成情况与自评、上级评分。",
+    "anatomy": [
+      "周期 (ds-perf-review__cycle)",
+      "目标列表 (ds-perf-review__goal)",
+      "自评与上级评 (ds-perf-review__score)",
+      "等级 (ds-perf-review__grade)"
+    ],
+    "keyboard": "目标行可聚焦查看详情；评分使用 slider 语义。",
+    "guidance": [
+      "自评与上级评分并列对比。",
+      "差距大于 10 分黄色提示校准。",
+      "等级用徽章强调。"
+    ],
+    "preview": "<section class=\"ds-perf-review\" aria-label=\"2026 上半年绩效评估\"><div class=\"ds-perf-review__head\"><span class=\"ds-perf-review__cycle\">2026 H1</span><span class=\"ds-perf-review__grade is-a\">A</span></div><ul class=\"ds-perf-review__goals\"><li><span>完成设计系统 v3 重构</span><div class=\"ds-perf-review__score\"><em>自评 90</em><em>上级 88</em></div></li><li><span>组件覆盖率提升至 95%</span><div class=\"ds-perf-review__score\"><em>自评 85</em><em>上级 92</em></div></li></ul></section>",
+    "checks": [
+      "自评上级并列对比",
+      "分差大黄色校准",
+      "等级徽章强调",
+      "目标行可聚焦"
+    ],
+    "react": "<PerformanceReviewCard cycle=\"2026 H1\" goals={[{ text: \"完成设计系统 v3 重构\", self: 90, manager: 88 }]} grade=\"A\" />"
+  },
+  {
+    "id": "hr-org-node",
+    "name": "组织架构节点",
+    "category": "人力资源 / 招聘",
+    "status": "v3 新增",
+    "purpose": "展示架构树中一个成员及其下属数量。",
+    "anatomy": [
+      "头像 (ds-org-node__avatar)",
+      "姓名与职位 (ds-org-node__body)",
+      "下属数 (ds-org-node__count)",
+      "展开开关"
+    ],
+    "keyboard": "节点可聚焦；展开折叠使用 button 语义并播报。",
+    "guidance": [
+      "当前用户高亮标记。",
+      "下属数量随折叠状态更新。",
+      "支持键盘方向键在树中移动。"
+    ],
+    "preview": "<div class=\"ds-org-node is-current\" tabindex=\"0\" role=\"treeitem\" aria-expanded=\"true\" aria-label=\"王莉，技术负责人，6 名下属\"><span class=\"ds-org-node__avatar\" aria-hidden=\"true\">王</span><div class=\"ds-org-node__body\"><strong>王莉</strong><span>技术负责人</span></div><span class=\"ds-org-node__count\">6 人</span><button type=\"button\" aria-label=\"折叠下属\">▾</button></div>",
+    "checks": [
+      "当前用户高亮",
+      "数量随折叠更新",
+      "展开折叠 button 语义",
+      "方向键树内移动"
+    ],
+    "react": "<OrgChartNode name=\"王莉\" title=\"技术负责人\" count={6} expanded current />"
   }
 ]
