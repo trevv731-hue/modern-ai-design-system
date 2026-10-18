@@ -18808,3 +18808,129 @@ export function FuneralFlowerCard({ kind, flower, price, slot }: { kind: string;
     </div>
   </article>;
 }
+
+export function BabyGrowthChartRow({ age, height, weight, percentile }: { age: string; height: number; weight: number; percentile: number }) {
+  const level = percentile < 3 || percentile > 97 ? 'warn' : 'ok';
+  return <div className={'ds-baby-growth is-' + level} tabIndex={0} role="button" aria-label={'成长记录，' + age + '，身高 ' + height + ' 厘米，体重 ' + weight + ' 千克，体重百分位 P' + percentile + '，' + (level === 'warn' ? '超出正常范围，建议儿保科随访' : '处于正常范围')}>
+    <span className="ds-baby-growth__age">{age}</span>
+    <span className="ds-baby-growth__height">{height} cm</span>
+    <span className="ds-baby-growth__weight">{weight} kg</span>
+    <div className="ds-baby-growth__bar" role="progressbar" aria-valuenow={percentile} aria-valuemin={0} aria-valuemax={100} aria-label="体重百分位">
+      <span className="ds-baby-growth__fill" style={{ width: percentile + '%' }} />
+    </div>
+    <span className="ds-baby-growth__pct">P{percentile}</span>
+  </div>;
+}
+
+export function FeedingLogRow({ type, ml, minutes, time }: { type: 'breast' | 'formula'; ml: number; minutes: number; time: string }) {
+  const typeText = { breast: '母乳', formula: '奶粉' };
+  return <div className={'ds-baby-feed is-' + type} tabIndex={0} role="button" aria-label={'喂养记录，' + typeText[type] + '，奶量 ' + ml + ' 毫升，时长约 ' + minutes + ' 分钟，' + time + '，已记录'}>
+    <span className={'ds-baby-feed__type is-' + type}>{typeText[type]}</span>
+    <strong className="ds-baby-feed__ml">{ml} ml</strong>
+    <span className="ds-baby-feed__dur">约 {minutes} 分钟</span>
+    <span className="ds-baby-feed__time">{time}</span>
+  </div>;
+}
+
+export function BabySleepCard({ total, deepPercent, wakes, score }: { total: string; deepPercent: number; wakes: number; score: number }) {
+  const level = score >= 80 ? 'good' : score >= 60 ? 'fair' : 'poor';
+  const levelText = { good: '质量良好', fair: '质量一般', poor: '质量偏差' };
+  return <article className="ds-baby-sleep" tabIndex={0} role="button" aria-label={'睡眠监测，总时长 ' + total + '，深睡占比 ' + deepPercent + '%，醒来 ' + wakes + ' 次，睡眠评分 ' + score + '，' + levelText[level]}>
+    <div className="ds-baby-sleep__head">
+      <strong className="ds-baby-sleep__total">{total}</strong>
+      <span className={'ds-baby-sleep__score is-' + level}>{score} 分</span>
+    </div>
+    <div className="ds-baby-sleep__bar" role="progressbar" aria-valuenow={deepPercent} aria-valuemin={0} aria-valuemax={100} aria-label="深睡占比">
+      <span className="ds-baby-sleep__fill" style={{ width: deepPercent + '%' }} />
+    </div>
+    <div className="ds-baby-sleep__meta">
+      <span>深睡 {deepPercent}%</span>
+      <span className="ds-baby-sleep__wake">醒来 {wakes} 次</span>
+    </div>
+  </article>;
+}
+
+export function DiaperLogRow({ kind, texture, time, alert }: { kind: 'pee' | 'poop' | 'both'; texture: string; time: string; alert: boolean }) {
+  const kindText = { pee: '小便', poop: '大便', both: '混合' };
+  return <div className={'ds-baby-diaper' + (alert ? ' is-alert' : '')} tabIndex={0} role="button" aria-label={'尿布记录，' + kindText[kind] + '，性状 ' + texture + '，' + time + '，' + (alert ? '性状异常，建议观察并咨询医生' : '性状正常')}>
+    <span className={'ds-baby-diaper__kind is-' + kind}>{kindText[kind]}</span>
+    <strong className="ds-baby-diaper__texture">{texture}</strong>
+    <span className="ds-baby-diaper__time">{time}</span>
+    {alert ? <span className="ds-baby-diaper__flag">性状异常</span> : null}
+  </div>;
+}
+
+export function BabyVaccineRow({ name, age, dose, state }: { name: string; age: string; dose: number; state: 'done' | 'pending' | 'soon' | 'overdue' }) {
+  const stateText = { done: '已接种', pending: '待接种', soon: '临近', overdue: '已逾期' };
+  return <div className={'ds-baby-vac is-' + state} tabIndex={0} role="button" aria-label={'疫苗接种，' + name + '，接种月龄 ' + age + '，第 ' + dose + ' 剂，' + stateText[state]}>
+    <strong className="ds-baby-vac__name">{name}</strong>
+    <span className="ds-baby-vac__age">{age}</span>
+    <span className="ds-baby-vac__dose">第 {dose} 剂</span>
+    <span className={'ds-baby-vac__state is-' + state}>{stateText[state]}</span>
+  </div>;
+}
+
+export function MilestoneCard({ skill, norm, actual, state }: { skill: string; norm: string; actual: string; state: 'done' | 'doing' | 'later' }) {
+  const stateText = { done: '已达成', doing: '进行中', later: '待发展' };
+  return <article className={'ds-baby-mile is-' + state} tabIndex={0} role="button" aria-label={'里程碑，' + skill + '，标准月龄 ' + norm + '，' + (state === 'done' ? '实际 ' + actual + ' 达成' : '预计 ' + actual) + '，' + stateText[state]}>
+    <div className="ds-baby-mile__head">
+      <strong className="ds-baby-mile__skill">{skill}</strong>
+      <span className={'ds-baby-mile__state is-' + state}>{stateText[state]}</span>
+    </div>
+    <div className="ds-baby-mile__meta">
+      <span className="ds-baby-mile__norm">标准 {norm}</span>
+      <span className="ds-baby-mile__actual">{state === 'done' ? '实际 ' : '预计 '}{actual}</span>
+    </div>
+  </article>;
+}
+
+export function BabyProductRow({ name, stage, spec, expiry }: { name: string; stage: 'pregnancy' | 'newborn' | 'infant' | 'toddler'; spec: string; expiry: string }) {
+  const stageText = { pregnancy: '孕期', newborn: '新生儿', infant: '婴儿', toddler: '幼儿' };
+  return <div className="ds-baby-prod" tabIndex={0} role="button" aria-label={'母婴用品，' + name + '，适用阶段 ' + stageText[stage] + '，规格 ' + spec + '，保质期至 ' + expiry}>
+    <strong className="ds-baby-prod__name">{name}</strong>
+    <span className={'ds-baby-prod__stage is-' + stage}>{stageText[stage]}</span>
+    <span className="ds-baby-prod__spec">{spec}</span>
+    <span className="ds-baby-prod__exp">至 {expiry}</span>
+  </div>;
+}
+
+export function NurseBookingCard({ service, nurse, period, state }: { service: string; nurse: string; period: string; state: 'pending' | 'confirmed' | 'serving' | 'done' }) {
+  const stateText = { pending: '待确认', confirmed: '已签约', serving: '服务中', done: '已完成' };
+  return <article className={'ds-baby-nurse is-' + state} tabIndex={0} role="button" aria-label={'月嫂预约，服务项目 ' + service + '，月嫂 ' + nurse + '，服务期 ' + period + '，' + stateText[state]}>
+    <div className="ds-baby-nurse__head">
+      <strong className="ds-baby-nurse__service">{service}</strong>
+      <span className={'ds-baby-nurse__state is-' + state}>{stateText[state]}</span>
+    </div>
+    <div className="ds-baby-nurse__meta">
+      <span className="ds-baby-nurse__nurse">{nurse}</span>
+      <span className="ds-baby-nurse__period">{period}</span>
+    </div>
+  </article>;
+}
+
+export function BabyTempAlertCard({ value, site, age, advice }: { value: number; site: string; age: string; advice: string }) {
+  const level = value >= 38 ? 'high' : value >= 37.5 ? 'low' : 'normal';
+  const levelText = { normal: '正常', low: '低热', high: '高烧' };
+  return <article className={'ds-baby-temp is-' + level} tabIndex={0} role="button" aria-label={'体温预警，' + value + ' 摄氏度，' + site + '测量，月龄 ' + age + '，' + levelText[level] + '，建议 ' + advice}>
+    <div className="ds-baby-temp__head">
+      <strong className="ds-baby-temp__value">{value}℃</strong>
+      <span className={'ds-baby-temp__level is-' + level}>{levelText[level]}</span>
+    </div>
+    <div className="ds-baby-temp__meta">
+      <span className="ds-baby-temp__site">{site}</span>
+      <span className="ds-baby-temp__age">{age}</span>
+    </div>
+    <p className="ds-baby-temp__advice">建议：{advice}</p>
+  </article>;
+}
+
+export function ParentingTipCard({ age, topic, body, src }: { age: string; topic: string; body: string; src: string }) {
+  return <article className="ds-baby-tip" tabIndex={0} role="button" aria-label={'育儿知识，' + age + '，' + topic + '，要点 ' + body + '，来源 ' + src}>
+    <div className="ds-baby-tip__head">
+      <span className="ds-baby-tip__age">{age}</span>
+      <strong className="ds-baby-tip__topic">{topic}</strong>
+    </div>
+    <p className="ds-baby-tip__body">{body}</p>
+    <span className="ds-baby-tip__src">来源：{src}</span>
+  </article>;
+}

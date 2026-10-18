@@ -24356,5 +24356,276 @@
       "预约配送"
     ],
     "react": "<FuneralFlowerCard kind=\"白菊花圈\" flower=\"白菊 · 黄菊\" price={680} slot=\"06-21 07:00 前\" />"
+  },
+  {
+    "id": "baby-growth",
+    "name": "成长记录行",
+    "category": "母婴亲子",
+    "status": "v3 新增",
+    "purpose": "展示一次宝宝身高体重的测量记录与百分位。",
+    "anatomy": [
+      "月龄 (ds-baby-growth__age)",
+      "身高 (ds-baby-growth__height)",
+      "体重 (ds-baby-growth__weight)",
+      "百分位 (ds-baby-growth__pct)"
+    ],
+    "keyboard": "行可聚焦查看生长曲线；低于 P3 以 alert 语义播报。",
+    "guidance": [
+      "百分位以进度条展示。",
+      "身高厘米、体重千克。",
+      "月龄文字标注。"
+    ],
+    "preview": "<div class=\"ds-baby-growth is-ok\" tabindex=\"0\" role=\"button\" aria-label=\"成长记录，12 月龄，身高 76.5 厘米，体重 9.8 千克，体重百分位 P62，处于正常范围\"><span class=\"ds-baby-growth__age\">12 月龄</span><span class=\"ds-baby-growth__height\">76.5 cm</span><span class=\"ds-baby-growth__weight\">9.8 kg</span><div class=\"ds-baby-growth__bar\" role=\"progressbar\" aria-valuenow=\"62\" aria-valuemin=\"0\" aria-valuemax=\"100\" aria-label=\"体重百分位\"><span class=\"ds-baby-growth__fill\" style=\"width:62%\"></span></div><span class=\"ds-baby-growth__pct\">P62</span></div>",
+    "checks": [
+      "progressbar 语义",
+      "百分位展示",
+      "身高体重",
+      "生长曲线"
+    ],
+    "react": "<BabyGrowthChartRow age=\"12 月龄\" height={76.5} weight={9.8} percentile={62} />"
+  },
+  {
+    "id": "baby-feed",
+    "name": "喂养记录行",
+    "category": "母婴亲子",
+    "status": "v3 新增",
+    "purpose": "展示一次母乳或奶粉喂养的奶量与时间。",
+    "anatomy": [
+      "喂养类型 (ds-baby-feed__type)",
+      "奶量 (ds-baby-feed__ml)",
+      "时长 (ds-baby-feed__dur)",
+      "时间 (ds-baby-feed__time)"
+    ],
+    "keyboard": "行可聚焦编辑记录；奶粉喂养以文字标注。",
+    "guidance": [
+      "类型两态：母乳、奶粉。",
+      "奶量毫升等宽。",
+      "母乳记录展示单侧时长。"
+    ],
+    "preview": "<div class=\"ds-baby-feed is-formula\" tabindex=\"0\" role=\"button\" aria-label=\"喂养记录，奶粉，奶量 150 毫升，06-18 09:30，已记录\"><span class=\"ds-baby-feed__type is-formula\">奶粉</span><strong class=\"ds-baby-feed__ml\">150 ml</strong><span class=\"ds-baby-feed__dur\">约 12 分钟</span><span class=\"ds-baby-feed__time\">09:30</span></div>",
+    "checks": [
+      "两态类型",
+      "奶量等宽",
+      "时长展示",
+      "编辑记录"
+    ],
+    "react": "<FeedingLogRow type=\"formula\" ml={150} minutes={12} time=\"09:30\" />"
+  },
+  {
+    "id": "baby-sleep",
+    "name": "睡眠监测卡",
+    "category": "母婴亲子",
+    "status": "v3 新增",
+    "purpose": "展示宝宝一段睡眠的时长与质量概况。",
+    "anatomy": [
+      "总时长 (ds-baby-sleep__total)",
+      "深睡占比 (ds-baby-sleep__bar)",
+      "醒来次数 (ds-baby-sleep__wake)",
+      "评分 (ds-baby-sleep__score)"
+    ],
+    "keyboard": "卡片可聚焦查看睡眠阶段；深睡不足以 status 语义播报。",
+    "guidance": [
+      "深睡占比以进度条展示。",
+      "醒来次数文字标注。",
+      "睡眠评分百分制。"
+    ],
+    "preview": "<article class=\"ds-baby-sleep is-good\" tabindex=\"0\" role=\"button\" aria-label=\"睡眠监测，总时长 10 小时 20 分，深睡占比 45%，醒来 2 次，睡眠评分 86，质量良好\"><div class=\"ds-baby-sleep__head\"><strong class=\"ds-baby-sleep__total\">10h 20m</strong><span class=\"ds-baby-sleep__score is-good\">86 分</span></div><div class=\"ds-baby-sleep__bar\" role=\"progressbar\" aria-valuenow=\"45\" aria-valuemin=\"0\" aria-valuemax=\"100\" aria-label=\"深睡占比\"><span class=\"ds-baby-sleep__fill\" style=\"width:45%\"></span></div><div class=\"ds-baby-sleep__meta\"><span>深睡 45%</span><span class=\"ds-baby-sleep__wake\">醒来 2 次</span></div></article>",
+    "checks": [
+      "progressbar 语义",
+      "深睡占比",
+      "醒来次数",
+      "睡眠阶段"
+    ],
+    "react": "<BabySleepCard total=\"10h 20m\" deepPercent={45} wakes={2} score={86} />"
+  },
+  {
+    "id": "baby-diaper",
+    "name": "尿布记录行",
+    "category": "母婴亲子",
+    "status": "v3 新增",
+    "purpose": "展示一次尿布更换的类型与时间记录。",
+    "anatomy": [
+      "类型 (ds-baby-diaper__kind)",
+      "性状 (ds-baby-diaper__texture)",
+      "时间 (ds-baby-diaper__time)",
+      "异常标识 (is-alert)"
+    ],
+    "keyboard": "行可聚焦编辑记录；稀便异常以 alert 语义播报。",
+    "guidance": [
+      "类型三态：小便、大便、混合。",
+      "性状文字描述。",
+      "异常性状黄色标识。"
+    ],
+    "preview": "<div class=\"ds-baby-diaper is-alert\" tabindex=\"0\" role=\"button\" aria-label=\"尿布记录，大便，性状 稀便偏绿，06-18 14:05，性状异常\"><span class=\"ds-baby-diaper__kind is-alert\">大便</span><strong class=\"ds-baby-diaper__texture\">稀便 · 偏绿</strong><span class=\"ds-baby-diaper__time\">14:05</span><span class=\"ds-baby-diaper__flag\">性状异常</span></div>",
+    "checks": [
+      "三态类型",
+      "性状描述",
+      "异常标识",
+      "编辑记录"
+    ],
+    "react": "<DiaperLogRow kind=\"poop\" texture=\"稀便 · 偏绿\" time=\"14:05\" alert />"
+  },
+  {
+    "id": "baby-vac",
+    "name": "疫苗接种行",
+    "category": "母婴亲子",
+    "status": "v3 新增",
+    "purpose": "展示一剂疫苗接种的月龄安排与完成状态。",
+    "anatomy": [
+      "疫苗名 (ds-baby-vac__name)",
+      "接种月龄 (ds-baby-vac__age)",
+      "剂次 (ds-baby-vac__dose)",
+      "状态 (ds-baby-vac__state)"
+    ],
+    "keyboard": "行可聚焦查看接种证；临近接种以 status 语义播报。",
+    "guidance": [
+      "状态四态：已接种、待接种、临近、已逾期。",
+      "剂次文字标注。",
+      "月龄范围展示。"
+    ],
+    "preview": "<div class=\"ds-baby-vac is-soon\" tabindex=\"0\" role=\"button\" aria-label=\"疫苗接种，麻腮风疫苗，接种月龄 18 月龄，第 1 剂，临近接种，建议 6 月 25 日前\"><strong class=\"ds-baby-vac__name\">麻腮风疫苗</strong><span class=\"ds-baby-vac__age\">18 月龄</span><span class=\"ds-baby-vac__dose\">第 1 剂</span><span class=\"ds-baby-vac__state is-soon\">临近</span></div>",
+    "checks": [
+      "四态状态",
+      "剂次标注",
+      "月龄范围",
+      "接种证"
+    ],
+    "react": "<BabyVaccineRow name=\"麻腮风疫苗\" age=\"18 月龄\" dose={1} state=\"soon\" />"
+  },
+  {
+    "id": "baby-mile",
+    "name": "里程碑卡",
+    "category": "母婴亲子",
+    "status": "v3 新增",
+    "purpose": "展示一项发育里程碑的达成情况。",
+    "anatomy": [
+      "技能名 (ds-baby-mile__skill)",
+      "标准月龄 (ds-baby-mile__norm)",
+      "达成月龄 (ds-baby-mile__actual)",
+      "状态 (ds-baby-mile__state)"
+    ],
+    "keyboard": "卡片可聚焦查看发展指南；超前达成绿色标识。",
+    "guidance": [
+      "状态三态：已达成、进行中、待发展。",
+      "标准月龄文字说明。",
+      "超前或延后文字标注。"
+    ],
+    "preview": "<article class=\"ds-baby-mile is-done\" tabindex=\"0\" role=\"button\" aria-label=\"里程碑，独坐，标准月龄 6 至 8 月龄，实际 7 月龄达成，已达成\"><div class=\"ds-baby-mile__head\"><strong class=\"ds-baby-mile__skill\">独坐</strong><span class=\"ds-baby-mile__state is-done\">已达成</span></div><div class=\"ds-baby-mile__meta\"><span class=\"ds-baby-mile__norm\">标准 6–8 月龄</span><span class=\"ds-baby-mile__actual\">实际 7 月龄</span></div></article>",
+    "checks": [
+      "三态状态",
+      "标准月龄",
+      "超前延后",
+      "发展指南"
+    ],
+    "react": "<MilestoneCard skill=\"独坐\" norm=\"6–8 月龄\" actual=\"7 月龄\" state=\"done\" />"
+  },
+  {
+    "id": "baby-prod",
+    "name": "母婴用品行",
+    "category": "母婴亲子",
+    "status": "v3 新增",
+    "purpose": "展示一件母婴用品的适用阶段与保质期。",
+    "anatomy": [
+      "商品名 (ds-baby-prod__name)",
+      "适用阶段 (ds-baby-prod__stage)",
+      "规格 (ds-baby-prod__spec)",
+      "保质期 (ds-baby-prod__exp)"
+    ],
+    "keyboard": "行可聚焦查看详情；临期商品以 status 语义播报。",
+    "guidance": [
+      "阶段四档：新生儿、婴儿、幼儿、孕期。",
+      "规格文字展示。",
+      "临期黄色标识。"
+    ],
+    "preview": "<div class=\"ds-baby-prod is-expiring\" tabindex=\"0\" role=\"button\" aria-label=\"母婴用品，有机棉婴儿连体衣，适用阶段 婴儿，规格 66 码，保质期至 2027-03-01，临期\"><strong class=\"ds-baby-prod__name\">有机棉婴儿连体衣</strong><span class=\"ds-baby-prod__stage is-infant\">婴儿</span><span class=\"ds-baby-prod__spec\">66 码</span><span class=\"ds-baby-prod__exp\">至 2027-03</span></div>",
+    "checks": [
+      "四档阶段",
+      "规格展示",
+      "临期标识",
+      "查看详情"
+    ],
+    "react": "<BabyProductRow name=\"有机棉婴儿连体衣\" stage=\"infant\" spec=\"66 码\" expiry=\"2027-03\" />"
+  },
+  {
+    "id": "baby-nurse",
+    "name": "月嫂预约卡",
+    "category": "母婴亲子",
+    "status": "v3 新增",
+    "purpose": "展示一项月嫂服务的预约信息与状态。",
+    "anatomy": [
+      "服务项目 (ds-baby-nurse__service)",
+      "月嫂 (ds-baby-nurse__nurse)",
+      "服务期 (ds-baby-nurse__period)",
+      "状态 (ds-baby-nurse__state)"
+    ],
+    "keyboard": "卡片可聚焦查看服务协议；待确认状态以 status 语义播报。",
+    "guidance": [
+      "状态四态：待确认、已签约、服务中、已完成。",
+      "服务期日期区间。",
+      "月嫂等级文字展示。"
+    ],
+    "preview": "<article class=\"ds-baby-nurse is-confirmed\" tabindex=\"0\" role=\"button\" aria-label=\"月嫂预约，服务项目 月嫂住家，月嫂 李阿姨 金牌，服务期 2026-07-01 至 07-31，已签约\"><div class=\"ds-baby-nurse__head\"><strong class=\"ds-baby-nurse__service\">月嫂住家</strong><span class=\"ds-baby-nurse__state is-confirmed\">已签约</span></div><div class=\"ds-baby-nurse__meta\"><span class=\"ds-baby-nurse__nurse\">李阿姨 · 金牌</span><span class=\"ds-baby-nurse__period\">07-01 至 07-31</span></div></article>",
+    "checks": [
+      "四态状态",
+      "服务期区间",
+      "等级展示",
+      "服务协议"
+    ],
+    "react": "<NurseBookingCard service=\"月嫂住家\" nurse=\"李阿姨 · 金牌\" period=\"07-01 至 07-31\" state=\"confirmed\" />"
+  },
+  {
+    "id": "baby-temp",
+    "name": "体温预警卡",
+    "category": "母婴亲子",
+    "status": "v3 新增",
+    "purpose": "展示一次宝宝体温测量结果与处置建议。",
+    "anatomy": [
+      "体温值 (ds-baby-temp__value)",
+      "测量部位 (ds-baby-temp__site)",
+      "月龄 (ds-baby-temp__age)",
+      "级别 (ds-baby-temp__level)",
+      "建议 (ds-baby-temp__advice)"
+    ],
+    "keyboard": "卡片可聚焦查看处置指南；高烧以 alert 语义播报。",
+    "guidance": [
+      "级别三态：正常、低热、高烧。",
+      "3 月龄内发热红色紧急提示。",
+      "建议文字完整展示。"
+    ],
+    "preview": "<article class=\"ds-baby-temp is-high\" tabindex=\"0\" role=\"button\" aria-label=\"体温预警，38.9 摄氏度，腋下测量，月龄 8 月龄，高烧，建议 口服退烧药并密切观察，持续 39 度以上请就医\"><div class=\"ds-baby-temp__head\"><strong class=\"ds-baby-temp__value\">38.9℃</strong><span class=\"ds-baby-temp__level is-high\">高烧</span></div><div class=\"ds-baby-temp__meta\"><span class=\"ds-baby-temp__site\">腋下</span><span class=\"ds-baby-temp__age\">8 月龄</span></div><p class=\"ds-baby-temp__advice\">口服退烧药并密切观察，持续 39℃ 以上请就医</p></article>",
+    "checks": [
+      "三态级别",
+      "紧急提示",
+      "建议完整",
+      "处置指南"
+    ],
+    "react": "<BabyTempAlertCard value={38.9} site=\"腋下\" age=\"8 月龄\" advice=\"口服退烧药并密切观察\" />"
+  },
+  {
+    "id": "baby-tip",
+    "name": "育儿知识卡",
+    "category": "母婴亲子",
+    "status": "v3 新增",
+    "purpose": "展示一条按月龄推送的育儿知识要点。",
+    "anatomy": [
+      "月龄标签 (ds-baby-tip__age)",
+      "主题 (ds-baby-tip__topic)",
+      "要点 (ds-baby-tip__body)",
+      "来源 (ds-baby-tip__src)"
+    ],
+    "keyboard": "卡片可聚焦查看全文；权威来源文字标注。",
+    "guidance": [
+      "月龄按月推送。",
+      "要点三行截断。",
+      "来源文字展示。"
+    ],
+    "preview": "<article class=\"ds-baby-tip\" tabindex=\"0\" role=\"button\" aria-label=\"育儿知识，8 月龄，添加手指食物，要点 由稀到稠、由细到粗，每次只引入一种新食材并观察 3 天，来源 卫健委育儿指南\"><div class=\"ds-baby-tip__head\"><span class=\"ds-baby-tip__age\">8 月龄</span><strong class=\"ds-baby-tip__topic\">添加手指食物</strong></div><p class=\"ds-baby-tip__body\">由稀到稠、由细到粗，每次只引入一种新食材并观察 3 天，确认无过敏反应后再加新种类。</p><span class=\"ds-baby-tip__src\">来源：卫健委育儿指南</span></article>",
+    "checks": [
+      "月龄推送",
+      "要点截断",
+      "来源标注",
+      "查看全文"
+    ],
+    "react": "<ParentingTipCard age=\"8 月龄\" topic=\"添加手指食物\" body=\"由稀到稠、由细到粗，每次只引入一种新食材并观察 3 天。\" src=\"卫健委育儿指南\" />"
   }
 ]
