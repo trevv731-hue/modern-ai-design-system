@@ -16922,5 +16922,282 @@
       "打卡按钮可聚焦"
     ],
     "react": "<StudyStreakMeter streak={12} week={[true, true, true, false]} milestone={15} onCheckIn={checkIn} />"
+  },
+  {
+    "id": "health-heart-rate",
+    "name": "心率卡片",
+    "category": "健康 / 运动",
+    "status": "v3 新增",
+    "purpose": "展示当前心率、测量时间与静息活跃区间，可选波形。",
+    "anatomy": [
+      "读数 (ds-heart-rate__value)",
+      "单位 BPM",
+      "区间标记 (ds-heart-rate__zone)",
+      "波形 (ds-heart-rate__wave)",
+      "测量时间"
+    ],
+    "keyboard": "卡片可聚焦查看历史；波形有文字摘要。",
+    "guidance": [
+      "心率超出区间时用颜色与文字双提示。",
+      "波形为装饰图形，配当前值文本。",
+      "测量时间相对化显示，如“3 分钟前”。"
+    ],
+    "preview": "<div class=\"ds-heart-rate\" tabindex=\"0\" role=\"button\" aria-label=\"当前心率 78 BPM，正常区间，3 分钟前测量\"><span class=\"ds-heart-rate__icon\" aria-hidden=\"true\">❤</span><div class=\"ds-heart-rate__main\"><strong class=\"ds-heart-rate__value\">78</strong><span class=\"ds-heart-rate__unit\">BPM</span></div><svg class=\"ds-heart-rate__wave\" viewBox=\"0 0 72 24\" aria-hidden=\"true\"><polyline points=\"0,12 10,12 14,4 18,20 22,12 36,12 40,6 44,18 48,12 72,12\"/></svg><span class=\"ds-heart-rate__zone is-normal\">正常</span><span class=\"ds-heart-rate__time\">3 分钟前</span></div>",
+    "checks": [
+      "超区间颜色文字双提示",
+      "波形配当前值文本",
+      "测量时间相对化",
+      "卡片可聚焦看历史"
+    ],
+    "react": "<HeartRateCard bpm={78} zone=\"normal\" measuredAt=\"3 分钟前\" onOpen={open} />"
+  },
+  {
+    "id": "health-sleep-stages",
+    "name": "睡眠阶段图",
+    "category": "健康 / 运动",
+    "status": "v3 新增",
+    "purpose": "以堆叠时间条展示深睡、浅睡、REM 与清醒的分布。",
+    "anatomy": [
+      "阶段条 (ds-sleep-stages__bar)",
+      "分段 (ds-sleep-stages__seg)",
+      "图例 (ds-sleep-stages__legend)",
+      "总时长与评分"
+    ],
+    "keyboard": "容器可聚焦；各段有文字摘要。",
+    "guidance": [
+      "四种阶段颜色之外有图例文字。",
+      "总时长与就寝起床时间可见。",
+      "评分变化时说明原因。"
+    ],
+    "preview": "<div class=\"ds-sleep-stages\" tabindex=\"0\" role=\"img\" aria-label=\"睡眠结构：深睡 1 小时 52 分，浅睡 4 小时 10 分，REM 1 小时 30 分，清醒 18 分\"><div class=\"ds-sleep-stages__bar\" aria-hidden=\"true\"><span class=\"ds-sleep-stages__seg is-deep\" style=\"width:23%\"></span><span class=\"ds-sleep-stages__seg is-light\" style=\"width:52%\"></span><span class=\"ds-sleep-stages__seg is-rem\" style=\"width:19%\"></span><span class=\"ds-sleep-stages__seg is-awake\" style=\"width:6%\"></span></div><div class=\"ds-sleep-stages__legend\" aria-hidden=\"true\"><span class=\"is-deep\">深睡 1:52</span><span class=\"is-light\">浅睡 4:10</span><span class=\"is-rem\">REM 1:30</span><span class=\"is-awake\">清醒 0:18</span></div><p class=\"ds-sleep-stages__sum\">总时长 7 小时 50 分 · 评分 86 · 23:10 - 07:00</p></div>",
+    "checks": [
+      "四阶段有图例文字",
+      "就寝起床时间可见",
+      "评分变化说明原因",
+      "各段有文字摘要"
+    ],
+    "react": "<SleepStageChart deep={112} light={250} rem={90} awake={18} score={86} bedAt=\"23:10\" wakeAt=\"07:00\" />"
+  },
+  {
+    "id": "health-step-goal",
+    "name": "步数目标环",
+    "category": "健康 / 运动",
+    "status": "v3 新增",
+    "purpose": "以环形展示当日步数目标完成度与衍生指标。",
+    "anatomy": [
+      "轨道与进度 (ds-step-goal__ring)",
+      "步数 (ds-step-goal__value)",
+      "目标",
+      "距离与卡路里 (ds-step-goal__meta)"
+    ],
+    "keyboard": "环形有 progressbar 语义与可读文本。",
+    "guidance": [
+      "达标时有庆祝反馈但可关闭。",
+      "距离与卡路里按身高中估并注明。",
+      "未达标显示差距步数。"
+    ],
+    "preview": "<div class=\"ds-step-goal\" role=\"progressbar\" aria-valuenow=\"8320\" aria-valuemin=\"0\" aria-valuemax=\"10000\" aria-label=\"今日步数 8320，目标 10000，完成 83%\"><div class=\"ds-step-goal__ring\" style=\"--p:83%\" aria-hidden=\"true\"><strong class=\"ds-step-goal__value\">8,320</strong></div><p class=\"ds-step-goal__goal\">目标 10,000 步 · 还差 1,680 步</p><p class=\"ds-step-goal__meta\">约 6.1 公里 · 312 千卡</p></div>",
+    "checks": [
+      "环形有 progressbar 语义",
+      "达标庆祝可关闭",
+      "距离卡路里注明估算",
+      "未达标显示差距"
+    ],
+    "react": "<StepGoalRing steps={8320} goal={10000} distance=\"6.1 公里\" calories={312} />"
+  },
+  {
+    "id": "health-workout-summary",
+    "name": "运动摘要卡",
+    "category": "健康 / 运动",
+    "status": "v3 新增",
+    "purpose": "汇总单次运动的类型、时长、距离与心率区间。",
+    "anatomy": [
+      "类型图标 (ds-workout-sum__icon)",
+      "时长",
+      "距离",
+      "配速",
+      "心率区间 (ds-workout-sum__zones)"
+    ],
+    "keyboard": "卡片可聚焦查看分段数据。",
+    "guidance": [
+      "心率区间按最大心率百分比分段。",
+      "无距离类运动隐藏距离行。",
+      "支持分享与保存记录。"
+    ],
+    "preview": "<article class=\"ds-workout-sum\" tabindex=\"0\" role=\"button\" aria-label=\"跑步记录：42 分钟，5.2 公里，平均配速 8 分 04 秒\"><span class=\"ds-workout-sum__icon\" aria-hidden=\"true\">🏃</span><div class=\"ds-workout-sum__body\"><strong>户外跑步</strong><p class=\"ds-workout-sum__stats\">42 分钟 · 5.2 公里 · 配速 8'04\"</p><div class=\"ds-workout-sum__zones\" aria-hidden=\"true\"><span class=\"is-z1\" style=\"width:18%\"></span><span class=\"is-z2\" style=\"width:42%\"></span><span class=\"is-z3\" style=\"width:28%\"></span><span class=\"is-z4\" style=\"width:12%\"></span></div><p class=\"ds-workout-sum__hr\">平均心率 146 · 峰值 168</p></div></article>",
+    "checks": [
+      "心率区间按最大心率分段",
+      "无距离类隐藏距离行",
+      "支持分享保存",
+      "卡片可聚焦看分段"
+    ],
+    "react": "<WorkoutSummaryCard type=\"户外跑步\" minutes={42} distance=\"5.2 公里\" pace=\"8分04秒\" avgHr={146} peakHr={168} />"
+  },
+  {
+    "id": "health-medication",
+    "name": "用药提醒行",
+    "category": "健康 / 运动",
+    "status": "v3 新增",
+    "purpose": "展示待服药品、剂量与时间，支持标记服用。",
+    "anatomy": [
+      "药品与剂量 (ds-medication__drug)",
+      "时间 (ds-medication__time)",
+      "服用按钮",
+      "状态 (ds-medication__state)"
+    ],
+    "keyboard": "服用按钮可聚焦；状态变化播报。",
+    "guidance": [
+      "漏服有显式标记但不用恐吓文案。",
+      "支持稍后提醒与跳过。",
+      "剂量与单位清晰，如 1 片 / 10mg。"
+    ],
+    "preview": "<div class=\"ds-medication\" role=\"list\"><div class=\"ds-medication__row\" role=\"listitem\"><span class=\"ds-medication__time\">08:00</span><span class=\"ds-medication__drug\">二甲双胍 <em>1 片 · 500mg</em></span><button type=\"button\" class=\"ds-medication__take\">标记服用</button></div><div class=\"ds-medication__row is-missed\" role=\"listitem\" aria-label=\"漏服：阿托伐他汀 12:00\"><span class=\"ds-medication__time\">12:00</span><span class=\"ds-medication__drug\">阿托伐他汀 <em>1 片 · 20mg</em></span><span class=\"ds-medication__state is-missed\">已漏服</span></div><div class=\"ds-medication__row is-done\" role=\"listitem\"><span class=\"ds-medication__time\">18:00</span><span class=\"ds-medication__drug\">阿司匹林 <em>1 片 · 100mg</em></span><span class=\"ds-medication__state is-done\">已服用</span></div></div>",
+    "checks": [
+      "漏服显式标记不恐吓",
+      "支持稍后提醒与跳过",
+      "剂量单位清晰",
+      "状态变化播报"
+    ],
+    "react": "<MedicationReminderRow time=\"08:00\" drug=\"二甲双胍\" dose=\"1 片 · 500mg\" state=\"todo\" onTake={take} />"
+  },
+  {
+    "id": "health-water-intake",
+    "name": "饮水追踪",
+    "category": "健康 / 运动",
+    "status": "v3 新增",
+    "purpose": "以杯子网格追踪每日饮水量与目标完成度。",
+    "anatomy": [
+      "杯子网格 (ds-water-intake__cups)",
+      "已饮标记",
+      "总量 (ds-water-intake__total)",
+      "目标",
+      "快捷添加"
+    ],
+    "keyboard": "每个杯子可聚焦切换；总量变化播报。",
+    "guidance": [
+      "一杯容量固定并注明，如 250ml。",
+      "支持撤销误点。",
+      "达标后给鼓励文案。"
+    ],
+    "preview": "<div class=\"ds-water-intake\" role=\"group\" aria-label=\"今日饮水 1500 毫升，目标 2000 毫升\"><div class=\"ds-water-intake__cups\" aria-hidden=\"true\"><span class=\"is-full\">🥤</span><span class=\"is-full\">🥤</span><span class=\"is-full\">🥤</span><span class=\"is-full\">🥤</span><span class=\"is-full\">🥤</span><span class=\"is-full\">🥤</span><span>🥤</span><span>🥤</span></div><p class=\"ds-water-intake__total\"><strong>1,500</strong> / 2,000 ml</p><div class=\"ds-water-intake__actions\"><button type=\"button\">+250ml</button><button type=\"button\">撤销</button></div></div>",
+    "checks": [
+      "一杯容量注明",
+      "支持撤销误点",
+      "达标给鼓励文案",
+      "杯子可聚焦切换"
+    ],
+    "react": "<WaterIntakeTracker cups={8} filled={6} cupMl={250} onFill={fill} onUndo={undo} />"
+  },
+  {
+    "id": "health-bp-reading",
+    "name": "血压读数行",
+    "category": "健康 / 运动",
+    "status": "v3 新增",
+    "purpose": "展示单次血压收缩压/舒张压与脉搏，并给出分级。",
+    "anatomy": [
+      "收缩压/舒张压 (ds-bp-row__value)",
+      "脉搏",
+      "分级标记 (ds-bp-row__grade)",
+      "时间",
+      "趋势"
+    ],
+    "keyboard": "行可聚焦查看详情；分级有文字不只颜色。",
+    "guidance": [
+      "按标准分级：正常、偏高、高血压。",
+      "异常读数给就医提示但不诊断。",
+      "支持记录体位与手臂。"
+    ],
+    "preview": "<div class=\"ds-bp-row\" tabindex=\"0\" role=\"button\" aria-label=\"血压 118 76，脉搏 72，正常偏高，今天 08:12\"><span class=\"ds-bp-row__time\">08:12</span><span class=\"ds-bp-row__value\">118/76 <em>mmHg</em></span><span class=\"ds-bp-row__pulse\">脉搏 72</span><span class=\"ds-bp-row__grade is-high\">正常偏高</span><span class=\"ds-bp-row__trend is-down\" aria-label=\"较上次下降\">↓</span></div>",
+    "checks": [
+      "按标准分级",
+      "异常给提示不诊断",
+      "支持体位手臂记录",
+      "分级有文字标签"
+    ],
+    "react": "<BloodPressureRow systolic={118} diastolic={76} pulse={72} grade=\"正常偏高\" trend=\"down\" time=\"08:12\" />"
+  },
+  {
+    "id": "health-weight-trend",
+    "name": "体重趋势图",
+    "category": "健康 / 运动",
+    "status": "v3 新增",
+    "purpose": "以折线展示体重变化趋势与目标差距。",
+    "anatomy": [
+      "折线 (ds-weight-trend__line)",
+      "数据点",
+      "目标线 (ds-weight-trend__goal)",
+      "最新值 (ds-weight-trend__now)",
+      "周期切换"
+    ],
+    "keyboard": "容器可聚焦；折线有文字摘要。",
+    "guidance": [
+      "周/月/年周期可切换。",
+      "目标线虚线并与当前值标差距。",
+      "下降用绿色、上升用红色仅作装饰，正文以数字为准。"
+    ],
+    "preview": "<div class=\"ds-weight-trend\" tabindex=\"0\" role=\"img\" aria-label=\"近 7 日体重从 68.4 降至 67.8 公斤，低于目标线 0.2\"><svg viewBox=\"0 0 240 80\" aria-hidden=\"true\"><line class=\"ds-weight-trend__goal\" x1=\"0\" y1=\"24\" x2=\"240\" y2=\"24\"/><polyline class=\"ds-weight-trend__line is-down\" points=\"10,60 46,56 82,50 118,44 154,38 190,32 226,26\"/></svg><div class=\"ds-weight-trend__foot\"><strong class=\"ds-weight-trend__now\">67.8 kg</strong><span>较 7 天前 -0.6</span><span>距目标 68.0 还差 -0.2</span></div></div>",
+    "checks": [
+      "周期可切换",
+      "目标线虚线标差距",
+      "正文以数字为准",
+      "折线有文字摘要"
+    ],
+    "react": "<WeightTrendChart points={[68.4, 68.1, 67.9, 68.2, 67.9, 67.8]} goal={68} unit=\"kg\" />"
+  },
+  {
+    "id": "health-mindful-timer",
+    "name": "冥想计时器",
+    "category": "健康 / 运动",
+    "status": "v3 新增",
+    "purpose": "以圆环倒计时引导呼吸冥想，支持开始暂停与时长预设。",
+    "anatomy": [
+      "圆环 (ds-mindful-timer__ring)",
+      "剩余时间 (ds-mindful-timer__left)",
+      "呼吸引导文案",
+      "时长预设 (ds-mindful-timer__presets)",
+      "控制按钮"
+    ],
+    "keyboard": "空格开始暂停；预设按钮可聚焦；结束时播报。",
+    "guidance": [
+      "呼吸节律文案随阶段切换，如吸气 4 秒。",
+      "支持后台持续与提醒。",
+      "结束时有温和收尾提示。"
+    ],
+    "preview": "<div class=\"ds-mindful-timer\" role=\"timer\" aria-label=\"冥想计时，剩余 4 分 12 秒，当前引导：慢慢吸气\"><div class=\"ds-mindful-timer__ring\" style=\"--p:30%\" aria-hidden=\"true\"><strong class=\"ds-mindful-timer__left\">4:12</strong></div><p class=\"ds-mindful-timer__breath\">慢慢吸气…</p><div class=\"ds-mindful-timer__presets\" role=\"group\" aria-label=\"时长预设\"><button type=\"button\">3 分钟</button><button type=\"button\" aria-pressed=\"true\">6 分钟</button><button type=\"button\">10 分钟</button></div><div class=\"ds-mindful-timer__controls\"><button type=\"button\" class=\"is-primary\">暂停</button><button type=\"button\">结束</button></div></div>",
+    "checks": [
+      "呼吸文案随阶段切换",
+      "支持后台持续提醒",
+      "结束温和收尾",
+      "空格开始暂停"
+    ],
+    "react": "<MindfulnessTimer totalSeconds={360} leftSeconds={252} breathing=\"慢慢吸气…\" running onToggle={toggle} onStop={stop} />"
+  },
+  {
+    "id": "health-metric-tile",
+    "name": "健康指标磁贴",
+    "category": "健康 / 运动",
+    "status": "v3 新增",
+    "purpose": "以小磁贴展示单项健康指标与环比变化。",
+    "anatomy": [
+      "图标 (ds-metric-tile__icon)",
+      "指标名",
+      "数值 (ds-metric-tile__value)",
+      "单位",
+      "环比 (ds-metric-tile__delta)"
+    ],
+    "keyboard": "磁贴可聚焦查看详情；环比有文字方向。",
+    "guidance": [
+      "环比用箭头与文字双表示。",
+      "异常指标加文字说明而非仅变色。",
+      "磁贴网格在窄屏折行。"
+    ],
+    "preview": "<div class=\"ds-metric-tile\" tabindex=\"0\" role=\"button\" aria-label=\"血氧 98%，较昨日 +1%\"><span class=\"ds-metric-tile__icon\" aria-hidden=\"true\">🩸</span><p class=\"ds-metric-tile__name\">血氧饱和度</p><p class=\"ds-metric-tile__value\">98<em>%</em></p><p class=\"ds-metric-tile__delta is-up\"><span aria-hidden=\"true\">↑</span> 较昨日 +1%</p></div>",
+    "checks": [
+      "环比箭头文字双表示",
+      "异常指标文字说明",
+      "窄屏磁贴折行",
+      "磁贴可聚焦看详情"
+    ],
+    "react": "<HealthMetricTile name=\"血氧饱和度\" value=\"98\" unit=\"%\" delta=\"+1%\" trend=\"up\" icon=\"🩸\" />"
   }
 ]

@@ -15357,3 +15357,145 @@ export function StudyStreakMeter({ streak, week, milestone, onCheckIn }: { strea
     <p className="ds-study-streak__hint">再坚持 {Math.max(0, milestone - streak)} 天解锁 {milestone} 天徽章</p>
   </div>;
 }
+
+export function HeartRateCard({ bpm, zone, measuredAt, onOpen }: { bpm: number; zone: 'normal' | 'high' | 'low'; measuredAt: string; onOpen?: () => void }) {
+  return <div className="ds-heart-rate" tabIndex={0} role="button" aria-label={'当前心率 ' + bpm + ' BPM，' + (zone === 'normal' ? '正常' : '异常') + '区间，' + measuredAt + '测量'} onClick={onOpen}>
+    <span className="ds-heart-rate__icon" aria-hidden="true">❤</span>
+    <div className="ds-heart-rate__main"><strong className="ds-heart-rate__value">{bpm}</strong><span className="ds-heart-rate__unit">BPM</span></div>
+    <svg className="ds-heart-rate__wave" viewBox="0 0 72 24" aria-hidden="true"><polyline points="0,12 10,12 14,4 18,20 22,12 36,12 40,6 44,18 48,12 72,12" /></svg>
+    <span className={'ds-heart-rate__zone ' + (zone === 'normal' ? 'is-normal' : 'is-high')}>{zone === 'normal' ? '正常' : '偏高'}</span>
+    <span className="ds-heart-rate__time">{measuredAt}</span>
+  </div>;
+}
+
+export function SleepStageChart({ deep, light, rem, awake, score, bedAt, wakeAt }: { deep: number; light: number; rem: number; awake: number; score: number; bedAt: string; wakeAt: string }) {
+  const total = deep + light + rem + awake;
+  const pct = (value: number) => Math.round(value / total * 100) + '%';
+  const fmt = (value: number) => Math.floor(value / 60) + ':' + String(value % 60).padStart(2, '0');
+  return <div className="ds-sleep-stages" tabIndex={0} role="img" aria-label={'睡眠结构：深睡 ' + fmt(deep) + '，浅睡 ' + fmt(light) + '，REM ' + fmt(rem) + '，清醒 ' + fmt(awake)}>
+    <div className="ds-sleep-stages__bar" aria-hidden="true">
+      <span className="ds-sleep-stages__seg is-deep" style={{ width: pct(deep) }} />
+      <span className="ds-sleep-stages__seg is-light" style={{ width: pct(light) }} />
+      <span className="ds-sleep-stages__seg is-rem" style={{ width: pct(rem) }} />
+      <span className="ds-sleep-stages__seg is-awake" style={{ width: pct(awake) }} />
+    </div>
+    <div className="ds-sleep-stages__legend" aria-hidden="true">
+      <span className="is-deep">深睡 {fmt(deep)}</span>
+      <span className="is-light">浅睡 {fmt(light)}</span>
+      <span className="is-rem">REM {fmt(rem)}</span>
+      <span className="is-awake">清醒 {fmt(awake)}</span>
+    </div>
+    <p className="ds-sleep-stages__sum">总时长 {fmt(total)} · 评分 {score} · {bedAt} - {wakeAt}</p>
+  </div>;
+}
+
+export function StepGoalRing({ steps, goal, distance, calories }: { steps: number; goal: number; distance: string; calories: number }) {
+  const pct = Math.min(100, Math.round(steps / goal * 100));
+  return <div className="ds-step-goal" role="progressbar" aria-valuenow={steps} aria-valuemin={0} aria-valuemax={goal} aria-label={'今日步数 ' + steps + '，目标 ' + goal + '，完成 ' + pct + '%'}>
+    <div className="ds-step-goal__ring" style={{ '--p': pct + '%' } as React.CSSProperties} aria-hidden="true"><strong className="ds-step-goal__value">{steps.toLocaleString('zh-CN')}</strong></div>
+    <p className="ds-step-goal__goal">目标 {goal.toLocaleString('zh-CN')} 步 · {steps >= goal ? '已达标' : '还差 ' + (goal - steps).toLocaleString('zh-CN') + ' 步'}</p>
+    <p className="ds-step-goal__meta">约 {distance} · {calories} 千卡</p>
+  </div>;
+}
+
+export function WorkoutSummaryCard({ type, minutes, distance, pace, avgHr, peakHr }: { type: string; minutes: number; distance: string; pace: string; avgHr: number; peakHr: number }) {
+  return <article className="ds-workout-sum" tabIndex={0} role="button" aria-label={type + '记录：' + minutes + ' 分钟，' + distance + '，平均配速 ' + pace}>
+    <span className="ds-workout-sum__icon" aria-hidden="true">🏃</span>
+    <div className="ds-workout-sum__body">
+      <strong>{type}</strong>
+      <p className="ds-workout-sum__stats">{minutes} 分钟 · {distance} · 配速 {pace}</p>
+      <div className="ds-workout-sum__zones" aria-hidden="true">
+        <span className="is-z1" style={{ width: '18%' }} />
+        <span className="is-z2" style={{ width: '42%' }} />
+        <span className="is-z3" style={{ width: '28%' }} />
+        <span className="is-z4" style={{ width: '12%' }} />
+      </div>
+      <p className="ds-workout-sum__hr">平均心率 {avgHr} · 峰值 {peakHr}</p>
+    </div>
+  </article>;
+}
+
+export function MedicationReminderRow({ time, drug, dose, state, onTake }: { time: string; drug: string; dose: string; state: 'todo' | 'done' | 'missed'; onTake?: () => void }) {
+  return <div className="ds-medication" role="list">
+    <div className={'ds-medication__row' + (state === 'missed' ? ' is-missed' : state === 'done' ? ' is-done' : '')} role="listitem">
+      <span className="ds-medication__time">{time}</span>
+      <span className="ds-medication__drug">{drug} <em>{dose}</em></span>
+      {state === 'todo' ? <button type="button" className="ds-medication__take" onClick={onTake}>标记服用</button> : <span className={'ds-medication__state ' + (state === 'missed' ? 'is-missed' : 'is-done')}>{state === 'missed' ? '已漏服' : '已服用'}</span>}
+    </div>
+  </div>;
+}
+
+export function WaterIntakeTracker({ cups, filled, cupMl, onFill, onUndo }: { cups: number; filled: number; cupMl: number; onFill?: () => void; onUndo?: () => void }) {
+  const total = filled * cupMl;
+  const goal = cups * cupMl;
+  return <div className="ds-water-intake" role="group" aria-label={'今日饮水 ' + total + ' 毫升，目标 ' + goal + ' 毫升'}>
+    <div className="ds-water-intake__cups" aria-hidden="true">
+      {Array.from({ length: cups }, (_, index) => <span key={index} className={index < filled ? 'is-full' : undefined}>🥤</span>)}
+    </div>
+    <p className="ds-water-intake__total"><strong>{total.toLocaleString('zh-CN')}</strong> / {goal.toLocaleString('zh-CN')} ml</p>
+    <div className="ds-water-intake__actions">
+      <button type="button" onClick={onFill}>+{cupMl}ml</button>
+      <button type="button" onClick={onUndo}>撤销</button>
+    </div>
+  </div>;
+}
+
+export function BloodPressureRow({ systolic, diastolic, pulse, grade, trend, time }: { systolic: number; diastolic: number; pulse: number; grade: string; trend: 'up' | 'down' | 'flat'; time: string }) {
+  const trendIcon = trend === 'up' ? '↑' : trend === 'down' ? '↓' : '→';
+  return <div className="ds-bp-row" tabIndex={0} role="button" aria-label={'血压 ' + systolic + ' ' + diastolic + '，脉搏 ' + pulse + '，' + grade + '，今天 ' + time}>
+    <span className="ds-bp-row__time">{time}</span>
+    <span className="ds-bp-row__value">{systolic}/{diastolic} <em>mmHg</em></span>
+    <span className="ds-bp-row__pulse">脉搏 {pulse}</span>
+    <span className={'ds-bp-row__grade ' + (grade === '正常' ? 'is-normal' : 'is-high')}>{grade}</span>
+    <span className={'ds-bp-row__trend ' + (trend === 'up' ? 'is-up' : 'is-down')} aria-label={trend === 'up' ? '较上次上升' : trend === 'down' ? '较上次下降' : '与上次持平'}>{trendIcon}</span>
+  </div>;
+}
+
+export function WeightTrendChart({ points, goal, unit }: { points: number[]; goal: number; unit: string }) {
+  const max = Math.max(...points, goal);
+  const min = Math.min(...points, goal);
+  const span = Math.max(0.1, max - min);
+  const toY = (value: number) => 70 - (value - min) / span * 60;
+  const toX = (index: number) => 10 + index * (220 / Math.max(1, points.length - 1));
+  const coords = points.map((value, index) => toX(index).toFixed(0) + ',' + toY(value).toFixed(0)).join(' ');
+  const delta = points[points.length - 1] - points[0];
+  const down = delta <= 0;
+  return <div className="ds-weight-trend" tabIndex={0} role="img" aria-label={'近期体重从 ' + points[0] + ' 变为 ' + points[points.length - 1] + ' ' + unit + '，目标 ' + goal}>
+    <svg viewBox="0 0 240 80" aria-hidden="true">
+      <line className="ds-weight-trend__goal" x1="0" y1={toY(goal)} x2="240" y2={toY(goal)} />
+      <polyline className={'ds-weight-trend__line ' + (down ? 'is-down' : 'is-up')} points={coords} />
+    </svg>
+    <div className="ds-weight-trend__foot">
+      <strong className="ds-weight-trend__now">{points[points.length - 1]} {unit}</strong>
+      <span>较起点 {(delta > 0 ? '+' : '') + delta.toFixed(1)}</span>
+      <span>距目标 {(points[points.length - 1] - goal).toFixed(1)}</span>
+    </div>
+  </div>;
+}
+
+export function MindfulnessTimer({ totalSeconds, leftSeconds, breathing, running, onToggle, onStop }: { totalSeconds: number; leftSeconds: number; breathing: string; running: boolean; onToggle?: () => void; onStop?: () => void }) {
+  const pct = Math.round((totalSeconds - leftSeconds) / totalSeconds * 100);
+  const left = Math.floor(leftSeconds / 60) + ':' + String(leftSeconds % 60).padStart(2, '0');
+  return <div className="ds-mindful-timer" role="timer" aria-label={'冥想计时，剩余 ' + left + '，当前引导：' + breathing}>
+    <div className="ds-mindful-timer__ring" style={{ '--p': pct + '%' } as React.CSSProperties} aria-hidden="true"><strong className="ds-mindful-timer__left">{left}</strong></div>
+    <p className="ds-mindful-timer__breath">{breathing}</p>
+    <div className="ds-mindful-timer__presets" role="group" aria-label="时长预设">
+      <button type="button">3 分钟</button>
+      <button type="button" aria-pressed="true">6 分钟</button>
+      <button type="button">10 分钟</button>
+    </div>
+    <div className="ds-mindful-timer__controls">
+      <button type="button" className="is-primary" onClick={onToggle}>{running ? '暂停' : '开始'}</button>
+      <button type="button" onClick={onStop}>结束</button>
+    </div>
+  </div>;
+}
+
+export function HealthMetricTile({ name, value, unit, delta, trend, icon }: { name: string; value: string; unit: string; delta: string; trend: 'up' | 'down' | 'flat'; icon: string }) {
+  return <div className="ds-metric-tile" tabIndex={0} role="button" aria-label={name + ' ' + value + unit + '，' + delta}>
+    <span className="ds-metric-tile__icon" aria-hidden="true">{icon}</span>
+    <p className="ds-metric-tile__name">{name}</p>
+    <p className="ds-metric-tile__value">{value}<em>{unit}</em></p>
+    <p className={'ds-metric-tile__delta ' + (trend === 'up' ? 'is-up' : 'is-down')}><span aria-hidden="true">{trend === 'up' ? '↑' : '↓'}</span> {delta}</p>
+  </div>;
+}
