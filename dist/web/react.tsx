@@ -17929,3 +17929,120 @@ export function ComplaintProgressCard({ text, no, reply, state }: { text: string
     <span className={'ds-complaint__state is-' + state}>{stateText[state]}</span>
   </article>;
 }
+
+export function ManuscriptSubmissionCard({ title, author, type, state, time }: { title: string; author: string; type: string; state: 'new' | 'reviewing' | 'revise' | 'accepted' | 'rejected'; time: string }) {
+  const stateText = { new: '新稿', reviewing: '审中', revise: '退修', accepted: '录用', rejected: '拒稿' };
+  return <article className={'ds-manuscript is-' + state} tabIndex={0} role="button" aria-label={'稿件，' + title + '，作者 ' + author + '，' + type + '，' + stateText[state] + '，提交于 ' + time}>
+    <div className="ds-manuscript__head">
+      <strong className="ds-manuscript__title">{title}</strong>
+      <span className={'ds-manuscript__state is-' + state}>{stateText[state]}</span>
+    </div>
+    <div className="ds-manuscript__meta">
+      <span className="ds-manuscript__type">{type}</span>
+      <span className="ds-manuscript__author">{author}</span>
+      <span className="ds-manuscript__time">{time}</span>
+    </div>
+  </article>;
+}
+
+export function EditorialReviewRow({ reviewer, verdict, summary, time }: { reviewer: string; verdict: 'accept' | 'minor' | 'reject'; summary: string; time: string }) {
+  const verdictText = { accept: '录用', minor: '修改后录用', reject: '拒稿' };
+  return <div className={'ds-review-row is-' + verdict} tabIndex={0} role="button" aria-label={'审稿意见，审稿人 ' + reviewer + '，结论 ' + verdictText[verdict] + '，' + summary + '，' + time}>
+    <span className="ds-review-row__reviewer">{reviewer}</span>
+    <span className={'ds-review-row__verdict is-' + verdict}>{verdictText[verdict]}</span>
+    <span className="ds-review-row__summary">{summary}</span>
+    <span className="ds-review-row__time">{time}</span>
+  </div>;
+}
+
+export function ProofreadingMarkup({ marks }: { marks: Array<{ page: number; type: 'insert' | 'delete' | 'revise'; text: string }> }) {
+  const typeText = { insert: '插入', delete: '删除', revise: '修改' };
+  return <section className="ds-proof-mark" aria-label={'校对批注，共 ' + marks.length + ' 处'}>
+    {marks.map(mark => <div key={mark.page + mark.type} className="ds-proof-mark__item" tabIndex={0} aria-label={'第 ' + mark.page + ' 页，' + typeText[mark.type] + '，' + mark.text}>
+      <span className="ds-proof-mark__page">P{mark.page}</span>
+      <span className={'ds-proof-mark__mark is-' + mark.type}>{mark.text}</span>
+      <span className="ds-proof-mark__note">{typeText[mark.type]}</span>
+    </div>)}
+  </section>;
+}
+
+export function IssueTocCard({ issue, sections }: { issue: string; sections: Array<{ name: string; articles: Array<{ title: string; page: string }> }> }) {
+  const total = sections.reduce((sum, s) => sum + s.articles.length, 0);
+  return <article className="ds-issue-toc" aria-label={'期刊目录，' + issue + '，共 ' + sections.length + ' 个栏目 ' + total + ' 篇文章'}>
+    <div className="ds-issue-toc__issue">{issue}</div>
+    {sections.map(section => <React.Fragment key={section.name}>
+      <div className="ds-issue-toc__section">{section.name}</div>
+      {section.articles.map(article => <div key={article.title} className="ds-issue-toc__article" tabIndex={0} role="button" aria-label={section.name + '栏目，文章 ' + article.title + '，第 ' + article.page.replace('P', '') + ' 页'}>
+        <span className="ds-issue-toc__title">{article.title}</span>
+        <span className="ds-issue-toc__page">{article.page}</span>
+      </div>)}
+    </React.Fragment>)}
+  </article>;
+}
+
+export function TypesettingPreview({ columns, font, size }: { columns: number; font: string; size: string }) {
+  return <section className="ds-typeset-preview" aria-label={'排版预览，' + columns + ' 栏，' + font + '，' + size + '字号'}>
+    <div className="ds-typeset-preview__controls" role="radiogroup" aria-label="排版设置">
+      <button type="button" className="ds-typeset-preview__control is-active" role="radio" aria-checked="true">{columns} 栏</button>
+      <button type="button" className="ds-typeset-preview__control" role="radio" aria-checked="false">{font}</button>
+      <button type="button" className="ds-typeset-preview__control" role="radio" aria-checked="false">{size}</button>
+    </div>
+    <div className={'ds-typeset-preview__page' + (columns > 1 ? ' is-two-col' : '')} aria-hidden="true">
+      <p>古籍数字化是一项长期性、基础性工作。近年来，随着人工智能技术的发展，OCR 识别与自动校对能力显著提升，为大规模古籍整理提供了新的技术路径。</p>
+      {columns > 1 ? <p>本文提出一种基于大语言模型的校对方法，通过领域语料微调与检索增强生成相结合，在保持原貌完整性的前提下提升校对准确率。</p> : null}
+    </div>
+  </section>;
+}
+
+export function PublicationScheduleRow({ stage, date, owner, state }: { stage: string; date: string; owner: string; state: 'doing' | 'done' | 'delayed' }) {
+  const stateText = { doing: '进行中', done: '已完成', delayed: '延期' };
+  return <div className={'ds-pub-schedule is-' + state} tabIndex={0} role="button" aria-label={'出版排期，' + stage + '，计划 ' + date + '，' + owner + '，' + stateText[state]}>
+    <span className="ds-pub-schedule__stage">{stage}</span>
+    <span className="ds-pub-schedule__date">{date}</span>
+    <span className="ds-pub-schedule__owner">{owner}</span>
+    <span className={'ds-pub-schedule__state is-' + state}>{stateText[state]}</span>
+  </div>;
+}
+
+export function ArticleMetricsCard({ reads, cites, downloads, compare }: { reads: number; cites: number; downloads: number; compare?: number }) {
+  return <article className="ds-article-metrics" tabIndex={0} role="img" aria-label={'文章数据，阅读 ' + reads.toLocaleString() + '，引用 ' + cites + '，下载 ' + downloads.toLocaleString() + (compare !== undefined ? '，引用环比 ' + (compare >= 0 ? '上升 ' : '下降 ') + Math.abs(compare) + '%' : '')}>
+    <div className="ds-article-metrics__item"><span>阅读</span><strong>{reads.toLocaleString()}</strong></div>
+    <div className="ds-article-metrics__item"><span>引用</span><strong>{cites}</strong></div>
+    <div className="ds-article-metrics__item"><span>下载</span><strong>{downloads.toLocaleString()}</strong></div>
+    {compare !== undefined ? <span className={'ds-article-metrics__cmp ' + (compare >= 0 ? 'is-up' : 'is-down')}>{compare >= 0 ? '引用 ↑ ' + compare + '%' : '引用 ↓ ' + Math.abs(compare) + '%'}</span> : null}
+  </article>;
+}
+
+export function ContributorContractRow({ author, work, royalty, state }: { author: string; work: string; royalty: number; state: 'settled' | 'settling' }) {
+  const stateText = { settled: '已结算', settling: '待结算' };
+  return <div className={'ds-contract-row is-' + state} tabIndex={0} role="button" aria-label={'作者合约，' + author + '，' + work + '，版税率 ' + royalty + '%，' + stateText[state]}>
+    <strong className="ds-contract-row__author">{author}</strong>
+    <span className="ds-contract-row__work">{work}</span>
+    <span className="ds-contract-row__royalty">版税 {royalty}%</span>
+    <span className={'ds-contract-row__state is-' + state}>{stateText[state]}</span>
+  </div>;
+}
+
+export function PressReleaseCard({ title, lead, media, state }: { title: string; lead: string; media: string[]; state: 'draft' | 'review' | 'published' }) {
+  const stateText = { draft: '草稿', review: '审核中', published: '已发布' };
+  return <article className={'ds-press-release is-' + state} tabIndex={0} role="button" aria-label={'新闻稿，' + title + '，' + lead + '，' + stateText[state] + '，投放 ' + media.join('、')}>
+    <div className="ds-press-release__head">
+      <strong className="ds-press-release__title">{title}</strong>
+      <span className={'ds-press-release__state is-' + state}>{stateText[state]}</span>
+    </div>
+    <p className="ds-press-release__lead">{lead}</p>
+    <div className="ds-press-release__media">{media.map(m => <span key={m} className="ds-press-release__tag">{m}</span>)}</div>
+  </article>;
+}
+
+export function BookSpinePreview({ title, author, publisher }: { title: string; author: string; publisher: string }) {
+  const split = title.length > 6 ? title.slice(0, 6) : title;
+  const rest = title.length > 6 ? title.slice(6) : '';
+  return <article className="ds-book-spine" tabIndex={0} role="img" aria-label={'书脊预览，书名 ' + title + '，作者 ' + author + '，出版社 ' + publisher}>
+    <div className="ds-book-spine__spine">
+      <strong className="ds-book-spine__title">{split}{rest ? <br /> : null}{rest}</strong>
+      <span className="ds-book-spine__author">{author} 著</span>
+      <span className="ds-book-spine__publisher">{publisher}</span>
+    </div>
+  </article>;
+}

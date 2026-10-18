@@ -22445,5 +22445,277 @@
       "满意度评价"
     ],
     "react": "<ComplaintProgressCard text=\"小区停车位划线不清导致通行拥堵\" no=\"TS-2026-3381\" reply=\"已联系物业现场核实\" state=\"handling\" />"
+  },
+  {
+    "id": "pub-manuscript",
+    "name": "稿件投稿卡",
+    "category": "媒体 / 出版",
+    "status": "v3 新增",
+    "purpose": "展示一篇投稿稿件的标题、作者与审稿状态。",
+    "anatomy": [
+      "标题 (ds-manuscript__title)",
+      "作者 (ds-manuscript__author)",
+      "类型 (ds-manuscript__type)",
+      "状态 (ds-manuscript__state)",
+      "提交时间 (ds-manuscript__time)"
+    ],
+    "keyboard": "卡片可聚焦查看全文；退修状态以 alert 语义播报。",
+    "guidance": [
+      "状态四态：新稿、审中、退修、录用。",
+      "稿件类型以徽标展示。",
+      "提交时间等宽展示。"
+    ],
+    "preview": "<article class=\"ds-manuscript is-revise\" tabindex=\"0\" role=\"button\" aria-label=\"稿件，基于大语言模型的古籍数字化校对方法研究，作者 陈明，研究论文，退修，提交于 2026-05-28\"><div class=\"ds-manuscript__head\"><strong class=\"ds-manuscript__title\">基于大语言模型的古籍数字化校对方法研究</strong><span class=\"ds-manuscript__state is-revise\">退修</span></div><div class=\"ds-manuscript__meta\"><span class=\"ds-manuscript__type\">研究论文</span><span class=\"ds-manuscript__author\">陈明</span><span class=\"ds-manuscript__time\">2026-05-28</span></div></article>",
+    "checks": [
+      "四态状态",
+      "类型徽标",
+      "时间等宽",
+      "退修补救"
+    ],
+    "react": "<ManuscriptSubmissionCard title=\"基于大语言模型的古籍数字化校对方法研究\" author=\"陈明\" type=\"研究论文\" state=\"revise\" time=\"2026-05-28\" />"
+  },
+  {
+    "id": "pub-review-row",
+    "name": "审稿意见行",
+    "category": "媒体 / 出版",
+    "status": "v3 新增",
+    "purpose": "展示一条审稿意见的结论与摘要内容。",
+    "anatomy": [
+      "审稿人 (ds-review-row__reviewer)",
+      "结论 (ds-review-row__verdict)",
+      "摘要 (ds-review-row__summary)",
+      "时间 (ds-review-row__time)"
+    ],
+    "keyboard": "行可聚焦查看完整意见；拒稿结论以 alert 语义播报。",
+    "guidance": [
+      "结论三态：录用、修改后录用、拒稿。",
+      "审稿人匿名时明确标注。",
+      "摘要两行截断。"
+    ],
+    "preview": "<div class=\"ds-review-row is-minor\" tabindex=\"0\" role=\"button\" aria-label=\"审稿意见，审稿人 匿名审稿人 2，结论 修改后录用，选题新颖，实验设计需补充对照组，2026-06-02\"><span class=\"ds-review-row__reviewer\">匿名审稿人 2</span><span class=\"ds-review-row__verdict is-minor\">修改后录用</span><span class=\"ds-review-row__summary\">选题新颖，实验设计需补充对照组</span><span class=\"ds-review-row__time\">06-02</span></div>",
+    "checks": [
+      "三态结论",
+      "匿名标注",
+      "摘要截断",
+      "完整意见"
+    ],
+    "react": "<EditorialReviewRow reviewer=\"匿名审稿人 2\" verdict=\"minor\" summary=\"选题新颖，实验设计需补充对照组\" time=\"06-02\" />"
+  },
+  {
+    "id": "pub-proof-mark",
+    "name": "校对批注标记",
+    "category": "媒体 / 出版",
+    "status": "v3 新增",
+    "purpose": "以增删改标记展示校对批注与修改说明。",
+    "anatomy": [
+      "插入标记 (ds-proof-mark__mark is-insert)",
+      "删除标记 (is-delete)",
+      "修改标记 (is-revise)",
+      "批注说明 (ds-proof-mark__note)",
+      "页码 (ds-proof-mark__page)"
+    ],
+    "keyboard": "每条批注可聚焦听取修改说明；删除内容仍可朗读。",
+    "guidance": [
+      "插入绿色下划线、删除红色删除线、修改黄色高亮。",
+      "批注附页码定位。",
+      "新旧内容对照呈现。"
+    ],
+    "preview": "<section class=\"ds-proof-mark\" aria-label=\"校对批注，共 3 处，第 12 页插入新增段落，第 18 页删除冗余表述，第 25 页修改术语表述\"><div class=\"ds-proof-mark__item\" tabindex=\"0\" aria-label=\"第 12 页，插入，新增段落：近年来古籍数字化进入新阶段\"><span class=\"ds-proof-mark__page\">P12</span><span class=\"ds-proof-mark__mark is-insert\">近年来古籍数字化进入新阶段</span><span class=\"ds-proof-mark__note\">插入</span></div><div class=\"ds-proof-mark__item\" tabindex=\"0\" aria-label=\"第 18 页，删除，冗余表述：众所周知，在大多数情况下\"><span class=\"ds-proof-mark__page\">P18</span><span class=\"ds-proof-mark__mark is-delete\">众所周知，在大多数情况下</span><span class=\"ds-proof-mark__note\">删除</span></div><div class=\"ds-proof-mark__item\" tabindex=\"0\" aria-label=\"第 25 页，修改，原 神经网络 改为 深度神经网络\"><span class=\"ds-proof-mark__page\">P25</span><span class=\"ds-proof-mark__mark is-revise\">神经网络 → 深度神经网络</span><span class=\"ds-proof-mark__note\">修改</span></div></section>",
+    "checks": [
+      "三类标记",
+      "页码定位",
+      "删除线可读",
+      "修改说明"
+    ],
+    "react": "<ProofreadingMarkup marks={[{ page: 12, type: \"insert\", text: \"近年来古籍数字化进入新阶段\" }]} />"
+  },
+  {
+    "id": "pub-issue-toc",
+    "name": "期刊目录卡",
+    "category": "媒体 / 出版",
+    "status": "v3 新增",
+    "purpose": "展示一本期刊的栏目结构与文章目录。",
+    "anatomy": [
+      "期号 (ds-issue-toc__issue)",
+      "栏目 (ds-issue-toc__section)",
+      "文章行 (ds-issue-toc__article)",
+      "页码 (ds-issue-toc__page)"
+    ],
+    "keyboard": "文章行可聚焦打开全文；当前栏目文字高亮。",
+    "guidance": [
+      "按栏目分组展示。",
+      "页码右对齐等宽。",
+      "文章标题过长截断。"
+    ],
+    "preview": "<article class=\"ds-issue-toc\" aria-label=\"期刊目录，2026 年第 6 期，共 3 个栏目\"><div class=\"ds-issue-toc__issue\">2026 年第 6 期 · 总第 218 期</div><div class=\"ds-issue-toc__section\">特别策划</div><div class=\"ds-issue-toc__article\" tabindex=\"0\" role=\"button\" aria-label=\"特别策划栏目，文章 数字人文视野下的古籍再生，第 8 页\"><span class=\"ds-issue-toc__title\">数字人文视野下的古籍再生</span><span class=\"ds-issue-toc__page\">P08</span></div><div class=\"ds-issue-toc__section\">研究论文</div><div class=\"ds-issue-toc__article\" tabindex=\"0\" role=\"button\" aria-label=\"研究论文栏目，文章 基于大语言模型的古籍数字化校对方法研究，第 18 页\"><span class=\"ds-issue-toc__title\">基于大语言模型的古籍数字化校对方法研究</span><span class=\"ds-issue-toc__page\">P18</span></div></article>",
+    "checks": [
+      "栏目分组",
+      "页码右对齐",
+      "标题截断",
+      "打开全文"
+    ],
+    "react": "<IssueTocCard issue=\"2026 年第 6 期\" sections={[{ name: \"特别策划\", articles: [{ title: \"数字人文视野下的古籍再生\", page: \"P08\" }] }]} />"
+  },
+  {
+    "id": "pub-typeset-preview",
+    "name": "排版预览",
+    "category": "媒体 / 出版",
+    "status": "v3 新增",
+    "purpose": "预览排版的分栏、字体与字号设置效果。",
+    "anatomy": [
+      "设置区 (ds-typeset-preview__controls)",
+      "分栏选项",
+      "字体选项 (ds-typeset-preview__control)",
+      "预览页 (ds-typeset-preview__page)"
+    ],
+    "keyboard": "设置项可聚焦调整；预览实时更新并以 status 播报。",
+    "guidance": [
+      "分栏 1/2/3 可切换。",
+      "正文字体三选：宋体、黑体、楷体。",
+      "预览使用真实文本段落。"
+    ],
+    "preview": "<section class=\"ds-typeset-preview\" aria-label=\"排版预览，双栏，宋体，小四字号\"><div class=\"ds-typeset-preview__controls\" role=\"radiogroup\" aria-label=\"排版设置\"><button type=\"button\" class=\"ds-typeset-preview__control is-active\" role=\"radio\" aria-checked=\"true\">双栏</button><button type=\"button\" class=\"ds-typeset-preview__control\" role=\"radio\" aria-checked=\"false\">宋体</button><button type=\"button\" class=\"ds-typeset-preview__control\" role=\"radio\" aria-checked=\"false\">小四</button></div><div class=\"ds-typeset-preview__page is-two-col\" aria-hidden=\"true\"><p>古籍数字化是一项长期性、基础性工作。近年来，随着人工智能技术的发展，OCR 识别与自动校对能力显著提升，为大规模古籍整理提供了新的技术路径。</p><p>本文提出一种基于大语言模型的校对方法，通过领域语料微调与检索增强生成相结合，在保持原貌完整性的前提下提升校对准确率。</p></div></section>",
+    "checks": [
+      "分栏切换",
+      "字体三选",
+      "实时预览",
+      "设置播报"
+    ],
+    "react": "<TypesettingPreview columns={2} font=\"宋体\" size=\"小四\" />"
+  },
+  {
+    "id": "pub-pub-schedule",
+    "name": "出版排期行",
+    "category": "媒体 / 出版",
+    "status": "v3 新增",
+    "purpose": "展示一本书各出版环节的计划日期与责任人。",
+    "anatomy": [
+      "环节 (ds-pub-schedule__stage)",
+      "计划日期 (ds-pub-schedule__date)",
+      "责任人 (ds-pub-schedule__owner)",
+      "状态 (ds-pub-schedule__state)"
+    ],
+    "keyboard": "行可聚焦查看交付物；延期环节以 alert 语义播报。",
+    "guidance": [
+      "状态三态：进行中、已完成、延期。",
+      "日期等宽展示。",
+      "责任人文字标注。"
+    ],
+    "preview": "<div class=\"ds-pub-schedule is-delayed\" tabindex=\"0\" role=\"button\" aria-label=\"出版排期，三审三校，计划 2026-06-15，责任编辑 王琳，延期\"><span class=\"ds-pub-schedule__stage\">三审三校</span><span class=\"ds-pub-schedule__date\">2026-06-15</span><span class=\"ds-pub-schedule__owner\">责任编辑 王琳</span><span class=\"ds-pub-schedule__state is-delayed\">延期</span></div>",
+    "checks": [
+      "三态状态",
+      "日期等宽",
+      "责任人标注",
+      "延期播报"
+    ],
+    "react": "<PublicationScheduleRow stage=\"三审三校\" date=\"2026-06-15\" owner=\"责任编辑 王琳\" state=\"delayed\" />"
+  },
+  {
+    "id": "pub-article-metrics",
+    "name": "文章数据卡",
+    "category": "媒体 / 出版",
+    "status": "v3 新增",
+    "purpose": "展示一篇文章的阅读、引用与下载核心数据。",
+    "anatomy": [
+      "阅读量 (ds-article-metrics__item)",
+      "引用量",
+      "下载量",
+      "环比 (ds-article-metrics__cmp)"
+    ],
+    "keyboard": "卡片可聚焦查看数据趋势；引用激增以 status 语义播报。",
+    "guidance": [
+      "三项数据并列展示。",
+      "千分位格式化。",
+      "环比以箭头加数字呈现。"
+    ],
+    "preview": "<article class=\"ds-article-metrics\" tabindex=\"0\" role=\"img\" aria-label=\"文章数据，阅读 12,486，引用 86，下载 2,314，引用环比上升 24%\"><div class=\"ds-article-metrics__item\"><span>阅读</span><strong>12,486</strong></div><div class=\"ds-article-metrics__item\"><span>引用</span><strong>86</strong></div><div class=\"ds-article-metrics__item\"><span>下载</span><strong>2,314</strong></div><span class=\"ds-article-metrics__cmp is-up\">引用 ↑ 24%</span></article>",
+    "checks": [
+      "三项并列",
+      "千分位",
+      "环比箭头",
+      "趋势查看"
+    ],
+    "react": "<ArticleMetricsCard reads={12486} cites={86} downloads={2314} compare={24} />"
+  },
+  {
+    "id": "pub-contract-row",
+    "name": "作者合约行",
+    "category": "媒体 / 出版",
+    "status": "v3 新增",
+    "purpose": "展示一份作者合约的版税比例与结算状态。",
+    "anatomy": [
+      "作者 (ds-contract-row__author)",
+      "作品 (ds-contract-row__work)",
+      "版税率 (ds-contract-row__royalty)",
+      "结算状态 (ds-contract-row__state)"
+    ],
+    "keyboard": "行可聚焦查看结算明细；待结算状态以 status 语义播报。",
+    "guidance": [
+      "版税百分比等宽展示。",
+      "结算状态用文字不只颜色。",
+      "累计结算金额主数字。"
+    ],
+    "preview": "<div class=\"ds-contract-row is-settling\" tabindex=\"0\" role=\"button\" aria-label=\"作者合约，陈明，古籍数字化方法研究，版税率 8%，待结算，累计结算 12,400 元\"><strong class=\"ds-contract-row__author\">陈明</strong><span class=\"ds-contract-row__work\">古籍数字化方法研究</span><span class=\"ds-contract-row__royalty\">版税 8%</span><span class=\"ds-contract-row__state is-settling\">待结算</span></div>",
+    "checks": [
+      "版税等宽",
+      "状态文字",
+      "结算明细",
+      "金额主数字"
+    ],
+    "react": "<ContributorContractRow author=\"陈明\" work=\"古籍数字化方法研究\" royalty={8} state=\"settling\" />"
+  },
+  {
+    "id": "pub-press-release",
+    "name": "新闻稿卡",
+    "category": "媒体 / 出版",
+    "status": "v3 新增",
+    "purpose": "展示一篇新闻稿的标题、导语与投放媒体。",
+    "anatomy": [
+      "标题 (ds-press-release__title)",
+      "导语 (ds-press-release__lead)",
+      "媒体 (ds-press-release__media)",
+      "状态 (ds-press-release__state)"
+    ],
+    "keyboard": "卡片可聚焦查看全文；已发布状态以 status 语义播报。",
+    "guidance": [
+      "导语两行截断。",
+      "投放媒体以徽标横排。",
+      "状态用文字不只颜色。"
+    ],
+    "preview": "<article class=\"ds-press-release is-published\" tabindex=\"0\" role=\"button\" aria-label=\"新闻稿，2026 古籍数字化前沿论坛在京举办，来自 30 余家机构的两百位学者参会，已发布，投放 人民日报客户端、光明日报\"><div class=\"ds-press-release__head\"><strong class=\"ds-press-release__title\">2026 古籍数字化前沿论坛在京举办</strong><span class=\"ds-press-release__state is-published\">已发布</span></div><p class=\"ds-press-release__lead\">来自 30 余家机构的两百位学者围绕人工智能时代的古籍整理与再生利用展开研讨。</p><div class=\"ds-press-release__media\"><span class=\"ds-press-release__tag\">人民日报客户端</span><span class=\"ds-press-release__tag\">光明日报</span></div></article>",
+    "checks": [
+      "导语截断",
+      "媒体徽标",
+      "状态文字",
+      "全文查看"
+    ],
+    "react": "<PressReleaseCard title=\"2026 古籍数字化前沿论坛在京举办\" lead=\"来自 30 余家机构的两百位学者参会研讨。\" media={[\"人民日报客户端\", \"光明日报\"]} state=\"published\" />"
+  },
+  {
+    "id": "pub-book-spine",
+    "name": "书脊预览",
+    "category": "媒体 / 出版",
+    "status": "v3 新增",
+    "purpose": "以书脊样式预览图书的书名、作者与出版社。",
+    "anatomy": [
+      "书脊 (ds-book-spine__spine)",
+      "书名 (ds-book-spine__title)",
+      "作者 (ds-book-spine__author)",
+      "出版社 (ds-book-spine__publisher)"
+    ],
+    "keyboard": "预览可聚焦切换正背脊；竖排文字以普通方向朗读。",
+    "guidance": [
+      "书脊文字竖排展示。",
+      "出版社置于书脊底部。",
+      "颜色按丛书系列区分。"
+    ],
+    "preview": "<article class=\"ds-book-spine\" tabindex=\"0\" role=\"img\" aria-label=\"书脊预览，书名 古籍数字化方法研究，作者 陈明，出版社 中华书局\"><div class=\"ds-book-spine__spine\"><strong class=\"ds-book-spine__title\">古籍数字化<br>方法研究</strong><span class=\"ds-book-spine__author\">陈明 著</span><span class=\"ds-book-spine__publisher\">中华书局</span></div></article>",
+    "checks": [
+      "竖排文字",
+      "出版社底部",
+      "丛书配色",
+      "正背脊切换"
+    ],
+    "react": "<BookSpinePreview title=\"古籍数字化方法研究\" author=\"陈明\" publisher=\"中华书局\" />"
   }
 ]
