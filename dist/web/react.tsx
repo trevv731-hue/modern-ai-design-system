@@ -14815,3 +14815,102 @@ export function BulkUndoToast({ summary, remaining, onUndo }: { summary: string;
     <span className="ds-undo-toast__timer" aria-hidden="true"><i style={{ width: Math.min(100, remaining * 20) + '%' }} /></span>
   </div>;
 }
+
+export function MapMarkerCard({ title, distance, meta, tags = [] }: { title: string; distance: string; meta: string; tags?: string[] }) {
+  return <div className="ds-map-card" role="dialog" aria-label="地点详情">
+    <span className="ds-map-card__arrow" aria-hidden="true"></span>
+    <div className="ds-map-card__head"><strong>{title}</strong><span className="ds-map-card__dist">{distance}</span></div>
+    <p className="ds-map-card__meta">{meta}</p>
+    <div className="ds-map-card__tags">{tags.map(tag => <span key={tag}>{tag}</span>)}</div>
+    <div className="ds-map-card__actions">
+      <button type="button">导航</button>
+      <button type="button">收藏</button>
+    </div>
+    <button type="button" className="ds-map-card__close" aria-label="关闭卡片">✕</button>
+  </div>;
+}
+
+export function RouteSummary({ mode, duration, distance, toll, traffic }: { mode: string; duration: string; distance: string; toll?: string; traffic: string }) {
+  const icon = mode === 'drive' ? '🚗' : mode === 'walk' ? '🚶' : mode === 'transit' ? '🚌' : '🚲';
+  const tone = traffic === '畅通' ? 'is-light' : traffic === '缓行' ? 'is-slow' : 'is-jam';
+  return <div className="ds-route-sum" role="group" aria-label="路线摘要">
+    <span className="ds-route-sum__icon" aria-hidden="true">{icon}</span>
+    <div className="ds-route-sum__main">
+      <strong>{duration}</strong>
+      <span>{distance}{toll ? ' · 过路费 ' + toll : ''}</span>
+    </div>
+    <span className={'ds-route-sum__traffic ' + tone}>{traffic}</span>
+    <button type="button" aria-label="切换方案">⇄</button>
+  </div>;
+}
+
+export function LayerSwitch({ base, overlays = [], bases = ['标准', '卫星'] }: { base: string; overlays?: string[]; bases?: string[] }) {
+  return <div className="ds-layer-switch">
+    <button type="button" className="ds-layer-switch__btn" aria-expanded="false" aria-haspopup="true">
+      <span aria-hidden="true">🗺️</span>图层
+    </button>
+    <div className="ds-layer-switch__panel" role="group" aria-label="图层设置" hidden>
+      <p className="ds-layer-switch__title">底图</p>
+      {bases.map(item => <label key={item}><input type="radio" name="ds-base" defaultChecked={item === base} /><span>{item}</span></label>)}
+      <p className="ds-layer-switch__title">叠加</p>
+      <label><input type="checkbox" defaultChecked={overlays.includes('实时路况')} /><span>实时路况</span></label>
+      <label><input type="checkbox" defaultChecked={overlays.includes('公交线路')} /><span>公交线路</span></label>
+    </div>
+  </div>;
+}
+
+export function LocateButton({ accuracy = 'high', onLocate }: { accuracy?: string; onLocate?: () => void }) {
+  return <button type="button" className="ds-locate-btn" aria-label="定位到我的位置" onClick={onLocate}>
+    <span className="ds-locate-btn__icon" aria-hidden="true">◎</span>
+    {accuracy === 'high' && <span className="ds-locate-btn__accuracy" aria-hidden="true"></span>}
+  </button>;
+}
+
+export function ScaleBar({ distance, width }: { distance: string; width: number }) {
+  return <div className="ds-scale-bar" role="img" aria-label={'比例尺 ' + distance}>
+    <span className="ds-scale-bar__bar" style={{ width: width + 'px' }} aria-hidden="true"></span>
+    <span className="ds-scale-bar__text">{distance}</span>
+  </div>;
+}
+
+export function ClusterBubble({ count, size = 'md', onExpand }: { count: number; size?: string; onExpand?: () => void }) {
+  return <button type="button" className={'ds-cluster is-' + size}
+    aria-label={'聚合 ' + count + ' 个地点，点击放大'} onClick={onExpand}>{count}</button>;
+}
+
+export function GeofenceRow({ name, radius, rule, on }: { name: string; radius: string; rule: string; on?: boolean }) {
+  return <div className="ds-geofence" role="button" tabIndex={0}>
+    <div className="ds-geofence__info"><strong>{name}</strong><span>半径 {radius} · {rule}</span></div>
+    <span className={'ds-geofence__state' + (on ? ' is-on' : '')}>{on ? '生效中' : '已停用'}</span>
+    <small>最近触发：今天 09:12</small>
+    <label className="ds-switch">
+      <input type="checkbox" className="ds-switch__input" defaultChecked={!!on} />
+      <span className="ds-switch__track"></span>
+    </label>
+  </div>;
+}
+
+export function DirectionsStep({ steps }: { steps: { action: string; distance: string; icon?: string; current?: boolean }[] }) {
+  return <div className="ds-directions" role="list" aria-label="导航步骤">
+    {steps.map(step => <div key={step.action} role="listitem" aria-current={step.current ? 'step' : undefined}
+      className={'ds-directions__step' + (step.current ? ' is-current' : '')}>
+      <span className="ds-directions__icon" aria-hidden="true">{step.icon || '↰'}</span>
+      <div><strong>{step.action}</strong><small>{step.distance}</small></div>
+    </div>)}
+  </div>;
+}
+
+export function PoiList({ items, active }: { items: { name: string; distance: string; open?: boolean }[]; active: number }) {
+  return <div className="ds-poi-list" role="listbox" aria-label="附近地点">
+    {items.map((item, index) => <div key={item.name} role="option" aria-selected={index === active}
+      className={'ds-poi-list__item' + (index === active ? ' is-active' : '')}>
+      <strong>{item.name}</strong>
+      <span className="ds-poi-list__dist">{item.distance}</span>
+      <span className={item.open ? 'ds-poi-list__open' : 'ds-poi-list__closed'}>{item.open ? '营业中' : '已休息'}</span>
+    </div>)}
+  </div>;
+}
+
+export function EtaBadge({ eta, remaining }: { eta: string; remaining: string }) {
+  return <span className="ds-eta-badge"><strong>{eta}</strong><small>还有 {remaining}</small></span>;
+}
