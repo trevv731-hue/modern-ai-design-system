@@ -14914,3 +14914,128 @@ export function PoiList({ items, active }: { items: { name: string; distance: st
 export function EtaBadge({ eta, remaining }: { eta: string; remaining: string }) {
   return <span className="ds-eta-badge"><strong>{eta}</strong><small>还有 {remaining}</small></span>;
 }
+
+export function RatingStars({ value = 0, max = 5, onChange }: { value?: number; max?: number; onChange?: (next: number) => void }) {
+  return <div className="ds-rate-stars" role="radiogroup" aria-label="评分">
+    {Array.from({ length: max }, (_, index) => index + 1).map(score => <button key={score} type="button" role="radio"
+      aria-checked={score === value} aria-label={score + ' 星'} onClick={() => onChange?.(score)}>★</button>)}
+    <span className="ds-rate-stars__label">{value} 分</span>
+  </div>;
+}
+
+export function NpsScale({ value = -1, onChange }: { value?: number; onChange?: (next: number) => void }) {
+  return <div className="ds-nps" role="group" aria-label="推荐意愿评分">
+    <div className="ds-nps__hint"><span>0 = 完全不可能</span><span>10 = 非常愿意</span></div>
+    <div className="ds-nps__scale">
+      {Array.from({ length: 11 }, (_, index) => index).map(score => <button key={score} type="button"
+        aria-pressed={score === value} onClick={() => onChange?.(score)}>{score}</button>)}
+    </div>
+    <div className="ds-nps__zones">
+      <span className="is-detractor">贬损者 0-6</span>
+      <span className="is-passive">中立 7-8</span>
+      <span className="is-promoter">推荐者 9-10</span>
+    </div>
+  </div>;
+}
+
+export function SurveyQuestion({ index, total, stem, required, options = [] }: { index: number; total: number; stem: string; required?: boolean; options?: string[] }) {
+  return <div className="ds-survey-q">
+    <p className="ds-survey-q__index">第 {index} 题，共 {total} 题</p>
+    <fieldset>
+      <legend className="ds-survey-q__stem">{stem}{required && <span className="ds-survey-q__req" aria-label="必填">*</span>}</legend>
+      {options.map(option => <label key={option}><input type="checkbox" /><span>{option}</span></label>)}
+    </fieldset>
+  </div>;
+}
+
+export function FeedbackThread({ comments }: { comments: { author: string; body: string; official?: boolean; likes: number }[] }) {
+  return <div className="ds-fb-thread">
+    {comments.map(comment => <div key={comment.author} className={'ds-fb-thread__item' + (comment.official ? ' is-official' : '')}>
+      <span className="ds-fb-thread__avatar" aria-hidden="true">{comment.author.slice(0, 1)}</span>
+      <div className="ds-fb-thread__body">
+        <strong>{comment.author}{comment.official && <span className="ds-fb-thread__role">产品团队</span>}</strong>
+        <p>{comment.body}</p>
+        <div className="ds-fb-thread__foot">
+          <button type="button" aria-pressed="false">👍 {comment.likes}</button>
+          <button type="button">回复</button>
+        </div>
+      </div>
+    </div>)}
+  </div>;
+}
+
+export function SentimentPicker({ options, value }: { options: string[]; value?: string }) {
+  const emojis = ['😞', '🙂', '😄'];
+  return <div className="ds-sentiment" role="radiogroup" aria-label="总体感受">
+    {options.map((option, index) => <button key={option} type="button" role="radio" aria-checked={option === value}>
+      <span aria-hidden="true">{emojis[index] || '🙂'}</span>{option}
+    </button>)}
+  </div>;
+}
+
+export function BugReportForm({ title, env, onSubmit }: { title: string; env: string; onSubmit?: () => void }) {
+  return <form className="ds-bug-form" onSubmit={event => { event.preventDefault(); onSubmit?.(); }}>
+    <div className="ds-bug-form__row">
+      <label htmlFor="ds-bug-title">问题标题</label>
+      <input id="ds-bug-title" defaultValue={title} />
+    </div>
+    <div className="ds-bug-form__row">
+      <label htmlFor="ds-bug-steps">复现步骤</label>
+      <textarea id="ds-bug-steps" rows={3} defaultValue={'1. 切换暗色主题\n2. 冻结首列\n3. 观察边框'} />
+    </div>
+    <div className="ds-bug-form__env"><span>{env}</span><button type="button">修改</button></div>
+    <div className="ds-bug-form__foot">
+      <button type="button">添加截图</button>
+      <button type="submit" className="is-primary">提交报告</button>
+    </div>
+  </form>;
+}
+
+export function FeatureRequestCard({ title, body, votes, state, comments }: { title: string; body: string; votes: number; state: string; comments: number }) {
+  const stateClass = state === '规划中' ? 'is-planned' : state === '开发中' ? 'is-dev' : 'is-shipped';
+  return <div className="ds-feat-req" role="button" tabIndex={0}>
+    <button type="button" className="ds-feat-req__vote" aria-pressed="false" aria-label="投票支持">
+      <span aria-hidden="true">▲</span><strong>{votes}</strong>
+    </button>
+    <div className="ds-feat-req__body">
+      <strong>{title}</strong>
+      <p>{body}</p>
+      <div className="ds-feat-req__meta"><span className={'ds-feat-req__state ' + stateClass}>{state}</span><span>{comments} 条评论</span></div>
+    </div>
+  </div>;
+}
+
+export function ChangelogVote({ version, date, summary, helpful, unhelpful }: { version: string; date: string; summary: string; helpful: number; unhelpful: number }) {
+  return <div className="ds-log-vote">
+    <p className="ds-log-vote__version">{version} · {date}</p>
+    <p className="ds-log-vote__summary">{summary}</p>
+    <div className="ds-log-vote__actions">
+      <button type="button" aria-pressed={false}>👍 有帮助 {helpful}</button>
+      <button type="button" aria-pressed={false}>🤔 无帮助 {unhelpful}</button>
+    </div>
+  </div>;
+}
+
+export function FeedbackThanks({ ticket, eta, onBack }: { ticket: string; eta: string; onBack?: () => void }) {
+  return <div className="ds-fb-thanks" role="status">
+    <span className="ds-fb-thanks__icon" aria-hidden="true">🎉</span>
+    <strong>感谢你的反馈</strong>
+    <p>工单号 #{ticket}，我们会在 {eta}内回复你。</p>
+    <button type="button" onClick={onBack}>返回产品</button>
+  </div>;
+}
+
+export function FollowupPrompt({ question, options = [], onSubmit, onSkip }: { question: string; options?: string[]; onSubmit?: () => void; onSkip?: () => void }) {
+  return <div className="ds-followup" role="group" aria-label="补充反馈">
+    <p className="ds-followup__q">{question}</p>
+    <div className="ds-followup__chips">
+      {options.map(option => <button key={option} type="button" aria-pressed={false}>{option}</button>)}
+    </div>
+    <label className="ds-sr-only" htmlFor="ds-followup-note">补充说明</label>
+    <textarea id="ds-followup-note" rows={2} placeholder="补充说明（选填）" />
+    <div className="ds-followup__foot">
+      <button type="button" onClick={onSkip}>跳过</button>
+      <button type="button" className="is-primary" onClick={onSubmit}>提交</button>
+    </div>
+  </div>;
+}

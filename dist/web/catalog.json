@@ -16096,5 +16096,282 @@
       "文字可读"
     ],
     "react": "<EtaBadge eta=\"14:32\" remaining=\"28 分钟\" />"
+  },
+  {
+    "id": "feedback-rating-stars",
+    "name": "评分星级",
+    "category": "反馈",
+    "status": "v3 新增",
+    "purpose": "以星级形式收集或展示满意度评分，支持半星与键盘输入。",
+    "anatomy": [
+      "星级组 (ds-rate-stars)",
+      "星形按钮",
+      "悬停预览",
+      "当前值",
+      "文字标签"
+    ],
+    "keyboard": "左右方向键调整分值；radio 语义每次只选一个值。",
+    "guidance": [
+      "分值变化时同步更新文字标签。",
+      "悬停预览不改变已提交值。",
+      "必填时未选择禁用提交并说明。"
+    ],
+    "preview": "<div class=\"ds-rate-stars\" role=\"radiogroup\" aria-label=\"评分\"><button type=\"button\" role=\"radio\" aria-checked=\"false\" aria-label=\"1 星\">★</button><button type=\"button\" role=\"radio\" aria-checked=\"false\" aria-label=\"2 星\">★</button><button type=\"button\" role=\"radio\" aria-checked=\"false\" aria-label=\"3 星\">★</button><button type=\"button\" role=\"radio\" aria-checked=\"true\" aria-label=\"4 星\">★</button><button type=\"button\" role=\"radio\" aria-checked=\"false\" aria-label=\"5 星\">★</button><span class=\"ds-rate-stars__label\">4 分 · 满意</span></div>",
+    "checks": [
+      "分值变化更新文字标签",
+      "悬停不改变提交值",
+      "未选禁用提交",
+      "方向键调整且 radio 语义"
+    ],
+    "react": "<RatingStars value={4} max={5} onChange={setScore} label=\"4 分 · 满意\" />"
+  },
+  {
+    "id": "feedback-nps-scale",
+    "name": "NPS 评分条",
+    "category": "反馈",
+    "status": "v3 新增",
+    "purpose": "用 0-10 分量表收集净推荐值，并在选择后追问原因。",
+    "anatomy": [
+      "量表 (ds-nps__scale)",
+      "0-10 按钮",
+      "贬损者与推荐者分区",
+      "原因追问"
+    ],
+    "keyboard": "数字按钮可聚焦；左右方向键移动；选择后播报分区。",
+    "guidance": [
+      "量表两端标注含义。",
+      "选择后展示针对性追问。",
+      "已提交结果只读展示。"
+    ],
+    "preview": "<div class=\"ds-nps\" role=\"group\" aria-label=\"推荐意愿评分\"><div class=\"ds-nps__hint\"><span>0 = 完全不可能</span><span>10 = 非常愿意</span></div><div class=\"ds-nps__scale\">0 1 2 3 4 5 6 7 8 9 10</div><div class=\"ds-nps__zones\"><span class=\"is-detractor\">贬损者 0-6</span><span class=\"is-passive\">中立 7-8</span><span class=\"is-promoter\">推荐者 9-10</span></div></div>",
+    "checks": [
+      "两端标注含义",
+      "选择后针对性追问",
+      "已提交只读展示",
+      "键盘可完成评分"
+    ],
+    "react": "<NpsScale value={9} onChange={setScore} />"
+  },
+  {
+    "id": "feedback-survey-question",
+    "name": "问卷题目卡",
+    "category": "反馈",
+    "status": "v3 新增",
+    "purpose": "在问卷中展示单题与选项，支持单选、多选与必填标记。",
+    "anatomy": [
+      "题号与题干 (ds-survey-q__stem)",
+      "必填标记",
+      "选项组",
+      "进度指示"
+    ],
+    "keyboard": "选项原生可达；必填未答时提交给出题目定位。",
+    "guidance": [
+      "题干简洁一题一问。",
+      "选项随机顺序避免位置偏差。",
+      "展示当前进度，如“第 3 题，共 8 题”。"
+    ],
+    "preview": "<div class=\"ds-survey-q\"><p class=\"ds-survey-q__index\">第 3 题，共 8 题</p><fieldset><legend class=\"ds-survey-q__stem\">你最常用的三个组件是？<span class=\"ds-survey-q__req\" aria-label=\"必填\">*</span></legend><label><input type=\"checkbox\"><span>按钮</span></label><label><input type=\"checkbox\" checked><span>输入框</span></label><label><input type=\"checkbox\" checked><span>表格</span></label><label><input type=\"checkbox\"><span>弹窗</span></label></fieldset></div>",
+    "checks": [
+      "一题一问简洁",
+      "选项随机顺序",
+      "展示当前进度",
+      "必填未答定位题目"
+    ],
+    "react": "<SurveyQuestion index={3} total={8} stem=\"你最常用的三个组件是？\" required options={[\"按钮\", \"输入框\", \"表格\"]} />"
+  },
+  {
+    "id": "feedback-thread",
+    "name": "反馈评论串",
+    "category": "反馈",
+    "status": "v3 新增",
+    "purpose": "在产品反馈下展示用户评论与官方回复，支持点赞与排序。",
+    "anatomy": [
+      "评论项 (ds-fb-thread__item)",
+      "头像与名称",
+      "角色标记",
+      "正文",
+      "点赞",
+      "回复"
+    ],
+    "keyboard": "Tab 遍历点赞与回复；排序切换按钮可达。",
+    "guidance": [
+      "官方回复有明确角色标记。",
+      "支持按最热与最新排序。",
+      "空评论状态引导发言。"
+    ],
+    "preview": "<div class=\"ds-fb-thread\"><div class=\"ds-fb-thread__item is-official\"><span class=\"ds-fb-thread__avatar\" aria-hidden=\"true\">林</span><div class=\"ds-fb-thread__body\"><strong>林晓<span class=\"ds-fb-thread__role\">产品团队</span></strong><p>下个版本会补齐暗色适配，感谢反馈！</p><div class=\"ds-fb-thread__foot\"><button type=\"button\" aria-pressed=\"true\">👍 12</button><button type=\"button\">回复</button></div></div></div><div class=\"ds-fb-thread__item\"><span class=\"ds-fb-thread__avatar\" aria-hidden=\"true\">陈</span><div class=\"ds-fb-thread__body\"><strong>陈默</strong><p>表格批量选择很好用，希望支持跨页全选。</p><div class=\"ds-fb-thread__foot\"><button type=\"button\" aria-pressed=\"false\">👍 5</button><button type=\"button\">回复</button></div></div></div></div>",
+    "checks": [
+      "官方回复有角色标记",
+      "支持最热与最新排序",
+      "空状态引导发言",
+      "点赞状态 aria-pressed"
+    ],
+    "react": "<FeedbackThread comments={[{ author: \"林晓\", body: \"下个版本会补齐暗色适配，感谢反馈！\", official: true, likes: 12 }]} />"
+  },
+  {
+    "id": "feedback-sentiment-picker",
+    "name": "情绪选择",
+    "category": "反馈",
+    "status": "v3 新增",
+    "purpose": "用表情快速收集情绪反馈，比数字量表更轻量。",
+    "anatomy": [
+      "表情组 (ds-sentiment)",
+      "表情按钮",
+      "文字标签",
+      "选中态"
+    ],
+    "keyboard": "表情按钮可聚焦；方向键移动；回车确认。",
+    "guidance": [
+      "每个表情配文字标签，不只靠图形。",
+      "选中后展示感谢反馈。",
+      "支持改选直到提交。"
+    ],
+    "preview": "<div class=\"ds-sentiment\" role=\"radiogroup\" aria-label=\"总体感受\"><button type=\"button\" role=\"radio\" aria-checked=\"false\"><span aria-hidden=\"true\">😞</span>不满意</button><button type=\"button\" role=\"radio\" aria-checked=\"true\"><span aria-hidden=\"true\">🙂</span>一般</button><button type=\"button\" role=\"radio\" aria-checked=\"false\"><span aria-hidden=\"true\">😄</span>满意</button></div>",
+    "checks": [
+      "表情配文字标签",
+      "选中展示感谢",
+      "提交前可改选",
+      "radio 语义正确"
+    ],
+    "react": "<SentimentPicker options={[\"不满意\", \"一般\", \"满意\"]} value=\"一般\" />"
+  },
+  {
+    "id": "feedback-bug-report-form",
+    "name": "缺陷报告表单",
+    "category": "反馈",
+    "status": "v3 新增",
+    "purpose": "结构化收集缺陷信息：现象、复现步骤、环境与附件。",
+    "anatomy": [
+      "标题输入 (ds-bug-form__title)",
+      "复现步骤",
+      "环境信息",
+      "附件上传",
+      "提交"
+    ],
+    "keyboard": "Tab 顺序与视觉一致；附件按钮可达；提交前汇总校验。",
+    "guidance": [
+      "自动附带环境信息减少填写。",
+      "复现步骤支持编号列表输入。",
+      "提交成功给工单号。"
+    ],
+    "preview": "<form class=\"ds-bug-form\"><div class=\"ds-bug-form__row\"><label for=\"bug-title\">问题标题</label><input id=\"bug-title\" value=\"表格冻结列在暗色模式下边框消失\"></div><div class=\"ds-bug-form__row\"><label for=\"bug-steps\">复现步骤</label><textarea id=\"bug-steps\" rows={3}>1. 切换暗色主题\n2. 冻结首列\n3. 观察边框</textarea></div><div class=\"ds-bug-form__env\"><span>Chrome 130 · macOS 15 · 1920×1080</span><button type=\"button\">修改</button></div><div class=\"ds-bug-form__foot\"><button type=\"button\">添加截图</button><button type=\"submit\" class=\"is-primary\">提交报告</button></div></form>",
+    "checks": [
+      "自动附带环境信息",
+      "步骤支持编号输入",
+      "提交成功给工单号",
+      "校验汇总可定位"
+    ],
+    "react": "<BugReportForm title=\"表格冻结列在暗色模式下边框消失\" env=\"Chrome 130 · macOS 15\" onSubmit={submit} />"
+  },
+  {
+    "id": "feedback-feature-request",
+    "name": "功能请求卡",
+    "category": "反馈",
+    "status": "v3 新增",
+    "purpose": "收集用户对功能的期望，展示投票数与官方状态。",
+    "anatomy": [
+      "投票按钮 (ds-feat-req__vote)",
+      "标题",
+      "描述",
+      "状态标记",
+      "评论数"
+    ],
+    "keyboard": "投票按钮 aria-pressed；卡片可聚焦查看详情。",
+    "guidance": [
+      "状态流转：已收到 → 规划中 → 开发中 → 已上线。",
+      "投票后不可重复计数。",
+      "已上线请求展示版本号。"
+    ],
+    "preview": "<div class=\"ds-feat-req\" tabindex=\"0\" role=\"button\"><button type=\"button\" class=\"ds-feat-req__vote\" aria-pressed=\"false\" aria-label=\"投票支持\"><span aria-hidden=\"true\">▲</span><strong>248</strong></button><div class=\"ds-feat-req__body\"><strong>支持表格跨页全选</strong><p>批量操作时希望跨页累计选择，避免逐页勾选。</p><div class=\"ds-feat-req__meta\"><span class=\"ds-feat-req__state is-planned\">规划中</span><span>32 条评论</span></div></div></div>",
+    "checks": [
+      "状态流转四阶段",
+      "投票不可重复计数",
+      "已上线展示版本号",
+      "投票按钮 aria-pressed"
+    ],
+    "react": "<FeatureRequestCard title=\"支持表格跨页全选\" body=\"批量操作时希望跨页累计选择。\" votes={248} state=\"规划中\" comments={32} />"
+  },
+  {
+    "id": "feedback-changelog-vote",
+    "name": "更新日志投票",
+    "category": "反馈",
+    "status": "v3 新增",
+    "purpose": "在更新日志条目下收集“有帮助”反馈，并关联具体版本。",
+    "anatomy": [
+      "版本号 (ds-log-vote__version)",
+      "更新摘要",
+      "有帮助按钮",
+      "无帮助按钮",
+      "感谢状态"
+    ],
+    "keyboard": "两个反馈按钮均可聚焦；点击后禁用并致谢。",
+    "guidance": [
+      "投票后展示感谢且不可改。",
+      "无帮助时追问具体原因。",
+      "按版本分组展示。"
+    ],
+    "preview": "<div class=\"ds-log-vote\"><p class=\"ds-log-vote__version\">v3.12.0 · 10-16</p><p class=\"ds-log-vote__summary\">新增表格冻结列与批量操作栏</p><div class=\"ds-log-vote__actions\"><button type=\"button\" aria-pressed=\"true\">👍 有帮助 86</button><button type=\"button\" aria-pressed=\"false\">🤔 无帮助 4</button></div></div>",
+    "checks": [
+      "投票后致谢不可改",
+      "无帮助追问原因",
+      "按版本分组",
+      "两个按钮均可聚焦"
+    ],
+    "react": "<ChangelogVote version=\"v3.12.0\" date=\"10-16\" summary=\"新增表格冻结列与批量操作栏\" helpful={86} unhelpful={4} />"
+  },
+  {
+    "id": "feedback-thanks",
+    "name": "反馈感谢状态",
+    "category": "反馈",
+    "status": "v3 新增",
+    "purpose": "在用户提交反馈后确认收到，并说明后续处理方式。",
+    "anatomy": [
+      "成功图标 (ds-fb-thanks__icon)",
+      "感谢文案",
+      "工单号",
+      "后续说明",
+      "返回入口"
+    ],
+    "keyboard": "状态使用 status 语义；返回按钮可聚焦。",
+    "guidance": [
+      "说明预计回复时间。",
+      "提供工单号便于追踪。",
+      "引导继续探索而非死胡同。"
+    ],
+    "preview": "<div class=\"ds-fb-thanks\" role=\"status\"><span class=\"ds-fb-thanks__icon\" aria-hidden=\"true\">🎉</span><strong>感谢你的反馈</strong><p>工单号 #FB-20261018-042，我们会在 2 个工作日内回复你。</p><button type=\"button\">返回产品</button></div>",
+    "checks": [
+      "说明预计回复时间",
+      "提供工单号",
+      "引导继续探索",
+      "status 语义"
+    ],
+    "react": "<FeedbackThanks ticket=\"FB-20261018-042\" eta=\"2 个工作日\" onBack={back} />"
+  },
+  {
+    "id": "feedback-followup-prompt",
+    "name": "反馈追问提示",
+    "category": "反馈",
+    "status": "v3 新增",
+    "purpose": "在用户给出评分后追问具体原因，提高反馈信息量。",
+    "anatomy": [
+      "问题 (ds-followup__q)",
+      "选项 chips",
+      "补充输入",
+      "跳过"
+    ],
+    "keyboard": "chips 多选可聚焦；输入框可达；跳过按钮可用。",
+    "guidance": [
+      "选项基于所选评分动态生成。",
+      "允许跳过不强制填写。",
+      "提交后与原始评分关联。"
+    ],
+    "preview": "<div class=\"ds-followup\" role=\"group\" aria-label=\"补充反馈\"><p class=\"ds-followup__q\">哪些方面让你不满意？</p><div class=\"ds-followup__chips\"><button type=\"button\" aria-pressed=\"true\">加载慢</button><button type=\"button\" aria-pressed=\"false\">功能缺失</button><button type=\"button\" aria-pressed=\"false\">界面复杂</button></div><textarea rows={2} placeholder=\"补充说明（选填）\"></textarea><div class=\"ds-followup__foot\"><button type=\"button\">跳过</button><button type=\"button\" class=\"is-primary\">提交</button></div></div>",
+    "checks": [
+      "选项随评分动态生成",
+      "允许跳过",
+      "与原始评分关联",
+      "chips 多选语义"
+    ],
+    "react": "<FollowupPrompt question=\"哪些方面让你不满意？\" options={[\"加载慢\", \"功能缺失\", \"界面复杂\"]} onSubmit={submit} onSkip={skip} />"
   }
 ]
