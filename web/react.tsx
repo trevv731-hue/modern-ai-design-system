@@ -18553,3 +18553,133 @@ export function CuppingScoreCard({ name, scores }: { name: string; scores: { aro
     <span className="ds-cafe-cup__total">{total.toFixed(1)}</span>
   </article>;
 }
+
+export function AuctionLotCard({ title, price, bids, state }: { title: string; price: number; bids: number; state: 'live' | 'ending' | 'sold' | 'failed' }) {
+  const stateText = { live: '竞价中', ending: '即将结束', sold: '已成交', failed: '已流拍' };
+  return <article className={'ds-auc-lot is-' + state} tabIndex={0} role="button" aria-label={'拍品，' + title + '，当前价 ' + price.toLocaleString() + ' 元，出价 ' + bids + ' 次，' + stateText[state]}>
+    <span className="ds-auc-lot__thumb" aria-hidden="true">{title.slice(0, 1)}</span>
+    <div className="ds-auc-lot__body">
+      <strong className="ds-auc-lot__title">{title}</strong>
+      <div className="ds-auc-lot__meta">
+        <span className="ds-auc-lot__price">¥{price.toLocaleString()}</span>
+        <span className="ds-auc-lot__bids">{bids} 次出价</span>
+        <span className={'ds-auc-lot__state is-' + state}>{stateText[state]}</span>
+      </div>
+    </div>
+  </article>;
+}
+
+export function BidHistoryRow({ user, amount, time, lead }: { user: string; amount: number; time: string; lead: boolean }) {
+  return <div className={'ds-auc-bid' + (lead ? ' is-lead' : '')} tabIndex={0} role="button" aria-label={'出价记录，出价人 ' + user + '，金额 ' + amount.toLocaleString() + ' 元，' + time + '，' + (lead ? '当前领先' : '非领先出价')}>
+    <strong className="ds-auc-bid__amount">¥{amount.toLocaleString()}</strong>
+    <span className="ds-auc-bid__user">{user}</span>
+    <span className="ds-auc-bid__time">{time}</span>
+    {lead ? <span className="ds-auc-bid__lead">领先</span> : null}
+  </div>;
+}
+
+export function AuctionCountdownCard({ stage, left, phase }: { stage: string; left: string; phase: 'preview' | 'bidding' | 'delay' }) {
+  const phaseText = { preview: '预告中', bidding: '竞价中', delay: '延时中' };
+  const urgent = left.startsWith('00:') || (left.length === 5 && left < '05:00');
+  return <article className={'ds-auc-count' + (urgent ? ' is-urgent' : '')} aria-label={'拍卖倒计时，' + stage + '，' + phaseText[phase] + '，剩余 ' + left.replace(':', ' 分 ') + ' 秒' + (urgent ? '，即将结束' : '')}>
+    <div className="ds-auc-count__head">
+      <strong className="ds-auc-count__stage">{stage}</strong>
+      {phase === 'delay' ? <span className="ds-auc-count__delay">延时中</span> : null}
+    </div>
+    <span className="ds-auc-count__timer" role="timer">{left}</span>
+  </article>;
+}
+
+export function AuctionResultCard({ title, price, buyer, state }: { title: string; price: number; buyer: string; state: 'sold' | 'paying' | 'failed' }) {
+  const stateText = { sold: '已成交 · 待付款', paying: '已付款', failed: '已流拍' };
+  return <article className={'ds-auc-result is-' + state} tabIndex={0} role="button" aria-label={'竞拍结果，' + title + '，' + (state === 'failed' ? '未成交' : '成交价 ' + price.toLocaleString() + ' 元') + '，买家 ' + buyer + '，' + stateText[state]}>
+    <strong className="ds-auc-result__title">{title}</strong>
+    {state !== 'failed' ? <span className="ds-auc-result__price">¥{price.toLocaleString()}</span> : null}
+    <div className="ds-auc-result__meta">
+      <span className="ds-auc-result__buyer">{buyer}</span>
+      <span className={'ds-auc-result__state is-' + state}>{stateText[state]}</span>
+    </div>
+  </article>;
+}
+
+export function WatchlistLotRow({ title, price, cap }: { title: string; price: number; cap: number }) {
+  const state = price > cap ? 'outbid' : cap > 0 ? 'leading' : 'none';
+  const stateText = { leading: '领先', outbid: '被超越', none: '未出价' };
+  return <div className={'ds-auc-watch is-' + state} tabIndex={0} role="button" aria-label={'关注拍品，' + title + '，当前价 ' + price.toLocaleString() + ' 元，我的上限 ' + cap.toLocaleString() + ' 元，' + stateText[state]}>
+    <strong className="ds-auc-watch__title">{title}</strong>
+    <span className="ds-auc-watch__price">¥{price.toLocaleString()}</span>
+    <span className="ds-auc-watch__cap">上限 ¥{cap.toLocaleString()}</span>
+    <span className={'ds-auc-watch__state is-' + state}>{stateText[state]}</span>
+  </div>;
+}
+
+export function ProxyBidCard({ title, cap, current, state }: { title: string; cap: number; current: number; state: 'active' | 'used' | 'none' }) {
+  const stateText = { active: '生效中', used: '已用尽', none: '未设置' };
+  return <article className={'ds-auc-proxy is-' + state} tabIndex={0} role="button" aria-label={'代理出价，' + title + '，上限 ' + cap.toLocaleString() + ' 元，当前代理价 ' + current.toLocaleString() + ' 元，' + stateText[state]}>
+    <div className="ds-auc-proxy__head">
+      <strong className="ds-auc-proxy__title">{title}</strong>
+      <span className={'ds-auc-proxy__state is-' + state}>{stateText[state]}</span>
+    </div>
+    <div className="ds-auc-proxy__nums">
+      <span className="ds-auc-proxy__cur">¥{current.toLocaleString()}</span>
+      <span className="ds-auc-proxy__cap">上限 ¥{cap.toLocaleString()}</span>
+    </div>
+  </article>;
+}
+
+export function ReservePriceCard({ title, reserve, current }: { title: string; reserve: number; current: number }) {
+  const met = current >= reserve;
+  return <article className={'ds-auc-reserve ' + (met ? 'is-met' : 'is-unmet')} tabIndex={0} role="button" aria-label={'保留价，' + title + '，保留价 ' + reserve.toLocaleString() + ' 元，当前价 ' + current.toLocaleString() + ' 元，' + (met ? '已达保留价' : '未达保留价')}>
+    <div className="ds-auc-reserve__head">
+      <strong className="ds-auc-reserve__title">{title}</strong>
+      <span className={'ds-auc-reserve__state ' + (met ? 'is-met' : 'is-unmet')}>{met ? '已达保留价' : '未达保留价'}</span>
+    </div>
+    <div className="ds-auc-reserve__nums">
+      <span className="ds-auc-reserve__cur">当前 ¥{current.toLocaleString()}</span>
+      <span className="ds-auc-reserve__price">保留 ¥{reserve.toLocaleString()}</span>
+    </div>
+  </article>;
+}
+
+export function BidIncrementTable({ currentRange }: { currentRange: string }) {
+  const rows = [
+    { range: '1 万以下', step: '+500' },
+    { range: '1 万 – 5 万', step: '+1,000' },
+    { range: '5 万 – 10 万', step: '+2,000' },
+    { range: '10 万 – 50 万', step: '+5,000' },
+    { range: '50 万以上', step: '+10,000' }
+  ];
+  return <table className="ds-auc-inc">
+    <caption className="ds-auc-inc__head">加价阶梯 · 当前区间 {currentRange}</caption>
+    <tbody>
+      {rows.map(r => <tr key={r.range} className={'ds-auc-inc__row' + (r.range === currentRange ? ' is-current' : '')}>
+        <td className="ds-auc-inc__range">{r.range}</td>
+        <td className="ds-auc-inc__step">{r.step}</td>
+      </tr>)}
+    </tbody>
+  </table>;
+}
+
+export function AuctionSettlementRow({ price, commission, shipping }: { price: number; commission: number; shipping: number }) {
+  const total = price + commission + shipping;
+  return <div className="ds-auc-settle" role="group" aria-label={'拍卖结算，成交价 ' + price.toLocaleString() + ' 元，佣金 ' + commission.toLocaleString() + ' 元，运费 ' + shipping + ' 元，应付总额 ' + total.toLocaleString() + ' 元'}>
+    <div className="ds-auc-settle__row"><span className="ds-auc-settle__label">成交价</span><span className="ds-auc-settle__value">¥{price.toLocaleString()}</span></div>
+    <div className="ds-auc-settle__row"><span className="ds-auc-settle__label">佣金<span className="ds-auc-settle__note">15%</span></span><span className="ds-auc-settle__value">¥{commission.toLocaleString()}</span></div>
+    <div className="ds-auc-settle__row"><span className="ds-auc-settle__label">运费<span className="ds-auc-settle__note">保价运输</span></span><span className="ds-auc-settle__value">¥{shipping}</span></div>
+    <div className="ds-auc-settle__row is-total"><span className="ds-auc-settle__label">应付总额</span><span className="ds-auc-settle__value">¥{total.toLocaleString()}</span></div>
+  </div>;
+}
+
+export function AuctionAppealCard({ kind, time, progress, state }: { kind: string; time: string; progress: number; state: 'reviewing' | 'done' | 'rejected' }) {
+  const stateText = { reviewing: '已受理 · 待裁决', done: '已完结', rejected: '已驳回' };
+  return <article className={'ds-auc-appeal is-' + state} tabIndex={0} role="button" aria-label={'拍卖申诉，类型 ' + kind + '，提交于 ' + time + '，处理进度 ' + progress + '%，' + stateText[state]}>
+    <div className="ds-auc-appeal__head">
+      <strong className="ds-auc-appeal__kind">{kind}</strong>
+      <span className="ds-auc-appeal__state">{stateText[state]}</span>
+    </div>
+    <div className="ds-auc-appeal__bar" role="progressbar" aria-valuenow={progress} aria-valuemin={0} aria-valuemax={100} aria-label="申诉处理进度">
+      <span className="ds-auc-appeal__fill" style={{ width: progress + '%' }} />
+    </div>
+    <span className="ds-auc-appeal__time">提交于 {time}</span>
+  </article>;
+}

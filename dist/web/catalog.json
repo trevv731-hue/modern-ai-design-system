@@ -23811,5 +23811,276 @@
       "分项评语"
     ],
     "react": "<CuppingScoreCard name=\"花魁 7.0\" scores={{ aroma: 9, flavor: 8.5, aftertaste: 8, acidity: 8.5, cleanliness: 8.5 }} />"
+  },
+  {
+    "id": "auc-lot",
+    "name": "拍品卡",
+    "category": "拍卖 / 竞拍平台",
+    "status": "v3 新增",
+    "purpose": "展示一件拍品的当前竞价与出价热度。",
+    "anatomy": [
+      "拍品名 (ds-auc-lot__title)",
+      "当前价 (ds-auc-lot__price)",
+      "出价数 (ds-auc-lot__bids)",
+      "状态 (ds-auc-lot__state)",
+      "缩略图 (ds-auc-lot__thumb)"
+    ],
+    "keyboard": "卡片可聚焦进入拍品页；领先/被超越以文字加颜色提示。",
+    "guidance": [
+      "状态四态：竞价中、即将结束、已成交、已流拍。",
+      "当前价红色等宽。",
+      "出价数以徽标展示。"
+    ],
+    "preview": "<article class=\"ds-auc-lot is-live\" tabindex=\"0\" role=\"button\" aria-label=\"拍品，明代青花缠枝莲纹梅瓶，当前价 128,000 元，出价 23 次，竞价中\"><span class=\"ds-auc-lot__thumb\" aria-hidden=\"true\">瓷</span><div class=\"ds-auc-lot__body\"><strong class=\"ds-auc-lot__title\">明代青花缠枝莲纹梅瓶</strong><div class=\"ds-auc-lot__meta\"><span class=\"ds-auc-lot__price\">¥128,000</span><span class=\"ds-auc-lot__bids\">23 次出价</span><span class=\"ds-auc-lot__state is-live\">竞价中</span></div></div></article>",
+    "checks": [
+      "四态状态",
+      "当前价红色",
+      "出价计数",
+      "进入拍品页"
+    ],
+    "react": "<AuctionLotCard title=\"明代青花缠枝莲纹梅瓶\" price={128000} bids={23} state=\"live\" />"
+  },
+  {
+    "id": "auc-bid",
+    "name": "出价记录行",
+    "category": "拍卖 / 竞拍平台",
+    "status": "v3 新增",
+    "purpose": "展示一条出价记录的出价人与金额。",
+    "anatomy": [
+      "出价人 (ds-auc-bid__user)",
+      "金额 (ds-auc-bid__amount)",
+      "时间 (ds-auc-bid__time)",
+      "领先标识 (ds-auc-bid__lead)"
+    ],
+    "keyboard": "行可聚焦查看出价详情；领先出价以文字标识。",
+    "guidance": [
+      "金额红色等宽。",
+      "领先行文字标注。",
+      "时间等宽展示。"
+    ],
+    "preview": "<div class=\"ds-auc-bid is-lead\" tabindex=\"0\" role=\"button\" aria-label=\"出价记录，出价人 藏家 7288，金额 128,000 元，06-18 15:42，当前领先\"><strong class=\"ds-auc-bid__amount\">¥128,000</strong><span class=\"ds-auc-bid__user\">藏家 7288</span><span class=\"ds-auc-bid__time\">06-18 15:42</span><span class=\"ds-auc-bid__lead\">领先</span></div>",
+    "checks": [
+      "金额红色",
+      "领先标识",
+      "时间等宽",
+      "出价详情"
+    ],
+    "react": "<BidHistoryRow user=\"藏家 7288\" amount={128000} time=\"06-18 15:42\" lead />"
+  },
+  {
+    "id": "auc-count",
+    "name": "拍卖倒计时卡",
+    "category": "拍卖 / 竞拍平台",
+    "status": "v3 新增",
+    "purpose": "展示一场拍卖的剩余时间与阶段状态。",
+    "anatomy": [
+      "阶段名 (ds-auc-count__stage)",
+      "倒计时 (ds-auc-count__timer)",
+      "延时提示 (ds-auc-count__delay)",
+      "预警 (is-urgent)"
+    ],
+    "keyboard": "倒计时以 timer 语义播报；最后 5 分钟脉冲提示。",
+    "guidance": [
+      "阶段三态：预告中、竞价中、延时中。",
+      "最后 5 分钟红色预警。",
+      "时间等宽倒计时。"
+    ],
+    "preview": "<article class=\"ds-auc-count is-urgent\" aria-label=\"拍卖倒计时，古籍专场第 3 场，竞价中，剩余 4 分 38 秒，即将结束\"><div class=\"ds-auc-count__head\"><strong class=\"ds-auc-count__stage\">古籍专场 · 第 3 场</strong><span class=\"ds-auc-count__delay\">延时中</span></div><span class=\"ds-auc-count__timer\" role=\"timer\">04:38</span></article>",
+    "checks": [
+      "timer 语义",
+      "三态阶段",
+      "5 分钟预警",
+      "延时提示"
+    ],
+    "react": "<AuctionCountdownCard stage=\"古籍专场 · 第 3 场\" left=\"04:38\" phase=\"bidding\" />"
+  },
+  {
+    "id": "auc-result",
+    "name": "竞拍结果卡",
+    "category": "拍卖 / 竞拍平台",
+    "status": "v3 新增",
+    "purpose": "展示一件拍品的成交结果与买家信息。",
+    "anatomy": [
+      "拍品名 (ds-auc-result__title)",
+      "成交价 (ds-auc-result__price)",
+      "买家 (ds-auc-result__buyer)",
+      "状态 (ds-auc-result__state)"
+    ],
+    "keyboard": "卡片可聚焦查看成交确认单；流拍以 alert 语义播报。",
+    "guidance": [
+      "状态三态：已成交、待付款、已流拍。",
+      "成交价红色大字。",
+      "买家脱敏展示。"
+    ],
+    "preview": "<article class=\"ds-auc-result is-sold\" tabindex=\"0\" role=\"button\" aria-label=\"竞拍结果，清雍正矾红彩云龙纹盏，成交价 2,360,000 元，买家 藏家 3306，已成交，待付款\"><strong class=\"ds-auc-result__title\">清雍正矾红彩云龙纹盏</strong><span class=\"ds-auc-result__price\">¥2,360,000</span><div class=\"ds-auc-result__meta\"><span class=\"ds-auc-result__buyer\">藏家 3306</span><span class=\"ds-auc-result__state is-sold\">已成交 · 待付款</span></div></article>",
+    "checks": [
+      "三态结果",
+      "成交价大字",
+      "买家脱敏",
+      "确认单"
+    ],
+    "react": "<AuctionResultCard title=\"清雍正矾红彩云龙纹盏\" price={2360000} buyer=\"藏家 3306\" state=\"sold\" />"
+  },
+  {
+    "id": "auc-watch",
+    "name": "关注列表行",
+    "category": "拍卖 / 竞拍平台",
+    "status": "v3 新增",
+    "purpose": "展示一件关注拍品的当前价与我的出价上限。",
+    "anatomy": [
+      "拍品名 (ds-auc-watch__title)",
+      "当前价 (ds-auc-watch__price)",
+      "我的上限 (ds-auc-watch__cap)",
+      "状态 (ds-auc-watch__state)"
+    ],
+    "keyboard": "行可聚焦调整出价上限；被超越以 alert 语义播报。",
+    "guidance": [
+      "状态三态：领先、被超越、未出价。",
+      "上限与当前价对照。",
+      "超出上限高亮提示。"
+    ],
+    "preview": "<div class=\"ds-auc-watch is-outbid\" tabindex=\"0\" role=\"button\" aria-label=\"关注拍品，宋拓石门颂册页，当前价 96,000 元，我的上限 95,000 元，已被超越\"><strong class=\"ds-auc-watch__title\">宋拓石门颂册页</strong><span class=\"ds-auc-watch__price\">¥96,000</span><span class=\"ds-auc-watch__cap\">上限 ¥95,000</span><span class=\"ds-auc-watch__state is-outbid\">被超越</span></div>",
+    "checks": [
+      "三态状态",
+      "上限对照",
+      "超出提示",
+      "调整上限"
+    ],
+    "react": "<WatchlistLotRow title=\"宋拓石门颂册页\" price={96000} cap={95000} />"
+  },
+  {
+    "id": "auc-proxy",
+    "name": "代理出价卡",
+    "category": "拍卖 / 竞拍平台",
+    "status": "v3 新增",
+    "purpose": "展示代理出价的上限设置与当前代理状态。",
+    "anatomy": [
+      "拍品名 (ds-auc-proxy__title)",
+      "上限 (ds-auc-proxy__cap)",
+      "当前代理价 (ds-auc-proxy__cur)",
+      "状态 (ds-auc-proxy__state)"
+    ],
+    "keyboard": "卡片可聚焦修改上限；代理生效以 status 语义播报。",
+    "guidance": [
+      "状态三态：生效中、已用尽、未设置。",
+      "上限金额等宽。",
+      "修改入口文字标注。"
+    ],
+    "preview": "<article class=\"ds-auc-proxy is-active\" tabindex=\"0\" role=\"button\" aria-label=\"代理出价，明万历五彩龙凤纹盘，上限 150,000 元，当前代理价 132,000 元，生效中\"><div class=\"ds-auc-proxy__head\"><strong class=\"ds-auc-proxy__title\">明万历五彩龙凤纹盘</strong><span class=\"ds-auc-proxy__state is-active\">生效中</span></div><div class=\"ds-auc-proxy__nums\"><span class=\"ds-auc-proxy__cur\">¥132,000</span><span class=\"ds-auc-proxy__cap\">上限 ¥150,000</span></div></article>",
+    "checks": [
+      "三态状态",
+      "上限等宽",
+      "代理价对照",
+      "修改上限"
+    ],
+    "react": "<ProxyBidCard title=\"明万历五彩龙凤纹盘\" cap={150000} current={132000} state=\"active\" />"
+  },
+  {
+    "id": "auc-reserve",
+    "name": "保留价卡",
+    "category": "拍卖 / 竞拍平台",
+    "status": "v3 新增",
+    "purpose": "展示一件拍品的保留价设置与达到情况。",
+    "anatomy": [
+      "拍品名 (ds-auc-reserve__title)",
+      "保留价 (ds-auc-reserve__price)",
+      "当前价对照 (ds-auc-reserve__cur)",
+      "状态 (ds-auc-reserve__state)"
+    ],
+    "keyboard": "卡片可聚焦查看保留价规则；未达到以 status 语义播报。",
+    "guidance": [
+      "状态两态：已达保留价、未达保留价。",
+      "保留价文字说明不展示具体值时标注保密。",
+      "当前价对照展示。"
+    ],
+    "preview": "<article class=\"ds-auc-reserve is-met\" tabindex=\"0\" role=\"button\" aria-label=\"保留价，元龙泉窑鬲式炉，保留价 88,000 元，当前价 92,000 元，已达保留价\"><div class=\"ds-auc-reserve__head\"><strong class=\"ds-auc-reserve__title\">元龙泉窑鬲式炉</strong><span class=\"ds-auc-reserve__state is-met\">已达保留价</span></div><div class=\"ds-auc-reserve__nums\"><span class=\"ds-auc-reserve__cur\">当前 ¥92,000</span><span class=\"ds-auc-reserve__price\">保留 ¥88,000</span></div></article>",
+    "checks": [
+      "两态状态",
+      "价格对照",
+      "规则查看",
+      "保密标注"
+    ],
+    "react": "<ReservePriceCard title=\"元龙泉窑鬲式炉\" reserve={88000} current={92000} />"
+  },
+  {
+    "id": "auc-inc",
+    "name": "加价阶梯表",
+    "category": "拍卖 / 竞拍平台",
+    "status": "v3 新增",
+    "purpose": "展示不同价格区间对应的最小加价幅度。",
+    "anatomy": [
+      "表头 (ds-auc-inc__head)",
+      "价格区间 (ds-auc-inc__range)",
+      "加价幅度 (ds-auc-inc__step)",
+      "当前区间 (is-current)"
+    ],
+    "keyboard": "行可聚焦查看阶梯说明；当前区间文字高亮。",
+    "guidance": [
+      "区间五档递增。",
+      "当前区间蓝色高亮。",
+      "加价幅度等宽。"
+    ],
+    "preview": "<table class=\"ds-auc-inc\"><caption class=\"ds-auc-inc__head\">加价阶梯 · 当前区间 1 万至 5 万</caption><tbody><tr class=\"ds-auc-inc__row\"><td class=\"ds-auc-inc__range\">1 万以下</td><td class=\"ds-auc-inc__step\">+500</td></tr><tr class=\"ds-auc-inc__row is-current\"><td class=\"ds-auc-inc__range\">1 万 – 5 万</td><td class=\"ds-auc-inc__step\">+1,000</td></tr><tr class=\"ds-auc-inc__row\"><td class=\"ds-auc-inc__range\">5 万 – 10 万</td><td class=\"ds-auc-inc__step\">+2,000</td></tr><tr class=\"ds-auc-inc__row\"><td class=\"ds-auc-inc__range\">10 万 – 50 万</td><td class=\"ds-auc-inc__step\">+5,000</td></tr><tr class=\"ds-auc-inc__row\"><td class=\"ds-auc-inc__range\">50 万以上</td><td class=\"ds-auc-inc__step\">+10,000</td></tr></tbody></table>",
+    "checks": [
+      "五档阶梯",
+      "当前高亮",
+      "幅度等宽",
+      "阶梯说明"
+    ],
+    "react": "<BidIncrementTable currentRange=\"1 万 – 5 万\" />"
+  },
+  {
+    "id": "auc-settle",
+    "name": "拍卖结算行",
+    "category": "拍卖 / 竞拍平台",
+    "status": "v3 新增",
+    "purpose": "展示一笔成交的佣金、运费与应付总额。",
+    "anatomy": [
+      "项目名 (ds-auc-settle__label)",
+      "金额 (ds-auc-settle__value)",
+      "说明 (ds-auc-settle__note)",
+      "合计行 (is-total)"
+    ],
+    "keyboard": "行可聚焦查看费用明细；待支付状态以 status 语义播报。",
+    "guidance": [
+      "合计行加粗突出。",
+      "佣金按比例文字说明。",
+      "金额右对齐等宽。"
+    ],
+    "preview": "<div class=\"ds-auc-settle\" role=\"group\" aria-label=\"拍卖结算，成交价 92,000 元，佣金 15% 计 13,800 元，运费 800 元，应付总额 106,600 元，待支付\"><div class=\"ds-auc-settle__row\"><span class=\"ds-auc-settle__label\">成交价</span><span class=\"ds-auc-settle__value\">¥92,000</span></div><div class=\"ds-auc-settle__row\"><span class=\"ds-auc-settle__label\">佣金<span class=\"ds-auc-settle__note\">15%</span></span><span class=\"ds-auc-settle__value\">¥13,800</span></div><div class=\"ds-auc-settle__row\"><span class=\"ds-auc-settle__label\">运费<span class=\"ds-auc-settle__note\">保价运输</span></span><span class=\"ds-auc-settle__value\">¥800</span></div><div class=\"ds-auc-settle__row is-total\"><span class=\"ds-auc-settle__label\">应付总额</span><span class=\"ds-auc-settle__value\">¥106,600</span></div></div>",
+    "checks": [
+      "合计加粗",
+      "佣金说明",
+      "右对齐等宽",
+      "费用明细"
+    ],
+    "react": "<AuctionSettlementRow price={92000} commission={13800} shipping={800} />"
+  },
+  {
+    "id": "auc-appeal",
+    "name": "拍卖申诉卡",
+    "category": "拍卖 / 竞拍平台",
+    "status": "v3 新增",
+    "purpose": "展示一次拍卖申诉的类型与处理进度。",
+    "anatomy": [
+      "申诉类型 (ds-auc-appeal__kind)",
+      "提交时间 (ds-auc-appeal__time)",
+      "进度条 (ds-auc-appeal__bar)",
+      "状态 (ds-auc-appeal__state)"
+    ],
+    "keyboard": "进度以 progressbar 语义播报；已完结以 status 语义提示。",
+    "guidance": [
+      "进度按处理阶段填充。",
+      "类型文字标注。",
+      "结论入口可聚焦。"
+    ],
+    "preview": "<article class=\"ds-auc-appeal\" tabindex=\"0\" role=\"button\" aria-label=\"拍卖申诉，类型 拍品描述不符，提交于 06-19，处理进度 60%，已受理，待裁决\"><div class=\"ds-auc-appeal__head\"><strong class=\"ds-auc-appeal__kind\">拍品描述不符</strong><span class=\"ds-auc-appeal__state\">已受理 · 待裁决</span></div><div class=\"ds-auc-appeal__bar\" role=\"progressbar\" aria-valuenow=\"60\" aria-valuemin=\"0\" aria-valuemax=\"100\" aria-label=\"申诉处理进度\"><span class=\"ds-auc-appeal__fill\" style=\"width:60%\"></span></div><span class=\"ds-auc-appeal__time\">提交于 06-19</span></article>",
+    "checks": [
+      "progressbar 语义",
+      "进度填充",
+      "类型标注",
+      "结论入口"
+    ],
+    "react": "<AuctionAppealCard kind=\"拍品描述不符\" time=\"06-19\" progress={60} state=\"reviewing\" />"
   }
 ]
