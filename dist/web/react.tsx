@@ -16188,3 +16188,138 @@ export function BarcodeScanResult({ code, type, history, onRescan }: { code: str
     <button type="button" onClick={onRescan}>重新扫描</button>
   </div>;
 }
+
+export function ContractReviewPanel({ score, trend, high, medium, low, progress }: { score: number; trend: number; high: number; medium: number; low: number; progress: number }) {
+  return <section className="ds-contract-review" aria-label={'合同审查报告，风险总分 ' + score + '，高风险 ' + high + ' 条，中风险 ' + medium + ' 条，低风险 ' + low + ' 条'}>
+    <div className="ds-contract-review__head">
+      <strong className="ds-contract-review__score">{score}<small> / 100 风险分</small></strong>
+      <span className={'ds-contract-review__trend ' + (trend <= 0 ? 'is-down' : 'is-up')}>{trend <= 0 ? '↓ ' + Math.abs(trend) : '↑ ' + trend} 较初稿</span>
+    </div>
+    <div className="ds-contract-review__stats">
+      <span className="is-high">高风险 {high}</span>
+      <span className="is-medium">中风险 {medium}</span>
+      <span className="is-low">低风险 {low}</span>
+    </div>
+    <div className="ds-contract-review__progress" role="progressbar" aria-valuenow={progress} aria-valuemin={0} aria-valuemax={100} aria-label="审查进度"><i style={{ width: progress + '%' }} /></div>
+    <p className="ds-contract-review__meta">已审查 {progress}% 条款</p>
+  </section>;
+}
+
+export function ClauseRiskRow({ no, title, level, summary, fix, status }: { no: string; title: string; level: 'high' | 'medium' | 'low'; summary: string; fix: string; status: 'open' | 'fixed' | 'ignored' }) {
+  const levelText = { high: '高风险', medium: '中风险', low: '低风险' };
+  return <article className={'ds-clause-risk is-' + level} tabIndex={0} aria-label={no + ' ' + title + '，' + levelText[level]}>
+    <div className="ds-clause-risk__head">
+      <span className="ds-clause-risk__level">{levelText[level]}</span>
+      <strong className="ds-clause-risk__title">{no} · {title}</strong>
+    </div>
+    <p className="ds-clause-risk__summary">{summary}</p>
+    <p className="ds-clause-risk__fix">{fix}</p>
+    <div className="ds-clause-risk__foot">
+      <button type="button" className="is-primary">采纳建议</button>
+      <button type="button">查看原文</button>
+      <button type="button">忽略</button>
+      {status === 'fixed' ? <span className="ds-clause-risk__status">已修订</span> : status === 'ignored' ? <span className="ds-clause-risk__status">已忽略</span> : null}
+    </div>
+  </article>;
+}
+
+export function CaseTimeline({ caseNo, nodes }: { caseNo: string; nodes: Array<{ date: string; title: string; note: string; kind?: 'file' | 'serve' | 'hear' | 'judge' | 'exec'; current?: boolean; late?: boolean }> }) {
+  return <section className="ds-case-timeline" aria-label={'案件时间线，案号 ' + caseNo}>
+    <p className="ds-case-timeline__case">{caseNo}</p>
+    <ol>
+      {nodes.map(node => {
+        const cls = node.late ? 'is-late' : node.current ? 'is-current' : node.kind === 'hear' || node.kind === 'judge' ? 'is-key' : '';
+        return <li key={node.date + node.title} className={cls || undefined} aria-current={node.current ? 'step' : undefined}>
+          <span className="ds-case-timeline__date">{node.date}</span>
+          <div className="ds-case-timeline__body"><strong>{node.title}</strong><span>{node.note}</span></div>
+        </li>;
+      })}
+    </ol>
+  </section>;
+}
+
+export function EvidenceList({ items }: { items: Array<{ no: string; name: string; source: string; type: string; weight: number; status: 'done' | 'todo' | 'miss' }> }) {
+  const stateText = { done: '已举证', todo: '待补充', miss: '缺失' };
+  return <section className="ds-evidence-list" aria-label="证据清单">
+    {items.map(item => <div key={item.no} className="ds-evidence-list__row" tabIndex={0} role="button" aria-label={item.no + ' ' + item.name + '，' + stateText[item.status]}>
+      <span className="ds-evidence-list__no">{item.no}</span>
+      <div className="ds-evidence-list__body"><strong>{item.name}</strong><span>来源：{item.source}</span></div>
+      <span className="ds-evidence-list__type">{item.type}</span>
+      <span className="ds-evidence-list__weight" aria-label={'证明力 ' + item.weight + ' 星'}>{'★'.repeat(item.weight)}</span>
+      <span className={'ds-evidence-list__state is-' + item.status}>{stateText[item.status]}</span>
+    </div>)}
+  </section>;
+}
+
+export function HearingNoticeCard({ caseNo, time, court, items }: { caseNo: string; time: string; court: string; items: string[] }) {
+  return <article className="ds-hearing-notice" tabIndex={0} aria-label={'开庭通知，案号 ' + caseNo + '，时间 ' + time + '，' + court}>
+    <p className="ds-hearing-notice__case">{caseNo}</p>
+    <p className="ds-hearing-notice__time">{time}</p>
+    <p className="ds-hearing-notice__court">{court}</p>
+    <ul className="ds-hearing-notice__items">
+      {items.map(item => <li key={item}>{item}</li>)}
+    </ul>
+    <div className="ds-hearing-notice__foot">
+      <button type="button">添加到日历</button>
+      <span className="ds-hearing-notice__qr" aria-hidden="true" />
+    </div>
+  </article>;
+}
+
+export function ComplianceChecklist({ groups }: { groups: Array<{ title: string; items: Array<{ text: string; status: 'pass' | 'todo' | 'na' }> }> }) {
+  const icon = { pass: '✓', todo: '!', na: '–' };
+  const stateText = { pass: '通过', todo: '待办', na: '不适用' };
+  return <section className="ds-compliance-check" aria-label="合规检查清单">
+    {groups.map(group => <div key={group.title} className="ds-compliance-check__group">
+      <h4>{group.title}<small>{group.items.filter(item => item.status === 'todo').length} 项待办</small></h4>
+      {group.items.map(item => <div key={item.text} className={'ds-compliance-check__item is-' + item.status} tabIndex={0} role="checkbox" aria-checked={item.status === 'pass'}>
+        <i aria-hidden="true">{icon[item.status]}</i>
+        <span>{item.text}</span>
+        <span className="ds-compliance-check__state">{stateText[item.status]}</span>
+        {item.status === 'todo' ? <button type="button">流转</button> : null}
+      </div>)}
+    </div>)}
+    <p className="ds-compliance-check__sum">共 {groups.reduce((sum, g) => sum + g.items.length, 0)} 项 · 通过 {groups.reduce((sum, g) => sum + g.items.filter(i => i.status === 'pass').length, 0)} 项</p>
+  </section>;
+}
+
+export function SignatureProgress({ parties }: { parties: Array<{ name: string; state: 'signed' | 'pending' | 'rejected'; time?: string; current?: boolean }> }) {
+  return <ol className="ds-sign-progress" aria-label="会签进度">
+    {parties.map((party, index) => <li key={party.name} className={'ds-sign-progress__step is-' + party.state + (party.current ? ' is-current' : '')} aria-current={party.current ? 'step' : undefined}>
+      <span className="ds-sign-progress__dot" aria-hidden="true">{party.state === 'signed' ? '✓' : party.state === 'rejected' ? '✕' : index + 1}</span>
+      <span className="ds-sign-progress__party">{party.name}</span>
+      <span className="ds-sign-progress__time">{party.time ?? (party.state === 'pending' ? '待签署' : '')}</span>
+    </li>)}
+  </ol>;
+}
+
+export function LegalFeeEstimate({ items, total, note }: { items: Array<{ name: string; amount: number; note?: string }>; total: number; note?: string }) {
+  return <section className="ds-fee-estimate" aria-label={'费用估算，合计 ' + total + ' 元'}>
+    {items.map(item => <div key={item.name} className="ds-fee-estimate__row">
+      <span className="ds-fee-estimate__name">{item.name}{item.note ? <small>{item.note}</small> : null}</span>
+      <span className="ds-fee-estimate__amount">¥{item.amount.toLocaleString()}</span>
+    </div>)}
+    <div className="ds-fee-estimate__total"><span>合计</span><strong>¥{total.toLocaleString()}</strong></div>
+    {note ? <p className="ds-fee-estimate__note">{note}</p> : null}
+  </section>;
+}
+
+export function CourtDocketRow({ caseNo, time, court, judge, state, onReschedule }: { caseNo: string; time: string; court: string; judge: string; state: 'today' | 'upcoming' | 'done' | 'cancelled'; onReschedule?: () => void }) {
+  const stateText = { today: '今日开庭', upcoming: '待开庭', done: '已开庭', cancelled: '已改期' };
+  return <div className={'ds-docket-row is-' + state} tabIndex={0} role="button" aria-label={'庭审排期，' + caseNo + '，' + time + '，' + court + '，' + judge + '，' + stateText[state]}>
+    <span className="ds-docket-row__case">{caseNo}</span>
+    <div className="ds-docket-row__body"><strong>{time} · {court}</strong><span>审判员 {judge}</span></div>
+    <span className={'ds-docket-row__state is-' + state}>{stateText[state]}</span>
+    {state === 'today' || state === 'upcoming' ? <button type="button" onClick={onReschedule}>申请改期</button> : null}
+  </div>;
+}
+
+export function NotaryDocCard({ title, no, org, valid, expiring }: { title: string; no: string; org: string; valid: string; expiring?: boolean }) {
+  return <article className={'ds-notary-doc' + (expiring ? ' is-expiring' : '')} tabIndex={0} aria-label={title + '公证书，编号 ' + no + '，' + org + '，有效期 ' + valid}>
+    <span className="ds-notary-doc__seal" aria-hidden="true">公章</span>
+    <h4 className="ds-notary-doc__title">{title}公证书</h4>
+    <p className="ds-notary-doc__no">{no}</p>
+    <p className="ds-notary-doc__org">{org}</p>
+    <p className="ds-notary-doc__valid">有效期 {valid}{expiring ? ' · 即将到期' : ''}</p>
+  </article>;
+}
