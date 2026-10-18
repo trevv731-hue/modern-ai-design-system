@@ -21360,5 +21360,277 @@
       "逾期播报"
     ],
     "react": "<AgriTaskRow type=\"追施返青肥\" field=\"东区 3 号田\" area={120} progress={65} state=\"doing\" />"
+  },
+  {
+    "id": "pwr-load-curve",
+    "name": "负荷曲线卡",
+    "category": "能源 / 电力运维",
+    "status": "v3 新增",
+    "purpose": "以曲线展示当日负荷变化、峰值时段与警戒线对比。",
+    "anatomy": [
+      "当前负荷 (ds-load-curve__now)",
+      "峰值 (ds-load-curve__peak)",
+      "曲线 (ds-load-curve__chart)",
+      "时段说明 (ds-load-curve__note)"
+    ],
+    "keyboard": "图表可聚焦查看逐时数据；越过警戒线以 status 语义播报。",
+    "guidance": [
+      "超过供电能力时以红色警戒线标注。",
+      "峰值时段以文字说明。",
+      "曲线按 24 小时展开。"
+    ],
+    "preview": "<section class=\"ds-load-curve\" tabindex=\"0\" role=\"img\" aria-label=\"负荷曲线，当前 3,860 千瓦，今日峰值 5,120 千瓦出现在 15 时，警戒线 5,500 千瓦\"><div class=\"ds-load-curve__head\"><strong class=\"ds-load-curve__now\">3,860 kW</strong><span class=\"ds-load-curve__peak\">峰值 5,120 kW · 15 时</span></div><svg class=\"ds-load-curve__chart\" viewBox=\"0 0 240 60\" aria-hidden=\"true\"><line x1=\"0\" y1=\"12\" x2=\"240\" y2=\"12\" stroke=\"var(--ds-danger)\" stroke-dasharray=\"4 3\"/><polyline points=\"0,48 30,44 60,38 90,30 120,22 150,14 180,18 210,26 240,32\" fill=\"none\" stroke=\"var(--ds-accent)\" stroke-width=\"2\"/></svg><span class=\"ds-load-curve__note\">警戒线 5,500 kW</span></section>",
+    "checks": [
+      "警戒线红色",
+      "峰值时段文字",
+      "24 小时曲线",
+      "逐时数据"
+    ],
+    "react": "<PowerLoadCurveCard now={3860} peak={5120} limit={5500} series={[{ h: 0, v: 1200 }]} />"
+  },
+  {
+    "id": "pwr-substation",
+    "name": "变电站状态卡",
+    "category": "能源 / 电力运维",
+    "status": "v3 新增",
+    "purpose": "展示一座变电站的各主变负载率与整体运行状态。",
+    "anatomy": [
+      "站名 (ds-substation__name)",
+      "主变列表 (ds-substation__unit)",
+      "负载环 (ds-substation__ring)",
+      "状态 (ds-substation__state)"
+    ],
+    "keyboard": "卡片可聚焦查看主变明细；重载与过载以 alert 语义播报。",
+    "guidance": [
+      "正常绿色、重载黄色、过载红色。",
+      "负载率以环形仪表展示。",
+      "主变负载逐台列出。"
+    ],
+    "preview": "<article class=\"ds-substation is-heavy\" tabindex=\"0\" role=\"button\" aria-label=\"变电站 城东 110kV，1 号主变负载 76%，2 号主变负载 88%，整体 重载\"><div class=\"ds-substation__head\"><strong class=\"ds-substation__name\">城东 110kV</strong><span class=\"ds-substation__state is-heavy\">重载</span></div><div class=\"ds-substation__units\"><div class=\"ds-substation__unit\" tabindex=\"0\" aria-label=\"1 号主变，负载 76%\"><span class=\"ds-substation__ring\" style=\"--p:76%\" aria-hidden=\"true\"><b>76%</b></span><em>1 号主变</em></div><div class=\"ds-substation__unit is-high\" tabindex=\"0\" aria-label=\"2 号主变，负载 88%，偏高\"><span class=\"ds-substation__ring\" style=\"--p:88%\" aria-hidden=\"true\"><b>88%</b></span><em>2 号主变</em></div></div></article>",
+    "checks": [
+      "三态配色",
+      "负载环形",
+      "逐台列出",
+      "重载播报"
+    ],
+    "react": "<SubstationStatusCard name=\"城东 110kV\" units={[{ no: \"1 号主变\", load: 76 }, { no: \"2 号主变\", load: 88 }]} state=\"heavy\" />"
+  },
+  {
+    "id": "pwr-meter-read",
+    "name": "电表抄表行",
+    "category": "能源 / 电力运维",
+    "status": "v3 新增",
+    "purpose": "展示一只智能电表的本次抄表读数与本期用电量。",
+    "anatomy": [
+      "表号 (ds-meter-read__no)",
+      "读数 (ds-meter-read__reading)",
+      "本期电量 (ds-meter-read__usage)",
+      "抄表时间 (ds-meter-read__time)",
+      "状态 (ds-meter-read__state)"
+    ],
+    "keyboard": "行可聚焦查看日冻结曲线；用电突增以 status 语义播报。",
+    "guidance": [
+      "用电量环比突增超过 30% 黄色提示。",
+      "读数以等宽字体展示。",
+      "抄表失败红色并给出补抄入口。"
+    ],
+    "preview": "<div class=\"ds-meter-read is-jump\" tabindex=\"0\" role=\"button\" aria-label=\"电表 3200-1188-0456，本次读数 58,420，本期电量 486 度，抄表于 06-01 00:00，用电突增\"><span class=\"ds-meter-read__no\">3200-1188-0456</span><span class=\"ds-meter-read__reading\">58,420</span><span class=\"ds-meter-read__usage\">486 度</span><span class=\"ds-meter-read__time\">06-01 00:00</span><span class=\"ds-meter-read__state is-jump\">突增</span></div>",
+    "checks": [
+      "突增黄色",
+      "读数等宽",
+      "抄表时间",
+      "补抄入口"
+    ],
+    "react": "<SmartMeterReadingRow no=\"3200-1188-0456\" reading={58420} usage={486} time=\"06-01 00:00\" state=\"jump\" />"
+  },
+  {
+    "id": "pwr-power-bill",
+    "name": "电费账单卡",
+    "category": "能源 / 电力运维",
+    "status": "v3 新增",
+    "purpose": "展示一期电费账单的峰谷平电量构成与应付金额。",
+    "anatomy": [
+      "账期 (ds-power-bill__period)",
+      "电量分段 (ds-power-bill__segment)",
+      "电费 (ds-power-bill__amount)",
+      "环比 (ds-power-bill__cmp)"
+    ],
+    "keyboard": "卡片可聚焦查看计费明细；欠费状态以 alert 语义播报。",
+    "guidance": [
+      "峰、谷、平三段分别配色展示。",
+      "环比以箭头加数字呈现。",
+      "金额为主视觉数字。"
+    ],
+    "preview": "<article class=\"ds-power-bill\" tabindex=\"0\" role=\"button\" aria-label=\"电费账单，5 月账期，峰 320 度、平 480 度、谷 260 度，应付 486.5 元，环比下降 6%\"><div class=\"ds-power-bill__head\"><strong class=\"ds-power-bill__period\">5 月账期</strong><span class=\"ds-power-bill__cmp is-down\">↓ 6%</span></div><div class=\"ds-power-bill__segments\"><span class=\"ds-power-bill__segment is-peak\">峰<strong>320 度</strong></span><span class=\"ds-power-bill__segment is-flat\">平<strong>480 度</strong></span><span class=\"ds-power-bill__segment is-valley\">谷<strong>260 度</strong></span></div><strong class=\"ds-power-bill__amount\">¥486.50</strong></article>",
+    "checks": [
+      "三段配色",
+      "环比箭头",
+      "金额主数字",
+      "计费明细"
+    ],
+    "react": "<ElectricityBillCard period=\"5 月账期\" segments={[{ label: \"峰\", kwh: 320 }]} amount={486.5} compare={-6} />"
+  },
+  {
+    "id": "pwr-power-outage",
+    "name": "计划停电公告行",
+    "category": "能源 / 电力运维",
+    "status": "v3 新增",
+    "purpose": "展示一条计划停电公告的时间范围、区域与执行状态。",
+    "anatomy": [
+      "时间 (ds-power-outage__time)",
+      "区域 (ds-power-outage__area)",
+      "原因 (ds-power-outage__reason)",
+      "状态 (ds-power-outage__state)"
+    ],
+    "keyboard": "行可聚焦查看影响范围；执行中以 alert 语义播报。",
+    "guidance": [
+      "计划中黄色、执行中红色、已完成绿色。",
+      "影响范围以文字列出。",
+      "执行前 24 小时突出提醒。"
+    ],
+    "preview": "<div class=\"ds-power-outage is-planned\" tabindex=\"0\" role=\"button\" aria-label=\"计划停电，06-20 09:00 至 17:00，文晖路两侧小区，线路迁改，计划中\"><span class=\"ds-power-outage__time\">06-20 09:00-17:00</span><strong class=\"ds-power-outage__area\">文晖路两侧小区</strong><span class=\"ds-power-outage__reason\">线路迁改</span><span class=\"ds-power-outage__state is-planned\">计划中</span></div>",
+    "checks": [
+      "三态配色",
+      "影响范围文字",
+      "24 小时提醒",
+      "执行中播报"
+    ],
+    "react": "<OutageScheduleRow time=\"06-20 09:00-17:00\" area=\"文晖路两侧小区\" reason=\"线路迁改\" state=\"planned\" />"
+  },
+  {
+    "id": "pwr-inverter",
+    "name": "光伏逆变器卡",
+    "category": "能源 / 电力运维",
+    "status": "v3 新增",
+    "purpose": "展示一台光伏逆变器的实时发电功率与转换效率。",
+    "anatomy": [
+      "设备号 (ds-inverter__no)",
+      "发电功率 (ds-inverter__power)",
+      "转换效率 (ds-inverter__eff)",
+      "日发电量 (ds-inverter__daily)",
+      "状态 (ds-inverter__state)"
+    ],
+    "keyboard": "卡片可聚焦查看发电曲线；离线状态以 alert 语义播报。",
+    "guidance": [
+      "在线绿色、限功率黄色、离线红色。",
+      "实时功率为主视觉数字。",
+      "效率低于 90% 黄色提示。"
+    ],
+    "preview": "<article class=\"ds-inverter is-online\" tabindex=\"0\" role=\"button\" aria-label=\"逆变器 INV-08，实时发电 62.4 千瓦，转换效率 97.8%，日发电量 386 度，在线\"><div class=\"ds-inverter__head\"><strong class=\"ds-inverter__no\">INV-08</strong><span class=\"ds-inverter__state is-online\">在线</span></div><strong class=\"ds-inverter__power\">62.4<small>kW</small></strong><div class=\"ds-inverter__meta\"><span class=\"ds-inverter__eff\">效率 97.8%</span><span class=\"ds-inverter__daily\">日发电 386 度</span></div></article>",
+    "checks": [
+      "三态配色",
+      "功率主数字",
+      "效率 90% 阈值",
+      "发电曲线"
+    ],
+    "react": "<SolarInverterCard no=\"INV-08\" power={62.4} eff={97.8} daily={386} state=\"online\" />"
+  },
+  {
+    "id": "pwr-power-quality",
+    "name": "电能质量仪表组",
+    "category": "能源 / 电力运维",
+    "status": "v3 新增",
+    "purpose": "以仪表组展示电压偏差、频率偏差与谐波畸变率。",
+    "anatomy": [
+      "指标环 (ds-power-quality__ring)",
+      "指标名",
+      "实测值 (ds-power-quality__value)",
+      "限值 (ds-power-quality__limit)"
+    ],
+    "keyboard": "每项可聚焦查看历史曲线；超限项以 alert 语义播报。",
+    "guidance": [
+      "合格绿色、超限红色。",
+      "三项并列展示。",
+      "限值以文字标注在环下。"
+    ],
+    "preview": "<section class=\"ds-power-quality\" aria-label=\"电能质量，电压偏差 2.1%，限值 5%，合格；频率偏差 0.02 赫兹，限值 0.2 赫兹，合格；谐波畸变率 3.4%，限值 4%，合格\"><div class=\"ds-power-quality__item\" tabindex=\"0\" aria-label=\"电压偏差 2.1%，限值 5%，合格\"><span class=\"ds-power-quality__ring\" style=\"--p:42%\" aria-hidden=\"true\"><b>42%</b></span><em>电压偏差</em><span class=\"ds-power-quality__value\">2.1%</span><span class=\"ds-power-quality__limit\">限值 5%</span></div><div class=\"ds-power-quality__item\" tabindex=\"0\" aria-label=\"频率偏差 0.02 赫兹，限值 0.2 赫兹，合格\"><span class=\"ds-power-quality__ring\" style=\"--p:10%\" aria-hidden=\"true\"><b>10%</b></span><em>频率偏差</em><span class=\"ds-power-quality__value\">0.02 Hz</span><span class=\"ds-power-quality__limit\">限值 0.2 Hz</span></div><div class=\"ds-power-quality__item\" tabindex=\"0\" aria-label=\"谐波畸变率 3.4%，限值 4%，合格\"><span class=\"ds-power-quality__ring\" style=\"--p:85%\" aria-hidden=\"true\"><b>85%</b></span><em>谐波畸变率</em><span class=\"ds-power-quality__value\">3.4%</span><span class=\"ds-power-quality__limit\">限值 4%</span></div></section>",
+    "checks": [
+      "合格绿色",
+      "超限红色",
+      "三项并列",
+      "限值文字"
+    ],
+    "react": "<PowerQualityGauge items={[{ label: \"电压偏差\", value: \"2.1%\", limit: \"5%\", pct: 42 }]} />"
+  },
+  {
+    "id": "pwr-transformer",
+    "name": "变压器测温卡",
+    "category": "能源 / 电力运维",
+    "status": "v3 新增",
+    "purpose": "展示一台变压器的绕组温度、油面温度与温升速率。",
+    "anatomy": [
+      "设备名 (ds-transformer__name)",
+      "绕组温度 (ds-transformer__temp)",
+      "油面温度",
+      "温升 (ds-transformer__rise)",
+      "状态 (ds-transformer__state)"
+    ],
+    "keyboard": "卡片可聚焦查看历史曲线；绕组超温以 alert 语义播报。",
+    "guidance": [
+      "绕组超 105℃ 黄色、超 120℃ 红色。",
+      "温升速率以每小时度数展示。",
+      "双温度计并列对比。"
+    ],
+    "preview": "<article class=\"ds-transformer is-hot\" tabindex=\"0\" role=\"button\" aria-label=\"变压器 1 号主变，绕组温度 108 摄氏度，油面温度 72 摄氏度，温升 2.4 摄氏度每小时，高温\"><div class=\"ds-transformer__head\"><strong class=\"ds-transformer__name\">1 号主变</strong><span class=\"ds-transformer__state is-hot\">高温</span></div><div class=\"ds-transformer__temps\"><span class=\"ds-transformer__temp is-winding\">绕组<strong>108℃</strong></span><span class=\"ds-transformer__temp is-oil\">油面<strong>72℃</strong></span></div><span class=\"ds-transformer__rise\">温升 +2.4℃/h</span></article>",
+    "checks": [
+      "105/120 双阈值",
+      "双温度并列",
+      "温升速率",
+      "历史曲线"
+    ],
+    "react": "<TransformerTempCard name=\"1 号主变\" winding={108} oil={72} rise={2.4} />"
+  },
+  {
+    "id": "pwr-saving-tip",
+    "name": "节电建议卡",
+    "category": "能源 / 电力运维",
+    "status": "v3 新增",
+    "purpose": "给出一条可执行的节电建议与预计节省收益。",
+    "anatomy": [
+      "建议内容 (ds-saving-tip__text)",
+      "预计节省 (ds-saving-tip__save)",
+      "难度 (ds-saving-tip__level)"
+    ],
+    "keyboard": "卡片可聚焦采纳建议；已采纳后按钮禁用并文字说明。",
+    "guidance": [
+      "难度以低中高三级标签展示。",
+      "预计节省同时给出电量与金额。",
+      "建议文字具体可执行。"
+    ],
+    "preview": "<article class=\"ds-saving-tip\" tabindex=\"0\" aria-label=\"节电建议，将办公区空调从 24 度调整到 26 度，预计每月节省 180 度约 108 元，难度 低\"><p class=\"ds-saving-tip__text\">将办公区空调从 24℃ 调整到 26℃</p><span class=\"ds-saving-tip__save\">月省 180 度 · 约 ¥108</span><span class=\"ds-saving-tip__level is-easy\">难度 低</span><button type=\"button\">采纳建议</button></article>",
+    "checks": [
+      "三级难度标签",
+      "电量加金额",
+      "建议可执行",
+      "采纳禁用"
+    ],
+    "react": "<EnergySavingTipCard text=\"将办公区空调从 24℃ 调整到 26℃\" save=\"月省 180 度 · 约 ¥108\" level=\"easy\" />"
+  },
+  {
+    "id": "pwr-charging-pile",
+    "name": "充电桩状态行",
+    "category": "能源 / 电力运维",
+    "status": "v3 新增",
+    "purpose": "展示一个充电桩的使用状态与本次充电信息。",
+    "anatomy": [
+      "桩号 (ds-charging-pile__no)",
+      "状态 (ds-charging-pile__state)",
+      "功率 (ds-charging-pile__power)",
+      "计费 (ds-charging-pile__fee)"
+    ],
+    "keyboard": "行可聚焦查看充电订单；故障与离线状态以 alert 语义播报。",
+    "guidance": [
+      "空闲绿色、充电中蓝色、预约黄色、故障离线红色。",
+      "充电中显示实时功率与已充电量。",
+      "状态文字不只颜色。"
+    ],
+    "preview": "<div class=\"ds-charging-pile is-charging\" tabindex=\"0\" role=\"button\" aria-label=\"充电桩 P-023，充电中，功率 60 千瓦，已充 34 度，计费 28.4 元\"><strong class=\"ds-charging-pile__no\">P-023</strong><span class=\"ds-charging-pile__state is-charging\">充电中</span><span class=\"ds-charging-pile__power\">60 kW · 已充 34 度</span><span class=\"ds-charging-pile__fee\">¥28.40</span></div>",
+    "checks": [
+      "四态配色",
+      "实时功率",
+      "计费金额",
+      "充电订单"
+    ],
+    "react": "<ChargingPileStatusRow no=\"P-023\" state=\"charging\" power=\"60 kW · 已充 34 度\" fee={28.4} />"
   }
 ]

@@ -17470,3 +17470,133 @@ export function AgriTaskRow({ type, field, area, progress, state }: { type: stri
     <span className={'ds-agri-task__state is-' + state}>{stateText[state]}</span>
   </div>;
 }
+
+export function PowerLoadCurveCard({ now, peak, limit, series }: { now: number; peak: number; limit: number; series: Array<{ h: number; v: number }> }) {
+  const max = Math.max(limit, peak, ...series.map(s => s.v), 1);
+  const points = series.map((s, i) => (i / Math.max(series.length - 1, 1) * 240).toFixed(0) + ',' + (60 - s.v / max * 55).toFixed(0)).join(' ');
+  const limitY = 60 - limit / max * 55;
+  return <section className="ds-load-curve" tabIndex={0} role="img" aria-label={'负荷曲线，当前 ' + now.toLocaleString() + ' 千瓦，今日峰值 ' + peak.toLocaleString() + ' 千瓦，警戒线 ' + limit.toLocaleString() + ' 千瓦'}>
+    <div className="ds-load-curve__head"><strong className="ds-load-curve__now">{now.toLocaleString()} kW</strong><span className="ds-load-curve__peak">峰值 {peak.toLocaleString()} kW</span></div>
+    <svg className="ds-load-curve__chart" viewBox="0 0 240 60" aria-hidden="true">
+      <line x1="0" y1={limitY.toFixed(0)} x2="240" y2={limitY.toFixed(0)} stroke="var(--ds-danger)" strokeDasharray="4 3" />
+      <polyline points={points} fill="none" stroke="var(--ds-accent)" strokeWidth="2" />
+    </svg>
+    <span className="ds-load-curve__note">警戒线 {limit.toLocaleString()} kW</span>
+  </section>;
+}
+
+export function SubstationStatusCard({ name, units, state }: { name: string; units: Array<{ no: string; load: number }>; state: 'normal' | 'heavy' | 'overload' }) {
+  const stateText = { normal: '正常', heavy: '重载', overload: '过载' };
+  return <article className={'ds-substation is-' + state} tabIndex={0} role="button" aria-label={'变电站 ' + name + '，' + units.map(u => u.no + '负载 ' + u.load + '%').join('，') + '，整体 ' + stateText[state]}>
+    <div className="ds-substation__head">
+      <strong className="ds-substation__name">{name}</strong>
+      <span className={'ds-substation__state is-' + state}>{stateText[state]}</span>
+    </div>
+    <div className="ds-substation__units">
+      {units.map(unit => <div key={unit.no} className={'ds-substation__unit' + (unit.load >= 85 ? ' is-high' : '')} tabIndex={0} aria-label={unit.no + '，负载 ' + unit.load + '%' + (unit.load >= 85 ? '，偏高' : '')}>
+        <span className="ds-substation__ring" style={{ '--p': unit.load + '%' } as React.CSSProperties} aria-hidden="true"><b>{unit.load}%</b></span>
+        <em>{unit.no}</em>
+      </div>)}
+    </div>
+  </article>;
+}
+
+export function SmartMeterReadingRow({ no, reading, usage, time, state }: { no: string; reading: number; usage: number; time: string; state: 'ok' | 'jump' | 'failed' }) {
+  const stateText = { ok: '正常', jump: '用电突增', failed: '抄表失败' };
+  return <div className={'ds-meter-read is-' + state} tabIndex={0} role="button" aria-label={'电表 ' + no + '，本次读数 ' + reading.toLocaleString() + '，本期电量 ' + usage + ' 度，抄表于 ' + time + '，' + stateText[state]}>
+    <span className="ds-meter-read__no">{no}</span>
+    <span className="ds-meter-read__reading">{reading.toLocaleString()}</span>
+    <span className="ds-meter-read__usage">{usage} 度</span>
+    <span className="ds-meter-read__time">{time}</span>
+    <span className={'ds-meter-read__state is-' + state}>{stateText[state]}</span>
+  </div>;
+}
+
+export function ElectricityBillCard({ period, segments, amount, compare }: { period: string; segments: Array<{ label: '峰' | '平' | '谷'; kwh: number }>; amount: number; compare?: number }) {
+  const segClass = { 峰: 'is-peak', 平: 'is-flat', 谷: 'is-valley' };
+  return <article className="ds-power-bill" tabIndex={0} role="button" aria-label={'电费账单，' + period + '，' + segments.map(s => s.label + ' ' + s.kwh + ' 度').join('、') + '，应付 ' + amount.toFixed(2) + ' 元' + (compare !== undefined ? '，环比 ' + (compare >= 0 ? '上升 ' : '下降 ') + Math.abs(compare) + '%' : '')}>
+    <div className="ds-power-bill__head">
+      <strong className="ds-power-bill__period">{period}</strong>
+      {compare !== undefined ? <span className={'ds-power-bill__cmp ' + (compare >= 0 ? 'is-up' : 'is-down')}>{compare >= 0 ? '↑ ' + compare + '%' : '↓ ' + Math.abs(compare) + '%'}</span> : null}
+    </div>
+    <div className="ds-power-bill__segments">
+      {segments.map(s => <span key={s.label} className={'ds-power-bill__segment ' + segClass[s.label]}>{s.label}<strong>{s.kwh} 度</strong></span>)}
+    </div>
+    <strong className="ds-power-bill__amount">¥{amount.toFixed(2)}</strong>
+  </article>;
+}
+
+export function OutageScheduleRow({ time, area, reason, state }: { time: string; area: string; reason: string; state: 'planned' | 'running' | 'done' }) {
+  const stateText = { planned: '计划中', running: '执行中', done: '已完成' };
+  return <div className={'ds-power-outage is-' + state} tabIndex={0} role="button" aria-label={'计划停电，' + time + '，' + area + '，' + reason + '，' + stateText[state]}>
+    <span className="ds-power-outage__time">{time}</span>
+    <strong className="ds-power-outage__area">{area}</strong>
+    <span className="ds-power-outage__reason">{reason}</span>
+    <span className={'ds-power-outage__state is-' + state}>{stateText[state]}</span>
+  </div>;
+}
+
+export function SolarInverterCard({ no, power, eff, daily, state }: { no: string; power: number; eff: number; daily: number; state: 'online' | 'limited' | 'offline' }) {
+  const stateText = { online: '在线', limited: '限功率', offline: '离线' };
+  return <article className={'ds-inverter is-' + state} tabIndex={0} role="button" aria-label={'逆变器 ' + no + '，实时发电 ' + power + ' 千瓦，转换效率 ' + eff + '%，日发电量 ' + daily + ' 度，' + stateText[state]}>
+    <div className="ds-inverter__head">
+      <strong className="ds-inverter__no">{no}</strong>
+      <span className={'ds-inverter__state is-' + state}>{stateText[state]}</span>
+    </div>
+    <strong className="ds-inverter__power">{power}<small> kW</small></strong>
+    <div className="ds-inverter__meta">
+      <span className={'ds-inverter__eff' + (eff < 90 ? ' is-low' : '')}>效率 {eff}%</span>
+      <span className="ds-inverter__daily">日发电 {daily} 度</span>
+    </div>
+  </article>;
+}
+
+export function PowerQualityGauge({ items }: { items: Array<{ label: string; value: string; limit: string; pct: number }> }) {
+  return <section className="ds-power-quality" aria-label={'电能质量，' + items.map(i => i.label + ' ' + i.value + '，限值 ' + i.limit).join('；')}>
+    {items.map(item => {
+      const over = item.pct >= 100;
+      return <div key={item.label} className={'ds-power-quality__item' + (over ? ' is-over' : '')} tabIndex={0} aria-label={item.label + ' ' + item.value + '，限值 ' + item.limit + '，' + (over ? '超限' : '合格')}>
+        <span className="ds-power-quality__ring" style={{ '--p': Math.min(item.pct, 100) + '%' } as React.CSSProperties} aria-hidden="true"><b>{item.pct}%</b></span>
+        <em>{item.label}</em>
+        <span className="ds-power-quality__value">{item.value}</span>
+        <span className="ds-power-quality__limit">限值 {item.limit}</span>
+      </div>;
+    })}
+  </section>;
+}
+
+export function TransformerTempCard({ name, winding, oil, rise }: { name: string; winding: number; oil: number; rise: number }) {
+  const level = winding > 120 ? 'over' : winding > 105 ? 'hot' : 'normal';
+  const levelText = { over: '过温', hot: '高温', normal: '正常' };
+  return <article className={'ds-transformer is-' + level} tabIndex={0} role="button" aria-label={'变压器 ' + name + '，绕组温度 ' + winding + ' 摄氏度，油面温度 ' + oil + ' 摄氏度，温升 ' + rise + ' 摄氏度每小时，' + levelText[level]}>
+    <div className="ds-transformer__head">
+      <strong className="ds-transformer__name">{name}</strong>
+      <span className={'ds-transformer__state is-' + level}>{levelText[level]}</span>
+    </div>
+    <div className="ds-transformer__temps">
+      <span className="ds-transformer__temp is-winding">绕组<strong>{winding}℃</strong></span>
+      <span className="ds-transformer__temp is-oil">油面<strong>{oil}℃</strong></span>
+    </div>
+    <span className="ds-transformer__rise">温升 +{rise}℃/h</span>
+  </article>;
+}
+
+export function EnergySavingTipCard({ text, save, level, adopted }: { text: string; save: string; level: 'easy' | 'medium' | 'hard'; adopted?: boolean }) {
+  const levelText = { easy: '低', medium: '中', hard: '高' };
+  return <article className="ds-saving-tip" tabIndex={0} aria-label={'节电建议，' + text + '，预计' + save + '，难度 ' + levelText[level] + (adopted ? '，已采纳' : '')}>
+    <p className="ds-saving-tip__text">{text}</p>
+    <span className="ds-saving-tip__save">{save}</span>
+    <span className={'ds-saving-tip__level is-' + level}>难度 {levelText[level]}</span>
+    <button type="button" disabled={adopted}>{adopted ? '已采纳' : '采纳建议'}</button>
+  </article>;
+}
+
+export function ChargingPileStatusRow({ no, state, power, fee }: { no: string; state: 'idle' | 'charging' | 'booked' | 'fault'; power?: string; fee?: number }) {
+  const stateText = { idle: '空闲', charging: '充电中', booked: '已预约', fault: '故障' };
+  return <div className={'ds-charging-pile is-' + state} tabIndex={0} role="button" aria-label={'充电桩 ' + no + '，' + stateText[state] + (power ? '，' + power : '') + (fee !== undefined ? '，计费 ' + fee.toFixed(2) + ' 元' : '')}>
+    <strong className="ds-charging-pile__no">{no}</strong>
+    <span className={'ds-charging-pile__state is-' + state}>{stateText[state]}</span>
+    {power ? <span className="ds-charging-pile__power">{power}</span> : null}
+    {fee !== undefined ? <span className="ds-charging-pile__fee">¥{fee.toFixed(2)}</span> : null}
+  </div>;
+}
