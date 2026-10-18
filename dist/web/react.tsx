@@ -19075,3 +19075,141 @@ export function BeautyReviewCard({ rating, skin, body, rebuy }: { rating: number
     <p className="ds-beauty-rev__body">{body}</p>
   </article>;
 }
+
+export function ModelFileCard({ name, fmt, mesh, vol, state }: { name: string; fmt: string; mesh: number; vol: number; state: 'ready' | 'error' }) {
+  const stateText = { ready: '校验通过', error: '校验失败' };
+  return <article className={'ds-p3d-model is-' + state} tabIndex={0} role="button" aria-label={'模型文件，' + name + '，格式 ' + fmt + '，面数 ' + mesh.toLocaleString() + '，体积 ' + vol + ' 立方厘米，' + stateText[state]}>
+    <span className="ds-p3d-model__icon" aria-hidden="true">{fmt}</span>
+    <div className="ds-p3d-model__body">
+      <strong className="ds-p3d-model__name">{name}</strong>
+      <div className="ds-p3d-model__meta">
+        <span className="ds-p3d-model__fmt">{fmt}</span>
+        <span className="ds-p3d-model__mesh">{mesh.toLocaleString()} 面</span>
+        <span className="ds-p3d-model__vol">{vol} cm³</span>
+      </div>
+    </div>
+    <span className={'ds-p3d-model__state is-' + state}>{stateText[state]}</span>
+  </article>;
+}
+
+export function PrintJobRow({ no, model, progress, left, state }: { no: string; model: string; progress: number; left: string; state: 'queued' | 'printing' | 'done' | 'failed' }) {
+  const stateText = { queued: '排队中', printing: '打印中', done: '已完成', failed: '已失败' };
+  return <div className={'ds-p3d-job is-' + state} tabIndex={0} role="button" aria-label={'打印任务，任务号 ' + no + '，模型 ' + model + '，进度 ' + progress + '%，剩余 ' + left + '，' + stateText[state]}>
+    <strong className="ds-p3d-job__no">{no}</strong>
+    <span className="ds-p3d-job__model">{model}</span>
+    <div className="ds-p3d-job__bar" role="progressbar" aria-valuenow={progress} aria-valuemin={0} aria-valuemax={100} aria-label="打印进度">
+      <span className="ds-p3d-job__fill" style={{ width: progress + '%' }} />
+    </div>
+    <span className="ds-p3d-job__left">{left}</span>
+    <span className={'ds-p3d-job__state is-' + state}>{stateText[state]}</span>
+  </div>;
+}
+
+export function PrinterStatusCard({ name, nozzle, bed, progress }: { name: string; nozzle: number; bed: number; progress: number }) {
+  const off = Math.abs(nozzle - 210) > 15;
+  const level = off ? (nozzle > 225 ? 'alarm' : 'warn') : 'ok';
+  const levelText = { ok: '温度正常', warn: '温度偏高', alarm: '温度超限' };
+  return <article className={'ds-p3d-printer is-' + level} tabIndex={0} role="button" aria-label={'打印机状态，' + name + '，喷嘴温度 ' + nozzle + ' 摄氏度，目标 210，热床 ' + bed + ' 摄氏度，进度 ' + progress + '%，' + levelText[level]}>
+    <div className="ds-p3d-printer__head">
+      <strong className="ds-p3d-printer__name">{name}</strong>
+      <span className={'ds-p3d-printer__state is-' + level}>{levelText[level]}</span>
+    </div>
+    <div className="ds-p3d-printer__temps">
+      <span className={'ds-p3d-printer__temp' + (off ? ' is-off' : '')}>喷嘴 {nozzle}℃</span>
+      <span className="ds-p3d-printer__bed">热床 {bed}℃</span>
+    </div>
+    <div className="ds-p3d-printer__bar" role="progressbar" aria-valuenow={progress} aria-valuemin={0} aria-valuemax={100} aria-label="打印进度">
+      <span className="ds-p3d-printer__fill" style={{ width: progress + '%' }} />
+    </div>
+  </article>;
+}
+
+export function MaterialSpoolRow({ material, color, kg, left }: { material: string; color: string; kg: number; left: number }) {
+  const level = left <= 0 ? 'empty' : left < 10 ? 'low' : 'full';
+  const levelText = { full: '充足', low: '余量不足', empty: '已用尽' };
+  return <div className={'ds-p3d-spool is-' + level} tabIndex={0} role="button" aria-label={'耗材，' + material + ' 材料，颜色 ' + color + '，剩余 ' + left + '%，重量 ' + kg + ' 千克，' + levelText[level]}>
+    <span className="ds-p3d-spool__color" style={{ background: '#6b7280' }} aria-hidden="true" />
+    <strong className="ds-p3d-spool__material">{material}</strong>
+    <span className="ds-p3d-spool__desc">{color}</span>
+    <span className="ds-p3d-spool__kg">{kg} kg</span>
+    <span className={'ds-p3d-spool__left is-' + level}>剩余 {left}%</span>
+  </div>;
+}
+
+export function PrintQuoteCard({ model, kg, dur, materialFee, laborFee }: { model: string; kg: number; dur: string; materialFee: number; laborFee: number }) {
+  const total = materialFee + laborFee;
+  return <article className="ds-p3d-quote" tabIndex={0} role="button" aria-label={'打印报价，' + model + '，重量 ' + kg + ' 克，时长 ' + dur + '，材料费 ' + materialFee.toFixed(2) + ' 元，加工费 ' + laborFee.toFixed(2) + ' 元，合计 ' + total.toFixed(2) + ' 元'}>
+    <div className="ds-p3d-quote__head">
+      <strong className="ds-p3d-quote__model">{model}</strong>
+      <span className="ds-p3d-quote__total">¥{total.toFixed(2)}</span>
+    </div>
+    <div className="ds-p3d-quote__rows">
+      <span className="ds-p3d-quote__row">重量<strong className="ds-p3d-quote__kg">{kg} g</strong></span>
+      <span className="ds-p3d-quote__row">时长<strong className="ds-p3d-quote__dur">{dur}</strong></span>
+      <span className="ds-p3d-quote__row">材料<strong className="ds-p3d-quote__fee">¥{materialFee.toFixed(2)}</strong></span>
+      <span className="ds-p3d-quote__row">加工<strong className="ds-p3d-quote__fee">¥{laborFee.toFixed(2)}</strong></span>
+    </div>
+  </article>;
+}
+
+export function SliceSettingsCard({ preset, layer, fill, wall, support }: { preset: string; layer: string; fill: number; wall: string; support: boolean }) {
+  return <article className="ds-p3d-slice" tabIndex={0} role="button" aria-label={'切片参数，预设 ' + preset + '，层高 ' + layer + '，填充率 ' + fill + '%，壁厚 ' + wall + '，支撑 ' + (support ? '开启' : '关闭')}>
+    <div className="ds-p3d-slice__head">
+      <strong className="ds-p3d-slice__preset">{preset}</strong>
+      <span className={'ds-p3d-slice__support ' + (support ? 'is-on' : 'is-off')}>支撑{support ? '开启' : '关闭'}</span>
+    </div>
+    <div className="ds-p3d-slice__params">
+      <span className="ds-p3d-slice__param">层高<strong className="ds-p3d-slice__layer">{layer}</strong></span>
+      <span className="ds-p3d-slice__param">填充<strong className="ds-p3d-slice__fill">{fill}%</strong></span>
+      <span className="ds-p3d-slice__param">壁厚<strong className="ds-p3d-slice__wall">{wall}</strong></span>
+    </div>
+  </article>;
+}
+
+export function PrintOrderRow({ no, items, pick, state }: { no: string; items: number; pick: string; state: 'unpaid' | 'printing' | 'ready' | 'shipping' | 'done' }) {
+  const stateText = { unpaid: '待付款', printing: '打印中', ready: '待自取', shipping: '配送中', done: '已完成' };
+  return <div className={'ds-p3d-order is-' + state} tabIndex={0} role="button" aria-label={'打印订单，订单号 ' + no + '，共 ' + items + ' 件，取件方式 ' + pick + '，' + stateText[state]}>
+    <strong className="ds-p3d-order__no">{no}</strong>
+    <span className="ds-p3d-order__items">共 {items} 件</span>
+    <span className="ds-p3d-order__pick">{pick}</span>
+    <span className={'ds-p3d-order__state is-' + state}>{stateText[state]}</span>
+  </div>;
+}
+
+export function PrintQualityCard({ grade, score, tol, items }: { grade: 'good' | 'fair' | 'bad'; score: number; tol: string; items: string }) {
+  const gradeText = { good: '优', fair: '良', bad: '不合格' };
+  return <article className={'ds-p3d-quality is-' + grade} tabIndex={0} role="button" aria-label={'打印质量，尺寸公差 ' + tol + '，表面分 ' + score + '，' + items + '，综合评级 ' + gradeText[grade]}>
+    <div className="ds-p3d-quality__head">
+      <strong className="ds-p3d-quality__grade">{gradeText[grade]}</strong>
+      <span className="ds-p3d-quality__score">{score} 分</span>
+    </div>
+    <div className="ds-p3d-quality__items">
+      <span className="ds-p3d-quality__item">层纹<strong>良</strong></span>
+      <span className="ds-p3d-quality__item">公差<strong className="ds-p3d-quality__tol">{tol}</strong></span>
+      <span className="ds-p3d-quality__item">支撑痕<strong>轻</strong></span>
+    </div>
+  </article>;
+}
+
+export function PostProcessRow({ step, desc, owner, state }: { step: string; desc: string; owner: string; state: 'todo' | 'doing' | 'done' }) {
+  const stateText = { todo: '待处理', doing: '进行中', done: '已完成' };
+  return <div className={'ds-p3d-post is-' + state} tabIndex={0} role="button" aria-label={'后处理，工序 ' + step + '，说明 ' + desc + '，负责人 ' + owner + '，' + stateText[state]}>
+    <strong className="ds-p3d-post__step">{step}</strong>
+    <span className="ds-p3d-post__desc">{desc}</span>
+    <span className="ds-p3d-post__owner">{owner}</span>
+    <span className={'ds-p3d-post__state is-' + state}>{stateText[state]}</span>
+  </div>;
+}
+
+export function ModelGalleryCard({ name, author, downloads, lic }: { name: string; author: string; downloads: number; lic: string }) {
+  return <article className="ds-p3d-gallery" tabIndex={0} role="button" aria-label={'模型库，' + name + '，作者 ' + author + '，下载量 ' + downloads.toLocaleString() + '，许可 ' + lic}>
+    <div className="ds-p3d-gallery__head">
+      <strong className="ds-p3d-gallery__name">{name}</strong>
+      <span className="ds-p3d-gallery__lic">{lic}</span>
+    </div>
+    <div className="ds-p3d-gallery__meta">
+      <span className="ds-p3d-gallery__author">{author}</span>
+      <span className="ds-p3d-gallery__dl">下载 {downloads.toLocaleString()}</span>
+    </div>
+  </article>;
+}
