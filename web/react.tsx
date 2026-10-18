@@ -15927,3 +15927,139 @@ export function BattlePassTrack({ season, level, expToNext, nodes, claimable }: 
     {claimable > 0 ? <button type="button">领取 {claimable} 个奖励</button> : null}
   </div>;
 }
+
+export function PaperCard({ title, authors, venue, cited, abstract, onSave }: { title: string; authors: string; venue: string; cited: number; abstract: string; onSave?: () => void }) {
+  const [saved, setSaved] = useState(false);
+  return <article className="ds-paper-card" tabIndex={0} role="button" aria-label={'论文 ' + title + '，作者 ' + authors + '，发表于 ' + venue + '，被引 ' + cited + ' 次'}>
+    <div className="ds-paper-card__body">
+      <h4 className="ds-paper-card__title">{title}</h4>
+      <p className="ds-paper-card__authors">{authors}</p>
+      <p className="ds-paper-card__venue">{venue} · 论文</p>
+      <p className="ds-paper-card__abstract">{abstract}</p>
+    </div>
+    <div className="ds-paper-card__meta">
+      <span>被引 {cited}</span>
+      <button type="button" aria-pressed={saved} aria-label="收藏" onClick={() => { setSaved(!saved); onSave?.(); }}>☆</button>
+    </div>
+  </article>;
+}
+
+export function CitationRow({ index, text, doi, onCopy }: { index: number; text: string; doi: string; onCopy?: () => void }) {
+  return <div className="ds-citation-row" tabIndex={0} role="listitem" aria-label={'参考文献 ' + index + '，' + text + '，DOI ' + doi}>
+    <span className="ds-citation-row__no">[{index}]</span>
+    <div className="ds-citation-row__body">
+      <strong>{text}</strong>
+      <span className="ds-citation-row__doi">DOI: {doi}</span>
+    </div>
+    <button type="button" aria-label="复制引用" onClick={onCopy}>复制</button>
+  </div>;
+}
+
+export function ExperimentLogEntry({ id, date, runner, params, result, state }: { id: string; date: string; runner: string; params: Record<string, string>; result: string; state: 'done' | 'failed' }) {
+  return <div className="ds-exp-log" tabIndex={0} role="button" aria-label={'实验 ' + id + '，' + date + ' 由' + runner + '运行，' + result + '，状态 ' + (state === 'done' ? '成功' : '失败')}>
+    <div className="ds-exp-log__head">
+      <strong className="ds-exp-log__id">{id}</strong>
+      <span>{date} · {runner}</span>
+      <span className={'ds-exp-log__state ' + (state === 'done' ? 'is-done' : 'is-failed')}>{state === 'done' ? '成功' : '失败'}</span>
+    </div>
+    <dl className="ds-exp-log__params">
+      {Object.entries(params).map(([key, value]) => <div key={key}><dt>{key}</dt><dd>{value}</dd></div>)}
+    </dl>
+    <p className="ds-exp-log__result">{result}</p>
+  </div>;
+}
+
+export function DatasetStatsPanel({ total, size, fields, license }: { total: string; size: string; fields: Array<{ name: string; type: string; missing: string }>; license: string }) {
+  return <div className="ds-dataset-stats" tabIndex={0} role="group" aria-label={'数据集统计，' + total + ' 样本，' + size}>
+    <p className="ds-dataset-stats__total"><strong>{total}</strong> 样本 · {size}</p>
+    <table className="ds-dataset-stats__fields">
+      <thead><tr><th scope="col">字段</th><th scope="col">类型</th><th scope="col">缺失</th></tr></thead>
+      <tbody>
+        {fields.map(field => <tr key={field.name}><td>{field.name}</td><td>{field.type}</td><td>{field.missing}</td></tr>)}
+      </tbody>
+    </table>
+    <div className="ds-dataset-stats__hist" aria-hidden="true">
+      <i style={{ height: '42%' }} /><i style={{ height: '78%' }} /><i style={{ height: '100%' }} /><i style={{ height: '64%' }} /><i style={{ height: '38%' }} /><i style={{ height: '22%' }} />
+    </div>
+    <p className="ds-dataset-stats__license">{license}</p>
+  </div>;
+}
+
+export function PeerReviewCard({ reviewer, verdict, scores, text, onReply }: { reviewer: string; verdict: string; scores: Record<string, number>; text: string; onReply?: () => void }) {
+  const tone = verdict === '接收' ? 'is-accept' : verdict === '小修后接收' ? 'is-minor' : verdict === '大修' ? 'is-major' : 'is-reject';
+  return <article className="ds-peer-review">
+    <div className="ds-peer-review__head">
+      <span className="ds-peer-review__avatar" aria-hidden="true">审</span>
+      <div><strong className="ds-peer-review__reviewer">{reviewer}</strong><span className={'ds-peer-review__verdict ' + tone}>{verdict}</span></div>
+    </div>
+    <dl className="ds-peer-review__score">
+      {Object.entries(scores).map(([dimension, score]) => <div key={dimension}><dt>{dimension}</dt><dd>{score}/5</dd></div>)}
+    </dl>
+    <p className="ds-peer-review__text">{text}</p>
+    <button type="button" onClick={onReply}>撰写回复</button>
+  </article>;
+}
+
+export function GrantProgressCard({ name, budgetPct, milestones, daysLeft }: { name: string; budgetPct: number; milestones: Array<{ name: string; state: 'done' | 'current' | 'todo' }>; daysLeft: number }) {
+  return <div className="ds-grant-prog" tabIndex={0} role="button" aria-label={name + '，经费执行 ' + budgetPct + '%，里程碑 ' + milestones.filter(item => item.state === 'done').length + '/' + milestones.length + ' 完成，结题倒计时 ' + daysLeft + ' 天'}>
+    <div className="ds-grant-prog__head">
+      <strong className="ds-grant-prog__name">{name}</strong>
+      <span className="ds-grant-prog__countdown">结题倒计时 {daysLeft} 天</span>
+    </div>
+    <div className="ds-grant-prog__budget" role="progressbar" aria-valuenow={budgetPct} aria-valuemin={0} aria-valuemax={100} aria-label={'经费执行 ' + budgetPct + '%'}>
+      <span>经费执行 {budgetPct}%</span>
+      <i style={{ width: budgetPct + '%' }} />
+    </div>
+    <ul className="ds-grant-prog__ms">
+      {milestones.map(item => <li key={item.name} className={'is-' + item.state}>{item.name}</li>)}
+    </ul>
+  </div>;
+}
+
+export function ConferenceSessionCard({ start, end, title, speaker, room, online }: { start: string; end: string; title: string; speaker: string; room: string; online?: boolean }) {
+  return <article className="ds-conf-session" tabIndex={0} role="button" aria-label={start + ' 至 ' + end + '，' + room + '，论文 ' + title + '，演讲者 ' + speaker}>
+    <div className="ds-conf-session__time"><strong>{start}</strong><span>{end}</span></div>
+    <div className="ds-conf-session__body">
+      <strong>{title}</strong>
+      <p className="ds-conf-session__speaker">{speaker}</p>
+      <p className="ds-conf-session__room">{room}{online ? <span className="is-online">线上同步</span> : null}</p>
+    </div>
+    <button type="button" aria-pressed="false" aria-label="加入我的日程">＋</button>
+  </article>;
+}
+
+export function FormulaBlock({ latex, no, legend }: { latex: string; no: number; legend: Array<{ symbol: string; meaning: string }> }) {
+  const plain = latex.replace(/\\/g, ' ').replace(/[{}]/g, '');
+  return <div className="ds-formula" tabIndex={0} role="group" aria-label={'公式 ' + no + '，' + plain}>
+    <div className="ds-formula__body">{plain}</div>
+    <span className="ds-formula__no">({no})</span>
+    <dl className="ds-formula__legend">
+      {legend.map(item => <div key={item.symbol}><dt>{item.symbol}</dt><dd>{item.meaning}</dd></div>)}
+    </dl>
+    <button type="button" aria-label="复制 LaTeX 源码">复制 LaTeX</button>
+  </div>;
+}
+
+export function ReferenceList({ groups }: { groups: Array<{ year: string; items: Array<{ title: string; local?: boolean }> }> }) {
+  return <div className="ds-ref-list" role="list">
+    {groups.map(group => <div key={group.year}>
+      <p className="ds-ref-list__group">{group.year} 年</p>
+      {group.items.map(item => <div key={item.title} className="ds-ref-list__item" role="listitem" tabIndex={0}>
+        <span className="ds-ref-list__title">{item.title}</span>
+        <a className="ds-ref-list__link" href="#ref">原文</a>
+        {item.local ? <span className="ds-ref-list__local" aria-label="有本地 PDF">PDF</span> : null}
+      </div>)}
+    </div>)}
+  </div>;
+}
+
+export function FigureCaptionPanel({ no, title, note, src, onZoom }: { no: string; title: string; note: string; src: string; onZoom?: () => void }) {
+  return <figure className="ds-figure-cap" tabIndex={0}>
+    <figcaption><span className="ds-figure-cap__no">{no}</span><strong className="ds-figure-cap__title">{title}</strong></figcaption>
+    <div className="ds-figure-cap__thumb" role="img" aria-label={title + '，示意图'} onClick={onZoom}>
+      <i style={{ height: '62%' }} /><i style={{ height: '56%' }} /><i style={{ height: '75%' }} />
+    </div>
+    <p className="ds-figure-cap__note">{note}</p>
+    <p className="ds-figure-cap__src">数据来源：{src}</p>
+  </figure>;
+}
